@@ -1,0 +1,600 @@
+/* ==========================================================================
+   Design system do Radar - o unico lugar em que cor, espaco e letra moram.
+
+   Regra de uso: tela nova (ou tela migrada) nao escreve cor nem tamanho a
+   mao. Ela usa as variaveis daqui e os componentes daqui; o <style> da
+   propria tela so guarda o que e so dela (a pizza, um grafico).
+
+   Tres camadas, nesta ordem:
+     1. as VARIAVEIS (tokens): cor, espaco, tipografia, raio, sombra;
+     2. o MODO ESCURO: as mesmas variaveis com outros valores. E o padrao;
+        o claro e escolha minha (botao na barra, guardado em cookie), e
+        `?cor=claro` / `?cor=escuro` na URL forca um dos dois;
+     3. os COMPONENTES: pagina, cartao, bloco, selo, aviso, botao, campo.
+
+   Sem JavaScript: tudo aqui e CSS puro, como manda o CLAUDE.md.
+   ========================================================================== */
+
+
+/* --- 1. variaveis --------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  /* Superficies e texto. */
+  --cor-fundo:        #f4f5f7;
+  --cor-superficie:   #ffffff;
+  --cor-superficie-2: #f8f9fb;   /* dentro de um cartao: lista, campo */
+  --cor-texto:        #14171f;
+  --cor-texto-suave:  #5b6472;
+  --cor-borda:        #e2e5ea;
+
+  /* A cor da acao: link, botao, aba ativa. Uma so, para eu saber onde clicar. */
+  --cor-acao:         #1d4ed8;
+  --cor-acao-fundo:   #e8eeff;
+  --cor-acao-texto:   #ffffff;
+
+  /* As cores com nome. Ninguem pinta com elas direto quando a cor tem um
+     significado: o selo usa --selo-*, a meta do dia usa --meta-* (os dois,
+     mais abaixo). Assim trocar a cor de um selo nao pinta a meta junto, como
+     quase aconteceu na Etapa 7A. Bom e ruim (acerto na meta, alternativa
+     certa, seta que subiu) usam verde e vermelho direto: e o que eles sao. */
+  --cor-verde:          #047857;
+  --cor-verde-fundo:    #dff5eb;
+  --cor-azul:           #1d4ed8;
+  --cor-azul-fundo:     #e6edff;
+  --cor-ambar:          #92400e;
+  --cor-ambar-fundo:    #fdf1d8;
+  --cor-vermelho:       #b91c1c;
+  --cor-vermelho-fundo: #fdeaea;
+
+  /* O aviso "a lei mudou": nao e selo de origem, e alerta de validade. */
+  --cor-aviso:        #9a3412;
+  --cor-aviso-fundo:  #ffedd5;
+
+  /* Espaco: uma escala so, de 4 em 4 px. Margem e recuo saem daqui. */
+  --esp-1: .25rem;   /*  4px */
+  --esp-2: .5rem;    /*  8px */
+  --esp-3: .75rem;   /* 12px */
+  --esp-4: 1rem;     /* 16px */
+  --esp-5: 1.5rem;   /* 24px */
+  --esp-6: 2rem;     /* 32px */
+  --esp-7: 3rem;     /* 48px */
+
+  /* Tipografia: a letra do sistema, que ja esta no computador - nada para
+     baixar, e a tela abre igual sem internet. */
+  --fonte:        system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fonte-numero: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+  --tam-xs:   .75rem;
+  --tam-sm:   .85rem;
+  --tam-base: .95rem;
+  --tam-md:   1.05rem;
+  --tam-lg:   1.3rem;
+  --tam-xl:   1.7rem;
+  --tam-2xl:  2.3rem;   /* so a data do topo da tela Hoje */
+  --peso-normal: 400;
+  --peso-medio:  600;
+  --peso-forte:  750;
+  --linha:        1.55;
+  --linha-titulo: 1.2;
+
+  /* Forma. */
+  --raio-sm:   6px;
+  --raio:      12px;
+  --raio-pill: 999px;
+  --sombra:    0 1px 2px rgba(16, 24, 40, .05);
+  --sombra-alta: 0 8px 24px rgba(16, 24, 40, .12);
+
+  /* Tres cores a mais. O roxo e o do selo de IA e o da faixa de raciocinio;
+     ciano e rosa so distinguem tipos de faixa do cronograma. */
+  --cor-roxo:       #6d28d9;
+  --cor-roxo-fundo: #ede9fe;
+  --cor-ciano:      #0e7490;
+  --cor-rosa:       #be185d;
+
+  /* A tela Hoje. A faixa azul do topo (heroi) e degrade das duas primeiras;
+     o texto dela e branco nos dois temas, e o "vidro" e o fundo translucido
+     dos selos e botoes que moram sobre o azul. */
+  --heroi-1:            #1d4ed8;
+  --heroi-2:            #3b82f6;
+  --heroi-texto:        #ffffff;
+  --heroi-texto-suave:  #dbe6ff;
+  --heroi-vidro:        rgba(255, 255, 255, .16);
+  --heroi-vidro-borda:  rgba(255, 255, 255, .32);
+  /* O pontilhado discreto do fundo da pagina. */
+  --pontinho:           rgba(20, 23, 31, .08);
+  /* Os blocos da noite: 18h com um azul leve; 22h em azul-noite, com texto
+     claro - e sobreaviso, e o cartao inteiro avisa isso. Nada cinza ali
+     dentro: o "suave" do sobreaviso e um lilas claro, legivel no azul. */
+  --fundo-noite:          #eef3ff;
+  --fundo-sobreaviso:     #1e2b55;
+  --sobreaviso-texto:     #eef2ff;
+  --sobreaviso-suave:     #c7d2fe;
+  --sobreaviso-destaque:  #a5f3fc;
+  --sobreaviso-superficie: rgba(255, 255, 255, .08);
+  --sobreaviso-borda:     rgba(199, 210, 254, .32);
+  /* O veu que escurece a tela atras do aviso do cronometro. */
+  --cor-veu:              rgba(10, 12, 18, .72);
+
+  /* Largura da coluna de leitura. */
+  --largura-pagina: 860px;
+
+  /* A faixa "MODO PRF" do topo de toda pagina (decisao PRF-1): uma cor so
+     dela, que nenhuma outra coisa do radar usa, para esta copia nunca ser
+     confundida com o radar da Policia Penal aberto na aba ao lado. A cor
+     ainda e a da faixa da PMSC (decisao PRF-1). */
+  --prf-fundo: #9a3412;
+  --prf-texto: #ffffff;
+}
+
+
+/* --- 2. modo escuro ------------------------------------------------------- */
+/* Os mesmos nomes, outros valores. O escuro e o PADRAO: vale sempre que a
+   pagina nao disser data-tema="claro". Quem escreve o data-tema e o servidor
+   (tema_da_pagina, no app.py), lendo o `?cor=` da URL e o cookie `tema` -
+   o tema do Windows nao manda mais. */
+
+:root:not([data-tema="claro"]) {
+  color-scheme: dark;
+  --cor-fundo:        #0e1014;
+  --cor-superficie:   #171a21;
+  --cor-superficie-2: #1d2129;
+  --cor-texto:        #e7e9ee;
+  --cor-texto-suave:  #9aa2b0;
+  --cor-borda:        #2a303b;
+  --cor-acao:         #86a8ff;
+  --cor-acao-fundo:   #1b2740;
+  --cor-acao-texto:   #0e1014;
+  --cor-verde:          #5ee0a0;
+  --cor-verde-fundo:    #0f2a1e;
+  --cor-azul:           #93b4ff;
+  --cor-azul-fundo:     #17233d;
+  --cor-ambar:          #fcd34d;
+  --cor-ambar-fundo:    #2b2210;
+  --cor-vermelho:       #fca5a5;
+  --cor-vermelho-fundo: #2e1515;
+  --cor-aviso:        #fdba74;
+  --cor-aviso-fundo:  #2f1c0c;
+  --cor-roxo:       #c4b5fd;
+  --cor-roxo-fundo: #241b3d;
+  --cor-ciano:      #67e8f9;
+  --cor-rosa:       #f9a8d4;
+  --heroi-1:            #172554;
+  --heroi-2:            #1e40af;
+  --heroi-texto:        #ffffff;
+  --heroi-texto-suave:  #c7d7fe;
+  --heroi-vidro:        rgba(255, 255, 255, .12);
+  --heroi-vidro-borda:  rgba(255, 255, 255, .24);
+  --pontinho:           rgba(231, 233, 238, .07);
+  --fundo-noite:          #141b2b;
+  --fundo-sobreaviso:     #0c1533;
+  --sobreaviso-texto:     #eef2ff;
+  --sobreaviso-suave:     #c7d2fe;
+  --sobreaviso-destaque:  #a5f3fc;
+  --sobreaviso-superficie: rgba(255, 255, 255, .06);
+  --sobreaviso-borda:     rgba(199, 210, 254, .26);
+  --cor-veu:              rgba(0, 0, 0, .8);
+  --sombra:    0 1px 2px rgba(0, 0, 0, .4);
+  --sombra-alta: 0 8px 24px rgba(0, 0, 0, .5);
+  --prf-fundo: #fdba74;
+  --prf-texto: #1f1206;
+}
+
+
+/* --- os selos de origem --------------------------------------------------- */
+/* As quatro origens da secao 20 do novo.md: o que a banca ou a lei publicou
+   (verde), o que o sistema contou no acervo (azul), o que o sistema calculou
+   ou deduziu (amarelo) e o que a IA escreveu (roxo). Mais o plano, neutro. A
+   cor diz a origem antes de eu ler a palavra; o selo e o bloco usam estes,
+   e mais ninguem. Apontam para as cores com nome, entao o escuro vem junto. */
+:root {
+  --selo-oficial:          var(--cor-verde);
+  --selo-oficial-fundo:    var(--cor-verde-fundo);
+  --selo-acervo:           var(--cor-azul);
+  --selo-acervo-fundo:     var(--cor-azul-fundo);
+  --selo-automatico:       var(--cor-ambar);
+  --selo-automatico-fundo: var(--cor-ambar-fundo);
+  --selo-ia:               var(--cor-roxo);
+  --selo-ia-fundo:         var(--cor-roxo-fundo);
+  --selo-plano:            var(--cor-texto-suave);
+  --selo-plano-fundo:      var(--cor-superficie-2);
+}
+
+
+/* --- cores do cronograma -------------------------------------------------- */
+/* Uma cor por tipo de faixa, sempre a mesma: bato o olho e sei se e teoria ou
+   questao. E a meta do dia tem as suas: Ideal verde, Reduzida azul, Minima
+   amarela, Nao fiz vermelha - as de antes da 7A, que ja nao sao as dos
+   selos. */
+:root {
+  --faixa-teoria:     var(--cor-azul);
+  --faixa-lei-seca:   var(--cor-aviso);
+  --faixa-portugues:  var(--cor-verde);
+  --faixa-raciocinio: var(--cor-roxo);
+  --faixa-questoes:   var(--cor-acao);
+  --faixa-revisao:    var(--cor-rosa);
+  --faixa-simulado:   var(--cor-vermelho);
+  --faixa-correcao:   var(--cor-ambar);
+  --faixa-anki:       var(--cor-ciano);
+  --faixa-bonus:      var(--cor-texto-suave);
+  --faixa-pausa:      var(--cor-borda);
+
+  --meta-ideal:          var(--cor-verde);
+  --meta-ideal-fundo:    var(--cor-verde-fundo);
+  --meta-reduzida:       var(--cor-azul);
+  --meta-reduzida-fundo: var(--cor-azul-fundo);
+  --meta-minima:         var(--cor-ambar);
+  --meta-minima-fundo:   var(--cor-ambar-fundo);
+  --meta-nao-fiz:        var(--cor-vermelho);
+  --meta-nao-fiz-fundo:  var(--cor-vermelho-fundo);
+}
+
+
+/* --- 3. componentes ------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* O que muda a pagina INTEIRA (fundo, letra, links) so vale em quem marca
+   <body class="ds">. Desde a Etapa 7B, toda tela marca. */
+body.ds {
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--fonte);
+  font-size: var(--tam-base);
+  line-height: var(--linha);
+  -webkit-font-smoothing: antialiased;
+}
+
+.ds a { color: var(--cor-acao); }
+/* Comando longo ("radar gerar --importar data/...") quebra onde precisar,
+   em vez de empurrar a pagina para o lado no celular. */
+.ds code { font-family: var(--fonte-numero); font-size: .9em; overflow-wrap: anywhere; }
+.ds p, .ds li { overflow-wrap: break-word; }
+
+/* A faixa fina "MODO PRF", a primeira coisa de toda pagina (decisao PRF-1).
+   O markup e o macro faixa_prf, do _topo.html. */
+.ds-modo-prf {
+  display: block;
+  padding: 2px var(--esp-4);
+  background: var(--prf-fundo);
+  color: var(--prf-texto);
+  font-size: var(--tam-xs);
+  font-weight: var(--peso-forte);
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+/* A coluna de leitura. No celular, 16px de cada lado e nada de rolar de lado. */
+.ds-pagina {
+  max-width: var(--largura-pagina);
+  margin: 0 auto;
+  padding: var(--esp-5) var(--esp-4) var(--esp-7);
+}
+
+.ds-cabeca { margin-bottom: var(--esp-5); }
+.ds-cabeca h1 {
+  margin: 0 0 var(--esp-1);
+  font-size: var(--tam-xl);
+  line-height: var(--linha-titulo);
+  letter-spacing: -.02em;
+}
+.ds-cabeca p { margin: 0; color: var(--cor-texto-suave); }
+
+.ds-secao { margin: var(--esp-6) 0 var(--esp-3); }
+.ds-secao h2 {
+  margin: 0 0 var(--esp-1);
+  font-size: var(--tam-lg);
+  line-height: var(--linha-titulo);
+  letter-spacing: -.01em;
+}
+.ds-secao p { margin: 0; color: var(--cor-texto-suave); font-size: var(--tam-sm); }
+
+.ds-suave  { color: var(--cor-texto-suave); }
+.ds-pequeno { font-size: var(--tam-sm); }
+.ds-numero { font-variant-numeric: tabular-nums; }
+
+/* Grade de cartoes: uma coluna no celular, duas quando cabe. */
+.ds-grade {
+  display: grid;
+  gap: var(--esp-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+}
+
+/* --- o cartao --- */
+/* Cabeca (titulo + selo), meta (de onde vem o numero) e corpo (blocos). */
+.ds-cartao {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: var(--esp-4) var(--esp-5);
+  min-width: 0;
+}
+.ds-cartao__cabeca {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--esp-2);
+  flex-wrap: wrap;
+}
+.ds-cartao__titulo {
+  margin: 0;
+  font-size: var(--tam-md);
+  font-weight: var(--peso-forte);
+  line-height: var(--linha-titulo);
+}
+.ds-cartao__meta {
+  margin: var(--esp-1) 0 var(--esp-3);
+  font-size: var(--tam-sm);
+  color: var(--cor-texto-suave);
+}
+.ds-cartao > :last-child { margin-bottom: 0; }
+
+/* --- o bloco: uma parte do cartao, com a cor da sua origem --- */
+/* O conteudo de um selo fica dentro do bloco daquele selo, e so ele. E isso
+   que impede o texto de IA de encostar no dado oficial sem aviso. */
+.ds-bloco {
+  border-radius: var(--raio-sm);
+  padding: var(--esp-3) var(--esp-4);
+  margin-top: var(--esp-3);
+  font-size: var(--tam-sm);
+  border-left: 3px solid transparent;
+}
+.ds-bloco__titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-2);
+  font-size: var(--tam-sm);
+  font-weight: var(--peso-medio);
+}
+.ds-bloco p { margin: var(--esp-1) 0; }
+.ds-bloco ul { margin: var(--esp-1) 0; padding-left: var(--esp-4); }
+.ds-bloco--oficial    { background: var(--selo-oficial-fundo);    border-left-color: var(--selo-oficial); }
+.ds-bloco--acervo     { background: var(--selo-acervo-fundo);     border-left-color: var(--selo-acervo); }
+.ds-bloco--automatico { background: var(--selo-automatico-fundo); border-left-color: var(--selo-automatico); }
+.ds-bloco--ia         { background: var(--selo-ia-fundo);         border-left-color: var(--selo-ia); }
+.ds-bloco--plano      { background: var(--selo-plano-fundo);      border-left-color: var(--selo-plano); }
+
+/* --- o selo --- */
+.ds-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: .3em;
+  padding: .12rem .55rem;
+  border-radius: var(--raio-pill);
+  font-size: var(--tam-xs);
+  font-weight: var(--peso-medio);
+  line-height: 1.4;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+.ds-selo--oficial    { color: var(--selo-oficial);    background: var(--selo-oficial-fundo); }
+.ds-selo--acervo     { color: var(--selo-acervo);     background: var(--selo-acervo-fundo); }
+.ds-selo--automatico { color: var(--selo-automatico); background: var(--selo-automatico-fundo); }
+.ds-selo--ia         { color: var(--selo-ia);         background: var(--selo-ia-fundo); }
+.ds-selo--plano      { color: var(--selo-plano);      background: var(--selo-plano-fundo); }
+/* So o emoji, para a lista que leva um selo por linha (a ficha): o texto vai
+   no title e no aria-label, e a legenda do topo diz o que cada um e. */
+.ds-selo--curto { padding: 0 .3rem; border-color: transparent; }
+.ds-legenda-selos { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin: var(--esp-3) 0; }
+
+/* --- avisos --- */
+.ds-aviso-lei {
+  display: block;
+  margin: var(--esp-2) 0;
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: var(--raio-sm);
+  background: var(--cor-aviso-fundo);
+  color: var(--cor-aviso);
+  font-size: var(--tam-sm);
+  font-weight: var(--peso-medio);
+}
+/* O mesmo alerta, para o que nao e lei: backup que falhou, tarefa que nao
+   rodou. Mesma cor de proposito - alerta e alerta, e eu nao quero aprender
+   duas cores para a mesma coisa. */
+.ds-alerta {
+  display: block;
+  margin: var(--esp-2) 0;
+  padding: var(--esp-2) var(--esp-3);
+  border-radius: var(--raio-sm);
+  background: var(--cor-aviso-fundo);
+  color: var(--cor-aviso);
+  font-size: var(--tam-sm);
+  font-weight: var(--peso-medio);
+}
+.ds-nota {
+  padding: var(--esp-3) var(--esp-4);
+  border-radius: var(--raio-sm);
+  background: var(--cor-superficie-2);
+  border: 1px dashed var(--cor-borda);
+  color: var(--cor-texto-suave);
+  font-size: var(--tam-sm);
+}
+.ds-vazio { text-align: center; color: var(--cor-texto-suave); padding: var(--esp-5) var(--esp-4); }
+
+/* --- acao --- */
+.ds-botao {
+  display: inline-block;
+  padding: var(--esp-2) var(--esp-4);
+  border: 0;
+  border-radius: var(--raio-sm);
+  background: var(--cor-acao);
+  color: var(--cor-acao-texto);
+  font: inherit;
+  font-size: var(--tam-sm);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ds-botao:hover { filter: brightness(1.08); }
+/* Botao feito de link: sem isto o ".ds a" pinta o texto da mesma cor do
+   fundo, e o botao aparece vazio. */
+.ds a.ds-botao { color: var(--cor-acao-texto); }
+/* Variantes: o secundario e contorno (a acao que nao gasta nem apaga); o
+   de perigo apaga de verdade, em vermelho; o de IA gasta dinheiro com a API,
+   na cor do selo de IA - o que ele produz e texto de IA. */
+.ds-botao--secundario {
+  background: transparent;
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+}
+.ds a.ds-botao--secundario { color: var(--cor-texto); }
+.ds-botao--secundario:hover { border-color: var(--cor-acao); filter: none; }
+.ds-botao--perigo { background: var(--cor-vermelho); color: var(--cor-superficie); }
+.ds-botao--ia     { background: var(--selo-ia);      color: var(--cor-superficie); }
+.ds-botao--pequeno { padding: var(--esp-1) var(--esp-3); font-size: var(--tam-xs); }
+.ds-link-acao { font-size: var(--tam-sm); font-weight: var(--peso-medio); text-decoration: none; }
+.ds-link-acao:hover { text-decoration: underline; }
+
+/* --- tabela --- */
+/* Numero alinhado a direita (ds-n), cabecalho miudo e suave. Tabela larga
+   vai dentro de .ds-rolagem: no celular ela rola dentro do cartao, e a
+   pagina nao rola de lado. */
+.ds-rolagem { overflow-x: auto; }
+.ds-tabela { width: 100%; border-collapse: collapse; font-size: var(--tam-sm); }
+.ds-tabela th,
+.ds-tabela td {
+  text-align: left;
+  padding: var(--esp-2);
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: middle;
+}
+.ds-tabela th { font-size: var(--tam-xs); font-weight: var(--peso-medio); color: var(--cor-texto-suave); }
+.ds-tabela tr:last-child td { border-bottom: 0; }
+.ds-tabela .ds-n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* --- formulario --- */
+.ds-campo { display: grid; gap: var(--esp-1); font-size: var(--tam-sm); color: var(--cor-texto-suave); }
+.ds-campo select,
+.ds-campo input {
+  width: 100%;
+  padding: var(--esp-2) var(--esp-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: var(--tam-base);
+}
+.ds-campo select:focus,
+.ds-campo input:focus,
+.ds-botao:focus-visible,
+a:focus-visible { outline: 2px solid var(--cor-acao); outline-offset: 2px; }
+
+/* --- janela por cima da pagina, so com CSS (R2: o resumo do tema) ---
+   Abre pelo link com a ancora (#id) e fecha pelo link "Fechar" para uma
+   ancora que nao existe: nenhum JavaScript. `:has(:target)` deixa abrir
+   ja numa parte de dentro (a Noite abre em "como a banca cobra"). */
+.ds-janela {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: auto;
+  padding: var(--esp-4);
+  background: var(--cor-veu);
+}
+.ds-janela:target,
+.ds-janela:has(:target) { display: block; }
+.ds-janela__caixa {
+  max-width: 46rem;
+  margin: var(--esp-5) auto;
+  padding: var(--esp-4) var(--esp-5);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra-alta);
+}
+.ds-janela__topo { display: flex; justify-content: space-between; gap: var(--esp-3); align-items: start; }
+.ds-janela__topo h2 { margin: 0; font-size: var(--tam-lg); }
+.ds-janela h3 { margin: var(--esp-4) 0 var(--esp-1); font-size: var(--tam-md); }
+.ds-janela ul { margin: var(--esp-1) 0 0; padding-left: var(--esp-5); }
+.ds-janela li { margin: var(--esp-1) 0; }
+.ds-janela .ds-janela__fontes { display: block; font-size: var(--tam-xs); color: var(--cor-texto-suave); }
+@media (max-width: 40rem) {
+  .ds-janela { padding: var(--esp-2); }
+  .ds-janela__caixa { margin: var(--esp-2) auto; padding: var(--esp-3) var(--esp-4); }
+}
+
+/* --- o resumo enxuto (decisao 161), na janela e na ficha ---
+   Os artigos abertos, um bloco por artigo; o resto dobrado num <details>.
+   O link com a ancora de dentro de um <details> fechado o abre sozinho (o
+   navegador revela o que a ancora aponta): a Noite cai em "como a banca
+   cobra" aberta, sem JavaScript. */
+.ds-resumo h3 { margin: var(--esp-4) 0 var(--esp-1); font-size: var(--tam-md); }
+.ds-resumo h4 { margin: 0; font-size: var(--tam-sm); font-weight: var(--peso-forte); }
+.ds-resumo ul { margin: var(--esp-1) 0 0; padding-left: var(--esp-5); }
+.ds-resumo li { margin: var(--esp-1) 0; }
+.ds-resumo__fonte { display: block; font-size: var(--tam-xs); color: var(--cor-texto-suave); }
+.ds-resumo__bloco { padding: var(--esp-2) 0; border-top: 1px solid var(--cor-borda); }
+.ds-resumo__bloco:first-of-type { border-top: 0; }
+.ds-resumo__dobra {
+  margin: var(--esp-3) 0 0;
+  padding: var(--esp-2) var(--esp-3);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+}
+.ds-resumo__dobra > summary { cursor: pointer; font-weight: var(--peso-medio); }
+
+/* O "🗣 Traduz pra mim" de cada artigo: fechado, dentro do bloco. */
+.ds-resumo__traduz { margin: var(--esp-2) 0 0; }
+.ds-resumo__traduz > summary { cursor: pointer; font-size: var(--tam-sm); font-weight: var(--peso-medio); }
+/* A cor e a do .ds-bloco--ia: a traducao e texto de IA, e quem pinta e a origem. */
+.ds-resumo__traduz dl { margin: var(--esp-2) 0 0; }
+.ds-resumo__traduz dt { font-size: var(--tam-xs); font-weight: var(--peso-forte); color: var(--cor-texto-suave); }
+.ds-resumo__traduz dd { margin: 0 0 var(--esp-2); }
+.ds-resumo__traduz dd:last-child { margin-bottom: 0; }
+.ds-resumo__confunda { margin-top: var(--esp-2); }
+.ds-resumo__confunda td { vertical-align: top; font-size: var(--tam-sm); }
+
+/* A palavra dificil: a 1a vez em cada bloco fica sublinhada, e o significado
+   aparece ao passar o mouse ou tocar (o tabindex deixa focar no celular). So
+   CSS. No celular a dica vai para o pe da tela, para nao sair pela borda. */
+.ds-termo {
+  position: relative;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+.ds-termo:focus { outline: 2px solid var(--cor-acao); outline-offset: 1px; border-radius: 2px; }
+.ds-termo__dica {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 60;
+  width: max-content;
+  max-width: min(22rem, 80vw);
+  margin-top: var(--esp-1);
+  padding: var(--esp-2) var(--esp-3);
+  font-size: var(--tam-sm);
+  font-weight: var(--peso-normal);
+  line-height: var(--linha);
+  color: var(--cor-texto);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+  box-shadow: var(--sombra-alta);
+  text-decoration: none;
+  white-space: normal;
+}
+.ds-termo:hover .ds-termo__dica,
+.ds-termo:focus .ds-termo__dica { display: block; }
+@media (max-width: 40rem) {
+  .ds-termo__dica { position: fixed; left: 16px; right: 16px; top: auto; bottom: 16px;
+    width: auto; max-width: none; }
+}
+
+/* --- o trecho sublinhado do caderno (decisao 178) ---
+   "O termo sublinhado pode ser substituido por": o termo tem de saltar aos
+   olhos, em toda tela que mostra a questao. Traco grosso e afastado da
+   letra, para nao se confundir com o link. */
+u.sublinhado {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}

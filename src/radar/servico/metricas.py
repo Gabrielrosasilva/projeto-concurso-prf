@@ -1,0 +1,1395 @@
+"""Onde o radar conta questao, acerto e erro. O UNICO lugar.
+
+Toda tela e todo comando que mostra "quantas fiz, quantas acertei" pede o
+numero aqui. Antes, a tela Hoje, a de Semanas e a de Minhas materias faziam a
+conta cada uma do seu jeito, e foi assim que o 28/09 mostrou "31 questoes, 13
+acertos, 8 erros" - uma linha que nao fecha e nao dizia por que.
+
+A regra, valendo para qualquer recorte e qualquer periodo:
+
+    questoes = acertos + erros + sem acerto anotado + treino de IA
+
+- **acerto e erro** saem de questao real: a resposta conferida pelo radar
+  contra o gabarito, ou o "fiz N, acertei M" que eu anotei numa faixa ou num
+  estudo extra (que vem do Qconcursos);
+- **sem acerto anotado** e "fiz 15 e nao anotei quantas acertei": conta no
+  volume, e nunca vira zero acerto;
+- **treino de IA** e resposta a questao gerada: conta no volume, porque o
+  tempo foi gasto, e o acerto dela e um SEGUNDO numero, nunca somado ao das
+  reais (CLAUDE.md: questao gerada treina, nao mede).
+
+Os recortes tem nome fixo, e cada tela escreve o que mostra (decisao 4 da
+Etapa 0): *medido no radar*, *anotado*, *treino de IA* e *total*.
+
+E ha duas contagens, com nome diferente porque respondem perguntas
+diferentes:
+
+- **respostas** - o volume do dia e da semana. A mesma questao respondida em
+  duas rodadas sao duas respostas: eu fiz as duas;
+- **questoes** - o acumulado, pela ULTIMA resposta de cada questao (decisao de
+  26/09): o que eu sei hoje, e nao quantas vezes errei no caminho.
+
+Fica de fora de tudo: questao de rodada que eu nao respondi (sem
+`respondida_em`). O dia e o de Florianopolis, e nao o de UTC. E fica fora do
+ACERTO a questao que so treina (`so_treina`, decisao PMSC-27): o gabarito dela
+foi buscado pelo Claude Code, sem a pagina de onde veio, e ninguem conferiu.
+"""
+from dataclasses import dataclass, field
+from datetime import date, datetime, time, timedelta, timezone
+
+from sqlalchemy import or_, select
+
+from radar import alvo
+from radar import amostra as regua
+from radar import cronograma as plano_de_estudo
+from radar import niveis
+from radar.db import criar_tabelas, sessao
+from radar.models import (
+    EstadoDoDia,
+    QuestaoDeProva,
+    QuestaoGerada,
+    RespostaDeSimulado,
+    Simulado,
+    agora,
+)
+from radar.questoes import chave_da_questao
+from radar.servico import cronograma as diario
+from radar.servico import evidencia
+from radar.origem import AUTOMATICO, IA
+from radar.servico import extra as estudo_extra
+from radar.util import fuso_local, para_local
+
+#: O nome de cada recorte, como a tela escreve.
+RECORTES = {
+    "radar": "medido no radar",
+    "anotado": "anotado",
+    "treino_ia": "treino de IA",
+    "total": "total",
+}
+
+#: A origem de cada recorte, para o selo (Etapa 7A): o que eu fiz e conta do
+#: sistema; o treino de IA leva o selo da IA, porque e resposta a questao que
+#: a IA escreveu - e ela nunca pode parecer questao da banca.
+ORIGEM_DO_RECORTE = {
+    "radar": AUTOMATICO,
+    "anotado": AUTOMATICO,
+    "treino_ia": IA,
+    "total": AUTOMATICO,
+}
+
+FAIXA = "faixa"
+EXTRA = "extra"
+RADAR = "radar"
+
+
+class ContaInconsistente(ValueError):
+    """Uma linha gravada diz mais acertos do que questoes.
+
+    A conta antiga escondia isso com um `max(..., 0)` nos erros. Aqui ela
+    para e diz onde: numero que nao fecha tem que ser corrigido, e nao
+    arredondado para parecer certo.
+    """
+
+
+@dataclass
+class Numeros:
+    """Os quatro estados de um conjunto de questoes, e os minutos.
+
+    O total nao e guardado: ele E a soma dos estados. Por isso nao ha como a
+    linha "N questoes = acertos + erros + ..." deixar de fechar.
+    """
+    #: A origem do selo: o sistema contou o que eu fiz.
+    origem = AUTOMATICO
+
+    acertos: int = 0
+    erros: int = 0
+    #: Feitas, mas sem acerto anotado: volume sim, acerto nao.
+    sem_resultado: int = 0
+    #: Respostas a questao escrita por IA: volume sim, acerto nunca.
+    ia: int = 0
+    #: O acerto nessas de IA - o segundo numero, que nunca entra no primeiro.
+    ia_acertos: int = 0
+    minutos: int = 0
+    #: Respostas do radar marcadas "vou no chute" (decisao 142): ao lado das
+    #: outras contas, nunca dentro - nao mudam acerto, erro nem total.
+    chutes: int = 0
+    #: Das respostas reais do radar, quantas sao de questao de OUTRA BANCA
+    #: (decisao 166): medem como as da FEPESE, e a tela diz a origem ao lado.
+    #: Tambem ao lado, nunca dentro.
+    de_outras_bancas: int = 0
+
+    @property
+    def questoes(self) -> int:
+        return self.acertos + self.erros + self.sem_resultado + self.ia
+
+    @property
+    def medidas(self) -> int:
+        """As que contam para o acerto: questao real, com resultado."""
+        return self.acertos + self.erros
+
+    @property
+    def porcentagem(self) -> int | None:
+        return round(100 * self.acertos / self.medidas) if self.medidas else None
+
+    @property
+    def porcentagem_ia(self) -> int | None:
+        return round(100 * self.ia_acertos / self.ia) if self.ia else None
+
+    @property
+    def vazio(self) -> bool:
+        return not (self.questoes or self.minutos)
+
+    def __add__(self, outro: "Numeros") -> "Numeros":
+        return Numeros(
+            acertos=self.acertos + outro.acertos,
+            erros=self.erros + outro.erros,
+            sem_resultado=self.sem_resultado + outro.sem_resultado,
+            ia=self.ia + outro.ia,
+            ia_acertos=self.ia_acertos + outro.ia_acertos,
+            minutos=self.minutos + outro.minutos,
+            chutes=self.chutes + outro.chutes,
+            de_outras_bancas=self.de_outras_bancas + outro.de_outras_bancas,
+        )
+
+    def origem_ao_lado(self) -> str:
+        """"(55 FEPESE, 2 de outras bancas)", ou "" sem resposta de outra banca."""
+        return frase_da_origem(self.medidas, self.de_outras_bancas)
+
+    def anotar(self, questoes: int | None, acertos: int | None,
+               minutos: int | None = 0, onde: str = "") -> None:
+        """Soma uma linha que eu digitei: faixa do plano ou estudo extra."""
+        questoes = questoes or 0
+        self.minutos += minutos or 0
+        if acertos is None:
+            self.sem_resultado += questoes
+            return
+        if acertos > questoes:
+            raise ContaInconsistente(
+                f"{onde or 'Uma linha anotada'}: {acertos} acertos em "
+                f"{questoes} questões. Corrija a anotação."
+            )
+        self.acertos += acertos
+        self.erros += questoes - acertos
+
+    def responder(self, acertou: bool, gerada: bool = False,
+                  chutou: bool = False, outra_banca: bool = False) -> None:
+        """Soma uma resposta dada dentro do radar."""
+        self.chutes += 1 if chutou else 0
+        if gerada:
+            self.ia += 1
+            self.ia_acertos += 1 if acertou else 0
+            return
+        self.de_outras_bancas += 1 if outra_banca else 0
+        if acertou:
+            self.acertos += 1
+        else:
+            self.erros += 1
+
+
+def frase_da_origem(medidas: int, de_outras_bancas: int) -> str:
+    """"(55 FEPESE, 2 de outras bancas)": a origem ao lado do acerto (decisao
+    166), a mesma frase do Meu desempenho. Vazia sem outra banca: ai o numero
+    e todo FEPESE, e a frase seria ruido.
+
+    So o radar sabe a banca de cada questao; o anotado vem do Qconcursos, cujo
+    filtro do plano e a FEPESE, e fica do lado dela."""
+    if not de_outras_bancas:
+        return ""
+    return f"({medidas - de_outras_bancas} {alvo.banca_na_tela()}, {de_outras_bancas} de outras bancas)"
+
+
+def frase_da_conta(numeros: Numeros) -> str:
+    """"31 questões = 13 acertos + 8 erros + 10 de treino de IA".
+
+    Uma funcao so para a tela e o terminal escreverem a mesma linha. So
+    aparece o estado que existe: "+ 0 sem acerto anotado" e ruido.
+    """
+    partes = [_contado(numeros.acertos, "acerto", "acertos"),
+              _contado(numeros.erros, "erro", "erros")]
+    if numeros.sem_resultado:
+        partes.append(f"{numeros.sem_resultado} sem acerto anotado")
+    if numeros.ia:
+        partes.append(f"{numeros.ia} de treino de IA")
+    return _contado(numeros.questoes, "questão", "questões") + " = " + " + ".join(partes)
+
+
+def _contado(n: int, um: str, varios: str) -> str:
+    """"1 acerto", "2 acertos", "0 acertos": o plural que a frase pedia."""
+    return f"{n} {um if n == 1 else varios}"
+
+
+def frase_da_ia(numeros: Numeros) -> str | None:
+    """O segundo numero: "Treino de IA no radar: 10 questões = 7 acertos + 3
+    erros (70%), não entra no acerto".
+
+    No mesmo molde da linha das reais, com os erros escritos: "7 de 10"
+    deixava a conta dos erros para quem le. "No radar" porque e o unico lugar
+    em que se responde questao gerada.
+    """
+    if not numeros.ia:
+        return None
+    erros = numeros.ia - numeros.ia_acertos
+    return (f"Treino de IA no radar: {_contado(numeros.ia, 'questão', 'questões')} = "
+            f"{_contado(numeros.ia_acertos, 'acerto', 'acertos')} + "
+            f"{_contado(erros, 'erro', 'erros')} "
+            f"({numeros.porcentagem_ia}%), não entra no acerto")
+
+
+def frase_das_reais(numeros: Numeros) -> str:
+    """A linha das questoes reais do dia (decisao 138): "Questões reais
+    (Qconcursos e provas): 12 questões = 9 acertos + 3 erros".
+
+    `numeros` e o `Conta.reais`: o anotado e o respondido no radar, sem o
+    treino de IA - o "Fiz hoje" de antes somava os tres numa linha so, e o
+    treino parecia questao feita (06/10).
+    """
+    rotulo = "Questões reais (Qconcursos e provas): "
+    if not numeros.questoes:
+        return rotulo + "nenhuma ainda"
+    return rotulo + frase_da_conta(numeros)
+
+
+# --- de onde vem cada linha ----------------------------------------------------
+
+@dataclass
+class Lancamento:
+    """Uma linha que conta: uma faixa marcada, um estudo extra ou uma resposta.
+
+    Todas as telas somam a MESMA lista. Mesmo periodo, mesma lista, mesmo
+    numero - e a garantia vem daqui, e nao de cada tela tomar cuidado.
+    """
+    data: date
+    origem: str                       # faixa | extra | radar
+    questoes: int = 0
+    acertos: int | None = None
+    minutos: int = 0
+    consulta: bool = False
+    gerada: bool = False
+    materia: str | None = None
+    assunto: str | None = None
+    #: O no da arvore de conteudos, pelo caminho de nomes ("Direito Penal >
+    #: Imputabilidade penal"). None quando o lancamento nao aponta para no
+    #: nenhum: ele conta no dia e no desempenho por conteudo de nenhum no.
+    #: E por aqui que o recorte "anotado" chega a arvore (Etapa 4).
+    conteudo: str | None = None
+    #: Para a mensagem de erro dizer onde a conta nao fecha.
+    descricao: str = ""
+    #: Foi uma REVISAO: faixa de revisao do plano, estudo extra de revisao, ou
+    #: resposta numa rodada que revisa (`rodada_que_revisa`). Nao muda conta
+    #: nenhuma; da a data da ultima revisao de cada no (decisao 79).
+    revisao: bool = False
+    #: A chave da questao REAL respondida no radar (enunciado + alternativas).
+    #: A linha do radar nao tem `conteudo` - nao fui eu que escolhi o no -, e
+    #: e por esta chave que ela chega a ele, pela classificacao da questao.
+    chave: str | None = None
+    #: O tipo da faixa no plano (teoria, questoes, revisao...) ou o "o que"
+    #: do estudo extra (teoria, lei_seca...). Vazio no radar. E ele que diz
+    #: se a linha deixa o no "estudado" (decisao 20).
+    tipo: str = ""
+    #: A faixa do plano, nas linhas de faixa. E por ela que a faixa sem
+    #: `conteudo` chega ao que cobre - so para a situacao e as datas do no,
+    #: nunca para o acerto (servico/estudo.py, decisao 81).
+    faixa: object = None
+    #: A resposta do radar a questao real de outra banca (evidencia `fora`,
+    #: decisao 166). Nao muda conta nenhuma: e a origem ao lado.
+    de_outra_banca: bool = False
+
+
+def rodada_que_revisa(filtros: dict | None) -> bool:
+    """A rodada do radar e uma revisao? A revisao espacada grava `revisao`;
+    o "Refazer as erradas" e a revisao do sabado gravam `erros`."""
+    filtros = filtros or {}
+    return bool(filtros.get("revisao") or filtros.get("erros"))
+
+
+def janela_do_dia(inicio: date, fim: date | None = None) -> tuple[datetime, datetime]:
+    """Do comeco de `inicio` ao fim de `fim`, no dia de Florianopolis, em UTC.
+
+    Sem isto, um simulado respondido as 22h daqui (1h do dia seguinte em UTC)
+    cairia no dia errado.
+    """
+    fim = fim or inicio
+    comeco = datetime.combine(inicio, time.min, tzinfo=fuso_local())
+    termino = datetime.combine(fim + timedelta(days=1), time.min, tzinfo=fuso_local())
+    return comeco.astimezone(timezone.utc), termino.astimezone(timezone.utc)
+
+
+def dia_para_contar(plano, data: date, estado: EstadoDoDia | None,
+                    metas: dict | None = None):
+    """O dia do plano cujas faixas valem em `data`.
+
+    Com o Plano B ativo, sao as faixas DELE - era aqui que a tela Hoje e a de
+    Semanas divergiam: a Hoje contava o Plano B, e a Semanas montava o dia
+    normal e nao achava check nenhum.
+    """
+    nivel = diario.nivel_do_dia(plano, data, metas)
+    if nivel is None:
+        return None
+    if (estado is not None and estado.plano_b and plano.plano_b is not None
+            and estado.plano_b in plano.plano_b.opcoes):
+        return plano_de_estudo.montar_plano_b(plano, data, estado.plano_b,
+                                              nivel.efetivo)
+    return plano_de_estudo.montar_dia(plano, data, nivel.efetivo)
+
+
+def lancamentos(inicio: date, fim: date, plano=None) -> list[Lancamento]:
+    """Tudo o que conta entre as duas datas, inclusive.
+
+    As faixas so existem em dia do plano; o extra e a resposta no radar podem
+    estar em qualquer dia. Resposta a questao que saiu do acervo continua
+    contando no volume e no acerto do dia - ela foi respondida -, so fica sem
+    materia.
+    """
+    plano = plano or plano_de_estudo.carregar()
+    criar_tabelas()
+    linhas: list[Lancamento] = []
+
+    # --- as faixas do plano que eu marquei --------------------------------
+    with sessao() as s:
+        estados = {e.data: e for e in s.scalars(
+            select(EstadoDoDia).where(EstadoDoDia.data >= inicio,
+                                      EstadoDoDia.data <= fim))}
+    metas = diario.metas_do_plano(plano) if estados else {}
+    for data in sorted(estados):
+        if plano.dia(data) is None:
+            continue
+        estado = estados[data]
+        montado = dia_para_contar(plano, data, estado, metas)
+        for feita in diario.valores_das_faixas(montado, estado).values():
+            linhas.append(Lancamento(
+                data=data, origem=FAIXA,
+                questoes=feita.questoes or 0, acertos=feita.acertos,
+                minutos=feita.minutos or 0, consulta=feita.consulta,
+                materia=feita.materia, assunto=feita.assunto,
+                conteudo=feita.conteudo,
+                descricao=f"{data:%d/%m/%Y}, faixa {feita.titulo!r}",
+                revisao=feita.tipo in plano_de_estudo.TIPOS_DE_REVISAO,
+                tipo=feita.tipo,
+                faixa=getattr(montado, feita.bloco)[feita.indice],
+            ))
+
+    # --- o estudo extra ----------------------------------------------------
+    for extra in estudo_extra.entre(inicio, fim):
+        linhas.append(Lancamento(
+            data=extra.data, origem=EXTRA,
+            questoes=extra.questoes or 0, acertos=extra.acertos,
+            minutos=extra.minutos or 0, consulta=bool(extra.consulta),
+            materia=extra.materia, assunto=extra.assunto,
+            conteudo=extra.conteudo,
+            descricao=f"{extra.data:%d/%m/%Y}, estudo extra #{extra.id}",
+            revisao=extra.o_que == "revisao",
+            tipo=extra.o_que,
+        ))
+
+    # --- o que eu respondi dentro do radar ------------------------------------
+    comeco, termino = janela_do_dia(inicio, fim)
+    with sessao() as s:
+        respostas = list(s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.respondida_em.is_not(None))
+            .where(RespostaDeSimulado.respondida_em >= comeco)
+            .where(RespostaDeSimulado.respondida_em < termino)
+            .order_by(RespostaDeSimulado.respondida_em, RespostaDeSimulado.id)
+        ))
+        reais = {q.id: q for q in s.scalars(
+            select(QuestaoDeProva).where(QuestaoDeProva.id.in_(
+                [r.questao_id for r in respostas if not r.gerada] or [0])))}
+        de_ia = {q.id: q for q in s.scalars(
+            select(QuestaoGerada).where(QuestaoGerada.id.in_(
+                [r.questao_id for r in respostas if r.gerada] or [0])))}
+        que_revisam = {sid for sid, filtros in s.execute(
+            select(Simulado.id, Simulado.filtros).where(Simulado.id.in_(
+                {r.simulado_id for r in respostas} or {0})))
+            if rodada_que_revisa(filtros)}
+
+    for resposta in respostas:
+        questao = (de_ia if resposta.gerada else reais).get(resposta.questao_id)
+        real = questao is not None and not resposta.gerada
+        linhas.append(Lancamento(
+            data=para_local(resposta.respondida_em).date(), origem=RADAR,
+            questoes=1, acertos=1 if resposta.acertou else 0,
+            # O simulado do radar e sempre sem consulta: nao ha lei aberta ali.
+            consulta=False, gerada=bool(resposta.gerada),
+            materia=getattr(questao, "materia", None),
+            assunto=getattr(questao, "assunto", None),
+            revisao=resposta.simulado_id in que_revisam,
+            chave=(chave_da_questao(questao.enunciado, questao.alternativas)
+                   if real else None),
+            de_outra_banca=real and questao.evidencia == evidencia.FORA,
+        ))
+    return linhas
+
+
+# --- a soma ---------------------------------------------------------------------
+
+@dataclass
+class Conta:
+    """Um periodo somado, separado pelos recortes de nome fixo."""
+    #: A origem de cada recorte, para a tela desenhar o selo de cada linha.
+    origens = ORIGEM_DO_RECORTE
+
+    #: O que eu anotei nas faixas do plano.
+    faixas: Numeros = field(default_factory=Numeros)
+    #: O que eu anotei no estudo extra.
+    extra: Numeros = field(default_factory=Numeros)
+    #: Questao real respondida no radar: medida contra o gabarito.
+    radar: Numeros = field(default_factory=Numeros)
+    #: Questao de IA respondida no radar: so `ia` e `ia_acertos`.
+    treino_ia: Numeros = field(default_factory=Numeros)
+    #: O que vale para comparar com a meta: tudo menos o feito com consulta.
+    sem_consulta: Numeros = field(default_factory=Numeros)
+
+    def somar(self, linha: Lancamento) -> None:
+        if linha.origem == RADAR:
+            acertou = bool(linha.acertos)
+            if linha.gerada:
+                self.treino_ia.responder(acertou, gerada=True)
+                return
+            self.radar.responder(acertou, outra_banca=linha.de_outra_banca)
+            self.sem_consulta.responder(acertou, outra_banca=linha.de_outra_banca)
+            return
+        destino = self.faixas if linha.origem == FAIXA else self.extra
+        destino.anotar(linha.questoes, linha.acertos, linha.minutos, linha.descricao)
+        if not linha.consulta:
+            self.sem_consulta.anotar(linha.questoes, linha.acertos, 0, linha.descricao)
+
+    @property
+    def anotado(self) -> Numeros:
+        """O que eu digitei: faixas e extras. Vem do Qconcursos."""
+        return self.faixas + self.extra
+
+    @property
+    def reais(self) -> Numeros:
+        """As questoes reais: o anotado (Qconcursos, provas) e o respondido no
+        radar. O treino de IA fica de fora - ele tem a linha dele."""
+        return self.anotado + self.radar
+
+    @property
+    def total(self) -> Numeros:
+        return self.reais + self.treino_ia
+
+    @property
+    def minutos(self) -> int:
+        return self.faixas.minutos + self.extra.minutos
+
+    @property
+    def vazio(self) -> bool:
+        return self.total.vazio
+
+
+def contar(linhas) -> Conta:
+    conta = Conta()
+    for linha in linhas:
+        conta.somar(linha)
+    return conta
+
+
+def do_dia(data: date, plano=None) -> Conta:
+    """A conta de um dia: o "Fiz hoje" da tela e do `radar hoje`."""
+    return contar(lancamentos(data, data, plano))
+
+
+def no_radar_por_faixa(data: date) -> dict[tuple[str, int, str], Numeros]:
+    """O que eu respondi no radar em rodada aberta por uma faixa do dia, pela
+    chave (bloco, indice, titulo) - a mesma que reconhece o check da faixa.
+
+    A rodada guarda de onde veio: `faixa` (a das reais de Portugues e a que
+    mede, decisoes 67 e 107) ou `da_faixa` (a de geradas aberta pelo botao da
+    faixa). Essas respostas ja contam sozinhas no "Fiz hoje"; anota-las de
+    novo no "fiz X, acertei Y" conta a mesma questao duas vezes - foi o
+    05/10. E isto que a faixa mostra para avisar.
+    """
+    criar_tabelas()
+    dia = data.isoformat()
+    por_faixa: dict[tuple[str, int, str], Numeros] = {}
+    with sessao() as s:
+        rodadas = {}
+        for simulado_id, filtros in s.execute(select(Simulado.id, Simulado.filtros)):
+            origem = (filtros or {}).get("faixa") or (filtros or {}).get("da_faixa")
+            if isinstance(origem, dict) and origem.get("data") == dia:
+                rodadas[simulado_id] = (origem.get("bloco"), origem.get("indice"),
+                                        origem.get("titulo"))
+        if not rodadas:
+            return {}
+        respostas = s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.simulado_id.in_(rodadas))
+            .where(RespostaDeSimulado.respondida_em.is_not(None))
+        )
+        for resposta in respostas:
+            numeros = por_faixa.setdefault(rodadas[resposta.simulado_id], Numeros())
+            numeros.responder(bool(resposta.acertou), gerada=bool(resposta.gerada),
+                              chutou=bool(resposta.chutou))
+    return por_faixa
+
+
+# --- questoes: o acumulado, pela ultima resposta -----------------------------------
+#
+# O Meu foco, o Onde estudar e a home respondem "quanto eu sei hoje", e no
+# recorte *medido no radar* (decisao 7 da Etapa 0: o anotado do Qconcursos
+# entra nelas so na Etapa 4). Aqui cada questao conta UMA vez, pela minha
+# resposta mais recente: refazer a mesma questao 4 vezes nao vale 4, e refazer
+# questao ja decorada inflava o acerto sem eu ter aprendido nada. Nenhuma
+# tentativa e apagada - elas seguem no banco, e contam como RESPOSTAS no
+# volume do dia e na evolucao.
+
+# A janela da variacao. E a da especificacao: "a variacao nos ultimos 30 dias".
+DIAS_DA_EVOLUCAO = 30
+
+
+@dataclass
+class DesempenhoDaMateria:
+    materia: str
+    #: No acumulado, QUESTOES diferentes; numa rodada, as respostas dela.
+    respondidas: int = 0
+    acertos: int = 0
+    #: Acerto em questao real e conta do sistema; o das geradas leva o selo
+    #: da IA (`desempenho_das_geradas`), e os dois nunca se somam.
+    origem: str = AUTOMATICO
+
+    @property
+    def porcentagem(self) -> float:
+        return (self.acertos / self.respondidas * 100) if self.respondidas else 0.0
+
+
+def placar(respostas) -> tuple[int, int]:
+    """(respondidas, acertos) de uma lista de respostas. Nao respondida fica fora."""
+    dadas = [r for r in respostas if r.escolhida is not None]
+    return len(dadas), sum(1 for r in dadas if r.acertou)
+
+
+def so_treina(questao) -> bool:
+    """A questao real que treina e nao mede (decisao PMSC-27): o gabarito foi
+    buscado pelo Claude Code, o Gabriel ainda nao conferiu, e nao ha a pagina
+    em que o gabarito desta questao aparece. Ela vem no treino com o aviso
+    "Verificar a questao", e a resposta a ela fica fora de todo acerto: um
+    gabarito errado mediria o meu acerto contra um erro do radar."""
+    return (bool(getattr(questao, "gabarito_a_conferir", None))
+            and not getattr(questao, "gabarito_link", None))
+
+
+#: O `so_treina` em SQL: a questao que mede.
+QUE_MEDE = or_(QuestaoDeProva.gabarito_a_conferir.is_(None),
+               QuestaoDeProva.gabarito_link.is_not(None))
+
+
+def respostas_reais(s, so_as_que_medem: bool = False) -> list[RespostaDeSimulado]:
+    """Toda resposta que eu dei a questao real, na ordem em que dei.
+
+    O historico inteiro, e nao a ultima de cada questao: "quando eu vi isto
+    pela primeira vez" se responde com a primeira resposta (o 1-7-30 do
+    `servico/estudo.py`, decisao 85). Com `so_as_que_medem`, sem as questoes
+    que so treinam (`so_treina`): e o que o acerto usa. Sem ele, todas - o
+    que diz "ja respondi esta" (a nunca feita vem primeiro) nao mede nada.
+    """
+    consulta = (
+        select(RespostaDeSimulado)
+        .where(RespostaDeSimulado.escolhida.is_not(None))
+        .where(RespostaDeSimulado.gerada.is_(False))
+        .order_by(RespostaDeSimulado.respondida_em, RespostaDeSimulado.id)
+    )
+    if so_as_que_medem:
+        # Juncao externa: a resposta a questao que saiu do acervo continua
+        # onde estava (na evolucao, por exemplo), como antes desta regra.
+        consulta = (consulta.outerjoin(QuestaoDeProva,
+                                       QuestaoDeProva.id == RespostaDeSimulado.questao_id)
+                    .where(QUE_MEDE))
+    return list(s.scalars(consulta))
+
+
+def ultimas_respostas_reais(s, so_as_que_medem: bool = False) -> dict[int, RespostaDeSimulado]:
+    """{questao_id: a resposta mais recente que eu dei a ela}, so questao real.
+
+    A mais recente e a de maior `respondida_em`; empate, a de maior id. A
+    lista vem em ordem e o dict deixa a ultima sobrescrever - o volume e
+    pequeno, e isto se le melhor que uma subconsulta.
+    """
+    return {r.questao_id: r for r in respostas_reais(s, so_as_que_medem)}
+
+
+def acumulado_por(chaves_da_questao, materias: list[str] | None = None) -> dict:
+    """{chave: Numeros} pela ultima resposta de cada questao real.
+
+    `chaves_da_questao(questao)` devolve as chaves em que a questao conta - um
+    assunto, ou varios quando o enunciado cobre mais de um. `materias` limita
+    as questoes as daquelas materias, pelo nome gravado.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        ultimas = ultimas_respostas_reais(s, so_as_que_medem=True)
+        if not ultimas:
+            return {}
+        consulta = select(QuestaoDeProva).where(QuestaoDeProva.id.in_(list(ultimas)))
+        if materias is not None:
+            consulta = consulta.where(QuestaoDeProva.materia.in_(materias))
+        questoes = list(s.scalars(consulta))
+
+    conta: dict = {}
+    for questao in questoes:
+        resposta = ultimas[questao.id]
+        for chave in chaves_da_questao(questao):
+            conta.setdefault(chave, Numeros()).responder(bool(resposta.acertou))
+    return conta
+
+
+#: O rotulo da questao sem materia gravada, como a tela escreve.
+SEM_MATERIA = "sem matéria"
+
+
+def _nome_da_materia():
+    """A materia de uma questao pelo nome do EDITAL: a grafia antiga de uma
+    prova ("Direito Processo Penal", 2013) conta na mesma linha da nova
+    (auditoria de 04/10, BUG-4). A taxonomia e lida uma vez por conta."""
+    from radar import conteudos as arvore
+
+    taxonomia = arvore.carregar_taxonomia()
+    return lambda materia: taxonomia.nome_do_edital(materia) or SEM_MATERIA
+
+
+def acumulado_por_materia() -> list[DesempenhoDaMateria]:
+    """Acerto por materia no acumulado, pior primeiro. Questao que saiu do
+    acervo fica fora: nao ha materia para ela."""
+    nome = _nome_da_materia()
+    por_materia = acumulado_por(lambda q: [nome(q.materia)])
+    return _pior_primeiro([
+        DesempenhoDaMateria(nome, numeros.medidas, numeros.acertos)
+        for nome, numeros in por_materia.items()
+    ])
+
+
+def acumulado() -> DesempenhoDaMateria:
+    """Todas as materias juntas: quantas questoes reais diferentes respondi."""
+    numeros = acumulado_por(lambda q: ["todas"]).get("todas", Numeros())
+    return DesempenhoDaMateria("todas", numeros.medidas, numeros.acertos)
+
+
+def _pior_primeiro(linhas: list[DesempenhoDaMateria]) -> list[DesempenhoDaMateria]:
+    # pior primeiro: e onde vale gastar tempo de estudo
+    linhas.sort(key=lambda d: d.porcentagem)
+    return linhas
+
+
+def _por_materia_das_respostas(tabela, gerada: bool, simulado_id: int | None,
+                               simulado_ids: list[int] | None = None):
+    """Acerto por materia contando RESPOSTAS - de uma rodada, de varias, ou
+    todas."""
+    criar_tabelas()
+    consulta = (
+        select(tabela.materia, RespostaDeSimulado)
+        .join(tabela, tabela.id == RespostaDeSimulado.questao_id)
+        .where(RespostaDeSimulado.escolhida.is_not(None))
+        .where(RespostaDeSimulado.gerada.is_(gerada))
+    )
+    if simulado_id is not None:
+        consulta = consulta.where(RespostaDeSimulado.simulado_id == simulado_id)
+    if simulado_ids is not None:
+        consulta = consulta.where(RespostaDeSimulado.simulado_id.in_(simulado_ids))
+    with sessao() as s:
+        linhas = s.execute(consulta).all()
+
+    nome = _nome_da_materia()
+    por_materia: dict[str, list] = {}
+    for materia, resposta in linhas:
+        por_materia.setdefault(nome(materia), []).append(resposta)
+    return _pior_primeiro([
+        DesempenhoDaMateria(nome, *placar(respostas), origem=IA if gerada else AUTOMATICO)
+        for nome, respostas in por_materia.items()
+    ])
+
+
+def desempenho(simulado_id: int | None = None) -> list[DesempenhoDaMateria]:
+    """Acerto por materia nas questoes REAIS.
+
+    **Sem id, e o acumulado, e ele conta QUESTAO, e nao tentativa** (a ultima
+    resposta de cada questao). **Com id, e o relatorio daquela rodada**, e
+    conta as respostas dela.
+
+    Questao gerada nao entra aqui, e nunca vai entrar somada: acertar uma
+    variacao que a IA escreveu nao e a mesma coisa que acertar o que a FEPESE
+    cobrou. O numero delas sai em `desempenho_das_geradas`, do lado.
+    """
+    if simulado_id is None:
+        return acumulado_por_materia()
+    return _por_materia_das_respostas(QuestaoDeProva, False, simulado_id)
+
+
+def desempenho_das_rodadas(simulado_ids: list[int]) -> list[DesempenhoDaMateria]:
+    """Acerto por materia nas questoes REAIS de varias rodadas juntas: as que
+    mediram num mesmo dia (os dois diagnosticos de 03/10). Conta as respostas
+    delas, como o relatorio de uma rodada; nenhuma rodada, nenhuma linha."""
+    if not simulado_ids:
+        return []
+    return _por_materia_das_respostas(QuestaoDeProva, False, None, list(simulado_ids))
+
+
+def placar_por_grupo(simulado_id: int, grupo_de: dict[str, str]
+                     ) -> dict[str, tuple[DesempenhoDaMateria, DesempenhoDaMateria]]:
+    """{grupo: (reais, geradas)} das respostas de UMA rodada, cada questao no
+    grupo que a rodada guardou para ela - a materia do Simulado PMSC
+    (decisao PMSC-9), porque a questao de outra banca muitas vezes nao tem
+    `materia` no banco. `grupo_de` e {"r:<id>" ou "g:<id>": grupo}. Real e
+    gerada sempre separadas: os dois numeros nunca se somam."""
+    criar_tabelas()
+    with sessao() as s:
+        respostas = list(s.scalars(select(RespostaDeSimulado)
+                                   .where(RespostaDeSimulado.simulado_id == simulado_id)))
+    por_grupo: dict[str, tuple[list, list]] = {}
+    for resposta in respostas:
+        chave = f"{'g' if resposta.gerada else 'r'}:{resposta.questao_id}"
+        grupo = grupo_de.get(chave)
+        if grupo is None:
+            continue
+        reais, geradas = por_grupo.setdefault(grupo, ([], []))
+        (geradas if resposta.gerada else reais).append(resposta)
+    return {grupo: (DesempenhoDaMateria(grupo, *placar(reais), origem=AUTOMATICO),
+                    DesempenhoDaMateria(grupo, *placar(geradas), origem=IA))
+            for grupo, (reais, geradas) in por_grupo.items()}
+
+
+def placar_separado(simulado_id: int) -> tuple[DesempenhoDaMateria, DesempenhoDaMateria]:
+    """(reais, geradas) de UMA rodada que mistura as duas (o Simulado PMSC,
+    decisao PMSC-9): o resultado geral dela sao estes dois numeros, lado a
+    lado, e nunca um so - o `resumo_do_simulado` soma tudo, e serve para a
+    rodada que e so de reais ou so de geradas."""
+    criar_tabelas()
+    with sessao() as s:
+        respostas = list(s.scalars(select(RespostaDeSimulado)
+                                   .where(RespostaDeSimulado.simulado_id == simulado_id)))
+    reais = [r for r in respostas if not r.gerada]
+    de_ia = [r for r in respostas if r.gerada]
+    return (DesempenhoDaMateria("Questões reais", *placar(reais), origem=AUTOMATICO),
+            DesempenhoDaMateria("Geradas por IA", *placar(de_ia), origem=IA))
+
+
+def erros_das_rodadas(simulado_ids: list[int]) -> list[RespostaDeSimulado]:
+    """As respostas ERRADAS a questao real nestas rodadas, rodada por rodada
+    na ordem da lista e, dentro dela, na ordem das questoes.
+
+    Nao respondida nao e erro - a mesma regra do `placar`. E o que o R+7 dos
+    diagnosticos refaz (servico/sabado.py).
+    """
+    if not simulado_ids:
+        return []
+    criar_tabelas()
+    with sessao() as s:
+        respostas = list(s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.simulado_id.in_(list(simulado_ids)))
+            .where(RespostaDeSimulado.gerada.is_(False))
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+            .where(RespostaDeSimulado.acertou.is_(False))))
+    posicao = {simulado_id: i for i, simulado_id in enumerate(simulado_ids)}
+    return sorted(respostas, key=lambda r: (posicao[r.simulado_id], r.ordem))
+
+
+# --- o treino de IA honesto (decisao 152) -----------------------------------
+#
+# Duas perguntas, dois numeros. O VOLUME ("o que eu fiz": o "Fiz hoje", as
+# Semanas, a Conferencia) conta toda resposta - e o `Conta.treino_ia`, que
+# nao muda. O NIVEL ("o quanto eu sei": a faixa, a ficha, Minhas materias, o
+# Simulado e a tela de gerar) conta so a PRIMEIRA resposta de cada gerada: na
+# segunda volta eu acerto por lembrar da questao, e o numero subia sozinho. A
+# repeticao vira REVISAO, um numero ao lado; o chute fica ao lado (o
+# "firme"); e a variacao de questao real e o do zero, cada um com a sua base.
+# Nada disto entra no acerto das reais.
+
+
+@dataclass(frozen=True)
+class TreinoDeIA:
+    """O treino de IA de um recorte, pela 1a vez em cada questao gerada."""
+
+    #: A 1a resposta de cada gerada: quantas geradas diferentes, e acertos.
+    respondidas: int = 0
+    acertos: int = 0
+    #: As respostas depois da 1a (refazer a mesma gerada): a revisao.
+    revisao: int = 0
+    revisao_acertos: int = 0
+    #: Das 1as, as marcadas "vou no chute" (decisao 142), e as que deram certo.
+    #: A resposta de antes de 07/10, sem o chute registrado, conta como nao
+    #: chutada: nao havia como marcar.
+    chutes: int = 0
+    chutes_certos: int = 0
+    #: As 1as, separadas: variacao de questao real e do zero.
+    variacao: int = 0
+    variacao_acertos: int = 0
+    do_zero: int = 0
+    do_zero_acertos: int = 0
+    #: O minimo de 1as respostas do `config/amostra.yml` (secao treino_ia).
+    minimo: int = 0
+    origem: str = IA
+
+    @property
+    def vazio(self) -> bool:
+        return not (self.respondidas or self.revisao)
+
+    @property
+    def porcentagem(self) -> int | None:
+        return _por_cento(self.acertos, self.respondidas)
+
+    @property
+    def suficiente(self) -> bool:
+        return self.respondidas >= self.minimo
+
+    @property
+    def firmes(self) -> int:
+        """As 1as que nao foram no chute: o chute certo e o errado saem os dois."""
+        return self.respondidas - self.chutes
+
+    @property
+    def porcentagem_firme(self) -> int | None:
+        return _por_cento(self.acertos - self.chutes_certos, self.firmes)
+
+    @property
+    def porcentagem_variacao(self) -> int | None:
+        return _por_cento(self.variacao_acertos, self.variacao)
+
+    @property
+    def porcentagem_do_zero(self) -> int | None:
+        return _por_cento(self.do_zero_acertos, self.do_zero)
+
+    @property
+    def amostra(self) -> str | None:
+        """"Amostra insuficiente" abaixo do minimo; None quando vale."""
+        return None if self.suficiente else regua.INSUFICIENTE
+
+    # --- os textos (uma funcao so para a tela e o terminal) ----------------
+
+    def _firme(self) -> str | None:
+        if not self.chutes or self.porcentagem_firme is None:
+            return None
+        chutes = "o chute" if self.chutes == 1 else f"os {self.chutes} chutes"
+        return f"firme: {self.porcentagem_firme}%, sem {chutes}"
+
+    def _revisao(self) -> str | None:
+        if not self.revisao:
+            return None
+        return f"revisão: {self.revisao_acertos} de {self.revisao}"
+
+    def _modos(self) -> str | None:
+        partes = []
+        if self.variacao:
+            partes.append(f"variação de questão real: {self.porcentagem_variacao}% "
+                          f"em {self.variacao}")
+        if self.do_zero:
+            partes.append(f"do zero: {self.porcentagem_do_zero}% em {self.do_zero}")
+        return " · ".join(partes) or None
+
+    def _primeira(self, dizer_a_vez: bool = True) -> str:
+        if not self.respondidas:
+            return "nenhuma na 1ª vez"
+        vez = " na 1ª vez" if dizer_a_vez else ""
+        base = f"{self.acertos} de {self.respondidas}{vez} ({self.porcentagem}%"
+        return base + (f", {self.amostra.lower()})" if self.amostra else ")")
+
+    def frase_da_faixa(self) -> str | None:
+        """Uma linha, para a faixa: "Treino de IA: 7 de 10 na 1ª vez (70%,
+        amostra insuficiente) · firme: 71%, sem os 3 chutes · revisão: 4 de 5
+        · fora do acerto"."""
+        if self.vazio:
+            return None
+        partes = [f"Treino de IA: {self._primeira()}", self._firme(), self._revisao(),
+                  "fora do acerto"]
+        return " · ".join(p for p in partes if p)
+
+    def linhas_da_ficha(self) -> list[str]:
+        """As linhas da ficha (e do `radar fichas --tema`), com o minimo dito."""
+        if self.vazio:
+            return []
+        primeira = ("Treino de IA neste tema, na 1ª vez em cada questão: "
+                    f"{self._primeira(dizer_a_vez=False)}")
+        if self.amostra:
+            primeira += f": o mínimo aqui é {self.minimo}"
+        linhas = [primeira + "."]
+        if self._firme():
+            linhas.append(self._firme()[0].upper() + self._firme()[1:] + ".")
+        if self._modos():
+            linhas.append(self._modos()[0].upper() + self._modos()[1:] + ".")
+        if self.revisao:
+            linhas.append(f"Revisão: {self.revisao_acertos} de {self.revisao} em questões "
+                          f"que você já tinha feito.")
+        linhas.append("Não entra no acerto.")
+        return linhas
+
+    def frase_da_materia(self) -> str | None:
+        """A linha de Minhas materias."""
+        if self.vazio:
+            return None
+        partes = [f"Treino de IA: {self._primeira()}", self._firme(), self._modos(),
+                  self._revisao(), "fora do acerto"]
+        return " · ".join(p for p in partes if p)
+
+
+def _por_cento(acertos: int, base: int) -> int | None:
+    return round(100 * acertos / base) if base else None
+
+
+def _respostas_das_geradas() -> list:
+    """Toda resposta a gerada, na ordem em que eu dei: a 1a de cada questao
+    e a que vem antes."""
+    criar_tabelas()
+    with sessao() as s:
+        return s.execute(
+            select(RespostaDeSimulado.id, RespostaDeSimulado.questao_id,
+                   RespostaDeSimulado.acertou, RespostaDeSimulado.chutou,
+                   QuestaoGerada.conteudo, QuestaoGerada.materia, QuestaoGerada.modo)
+            .join(QuestaoGerada, QuestaoGerada.id == RespostaDeSimulado.questao_id)
+            .where(RespostaDeSimulado.gerada.is_(True))
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+            .order_by(RespostaDeSimulado.respondida_em, RespostaDeSimulado.id)
+        ).all()
+
+
+def ids_das_primeiras() -> set[int]:
+    """Os ids das respostas que foram a 1a vez de cada gerada."""
+    vistas, primeiras = set(), set()
+    for linha in _respostas_das_geradas():
+        if linha.questao_id not in vistas:
+            primeiras.add(linha.id)
+        vistas.add(linha.questao_id)
+    return primeiras
+
+
+def _treino_das(linhas, minimo: int) -> TreinoDeIA:
+    """A conta, uma so: a 1a resposta de cada gerada vai para o nivel, as
+    seguintes para a revisao."""
+    vistas: set[int] = set()
+    n = dict(respondidas=0, acertos=0, revisao=0, revisao_acertos=0, chutes=0,
+             chutes_certos=0, variacao=0, variacao_acertos=0, do_zero=0,
+             do_zero_acertos=0)
+    for linha in linhas:
+        acertou = bool(linha.acertou)
+        if linha.questao_id in vistas:
+            n["revisao"] += 1
+            n["revisao_acertos"] += acertou
+            continue
+        vistas.add(linha.questao_id)
+        n["respondidas"] += 1
+        n["acertos"] += acertou
+        if linha.chutou:
+            n["chutes"] += 1
+            n["chutes_certos"] += acertou
+        modo = "variacao" if linha.modo == "variacao" else "do_zero"
+        n[modo] += 1
+        n[f"{modo}_acertos"] += acertou
+    return TreinoDeIA(minimo=minimo, **n)
+
+
+def _nivel_do_caminho(no: str) -> str:
+    from radar.conteudos import SEPARADOR
+
+    partes = no.count(SEPARADOR) + 1
+    return regua.NIVEIS[min(partes, len(regua.NIVEIS)) - 1]
+
+
+def treino_ia_dos_nos(nos) -> TreinoDeIA:
+    """O treino de IA de um tema (a faixa e a ficha): a 1a resposta de cada
+    gerada que aponta para um destes nos ou para um abaixo deles.
+
+    Um numero a parte, que nunca entra no acerto do tema (decisao 138). O
+    minimo e o do no mais largo entre os do tema: um assunto junto de um
+    subassunto pede o do assunto (decisao 152).
+    """
+    from radar.conteudos import SEPARADOR
+
+    nos = [n for n in dict.fromkeys(nos or ()) if n]
+    if not nos:
+        return TreinoDeIA()
+    minimos = regua.carregar()
+    minimo = max(minimos.do_treino_ia(_nivel_do_caminho(no)) for no in nos)
+    # Um no dentro do outro nao conta a resposta duas vezes: basta cair em um.
+    dentro = [linha for linha in _respostas_das_geradas()
+              if linha.conteudo and any(linha.conteudo == no
+                                        or linha.conteudo.startswith(no + SEPARADOR)
+                                        for no in nos)]
+    return _treino_das(dentro, minimo)
+
+
+def treino_ia_de(pertence, nivel: str = "materia") -> TreinoDeIA:
+    """O treino de IA das geradas cuja (conteudo, materia) `pertence` aceita:
+    a linha de Minhas materias, que casa a materia pelo nome do edital."""
+    linhas = [linha for linha in _respostas_das_geradas()
+              if pertence(linha.conteudo, linha.materia)]
+    return _treino_das(linhas, regua.carregar().do_treino_ia(nivel))
+
+
+def treino_ia_por_materia() -> list[tuple[str, TreinoDeIA]]:
+    """[(materia, treino)] - o Simulado e a tela de gerar. A materia pelo
+    nome do edital, como no acerto das reais; na ordem do nome."""
+    nome = _nome_da_materia()
+    por_materia: dict[str, list] = {}
+    for linha in _respostas_das_geradas():
+        por_materia.setdefault(nome(linha.materia), []).append(linha)
+    minimo = regua.carregar().do_treino_ia("materia")
+    return [(materia, _treino_das(linhas, minimo))
+            for materia, linhas in sorted(por_materia.items())]
+    criar_tabelas()
+    with sessao() as s:
+        linhas = s.execute(
+            select(RespostaDeSimulado.acertou, QuestaoGerada.conteudo)
+            .join(QuestaoGerada, QuestaoGerada.id == RespostaDeSimulado.questao_id)
+            .where(RespostaDeSimulado.gerada.is_(True))
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+        )
+        for acertou, conteudo in linhas:
+            # Um no dentro do outro nao conta a resposta duas vezes: basta
+            # cair em um deles.
+            if conteudo and any(conteudo == no or conteudo.startswith(no + SEPARADOR)
+                                for no in nos):
+                numeros.responder(bool(acertou), gerada=True)
+    return numeros
+
+
+def ultimas_das_geradas() -> dict[int, RespostaDeSimulado]:
+    """{id da gerada: a ultima resposta que eu dei a ela}.
+
+    E o que o sorteio das geradas olha (decisao 142): a que nao esta aqui eu
+    nunca fiz, e vem primeiro; das repetidas, a errada da ultima vez vem antes
+    da acertada, e a mais antiga antes da mais nova.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        respostas = s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.gerada.is_(True))
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+            .order_by(RespostaDeSimulado.respondida_em, RespostaDeSimulado.id))
+        # Em ordem de quando respondi: a ultima de cada uma fica por cima.
+        return {r.questao_id: r for r in respostas}
+
+
+def geradas_feitas_por_no(nos) -> dict[str, int]:
+    """{no: quantas geradas DIFERENTES dele (e de baixo dele) eu ja fiz}.
+
+    Questao, e nao resposta: refazer a mesma nao conta de novo - e o "ja fiz
+    X das Y" da faixa, contra as mesmas Y do `geradas.contagem_por_no` (nao
+    rejeitada, com resposta, com no).
+    """
+    from radar.conteudos import SEPARADOR
+
+    nos = list(dict.fromkeys(n for n in (nos or ()) if n))
+    if not nos:
+        return {}
+    feitas = set(ultimas_das_geradas())
+    criar_tabelas()
+    with sessao() as s:
+        linhas = s.execute(
+            select(QuestaoGerada.id, QuestaoGerada.conteudo)
+            .where(QuestaoGerada.rejeitada.is_(False))
+            .where(QuestaoGerada.resposta.is_not(None))
+            .where(QuestaoGerada.conteudo.is_not(None))).all()
+    do_no = [conteudo for gerada_id, conteudo in linhas if gerada_id in feitas]
+    return {no: sum(1 for c in do_no if c == no or c.startswith(no + SEPARADOR))
+            for no in nos}
+
+
+def desempenho_das_geradas(simulado_id: int | None = None) -> list[DesempenhoDaMateria]:
+    """O mesmo, para as questoes escritas pela IA. Sempre um numero a parte.
+
+    Existe como funcao propria, e nao como parametro de `desempenho`, porque
+    o parametro convidaria alguem a somar os dois um dia. Sao duas perguntas
+    diferentes: "quanto eu acerto do que a banca cobrou" e "quanto eu acerto
+    no treino que eu mandei escrever".
+    """
+    if simulado_id is None:
+        # O acumulado conta a 1a vez de cada gerada (decisao 152), como o das
+        # reais conta uma vez por questao. A rodada conta o que foi feito nela.
+        return _pior_primeiro([
+            DesempenhoDaMateria(materia, treino.respondidas, treino.acertos, origem=IA)
+            for materia, treino in treino_ia_por_materia() if treino.respondidas])
+    return _por_materia_das_respostas(QuestaoGerada, True, simulado_id)
+
+
+@dataclass(frozen=True)
+class AcertoDoNivel:
+    """O acerto de uma rodada de geradas num nivel (decisao 151). Mais um
+    numero a parte: o nivel e o que a IA declarou, e nunca mede nada."""
+
+    nivel: str | None
+    respondidas: int
+    acertos: int
+    origem: str = IA
+
+    @property
+    def rotulo(self) -> str:
+        return niveis.rotulo(self.nivel)
+
+    @property
+    def porcentagem(self) -> float:
+        return (self.acertos / self.respondidas * 100) if self.respondidas else 0.0
+
+
+def acerto_das_geradas_por_nivel(simulado_id: int) -> list[AcertoDoNivel]:
+    """Facil, media, dificil e sem nivel, nessa ordem, de uma rodada: so os
+    niveis que tem resposta, e so a 1a vez de cada gerada (decisao 152): a
+    que eu ja tinha feito antes e revisao, contada em `revisao_da_rodada`."""
+    criar_tabelas()
+    primeiras = ids_das_primeiras()
+    with sessao() as s:
+        linhas = s.execute(
+            select(QuestaoGerada.nivel, RespostaDeSimulado)
+            .join(QuestaoGerada, QuestaoGerada.id == RespostaDeSimulado.questao_id)
+            .where(RespostaDeSimulado.simulado_id == simulado_id)
+            .where(RespostaDeSimulado.gerada.is_(True))
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+        ).all()
+    por_nivel: dict[str | None, list] = {}
+    for nivel, resposta in linhas:
+        if resposta.id not in primeiras:
+            continue
+        por_nivel.setdefault(nivel if nivel in niveis.NIVEIS else None, []).append(resposta)
+    return [AcertoDoNivel(chave, *placar(por_nivel[chave]))
+            for chave in (*niveis.NIVEIS, None) if chave in por_nivel]
+
+
+def revisao_da_rodada(simulado_id: int) -> tuple[int, int]:
+    """(acertos, respondidas) das geradas desta rodada que eu ja tinha feito
+    antes: a revisao, ao lado do acerto por nivel (decisao 152)."""
+    criar_tabelas()
+    primeiras = ids_das_primeiras()
+    with sessao() as s:
+        respostas = list(s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.simulado_id == simulado_id)
+            .where(RespostaDeSimulado.gerada.is_(True))
+            .where(RespostaDeSimulado.escolhida.is_not(None))))
+    refeitas = [r for r in respostas if r.id not in primeiras]
+    return sum(1 for r in refeitas if r.acertou), len(refeitas)
+
+
+def resumo_do_simulado(simulado_id: int) -> dict:
+    """Quantas questoes a rodada tem, quantas respondi e quantas acertei."""
+    criar_tabelas()
+    with sessao() as s:
+        respostas = list(s.scalars(
+            select(RespostaDeSimulado).where(RespostaDeSimulado.simulado_id == simulado_id)
+        ))
+    respondidas, acertos = placar(respostas)
+    no_chute = [r for r in respostas if r.escolhida is not None and r.chutou]
+    return {
+        # O resultado da rodada de questao gerada leva o selo da IA.
+        "origem": IA if any(r.gerada for r in respostas) else AUTOMATICO,
+        "total": len(respostas),
+        "respondidas": respondidas,
+        "acertos": acertos,
+        "erros": respondidas - acertos,
+        # Sobre o total da rodada: a que nao respondi conta como nao acertada.
+        "porcentagem": acertos / len(respostas) * 100 if respostas else 0.0,
+        "terminou": bool(respostas) and respondidas == len(respostas),
+        # O "vou no chute" (decisao 142): ao lado do acerto, nunca dentro dele.
+        "chutes": len(no_chute),
+        "acertos_no_chute": sum(1 for r in no_chute if r.acertou),
+        # As duas contas inteiras da frase do relatorio: aqui, e nao no
+        # template (template nenhum soma).
+        "chutes_errados": sum(1 for r in no_chute if not r.acertou),
+        "acertos_sem_chute": acertos - sum(1 for r in no_chute if r.acertou),
+    }
+
+
+def andamento_da_rodada(simulado_id: int) -> dict:
+    """A fileira da tela da questao: uma marca por questao, na ordem, e
+    quantos acertos seguidos terminam na ultima respondida.
+
+    Marca: "certa", "errada" ou None (falta responder). A sequencia para no
+    primeiro erro para tras, e a que ainda nao respondi nao a quebra.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        respostas = list(s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.simulado_id == simulado_id)
+            .order_by(RespostaDeSimulado.ordem)
+        ))
+    marcas = [None if r.escolhida is None else ("certa" if r.acertou else "errada")
+              for r in respostas]
+    seguidas = 0
+    for marca in reversed([m for m in marcas if m is not None]):
+        if marca != "certa":
+            break
+        seguidas += 1
+    return {"marcas": marcas, "seguidas": seguidas}
+
+
+@dataclass
+class Evolucao:
+    """Quanto eu acerto, e se isso mudou nos ultimos 30 dias."""
+    origem = AUTOMATICO
+
+    #: RESPOSTAS a questao real, e nao questoes: a evolucao e o historico.
+    respondidas: int = 0
+    acertos: int = 0
+    #: Acerto nos ultimos 30 dias e antes deles. None quando a janela nao
+    #: tem resposta suficiente para dizer alguma coisa.
+    recente: float | None = None
+    anterior: float | None = None
+    #: Abaixo disto de respostas nao ha evolucao para medir: a tela convida
+    #: a responder, em vez de mostrar a porcentagem de meia duzia de
+    #: questoes. Vem do config/amostra.yml (`desempenho.evolucao`).
+    minimo: int = regua.PADRAO.evolucao
+
+    @property
+    def porcentagem(self) -> float:
+        return (self.acertos / self.respondidas * 100) if self.respondidas else 0.0
+
+    @property
+    def mensuravel(self) -> bool:
+        return self.respondidas >= self.minimo
+
+    @property
+    def faltam(self) -> int:
+        return max(0, self.minimo - self.respondidas)
+
+    @property
+    def variacao(self) -> float | None:
+        if self.recente is None or self.anterior is None:
+            return None
+        return self.recente - self.anterior
+
+
+def evolucao() -> Evolucao:
+    """Acerto geral em questao real, e a variacao dos ultimos 30 dias.
+
+    Conta TODAS as respostas, e nao so a ultima de cada questao: a evolucao e
+    o meu historico, e errar e depois acertar a mesma questao e justamente o
+    que ela tem que mostrar. Cada metade da comparacao precisa do minimo de
+    respostas, senao a variacao e sorteio.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        respostas = respostas_reais(s, so_as_que_medem=True)
+
+    respondidas, acertos = placar(respostas)
+    minimo = regua.carregar().evolucao
+    resultado = Evolucao(respondidas=respondidas, acertos=acertos, minimo=minimo)
+    corte = agora() - timedelta(days=DIAS_DA_EVOLUCAO)
+    recentes = [r for r in respostas if r.respondida_em and r.respondida_em >= corte]
+    antigas = [r for r in respostas if r.respondida_em and r.respondida_em < corte]
+
+    def taxa(lista):
+        if len(lista) < minimo:
+            return None
+        feitas, certas = placar(lista)
+        return certas / feitas * 100
+
+    resultado.recente = taxa(recentes)
+    resultado.anterior = taxa(antigas)
+    return resultado
+
+
+# --- o motivo de cada erro (decisao 174) ------------------------------------------
+
+#: As origens do motivo do erro, na ordem da tela. Nunca somadas: a questao real
+#: da FEPESE mede o que a banca cobra, a de outra banca so o meu acerto no no
+#: (decisao 166), a gerada treina (decisao 152), e a de fora do radar fui eu
+#: que contei.
+ORIGENS_DO_ERRO = {
+    "fepese": "Questões reais da banca do alvo, no radar",
+    "outras_bancas": "Questões de outras bancas, no radar",
+    "geradas": "Questões geradas por IA",
+    "fora_do_radar": "Fora do radar (Qconcursos)",
+}
+
+
+@dataclass
+class MotivosDosErros:
+    """Os erros de uma origem, por motivo. E um dado a mais, para o Historico:
+    nao entra em acerto, erro nem volume de nada que ja existe."""
+
+    origem: str
+    erros: int = 0
+    #: {chave dos MOTIVOS do servico/erros.py: quantos}.
+    por_motivo: dict = field(default_factory=dict)
+
+    @property
+    def com_motivo(self) -> int:
+        return sum(self.por_motivo.values())
+
+    @property
+    def sem_motivo(self) -> int:
+        return max(0, self.erros - self.com_motivo)
+
+    @property
+    def bobos(self) -> int:
+        """Li errado + Confundi (`erros.ERRO_BOBO`)."""
+        from radar.servico.erros import ERRO_BOBO
+
+        return sum(self.por_motivo.get(motivo, 0) for motivo in ERRO_BOBO)
+
+    def somar(self, motivo: str | None, quantos: int = 1) -> None:
+        if motivo:
+            self.por_motivo[motivo] = self.por_motivo.get(motivo, 0) + quantos
+
+
+def motivos_dos_erros(desde: date | None = None,
+                      ate: date | None = None) -> dict[str, MotivosDosErros]:
+    """Os erros por motivo, cada um contado UMA vez, por origem (decisao 174).
+
+    - **no radar**, cada resposta errada e um erro, como no volume: errar de
+      novo a mesma questao e outro erro, com o seu motivo. O motivo e o do
+      `erros.motivo_do_erro` (o "vou no chute" vale "chutei");
+    - **o caderno com fonte "radar" nunca conta**: o erro ja conta pela
+      resposta, e o caderno aberto pelo radar leva o motivo a ela;
+    - **fora do radar, por faixa e dia**: a nota com motivos e o total da faixa
+      e vale sozinha; sem ela, contam os erros do caderno daquela faixa (o
+      mesmo dia e o assunto igual ao titulo). A nota cujos motivos passam do
+      "fiz" fica de fora ate eu corrigir. O erro do caderno que nao e de
+      faixa nenhuma (estudo extra, outro) conta sozinho;
+    - **os erros de fora do radar** sao os do "fiz" com os acertos; da faixa
+      sem os acertos, so os erros a que eu dei motivo.
+    """
+    from radar.models import ErroAnotado
+    from radar.servico import erros as caderno
+    from radar.servico import notas_da_faixa
+
+    def no_periodo(dia: date) -> bool:
+        return (desde is None or dia >= desde) and (ate is None or dia <= ate)
+
+    contas = {origem: MotivosDosErros(origem) for origem in ORIGENS_DO_ERRO}
+    criar_tabelas()
+    with sessao() as s:
+        erradas = list(s.scalars(
+            select(RespostaDeSimulado)
+            .where(RespostaDeSimulado.escolhida.is_not(None))
+            .where(RespostaDeSimulado.acertou.is_(False))))
+        de_outra_banca = set(s.scalars(
+            select(QuestaoDeProva.id).where(QuestaoDeProva.evidencia == evidencia.FORA)))
+        estados = list(s.scalars(select(EstadoDoDia)))
+        do_caderno = list(s.scalars(select(ErroAnotado).where(ErroAnotado.fonte != "radar")))
+
+    for resposta in erradas:
+        if resposta.respondida_em is None or not no_periodo(
+                para_local(resposta.respondida_em).date()):
+            continue
+        origem = ("geradas" if resposta.gerada else
+                  "outras_bancas" if resposta.questao_id in de_outra_banca else "fepese")
+        contas[origem].erros += 1
+        contas[origem].somar(caderno.motivo_do_erro(resposta))
+
+    fora = contas["fora_do_radar"]
+    com_erros_no_fiz, com_nota = set(), set()
+    for estado in estados:
+        if not no_periodo(estado.data):
+            continue
+        for check in estado.faixas_feitas or []:
+            if check.get("questoes") is not None and check.get("acertos") is not None:
+                fora.erros += check["questoes"] - check["acertos"]
+                com_erros_no_fiz.add((estado.data, check.get("titulo")))
+        for nota in notas_da_faixa.do_dia(estado).values():
+            if not nota.motivos or nota.motivos_passam:
+                continue
+            com_nota.add((estado.data, nota.titulo))
+            for motivo, quantos in nota.motivos.items():
+                fora.somar(motivo, quantos)
+            if nota.erros_do_fiz is None:
+                # O "fiz" nao diz os erros (ou ainda nao existe): contam os
+                # que eu disse.
+                fora.erros += nota.soma_dos_motivos
+    for erro in do_caderno:
+        if not no_periodo(erro.data_estudo):
+            continue
+        da_faixa = (erro.data_estudo, erro.assunto)
+        if da_faixa in com_nota:
+            continue
+        fora.somar(erro.motivo)
+        if da_faixa not in com_erros_no_fiz:
+            fora.erros += 1
+    return contas

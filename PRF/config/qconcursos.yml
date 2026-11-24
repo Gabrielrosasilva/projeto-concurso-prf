@@ -1,0 +1,1402 @@
+# O link do Qconcursos de cada tema do cronograma da PMSC (decisao 140).
+#
+# O Qconcursos nao tem API e os termos dele proibem robo: o radar NUNCA consulta
+# o site. Os numeros abaixo sairam das listas de assuntos que o Gabriel copiou
+# do site em 24/10/2026 (F12 > Elements > <ul class="q-options">), guardadas em
+# pmsc/qconcursos/, e o radar so monta o endereco. O nome ao lado do numero e o
+# do site (com os espacos repetidos juntados), para conferir; quem vale e o
+# numero.
+#
+# Para corrigir um tema: troque os numeros e o nome (copiados da lista do site,
+# nunca de cabeca). O tema e reconhecido pelo titulo da faixa sem o prefixo
+# ("Fixação: ", "Aprendizagem: ", "R+7: "...), sem acento e sem caixa, como a
+# ficha. Um tema tem uma disciplina so: o radar monta um filtro por disciplina.
+# Tema que nao esta aqui continua com o filtro escrito do plano.
+#
+# `aviso`: quando o assunto do site e mais largo que o tema (ou falta parte do
+# tema no site), a faixa diz o que pular - o link traz mais do que voce
+# estudou, e isso nao pode medir calado.
+#
+# O assunto-pai (ex.: "13 Crase") entra quando todos os filhos dele sao do tema
+# (nao se sabe se o site traz os filhos pelo pai). As tres excecoes - "11
+# Seguranca da Informacao", "12 Navegadores" e "14 Medidas Socioeducativas" -
+# entram pelo generico, e o aviso diz qual filho pular.
+#
+# As revisoes e as baterias de uma disciplina so juntam todos os assuntos do
+# site que o edital cobra.
+#
+# Sem assunto no site (ficam sem link, com o filtro escrito do plano):
+#   Legislacao Institucional - nenhuma lei da PMSC tem disciplina no site, nem
+#   a Lei 14.751/2023:
+#     Estatuto da PMSC 1: generalidades, hierarquia e disciplina (Lei 6.218/83)
+#     Estatuto da PMSC 2: obrigações, deveres e violação dos deveres (Lei 6.218/83)
+#     Estatuto da PMSC 3: direitos, prerrogativas e situações especiais (Lei 6.218/83)
+#     Estatuto da PMSC 4: exclusão do serviço ativo e tempo de serviço (Lei 6.218/83)
+#     Lei Orgânica Nacional das PMs e CBMs 1 (Lei 14.751/2023)
+#     Lei Orgânica Nacional das PMs e CBMs 2 (Lei 14.751/2023)
+#     Processo Administrativo Disciplinar na PMSC (Portaria 009/2001)
+#     Ingresso nas carreiras militares de SC (LC 587/2013)
+#     Conselho de Disciplina da PMSC (Lei 5.209/76)
+#     Promoção das praças (LC 801/2022)
+#     Regime remuneratório especial: o subsídio (LC 765/2020)
+#     Organização Básica da PMSC (Decreto 1.601/2021)
+#     Revisão final 1: as 8 leis institucionais
+#     Questões: as 8 leis institucionais
+#   Sem a lei no site - o 40.x do Direito Penal nao tem a Lei 9.605/98:
+#     Novo no edital: Crimes ambientais (Lei 9.605/98)
+#   Misturam disciplinas do site:
+#     Questões: Legislação Especial (todas as leis)   (Penal, Processo Penal, ECA e Idoso)
+#     Questões: Penal, Processo Penal e Legislação Especial
+#     Revisão final 5: Penal, Processo Penal e Legislação Especial pelo caderno de erros
+#     Português e Informática: revisão final
+#     Mini simulado: 30 questões de tudo
+
+# Instituto AOCP (o numero do filtro Banca do site).
+banca: 379
+
+# Os numeros das disciplinas no site, para ler os temas (o do Portugues nao
+# vinha no endereco da lista copiada: e o 1 de sempre). As leis penais
+# especiais ficam no Direito Penal do site (40.x), menos a organizacao
+# criminosa e a interceptacao telefonica, que ficam no Processo Penal (27 e
+# 25); o ECA e o Estatuto da Pessoa Idosa tem disciplina propria. O Processo
+# Penal Militar (204) e a Legislacao da Justica Militar (556) tambem foram
+# copiados, mas nao sao do edital da PMSC: ficam fora.
+disciplinas:
+  Português: 1
+  Direito Constitucional: 3
+  Direito Penal: 9
+  Direito Processual Penal: 10
+  Noções de Informática: 46
+  Legislação de Trânsito: 200
+  Direito Penal Militar: 203
+  "Direito da Criança e do Adolescente - Estatuto da Criança e do Adolescente (ECA) - Lei nº 8.069 de 1990": 233
+  "Estatuto da Pessoa Idosa - Lei nº 10.741 de 2003": 534
+
+temas:
+
+  # --- Direito Constitucional --------------------------------------------------
+  - tema: "Princípios fundamentais, nacionalidade e direitos políticos (CF arts. 1º a 4º e 12 a 16)"
+    disciplina: 3
+    assuntos:
+      49: "3 Princípios Fundamentais da República"
+      8608: "3.1 Fundamentos da República"
+      32510: "3.2 Princípios Estruturantes"
+      16262: "3.3 Objetivos Fundamentais da República"
+      16263: "3.4 Princípios de Direito Constitucional Internacional"
+      438: "8 Direitos da Nacionalidade"
+      437: "9 Direitos Políticos"
+  - tema: "Organização do Estado: entes, competências e intervenção (CF arts. 18 a 36)"
+    disciplina: 3
+    assuntos:
+      1979: "11 Organização Político-Administrativa do Estado"
+      16266: "11.1 Formas de Estado - Estado Unitário, Confederação e Federação"
+      18614: "11.2 O Federalismo Brasileiro"
+      6085: "11.3 Repartição de Competências Constitucionais"
+      1567: "11.4 Organização do Estado - União"
+      1977: "11.5 Organização do Estado – Estados"
+      1978: "11.6 Organização do Estado – Municípios"
+      16329: "11.7 Organização do Estado - Distrito Federal e Territórios"
+      846: "11.8 Intervenção Federal e Estadual"
+  - tema: "Administração Pública, servidores e militares dos Estados (CF arts. 37 a 42)"
+    disciplina: 3
+    assuntos:
+      806: "12 Administração Pública – Disposições Gerais e Servidores Públicos"
+      16267: "12.1 Princípios da Administração Pública"
+      16268: "12.2 Servidores Públicos"
+      16269: "12.3 Disposições Gerais na Administração Pública"
+    aviso: "O site não tem assunto para os militares dos Estados (art. 42): o link traz a Administração Pública e os servidores (arts. 37 a 41)."
+  - tema: "Direitos e garantias individuais e remédios constitucionais (CF art. 5º)"
+    disciplina: 3
+    assuntos:
+      16321: "5 Direitos Individuais"
+      16322: "5.1 Direito à Vida"
+      16323: "5.2 Direito à Liberdade"
+      16324: "5.3 Direito à Igualdade"
+      16325: "5.4 Direito à Privacidade"
+      16328: "5.5 Direito de Resposta e de Indenização"
+      16327: "5.6 Direito de Propriedade e Função Social da Propriedade"
+      16249: "6 Direitos Individuais - Remédios Constitucionais e Garantias Processuais"
+      1418: "6.1 Remédios e Garantias Constitucionais"
+      20765: "6.2 Habeas Corpus"
+      20764: "6.3 Habeas Data"
+      20763: "6.4 Mandado de Segurança"
+      20762: "6.5 Mandado de Segurança Coletivo"
+      20761: "6.6 Mandado de Injunção"
+      20760: "6.7 Ação Popular"
+      16265: "6.8 Direitos Constitucionais-Penais e Garantias Constitucionais do Processo"
+    aviso: "O site não separa os incisos: o link traz o art. 5º inteiro. Comece pelas de tratados (§ 3º), mandado de injunção, grupos armados, casa e associações, as que caíram."
+  - tema: "Poder Legislativo e processo legislativo (CF arts. 44 a 75)"
+    disciplina: 3
+    assuntos:
+      748: "14 Poder Legislativo"
+      16271: "14.1 Funções Típicas e Atípicas"
+      16272: "14.2 Congresso Nacional"
+      16273: "14.3 Câmara dos Deputados"
+      16274: "14.4 Senado Federal"
+      20758: "14.5 Vedações, Garantias e Imunidades Parlamentares"
+      16275: "14.6 Comissões Parlamentares e Comissões Parlamentares de Inquérito (CPIs)"
+      16276: "14.7 Tribunal de Contas da União (TCU) e Fiscalização Contábil, Financeira e Orçamentária da União"
+      16330: "14.8 Tribunais de Contas dos Estados (TCEs) e Tribunais e Conselhos de Contas dos Municípios"
+      731: "15 Processo Legislativo"
+      16277: "15.1 Processo Legislativo Ordinário"
+      16278: "15.2 Fase Introdutória – Iniciativa de Lei por Parlamentar e Extra-Parlamentar"
+      16279: "15.3 Fase Constitutiva"
+      16280: "15.4 Deliberação Parlamentar"
+      16281: "15.5 Regime de Urgência (Processo Legislativo Sumário)"
+      16282: "15.6 Deliberação Executiva"
+      16283: "15.7 Fase Complementar"
+      16284: "15.8 Espécies Normativas: Lei Complementar e Lei Ordinária"
+      16285: "15.9 Espécies Normativas: Medida Provisória, Lei Delegada, Decreto Legislativo e Resolução"
+      # Desde 06/11 o dia traz tambem o Poder Constituinte (3 questoes da AOCP, sem dia antes).
+      428: "1.3 Poder Constituinte Originário, Derivado e Decorrente - Reforma (Emendas e Revisão) e Mutação da Constituição"
+  # 06/11: o 27/11 virou Defesa do Estado e segurança pública, com o Executivo no fim
+  # (o Judiciario caiu 1 vez em 14 provas). O tema de antes fica aqui, sem faixa.
+  - tema: "Defesa do Estado e segurança pública (arts. 136 a 144)"
+    disciplina: 3
+    assuntos:
+      16256: "21 Defesa do Estado e das Instituições Democráticas"
+      53: "21.1 Estado de Defesa"
+      16305: "21.2 Estado de Sítio"
+      16306: "21.3 Forças Armadas e Segurança Pública"
+      16251: "16 Poder Executivo"
+      753: "16.1 Presidente da República, Vice-Presidente da República e Ministros de Estado."
+      16286: "16.2 Imunidade, Crimes Comuns, Crimes de Responsabilidade (Lei nº 1.079 de 1950) e Impeachment"
+      1980: "16.3 Conselho da República e Conselho de Defesa Nacional"
+  - tema: "Poder Executivo, Poder Judiciário e Justiça Militar (CF arts. 76 a 100 e 122 a 126)"
+    disciplina: 3
+    assuntos:
+      16251: "16 Poder Executivo"
+      753: "16.1 Presidente da República, Vice-Presidente da República e Ministros de Estado."
+      16286: "16.2 Imunidade, Crimes Comuns, Crimes de Responsabilidade (Lei nº 1.079 de 1950) e Impeachment"
+      1980: "16.3 Conselho da República e Conselho de Defesa Nacional"
+      16254: "17 Poder Judiciário"
+      752: "17.1 Disposições Gerais no Poder Judiciário"
+      16287: "17.2 Garantias do Poder Judiciário e de seus Membros"
+      16288: "17.3 Vedações"
+      16289: "17.4 Quinto Constitucional da OAB e do MP"
+      1985: "18.5 Justiça Militar"
+      1986: "18.6 Tribunais e Juízes dos Estados"
+  - tema: "Constituição de Santa Catarina: organização e segurança pública (arts. 1º a 40, 50 a 76, 90, 105 a 109-C)"
+    disciplina: 3
+    assuntos:
+      858: "26 Constituições Estaduais"
+    aviso: "26 Constituições Estaduais junta as Constituições de todos os Estados: faça só as da Constituição de Santa Catarina."
+  # A revisao junta tudo o que o edital cobra: a teoria (conceito, classificacao,
+  # estrutura e poder constituinte), os arts. 1º a 42, 44 a 100 e 122 a 144 - sem STF,
+  # STJ, TRF, TRT, TRE, CNJ e controle de constitucionalidade, que sao dos arts. 101 a
+  # 121 - e a Constituicao de SC.
+  - tema: "Revisão final 4: Constitucional e Constituição de SC"
+    disciplina: 3
+    assuntos:
+      21364: "1.1 Conceito de Constituição"
+      428: "1.3 Poder Constituinte Originário, Derivado e Decorrente - Reforma (Emendas e Revisão) e Mutação da Constituição"
+      426: "1.6 Classificação das Constituições"
+      16320: "2 Preâmbulo da Constituição da República Federativa do Brasil - 1988"
+      49: "3 Princípios Fundamentais da República"
+      8608: "3.1 Fundamentos da República"
+      32510: "3.2 Princípios Estruturantes"
+      16262: "3.3 Objetivos Fundamentais da República"
+      16263: "3.4 Princípios de Direito Constitucional Internacional"
+      18351: "4 Teoria dos Direitos Fundamentais"
+      16321: "5 Direitos Individuais"
+      16322: "5.1 Direito à Vida"
+      16323: "5.2 Direito à Liberdade"
+      16324: "5.3 Direito à Igualdade"
+      16325: "5.4 Direito à Privacidade"
+      16328: "5.5 Direito de Resposta e de Indenização"
+      16327: "5.6 Direito de Propriedade e Função Social da Propriedade"
+      16249: "6 Direitos Individuais - Remédios Constitucionais e Garantias Processuais"
+      1418: "6.1 Remédios e Garantias Constitucionais"
+      20765: "6.2 Habeas Corpus"
+      20764: "6.3 Habeas Data"
+      20763: "6.4 Mandado de Segurança"
+      20762: "6.5 Mandado de Segurança Coletivo"
+      20761: "6.6 Mandado de Injunção"
+      20760: "6.7 Ação Popular"
+      16265: "6.8 Direitos Constitucionais-Penais e Garantias Constitucionais do Processo"
+      436: "7 Direitos Sociais"
+      438: "8 Direitos da Nacionalidade"
+      437: "9 Direitos Políticos"
+      868: "10 Partidos Políticos"
+      32511: "10.1 Noção geral"
+      32512: "10.2 Princípios e características dos partidos políticos"
+      32513: "10.3 Cláusula de barreira no acesso ao fundo partidário e direito de antena"
+      32514: "10.4 (In)fidelidade partidária e justa causa"
+      1979: "11 Organização Político-Administrativa do Estado"
+      16266: "11.1 Formas de Estado - Estado Unitário, Confederação e Federação"
+      18614: "11.2 O Federalismo Brasileiro"
+      6085: "11.3 Repartição de Competências Constitucionais"
+      1567: "11.4 Organização do Estado - União"
+      1977: "11.5 Organização do Estado – Estados"
+      1978: "11.6 Organização do Estado – Municípios"
+      16329: "11.7 Organização do Estado - Distrito Federal e Territórios"
+      846: "11.8 Intervenção Federal e Estadual"
+      806: "12 Administração Pública – Disposições Gerais e Servidores Públicos"
+      16267: "12.1 Princípios da Administração Pública"
+      16268: "12.2 Servidores Públicos"
+      16269: "12.3 Disposições Gerais na Administração Pública"
+      16250: "13 Organização dos Poderes"
+      16270: "13.1 Princípio da Separação dos Poderes"
+      748: "14 Poder Legislativo"
+      16271: "14.1 Funções Típicas e Atípicas"
+      16272: "14.2 Congresso Nacional"
+      16273: "14.3 Câmara dos Deputados"
+      16274: "14.4 Senado Federal"
+      20758: "14.5 Vedações, Garantias e Imunidades Parlamentares"
+      16275: "14.6 Comissões Parlamentares e Comissões Parlamentares de Inquérito (CPIs)"
+      16276: "14.7 Tribunal de Contas da União (TCU) e Fiscalização Contábil, Financeira e Orçamentária da União"
+      16330: "14.8 Tribunais de Contas dos Estados (TCEs) e Tribunais e Conselhos de Contas dos Municípios"
+      731: "15 Processo Legislativo"
+      16277: "15.1 Processo Legislativo Ordinário"
+      16278: "15.2 Fase Introdutória – Iniciativa de Lei por Parlamentar e Extra-Parlamentar"
+      16279: "15.3 Fase Constitutiva"
+      16280: "15.4 Deliberação Parlamentar"
+      16281: "15.5 Regime de Urgência (Processo Legislativo Sumário)"
+      16282: "15.6 Deliberação Executiva"
+      16283: "15.7 Fase Complementar"
+      16284: "15.8 Espécies Normativas: Lei Complementar e Lei Ordinária"
+      16285: "15.9 Espécies Normativas: Medida Provisória, Lei Delegada, Decreto Legislativo e Resolução"
+      16251: "16 Poder Executivo"
+      753: "16.1 Presidente da República, Vice-Presidente da República e Ministros de Estado."
+      16286: "16.2 Imunidade, Crimes Comuns, Crimes de Responsabilidade (Lei nº 1.079 de 1950) e Impeachment"
+      1980: "16.3 Conselho da República e Conselho de Defesa Nacional"
+      16254: "17 Poder Judiciário"
+      752: "17.1 Disposições Gerais no Poder Judiciário"
+      16287: "17.2 Garantias do Poder Judiciário e de seus Membros"
+      16288: "17.3 Vedações"
+      16289: "17.4 Quinto Constitucional da OAB e do MP"
+      1985: "18.5 Justiça Militar"
+      1986: "18.6 Tribunais e Juízes dos Estados"
+      751: "19 Funções Essenciais à Justiça"
+      16290: "19.1 Ministério Público"
+      16291: "19.2 Advocacia Pública"
+      16292: "19.3 Advocacia"
+      16293: "19.4 Defensoria Pública no Direito Constitucional"
+      16256: "21 Defesa do Estado e das Instituições Democráticas"
+      53: "21.1 Estado de Defesa"
+      16305: "21.2 Estado de Sítio"
+      16306: "21.3 Forças Armadas e Segurança Pública"
+      858: "26 Constituições Estaduais"
+    aviso: "26 Constituições Estaduais junta as Constituições de todos os Estados: dela, faça só as da Constituição de Santa Catarina."
+
+  # --- Direito Penal -----------------------------------------------------------
+  - tema: "Novo no edital: Princípios aplicáveis ao Direito Penal"
+    disciplina: 9
+    assuntos:
+      16670: "1.2 Princípios limitadores do poder punitivo estatal"
+      17213: "9.3 Princípios norteadores da teoria da pena"
+  - tema: "Novo no edital: Penas: espécies (privativas, restritivas de direitos e multa)"
+    disciplina: 9
+    assuntos:
+      17472: "9.4 Modalidades de sanções penais"
+      17473: "10.1 Modalidades das Penas privativas de liberdade"
+      17216: "10.2 Regimes penitenciários"
+      17217: "10.3 Diferenças entre reclusão e detenção"
+      17222: "10.9 Fixação do regime inicial da pena privativa de liberdade"
+      17229: "11.1 Conceito e características"
+      17230: "11.2 Substituição - Concessão."
+      17231: "11.3 Substituição - Revogação."
+      17234: "12 Pena de multa"
+      17235: "12.1 Conceito e Características da Pena de Multa"
+      17236: "12.2 Espécies de Pena de Multa"
+      17237: "12.3 Dosimetria"
+      17238: "12.4 Consequências do inadimplemento da pena de multa"
+      26388: "12.5 Limites das penas de multa"
+  - tema: "Novo no edital: Aplicação da pena e concurso de crimes"
+    disciplina: 9
+    assuntos:
+      16780: "7 Concurso de crimes"
+      16781: "7.1 Concurso material"
+      16782: "7.2 Concurso formal"
+      16783: "7.3 Crime continuado"
+      17218: "10.4 Noções gerais de dosimetria da pena privativa de liberdade"
+      17219: "10.5 Primeira fase da dosimetria"
+      17220: "10.6 Segunda fase da dosimetria."
+      17474: "10.7 Reincidência"
+      17221: "10.8 Terceira fase da dosimetria"
+  - tema: "Novo no edital: Sursis, livramento condicional, efeitos da condenação e reabilitação"
+    disciplina: 9
+    assuntos:
+      17232: "11.4 Suspensão condicional da pena. Concessão."
+      17233: "11.5 Suspensão condicional da pena. Revogação."
+      17246: "14 Livramento condicional"
+      17247: "14.1 Conceito e consequências"
+      17248: "14.2 Requisitos para a concessão"
+      17249: "14.3 Condições a serem impostas no curso do benefício"
+      17250: "14.4 Causas e consequências da revogação do benefício"
+      17251: "14.5 Prorrogação do período de prova"
+      17252: "14.6 Extinção da pena"
+      17253: "15 Efeitos da condenação"
+      17254: "15.1 Efeito principal e efeitos secundários"
+      17255: "15.2 Efeitos secundários de natureza penal e de natureza extrapenal"
+      17256: "15.3 Efeitos secundários de natureza extrapenal genéricos"
+      17257: "15.4 Efeitos secundários de natureza extrapenal específicos"
+      17258: "16 Reabilitação criminal"
+      17259: "16.1 Pressupostos"
+      17260: "16.2 Competência e procedimento"
+      17261: "16.3 Revogação"
+  - tema: "Novo no edital: Medidas de segurança e extinção da punibilidade"
+    disciplina: 9
+    assuntos:
+      17239: "13 Medida de segurança"
+      17240: "13.1 Conceito de Medida de Segurança"
+      17242: "13.2 Espécies de Medida de Segurança"
+      17241: "13.3 Distinções entre a pena e a medida de segurança"
+      17243: "13.4 Prazo de duração"
+      17244: "13.5 Superveniência de doença mental"
+      17245: "13.6 Inimputabilidade decorrente de dependência química"
+      17271: "18 Causas de extinção da punibilidade"
+      17272: "18.1 Causas de Extinção da Punibilidade - Noções gerais"
+      17273: "18.2 Morte do agente"
+      17274: "18.3 Anistia, graça e indulto"
+      17275: "18.4 Abolitio criminis"
+      17276: "18.5 Prescrição. Conceito e modalidades"
+      17277: "18.6 Prazos prescricionais e forma de contagem dos prazos"
+      17278: "18.7 Interrupção e suspensão da contagem dos prazos prescricionais"
+      17279: "18.8 Prescrição da pretensão punitiva pela pena em abstrato"
+      17280: "18.9 Prescrição da pretensão punitiva pela pena em concreto"
+      17282: "18.10 Prescrição da pretensão executória"
+      17283: "18.11 Prescrição no processo do Tribunal do Juri"
+      17284: "18.12 Prescrição no concurso de crimes"
+      17285: "18.13 Prescrição da pena de multa"
+      17286: "18.14 Prescrição da medida de segurança"
+      17287: "18.15 Decadência."
+      17288: "18.16 Perempção"
+      17289: "18.17 Renúncia"
+      17290: "18.18 Perdão do ofendido"
+      17291: "18.19 Retratação do agente"
+      17292: "18.20 Perdão judicial"
+  - tema: "Novo no edital: Crimes contra a vida e lesão corporal"
+    disciplina: 9
+    assuntos:
+      17293: "19 Crimes contra a vida"
+      17294: "19.1 Homicídio"
+      17295: "19.2 Induzimento, instigação ou auxílio ao suicídio"
+      17296: "19.3 Infanticídio"
+      17297: "19.4 Aborto"
+      32911: "19.5 Feminicídio"
+      34583: "19.6 Vicaricídio"
+      17298: "20 Lesões corporais"
+      17299: "20.1 Lesão corporal e suas diversas modalidades"
+      17300: "20.2 Lesão corporal leve e culposa"
+      17301: "20.3 Lesões corporais qualificadas"
+      17302: "20.4 Violência doméstica"
+  - tema: "Novo no edital: Crimes contra a honra e a liberdade individual"
+    disciplina: 9
+    assuntos:
+      17311: "23 Crimes contra a honra"
+      17312: "23.1 Noções Gerais de Crimes Contra a Honra"
+      17313: "23.2 Calúnia"
+      17314: "23.3 Difamação"
+      17315: "23.4 Injúria"
+      17316: "23.5 Disposições comuns"
+      17317: "24 Crimes contra a liberdade pessoal"
+      17318: "24.1 Constrangimento ilegal"
+      32048: "24.2 Intimidação sistemática (bullying)"
+      17319: "24.3 Ameaça"
+      27803: "24.4 Perseguição"
+      31438: "24.5 Violência Psicológica Contra a Mulher"
+      17320: "24.6 Sequestro ou cárcere privado"
+      17321: "24.7 Redução à condição análoga à de escravo"
+      21251: "24.8 Tráfico de Pessoas"
+      17322: "25 Crimes contra a inviolabilidade do domicílio"
+      17323: "26 Crimes contra a inviolabilidade de correspondência"
+      17324: "27 Crimes contra a inviolabilidade de segredos"
+  - tema: "Novo no edital: Crimes contra o patrimônio 1: furto, roubo e extorsão"
+    disciplina: 9
+    assuntos:
+      17326: "28.1 Furto"
+      17327: "28.2 Roubo"
+      17328: "28.3 Extorsão"
+      17329: "28.4 Extorsão mediante sequestro"
+      17330: "28.5 Extorsão indireta"
+  - tema: "Novo no edital: Crimes contra o patrimônio 2: apropriação, estelionato e receptação"
+    disciplina: 9
+    assuntos:
+      17333: "28.8 Apropriação indébita"
+      17334: "28.9 Estelionato"
+      17337: "28.12 Receptação"
+      17338: "28.13 Disposições gerais nos Crimes Contra o Patrimônio"
+  - tema: "Novo no edital: Crimes contra a dignidade sexual"
+    disciplina: 9
+    assuntos:
+      17343: "33 Crimes contra a dignidade sexual"
+      17344: "33.1 Estupro"
+      30961: "33.2 Registro não autorizado da intimidade sexual"
+      17345: "33.3 Violação sexual mediante fraude"
+      17346: "33.4 Assédio sexual"
+      17347: "33.5 Estupro de vulnerável"
+      19084: "33.6 Corrupção de menores"
+      17349: "33.7 Satisfação de lascívia mediante a presença de criança ou adolescente"
+      17350: "33.8 Favorecimento de prostituição ou outra forma de exploração sexual de vulnerável"
+      30962: "33.9 Divulgação de cena de estupro ou de cena de estupro de vulnerável, de cena de sexo ou de pornografia"
+      19087: "33.10 Disposições Gerais dos crimes contra a liberdade sexual e dos crimes sexuais contra vulneráveis"
+      17351: "33.11 Mediação para satisfazer a lascívia de outrem"
+      17352: "33.12 Favorecimento da prostituição ou outra forma de exploração sexual"
+      17353: "33.13 Casa de prostituição"
+      17354: "33.14 Rufianismo"
+      23656: "33.15 Importunação Sexual"
+      19086: "33.16 Ultraje público ao pudor"
+      23657: "33.17 Divulgação de cena de estupro de vulnerável, de cena de sexo ou de pornografia"
+      23658: "33.18 Promoção de migração ilegal"
+  # 06/11: os tres de Penal que entraram no lugar da honra (16/11), da dignidade
+  # sexual (26/11) e da fe publica (30/11), pelo que a AOCP mais cobra.
+  - tema: "Novo no edital: Lei penal no tempo e no espaço (CP, arts. 1º a 7º)"
+    disciplina: 9
+    assuntos:
+      16669: "1.3 A norma penal"
+      16671: "1.4 Conflito aparente de normas"
+      16672: "1.5 Lei penal no tempo"
+      16673: "1.6 Lei penal no espaço"
+  - tema: "Novo no edital: Crimes contra a Administração Pública: peculato, concussão, corrupção e prevaricação"
+    disciplina: 9
+    assuntos:
+      17399: "38.1 Noções Gerais de Crimes Contra a Administração Pública"
+      17400: "38.2 Peculato"
+      17401: "38.3 Peculato mediante erro de outrem"
+      17405: "38.7 Emprego irregular de verbas ou rendas públicas"
+      17406: "38.8 Concussão e Excesso de Exação"
+      17408: "38.9 Corrupção passiva"
+      17410: "38.11 Prevaricação"
+      17412: "38.13 Advocacia administrativa"
+      17416: "38.17 Violação de sigilo funcional"
+      17419: "38.20 Resistência"
+      17420: "38.21 Desobediência"
+      17421: "38.22 Desacato"
+      23715: "38.23 Tráfico de influência"
+      17423: "38.24 Corrupção ativa"
+  - tema: "Novo no edital: Teoria do crime (CP, arts. 13 a 31)"
+    disciplina: 9
+    assuntos:
+      16681: "3.7 Nexo de causalidade"
+      16771: "3.8 Causas absolutamente independentes"
+      16772: "3.9 Causas relativamente independentes"
+      3170: "3.4 Tipo Penal Culposo"
+      16685: "3.11 Consumação e tentativa"
+      16686: "3.12 Desistência voluntária e arrependimento eficaz"
+      16687: "3.13 Crime impossível"
+      16688: "3.14 Arrependimento posterior"
+      16774: "3.18 Erro do tipo essencial"
+      16775: "3.19 Erro de tipo acidental"
+      16693: "4.2 Legítima defesa"
+      16694: "4.3 Estado de necessidade"
+      16695: "4.4 Estrito cumprimento de dever legal e exercício regular de direito"
+      17468: "5.2 Imputabilidade penal"
+      16700: "5.6 Potencial conhecimento da ilicitude – Erro de proibição"
+      16778: "5.7 Descriminantes Putativas"
+      16701: "6.1 Noções gerais de Concursos de Pessoas"
+      17205: "6.3 Participação"
+  - tema: "Novo no edital: Crimes contra a fé pública"
+    disciplina: 9
+    assuntos:
+      17383: "37 Crimes contra a fé pública"
+      17384: "37.1 Moeda falsa"
+      17385: "37.2 Petrechos para falsificação de moeda"
+      17386: "37.3 Falsidade de títulos e outros papéis públicos"
+      17387: "37.4 Falsidade de documento público"
+      17388: "37.5 Falsidade de documento particular"
+      17389: "37.6 Falsidade ideológica"
+      17390: "37.7 Falso reconhecimento de firma ou letra"
+      17391: "37.8 Certidão ou atestado ideologicamente falso"
+      17393: "37.9 Falsidade de atestado médico"
+      17395: "37.10 Uso de documento falso"
+      17396: "37.11 Supressão de documento"
+      19276: "37.12 Fraudes em certames de interesse público"
+      17397: "37.13 Outras falsidades"
+
+  # --- Legislacao Especial -----------------------------------------------------
+  - tema: "Novo no edital: Crimes hediondos (Lei 8.072/90)"
+    disciplina: 9
+    assuntos:
+      17455: "40.6 Lei de Crimes Hediondos – Lei nº 8.072 de 1990"
+  - tema: "Novo no edital: Abuso de autoridade (Lei 13.869/19)"
+    disciplina: 9
+    assuntos:
+      17461: "40.2 Lei do Abuso de Autoridade – Lei nº 4.898 de 1965 e Lei n° 13.869 de 2019"
+    aviso: "O assunto do site junta a lei antiga de abuso de autoridade (Lei 4.898/65, revogada) e a nova: pule as da 4.898."
+  # A Lei 12.850 fica no Processo Penal do site (27), e nao no 40.x do Direito Penal.
+  - tema: "Novo no edital: Organização criminosa (Lei 12.850/13)"
+    disciplina: 10
+    assuntos:
+      23515: "27 Lei de Organização Criminosa – Lei nº 12.850 de 2013"
+  # 06/11: as tres leis que a AOCP mais cobra entraram no lugar do racismo
+  # (18/11), das nulidades (20/11) e da pessoa idosa (02/12).
+  - tema: "Novo no edital: Maria da Penha (Lei 11.340/06) e Tortura (Lei 9.455/97)"
+    disciplina: 9
+    assuntos:
+      34747: "40.14 Lei Maria da Penha (Lei 11.340/06)"
+      17462: "40.8 Lei dos Crimes de Tortura – Lei nº 9.455 de 1997"
+  - tema: "Novo no edital: Estatuto do Desarmamento (Lei 10.826/03)"
+    disciplina: 9
+    assuntos:
+      17456: "40.11 Lei de Armas (Estatuto do Desarmamento) – Lei nº 10.826 de 2003 e Decretos Regulamentares"
+    aviso: "O assunto do site junta os decretos regulamentares: a AOCP cobrou o decreto uma vez só (DEPPEN-PR 2024); priorize as da Lei 10.826."
+  - tema: "Novo no edital: Drogas (Lei 11.343/06)"
+    disciplina: 9
+    assuntos:
+      17457: "40.13 Lei de Tóxicos – Lei nº 11.343 de 2006"
+    aviso: "Desde 26/06/2024 o porte de maconha para uso próprio não é crime (STF, Tema 506): questão antiga que diga o contrário está desatualizada."
+  - tema: "Novo no edital: Racismo (Lei 7.716/89) e identificação criminal (Lei 12.037/09)"
+    disciplina: 9
+    assuntos:
+      17466: "40.5 Crimes Resultantes de Preconceito de Raça ou Cor – Lei nº 7.716 de 1989"
+    aviso: "A identificação criminal (Lei 12.037/09) não tem assunto no site: o link traz só o racismo (Lei 7.716/89)."
+  # O ECA inteiro (1 a 18). Ficam fora as outras leis da disciplina (19 a 24) e o
+  # 14.1 SINASE; o 14 Medidas Socioeducativas entra pelo generico dele.
+  - tema: "Novo no edital: Estatuto da Criança e do Adolescente (Lei 8.069/90)"
+    disciplina: 233
+    assuntos:
+      20988: "1 Conceito de Criança e Adolescente e Prioridades"
+      6987: "2 Direitos Fundamentais no ECA"
+      20989: "2.1 Direito à Vida no ECA"
+      20990: "2.2 Direito à Liberdade, ao Respeito e à Dignidade no ECA"
+      20992: "2.3 Direito à Educação, Cultura, Esporte e Lazer"
+      20993: "2.4 Direito à profissionalização e à proteção no trabalho"
+      20991: "2.5 Poder Familiar e o Direito à Convivência Familiar e Comunitária"
+      5048: "3 Guarda"
+      8752: "4 Tutela"
+      5047: "5 Adoção"
+      6933: "6 Prevenção"
+      6814: "7 Política de Atendimento"
+      21332: "8 Conselhos da Criança e do Adolescente"
+      21023: "9 Fundos Nacional, Estadual, Distrital e Municipal dos Direitos da Criança e do Adolescente"
+      21342: "10 Entidades de atendimento"
+      21334: "11 Conselho Tutelar"
+      9366: "12 Medidas Pertinentes aos Pais ou Responsáveis"
+      5302: "13 Ato infracional"
+      20994: "13.1 Direitos Individuais"
+      20995: "13.2 Garantias Processuais"
+      20998: "14 Medidas Socioeducativas"
+      20999: "14.2 Advertência"
+      21000: "14.3 Obrigação de Reparar o Dano"
+      21001: "14.4 Prestação de Serviços à Comunidade"
+      21002: "14.5 Liberdade Assistida"
+      21003: "14.6 Regime de Semiliberdade"
+      21004: "14.7 Internação"
+      6931: "15 Acesso à Justiça à Criança e ao Adolescente"
+      21008: "15.1 Justiça da Infância e da Juventude"
+      21009: "15.2 Recursos"
+      21010: "15.3 Ministério Público no ECA"
+      21011: "15.4 Proteção Judicial dos Interesses Individuais, Difusos e Coletivos"
+      7177: "16 Procedimentos do Estatuto da Criança e do Adolescente"
+      21012: "16.1 Perda e Suspensão do Poder Familiar"
+      21014: "16.2 Colocação em Família Substituta"
+      21340: "16.3 Habilitação para Adoção"
+      21015: "16.4 Apuração de Ato Infracional Atribuído a Adolescente"
+      21017: "16.5 Apuração de Irregularidades em Entidade de Atendimento"
+      21019: "16.6 Apuração de Infração Administrativa às Normas de Proteção à Criança e ao Adolescente"
+      21341: "16.7 Infiltração de Agentes Para Investigação de Crimes Contra a Dignidade Sexual de Criança e Adolescente"
+      21020: "17 Crimes e Infrações Administrativas do ECA"
+      21021: "17.1 Crimes Praticados contra a Criança e o Adolescente"
+      21022: "17.2 Infrações Administrativas contra a Criança e o Adolescente"
+      6932: "18 Medidas de Proteção à Criança e ao Adolescente"
+    aviso: "Se vier questão do SINASE (Lei 12.594/2012, o 14.1 do site), pule: não é do edital."
+  - tema: "Novo no edital: Estatuto da Pessoa Idosa (Lei 10.741/03)"
+    disciplina: 534
+    assuntos:
+      17923: "1 Disposições Preliminares e Prioridades da Pessoa Idosa"
+      17924: "2 Direitos Fundamentais no Estatuto da Pessoa Idosa"
+      17925: "2.1 Direito à Vida da Pessoa Idosa"
+      17926: "2.2 Direito à Vida, à Liberdade, ao Respeito e à Dignidade da Pessoa Idosa"
+      17927: "2.3 Obrigação Alimentar no Estatuto da Pessoa Idosa"
+      17928: "2.4 Direito à Saúde da Pessoa Idosa"
+      17929: "2.5 Educação, Cultura, Esporte e Lazer"
+      17930: "2.6 Profissionalização e do Trabalho"
+      17931: "2.7 Previdência Social"
+      17932: "2.8 Previdência Social e Assistência Social no Estatuto da Pessoa Idosa"
+      17933: "2.9 Habitação"
+      17934: "2.10 Transporte"
+      17935: "3 Medidas de Proteção à Pessoa Idosa"
+      17936: "3.1 Medidas Gerais e Específicas de Proteção"
+      17937: "3.2 Medidas Específicas de Proteção"
+      17938: "4 Política de Atendimento à Pessoa Idosa"
+      17939: "4.1 Disposições Gerais do Atendimento à Pessoa Idosa"
+      17940: "4.2 Entidades de Atendimento à Pessoa Idosa"
+      17941: "4.3 Fiscalização das Entidades de Atendimento"
+      17942: "4.4 Infrações Administrativas"
+      17943: "4.5 Apuração Administrativa de Infração às Normas de Proteção à Pessoa Idosa"
+      17944: "4.6 Apuração Judicial de Irregularidades em Entidade de Atendimento"
+      17945: "5 Acesso à Justiça à Pessoa Idosa"
+      17946: "5.1 Tramitação de Processos e Procedimentos Judiciais"
+      17947: "5.2 Ministério Público no Estatuto da Pessoa Idosa"
+      17948: "5.3 Proteção Judicial dos Interesses Difusos, Coletivos e Individuais Indisponíveis ou Homogêneos"
+      17949: "6 Crimes"
+
+  # --- Direito Processual Penal ------------------------------------------------
+  - tema: "Novo no edital: Princípios, sistemas processuais e lei processual penal"
+    disciplina: 10
+    assuntos:
+      7834: "1 Direito processual penal: fundamentos e aspectos essenciais"
+      17627: "1.1 Processo Penal e Teoria Geral: pensando o processo penal desde seu “lugar”"
+      17629: "1.2 Instrumentalidade do processo penal"
+      17630: "1.3 Sistemas processuais"
+      17613: "2 Princípios fundamentais do direito processual penal"
+      17614: "2.1 Introdução e Estrutura dos Princípios Processuais Penais: fixando premissas"
+      17615: "2.2 Devido processo legal"
+      17616: "2.3 Contraditório"
+      17617: "2.4 Ampla defesa"
+      17618: "2.5 Presunção de inocência"
+      17619: "2.6 Publicidade"
+      17620: "2.7 Juiz natural"
+      17621: "2.8 Direito à não autoincriminação (nemo tenetur se detegere)"
+      17622: "2.9 Inadmissibilidade das provas obtidas por meios ilícitos"
+      17978: "3 Aplicação da Lei Penal Processual Penal"
+      17979: "3.1 Lei Processual Penal no Tempo"
+      18397: "3.2 Lei Processual Penal no Espaço"
+      17628: "5 Conteúdo do Direito Processual Penal: aproximação conceitual"
+  - tema: "Novo no edital: Inquérito policial"
+    disciplina: 10
+    assuntos:
+      31442: "4.1 Noções de Investigação Preliminar"
+      149: "6 Inquérito Policial"
+      18401: "6.1 Inquérito Policial - Noções Gerais"
+      18556: "6.2 Inquérito Policial - Características"
+      18557: "6.3 Valor Probatório"
+      18678: "6.4 Vícios e suas consequências"
+      18679: "6.5 Notícia-crime e instauração"
+      18680: "6.6 Incomunicabilidade"
+      18681: "6.7 Desenvolvimento: diligências e providências"
+      18702: "6.8 Indiciamento"
+      18711: "6.9 Encerramento do Inquérito Policial"
+  - tema: "Novo no edital: Acordo de não persecução penal e controle externo da atividade policial"
+    disciplina: 10
+    assuntos:
+      19278: "8 Controle da Atividade Policial"
+      19279: "8.1 Noções Gerais sobre o Controle da Atividade Policial"
+      19466: "8.2 Controle Externo da Atividade Policial pelo Ministério Público"
+      28114: "9.11 Acordo de Não Persecução Penal"
+  - tema: "Novo no edital: Jurisdição e competência"
+    disciplina: 10
+    assuntos:
+      152: "11 Competência no Processo Penal"
+      20519: "11.1 Jurisdição penal: definição e princípios"
+      20520: "11.2 Competência em matéria penal: definição, espécies e critérios"
+      20521: "11.3 Competência criminal da Justiça Eleitoral"
+      20522: "11.4 Competência criminal da Justiça Militar"
+      20523: "11.5 A competência da Justiça do Trabalho para o julgamento de habeas corpus"
+      20524: "11.6 Competência criminal da Justiça Federal"
+      20525: "11.7 Competência criminal da Justiça Estadual"
+      20526: "11.8 Competência em razão da pessoa: o foro por prerrogativa de função"
+      20527: "11.9 Competência territorial"
+      20528: "11.10 Causas de modificação da competência: conexão e continência"
+      20529: "11.11 Jurisdição política e jurisdição penal"
+  - tema: "Novo no edital: Sujeitos do processo, citação e intimação"
+    disciplina: 10
+    assuntos:
+      3971: "14.3 Suspeição e impedimento"
+      4284: "16 Do juiz, do ministério público, do acusado e defensor, dos assistentes e auxiliares da justiça"
+      20551: "16.1 Juiz"
+      20552: "16.2 Peritos, intérpretes, serventuários ou funcionários da Justiça"
+      20553: "16.3 Ministério Público no Processo Penal"
+      20554: "16.4 Autoridade policial"
+      20555: "16.5 Acusado"
+      20556: "16.6 Defensor"
+      20557: "16.7 Ofendido e assistente de acusação"
+      20558: "16.8 Assistente da defesa"
+      157: "17 Das Citações e Intimações"
+      20589: "17.1 Citação no Processo Penal"
+      20590: "17.2 Intimação e notificação"
+  # 06/11: prisoes e provas entraram no lugar dos sujeitos do processo (10/11) e
+  # das questoes incidentes (13/11). A temporaria (12.8) tem dia proprio (27/11).
+  - tema: "Novo no edital: Prisão em flagrante, preventiva, cautelares e fiança"
+    disciplina: 10
+    assuntos:
+      20576: "12.1 Tutela penal cautelar: definição e espécies"
+      20577: "12.2 Medidas cautelares pessoais: normas fundamentais, pressupostos e fundamentos"
+      20578: "12.3 Procedimento de aplicação e recorribilidade"
+      20580: "12.5 Prisões cautelares: definição e espécies"
+      903: "12.6 Da Prisão em Flagrante"
+      5335: "12.7 Da Prisão Preventiva"
+      20581: "12.9 Prisão domiciliar"
+      7809: "12.10 Da liberdade provisória, com ou sem fiança"
+  - tema: "Novo no edital: Provas no CPP: cadeia de custódia, perícia, busca e reconhecimento"
+    disciplina: 10
+    assuntos:
+      20536: "15.1 Definição, contextualização, objetivos e normatividade fundamental"
+      20540: "15.5 Prova pericial e exame de corpo de delito"
+      20542: "15.7 Confissão no Processo Penal"
+      20545: "15.11 Reconhecimento de pessoas e coisas"
+      20546: "15.12 Acareação no Processo Penal"
+      20549: "15.15 Busca e apreensão"
+  - tema: "Novo no edital: Questões e processos incidentes e medidas assecuratórias"
+    disciplina: 10
+    assuntos:
+      2555: "13 Sequestro de Bens imóveis"
+      20530: "13.1 Definição, normas fundamentais, pressupostos e requisitos"
+      20531: "13.2 Sequestro"
+      20532: "13.3 Especialização e registro da hipoteca legal"
+      20533: "13.4 Arresto"
+      153: "14 Das Questões e Processos Incidentes"
+      20582: "14.1 Definições e notas conceituais"
+      20583: "14.2 Questões prejudiciais"
+      3971: "14.3 Suspeição e impedimento"
+      20584: "14.4 Conflito de competência"
+      20585: "14.5 Conflito de atribuições no âmbito do Ministério Público"
+      20586: "14.6 Restituição de coisas apreendidas"
+      20587: "14.7 Incidente de falsidade"
+      20588: "14.8 Incidente de insanidade"
+  - tema: "Novo no edital: Procedimento comum: ordinário, sumário e sumaríssimo"
+    disciplina: 10
+    assuntos:
+      20591: "18.1 Processo e procedimento"
+      8056: "18.2 Procedimento comum ordinário"
+      6944: "18.3 Procedimento comum sumário"
+      6423: "18.4 Procedimento comum sumaríssimo - Lei nº 9.099 de 1995 - Lei dos Juizados Especiais Criminais - JECRIM"
+  - tema: "Novo no edital: Nulidades"
+    disciplina: 10
+    assuntos:
+      161: "22 Nulidades no Processo Penal"
+      20559: "22.1 Atos processuais defeituosos e invalidade"
+      20560: "22.2 Meras irregularidades e atos inexistentes"
+      20561: "22.3 Espécies de nulidades"
+      20562: "22.4 Princípios referentes às nulidades"
+  - tema: "Novo no edital: Sentença, recursos e ações autônomas"
+    disciplina: 10
+    assuntos:
+      3834: "19 Atos jurisdicionais penais"
+      1969: "20 Sentença e Coisa Julgada"
+      162: "23 Recursos Criminais"
+      20563: "23.1 Fundamentos, Natureza Jurídica e Aspectos Conceituais"
+      20564: "23.2 Princípios em matéria recursal"
+      20565: "23.3 Pressupostos de admissibilidade"
+      20566: "23.4 Efeitos dos Recursos Criminais"
+      20567: "23.5 Classificação de Recursos Criminais"
+      20568: "23.6 Recurso em sentido estrito"
+      20569: "23.7 Apelação no Processo Penal"
+      20570: "23.8 Embargos infringentes e embargos de nulidade"
+      20571: "23.9 Embargos de Declaração nos Recursos Criminais"
+      20572: "23.10 Agravo em execução"
+      20573: "23.11 Carta testemunhável"
+      20574: "23.12 Correição parcial"
+      20575: "23.13 Recursos especial e extraordinário em matéria penal"
+      6623: "24 Meios Autônomos de Impugnação"
+      1968: "24.1 Habeas Corpus no Processo Penal"
+      1973: "24.2 Revisão Criminal"
+      5316: "24.3 Mandado de Segurança no Processo Penal"
+  - tema: "Novo no edital: Prisão temporária (Lei 7.960/89)"
+    disciplina: 10
+    assuntos:
+      9317: "12.8 Da Prisão Temporária"
+  - tema: "Novo no edital: Juizados Especiais Criminais (Lei 9.099/95)"
+    disciplina: 10
+    assuntos:
+      18901: "7.1 Termo Circunstanciado de Ocorrência - TCO"
+      6423: "18.4 Procedimento comum sumaríssimo - Lei nº 9.099 de 1995 - Lei dos Juizados Especiais Criminais - JECRIM"
+  - tema: "Novo no edital: Interceptação telefônica (Lei 9.296/96)"
+    disciplina: 10
+    assuntos:
+      23513: "25 Lei da Interceptação Telefônica - Lei nº 9.296 de 1996"
+
+  # --- Direito Penal Militar ---------------------------------------------------
+  - tema: "Aplicação da lei penal militar e crime militar (CPM arts. 1º a 28)"
+    disciplina: 203
+    assuntos:
+      20824: "1 Noções Fundamentais de Direito Penal Militar"
+      20826: "1.1 Definição de Direito Penal Militar"
+      21356: "1.2 A Especialidade do Direito Penal Militar"
+      21357: "1.3 Aplicação da Lei Penal Militar"
+      20828: "2.1 Classificação dos Crimes Militares"
+      20829: "2.2 Critérios Legais do Crime Militar"
+  - tema: "O crime militar: tentativa, culpabilidade, erro e excludentes (CPM arts. 29 a 47)"
+    disciplina: 203
+    assuntos:
+      21352: "2.3 Teoria Geral do Crime Militar"
+  - tema: "Imputabilidade, concurso de agentes e penas (CPM arts. 48 a 83)"
+    disciplina: 203
+    assuntos:
+      7435: "3 Concurso de Agentes"
+      7436: "4 Teoria da Pena"
+    aviso: "O site tem um assunto só para as penas do CPM (4 Teoria da Pena): faça só as dos arts. 55 a 83. A imputabilidade (arts. 48 a 52) não tem assunto próprio."
+  - tema: "Sursis, livramento, ação penal e extinção da punibilidade (CPM arts. 84 a 135)"
+    disciplina: 203
+    assuntos:
+      7436: "4 Teoria da Pena"
+      7438: "5 Extinção da Punibilidade"
+    aviso: "O site tem um assunto só para as penas do CPM (4 Teoria da Pena): faça só as dos arts. 84 a 120 (sursis, livramento, efeitos da condenação e medidas de segurança). A ação penal (arts. 121 e 122) não tem assunto próprio."
+  - tema: "Crimes contra a autoridade ou a disciplina militar (CPM arts. 149 a 182)"
+    disciplina: 203
+    assuntos:
+      21346: "6.2 Crimes Contra a Autoridade ou Disciplina Militar"
+  - tema: "Crimes contra o serviço e o dever militar: deserção, abandono de posto, embriaguez (CPM arts. 183 a 204)"
+    disciplina: 203
+    assuntos:
+      21347: "6.3 Crimes Contra o Serviço Militar e o Dever Militar"
+  # 06/11: o 01/12 virou a 2a volta da Parte Geral (os Titulos VI a VIII cairam
+  # em todas as 6 provas da AOCP com Penal Militar; pessoa e patrimonio, nunca).
+  - tema: "CPM, 2ª volta: prescrição, extinção da punibilidade, medidas de segurança e o crime militar"
+    disciplina: 203
+    assuntos:
+      7438: "5 Extinção da Punibilidade"
+      21352: "2.3 Teoria Geral do Crime Militar"
+    aviso: "O site não tem assunto para as medidas de segurança do CPM: elas vêm no 4 Teoria da Pena, que o link não traz."
+  - tema: "Crimes contra a pessoa e contra o patrimônio no CPM (arts. 205 a 267)"
+    disciplina: 203
+    assuntos:
+      21348: "6.4 Crimes Contra a Pessoa"
+      21349: "6.5 Crimes contra o Patrimônio"
+  - tema: "Crimes contra a administração militar, a incolumidade pública e a Justiça Militar (CPM arts. 268 a 354)"
+    disciplina: 203
+    assuntos:
+      21350: "6.6 Crimes Contra a Administração Militar e Contra a Administração da Justiça Militar"
+      21353: "6.7 Crimes Contra a Incolumidade Pública"
+  # O CPM inteiro, menos os crimes em tempo de guerra (6.8), que o edital nao pede.
+  - tema: "Revisão final 2: Código Penal Militar"
+    disciplina: 203
+    assuntos:
+      20824: "1 Noções Fundamentais de Direito Penal Militar"
+      20826: "1.1 Definição de Direito Penal Militar"
+      21356: "1.2 A Especialidade do Direito Penal Militar"
+      21357: "1.3 Aplicação da Lei Penal Militar"
+      8100: "2 Crime Militar"
+      20828: "2.1 Classificação dos Crimes Militares"
+      20829: "2.2 Critérios Legais do Crime Militar"
+      21352: "2.3 Teoria Geral do Crime Militar"
+      7435: "3 Concurso de Agentes"
+      7436: "4 Teoria da Pena"
+      7438: "5 Extinção da Punibilidade"
+      21355: "6.1 Crimes Militares em Tempo de Paz"
+      21346: "6.2 Crimes Contra a Autoridade ou Disciplina Militar"
+      21347: "6.3 Crimes Contra o Serviço Militar e o Dever Militar"
+      21348: "6.4 Crimes Contra a Pessoa"
+      21349: "6.5 Crimes contra o Patrimônio"
+      21350: "6.6 Crimes Contra a Administração Militar e Contra a Administração da Justiça Militar"
+      21353: "6.7 Crimes Contra a Incolumidade Pública"
+
+  # --- Legislacao de Transito --------------------------------------------------
+  - tema: "CTB 1: disposições preliminares, a PM no SNT e normas de circulação (arts. 1º a 4º, 23, 26 a 67)"
+    disciplina: 200
+    assuntos:
+      18858: "1 Lei nº 9.503 de 1997 - Código de Trânsito Brasileiro - CTB: visão geral e como estudar. Disposições Preliminares, Conceitos e Definições."
+      18862: "2.2 Competência dos órgãos e entidades que compõem o SNT"
+      18863: "3 Normas gerais de circulação e conduta"
+    aviso: "2.2 Competência dos órgãos traz a competência de todos os órgãos do SNT: faça só as do art. 23 (a PM)."
+  - tema: "CTB 2: sinalização, veículos, registro, licenciamento e habilitação (arts. 80 a 90, 96 a 102, 114 a 160)"
+    disciplina: 200
+    assuntos:
+      18866: "7 Sinalização de trânsito"
+      18868: "9 Veículos: Classificação, Características e Dimensões"
+      18872: "11 Identificação do veículo"
+      18873: "12 Veículos em circulação internacional"
+      18874: "13 Registro de veículos"
+      18875: "14 Licenciamento de veículos"
+      18876: "16 Condução de escolares"
+      18877: "17 Condução de motofrete"
+      18878: "18 Habilitação na Legislação de Trânsito"
+  - tema: "CTB 3: penalidades, medidas administrativas e auto de infração (arts. 256 a 280)"
+    disciplina: 200
+    assuntos:
+      18879: "19 Penalidades"
+      18880: "20 Medidas administrativas"
+      18889: "22 Processo administrativo"
+    aviso: "22 Processo administrativo vai até o art. 290: faça só as do auto de infração (art. 280)."
+  - tema: "CTB 4: crimes de trânsito (arts. 291 a 312-B)"
+    disciplina: 200
+    assuntos:
+      18890: "23 Crimes de trânsito"
+      18891: "23.1 Disposições gerais dos crimes de trânsito"
+      18892: "23.2 Crimes em espécie"
+  # As duas juntam o CTB que o edital cobra (arts. 1º a 4º, 23, 26 a 67, 80 a 90, 96
+  # a 102, 114 a 160, 256 a 280 e 291 a 312-B). Ficam fora as infracoes (21, arts.
+  # 161 a 255), que o edital nao pede, e os outros capitulos fora dele.
+  - tema: "Questões: Código de Trânsito"
+    disciplina: 200
+    assuntos:
+      18858: "1 Lei nº 9.503 de 1997 - Código de Trânsito Brasileiro - CTB: visão geral e como estudar. Disposições Preliminares, Conceitos e Definições."
+      18862: "2.2 Competência dos órgãos e entidades que compõem o SNT"
+      18863: "3 Normas gerais de circulação e conduta"
+      18866: "7 Sinalização de trânsito"
+      18868: "9 Veículos: Classificação, Características e Dimensões"
+      18872: "11 Identificação do veículo"
+      18873: "12 Veículos em circulação internacional"
+      18874: "13 Registro de veículos"
+      18875: "14 Licenciamento de veículos"
+      18876: "16 Condução de escolares"
+      18877: "17 Condução de motofrete"
+      18878: "18 Habilitação na Legislação de Trânsito"
+      18879: "19 Penalidades"
+      18880: "20 Medidas administrativas"
+      18889: "22 Processo administrativo"
+      18890: "23 Crimes de trânsito"
+      18891: "23.1 Disposições gerais dos crimes de trânsito"
+      18892: "23.2 Crimes em espécie"
+    aviso: "Dois assuntos do site vão além do edital: 2.2 traz a competência de todos os órgãos do SNT (só o art. 23, da PM, é do edital) e 22 Processo administrativo vai até o art. 290 (só o art. 280, do auto de infração, é do edital)."
+  - tema: "Revisão final 3: Código de Trânsito"
+    disciplina: 200
+    assuntos:
+      18858: "1 Lei nº 9.503 de 1997 - Código de Trânsito Brasileiro - CTB: visão geral e como estudar. Disposições Preliminares, Conceitos e Definições."
+      18862: "2.2 Competência dos órgãos e entidades que compõem o SNT"
+      18863: "3 Normas gerais de circulação e conduta"
+      18866: "7 Sinalização de trânsito"
+      18868: "9 Veículos: Classificação, Características e Dimensões"
+      18872: "11 Identificação do veículo"
+      18873: "12 Veículos em circulação internacional"
+      18874: "13 Registro de veículos"
+      18875: "14 Licenciamento de veículos"
+      18876: "16 Condução de escolares"
+      18877: "17 Condução de motofrete"
+      18878: "18 Habilitação na Legislação de Trânsito"
+      18879: "19 Penalidades"
+      18880: "20 Medidas administrativas"
+      18889: "22 Processo administrativo"
+      18890: "23 Crimes de trânsito"
+      18891: "23.1 Disposições gerais dos crimes de trânsito"
+      18892: "23.2 Crimes em espécie"
+    aviso: "Dois assuntos do site vão além do edital: 2.2 traz a competência de todos os órgãos do SNT (só o art. 23, da PM, é do edital) e 22 Processo administrativo vai até o art. 290 (só o art. 280, do auto de infração, é do edital)."
+
+  # --- Informatica -------------------------------------------------------------
+  - tema: "Hardware e software"
+    disciplina: 46
+    assuntos:
+      4849: "1 Hardware - Dispositivos de Armazenamento, Memórias e Periféricos"
+      21498: "16 Software"
+  - tema: "Segurança da informação"
+    disciplina: 46
+    assuntos:
+      825: "11 Segurança da Informação"
+      21164: "11.2 Procedimento de Segurança e Back up"
+      17631: "11.3 Ferramentas de Segurança (antivírus, firewall e outros)"
+      17730: "11.4 Malware (vírus, worms e pragas virtuais)"
+      17731: "11.5 Ataques"
+    aviso: "Se vier questão de assinatura ou certificação digital (11.1 e 11.6 do site), pule: não é do edital."
+  - tema: "Windows 11"
+    disciplina: 46
+    assuntos:
+      33016: "2.11 Windows 11"
+      3597: "3 Windows Explorer - conceitos de organização de pastas e arquivos"
+    aviso: "3 Windows Explorer vale para qualquer versão do Windows: pule as que dependem de versão antiga."
+  - tema: "Navegadores e correio eletrônico"
+    disciplina: 46
+    assuntos:
+      16722: "12 Navegadores (Browser)"
+      16727: "12.2 Mozilla Firefox"
+      17625: "12.3 Google Chrome"
+      20792: "12.4 Edge"
+      241: "13 Correio Eletrônico (cliente de e-mail e webmail)"
+      27964: "13.1 Conceitos Básicos de Correio Eletrônico"
+      16731: "13.2 Microsoft Outlook"
+      16732: "13.3 Mozilla Thunderbird"
+      27965: "13.4 Webmail (Hotmail, Gmail, Yahoo!)"
+    aviso: "Se vier questão do Internet Explorer (12.1 do site), pule: não é do edital."
+  - tema: "LibreOffice Writer 7"
+    disciplina: 46
+    assuntos:
+      1452: "5.2 LibreOffice e BrOffice Writer"
+  - tema: "LibreOffice Calc 7"
+    disciplina: 46
+    assuntos:
+      16714: "6.2 BrOffice.org e LibreOffice Calc"
+  - tema: "LibreOffice Impress 7"
+    disciplina: 46
+    assuntos:
+      9577: "7.2 BrOffice e LibreOffice Impress"
+  # O nome "10.4 Nuvem (" e o do site, cortado assim mesmo.
+  # 06/11: o 01/12 virou redes, internet, intranet, VPN e nuvem (7 questoes nas
+  # provas de PM e Bombeiro da AOCP, sem dia antes).
+  - tema: "Redes, internet, intranet, VPN e nuvem"
+    disciplina: 46
+    assuntos:
+      324: "9 Redes de Computadores"
+      237: "10 Internet"
+      17752: "10.1 Intranet e Extranet"
+      17751: "10.2 Protocolo e Serviço"
+      11846: "10.4 Nuvem ("
+      21164: "11.2 Procedimento de Segurança e Back up"
+    aviso: "A LGPD não tem assunto na Informática do site: o link traz as redes, a internet, a nuvem e o backup."
+  - tema: "Nuvem, colaboração e LGPD"
+    disciplina: 46
+    assuntos:
+      11846: "10.4 Nuvem ("
+    aviso: "A LGPD não tem assunto na Informática do site: o link traz só a nuvem."
+  # A faixa e "Informática: revisão final": o radar tira a materia da frente do
+  # titulo. Junta os assuntos dos oito temas de Informatica.
+  - tema: "revisão final"
+    disciplina: 46
+    assuntos:
+      4849: "1 Hardware - Dispositivos de Armazenamento, Memórias e Periféricos"
+      33016: "2.11 Windows 11"
+      3597: "3 Windows Explorer - conceitos de organização de pastas e arquivos"
+      1452: "5.2 LibreOffice e BrOffice Writer"
+      16714: "6.2 BrOffice.org e LibreOffice Calc"
+      9577: "7.2 BrOffice e LibreOffice Impress"
+      11846: "10.4 Nuvem ("
+      825: "11 Segurança da Informação"
+      21164: "11.2 Procedimento de Segurança e Back up"
+      17631: "11.3 Ferramentas de Segurança (antivírus, firewall e outros)"
+      17730: "11.4 Malware (vírus, worms e pragas virtuais)"
+      17731: "11.5 Ataques"
+      16722: "12 Navegadores (Browser)"
+      16727: "12.2 Mozilla Firefox"
+      17625: "12.3 Google Chrome"
+      20792: "12.4 Edge"
+      241: "13 Correio Eletrônico (cliente de e-mail e webmail)"
+      27964: "13.1 Conceitos Básicos de Correio Eletrônico"
+      16731: "13.2 Microsoft Outlook"
+      16732: "13.3 Mozilla Thunderbird"
+      27965: "13.4 Webmail (Hotmail, Gmail, Yahoo!)"
+      21498: "16 Software"
+    aviso: "A LGPD não tem assunto no site. Pule as de assinatura e certificação digital, as do Internet Explorer e as do Windows Explorer que dependem de versão antiga: não são do edital."
+
+  # --- Lingua Portuguesa -------------------------------------------------------
+  # Os dois de Portugues misto juntam o Portugues que o edital cobra: tudo, menos
+  # fonologia (16), variacao linguistica (15.6) e vicios da linguagem (15.11).
+  - tema: "Português AOCP: interpretação e gramática"
+    disciplina: 1
+    assuntos:
+      14621: "1 Ortografia"
+      14622: "1.1 Grafia e Emprego de Iniciais Maiúsculas"
+      14624: "1.2 Parônimos e Homônimos"
+      15648: "1.3 Emprego do hífen"
+      25201: "1.4 Acentuação Gráfica: Proparoxítonas, Paroxítonas, Oxítonas e Hiatos"
+      25202: "1.5 Acentuação Gráfica: acento diferencial"
+      14625: "2 Morfologia"
+      16002: "2.1 Estrutura das Palavras: Radical, Desinência, Prefixo e Sufixo"
+      16392: "2.2 Formação das Palavras: Composição, Derivação, Hibridismo, Onomatopeia e Abreviação"
+      14636: "2.3 Artigos"
+      14628: "2.4 Numerais"
+      14630: "2.5 Substantivos"
+      14631: "2.6 Adjetivos"
+      14632: "2.7 Advérbios"
+      14633: "2.8 Preposições"
+      16003: "2.9 Conjunções: Relação de causa e consequência"
+      14635: "2.10 Interjeições"
+      16170: "3 Morfologia - Verbos"
+      16175: "3.1 Estrutura do verbo (radical, vogal temática, desinências)"
+      16176: "3.2 Flexão verbal de tempo (presente, pretérito, futuro)"
+      16177: "3.3 Flexão verbal de modo (indicativo, subjuntivo, imperativo)"
+      16178: "3.4 Flexão verbal de número (singular, plural)"
+      16179: "3.5 Flexão verbal de pessoa (1ª, 2ª, 3ª pessoa)"
+      16180: "3.6 Flexão de voz (ativa, passiva, reflexiva)"
+      16181: "3.7 Formas nominais do verbo (particípio, gerúndio, infinitivo)"
+      16182: "3.8 Formação do imperativo"
+      16183: "3.9 Verbos auxiliares"
+      16185: "3.10 Emprego do infinitivo (Infinitivo impessoal, Infinitivo pessoal)"
+      16174: "3.11 Locução Verbal"
+      16184: "3.12 Classificação dos verbos (Regulares, Irregulares, Defectivos, Abundantes, Unipessoais, Pronominais)"
+      16157: "4 Morfologia - Pronomes"
+      16158: "4.1 Pronomes pessoais retos"
+      16171: "4.2 Pronomes pessoais oblíquos"
+      20181: "4.3 Pronome de tratamento"
+      16159: "4.4 Pronomes possessivos"
+      16160: "4.5 Pronomes demonstrativos"
+      16161: "4.6 Pronomes relativos"
+      16187: "4.7 Pronomes Indefinidos"
+      16172: "4.8 Pronomes Interrogativos"
+      16173: "4.9 Colocação Pronominal"
+      16006: "5 Sintaxe"
+      16007: "5.1 Análise sintática"
+      16008: "5.2 Termos essenciais da oração: Sujeito e Predicado"
+      16009: "5.3 Termos integrantes da oração: Objeto direto, Objeto indireto, Complemento nominal, Agente da Passiva"
+      20182: "5.4 Termos integrantes da oração: predicativo do sujeito e predicativo do objeto"
+      16010: "5.5 Vocativo e Termos Acessórios da Oração: Adjunto Adnominal, Diferença entre Adjunto Adnominal e Complemento Nominal, Adjunto Adverbial e Aposto"
+      16011: "5.6 Regência"
+      16012: "5.7 Concordância verbal, Concordância nominal"
+      16013: "5.8 Orações coordenadas assindéticas"
+      16332: "5.9 Uso dos conectivos"
+      16014: "5.10 Orações coordenadas sindéticas: Aditivas, Adversativas, Alternativas, Conclusivas..."
+      16016: "5.11 Orações subordinadas adjetivas: Restritivas, Explicativas"
+      16015: "5.12 Orações subordinadas substantivas: Subjetivas, Objetivas diretas, Objetivas indiretas..."
+      16017: "5.13 Orações subordinadas adverbiais: Causal, Comparativa, Consecutiva, Concessiva, Condicional..."
+      16018: "5.14 Orações subordinadas reduzidas"
+      14647: "6 Pontuação"
+      14648: "6.1 Uso da Vírgula"
+      14649: "6.2 Uso do ponto e vírgula"
+      17753: "6.3 Uso do ponto, do ponto de exclamação e do ponto de interrogação"
+      14650: "6.4 Uso dos dois-pontos"
+      14651: "6.5 Uso das reticências"
+      14652: "6.6 Uso das aspas"
+      14653: "6.7 Parênteses"
+      14654: "6.8 Travessão"
+      15724: "6.9 Orações Intercaladas"
+      15725: "7 Funções morfossintáticas da palavra SE"
+      15726: "8 Funções morfossintáticas da palavra QUE"
+      30958: "8.1 Funções morfossintáticas da palavra QUE"
+      17201: "9 Funções morfossintáticas da palavra COMO"
+      30970: "9.1 Funções morfossintáticas da palavra COMO"
+      17202: "10 Funções morfossintáticas da palavra ATÉ"
+      17203: "11 Funções morfossintáticas da palavra SÓ"
+      17204: "12 Funções morfossintáticas da palavra MESMO"
+      15727: "13 Crase"
+      30912: "13.1 Crase"
+      15728: "14 Problemas da língua culta"
+      15729: "14.1 Por que- porque/ porquê/ por quê"
+      15730: "14.2 Onde-aonde"
+      15731: "14.3 Mas-mais"
+      15733: "14.4 Cessão-sessão/secção/seção"
+      15734: "14.5 Há-a"
+      15735: "14.6 Senão- se não"
+      15736: "14.7 Ao invés de- em vez de"
+      15737: "14.8 Ao encontro- de encontro"
+      15738: "14.9 Acerca de- Há cerca de"
+      15739: "14.10 A fim de- afim"
+      15740: "14.11 Demais- de mais"
+      15741: "14.12 À-toa- à toa"
+      15742: "14.13 Dia-a-dia - dia a dia"
+      15743: "14.14 Tampouco- tão pouco"
+      15732: "14.15 Mal-Mau"
+      19271: "15.1 Noções Gerais de Compreensão e Interpretação de Texto"
+      14656: "15.2 Tipologia Textual"
+      27231: "15.3 Tipos de Discurso: Direto, Indireto e Indireto Livre"
+      20185: "15.4 Gêneros Textuais"
+      14657: "15.5 Significação Contextual de Palavras e Expressões. Sinônimos e Antônimos."
+      16331: "15.7 Denotação e Conotação"
+      14659: "15.8 Funções da Linguagem: emotiva, apelativa, referencial, metalinguística, fática e poética."
+      14660: "15.9 Intertextualidade"
+      14661: "15.10 Figuras de Linguagem"
+      14988: "15.12 Coesão e coerência"
+      31051: "15.13 Paralelismo sintático e semântico"
+      14989: "15.14 Redação - Reescritura de texto"
+  - tema: "Interpretação, tipologia e gêneros textuais"
+    disciplina: 1
+    assuntos:
+      19271: "15.1 Noções Gerais de Compreensão e Interpretação de Texto"
+      14656: "15.2 Tipologia Textual"
+      20185: "15.4 Gêneros Textuais"
+      14659: "15.8 Funções da Linguagem: emotiva, apelativa, referencial, metalinguística, fática e poética."
+  - tema: "Semântica: sentido das palavras e figuras de linguagem"
+    disciplina: 1
+    assuntos:
+      14624: "1.2 Parônimos e Homônimos"
+      14657: "15.5 Significação Contextual de Palavras e Expressões. Sinônimos e Antônimos."
+      16331: "15.7 Denotação e Conotação"
+      14661: "15.10 Figuras de Linguagem"
+  - tema: "Concordância verbal e nominal"
+    disciplina: 1
+    assuntos:
+      16012: "5.7 Concordância verbal, Concordância nominal"
+  - tema: "Classes de palavras e função textual dos vocábulos"
+    disciplina: 1
+    assuntos:
+      14625: "2 Morfologia"
+      16002: "2.1 Estrutura das Palavras: Radical, Desinência, Prefixo e Sufixo"
+      16392: "2.2 Formação das Palavras: Composição, Derivação, Hibridismo, Onomatopeia e Abreviação"
+      14636: "2.3 Artigos"
+      14628: "2.4 Numerais"
+      14630: "2.5 Substantivos"
+      14631: "2.6 Adjetivos"
+      14632: "2.7 Advérbios"
+      14633: "2.8 Preposições"
+      16003: "2.9 Conjunções: Relação de causa e consequência"
+      14635: "2.10 Interjeições"
+      16170: "3 Morfologia - Verbos"
+      16175: "3.1 Estrutura do verbo (radical, vogal temática, desinências)"
+      16176: "3.2 Flexão verbal de tempo (presente, pretérito, futuro)"
+      16177: "3.3 Flexão verbal de modo (indicativo, subjuntivo, imperativo)"
+      16178: "3.4 Flexão verbal de número (singular, plural)"
+      16179: "3.5 Flexão verbal de pessoa (1ª, 2ª, 3ª pessoa)"
+      16180: "3.6 Flexão de voz (ativa, passiva, reflexiva)"
+      16181: "3.7 Formas nominais do verbo (particípio, gerúndio, infinitivo)"
+      16182: "3.8 Formação do imperativo"
+      16183: "3.9 Verbos auxiliares"
+      16185: "3.10 Emprego do infinitivo (Infinitivo impessoal, Infinitivo pessoal)"
+      16174: "3.11 Locução Verbal"
+      16184: "3.12 Classificação dos verbos (Regulares, Irregulares, Defectivos, Abundantes, Unipessoais, Pronominais)"
+      16157: "4 Morfologia - Pronomes"
+      16158: "4.1 Pronomes pessoais retos"
+      16171: "4.2 Pronomes pessoais oblíquos"
+      20181: "4.3 Pronome de tratamento"
+      16159: "4.4 Pronomes possessivos"
+      16160: "4.5 Pronomes demonstrativos"
+      16161: "4.6 Pronomes relativos"
+      16187: "4.7 Pronomes Indefinidos"
+      16172: "4.8 Pronomes Interrogativos"
+      16173: "4.9 Colocação Pronominal"
+      15725: "7 Funções morfossintáticas da palavra SE"
+      15726: "8 Funções morfossintáticas da palavra QUE"
+      30958: "8.1 Funções morfossintáticas da palavra QUE"
+      17201: "9 Funções morfossintáticas da palavra COMO"
+      30970: "9.1 Funções morfossintáticas da palavra COMO"
+      17202: "10 Funções morfossintáticas da palavra ATÉ"
+      17203: "11 Funções morfossintáticas da palavra SÓ"
+      17204: "12 Funções morfossintáticas da palavra MESMO"
+  - tema: "Regência e crase"
+    disciplina: 1
+    assuntos:
+      16011: "5.6 Regência"
+      15727: "13 Crase"
+      30912: "13.1 Crase"
+  - tema: "Sintaxe da oração e do período"
+    disciplina: 1
+    assuntos:
+      16007: "5.1 Análise sintática"
+      16008: "5.2 Termos essenciais da oração: Sujeito e Predicado"
+      16009: "5.3 Termos integrantes da oração: Objeto direto, Objeto indireto, Complemento nominal, Agente da Passiva"
+      20182: "5.4 Termos integrantes da oração: predicativo do sujeito e predicativo do objeto"
+      16010: "5.5 Vocativo e Termos Acessórios da Oração: Adjunto Adnominal, Diferença entre Adjunto Adnominal e Complemento Nominal, Adjunto Adverbial e Aposto"
+      16013: "5.8 Orações coordenadas assindéticas"
+      16014: "5.10 Orações coordenadas sindéticas: Aditivas, Adversativas, Alternativas, Conclusivas..."
+      16016: "5.11 Orações subordinadas adjetivas: Restritivas, Explicativas"
+      16015: "5.12 Orações subordinadas substantivas: Subjetivas, Objetivas diretas, Objetivas indiretas..."
+      16017: "5.13 Orações subordinadas adverbiais: Causal, Comparativa, Consecutiva, Concessiva, Condicional..."
+      16018: "5.14 Orações subordinadas reduzidas"
+  - tema: "Pontuação"
+    disciplina: 1
+    assuntos:
+      14647: "6 Pontuação"
+      14648: "6.1 Uso da Vírgula"
+      14649: "6.2 Uso do ponto e vírgula"
+      17753: "6.3 Uso do ponto, do ponto de exclamação e do ponto de interrogação"
+      14650: "6.4 Uso dos dois-pontos"
+      14651: "6.5 Uso das reticências"
+      14652: "6.6 Uso das aspas"
+      14653: "6.7 Parênteses"
+      14654: "6.8 Travessão"
+      15724: "6.9 Orações Intercaladas"
+  # 06/11: o 27/11 virou pronomes e acentuacao (a ortografia caiu pouco).
+  - tema: "Pronomes: emprego e colocação, e acentuação"
+    disciplina: 1
+    assuntos:
+      16157: "4 Morfologia - Pronomes"
+      16158: "4.1 Pronomes pessoais retos"
+      16171: "4.2 Pronomes pessoais oblíquos"
+      20181: "4.3 Pronome de tratamento"
+      16159: "4.4 Pronomes possessivos"
+      16160: "4.5 Pronomes demonstrativos"
+      16161: "4.6 Pronomes relativos"
+      16187: "4.7 Pronomes Indefinidos"
+      16172: "4.8 Pronomes Interrogativos"
+      16173: "4.9 Colocação Pronominal"
+      25201: "1.4 Acentuação Gráfica: Proparoxítonas, Paroxítonas, Oxítonas e Hiatos"
+      25202: "1.5 Acentuação Gráfica: acento diferencial"
+  - tema: "Ortografia oficial e acentuação gráfica"
+    disciplina: 1
+    assuntos:
+      14621: "1 Ortografia"
+      14622: "1.1 Grafia e Emprego de Iniciais Maiúsculas"
+      14624: "1.2 Parônimos e Homônimos"
+      15648: "1.3 Emprego do hífen"
+      25201: "1.4 Acentuação Gráfica: Proparoxítonas, Paroxítonas, Oxítonas e Hiatos"
+      25202: "1.5 Acentuação Gráfica: acento diferencial"
+      15728: "14 Problemas da língua culta"
+      15729: "14.1 Por que- porque/ porquê/ por quê"
+      15730: "14.2 Onde-aonde"
+      15731: "14.3 Mas-mais"
+      15733: "14.4 Cessão-sessão/secção/seção"
+      15734: "14.5 Há-a"
+      15735: "14.6 Senão- se não"
+      15736: "14.7 Ao invés de- em vez de"
+      15737: "14.8 Ao encontro- de encontro"
+      15738: "14.9 Acerca de- Há cerca de"
+      15739: "14.10 A fim de- afim"
+      15740: "14.11 Demais- de mais"
+      15741: "14.12 À-toa- à toa"
+      15742: "14.13 Dia-a-dia - dia a dia"
+      15743: "14.14 Tampouco- tão pouco"
+      15732: "14.15 Mal-Mau"
+  - tema: "Coesão e reescrita"
+    disciplina: 1
+    assuntos:
+      16332: "5.9 Uso dos conectivos"
+      14988: "15.12 Coesão e coerência"
+      14989: "15.14 Redação - Reescritura de texto"
+  - tema: "Interpretação 2: inferência, pressupostos e subentendidos"
+    disciplina: 1
+    assuntos:
+      19271: "15.1 Noções Gerais de Compreensão e Interpretação de Texto"
+    aviso: "O site não separa inferência, pressupostos e subentendidos: o link traz a interpretação de texto em geral."
+  - tema: "Português: revisão dos seus erros"
+    disciplina: 1
+    assuntos:
+      14621: "1 Ortografia"
+      14622: "1.1 Grafia e Emprego de Iniciais Maiúsculas"
+      14624: "1.2 Parônimos e Homônimos"
+      15648: "1.3 Emprego do hífen"
+      25201: "1.4 Acentuação Gráfica: Proparoxítonas, Paroxítonas, Oxítonas e Hiatos"
+      25202: "1.5 Acentuação Gráfica: acento diferencial"
+      14625: "2 Morfologia"
+      16002: "2.1 Estrutura das Palavras: Radical, Desinência, Prefixo e Sufixo"
+      16392: "2.2 Formação das Palavras: Composição, Derivação, Hibridismo, Onomatopeia e Abreviação"
+      14636: "2.3 Artigos"
+      14628: "2.4 Numerais"
+      14630: "2.5 Substantivos"
+      14631: "2.6 Adjetivos"
+      14632: "2.7 Advérbios"
+      14633: "2.8 Preposições"
+      16003: "2.9 Conjunções: Relação de causa e consequência"
+      14635: "2.10 Interjeições"
+      16170: "3 Morfologia - Verbos"
+      16175: "3.1 Estrutura do verbo (radical, vogal temática, desinências)"
+      16176: "3.2 Flexão verbal de tempo (presente, pretérito, futuro)"
+      16177: "3.3 Flexão verbal de modo (indicativo, subjuntivo, imperativo)"
+      16178: "3.4 Flexão verbal de número (singular, plural)"
+      16179: "3.5 Flexão verbal de pessoa (1ª, 2ª, 3ª pessoa)"
+      16180: "3.6 Flexão de voz (ativa, passiva, reflexiva)"
+      16181: "3.7 Formas nominais do verbo (particípio, gerúndio, infinitivo)"
+      16182: "3.8 Formação do imperativo"
+      16183: "3.9 Verbos auxiliares"
+      16185: "3.10 Emprego do infinitivo (Infinitivo impessoal, Infinitivo pessoal)"
+      16174: "3.11 Locução Verbal"
+      16184: "3.12 Classificação dos verbos (Regulares, Irregulares, Defectivos, Abundantes, Unipessoais, Pronominais)"
+      16157: "4 Morfologia - Pronomes"
+      16158: "4.1 Pronomes pessoais retos"
+      16171: "4.2 Pronomes pessoais oblíquos"
+      20181: "4.3 Pronome de tratamento"
+      16159: "4.4 Pronomes possessivos"
+      16160: "4.5 Pronomes demonstrativos"
+      16161: "4.6 Pronomes relativos"
+      16187: "4.7 Pronomes Indefinidos"
+      16172: "4.8 Pronomes Interrogativos"
+      16173: "4.9 Colocação Pronominal"
+      16006: "5 Sintaxe"
+      16007: "5.1 Análise sintática"
+      16008: "5.2 Termos essenciais da oração: Sujeito e Predicado"
+      16009: "5.3 Termos integrantes da oração: Objeto direto, Objeto indireto, Complemento nominal, Agente da Passiva"
+      20182: "5.4 Termos integrantes da oração: predicativo do sujeito e predicativo do objeto"
+      16010: "5.5 Vocativo e Termos Acessórios da Oração: Adjunto Adnominal, Diferença entre Adjunto Adnominal e Complemento Nominal, Adjunto Adverbial e Aposto"
+      16011: "5.6 Regência"
+      16012: "5.7 Concordância verbal, Concordância nominal"
+      16013: "5.8 Orações coordenadas assindéticas"
+      16332: "5.9 Uso dos conectivos"
+      16014: "5.10 Orações coordenadas sindéticas: Aditivas, Adversativas, Alternativas, Conclusivas..."
+      16016: "5.11 Orações subordinadas adjetivas: Restritivas, Explicativas"
+      16015: "5.12 Orações subordinadas substantivas: Subjetivas, Objetivas diretas, Objetivas indiretas..."
+      16017: "5.13 Orações subordinadas adverbiais: Causal, Comparativa, Consecutiva, Concessiva, Condicional..."
+      16018: "5.14 Orações subordinadas reduzidas"
+      14647: "6 Pontuação"
+      14648: "6.1 Uso da Vírgula"
+      14649: "6.2 Uso do ponto e vírgula"
+      17753: "6.3 Uso do ponto, do ponto de exclamação e do ponto de interrogação"
+      14650: "6.4 Uso dos dois-pontos"
+      14651: "6.5 Uso das reticências"
+      14652: "6.6 Uso das aspas"
+      14653: "6.7 Parênteses"
+      14654: "6.8 Travessão"
+      15724: "6.9 Orações Intercaladas"
+      15725: "7 Funções morfossintáticas da palavra SE"
+      15726: "8 Funções morfossintáticas da palavra QUE"
+      30958: "8.1 Funções morfossintáticas da palavra QUE"
+      17201: "9 Funções morfossintáticas da palavra COMO"
+      30970: "9.1 Funções morfossintáticas da palavra COMO"
+      17202: "10 Funções morfossintáticas da palavra ATÉ"
+      17203: "11 Funções morfossintáticas da palavra SÓ"
+      17204: "12 Funções morfossintáticas da palavra MESMO"
+      15727: "13 Crase"
+      30912: "13.1 Crase"
+      15728: "14 Problemas da língua culta"
+      15729: "14.1 Por que- porque/ porquê/ por quê"
+      15730: "14.2 Onde-aonde"
+      15731: "14.3 Mas-mais"
+      15733: "14.4 Cessão-sessão/secção/seção"
+      15734: "14.5 Há-a"
+      15735: "14.6 Senão- se não"
+      15736: "14.7 Ao invés de- em vez de"
+      15737: "14.8 Ao encontro- de encontro"
+      15738: "14.9 Acerca de- Há cerca de"
+      15739: "14.10 A fim de- afim"
+      15740: "14.11 Demais- de mais"
+      15741: "14.12 À-toa- à toa"
+      15742: "14.13 Dia-a-dia - dia a dia"
+      15743: "14.14 Tampouco- tão pouco"
+      15732: "14.15 Mal-Mau"
+      19271: "15.1 Noções Gerais de Compreensão e Interpretação de Texto"
+      14656: "15.2 Tipologia Textual"
+      27231: "15.3 Tipos de Discurso: Direto, Indireto e Indireto Livre"
+      20185: "15.4 Gêneros Textuais"
+      14657: "15.5 Significação Contextual de Palavras e Expressões. Sinônimos e Antônimos."
+      16331: "15.7 Denotação e Conotação"
+      14659: "15.8 Funções da Linguagem: emotiva, apelativa, referencial, metalinguística, fática e poética."
+      14660: "15.9 Intertextualidade"
+      14661: "15.10 Figuras de Linguagem"
+      14988: "15.12 Coesão e coerência"
+      31051: "15.13 Paralelismo sintático e semântico"
+      14989: "15.14 Redação - Reescritura de texto"
+    aviso: "O link traz todo o Português do edital: escolha no site os assuntos dos temas em que você mais errou (o caderno de erros diz quais)."

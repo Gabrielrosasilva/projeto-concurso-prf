@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Questão {{ resposta.ordem }} de {{ resumo.total }} &middot; Radar</title>
+  {# Uma questao por vez, sem distracao: sem a barra de navegacao, sem
+     tabela. So a saida, o progresso e a questao. No treino, depois da letra,
+     a mesma tela volta corrigida, com o "Proxima" (decisao 142); na rodada
+     que mede, o certo e o errado so aparecem no relatorio do fim. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .foco{max-width:760px;margin:0 auto;padding:var(--esp-4) var(--esp-4) var(--esp-7)}
+    .topo-foco{display:flex;justify-content:space-between;align-items:center;gap:var(--esp-3);
+      font-size:var(--tam-sm);color:var(--cor-texto-suave);margin-bottom:var(--esp-2)}
+    .topo-foco a{text-decoration:none;color:var(--cor-texto-suave)}
+    .topo-foco a:hover{color:var(--cor-acao)}
+    .placar{display:flex;gap:var(--esp-2);align-items:center;flex-wrap:wrap}
+    .fogo{font-weight:var(--peso-forte);color:var(--cor-texto)}
+
+    {# Uma bolinha por questao: verde, vermelha, ou vazia. Na rodada que mede
+       a respondida fica cinza - a cor ali entregaria o resultado. #}
+    .bolinhas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 var(--esp-2);padding:0;list-style:none}
+    .bolinhas li{width:12px;height:12px;border-radius:50%;border:2px solid var(--cor-borda);
+      background:transparent}
+    .bolinhas li.certa{background:var(--cor-verde);border-color:var(--cor-verde)}
+    .bolinhas li.errada{background:var(--cor-vermelho);border-color:var(--cor-vermelho)}
+    .bolinhas li.feita{background:var(--cor-texto-suave);border-color:var(--cor-texto-suave)}
+    .bolinhas li.agora{border-color:var(--cor-acao);box-shadow:0 0 0 2px var(--cor-acao-fundo)}
+    .origem{font-size:var(--tam-xs);color:var(--cor-texto-suave);margin:0 0 var(--esp-4)}
+
+    .questao{padding:var(--esp-5)}
+    .questao .cabeca{display:flex;justify-content:space-between;align-items:center;
+      gap:var(--esp-2);flex-wrap:wrap;margin-bottom:var(--esp-3)}
+    .materia{font-size:var(--tam-xs);font-weight:var(--peso-medio);text-transform:uppercase;
+      letter-spacing:.04em;color:var(--cor-texto-suave)}
+    .texto-base{margin:0 0 var(--esp-4);font-size:var(--tam-sm)}
+    .texto-base p{white-space:pre-line;line-height:1.6;max-height:28rem;overflow-y:auto;
+      border-left:3px solid var(--cor-borda);padding-left:var(--esp-3)}
+    .enunciado{font-size:var(--tam-md);line-height:1.65;margin:0 0 var(--esp-5);
+      white-space:pre-line}
+    .alternativas{display:grid;gap:var(--esp-2);margin:0}
+    .alternativas button,.alternativas .alt{display:grid;grid-template-columns:2rem 1fr auto;
+      gap:var(--esp-2);width:100%;text-align:left;padding:var(--esp-3) var(--esp-4);
+      border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie);color:var(--cor-texto);font:inherit;
+      font-size:var(--tam-base);line-height:1.5;box-sizing:border-box}
+    .alternativas button{cursor:pointer}
+    .alternativas button:hover{border-color:var(--cor-acao);background:var(--cor-acao-fundo)}
+    .alternativas .letra{font-weight:var(--peso-forte);color:var(--cor-acao)}
+    .alternativas .alt.apagada{opacity:.6}
+    .alternativas .alt.certa{border:2px solid var(--cor-verde);background:var(--cor-verde-fundo);opacity:1}
+    .alternativas .alt.certa .letra{color:var(--cor-verde)}
+    .alternativas .alt.errada{border:2px solid var(--cor-vermelho);background:var(--cor-vermelho-fundo);opacity:1}
+    .alternativas .alt.errada .letra{color:var(--cor-vermelho)}
+    .alternativas .marca{font-size:var(--tam-xs);font-weight:var(--peso-medio);white-space:nowrap;
+      align-self:center}
+    .alt.certa .marca{color:var(--cor-verde)}
+    .alt.errada .marca{color:var(--cor-vermelho)}
+
+    .chute{display:flex;align-items:center;gap:var(--esp-2);margin:0 0 var(--esp-3);
+      font-size:var(--tam-sm);color:var(--cor-texto-suave);cursor:pointer;width:max-content}
+    .chute input{width:1.05rem;height:1.05rem;accent-color:var(--cor-acao)}
+
+    .veredito{display:flex;align-items:baseline;gap:var(--esp-3);flex-wrap:wrap;
+      padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);margin:0 0 var(--esp-4)}
+    .veredito b{font-size:1.5rem;line-height:1.2}
+    .veredito.acertou{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .veredito.errou{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .veredito .nota-chute{font-size:var(--tam-sm);color:var(--cor-texto)}
+    .depois{display:grid;gap:var(--esp-3);margin-top:var(--esp-4)}
+    .depois p{margin:var(--esp-1) 0}
+    .convite{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .seguir{display:flex;gap:var(--esp-3);align-items:center;flex-wrap:wrap;margin-top:var(--esp-5)}
+    .seguir .proxima{font-size:var(--tam-md);padding:var(--esp-3) var(--esp-6)}
+    .seguir a.secundario{font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .fonte-q{margin:var(--esp-4) 0 0;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+
+    .aviso-ia p{margin:var(--esp-1) 0}
+    .aviso-ia form{margin-top:var(--esp-2)}
+    .errada-ia{background:transparent;border:1px solid var(--cor-vermelho);color:var(--cor-vermelho);
+      border-radius:var(--raio-sm);padding:var(--esp-1) var(--esp-3);font:inherit;
+      font-size:var(--tam-xs);cursor:pointer}
+    .motivo-do-erro{display:flex;flex-wrap:wrap;gap:var(--esp-1);align-items:center;
+      margin-top:var(--esp-3)}
+    .motivo-do-erro form{display:inline}
+    .motivo-do-erro__rotulo{font-weight:var(--peso-forte);margin-right:var(--esp-1)}
+    /* O botao de encerrar a rodada de treino (decisao 185): no canto de baixo. */
+    .encerrar{display:flex;justify-content:flex-end;margin-top:var(--esp-4)}
+  </style>
+</head>
+<body class="ds">
+{% from "_topo.html" import faixa_prf %}
+{{ faixa_prf() }}
+{% from "_componentes.html" import selo, bloco, aviso_lei, aviso_gabarito %}
+{% from "_falta_de_geradas.html" import falta_de_geradas %}
+{% from "_motivo.html" import botoes_do_motivo %}
+
+<main class="foco">
+  <div class="topo-foco">
+    <a href="/simulado" title="A rodada fica guardada: dá para voltar depois">&larr; sair da rodada</a>
+    <span class="placar">
+      {# Os numeros vem prontos do servico.metricas: o template so mostra. #}
+      {% if na_hora and andamento.seguidas >= 3 %}<span class="fogo" title="Acertos seguidos">🔥 {{ andamento.seguidas }} seguidas</span> &middot;{% endif %}
+      <span class="ds-numero">Questão {{ resposta.ordem }} de {{ resumo.total }}</span>
+      {% if na_hora and resumo.respondidas %}&middot; <span class="ds-numero">{{ resumo.acertos }} acerto{{ 's' if resumo.acertos != 1 }}</span>{% endif %}
+    </span>
+  </div>
+  <ol class="bolinhas" aria-label="Andamento da rodada">
+    {% for marca in andamento.marcas %}
+      {% set classe = (marca if na_hora else 'feita') if marca else '' %}
+      <li class="{{ classe }}{{ ' agora' if loop.index == resposta.ordem }}"
+          title="Questão {{ loop.index }}{% if marca and na_hora %}: {{ 'acertei' if marca == 'certa' else 'errei' }}{% elif marca %}: respondida{% endif %}"></li>
+    {% endfor %}
+  </ol>
+
+  {# De onde a rodada saiu muda o que ela mede - mas cabe numa linha. #}
+  {% set f = simulado.filtros or {} %}
+  <p class="origem">
+    {% if f.get('alvo') %}
+      {% set partes = [] %}
+      {% if f.get('proprias') %}{% set _ = partes.append(f.get('proprias') ~ ' das provas do cargo') %}{% endif %}
+      {% if f.get('da_banca') %}{% set _ = partes.append(f.get('da_banca') ~ ' da mesma banca, mesmas matérias') %}{% endif %}
+      {% if f.get('repetidas') %}{% set _ = partes.append(f.get('repetidas') ~ ' que eu já tinha respondido') %}{% endif %}
+      Treino de {{ f.get('alvo') }}: {{ partes|join(', ') }}
+    {% elif f.get('rodada') == 'simulado_da_semana_ia' %}
+      <b>Simulado da semana só com IA</b>: os mesmos temas, só questões escritas por IA (as que você errou ou chutou primeiro) — treina, não mede, e não soma com o acerto das reais
+    {% elif f.get('geradas') %}
+      Treino com questões <b>escritas por IA</b> — não medem o que a banca cobra{% if f.get('nivel') %} &middot; nível: {{ rotulo_do_nivel(f.get('nivel')) }}{% endif %}
+    {% elif f.get('rodada') == 'outras_bancas' %}
+      Treino com questões reais de <b>outras bancas</b>{% if f.get('bancas') %} ({{ f.get('bancas') | join(', ') }}){% endif %} — medem o seu acerto no tema, e nunca o que a {{ banca_do_alvo() }} cobra
+    {% elif f.get('rodada') == 'simulado_pmsc' %}
+      <b>Simulado PMSC</b>: 60 questões na proporção do edital - as reais da AOCP e de outras bancas, e as geradas onde não há real; treina, não mede, e o acerto das reais e o das geradas ficam separados
+    {% elif f.get('rodada') == 'simulado_da_semana' %}
+      <b>Simulado da semana</b>: questões reais{% if f.get('outras') %}, {{ f.get('outras') }} de outras bancas{% if f.get('bancas') %} ({{ f.get('bancas') | join(', ') }}){% endif %}{% endif %}{% if f.get('geradas_na_rodada') %}, e {{ f.get('geradas_na_rodada') }} geradas por IA onde não há real (acerto separado){% endif %} — treina, não mede; o acerto conta no seu desempenho, com a origem ao lado
+    {% elif f.get('rodada') == 'conferencia' %}
+      Respondida da <a href="/analises/conferencia">conferência da classificação</a>: uma questão real, como treino — depois de responder, a letra aparece também lá
+    {% elif f.get('erros') %}
+      Revisão: só as questões que eu errei
+    {% elif f.get('compilado') %}
+      {% set faltaram = faltaram_no_compilado(f) %}
+      Compilado de {{ f.get('compilado') }} pelo quadro do edital {{ f.get('ano_do_edital') or '' }}
+      ({{ f.get('edital') or 'edital' }}){% if faltaram %} - faltaram {{ faltaram }}: o acervo não tinha o bastante{% endif %}.
+      Só questões reais.
+    {% else %}
+      Questões reais, tiradas das provas do acervo
+    {% endif %}
+    {% if not na_hora and f.get('rodada') in ('simulado_da_semana', 'simulado_pmsc', 'simulado_da_semana_ia') %} &middot; sem consulta: o certo e o errado aparecem no fim
+    {%- elif not na_hora %} &middot; rodada que mede: o certo e o errado aparecem no fim{% endif %}
+  </p>
+
+  {# As 5 horas do Simulado PMSC, com a redacao dentro (decisao PMSC-9). O
+     tempo e o da hora em que a pagina abriu: sem JavaScript aqui. #}
+  {% if tempo_da_prova %}
+    <p class="ds-pequeno">⏱ {% if tempo_da_prova != '0h00' %}Faltam <b>{{ tempo_da_prova }}</b> das 5 horas da prova{% else %}<b>As 5 horas da prova acabaram.</b> Termine para ver o resultado{% endif %} - a redação, à mão, vai dentro desse tempo. O tempo é o da hora em que esta página abriu.</p>
+  {% endif %}
+
+  {# O "so havia N" (decisao 151), antes da primeira resposta. #}
+  {% if not resumo.respondidas %}{{ falta_de_geradas(falta) }}{% endif %}
+
+  <article class="ds-cartao questao">
+    <div class="cabeca">
+      <span class="materia">{{ questao.materia or 'sem matéria' }}</span>
+      {# A gerada diz o nivel que a IA declarou (decisao 151): "sem nivel"
+         enquanto ela nao tiver um. #}
+      {{ selo(questao.origem, rotulo_do_selo_da_gerada(questao.nivel) if de_ia else None) }}
+    </div>
+
+    {% if de_ia %}
+      {% call bloco(questao.origem, 'Questão criada por IA') %}
+        <div class="aviso-ia">
+          <p><b>{{ FRASE_DA_QUESTAO_DE_IA }}</b></p>
+          {% if origem %}
+            <p>Variação da questão {{ origem.numero }} de {{ origem.banca }} {{ origem.ano }}{% if origem.cargo %}, {{ origem.cargo }}{% endif %} — aquela tem gabarito oficial conferido; esta não.</p>
+          {% elif questao.modo == 'variacao' %}
+            {# Variacao cuja base o acervo daqui nao consegue identificar: o
+               caderno nao esta aqui, ou o enunciado se repete em questoes
+               diferentes. Nao e "do zero", e apontar uma seria chutar. #}
+            <p>Variação de uma questão real que o acervo daqui não consegue identificar: o caderno de origem não está aqui, ou o enunciado dela se repete em questões diferentes. Confira com cuidado.</p>
+          {% else %}
+            <p>Escrita do zero, sem questão real embaixo. Confira com cuidado.</p>
+          {% endif %}
+          {% if questao.artigo %}
+            <p>Diz se apoiar em <b>{{ questao.artigo }}</b>{% if lei %} — <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}</p>
+          {% else %}
+            <p>A IA não soube dizer em que artigo se apoia.</p>
+          {% endif %}
+          {# O porque do nivel so depois de responder: ele pode entregar a
+             resposta ("o item 3 esta errado porque..."), como a letra
+             (decisao 148). #}
+          {% if corrigida and questao.nivel and questao.por_que_o_nivel %}
+            <p>Por que {{ rotulo_do_nivel(questao.nivel) | lower }}, segundo a IA: {{ questao.por_que_o_nivel }}</p>
+          {% endif %}
+          <form method="post" action="/geradas/{{ questao.id }}/errada">
+            <input type="hidden" name="voltar" value="/simulado/{{ simulado.id }}">
+            <button class="errada-ia" type="submit">Essa questão está errada</button>
+          </form>
+        </div>
+      {% endcall %}
+      <div style="height:var(--esp-4)"></div>
+    {% endif %}
+
+    {% if corrigida %}
+      {% set certa = resposta.acertou %}
+      <div class="veredito {{ 'acertou' if certa else 'errou' }}" role="status">
+        <b>{% if certa %}✓ Acertou!{% else %}✗ Errou: a certa é {{ questao.resposta | upper }}){% endif %}</b>
+        {% if resposta.chutou %}
+          <span class="nota-chute">{% if certa %}Foi no chute: o acerto conta, mas vale rever o porquê.{% else %}Foi no chute.{% endif %}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {# A questao de interpretacao cita o texto do caderno; sem ele nao se
+       responde (item 4, 06/10). So a questao real tem; a gerada, nao. #}
+    {% if questao.texto_base is defined and questao.texto_base %}
+      <details class="texto-base" {{ '' if corrigida else 'open' }}><summary>Texto-base (do caderno da prova)</summary>
+        <p>{{ questao.texto_base | destacado(questao, 'texto_base') }}</p></details>
+    {% endif %}
+    {# A FEPESE desenha o tracinho da lacuna como figura, e a leitura do caderno
+       pode perder algum (decisao 165): a tela diz quantos e manda ao caderno,
+       em vez de mostrar o texto como se estivesse inteiro. #}
+    {% if lacunas_perdidas %}
+      <p class="ds-alerta">⚠ A leitura do caderno não mostra {{ lacunas_perdidas }} {{ 'lacuna' if lacunas_perdidas == 1 else 'lacunas' }} desta questão. Confira no <a href="{{ questao.prova_url }}" target="_blank" rel="noopener">caderno da prova</a> antes de responder.</p>
+    {% endif %}
+    {% if not corrigida and not de_ia %}{{ aviso_gabarito(questao) }}{% endif %}
+    {# O sublinhado e o negrito do caderno (decisao 178): "o termo sublinhado"
+       so se responde vendo o termo. #}
+    <p class="enunciado">{{ questao.enunciado | destacado(questao, 'enunciado') }}</p>
+
+    {% if corrigida %}
+      <div class="alternativas">
+        {% for letra, texto in questao.alternativas.items() %}
+          {% set e_certa = letra == questao.resposta %}
+          {% set marquei = letra == resposta.escolhida %}
+          <div class="alt {{ 'certa' if e_certa else ('errada' if marquei else 'apagada') }}">
+            <span class="letra">{{ letra }})</span><span>{{ texto | destacado(questao, letra) }}</span>
+            <span class="marca">{% if e_certa and marquei %}✓ sua resposta{% elif e_certa %}✓ {{ 'resposta da IA' if resposta.gerada else ('gabarito a verificar' if questao.gabarito_a_conferir is defined and questao.gabarito_a_conferir else 'gabarito') }}{% elif marquei %}✗ sua resposta{% endif %}</span>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="depois">
+        {# A lei que mudou depois desta prova (decisao 171): so depois da
+           resposta, como o gabarito. A conta e do `leis`; aqui so se desenha. #}
+        {% for mud in mudancas or [] %}{{ aviso_lei(mud) }}{% endfor %}
+        {% if not resposta.gerada %}{{ aviso_gabarito(questao, depois=true) }}{% endif %}
+        {% if resposta.gerada %}
+          {% if questao.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ questao.artigo }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}.</p>{% endif %}
+        {% elif explicacao %}
+          {% call bloco(explicacao.origem, 'Explicação (IA)') %}
+            <p>{{ explicacao.explicacao }}</p>
+            <p class="ds-suave">Fonte citada: {{ explicacao.fonte }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a>{% endif %}</p>
+            <p class="convite">{{ explicacao.modelo }} · confira na fonte antes de confiar</p>
+          {% endcall %}
+        {% else %}
+          <p class="convite">
+            Explicação ainda não pedida.
+            {% if lei %}Enquanto isso: <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a> {{ selo(lei.origem) }}{% endif %}
+          </p>
+        {% endif %}
+
+        {% for m in macetes %}
+          {% call bloco(m.origem, 'Macete relacionado') %}
+            <p>{{ m.regra }}</p>
+            {% if m.pegadinha %}<p><b>⚠ Pegadinha:</b> {{ m.pegadinha }}</p>{% endif %}
+            <p class="convite">Fonte citada: {{ m.fonte }} · <a href="/macetes/{{ m.impressao }}/questoes">ver as questões reais</a></p>
+          {% endcall %}
+        {% endfor %}
+      </div>
+
+      {# O "por que errei" (decisao 174): so na errada, logo depois do erro. #}
+      {% if not resposta.acertou %}
+        {{ botoes_do_motivo(simulado.id, questao.id, motivo_do_erro,
+                            '/simulado/' ~ simulado.id ~ '?ver=' ~ questao.id) }}
+      {% endif %}
+
+      <div class="seguir">
+        <a class="ds-botao proxima" href="/simulado/{{ simulado.id }}" autofocus>
+          {% if ainda_falta %}Próxima &rarr;{% else %}Ver o resultado &rarr;{% endif %}
+        </a>
+        {% if not resposta.acertou %}
+          <a class="secundario" href="{{ anotar_erro }}">Anotar no caderno de erros</a>
+        {% endif %}
+      </div>
+    {% else %}
+      {# Um formulario so, com a letra no botao: e assim que o "vou no chute"
+         vai junto com a letra, sem JavaScript. Marcar DEPOIS de ver o
+         resultado seria marcar so quando erro (decisao 142). #}
+      <form class="alternativas" method="post" action="/simulado/{{ simulado.id }}/responder">
+        <input type="hidden" name="questao_id" value="{{ questao.id }}">
+        <label class="chute"><input type="checkbox" name="chutei" value="1"> Vou no chute nesta</label>
+        {% for letra, texto in questao.alternativas.items() %}
+          <button type="submit" name="letra" value="{{ letra }}"><span class="letra">{{ letra }})</span><span>{{ texto | destacado(questao, letra) }}</span><span></span></button>
+        {% endfor %}
+      </form>
+    {% endif %}
+
+    <p class="fonte-q">
+      {% if de_ia %}
+        Modelo {{ questao.modelo or 'não registrado' }} &middot; esta questão não vale como prova de nada: se estiver errada, marque acima.
+      {% else %}
+        {{ questao.banca }} &middot; {{ questao.municipio or questao.orgao }} {{ questao.ano }}{% if questao.cargo %} &middot; {{ questao.cargo }}{% endif %}
+      {% endif %}
+    </p>
+  </article>
+
+  {# O "Encerrar aqui" (decisao 185): so na rodada de treino, depois da
+     primeira resposta e com questao ainda por fazer. As respondidas ja estao
+     salvas; as outras voltam ao estoque. A rodada que mede vai ate o fim. #}
+  {% if na_hora and resumo.respondidas and (ainda_falta if corrigida else true) %}
+    <form class="encerrar" method="post" action="/simulado/{{ simulado.id }}/encerrar">
+      <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
+              title="As que você respondeu já estão salvas; as que faltam voltam ao estoque e vêm primeiro no próximo clique">Encerrar aqui · salva {{ resumo.respondidas }}</button>
+    </form>
+  {% endif %}
+</main>
+</body>
+</html>

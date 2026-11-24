@@ -1,0 +1,838 @@
+"""Modelos = tabelas do banco. Uma classe vira tabela, um atributo vira coluna.
+
+O schema ja nasce completo, com colunas que so serao preenchidas em fases
+futuras (prazos, salario, relevancia). Isso e de proposito: o projeto nao usa
+Alembic, entao cada coluna nova depois significaria recriar o banco. Criar a
+coluna vazia agora custa zero e evita esse incomodo.
+"""
+from datetime import date, datetime, timezone
+from typing import Any
+
+from sqlalchemy import (
+    Boolean,
+    Date,
+    DateTime,
+    Integer,
+    JSON,
+    String,
+    Text,
+    TypeDecorator,
+    UniqueConstraint,
+)
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+from radar.origem import CLASSIFICACAO, IA, PROVA
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+# O caminho de nomes de um no da arvore de conteudos ("Direito Penal >
+# Imputabilidade penal"). E por ele, e nao pelo id, que tudo se liga a um no:
+# o banco e reconstruivel, e o caminho sobrevive a reconstrucao.
+TAMANHO_DO_CAMINHO = 800
+
+
+def agora() -> datetime:
+    """Momento atual, sempre em UTC e sempre com fuso explicito."""
+    return datetime.now(timezone.utc)
+
+
+class DataHoraUTC(TypeDecorator):
+    """Coluna de data/hora que garante UTC nas duas pontas.
+
+    Por que isso existe: o SQLite nao guarda fuso nenhum. Sem este tipo, voce
+    grava um horario com fuso e le de volta um sem fuso, e ai comparar duas
+    datas estoura com "can't compare offset-naive and offset-aware datetimes".
+    Aqui a regra fica em um lugar so: na entrada converte para UTC, na saida
+    devolve com UTC colado de volta.
+    """
+
+    impl = DateTime
+    cache_ok = True
+
+    def process_bind_param(self, value: datetime | None, dialect) -> datetime | None:
+        if value is None:
+            return None
+        if value.tzinfo is None:          # veio sem fuso: assumimos UTC
+            return value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)
+
+    def process_result_value(self, value: datetime | None, dialect) -> datetime | None:
+        if value is None:
+            return None
+        if value.tzinfo is None:
+            return value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)
+
+
+# --- Vocabularios fechados -------------------------------------------------
+# Strings soltas pelo codigo viram erro de digitacao silencioso. Constante
+# nomeada o compilador nao pega, mas o seu editor pega.
+
+SITUACOES = (
+    "prevista",           # so rumor ou expectativa, sem ato oficial
+    "autorizado",         # governo autorizou a realizacao
+    "banca_definida",     # banca contratada: edital costuma sair em 2-4 meses
+    "edital_publicado",
+    "inscricoes_abertas",
+    "encerrado",
+    "desconhecida",
+)
+
+# Na ordem do que interessa: perto, perto o bastante, estadual de SC (eu
+# presto onde for), longe, e o que ainda depende de ler o edital.
+RELEVANCIAS = ("nucleo", "proximo", "estadual", "remoto", "indefinida")
+
+TIPOS = ("concurso", "seletivo", "desconhecido", "noticia")
+
+# O cargo e meu alvo? `principal` e a Policia Penal SC, que passa por cima do
+# filtro de distancia e do teto de avisos. `principal_fora` e o mesmo cargo em
+# outro estado - ou sem prova de qual: avisa igual, mas nao entra em nada que
+# seja estudo, porque e outra banca e outra lei estadual. `secundario` e o
+# resto da lista do CLAUDE.md, que so ganha a marca. Nulo = nao e cargo meu.
+# Quem decide e config/alvo.yml, nunca o codigo.
+ALVOS = ("principal", "principal_fora", "secundario")
+
+ELEGIBILIDADES = ("elegivel", "inelegivel", "a_confirmar")
+
+# De onde saiu uma questao escrita pela IA. `variacao` parte de uma questao
+# real com gabarito conferido e so troca o cenario; `do_zero` nao tem questao
+# real embaixo, e por isso e o modo de excecao - so para assunto que nao tem
+# nenhuma questao no acervo.
+MODOS_DE_GERACAO = ("variacao", "do_zero")
+
+# Os tres modos de PEDIDO da secao 8 do novo.md (Etapa 5). Eixo diferente do
+# `MODOS_DE_GERACAO`, que diz como a questao foi ESCRITA (variando uma real ou
+# do zero): aqui e para que ela foi pedida.
+#
+#   treino   - escopo fechado: materia > assunto [> subassunto [> elemento]].
+#              Nada fora dele entra;
+#   revisao  - so os nos que eu JA ESTUDEI (a definicao esta na decisao 20);
+#   simulado - a abrangencia ampla de sempre, pelo edital e pelo peso.
+MODOS_DE_PEDIDO = ("treino", "revisao", "simulado")
+
+# Em que a questao gerada se APOIA (secao 9: a regra de ouro). A prioridade e
+# esta ordem: questao real do mesmo no primeiro, fonte oficial depois, e o item
+# do edital por ultimo.
+#
+# `sem_referencia` e o caso que a §9 manda registrar com todas as letras: nao
+# havia questao real relacionada. O sistema NUNCA inventa um vinculo com uma
+# questao real so para preencher o campo.
+BASES_DA_GERADA = ("questao_real", "fonte_oficial", "item_do_edital")
+
+# A base era do concurso-alvo ou do acervo complementar? "nenhuma" quando nao
+# houve questao real embaixo.
+EVIDENCIAS_DA_BASE = ("alvo", "complementar", "nenhuma")
+
+# O que pode acontecer com um concurso e virar linha do tempo. O vocabulario e
+# fechado pelo mesmo motivo dos outros: string solta pelo codigo vira erro de
+# digitacao silencioso.
+TIPOS_DE_EVENTO = (
+    "apareceu",               # entrou no radar pela primeira vez
+    "mudou_situacao",         # qualquer outro passo do ciclo de vida
+    "edital_publicado",       # saiu o edital
+    "inscricoes_abertas",     # o prazo abriu
+    "inscricoes_encerradas",  # o prazo fechou
+    "edital_retificado",      # o PDF do edital mudou de conteudo
+    "prova_marcada",          # a data da prova ficou conhecida
+)
+
+
+class Concurso(Base):
+    __tablename__ = "concursos"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    # --- identidade ---------------------------------------------------------
+    # A url e a chave natural: e o que diz se dois itens sao o mesmo concurso.
+    url: Mapped[str] = mapped_column(String(800), unique=True, index=True)
+    fonte: Mapped[str] = mapped_column(String(60), index=True)
+    titulo: Mapped[str] = mapped_column(String(500))
+    resumo: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # --- quem abriu ---------------------------------------------------------
+    orgao: Mapped[str | None] = mapped_column(String(300), nullable=True)
+    municipio: Mapped[str | None] = mapped_column(String(150), index=True, nullable=True)
+    uf: Mapped[str | None] = mapped_column(String(2), index=True, nullable=True)
+    banca: Mapped[str | None] = mapped_column(String(120), index=True, nullable=True)
+
+    # --- ciclo de vida ------------------------------------------------------
+    situacao: Mapped[str] = mapped_column(String(25), default="desconhecida", index=True)
+
+    # concurso | seletivo | desconhecido | noticia
+    # `noticia` e o que veio junto no feed sem ser concurso; fica guardado em
+    # vez de apagado, para eu conferir se o filtro nao esta comendo coisa boa.
+    tipo: Mapped[str] = mapped_column(String(15), default="desconhecido", index=True)
+
+    # --- prazos (fase 2.5: extraidos do PDF do edital) ----------------------
+    inscricoes_de: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+    inscricoes_ate: Mapped[datetime | None] = mapped_column(DataHoraUTC, index=True, nullable=True)
+    data_prova: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # --- filtro geografico (fase 1.5) --------------------------------------
+    relevancia: Mapped[str] = mapped_column(String(15), default="indefinida", index=True)
+    motivo_relevancia: Mapped[str | None] = mapped_column(String(300), nullable=True)
+
+    # --- filtro de cargo ----------------------------------------------------
+    # principal | secundario | nulo. Sai de config/alvo.yml, e como a
+    # relevancia e recalculado a cada `radar reclassificar`.
+    alvo: Mapped[str | None] = mapped_column(String(15), index=True, nullable=True)
+    motivo_alvo: Mapped[str | None] = mapped_column(String(300), nullable=True)
+
+    # Fura o teto de avisos do dia sozinho, sem ser alvo principal. Hoje so
+    # liga pela lista `de_olho` do config/alvo.yml - a Guarda Municipal de
+    # Florianopolis e a de Balneario Camboriu.
+    alvo_prioritario: Mapped[bool] = mapped_column(
+        Boolean, default=False, index=True
+    )
+
+    # --- filtro de elegibilidade (fase 2.5) --------------------------------
+    salario: Mapped[float | None] = mapped_column(nullable=True)
+    escolaridade: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    idade_maxima: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    elegibilidade: Mapped[str] = mapped_column(String(15), default="a_confirmar", index=True)
+    motivo_elegibilidade: Mapped[str | None] = mapped_column(String(300), nullable=True)
+
+    # Liga quando EU digito o salario na tela. A partir dai o classificador
+    # nao encosta mais no campo: o valor que eu li no edital vale mais que o
+    # que da para adivinhar pelo titulo.
+    salario_manual: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    # Liga quando o municipio veio da PAGINA do edital ("lotacao em
+    # Florianopolis"), e nao do titulo. A pagina e fonte melhor, entao o
+    # classificador - que so ve o titulo - para de mexer no campo.
+    municipio_confirmado: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    # --- suas anotacoes (fase 1.5) -----------------------------------------
+    # Isto e SEU, nao da fonte: a coleta nunca sobrescreve estes dois campos.
+    interesse: Mapped[str | None] = mapped_column(String(15), nullable=True)
+    notas: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # Quando li a pagina do post atras de prazo, banca e lotacao. Preenchido
+    # mesmo quando nao achei nada: serve para nao ficar buscando a mesma
+    # pagina toda vez.
+    detalhado_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # --- avisos (fase 2) ----------------------------------------------------
+    # Quando o Telegram foi avisado sobre este concurso. Nulo = ainda nao
+    # avisei. E o que impede a coleta de amanha de reavisar o de hoje.
+    avisado_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # --- controle -----------------------------------------------------------
+    publicado_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+    coletado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+    atualizado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora, onupdate=agora)
+
+    # O que a fonte mandou e ainda nao virou coluna. Melhor guardar do que
+    # descobrir daqui a tres meses que o dado existia e foi jogado fora.
+    extra: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+
+    @property
+    def origem_do_salario(self) -> str | None:
+        """O selo do salario (Etapa 7A): lido do anuncio pelo classificador,
+        ou None quando fui eu que digitei - ai a tela diz "anotado por mim"."""
+        if self.salario is None or self.salario_manual:
+            return None
+        return CLASSIFICACAO
+
+    def __repr__(self) -> str:
+        return f"<Concurso {self.uf or '--'} {self.titulo[:50]!r}>"
+
+
+class Evento(Base):
+    """Uma coisa que aconteceu com um concurso, na ordem em que aconteceu.
+
+    Existe porque o resto do banco guarda so o AGORA. Quando a situacao muda, o
+    valor antigo e sobrescrito e ninguem lembra que ele existiu: nao da para
+    responder "quando foi que essa inscricao abriu?" nem "esse edital ja tinha
+    sido retificado antes?". Aqui a mudanca vira linha, e a linha fica.
+
+    O concurso e apontado pela URL, e nao pelo id, de proposito: a url e a
+    chave natural do projeto, e o id muda quando o banco e reconstruido a
+    partir de data/concursos.json. Evento amarrado a id nao sobreviveria a um
+    `radar importar`.
+    """
+
+    __tablename__ = "eventos"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    concurso_url: Mapped[str] = mapped_column(String(800), index=True)
+
+    # Quando aconteceu - ou, quando nao da para saber o momento exato, quando
+    # o radar percebeu. Nunca fica vazio.
+    data: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora, index=True)
+
+    tipo: Mapped[str] = mapped_column(String(30), index=True)
+    descricao: Mapped[str] = mapped_column(String(300))
+
+    # Para onde ir para conferir: a pagina do concurso, ou o PDF que mudou.
+    link: Mapped[str | None] = mapped_column(String(800), nullable=True)
+
+    # Quando este evento virou mensagem no Telegram. Nulo = ainda nao avisei.
+    # So evento de concurso FAVORITO vira aviso, e so os tipos que mudam o que
+    # eu tenho que fazer - o resto fica na linha do tempo, para eu ler quando
+    # quiser, sem tocar o celular.
+    avisado_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    def __repr__(self) -> str:
+        return f"<Evento {self.tipo} {self.data:%d/%m/%Y}>"
+
+
+class QuestaoDeProva(Base):
+    """Uma questao objetiva tirada de um caderno de prova.
+
+    Tabela separada dos concursos de proposito: uma prova rende 40 questoes, e
+    misturar as duas coisas na mesma tabela nao ajudaria ninguem.
+    """
+
+    __tablename__ = "questoes"
+    __table_args__ = (
+        # A mesma questao do mesmo caderno nao entra duas vezes, e isso
+        # permite rodar a extracao de novo sem duplicar nada.
+        UniqueConstraint("prova_url", "numero", name="uq_questao_prova_numero"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    # De onde veio
+    prova_url: Mapped[str] = mapped_column(String(800), index=True)
+    concurso_url: Mapped[str | None] = mapped_column(String(800), nullable=True)
+    banca: Mapped[str | None] = mapped_column(String(120), index=True, nullable=True)
+    ano: Mapped[int | None] = mapped_column(Integer, index=True, nullable=True)
+    municipio: Mapped[str | None] = mapped_column(String(150), nullable=True)
+    cargo: Mapped[str | None] = mapped_column(String(300), index=True, nullable=True)
+
+    # A questao
+    numero: Mapped[int] = mapped_column(Integer)
+    materia: Mapped[str | None] = mapped_column(String(160), index=True, nullable=True)
+    enunciado: Mapped[str] = mapped_column(Text)
+    alternativas: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    resposta: Mapped[str | None] = mapped_column(String(1), nullable=True)
+
+    # A banca anulou a questao depois dos recursos: ela nao tem resposta certa
+    # e nao entra em conta nenhuma. Sai do gabarito DEFINITIVO, que o caderno
+    # nao conhece - o PDF do caderno traz o provisorio embutido.
+    anulada: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+
+    # Hash do enunciado. Questao repetida entre provas e o padrao mais forte
+    # que existe, e e por aqui que se acha.
+    impressao: Mapped[str] = mapped_column(String(32), index=True)
+
+    # O texto de apoio que a questao cita ("considerando o texto 1"), lido do
+    # caderno por colunas (`questoes.textos_base`). So as provas do alvo, so
+    # Portugues, e so aqui no banco: o texto e de terceiros (BBC, artigo), e
+    # copia-lo para um arquivo versionado seria publicar o que nao e meu.
+    # Fica fora da chave da questao: ele e contexto, e nao a pergunta.
+    texto_base: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # O sublinhado e o negrito do caderno (decisao 178), que a leitura do
+    # texto perde: [{"campo", "inicio", "fim", "tipo", "trecho"}], o campo
+    # sendo o enunciado, o texto_base ou a letra da alternativa. Sai de
+    # `destaques.ler_marcas` + `destaques.localizar`, e nao muda o texto: fica
+    # fora da chave, como o texto-base. So aqui no banco, pelo mesmo motivo.
+    # Sem marca e NULL de verdade, e nao o texto "null": "destaques IS NULL"
+    # tem de achar as questoes sem nenhuma.
+    destaques: Mapped[list | None] = mapped_column(JSON(none_as_null=True), nullable=True)
+
+    # Assunto fino dentro da materia. Quando a prova e a do meu cargo, o nome
+    # vem do CONTEUDO PROGRAMATICO do edital, e por isso ele e comprido: "Lei
+    # Complementar n.o 529 de 17 de dezembro de 2011 (Regimento Interno dos
+    # estabelecimentos penais do Estado de Santa Catarina)" tem 126 caracteres,
+    # e encurtar seria eu reescrevendo o edital.
+    assunto: Mapped[str | None] = mapped_column(String(200), index=True, nullable=True)
+
+    # DE ONDE veio o assunto acima, e QUANDO. Existem por causa de 24/09/2026:
+    # 93 classificacoes foram gravadas sem nunca terem passado pela API, e o
+    # arquivo versionado nao tinha como mostrar isso. Sem estes dois campos um
+    # rotulo escrito a mao e um rotulo pago sao indistinguiveis depois - e o
+    # que nao da para auditar nao serve. Nulos nas questoes que nao tem
+    # assunto, e nas que tiram o assunto do catalogo de palavras-chave, que
+    # nao passa por aqui nem custa nada.
+    assunto_modelo: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    assunto_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # alvo | complementar | fora (Etapa 2). Quem preenche e UMA funcao,
+    # `servico.evidencia.atualizar`: a prova do meu cargo e do meu estado e
+    # alvo; outra prova da banca do alvo e complementar; o resto e fora. Nula
+    # so ate a primeira conta.
+    evidencia: Mapped[str | None] = mapped_column(String(12), index=True, nullable=True)
+
+    # O gabarito que nao veio do caderno nem do site: o Claude Code buscou, e
+    # o Gabriel ainda nao conferiu (decisao PMSC-27). O texto diz de onde ele
+    # veio ("Claude Code (claude-opus-5-5), 03/11/2026, pela lei: CP, art.
+    # 312"), e a tela mostra "Verificar a questao". Nulo no gabarito certo, e
+    # de novo nulo depois da conferencia. Sem o `gabarito_link` - a pagina em
+    # que o gabarito desta questao aparece -, a questao so treina: fica fora
+    # de todo acerto (`metricas.so_treina`).
+    gabarito_a_conferir: Mapped[str | None] = mapped_column(String(400), nullable=True)
+    gabarito_link: Mapped[str | None] = mapped_column(String(800), nullable=True)
+
+    extraida_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    #: A origem do selo (Etapa 7A): questao real, tirada do caderno oficial.
+    #: Nao e coluna - a tabela ja diz isso de cada linha.
+    origem = PROVA
+
+    def __repr__(self) -> str:
+        return f"<Questao {self.numero} {self.materia} {self.enunciado[:40]!r}>"
+
+
+class Simulado(Base):
+    """Uma rodada de questoes respondidas.
+
+    O estado fica no banco, e nao numa sessao do navegador: assim da para
+    fechar a pagina no meio e voltar depois, e o historico serve para medir se
+    eu estou melhorando.
+    """
+
+    __tablename__ = "simulados"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    criado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+    finalizado_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # Com que filtros ele foi montado. Guardado para eu saber depois o que
+    # aquele resultado significava.
+    filtros: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+
+    def __repr__(self) -> str:
+        return f"<Simulado {self.id} de {self.criado_em:%d/%m/%Y}>"
+
+
+class RespostaDeSimulado(Base):
+    """Uma questao dentro de um simulado, e o que eu marquei nela."""
+
+    __tablename__ = "respostas_de_simulado"
+    __table_args__ = (
+        UniqueConstraint("simulado_id", "questao_id", name="uq_resposta_questao"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    simulado_id: Mapped[int] = mapped_column(Integer, index=True)
+    questao_id: Mapped[int] = mapped_column(Integer, index=True)
+
+    # Em QUAL tabela o `questao_id` acima existe: `questoes` quando falso,
+    # `questoes_geradas` quando verdadeiro. Sem esta coluna as duas tabelas
+    # numeram do 1 e a questao gerada 5 se juntaria a questao real 5 - um erro
+    # silencioso, que so apareceria como acerto contado na materia errada.
+    gerada: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+
+    # A ordem em que a questao aparece nesta rodada.
+    ordem: Mapped[int] = mapped_column(Integer)
+
+    # Nulo enquanto nao respondi. E isso que diz onde eu parei.
+    escolhida: Mapped[str | None] = mapped_column(String(1), nullable=True)
+    acertou: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    respondida_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+
+    # O "vou no chute" marcado ANTES de escolher a letra (decisao 142). Nulo
+    # nas respostas de antes dele: ali nao se sabe, e nao e o mesmo que "nao".
+    # Nao muda o acerto: e um numero a mais ao lado dele, nunca dentro.
+    chutou: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+
+    # Por que eu errei (decisao 174): uma chave dos MOTIVOS do servico/erros.py,
+    # dada num clique depois do erro. Nulo e "nao disse" - e, com o `chutou`
+    # marcado, conta como "chutei" (`erros.motivo_do_erro`). So a errada tem;
+    # nao muda acerto, erro nem volume: e o dado que o Historico vai ler.
+    motivo: Mapped[str | None] = mapped_column(String(20), nullable=True)
+
+    def __repr__(self) -> str:
+        return f"<Resposta q{self.questao_id} = {self.escolhida}>"
+
+
+class QuestaoGerada(Base):
+    """Uma questao que a IA escreveu para eu treinar. Nao mede nada.
+
+    Tabela separada das questoes reais, e esta e a decisao que sustenta a
+    etapa inteira: questao gerada serve para TREINAR, nunca para MEDIR o que a
+    banca cobra. Ela nao entra na incidencia, no peso das materias, na aba
+    Macetes nem nas questoes esperadas do "Onde estudar primeiro".
+
+    Uma coluna `gerada` dentro de `questoes` daria no mesmo, e dependeria de
+    eu lembrar do filtro em cada consulta que conta questao - e sao dez.
+    Tabela separada nao depende de eu lembrar: um `select(QuestaoDeProva)` nao
+    alcanca esta tabela nem por engano, hoje nem na proxima fase.
+    """
+
+    __tablename__ = "questoes_geradas"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+    # --- de onde veio ------------------------------------------------------
+    #: "variacao" ou "do_zero", de MODOS_DE_GERACAO.
+    modo: Mapped[str] = mapped_column(String(20), index=True)
+
+    #: A impressao da questao REAL que serviu de base, no modo variacao. E por
+    #: ela que a tela mostra "baseada nesta questao", e e o que me deixa
+    #: conferir a variacao contra um gabarito que a banca publicou. Nula no
+    #: modo do_zero, que nao tem questao real embaixo.
+    origem_impressao: Mapped[str | None] = mapped_column(
+        String(32), index=True, nullable=True
+    )
+
+    #: A CHAVE da questao real de base: enunciado e alternativas
+    #: (`questoes.chave_da_questao`). A impressao, so do enunciado, nao diz QUAL
+    #: questao foi - a FEPESE repete o comando ("De acordo com a Lei de
+    #: Execucao Penal, e correto") em questoes de alternativas diferentes.
+    #: Nula no do_zero, e nas variacoes antigas cujo enunciado se repete no
+    #: acervo com alternativas diferentes: ai nao ha como saber qual foi.
+    origem_chave: Mapped[str | None] = mapped_column(String(32), nullable=True)
+
+    #: Qual modelo escreveu. A procedencia fica gravada no dado, e nao so no
+    #: commit: sem isto nao ha como saber depois o que produziu cada questao.
+    modelo: Mapped[str | None] = mapped_column(String(60), nullable=True)
+
+    # --- a questao ---------------------------------------------------------
+    materia: Mapped[str | None] = mapped_column(String(160), index=True, nullable=True)
+    assunto: Mapped[str | None] = mapped_column(String(200), index=True, nullable=True)
+
+    #: O artigo da lei em que ela se apoia, do jeito que a IA respondeu
+    #: ("art. 41, XV, da Lei 7.210/1984"). Vazio quando a IA nao soube dizer -
+    #: e melhor sem artigo do que com artigo inventado. A tela junta este
+    #: texto com o link de config/leis.yml, para eu conferir em 10 segundos.
+    artigo: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    #: O no da arvore de conteudos, pelo caminho. Opcional: a `materia` e o
+    #: `assunto` de texto continuam onde estao.
+    conteudo: Mapped[str | None] = mapped_column(String(TAMANHO_DO_CAMINHO), nullable=True)
+
+    # --- o escopo e a base do pedido (Etapa 5) -----------------------------
+    #
+    # Os quatro campos abaixo respondem "de onde esta questao saiu", que e o
+    # que a §9 chama de regra de ouro. Nulos nas 50 geradas antes desta etapa:
+    # elas nasceram de um pedido que nao tinha escopo nenhum, e inventar um
+    # agora seria dizer que elas foram pedidas de um jeito que nao foram.
+
+    #: treino | revisao | simulado, de MODOS_DE_PEDIDO.
+    modo_do_pedido: Mapped[str | None] = mapped_column(
+        String(10), index=True, nullable=True
+    )
+
+    #: O escopo que o pedido fechou, pelo caminho do no. E contra ele que a
+    #: importacao recusa questao de fora.
+    escopo: Mapped[str | None] = mapped_column(
+        String(TAMANHO_DO_CAMINHO), nullable=True
+    )
+
+    #: questao_real | fonte_oficial | item_do_edital, de BASES_DA_GERADA.
+    base: Mapped[str | None] = mapped_column(String(20), index=True, nullable=True)
+
+    #: alvo | complementar | nenhuma, de EVIDENCIAS_DA_BASE. "nenhuma" e o
+    #: registro explicito que a §9 pede: nao havia questao real relacionada.
+    evidencia_da_base: Mapped[str | None] = mapped_column(
+        String(14), index=True, nullable=True
+    )
+
+    enunciado: Mapped[str] = mapped_column(Text)
+    alternativas: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    resposta: Mapped[str | None] = mapped_column(String(1), nullable=True)
+
+    # --- o nivel (decisao 151) ---------------------------------------------
+    #
+    # O que a IA DECLARA, com a procedencia dela; nunca mede nada. Nulos nas
+    # geradas de antes da versao 8 do banco: o nivel delas vem de uma
+    # classificacao feita depois, e inventar um agora seria dizer que alguem
+    # o declarou.
+
+    #: facil | media | dificil, de `radar.niveis.NIVEIS`. Nulo = "sem nivel".
+    nivel: Mapped[str | None] = mapped_column(String(10), index=True, nullable=True)
+    #: A linha em que a IA justifica o nivel, pelo criterio do pedido.
+    por_que_o_nivel: Mapped[str | None] = mapped_column(Text, nullable=True)
+    #: Quem declarou o nivel e quando. Separada do `modelo` porque a questao
+    #: antiga foi escrita num dia e classificada em outro.
+    nivel_procedencia: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    #: O motivo, quando a classificacao desconfiou do gabarito ou da lei. So
+    #: e LISTADA para eu conferir: nada e rejeitado por ela.
+    suspeita: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    #: Hash do enunciado, igual ao das questoes reais. E a chave do arquivo
+    #: versionado, e e o que impede pagar duas vezes pela mesma questao e
+    #: gerar a mesma pergunta de novo.
+    impressao: Mapped[str] = mapped_column(String(32), index=True, unique=True)
+
+    #: Eu cliquei em "essa questao esta errada". Ela sai do sorteio para
+    #: sempre e nao e apagada - o erro guardado e o que me diz se um assunto
+    #: da errado toda vez, e ai o problema nao e a questao, e o pedido.
+    rejeitada: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+
+    criada_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    #: A origem do selo (Etapa 7A): escrita pela IA. Nao e coluna - a tabela
+    #: ja diz isso de cada linha.
+    origem = IA
+
+    def __repr__(self) -> str:
+        return f"<QuestaoGerada {self.modo} {self.enunciado[:40]!r}>"
+
+
+class RegistroDoDia(Base):
+    """Como foi um dia do cronograma, do jeito que EU anotei.
+
+    Questoes feitas e acertos aqui sao digitados a mao, e a maior parte vem
+    do Qconcursos. Por isso NAO entram em acerto medido nenhum do radar (Meu
+    foco, Onde estudar, home): la so conta o que eu respondi dentro do radar,
+    questao por questao. Isto e o diario do cronograma, e so.
+    """
+
+    __tablename__ = "registros_de_estudo"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # Data local do dia de estudo, e nao instante: "28/09" e o dia do plano,
+    # nao importa a hora em que eu anotei.
+    data: Mapped[date] = mapped_column(Date, unique=True, index=True)
+    meta: Mapped[str] = mapped_column(String(10))
+    questoes_feitas: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    acertos: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    anotacao: Mapped[str | None] = mapped_column(Text, nullable=True)
+    anotado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<RegistroDoDia {self.data} {self.meta}>"
+
+
+class EstadoDoDia(Base):
+    """O que eu risquei no dia: as faixas feitas e o Plano B escolhido.
+
+    Diferente do RegistroDoDia (a meta que EU declarei), isto e o rascunho de
+    durante o dia - os checks de cada faixa. Tambem e diario: nao entra em
+    acerto medido nenhum do radar.
+    """
+
+    __tablename__ = "estados_do_dia"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    data: Mapped[date] = mapped_column(Date, unique=True, index=True)
+    # Lista de {bloco, indice, titulo}. O titulo vai junto de proposito: se o
+    # cronograma.yml mudar e a faixa daquela posicao for outra, o check antigo
+    # deixa de valer - em vez de marcar como feita uma faixa que eu nao fiz.
+    faixas_feitas: Mapped[list[Any]] = mapped_column(JSON, default=list)
+    # 30 ou 60 (minutos): o Plano B que escolhi no dia. None = nenhum.
+    plano_b: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # Lista de {bloco, indice, titulo, materia, chutes, entendi, nota}: o que
+    # eu disse de como foi cada faixa (decisao 142). Fora do `faixas_feitas`
+    # de proposito: desmarcar a faixa nao apaga a nota, e da para escrever
+    # antes de marcar. Nula nos dias de antes dela.
+    notas_das_faixas: Mapped[list[Any] | None] = mapped_column(JSON, nullable=True)
+    atualizado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<EstadoDoDia {self.data} {len(self.faixas_feitas or [])} feita(s)>"
+
+
+class ErroAnotado(Base):
+    """Um erro meu, anotado a mao, com a regra certa escrita por mim.
+
+    O caderno de erros e um DIARIO, como o RegistroDoDia: ele NAO entra em
+    acerto medido nenhum do radar - nem no Meu foco, nem no Onde estudar, nem
+    no compilado, nem na home. A razao e a mesma de sempre: o que eu digito
+    aqui vem em maior parte do Qconcursos, e o que mede o que a banca cobra e
+    so o que eu respondi dentro do radar, questao por questao.
+
+    A revisao (1-7-30) mora nesta tabela, e nao e calculada como a do
+    `servico.espacada`. A diferenca e de origem: aquela sai das respostas
+    gravadas e pode ser recalculada a qualquer momento; esta sai do meu
+    julgamento ("ja sei" / "ainda erro"), que nao esta escrito em lugar
+    nenhum a nao ser aqui.
+    """
+
+    __tablename__ = "erros_anotados"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    criado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora, index=True)
+    # A data do DIA DO CRONOGRAMA em que o erro aconteceu, e nao o instante em
+    # que eu anotei: anotar no domingo um erro de sexta nao muda a sexta.
+    data_estudo: Mapped[date] = mapped_column(Date, index=True)
+    materia: Mapped[str] = mapped_column(String(80), index=True)
+    assunto: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    # O no da arvore de conteudos, pelo caminho (Etapa 2). Opcional: a materia
+    # e o assunto digitados continuam onde estao.
+    conteudo: Mapped[str | None] = mapped_column(String(TAMANHO_DO_CAMINHO), nullable=True)
+    # nao_sabia | confundi | li_errado | pegadinha | chutei (servico/erros.py).
+    motivo: Mapped[str] = mapped_column(String(20), index=True)
+    # A regra certa, escrita por mim. E OBRIGATORIA de proposito: erro sem a
+    # regra e so um erro anotado - com ela, e uma coisa aprendida.
+    regra: Mapped[str] = mapped_column(Text)
+    # qconcursos | radar | simulado | outro.
+    fonte: Mapped[str] = mapped_column(String(20), default="qconcursos")
+    # Link ou numero da questao. Opcional: as vezes eu so tenho a regra.
+    referencia: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # 1, 2 ou 3: qual das revisoes (1, 7 e 30 dias) vem agora.
+    etapa: Mapped[int] = mapped_column(Integer, default=1)
+    proxima_revisao: Mapped[date | None] = mapped_column(Date, index=True, nullable=True)
+    # Lista de {data, resultado, etapa}: o que eu respondi em cada revisao.
+    # Fica aqui porque e o unico lugar que conta a HISTORIA do erro - se ele
+    # ja voltou tres vezes para a etapa 1, o problema nao e a memoria.
+    historico: Mapped[list[Any]] = mapped_column(JSON, default=list)
+    arquivado: Mapped[bool] = mapped_column(Boolean, default=False, index=True)
+    # Para o backup saber qual lado esta mais novo, como no registro do dia.
+    atualizado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<ErroAnotado {self.data_estudo} {self.materia} {self.motivo}>"
+
+
+class EstudoExtra(Base):
+    """Estudo que eu fiz FORA das faixas do plano, anotado a mao.
+
+    O plano manda no dia, mas o dia nao cabe nele: uma hora de lei seca no
+    almoco, 20 questoes na fila do banco, uma videoaula a noite. Sem isto,
+    esse tempo simplesmente nao existia em lugar nenhum - e eu terminava a
+    semana achando que tinha feito menos do que fiz.
+
+    Diario, como o RegistroDoDia: NAO entra em acerto medido nenhum do radar.
+    Quando `onde` e "radar", as questoes ficam vazias de proposito - o radar ja
+    contou cada uma delas, uma por uma, e soma-las aqui seria contar duas vezes.
+    """
+
+    __tablename__ = "estudos_extras"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    # O dia do cronograma a que este estudo pertence. Varios por dia.
+    data: Mapped[date] = mapped_column(Date, index=True)
+    # teoria | lei_seca | questoes | revisao (servico/extra.py).
+    o_que: Mapped[str] = mapped_column(String(20))
+    # Uma das materias de `materias`, no config/cronograma.yml.
+    materia: Mapped[str | None] = mapped_column(String(80), nullable=True, index=True)
+    assunto: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    # O no da arvore de conteudos, pelo caminho (Etapa 2). Opcional: a materia
+    # e o assunto digitados continuam onde estao.
+    conteudo: Mapped[str | None] = mapped_column(String(TAMANHO_DO_CAMINHO), nullable=True)
+    minutos: Mapped[int] = mapped_column(Integer, default=0)
+    questoes: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    acertos: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    # Questao feita com a lei aberta treina, mas nao mede: ela fica de fora da
+    # comparacao com a meta (docs/decisoes.md).
+    consulta: Mapped[bool] = mapped_column(Boolean, default=False)
+    # qconcursos | radar | outro.
+    onde: Mapped[str] = mapped_column(String(20), default="outro")
+    anotacao: Mapped[str | None] = mapped_column(Text, nullable=True)
+    criado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora, index=True)
+    # Para o backup saber qual lado esta mais novo, como no resto do diario.
+    atualizado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<EstudoExtra {self.data} {self.o_que} {self.minutos}min>"
+
+
+class NotaDaSemana(Base):
+    """A reflexao da semana: o que funcionou e o que ajustar.
+
+    Duas caixas de texto por semana, e nada mais. Elas existem porque numero
+    nao responde "por que" - a semana em que eu fiz 300 questoes e acertei 60%
+    tem uma explicacao, e daqui a um mes eu nao vou lembrar dela.
+
+    A chave e a SEGUNDA da semana, e nao o numero dela: numero de semana e do
+    ciclo, e ele reinicia no Ciclo 2.
+    """
+
+    __tablename__ = "notas_da_semana"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    inicio: Mapped[date] = mapped_column(Date, unique=True, index=True)
+    funcionou: Mapped[str | None] = mapped_column(Text, nullable=True)
+    ajustar: Mapped[str | None] = mapped_column(Text, nullable=True)
+    atualizado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<NotaDaSemana {self.inicio}>"
+
+
+# --- a arvore de conteudos (Etapa 2) -------------------------------------------
+
+class Conteudo(Base):
+    """Um no da arvore: materia > assunto > subassunto > elemento.
+
+    Os dois niveis de baixo sao opcionais, e o que e "elemento" muda com a
+    materia (artigo no Direito, regra gramatical no Portugues, tipo de
+    problema no Raciocinio): os tipos moram no config/taxonomia.yml, e
+    ampliar a lista nao muda esta tabela.
+    """
+
+    __tablename__ = "conteudos"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    #: "Direito Penal > Imputabilidade penal". Unico: o nome so se repete em
+    #: pais diferentes.
+    caminho: Mapped[str] = mapped_column(String(TAMANHO_DO_CAMINHO), unique=True, index=True)
+    #: O caminho do pai; nulo na materia.
+    pai: Mapped[str | None] = mapped_column(String(TAMANHO_DO_CAMINHO), index=True, nullable=True)
+    nivel: Mapped[str] = mapped_column(String(12))
+    nome: Mapped[str] = mapped_column(String(400))
+    #: A ordem entre os irmaos: a do edital, quando veio dele.
+    ordem: Mapped[int] = mapped_column(Integer, default=0)
+    #: So no elemento: artigo, regra gramatical, tipo de problema...
+    tipo_elemento: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    #: Onde ler, quando se aplica: "CP, art. 2º".
+    referencia: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    #: edital | classificacao | manual.
+    origem: Mapped[str] = mapped_column(String(14))
+    #: O texto do edital, literal, quando o no veio dele.
+    texto_do_edital: Mapped[str | None] = mapped_column(Text, nullable=True)
+    #: Materia que caiu numa prova do alvo e nao esta no edital de agora.
+    fora_do_edital: Mapped[bool] = mapped_column(Boolean, default=False)
+    #: De onde veio: "edital 2019", "prova 2013", o modelo da IA, "manual".
+    procedencia: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    criado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+
+    def __repr__(self) -> str:
+        return f"<Conteudo {self.caminho!r}>"
+
+
+class Classificacao(Base):
+    """Uma questao ligada a um no da arvore.
+
+    A questao e reconhecida pela CHAVE - o hash do enunciado E das
+    alternativas (`questoes.chave_da_questao`) -, e nao pelo id, que muda
+    quando o banco e refeito a partir dos PDFs. Nem pela impressao, que e so
+    do enunciado: a banca repete enunciado generico em questoes diferentes
+    (Etapa 3A). Uma questao tem UMA
+    classificacao principal, a que conta na incidencia; as outras sao
+    associadas, mostradas e nunca somadas.
+    """
+
+    __tablename__ = "classificacoes"
+    __table_args__ = (
+        UniqueConstraint("chave", "conteudo", name="uq_classificacao_chave_no"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    chave: Mapped[str] = mapped_column(String(32), index=True)
+    #: O no, pelo caminho. Na pendente, o mais fundo que se sabe (a materia).
+    conteudo: Mapped[str] = mapped_column(String(TAMANHO_DO_CAMINHO), index=True)
+    principal: Mapped[bool] = mapped_column(Boolean, default=True, index=True)
+    #: completa | parcial | pendente.
+    status: Mapped[str] = mapped_column(String(10), index=True)
+    #: Por que: o trecho do enunciado, o item do edital e o dispositivo.
+    trecho: Mapped[str | None] = mapped_column(Text, nullable=True)
+    item_do_edital: Mapped[str | None] = mapped_column(Text, nullable=True)
+    dispositivo: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    #: Como a questao cobra (config/taxonomia.yml: literalidade da lei, caso
+    #: pratico...) e o que torna a alternativa errada atraente (Etapa 3A).
+    tipo_de_questao: Mapped[str | None] = mapped_column(String(60), nullable=True)
+    pegadinha: Mapped[str | None] = mapped_column(Text, nullable=True)
+    #: O modelo que classificou, ou "manual". Sem isso a linha nao entra.
+    procedencia: Mapped[str] = mapped_column(String(120))
+    classificada_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+    #: Quando EU conferi. Nula = ainda nao conferida.
+    conferida_em: Mapped[datetime | None] = mapped_column(DataHoraUTC, nullable=True)
+    #: Quem conferiu, quando nao fui eu: a reanalise as cegas do Claude Code
+    #: (decisao 104). Nula com `conferida_em` = conferida por mim.
+    conferida_por: Mapped[str | None] = mapped_column(String(120), nullable=True)
+
+    def __repr__(self) -> str:
+        return f"<Classificacao {self.chave} {self.status} {self.conteudo!r}>"
+
+
+class VersaoDoBanco(Base):
+    """A versao da estrutura do banco: o ultimo passo de `migracoes` aplicado.
+
+    Uma linha so. Sem ela, o banco e da versao 0 - o de antes da Etapa 2.
+    """
+
+    __tablename__ = "versao_do_banco"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    versao: Mapped[int] = mapped_column(Integer, default=0)
+    migrado_em: Mapped[datetime] = mapped_column(DataHoraUTC, default=agora)
+

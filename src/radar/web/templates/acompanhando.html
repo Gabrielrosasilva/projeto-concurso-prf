@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Acompanhando &middot; Radar de Concursos</title>
+  {# Um bloco por favorito: quantos dias faltam, a proxima acao e a linha do
+     tempo. Cor e espaco saem do design.css; aqui so o que e desta tela. #}
+  {# Enquanto a verificacao roda, a pagina se recarrega sozinha. E HTML, e
+     nao JavaScript: o cronometro e a dobra do Hoje continuam os dois unicos. #}
+  {% if verificacao and verificacao.rodando %}<meta http-equiv="refresh" content="15">{% endif %}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    /* ----------------------------------------- as carreiras (decisao 141) */
+    .recado{margin:0 0 var(--esp-4);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);
+      border-left:3px solid var(--cor-aviso);background:var(--cor-aviso-fundo);font-size:var(--tam-sm)}
+    .verificar{display:flex;flex-wrap:wrap;gap:var(--esp-2) var(--esp-3);align-items:center;
+      justify-content:space-between;margin:0 0 var(--esp-4)}
+    .verificar form{margin:0}
+    .carreiras{display:grid;gap:var(--esp-3);grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));
+      margin-bottom:var(--esp-6)}
+    .carreira{margin:0;display:flex;flex-direction:column}
+    .carreira .ds-cartao__meta{margin-bottom:var(--esp-2)}
+    .sino{font-size:var(--tam-sm);font-weight:var(--peso-forte);color:var(--cor-acao);white-space:nowrap}
+    .novidade{font-size:var(--tam-sm);margin:0 0 var(--esp-2);padding:var(--esp-2) var(--esp-3);
+      border-radius:var(--raio-sm);background:var(--cor-acao-fundo)}
+    .ds .novidade a,.ds .tempo a,.ds .marcos a{color:var(--cor-texto)}
+    .marcos .ressalva{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .estudar-banca{margin:0 0 var(--esp-3);font-size:var(--tam-sm)}
+    .linha-do-concurso{margin:0 0 var(--esp-2);font-size:var(--tam-sm)}
+    .linha-do-concurso .rot{display:inline-block;min-width:8.5rem;font-size:var(--tam-xs);
+      text-transform:uppercase;letter-spacing:.06em;color:var(--cor-texto-suave)}
+    .estudar-banca .ressalva{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .marcos{list-style:none;margin:0 0 var(--esp-3);padding:0;display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--esp-1) var(--esp-3);font-size:var(--tam-sm)}
+    .marcos .rot{display:block;font-size:var(--tam-xs);text-transform:uppercase;letter-spacing:.06em;
+      color:var(--cor-texto-suave)}
+    .rodape{margin-top:auto;display:flex;flex-wrap:wrap;gap:var(--esp-2);align-items:flex-start;
+      justify-content:space-between}
+    .rodape form{margin:0}
+    .rodape details{flex:1 1 100%}
+    .rodape summary{cursor:pointer;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .estado{font-size:var(--tam-xs);text-transform:uppercase;letter-spacing:.05em;
+      color:var(--cor-texto-suave);margin-left:var(--esp-1)}
+    .conferir{display:inline-flex;gap:var(--esp-1);margin-left:var(--esp-1)}
+    .conferir form{margin:0}
+    .item{display:block;color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .pesquisa{margin:0 0 var(--esp-6);font-size:var(--tam-sm)}
+    .pesquisa summary{cursor:pointer;font-weight:var(--peso-medio)}
+    .pesquisa code{overflow-wrap:anywhere}
+    h2.secao{font-size:var(--tam-md);margin:0 0 var(--esp-3)}
+
+    /* ---------------------------------------------------------- bloco --- */
+    .bloco{margin-bottom:var(--esp-4)}
+    .bloco.urgente{border-color:var(--cor-vermelho)}
+
+    .topo{display:flex;gap:var(--esp-2);align-items:flex-start;margin-bottom:var(--esp-2)}
+    .topo form{margin:0}
+    .estrela{background:none;border:0;cursor:pointer;font-size:var(--tam-md);
+      color:var(--cor-ambar);padding:0;line-height:1.3}
+    .ds a.titulo{font-weight:var(--peso-forte);color:var(--cor-texto);text-decoration:none;
+      overflow-wrap:anywhere}
+    .ds a.titulo:hover{text-decoration:underline}
+
+    .onde{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin:0 0 var(--esp-3) 1.9rem}
+
+    /* --------------------------------------------------- contagem ------- */
+    /* "Da tempo?": o numero de dias, grande, numa pilula. Vermelha quando
+       aperta; apagada quando fechou ou quando nao sei o prazo. */
+    .contagem{display:inline-flex;align-items:baseline;gap:var(--esp-1);
+      padding:var(--esp-1) var(--esp-3);border-radius:var(--raio-pill);font-size:var(--tam-sm);
+      font-weight:var(--peso-medio);background:var(--cor-acao-fundo);color:var(--cor-acao);
+      margin-bottom:var(--esp-3)}
+    .contagem.urgente{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .contagem.fechou{background:var(--cor-superficie-2);color:var(--cor-texto-suave)}
+    .contagem .n{font-size:var(--tam-md);font-weight:var(--peso-forte)}
+
+    /* ------------------------------------------------- proxima acao ----- */
+    .acao{display:flex;gap:var(--esp-2);align-items:baseline;padding:var(--esp-2) var(--esp-3);
+      border-radius:var(--raio-sm);background:var(--cor-verde-fundo);color:var(--cor-verde);
+      font-size:var(--tam-sm);margin-bottom:var(--esp-3)}
+    .acao.urgente{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .acao.nao-sei{background:var(--cor-ambar-fundo);color:var(--cor-ambar)}
+    .acao .rot{font-size:var(--tam-xs);font-weight:var(--peso-forte);text-transform:uppercase;
+      letter-spacing:.06em;white-space:nowrap;opacity:.8}
+
+    /* --------------------------------------------------- linha do tempo -- */
+    .tempo{list-style:none;margin:0 0 0 var(--esp-1);padding:0 0 0 var(--esp-3);
+      border-left:2px solid var(--cor-borda)}
+    .tempo li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--esp-3);
+      align-items:baseline;font-size:var(--tam-sm);padding:var(--esp-1) 0;position:relative}
+    .tempo li::before{content:"";position:absolute;left:-1.2rem;top:.65rem;
+      width:7px;height:7px;border-radius:50%;background:var(--cor-borda)}
+    .tempo li.importante::before{background:var(--cor-acao)}
+    .tempo .quando{color:var(--cor-texto-suave);font-variant-numeric:tabular-nums;
+      white-space:nowrap;font-size:var(--tam-xs)}
+    .tempo .tipo{font-size:var(--tam-xs);font-weight:var(--peso-forte);text-transform:uppercase;
+      letter-spacing:.05em;color:var(--cor-texto-suave);margin-right:var(--esp-1)}
+    .tempo li.importante .tipo{color:var(--cor-acao)}
+    .ds .tempo a{color:var(--cor-texto);text-decoration:none}
+    .ds .tempo a:hover{text-decoration:underline;color:var(--cor-acao)}
+    .sem-tempo{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin:0}
+
+    h2.rotulo{font-size:var(--tam-xs);margin:0 0 var(--esp-2);text-transform:uppercase;
+      letter-spacing:.07em;color:var(--cor-texto-suave)}
+
+    /* ---------------------------------------------------------- vazio --- */
+    .vazio{border-style:dashed;text-align:center;padding:var(--esp-6) var(--esp-5)}
+    .vazio .grande{font-size:var(--tam-md);font-weight:var(--peso-medio);margin:0 0 var(--esp-2)}
+    .vazio p{color:var(--cor-texto-suave);font-size:var(--tam-sm);margin:var(--esp-1) 0}
+    .vazio a{font-weight:var(--peso-medio)}
+    .nota{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin:var(--esp-5) 0 0}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('concursos') }}
+
+<main class="ds-pagina">
+  {% from "_topo.html" import abas_de_concursos %}
+  {{ abas_de_concursos('acompanhando') }}
+  {% from "_componentes.html" import selo %}
+  <header class="ds-cabeca">
+    <h1>Acompanhando</h1>
+    <p>As carreiras que eu acompanho e o que mudou em cada uma.</p>
+  </header>
+
+  {% if recado %}<div class="recado">{{ recado }}</div>{% endif %}
+
+  {# Uma linha so: quando foi a ultima volta nas fontes, e o botao. O robo do
+     GitHub coleta todo dia as 06:00; o botao e para nao esperar por ele. #}
+  <div class="verificar">
+    <span class="ds-pequeno ds-suave">
+      {%- if verificacao.rodando %}
+        Verificando desde {{ verificacao.inicio | hora }}…
+      {%- elif verificacao.fim %}
+        Última verificação: {{ verificacao.fim | data }}, {{ verificacao.fim | hora }}
+        &middot;
+        {%- if verificacao.erro %} falhou ({{ verificacao.erro }})
+        {%- elif novidades_da_verificacao %} {{ novidades_da_verificacao }} novidade(s)
+        {%- else %} nenhuma novidade nova{% endif %}
+      {%- else %}
+        Ainda não verifiquei por aqui; o robô coleta todo dia às 06:00.
+      {%- endif %}
+    </span>
+    <form method="post" action="/acompanhando/verificar">
+      <button class="ds-botao ds-botao--pequeno" type="submit"
+              {% if verificacao.rodando or minutos_para_liberar %}disabled
+              title="{{ 'Já está rodando' if verificacao.rodando else 'Volta em ' ~ minutos_para_liberar ~ ' minuto(s)' }}"{% endif %}>
+        Verificar atualizações
+      </button>
+    </form>
+  </div>
+
+  {# Os botoes da pesquisa: "Confere" e "Nao confere" dizem se o LINK
+     mostra o fato; "Nao interessa" tira do cartao o que nao e concurso, sem
+     dizer que esta errado (09/10). A previsao so tem o "Nao interessa". #}
+  {%- macro botoes_da_pesquisa(l) -%}
+    {% if l.pesquisa and l.estado in ('por conferir', 'não confirmado') %}
+      <span class="conferir">
+        {% if l.estado == 'por conferir' %}
+          <form method="post" action="/acompanhando/pesquisa/{{ l.pesquisa }}">
+            <button class="ds-botao ds-botao--pequeno" type="submit" name="confere" value="sim">Confere</button>
+          </form>
+          <form method="post" action="/acompanhando/pesquisa/{{ l.pesquisa }}">
+            <button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit" name="confere" value="nao">Não confere</button>
+          </form>
+        {% endif %}
+        <form method="post" action="/acompanhando/pesquisa/{{ l.pesquisa }}">
+          <button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit" name="confere" value="ignorar"
+                  title="Não é sobre concurso: sai do sino e do cartão">Não interessa</button>
+        </form>
+      </span>
+    {% endif %}
+  {%- endmacro -%}
+
+  {%- macro linha_do_historico(l) -%}
+    <span class="quando">{{ l.data | data }}</span>
+    <span>
+      {{ selo(l.selo, curto=True) }}
+      {% if l.link %}<a href="{{ l.link }}" target="_blank" rel="noopener">{{ l.texto }}</a>{% else %}{{ l.texto }}{% endif %}
+      {% if l.estado %}<span class="estado">{{ l.estado }}</span>{% endif %}
+      {{ botoes_da_pesquisa(l) }}
+      {% if l.item %}<span class="item">{{ l.item | titulo }}</span>{% endif %}
+    </span>
+  {%- endmacro -%}
+
+  <section class="carreiras" aria-label="Carreiras acompanhadas">
+    {% for c in cartoes %}
+      <article class="ds-cartao carreira">
+        <div class="ds-cartao__cabeca">
+          <h2 class="ds-cartao__titulo">{{ c.nome }}</h2>
+          {% if c.novidades %}<span class="sino" title="Novidades desde a última vez que marquei como visto">🔔 {{ c.novidades | length }}</span>{% endif %}
+        </div>
+        <p class="ds-cartao__meta">
+          {{ c.situacao | capitalize }}
+          {%- if c.referencia %} &middot; {{ selo(c.referencia.selo, curto=True) }}
+            <a href="{{ c.referencia.link }}" target="_blank" rel="noopener">{{ c.referencia.data | data }}</a>
+          {%- endif %}
+        </p>
+
+        {# O proximo concurso, quando os marcos nao dizem, e o ultimo que ja
+           aconteceu (09/10): e a pergunta da aba - vai abrir? quando foi o
+           ultimo edital? #}
+        {% if c.proximo %}
+          <p class="linha-do-concurso"><span class="rot">Próximo concurso</span>
+            {% if c.previsao %}{{ selo(c.previsao.selo, curto=True) }}
+              <a href="{{ c.previsao.link }}" target="_blank" rel="noopener">{{ c.proximo }}: {{ c.previsao.texto }}</a>
+              <span class="ds-suave">({{ c.previsao.data | data }})</span>
+              {{ botoes_da_pesquisa(c.previsao) }}
+            {% else %}<span class="ds-suave">{{ c.proximo }}</span>{% endif %}</p>
+        {% endif %}
+        <p class="linha-do-concurso"><span class="rot">Último concurso</span>
+          {% if c.ultimo %}{{ selo(c.ultimo.selo, curto=True) }}
+            <a href="{{ c.ultimo.link }}" target="_blank" rel="noopener">{{ c.ultimo.ano }}</a>
+            {%- if c.ultimo.banca %} · {{ c.ultimo.banca }}{% endif %}
+            {%- if c.ultimo.edital %} · edital em {{ c.ultimo.edital.strftime('%d/%m/%Y') }}{% endif %}
+            {%- if c.ultimo.prova %} · prova em {{ c.ultimo.prova.strftime('%d/%m/%Y') }}{% endif %}
+          {% else %}<span class="ds-suave">não sei ainda: vem na próxima pesquisa</span>{% endif %}</p>
+
+        {% if c.novidades %}
+          {% set n = c.novidades[0] %}
+          <p class="novidade">
+            {{ n.data | data }} {{ selo(n.selo, curto=True) }}
+            {% if n.link %}<a href="{{ n.link }}" target="_blank" rel="noopener">{{ n.texto }}</a>{% else %}{{ n.texto }}{% endif %}
+            {% if n.estado %}<span class="estado">{{ n.estado }}</span>{% endif %}
+            {{ botoes_da_pesquisa(n) }}
+            {% if c.novidades | length > 1 %}<span class="item">e mais {{ c.novidades | length - 1 }} no histórico</span>{% endif %}
+          </p>
+        {% endif %}
+
+        <ul class="marcos">
+          {% for m in c.marcos %}
+            <li>
+              <span class="rot">{{ m.nome }}</span>
+              {% if m.sabido %}
+                {{ selo(m.selo, curto=True) }}
+                {% if m.link %}<a href="{{ m.link }}" target="_blank" rel="noopener">{{ m.valor }}</a>{% else %}{{ m.valor }}{% endif %}
+                {% if m.ressalva %}<span class="ressalva">· {{ m.ressalva }}</span>{% endif %}
+              {% else %}<span class="ds-suave">aguardando</span>{% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+
+        {# A banca do alvo principal saiu (pendencia J): e a hora de estudar o
+           padrao dela. So aparece com o marco Banca preenchido pelo item ou
+           por pesquisa conferida; quem decide e o servico. #}
+        {% set bp = c.banca_para_estudar %}
+        {% if bp %}
+          <p class="estudar-banca">📚 Estudar a banca {{ selo(bp.selo, curto=True) }} <b>{{ bp.valor }}</b>{% if bp.ressalva %} <span class="ressalva">· {{ bp.ressalva }}</span>{% endif %}:
+            <a href="/analises">Análises &gt; Edital</a>
+            {%- if c.banca_no_acervo %} · <a href="/macetes?banca={{ c.banca_no_acervo | urlencode }}">Padrão da {{ c.banca_no_acervo }}</a>
+            {%- else %} · <span class="ds-suave">o acervo ainda não tem prova dessa banca: o padrão dela não dá para ver aqui</span>{% endif %}</p>
+        {% endif %}
+
+        <div class="rodape">
+          {% if c.novidades %}
+            <form method="post" action="/acompanhando/visto">
+              <input type="hidden" name="nome" value="{{ c.nome }}">
+              <button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit">Marcar como visto</button>
+            </form>
+          {% endif %}
+          {% if c.historico %}
+            <details>
+              <summary>Histórico ({{ c.itens }} item(ns) no radar)</summary>
+              <ul class="tempo">
+                {% for l in c.historico %}<li>{{ linha_do_historico(l) }}</li>{% endfor %}
+              </ul>
+            </details>
+          {% else %}
+            <p class="ds-pequeno ds-suave">Nada desta carreira no radar ainda.</p>
+          {% endif %}
+        </div>
+      </article>
+    {% else %}
+      <div class="ds-cartao vazio">
+        <p class="grande">Nenhuma carreira em config/acompanhamentos.yml.</p>
+      </div>
+    {% endfor %}
+  </section>
+
+  {# O que a coleta nao enxerga (comissao, autorizacao, noticia de jornal):
+     a pesquisa do Claude Code, sem custo de API. Fechado por padrao. #}
+  <details class="ds-nota pesquisa">
+    <summary>Pesquisar o que o robô não vê</summary>
+    <ol>
+      <li><code>.venv\Scripts\radar.exe acompanhar --pedido</code></li>
+      <li>No Claude Code do VS Code: <code>Leia data/pedido_ia.json e siga o como_responder</code></li>
+      <li><code>.venv\Scripts\radar.exe acompanhar --importar data/resposta_ia.json</code></li>
+    </ol>
+    <p>Faça os 3 passos antes de pedir outra coisa: pedido novo substitui o anterior.
+      O que voltar entra {{ selo('ia', curto=True) }} por conferir, com o link de cada fato,
+      e nunca muda a situação de um concurso.</p>
+  </details>
+
+  <h2 class="secao">Favoritos</h2>
+  {% if blocos %}
+    {% for b in blocos %}
+      <article class="ds-cartao bloco {{ 'urgente' if b.acao.urgente }}">
+        <div class="topo">
+          <form method="post" action="/favoritar">
+            <input type="hidden" name="concurso_id" value="{{ b.concurso.id }}">
+            <input type="hidden" name="voltar" value="/acompanhando">
+            <button type="submit" class="estrela" title="Parar de acompanhar"
+                    aria-label="Parar de acompanhar">&#9733;</button>
+          </form>
+          <a class="titulo" href="{{ b.concurso.url }}" target="_blank"
+             rel="noopener">{{ b.concurso.titulo | titulo }}</a>
+        </div>
+
+        <p class="onde">
+          {%- if b.concurso.municipio %}{{ b.concurso.municipio | municipio }}
+            {%- if b.concurso.uf %}/{{ b.concurso.uf }}{% endif %}
+          {%- elif b.concurso.uf %}{{ b.concurso.uf }}
+          {%- else %}cidade não identificada{% endif %}
+          &middot; {{ rotulo_anel.get(b.concurso.relevancia, b.concurso.relevancia) }}
+          &middot; {{ rotulo_situacao.get(b.concurso.situacao, b.concurso.situacao) }}
+        </p>
+
+        {# A contagem de dias, que e o que responde "da tempo?". #}
+        {% if b.dias_ate_fechar is not none %}
+          {% if b.fechou %}
+            <div class="contagem fechou">
+              inscrição fechou há <span class="n">{{ -b.dias_ate_fechar }}</span> dia(s)
+            </div>
+          {% elif b.dias_ate_fechar == 0 %}
+            <div class="contagem urgente">inscrição fecha <span class="n">hoje</span></div>
+          {% else %}
+            <div class="contagem {{ 'urgente' if b.acao.urgente }}">
+              inscrição fecha em <span class="n">{{ b.dias_ate_fechar }}</span> dia(s)
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="contagem fechou">prazo de inscrição: não sei ainda</div>
+        {% endif %}
+
+        {# A proxima acao. E o unico campo interpretado da tela, e ela sai
+           sempre da situacao gravada e do prazo lido - nunca de palpite. #}
+        <div class="acao {{ 'urgente' if b.acao.urgente }}{{ ' nao-sei' if not b.acao.sei }}">
+          <span class="rot">Próxima ação</span>
+          <span>{{ b.acao.texto }}</span>
+        </div>
+
+        <h2 class="rotulo">Linha do tempo</h2>
+        {% if b.eventos %}
+          <ul class="tempo">
+            {% for e in b.eventos %}
+              <li class="{{ 'importante' if e.tipo in importantes }}">
+                <span class="quando">{{ e.data | data }}</span>
+                <span>
+                  <span class="tipo">{{ e.tipo | tipo_do_evento }}</span>
+                  {% if e.link %}
+                    <a href="{{ e.link }}" target="_blank" rel="noopener">{{ e.descricao | evento }}</a>
+                  {% else %}{{ e.descricao | evento }}{% endif %}
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="sem-tempo">
+            Nada registrado ainda. A linha do tempo começa na primeira coleta
+            depois que o concurso entra no radar - concurso que já estava no
+            banco antes disso aparece sem histórico.
+          </p>
+        {% endif %}
+      </article>
+    {% endfor %}
+
+    <p class="nota">
+      O Telegram avisa sozinho quando um destes muda de verdade: edital
+      publicado, edital retificado, inscrição abrindo ou fechando, e prova
+      marcada. O resto fica aqui, sem tocar o celular.
+    </p>
+  {% else %}
+    <div class="ds-cartao vazio">
+      <p class="grande">Nenhum concurso marcado com a estrela.</p>
+      <p>Clique na estrela &#9734; de qualquer concurso em <a href="/concursos">Concursos</a> para segui-lo aqui.</p>
+    </div>
+  {% endif %}
+</main>
+
+</body>
+</html>

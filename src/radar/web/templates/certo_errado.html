@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Certo ou Errado &middot; Radar de Concursos</title>
+  {# Decisao PMSC-19: so leitura. O gabarito abre no <details>, sem JS e sem
+     gravar nada - o Certo/Errado nao mede nem entra no treino. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .enunciado{margin:var(--esp-2) 0 0;white-space:pre-line}
+    .texto-base{margin:var(--esp-2) 0 0;font-size:var(--tam-sm)}
+    .texto-base p{white-space:pre-line;line-height:1.6;max-height:20rem;overflow-y:auto;
+      margin:var(--esp-2) 0 0}
+    .gabarito{margin-top:var(--esp-3)}
+    .gabarito summary{cursor:pointer;font-size:var(--tam-sm)}
+    .gabarito b{font-size:var(--tam-base)}
+    .voltar{display:inline-block;margin-bottom:var(--esp-4);font-size:var(--tam-sm);
+      text-decoration:none}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{% from "_componentes.html" import selo, aviso_lei %}
+{{ barra('hoje') }}
+
+<main class="ds-pagina">
+  <a class="voltar" href="/hoje">&larr; Hoje</a>
+  <header class="ds-cabeca">
+    <h1>Certo ou Errado{% if titulo %} · {{ titulo }}{% endif %}</h1>
+    <p>Itens reais de Certo/Errado do tema, só para você ver se está sabendo o
+      assunto. Pense na resposta e abra o gabarito. <b>Nada aqui é gravado</b>:
+      não conta acerto, não entra no treino nem no caderno de erros, porque a
+      prova da PMSC é de múltipla escolha.</p>
+  </header>
+
+  {% if leis_por_conferir and itens | selectattr('mudancas') | list %}
+    <p class="ds-nota">O aviso de lei alterada com o 🟣 vem de itens da lista em
+      <code>config/leis.yml</code> escritos pelo Claude Code e ainda não
+      conferidos por você.</p>
+  {% endif %}
+
+  {% for i in itens %}
+    <article class="ds-cartao" style="margin-top:var(--esp-4)">
+      <div class="ds-cartao__cabeca">
+        <h2 class="ds-cartao__titulo">Item {{ i.numero }} · {{ i.banca }} {{ i.ano }}{% if i.cargo %} · {{ i.cargo }}{% endif %}</h2>
+        {{ selo('oficial', 'Questão real') }}
+      </div>
+      {% for mud in i.mudancas %}{{ aviso_lei(mud) }}{% endfor %}
+      {% if i.texto_base %}
+        <details class="texto-base"><summary>Texto-base (do caderno da prova)</summary>
+          <p>{{ i.texto_base }}</p></details>
+      {% endif %}
+      <p class="enunciado">{{ i.enunciado | destacado(i, 'enunciado') }}</p>
+      <details class="gabarito">
+        <summary>Ver o gabarito</summary>
+        <p style="margin:var(--esp-2) 0 0">{{ selo('oficial', 'Gabarito pós-recursos') }} <b>{{ i.gabarito }}</b> ·
+          <a href="{{ i.prova_url }}" target="_blank" rel="noopener">caderno original</a></p>
+      </details>
+    </article>
+  {% else %}
+    <p class="ds-nota">Este tema ainda não tem item de Certo/Errado no radar.</p>
+  {% endfor %}
+</main>
+</body>
+</html>

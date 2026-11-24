@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Ficha: {{ f.tema }} &middot; Radar de Concursos</title>
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .caminho-da-ficha{margin:var(--esp-1) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .procedencia{display:flex;flex-wrap:wrap;gap:var(--esp-2);align-items:center;
+      margin:var(--esp-3) 0 0;font-size:var(--tam-sm)}
+    .lista{list-style:none;padding:0;margin:var(--esp-2) 0 0}
+    .lista li{padding:var(--esp-1) 0;border-bottom:1px solid var(--cor-borda);font-size:var(--tam-sm)}
+    .lista li:last-child{border-bottom:0}
+    .marcas{margin:var(--esp-2) 0 0;padding-left:var(--esp-5);font-size:var(--tam-sm)}
+    .marcas li{margin:var(--esp-1) 0}
+    .subtitulo{margin:var(--esp-3) 0 0;font-size:var(--tam-sm);font-weight:var(--peso-forte)}
+    .comando{font-family:var(--fonte-numero, ui-monospace, Consolas, monospace);font-size:var(--tam-xs);
+      overflow-wrap:anywhere;color:var(--cor-texto-suave)}
+    .enunciado{margin:var(--esp-1) 0 0;font-size:var(--tam-xs);color:var(--cor-texto-suave);white-space:pre-line}
+    .texto-base{margin:var(--esp-1) 0 0;font-size:var(--tam-xs);white-space:pre-line;
+      border-left:3px solid var(--cor-borda);padding-left:var(--esp-3)}
+    .frase-padrao{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .notas-do-tema{margin:var(--esp-3) 0;padding-top:var(--esp-2);border-top:1px solid var(--cor-borda)}
+    .notas-do-tema:first-of-type{border-top:0}
+    .notas-do-tema p{margin:var(--esp-1) 0}
+    .notas-lista{margin:var(--esp-1) 0;padding-left:var(--esp-5);font-size:var(--tam-sm)}
+    .notas-lista li{margin:var(--esp-1) 0}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra, abas_de_hoje with context %}
+{% from "_componentes.html" import selo, legenda_dos_selos, aviso_lei %}
+{% import "_resumo.html" as resumo_ui %}
+{{ barra('hoje') }}
+
+{# O selo de cada parte. A origem vem do DADO (radar/fichas.py); o template so
+   desenha, com o mesmo selo do resto do site, na forma curta: um por linha. #}
+{% macro s(origem) -%}{{ selo(origem, curto=True) }}{%- endmacro %}
+
+<main class="ds-pagina">
+  {{ abas_de_hoje('fichas') }}
+
+  <header class="ds-cabeca">
+    <h1>📋 {{ f.tema }}</h1>
+    <p class="caminho-da-ficha">{{ f.caminho_exibido | join(' → ') }}</p>
+    <div class="procedencia">
+      <span>{{ s('ia') }} Texto escrito por {{ f.procedencia }}.</span>
+      {% if f.conferida %}
+        <span class="ds-suave">Conferida por você em {{ f.escrita.conferida_em }}.</span>
+      {% else %}
+        <form method="post" action="/fichas/{{ f.id }}/conferir">
+          <input type="hidden" name="data" value="{{ data.isoformat() }}">
+          <button class="ds-botao ds-botao--pequeno" type="submit">✓ Conferi esta ficha</button>
+        </form>
+        <span class="ds-suave">Ainda não conferida por você.</span>
+      {% endif %}
+    </div>
+  </header>
+
+  {{ legenda_dos_selos(('plano', 'oficial', 'acervo', 'automatico', 'ia')) }}
+
+  {# R1: caiu ou nao caiu, prova a prova, e o complementar em linha separada.
+     A conta e uma so (incidencia.caiu_no_alvo); a tela so desenha. #}
+  {% set k = f.caiu %}
+  <section class="ds-cartao">
+    <h2>Caiu ou não caiu</h2>
+    <p>{{ s(f.origens.caiu) }} <b>{{ alvo_na_tela() }} ({{ provas_do_alvo() }}):</b> {{ k.frase }}</p>
+    {% if not k.sem_contagem %}<p class="ds-suave">Prova a prova: {{ k.por_prova }} <span class="ds-suave">("—" = a matéria não estava no edital daquele ano)</span></p>{% endif %}
+    {% for n in k.notas %}<p class="frase-padrao">{{ n }}</p>{% endfor %}
+    <p>{{ s(f.origens.linha_complementar) }} <b>Outras provas {{ banca_do_alvo() }} (complementar aceito):</b>
+      {% if f.sem_no %}o tema não tem nó: não contado.{% else %}{{ f.linha_complementar.frase | replace('Acervo complementar ' ~ banca_do_alvo() ~ ': ', '') }}{% endif %}
+      <span class="ds-suave">(nunca somado ao alvo)</span></p>
+  </section>
+
+  {# R2: o resumo do tema, para o caderno. Texto de IA, cada frase com a fonte.
+     Enxuto (decisao 161): o mesmo corpo da janela da tela Hoje. #}
+  {% set rs = f.escrita.resumo %}
+  <section class="ds-cartao" id="resumo">
+    <h2>Resumo {{ s('ia') }}</h2>
+    {% if rs and rs.partes %}
+      {{ resumo_ui.corpo(enxuto, respondidos, 'resumo') }}
+      <div class="procedencia">
+        <span>{{ s('ia') }} Texto escrito por {{ rs.modelo }}.</span>
+        {% if rs.conferido_em %}
+          <span class="ds-suave">Resumo conferido por você em {{ rs.conferido_em }}.</span>
+        {% else %}
+          <form method="post" action="/fichas/{{ f.id }}/resumo/conferir">
+            <input type="hidden" name="data" value="{{ data.isoformat() }}">
+            <button class="ds-botao ds-botao--pequeno" type="submit">✓ Conferi este resumo</button>
+          </form>
+        {% endif %}
+      </div>
+      {% if enxuto.traduzido %}
+        {# A traducao dos artigos (decisao 161): procedencia e conferencia
+           proprias, separadas das do resumo. #}
+        <div class="procedencia">
+          <span>{{ s('ia') }} Tradução escrita por {{ enxuto.traducao_procedencia }}.</span>
+          {% if enxuto.traducao_conferida %}
+            <span class="ds-suave">Tradução conferida por você em {{ enxuto.traducao_conferida }}.</span>
+          {% else %}
+            <form method="post" action="/fichas/{{ f.id }}/traducao/conferir">
+              <input type="hidden" name="data" value="{{ data.isoformat() }}">
+              <button class="ds-botao ds-botao--pequeno" type="submit">✓ Conferi a tradução</button>
+            </form>
+            <span class="ds-suave">Ainda não conferida por você.</span>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% else %}
+      <p class="frase-padrao">Resumo ainda não escrito para este tema.</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Por que agora</h2>
+    <ul class="lista">
+      {% for m in f.por_que_agora %}<li>{{ s(m.origem) }} {{ m.texto }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  <section class="ds-cartao">
+    <h2>O que estudar</h2>
+    <p class="subtitulo">Fonte principal</p>
+    {% if f.fonte %}
+      <p>{{ s(f.fonte.origem) }}
+        {% if f.fonte.link %}<a href="{{ f.fonte.link }}" target="_blank" rel="noopener">{{ f.fonte.texto }}</a>{% else %}{{ f.fonte.texto }}{% endif %}</p>
+      {% if f.fonte.nota %}<p class="ds-aviso-lei">⚠ {{ f.fonte.nota }}</p>{% endif %}
+    {% else %}
+      <p class="frase-padrao">Sem fonte oficial cadastrada no config/leis.yml para este assunto.</p>
+    {% endif %}
+    {% if f.leis_mudadas %}
+      {# Os casos de fronteira (decisao 84): a lei mudou depois das provas,
+         num ponto que nenhuma questao cobra. A questao nao tem aviso; o
+         tema tem. #}
+      <p class="subtitulo">A lei mudou depois das provas, num ponto que elas não cobraram</p>
+      {% for mud in f.leis_mudadas %}{{ aviso_lei(mud, '') }}{% endfor %}
+    {% endif %}
+
+    <p class="subtitulo">Ler exatamente {{ s(f.origens.ler_exatamente) }}</p>
+    <p>{{ f.ler_exatamente.texto or f.vazio('ler_exatamente') }}</p>
+    {% if f.artigos_chave %}
+      <p class="subtitulo">{{ s(f.origens.artigos_chave) }} Artigos-chave do dia (seleção do plano, a partir do texto da lei; não é incidência)</p>
+      <ul class="marcas">
+        {% for a in f.artigos_chave %}<li><b>{{ a.artigos }}</b> — {{ a.porque }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+
+    <p class="subtitulo">Como pesquisar {{ s(f.origens.como_pesquisar) }}</p>
+    {% if f.como_pesquisar %}
+      <ul class="marcas">{% for b in f.como_pesquisar %}<li>“{{ b }}”</li>{% endfor %}</ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('como_pesquisar') }}</p>{% endif %}
+
+    <p class="subtitulo">Você precisa entender {{ s(f.origens.entender) }}</p>
+    {% if f.entender %}
+      <ul class="marcas">{% for t in f.entender %}<li>{{ t }}</li>{% endfor %}</ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('entender') }}</p>{% endif %}
+
+    <p class="subtitulo">Você precisa memorizar {{ s(f.origens.memorizar) }}</p>
+    {% if f.memorizar %}
+      <ul class="marcas">{% for t in f.memorizar %}<li>{{ t }}</li>{% endfor %}</ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('memorizar') }}</p>{% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Pegadinhas</h2>
+    <p class="subtitulo">{{ s(f.origens.pegadinhas_do_acervo) }} No acervo (cada uma de uma questão real)</p>
+    {% if f.pegadinhas_do_acervo %}
+      <ul class="marcas">
+        {% for q in f.pegadinhas_do_acervo %}
+          <li><b>{{ codigo_citavel(q) }}</b> ({{ q.onde }}{% if not q.conferida %}, classificação não conferida{% endif %}): {{ q.pegadinha }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('pegadinhas_do_acervo') }}</p>{% endif %}
+    {% if f.pegadinhas_escritas %}
+      <p class="subtitulo">{{ s(f.origens.pegadinhas_escritas) }} Confusões comuns neste conteúdo (texto de IA, não é padrão do acervo)</p>
+      <ul class="marcas">{% for t in f.pegadinhas_escritas %}<li>{{ t }}</li>{% endfor %}</ul>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Como a {{ banca_do_alvo() }} cobrou (acervo analisado)</h2>
+    {% if f.sem_no %}
+      <p>{{ s(f.origens.padroes_do_alvo) }} Este tema não tem nó na árvore de conteúdos: nada do acervo é contado nele.</p>
+      <p class="frase-padrao">{{ f.vazio('padroes_do_alvo') }}</p>
+    {% else %}
+      <p>{{ s(f.origens.padroes_do_alvo) }} <b>{{ alvo_na_tela() }}:</b> {{ f.linha_do_alvo.amostra }} — {{ f.linha_do_alvo.rotulo }}</p>
+      {% set p = f.padroes_do_alvo %}
+      {% if not p.suficiente %}
+        <p class="frase-padrao">{{ p.frase }}</p>
+      {% else %}
+        <p class="ds-suave">{{ p.amostra }}</p>
+        <ul class="marcas">
+          {% if p.tipos %}<li>Tipo de questão: {% for t, n in p.tipos %}{{ t }} ({{ n }}){% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+          {% if p.comandos %}<li>Forma de perguntar: {% for c in p.comandos %}{{ c.nome }} ({{ c.quantas }}){% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+          {% if p.gabarito %}<li>Gabarito: {% for letra, n, pct in p.gabarito %}{{ letra }}: {{ n }}{% if not loop.last %} · {% endif %}{% endfor %}</li>{% endif %}
+          {% if p.termos %}<li>Termos frequentes: {% for t in p.termos %}{{ t.palavra }}{% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+        </ul>
+      {% endif %}
+      <p>{{ s(f.origens.linha_complementar) }} {{ f.linha_complementar.frase }} <span class="ds-suave">(linha separada: as duas nunca se somam)</span></p>
+      {# Os padroes do complementar: so das provas com gabarito definitivo, e a
+         parte dos do alvo (decisao 78). #}
+      {% set pc = f.padroes_complementares %}
+      <p>{{ s(f.origens.padroes_complementares) }} <b>Padrões no acervo complementar {{ banca_do_alvo() }}:</b> <span class="ds-suave">{{ pc.amostra }}</span></p>
+      {% if not pc.suficiente %}
+        <p class="frase-padrao">{{ pc.frase }}</p>
+      {% else %}
+        <ul class="marcas">
+          {% if pc.tipos %}<li>Tipo de questão: {% for t, n in pc.tipos %}{{ t }} ({{ n }}){% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+          {% if pc.comandos %}<li>Forma de perguntar: {% for c in pc.comandos %}{{ c.nome }} ({{ c.quantas }}){% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+          {% if pc.gabarito %}<li>Gabarito: {% for letra, n, pct in pc.gabarito %}{{ letra }}: {{ n }}{% if not loop.last %} · {% endif %}{% endfor %}</li>{% endif %}
+          {% if pc.termos %}<li>Termos frequentes: {% for t in pc.termos %}{{ t.palavra }}{% if not loop.last %}, {% endif %}{% endfor %}</li>{% endif %}
+        </ul>
+        <p class="ds-suave">{{ pc.nota }}</p>
+      {% endif %}
+    {% endif %}
+  </section>
+
+  {# A questao inteira (R1): enunciado, alternativas e gabarito oficial,
+     recolhida e aberta no clique; a explicacao (IA, quando ha) e a lei que
+     mudou depois da prova. #}
+  {# P05 (decisao 148): a questao que eu ainda nao respondi no radar vem sem
+     a letra, sem a explicacao e sem a pegadinha - as tres dao a resposta, e
+     a faixa manda responder sem consulta. Respondida, tudo aparece. #}
+  {% macro gabarito_curto(q) %}{% if q.respondida %}gabarito {{ (q.resposta or '?') | upper }}{% else %}{{ GABARITO_ESCONDIDO }}{% endif %}{% endmacro %}
+  {% macro questao_inteira(q) %}
+    <details><summary>ver a questão inteira</summary>
+      {% if q.texto_base %}<p class="texto-base">{{ s('oficial') }} Texto-base (do caderno da prova):<br>{{ q.texto_base | destacado(q, 'texto_base') }}</p>{% endif %}
+      {% if q.lacunas_perdidas %}<p class="ds-alerta">⚠ A leitura do caderno não mostra {{ q.lacunas_perdidas }} {{ 'lacuna' if q.lacunas_perdidas == 1 else 'lacunas' }} desta questão. Confira no <a href="{{ q.prova }}" target="_blank" rel="noopener">caderno da prova</a>.</p>{% endif %}
+      <p class="enunciado">{{ q.enunciado | destacado(q, 'enunciado') }}</p>
+      {% if q.respondida %}
+        {% if q.alternativas %}<ul class="marcas">{% for letra, texto in q.alternativas %}<li>{% if letra == (q.resposta or '') | lower %}<b>({{ letra }}) {{ texto | destacado(q, letra) }}</b> ✓{% else %}({{ letra }}) {{ texto | destacado(q, letra) }}{% endif %}</li>{% endfor %}</ul>{% endif %}
+        <p>{{ s('oficial') }} Gabarito oficial: <b>{{ (q.resposta or '?') | upper }}</b></p>
+      {% else %}
+        {% if q.alternativas %}<ul class="marcas">{% for letra, texto in q.alternativas %}<li>({{ letra }}) {{ texto | destacado(q, letra) }}</li>{% endfor %}</ul>{% endif %}
+        <p class="frase-padrao">O gabarito, a explicação e a pegadinha aparecem depois que você responder esta questão no radar.</p>
+      {% endif %}
+      {% for mud in q.mudancas %}{{ aviso_lei(mud) }}{% endfor %}
+      {% if q.respondida %}
+        {% if q.pegadinha %}<p>{{ s(f.origens.pegadinhas_do_acervo) }} Onde estava a pegadinha (classificação{% if not q.conferida %}, não conferida{% endif %}): {{ q.pegadinha }}</p>{% endif %}
+        {% if q.explicacao %}<p>{{ s(f.origens.explicacao) }} Explicação: {{ q.explicacao.explicacao }} <span class="ds-suave">Fonte: {{ q.explicacao.fonte }} · {{ q.explicacao.modelo }}</span></p>
+        {% else %}<p class="frase-padrao">Explicação ainda não escrita para esta questão.</p>{% endif %}
+      {% endif %}
+    </details>
+  {% endmacro %}
+
+  <section class="ds-cartao">
+    <h2>Questões reais relacionadas</h2>
+    <p class="subtitulo">{{ s(f.origens.exemplos) }} Exemplos reais — {{ alvo_na_tela() }} ({{ provas_do_alvo() }})</p>
+    {% if f.exemplos %}
+      <ul class="lista">
+        {% for q in f.exemplos %}
+          <li>{{ s(f.origens.exemplos) }} <b>{{ codigo_citavel(q) }}</b> · {{ gabarito_curto(q) }}
+            {% if q.como == 'pendente' %}· <span class="ds-suave">classificação pendente: o artigo gravado é do tema</span>
+            {% elif q.como == 'artigo' %}· <span class="ds-suave">pelo artigo gravado na classificação</span>
+            {% else %}· {{ q.no }}{% endif %}
+            {{ questao_inteira(q) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('questoes_reais') }}</p>{% endif %}
+    {% set compl = f.questoes_reais | selectattr('evidencia', 'equalto', 'complementar') | list %}
+    <p class="subtitulo">{{ s(f.origens.questoes_reais) }} Outras provas {{ banca_do_alvo() }} (complementar aceito)</p>
+    {% if compl %}
+      <ul class="lista">
+        {% for q in compl %}
+          <li><b>{{ codigo_citavel(q) }}</b> · {{ q.onde }} · {{ gabarito_curto(q) }} · {{ q.no }}
+            {{ questao_inteira(q) }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}<p class="frase-padrao">{{ f.vazio('questoes_reais') }}</p>{% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Macetes deste tema</h2>
+    {% if f.macetes %}
+      <ul class="lista">
+        {% for m in f.macetes %}
+          <li>{{ s(f.origens.macetes) }} {{ m.regra }}
+            {% if m.pegadinha %}<br><span class="ds-suave">Pegadinha: {{ m.pegadinha }}</span>{% endif %}
+            <br><span class="ds-suave">Questões reais que o sustentam: {{ m.do_tema | join(', ') }} · fonte: {{ m.fonte }} · {{ m.modelo }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}<p class="frase-padrao">Nenhum macete escrito cita questão real deste tema.</p>{% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Quantas questões fazer</h2>
+    {% if f.meta_de_questoes %}
+      <ul class="lista">
+        {% for pr in f.meta_de_questoes %}
+          <li>{{ s(f.origens.meta_de_questoes) }} {{ pr.data.strftime('%d/%m') }} · <b>{{ pr.rotulo }}</b>: {{ pr.questoes }} questões{% if pr.consulta %}, com consulta (fora da meta){% else %}, sem consulta{% endif %}{% if pr.filtro %} <span class="ds-suave">— filtro: {{ pr.filtro }}</span>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    {% else %}<p class="frase-padrao">O cronograma não tem faixa de questões deste tema.</p>{% endif %}
+    {% if f.questoes_reais %}
+      <p>{{ s(f.origens.questoes_reais) }} No radar há {{ f.reais }} questão(ões) real(is) exatamente deste conteúdo ({{ f.reais_do_alvo }} do alvo, {{ f.reais_do_complementar }} do complementar): comece por elas.</p>
+    {% endif %}
+    <p class="subtitulo">{{ s(f.origens.geradas) }} Questões geradas por IA neste conteúdo. {{ FRASE_DA_QUESTAO_DE_IA }}</p>
+    {# O sinal de treino do tema (decisao 138): a conta e do metricas, e
+       nunca entra no acerto do tema. #}
+    {# Pela 1a vez em cada gerada, com o minimo, o firme, a variacao e o do
+       zero, e a revisao (decisao 152): as linhas sao do metricas. #}
+    {% if treino_ia and not treino_ia.vazio %}
+      {% for linha in treino_ia.linhas_da_ficha() %}<p{% if not loop.first %} class="ds-pequeno"{% endif %}>{% if loop.first %}{{ s(f.origens.geradas) }} {% endif %}{{ linha }}</p>{% endfor %}
+    {% endif %}
+    {% if f.geradas %}
+      <ul class="marcas">
+        {% for g in f.geradas %}<li>{{ g.enunciado[:140] }}{% if g.enunciado | length > 140 %}…{% endif %}</li>{% endfor %}
+      </ul>
+      {# Cada no do tema leva so as geradas dele (e as de baixo), ja
+         escolhido no seletor - e nao a materia inteira. #}
+      {% for no in f.nos %}<p><a class="ds-link-acao" href="/geradas?treinar={{ no | urlencode }}#treinar">Treinar as geradas{% if f.nos | length > 1 %}: {{ no.split(' > ')[-1] }}{% endif %}</a></p>{% endfor %}
+      {% if not f.nos %}<p><a class="ds-link-acao" href="/geradas#treinar">Treinar as geradas</a></p>{% endif %}
+    {% else %}
+      <p class="frase-padrao">Nenhuma questão gerada neste conteúdo ainda. Para gerar, um pedido por nó (o escopo fechado da Etapa 5):</p>
+    {% endif %}
+    {% for no in f.nos %}<p class="comando">{{ comando_de_gerar(no) }}</p>{% endfor %}
+    {% if f.nos %}
+      <p class="comando">Depois, no Claude Code do VS Code: "{{ PASSO_NO_CLAUDE_CODE }}"; e no terminal: {{ COMANDO_DE_IMPORTAR }}</p>
+      <p class="frase-padrao">{{ TROQUE_O_NIVEL }} {{ AVISO_DO_PEDIDO }}</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Erros para revisar depois</h2>
+    <p>{{ s(f.origens.refazer) }} Erradas no radar (pela última resposta): <b>{{ f.refazer.do_radar | length }}</b>
+      · no caderno de erros, para rever: <b>{{ f.refazer.do_caderno | length }}</b>
+      <span class="ds-suave">(duas listas, nunca somadas)</span></p>
+    {% if f.refazer.do_caderno %}
+      <ul class="marcas">{% for e in f.refazer.do_caderno %}<li>{{ e.regra }}</li>{% endfor %}</ul>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Quando revisar</h2>
+    <ul class="lista">
+      {% for m in f.quando_revisar %}<li>{{ s(m.origem) }} {{ m.texto }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  {# O que eu escrevi nas faixas deste tema (decisao 142): diario, como o
+     caderno de erros - nao entra em acerto nenhum. #}
+  {% if notas %}
+  {% from "_notas_da_faixa.html" import notas_do_tema %}
+  <section class="ds-cartao" id="como-fui">
+    <h2>Como eu disse que fui</h2>
+    {{ notas_do_tema(notas) }}
+  </section>
+  {% endif %}
+
+  <section class="ds-cartao">
+    <h2>Meu desempenho neste conteúdo</h2>
+    {% if f.estado %}
+      <p>{{ s(f.origens.desempenho) }} {{ f.desempenho.divisao() }} · <b>{{ f.estado.nome }}</b> · {{ f.estado.amostra }}</p>
+    {% else %}
+      <p>{{ s(f.origens.desempenho) }} Ainda sem resposta neste conteúdo.</p>
+    {% endif %}
+    <p class="ds-suave">Situação: {{ f.situacao }}. O desempenho é o do ciclo em andamento, radar e anotado separados; questão de IA não entra.</p>
+  </section>
+
+  <p><a class="ds-link-acao" href="/hoje?data={{ data.isoformat() }}">← voltar ao dia {{ data.strftime('%d/%m') }}</a>
+     · <a class="ds-link-acao" href="/fichas">todas as fichas</a></p>
+</main>
+</body>
+</html>

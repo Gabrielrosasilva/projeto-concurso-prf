@@ -1,0 +1,345 @@
+"""O link para o texto oficial da lei, de config/leis.yml.
+
+Os assuntos usados aqui sao os do conteudo programatico REAL do edital
+001/SAP/2019, copiados como o PDF os escreve - com "n.o", com parentese e com
+a frase inteira. E o que o `radar assuntos --so-alvo` grava na coluna, e e
+sobre esse texto que o casamento tem que funcionar.
+
+Nenhum teste vai a internet: que cada endereco abre de verdade foi conferido
+uma vez, na mao, antes de o YAML ser gravado. O que estes testes guardam e
+outra coisa - que o link certo chega no assunto certo, e que nao aparece link
+onde nao ha lei.
+"""
+from urllib.parse import urlparse
+
+import pytest
+
+from radar import leis
+
+# As duas unicas fontes que este projeto aceita: quem publica lei federal e a
+# Constituicao, e quem publica lei estadual de Santa Catarina.
+FONTES = ("www.planalto.gov.br", "leis.alesc.sc.gov.br")
+
+
+@pytest.fixture(autouse=True)
+def yaml_de_verdade():
+    """O config/leis.yml do projeto, e nao um de mentira: o conteudo dele E o
+    que estes testes conferem."""
+    leis.recarregar()
+    yield
+    leis.recarregar()
+
+
+# --- o casamento ------------------------------------------------------------
+
+def test_a_lei_de_execucao_penal_chega_pelo_nome_da_materia():
+    lei = leis.do_assunto(
+        "Lei de Execução Penal",
+        "Lei de Execução Penal (Lei nº 7.210 de 11 de julho de 1984)",
+    )
+
+    assert lei is not None
+    assert "7.210" in lei.titulo
+    assert lei.url.endswith("/l7210.htm")
+
+
+def test_lei_estadual_vai_para_a_alesc_e_nao_para_o_planalto():
+    """Lei de SC nao esta no Planalto, e esta e a materia que faz esta prova
+    ser so de quem presta em Santa Catarina."""
+    lei = leis.do_assunto(
+        "Legislação Estadual",
+        "Lei n.º 6.745, de 28 de dezembro de 1985 "
+        "(Estatuto do Servidor do Estado de Santa Catarina)",
+    )
+
+    assert urlparse(lei.url).netloc == "leis.alesc.sc.gov.br"
+
+
+def test_cada_lei_avulsa_da_legislacao_especial_tem_a_sua():
+    """Cinco leis diferentes na mesma materia: nenhuma pode cair na do vizinho."""
+    def url(assunto: str) -> str:
+        return leis.do_assunto("Legislação Especial", assunto).url
+
+    desarmamento = url("Estatuto do Desarmamento (Lei nº 10.826 de 22 de dezembro de 2003)")
+    tortura = url("Crimes de tortura (Lei nº 9.455 de 7 de abril de 1997)")
+    drogas = url("Lei nº 11.343, de 23 de agosto de 2006 (SISNAD)")
+    penha = url("Lei dos Crimes contra Violência Doméstica ou "
+                "“Lei Maria da Penha” (Lei nº 11.340/2006)")
+
+    assert "10.826" in desarmamento
+    assert "9455" in tortura
+    assert "11343" in drogas
+    assert "11340" in penha
+    assert len({desarmamento, tortura, drogas, penha}) == 4
+
+
+def test_assunto_sem_lei_propria_cai_na_lei_da_materia():
+    """"Crimes contra a Administracao Publica" nao e uma lei: e um titulo do
+    Codigo Penal, que e o link da materia inteira."""
+    lei = leis.do_assunto("Direito Penal", "Crimes contra a Administração Pública")
+
+    assert "del2848" in lei.url
+
+
+def test_todo_assunto_de_direito_constitucional_vai_para_a_constituicao():
+    for assunto in ("nacionalidade", "direitos sociais",
+                    "Ordem social: base e objetivos da ordem social"):
+        assert "constituicao" in leis.do_assunto("Direito Constitucional", assunto).url
+
+
+def test_acento_e_caixa_nao_atrapalham():
+    com = leis.do_assunto("Legislação Especial", "Crimes de tortura (Lei nº 9.455)")
+    sem = leis.do_assunto("LEGISLACAO ESPECIAL", "CRIMES DE TORTURA (LEI 9.455)")
+
+    assert com == sem is not None
+
+
+# --- o que ela se recusa a fazer --------------------------------------------
+
+def test_documento_da_onu_fica_sem_link():
+    """As Regras de Mandela nao sao lei brasileira: nao estao no Planalto nem
+    na ALESC, e apontar para qualquer outro lugar seria inventar a fonte."""
+    assert leis.do_assunto(
+        "Direitos Humanos",
+        "Regras mínimas da ONU para o tratamento de pessoas presas",
+    ) is None
+
+
+def test_assunto_de_doutrina_fica_sem_link():
+    """Teoria geral nao tem texto oficial para abrir."""
+    assert leis.do_assunto(
+        "Direitos Humanos", "Afirmação histórica dos direitos humanos"
+    ) is None
+
+
+def test_materia_que_nao_e_de_direito_nao_tem_lei():
+    assert leis.do_assunto("Língua Portuguesa", "Emprego da crase") is None
+    assert leis.da_materia("Raciocínio Lógico") is None
+
+
+def test_materia_desconhecida_nao_quebra():
+    assert leis.do_assunto("Materia que nao existe", "qualquer coisa") is None
+    assert leis.do_assunto(None, None) is None
+
+
+def test_yaml_ausente_vira_lista_vazia_e_nao_erro(tmp_path, monkeypatch):
+    monkeypatch.setenv("RADAR_CONFIG_DIR", str(tmp_path))
+    leis.recarregar()
+
+    assert leis.do_assunto("Direito Penal", "Imputabilidade penal") is None
+
+
+# --- as ressalvas -----------------------------------------------------------
+
+def test_a_lei_revogada_vem_com_a_ressalva_junto():
+    """O edital de 2019 cobra a Lei 4.898, revogada naquele mesmo ano. O link
+    e o que o edital pede, e a nota existe para eu nao estudar uma lei
+    revogada sem saber."""
+    lei = leis.do_assunto(
+        "Legislação Especial",
+        "Lei de Abuso de autoridade (Lei nº 4.898 de 9 de dezembro de 1965)",
+    )
+
+    assert "4.898" in lei.titulo
+    assert "13.869" in lei.nota
+
+
+def test_lei_sem_ressalva_nao_inventa_uma():
+    lei = leis.do_assunto("Direito Processual Penal", "Ação penal")
+
+    assert lei.nota is None
+
+
+# --- as duas fontes ---------------------------------------------------------
+
+def test_so_existem_planalto_e_alesc_no_arquivo():
+    """A regra do arquivo, guardada por teste: lei federal e Constituicao no
+    Planalto, lei estadual de SC na ALESC, e nada alem disso. Um link para um
+    site de resumo de lei entraria sem ninguem perceber."""
+    enderecos = []
+    for bloco in leis._carregar():
+        enderecos.extend(
+            item["url"] for item in [bloco, *(bloco.get("assuntos") or [])]
+            if item.get("url")
+        )
+
+    assert enderecos
+    for endereco in enderecos:
+        assert urlparse(endereco).scheme == "https"
+        assert urlparse(endereco).netloc in FONTES, endereco
+
+
+# --- a lista de leis alteradas depois das provas (03/10/2026) ---------------
+#
+# O aviso "A lei mudou depois desta prova" le estes campos. Item sem um deles
+# some calado - ou, pior, avisa a prova errada.
+
+ANOS_DAS_PROVAS = {2013, 2019}
+
+# Onde cada mudanca da lista foi conferida: a compilacao da Camara (o Planalto
+# recusa a conexao daqui) e a ALESC; a decisao do STF, no portal dele; e a lei
+# que a Camara nao abriu, no Senado (decisao 171). Nao e link de "ler a lei".
+FONTES_DA_CONFERENCIA = ("www2.camara.leg.br", "leis.alesc.sc.gov.br", "portal.stf.jus.br",
+                         "www.stf.jus.br", "noticias.stf.jus.br", "legis.senado.leg.br")
+
+
+def _mudancas() -> list[dict]:
+    return leis._arquivo().get("mudancas") or []
+
+
+def test_a_lista_de_leis_alteradas_existe_e_tem_o_que_o_aviso_le():
+    assert _mudancas(), "a lista existe desde 03/10/2026"
+    for item in _mudancas():
+        assert item.get("tema") and item.get("lei") and item.get("o_que_mudou"), item
+        if item.get("provas"):
+            # As provas novas (decisao 171): o ano de cada caderno da lista.
+            assert item.get("anos") and all(2010 <= ano <= 2026 for ano in item["anos"]), item
+            assert all(urlparse(str(p)).scheme in ("http", "https") for p in item["provas"]), item
+        else:
+            assert item.get("anos") and set(item["anos"]) <= ANOS_DAS_PROVAS, item
+        # Marca que o YAML leu como numero (8.429 sem aspas vira float) nunca
+        # bateria no texto da questao.
+        assert item.get("marcas") and all(
+            isinstance(m, str) and m.strip() for m in item["marcas"]), item
+
+
+def test_item_escrito_por_ia_diz_quem_escreveu_e_onde_conferiu():
+    """Regra do projeto: dado de IA so entra com procedencia (modelo e data)."""
+    for item in _mudancas():
+        if item.get("conferida"):
+            continue
+        assert "Claude Code" in str(item.get("procedencia")), item
+        assert "2026" in str(item.get("procedencia")), item
+        # A decisao conferida so pela noticia diz isso na procedencia.
+        assert (urlparse(str(item.get("fonte"))).netloc in FONTES_DA_CONFERENCIA
+                or "notícia" in str(item.get("procedencia"))), item
+
+
+def test_a_lista_reconhece_a_questao_pelo_texto_dela():
+    """A q67 de 2019, com o texto do caderno: a audiencia de custodia mudou o
+    art. 310 depois da prova - e a mesma questao, em 2013, tambem avisaria."""
+    texto = ("De acordo com o Código de Processo Penal, é ao receber o auto de "
+             "prisão em flagrante, a autoridade judiciária poderá conceder "
+             "liberdade provisória de forma fundamentada.")
+
+    (mudanca,) = leis.mudancas_da_questao(2019, "Direito Processual Penal", texto)
+
+    assert "310" in mudanca.tema
+    assert not mudanca.conferida
+    assert leis.mudancas_da_questao(2019, "Direito Penal", texto) == []
+
+
+PC_RJ = "https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF"
+
+
+def test_a_chave_provas_restringe_o_aviso_ao_caderno():
+    """Decisao 171: o item com `provas` so avisa nos cadernos dele. A Lei
+    14.365 e de junho de 2022; a prova de Colombo, de outubro, nao avisa."""
+    texto = "A busca no escritório do advogado Orozimbo e a inviolabilidade relativa."
+    (mudanca,) = leis.mudancas_da_questao(2022, "Direito Processual Penal", texto, PC_RJ)
+    assert "escritório de advocacia" in mudanca.tema and not mudanca.conferida
+    colombo = "https://servicos.nc.ufpr.br/documentos/pmcol2022/provas/definitivo/305.pdf"
+    assert leis.mudancas_da_questao(2022, "Direito Processual Penal", texto, colombo) == []
+    assert leis.mudancas_da_questao(2022, "Direito Processual Penal", texto) == []
+
+
+def test_o_item_sem_provas_continua_valendo_para_todo_caderno_do_ano(monkeypatch):
+    monkeypatch.setattr(leis, "_arquivo", lambda: {"mudancas": [
+        {"tema": "T", "lei": "L", "anos": [2019], "marcas": ["fiança"]},
+        {"tema": "U", "lei": "M", "anos": [2019], "marcas": ["fiança"], "provas": ["https://a.pdf"]},
+    ]})
+    assert [m.tema for m in leis.mudancas_da_questao(2019, None, "a fiança", "https://b.pdf")] == ["T"]
+    assert [m.tema for m in leis.mudancas_da_questao(2019, None, "a fiança", "https://a.pdf")] == ["T", "U"]
+
+
+def test_a_tela_da_questao_avisa_so_depois_da_resposta(banco_temporario, monkeypatch):
+    """O aviso aparece na correcao, depois da letra - como o gabarito
+    (decisao 148) -, e e o unico lugar em que a questao de outra banca o
+    mostra."""
+    from fastapi.testclient import TestClient
+
+    from radar.db import sessao
+    from radar.models import QuestaoDeProva, RespostaDeSimulado, Simulado
+    from radar.web.app import app
+
+    monkeypatch.setattr(leis, "_arquivo", lambda: {"mudancas": [{
+        "tema": "Busca em escritório de advocacia", "lei": "Lei 14.365/2022",
+        "o_que_mudou": "a busca virou medida excepcional", "anos": [2022],
+        "marcas": ["escritório do advogado"], "provas": [PC_RJ],
+        "procedencia": "Claude Code (teste), 18/10/2026", "conferida": False}]})
+    with sessao() as s:
+        q = QuestaoDeProva(prova_url=PC_RJ, banca="Cebraspe", ano=2022, numero=37,
+                           materia="Direito Processual Penal",
+                           enunciado="A busca no escritório do advogado é possível?",
+                           alternativas={"a": "sim", "b": "não", "c": "talvez", "d": "nunca"},
+                           resposta="a", impressao="pcrj-37", evidencia="fora")
+        s.add(q)
+        s.flush()
+        rodada = Simulado(filtros={"rodada": "outras_bancas", "quantidade": 1})
+        s.add(rodada)
+        s.flush()
+        s.add(RespostaDeSimulado(simulado_id=rodada.id, questao_id=q.id, ordem=1))
+        rodada_id, questao_id = rodada.id, q.id
+    cliente = TestClient(app)
+    antes = cliente.get(f"/simulado/{rodada_id}").text
+    assert "A lei mudou depois desta prova" not in antes
+    cliente.post(f"/simulado/{rodada_id}/responder", data={"questao_id": questao_id, "letra": "b"})
+    depois = cliente.get(f"/simulado/{rodada_id}?ver={questao_id}").text
+    assert "A lei mudou depois desta prova" in depois and "Lei 14.365/2022" in depois
+
+
+# --- o que mudou num ponto que nenhuma questao cobra (decisao 84) -------------
+
+LEP = "Lei de Execução Penal > Lei de Execução Penal (Lei nº 7.210 de 11 de julho de 1984)"
+
+
+def _fronteira() -> list[dict]:
+    return leis._arquivo().get("fronteira") or []
+
+
+def test_a_fronteira_tem_procedencia_fonte_oficial_e_nos_que_existem():
+    """Os 9 casos de fronteira do docs/leis_alteradas.md, cada um com quem
+    escreveu, onde conferir e nos que a arvore tem: no inventado nunca liga a
+    ficha nenhuma, e fica calado."""
+    import json
+    from pathlib import Path
+
+    arquivo = Path(__file__).resolve().parent.parent / "data" / "conteudos.json"
+    caminhos = {n["caminho"] if isinstance(n, dict) else n
+                for n in json.loads(arquivo.read_text(encoding="utf-8"))}
+
+    assert len(_fronteira()) == 9
+    for item in _fronteira():
+        assert item.get("tema") and item.get("lei") and item.get("o_que_mudou"), item
+        assert "Claude Code" in str(item.get("procedencia")), item
+        assert urlparse(str(item.get("fonte"))).netloc in FONTES_DA_CONFERENCIA + FONTES, item
+        assert item.get("nos") or item.get("marcas"), item
+        for no in item.get("nos") or []:
+            assert no in caminhos, no
+
+
+def test_a_ficha_recebe_a_fronteira_pelo_no_ou_pela_marca_do_titulo():
+    (pelo_no,) = leis.fronteira_do_tema(
+        "Lei de Execução Penal", [f"{LEP} > Direitos do preso"], "Um título qualquer")
+    assert "41" in pelo_no.tema and not pelo_no.conferida
+
+    # A saida temporaria nao tem no na arvore: chega pela marca do titulo.
+    temas = [m.tema for m in leis.fronteira_do_tema(
+        "Lei de Execução Penal", [],
+        "Permissão de saída, saída temporária e remição (arts. 120 a 130)")]
+    assert any("Saída temporária" in tema for tema in temas)
+    assert any("Remição" in tema for tema in temas)
+
+
+def test_a_marca_so_vale_na_materia_do_item_e_o_ramo_tem_de_ser_o_mesmo():
+    # "remição" no titulo de uma ficha de Portugues nao e a LEP.
+    assert leis.fronteira_do_tema("Língua Portuguesa", [], "Pontuação: remição") == []
+    # Um no de outro ramo da mesma materia nao liga.
+    assert leis.fronteira_do_tema(
+        "Direito Penal", ["Direito Penal > Imputabilidade penal"], "Imputabilidade") == []
+
+
+def test_a_contagem_por_conferir_inclui_a_fronteira():
+    pendentes = [item for item in _mudancas() + _fronteira()
+                 if item.get("procedencia") and not item.get("conferida")]
+    assert leis.mudancas_por_conferir() == len(pendentes)

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Redação &middot; Radar de Concursos</title>
+  {# A aba Redacao da copia PMSC (decisao PMSC-5). Todo o texto sai do
+     redacao.yml; a nota e do radar, pela formula do edital. Cor e espaco do
+     design.css; aqui so o arranjo desta tela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .atalhos{display:flex;flex-wrap:wrap;gap:var(--esp-2);margin:0 0 var(--esp-4);font-size:var(--tam-sm)}
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .tema-da-vez{font-size:var(--tam-lg);font-weight:var(--peso-forte);margin:var(--esp-1) 0}
+    .dica{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .recado{margin:0 0 var(--esp-4);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);
+      border-left:3px solid var(--cor-aviso);background:var(--cor-aviso-fundo);font-size:var(--tam-sm)}
+    .recado ol{margin:var(--esp-2) 0 0;padding-left:var(--esp-5)}
+    .recado code{overflow-wrap:anywhere}
+    .esqueleto{display:grid;gap:var(--esp-3)}
+    .esqueleto .parte{padding:var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm)}
+    .esqueleto .modelo{font-style:italic;color:var(--cor-texto-suave);margin:var(--esp-1) 0 0}
+    .conectivos dt{font-weight:var(--peso-medio);margin-top:var(--esp-2)}
+    .conectivos dd{margin:0}
+    .corrigir textarea{width:100%;min-height:16rem;font-family:var(--fonte);font-size:var(--tam-base)}
+    .corrigir .linha{display:flex;flex-wrap:wrap;gap:var(--esp-3);align-items:end;margin-top:var(--esp-2)}
+    .ideias li{margin-bottom:var(--esp-2)}
+    .historico meter{width:8rem;vertical-align:middle}
+    .zero li{color:var(--cor-vermelho)}
+    .motivadores{display:grid;gap:var(--esp-3);margin:var(--esp-3) 0}
+    .motivador{padding:var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie)}
+    .motivador h3{margin:0 0 var(--esp-1);font-size:var(--tam-sm);letter-spacing:.04em}
+    .motivador p{margin:0;line-height:1.6}
+    .motivador .fonte{margin-top:var(--esp-2);font-size:var(--tam-xs);color:var(--cor-texto-suave);
+      overflow-wrap:anywhere}
+    .proposta{margin:var(--esp-3) 0 0}
+    .proposta.comando{font-weight:var(--peso-forte);line-height:1.6}
+    .motivador .titulo-do-texto{margin-bottom:var(--esp-1);text-align:center}
+    .passos-da-foto li{margin-bottom:var(--esp-1)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('redacao') }}
+{% from "_componentes.html" import selo %}
+
+<main class="ds-pagina">
+
+  <header class="ds-cabeca">
+    <h1>Redação</h1>
+    <p>Soldado PMSC · Instituto AOCP · dissertativa de Ordem Pública, 20 a 30 linhas, 20 pontos, mínimo 10</p>
+  </header>
+
+  {% if not regras %}
+    <p class="ds-vazio">Falta o arquivo <code>{{ arquivo }}</code>: é dele que sai o texto desta aba.</p>
+  {% else %}
+
+  <nav class="atalhos" aria-label="Partes da aba">
+    <a href="#tema">Tema da vez</a> · <a href="#roteiro">Roteiro de 10 min</a> ·
+    <a href="#esqueleto">Esqueleto</a> · <a href="#conectivos">Conectivos</a> ·
+    <a href="#erros">Erros que tiram ponto</a> · <a href="#repertorio">Repertório</a> ·
+    <a href="#corrigir">Corrigir</a> · <a href="#historico">Histórico</a> · <a href="#edital">Regras do edital</a>
+  </nav>
+
+  {% if erro %}<p class="ds-alerta">{{ erro }}</p>{% endif %}
+  {% if recado %}
+    <div class="recado">
+      {{ recado }}
+      {% if passos %}
+        <ol start="2">{% for p in passos %}<li><code>{{ p }}</code></li>{% endfor %}</ol>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# --- o tema da vez --- #}
+  <section class="ds-cartao" id="tema">
+    <h2 class="ds-cartao__titulo">Tema da vez</h2>
+    {% if vez %}
+      {# Como no caderno da AOCP (edital, 11.2): os textos motivadores e depois
+         a proposta, com o tema (decisao PMSC-22). O comando, quando o tema tem,
+         e o da AOCP e ja traz o tema dentro (decisao PMSC-23). #}
+      {% if vez.textos %}
+        <div class="motivadores">
+          {% for x in vez.textos %}
+            <div class="motivador">
+              <h3>TEXTO {{ loop.index }} {{ selo('oficial', 'Texto oficial da lei' if x.tipo == 'lei' else 'Texto de órgão público, reprodução autorizada com a fonte') }}</h3>
+              {% if x.titulo %}<p class="titulo-do-texto"><b>{{ x.titulo }}</b></p>{% endif %}
+              <p>{{ x.texto }}</p>
+              <p class="fonte">{{ x.fonte }}. Adaptado de: <a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.url }}</a>.{% if x.acesso %} Acesso em: {{ x.acesso }}.{% endif %}</p>
+            </div>
+          {% endfor %}
+        </div>
+        {% if not vez.comando %}
+          <p class="proposta">A partir da leitura dos textos motivadores e com base nos seus conhecimentos, redija um
+            texto dissertativo-argumentativo, de 20 a 30 linhas, sobre o tema:</p>
+        {% endif %}
+      {% endif %}
+      {% if vez.comando %}
+        <p class="proposta comando">{{ vez.comando }}</p>
+      {% else %}
+        <p class="tema-da-vez">{{ vez.tema }}</p>
+      {% endif %}
+      <p class="dica">De {{ vez.origem }}.{% if vez.data %} Para {{ vez.data.strftime('%d/%m') }}.{% endif %}
+        {% if vez.textos %}Os textos dão ideia e embasamento: use-os, mas escreva com as suas palavras.
+        {% else %}O edital diz que o tema é de Ordem Pública, com um ou mais textos motivadores.{% endif %}</p>
+      <form method="post" action="/redacao/ideias" class="linha">
+        <input type="hidden" name="tema" value="{{ vez.tema }}">
+        <input type="hidden" name="data" value="{{ dia.isoformat() }}">
+        <button class="ds-botao ds-botao--ia" type="submit">💡 Me dá ideias</button>
+        <span class="dica">
+          {% if tem_api %}pela API, {{ selo('automatico', 'Estimativa') }} ~US$ {{ '%.3f'|format(custo_ideias) }}
+            (~R$ {{ '%.2f'|format(custo_ideias * cambio) }}, câmbio fixo de {{ '%.2f'|format(cambio)|replace('.', ',') }})
+          {% else %}sem API: grava o pedido, e você responde pelo Claude Code{% endif %}
+        </span>
+      </form>
+    {% else %}
+      <p class="ds-vazio">Sem tema para este dia: confira a lista <code>temas</code> do redacao.yml.</p>
+    {% endif %}
+  </section>
+
+  {% if ideias %}
+  <section class="ds-cartao ideias">
+    <h2 class="ds-cartao__titulo">Ideias {{ selo('ia') }}</h2>
+    <p class="dica">Tema: {{ ideias.tema }} · {{ ideias.procedencia }}. Escritas pela IA só com o repertório do redacao.yml:
+      confira antes de usar, e nunca copie número que não esteja lá.</p>
+    <ol>
+      {% for t in ideias.teses %}
+        <li><b>{{ t.tese }}</b>
+          <ul>{% for a in t.argumentos %}
+            <li>{{ a.argumento }}{% if a.fundamentacao %} — {{ a.fundamentacao }}{% endif %}{% if a.exemplo %}<br><span class="dica">Exemplo: {{ a.exemplo }}</span>{% endif %}</li>
+          {% endfor %}</ul>
+        </li>
+      {% endfor %}
+    </ol>
+    {% set p = ideias.proposta %}
+    {% if p and (p.agente or p.acao) %}
+      <p><b>Proposta:</b> {{ p.agente }} — {{ p.acao }}{% if p.meio %}, por meio de {{ p.meio }}{% endif %}{% if p.finalidade %}, a fim de {{ p.finalidade }}{% endif %}.</p>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {# --- o metodo --- #}
+  {% set roteiro = regras.roteiro_de_ideias or {} %}
+  <section class="ds-cartao" id="roteiro">
+    <h2 class="ds-cartao__titulo">Roteiro de ideias ({{ roteiro.minutos or 10 }} minutos)</h2>
+    <ol>{% for passo in roteiro.passos or [] %}<li>{{ passo }}</li>{% endfor %}</ol>
+  </section>
+
+  <section class="ds-cartao" id="esqueleto">
+    <h2 class="ds-cartao__titulo">O esqueleto de 4 parágrafos</h2>
+    <div class="esqueleto">
+      {% for parte in regras.esqueleto or [] %}
+        <div class="parte">
+          <b>{{ parte.parte }}</b> <span class="dica">({{ parte.linhas }} linhas)</span>
+          <p>{{ parte.o_que_escrever }}</p>
+          <p class="modelo">{{ parte.modelo }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="ds-cartao" id="conectivos">
+    <h2 class="ds-cartao__titulo">Conectivos</h2>
+    <dl class="conectivos">
+      {% for uso, lista in (regras.conectivos or {}).items() %}
+        <dt>Para {{ uso }}</dt><dd>{{ lista | join(' · ') }}</dd>
+      {% endfor %}
+    </dl>
+  </section>
+
+  <section class="ds-cartao" id="erros">
+    <h2 class="ds-cartao__titulo">Os erros que mais tiram ponto</h2>
+    <ul>{% for e in regras.erros_que_mais_tiram_ponto or [] %}<li>{{ e }}</li>{% endfor %}</ul>
+    <p class="dica">Cada erro de português divide-se pelas linhas escritas: 6 erros em 25 linhas tiram 0,24 ponto.</p>
+  </section>
+
+  <section class="ds-cartao" id="repertorio">
+    <h2 class="ds-cartao__titulo">Repertório</h2>
+    <p class="dica">Só o que é certo: é a única lista que a IA pode citar. Número inventado vira erro de conteúdo.</p>
+    <ul>{% for r in regras.repertorio or [] %}<li>{{ r }}</li>{% endfor %}</ul>
+  </section>
+
+  {# --- corrigir --- #}
+  <section class="ds-cartao corrigir" id="corrigir">
+    <h2 class="ds-cartao__titulo">Corrigir uma redação</h2>
+    <p><b>O jeito recomendado: a foto da folha.</b></p>
+    <ol class="passos-da-foto">
+      <li>Escreva à mão, como na prova: caneta azul ou preta, de 20 a 30 linhas, sem nome.</li>
+      <li>Fotografe a folha inteira, de cima, com boa luz.</li>
+      <li>No Claude Code, mande a foto e diga <i>"corrige a redação"</i>. Ele transcreve, conta as linhas, avalia a
+        letra, corrige como a banca e grava aqui; a correção abre no Histórico.</li>
+    </ol>
+    <p class="dica">Ou digite abaixo e clique em Corrigir. A nota final é do radar, pela fórmula do edital:
+      <b>NC − NE ÷ TL</b>, menos 0,20 por linha abaixo de 20; o que passar de 30 linhas não conta. A correção dá
+      a nota de conteúdo (NC) e lista os erros (NE); a conta dela não vale.</p>
+    <form method="post" action="/redacao/corrigir">
+      <input type="hidden" name="data" value="{{ dia.isoformat() }}">
+      <label class="ds-campo">Tema
+        <input type="text" name="tema" value="{{ form.tema or (vez.tema if vez else '') }}" required>
+      </label>
+      <label class="ds-campo">Texto
+        <textarea name="texto" required>{{ form.texto }}</textarea>
+      </label>
+      <div class="linha">
+        <label class="ds-campo">Linhas da folha
+          <input type="number" name="linhas" min="1" max="40" value="{{ form.linhas }}" required>
+        </label>
+        <button class="ds-botao ds-botao--ia" type="submit">✍ Corrigir</button>
+        <span class="dica">
+          {% if tem_api %}pela API, {{ selo('automatico', 'Estimativa') }} ~US$ {{ '%.3f'|format(custo_correcao) }}
+            (~R$ {{ '%.2f'|format(custo_correcao * cambio) }}, câmbio fixo de {{ '%.2f'|format(cambio)|replace('.', ',') }},
+            não é a cotação do dia)
+          {% else %}sem API (não gasta dinheiro): grava o pedido, e no Claude Code você diz "corrige a redação"{% endif %}
+        </span>
+      </div>
+    </form>
+  </section>
+
+  {# --- o historico --- #}
+  <section class="ds-cartao historico" id="historico">
+    <h2 class="ds-cartao__titulo">Histórico e evolução da nota</h2>
+    {% if historico %}
+      <table class="ds-tabela">
+        <thead><tr><th>Dia</th><th>Tema</th><th>Linhas</th><th>Nota</th><th></th></tr></thead>
+        <tbody>
+          {% for r in historico %}
+            <tr>
+              <td>{{ r.data }}</td>
+              <td><a href="/redacao/{{ r.id }}">{{ r.tema }}</a></td>
+              <td>{{ r.linhas }}</td>
+              <td><meter min="0" max="20" low="10" optimum="20" value="{{ r.nota.final }}">{{ '%.2f'|format(r.nota.final) }}</meter>
+                <b>{{ '%.2f'|format(r.nota.final)|replace('.', ',') }}</b></td>
+              <td>{% if r.motivo_zero %}<span class="ds-alerta">zero</span>{% elif r.nota.aprovada %}acima do mínimo{% else %}abaixo de 10{% endif %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <p class="dica">{{ historico|length }} redação(ões). As notas, em ordem de data:
+        {% for d, n in evolucao %}{{ '%.2f'|format(n)|replace('.', ',') }}{% if not loop.last %} → {% endif %}{% endfor %}.</p>
+    {% else %}
+      <p class="ds-vazio">Nenhuma redação corrigida ainda.</p>
+    {% endif %}
+  </section>
+
+  {# --- as regras do edital --- #}
+  {% set e = regras.regras_do_edital or {} %}
+  <section class="ds-cartao" id="edital">
+    <h2 class="ds-cartao__titulo">Regras do edital {{ selo('oficial') }}</h2>
+    <p><b>Tema:</b> {{ e.tema }}</p>
+    <p><b>Tipo:</b> {{ e.tipo }} · <b>Linhas:</b> {{ e.linhas_minimo }} a {{ e.linhas_maximo }} ·
+      <b>Nota:</b> até {{ e.nota_maxima }}, mínimo {{ e.nota_minima }} ·
+      corrigida até a {{ e.corrigida_ate_a_posicao }}ª posição na objetiva</p>
+    <p><b>Fórmula:</b> {{ e.formula }}</p>
+    <p><b>Critérios de conteúdo:</b></p>
+    <ul>{% for c in e.criterios_de_conteudo or [] %}<li>{{ c }}</li>{% endfor %}</ul>
+    <p><b>Nota zero:</b></p>
+    <ul class="zero">{% for z in e.zero or [] %}<li>{{ z }}</li>{% endfor %}</ul>
+    <p class="dica">Edital nº 002/CCP/2026 – CFP, item 11.</p>
+  </section>
+
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">Os temas do plano</h2>
+    <ul>{% for t in regras.temas or [] %}<li>{{ t.data }} — {{ t.tema }}</li>{% endfor %}</ul>
+    {% if regras.temas_anteriores_da_aocp %}
+      <p><b>O que a AOCP já deu em PM</b> (para ver o formato; não são de Ordem Pública):</p>
+      <ul>{% for t in regras.temas_anteriores_da_aocp %}
+        <li>{{ t.prova }}: “{{ t.tema }}” ({{ t.linhas }} linhas){% if t.link %} · <a href="{{ t.link }}" target="_blank" rel="noopener">prova</a>{% endif %}</li>
+      {% endfor %}</ul>
+    {% endif %}
+  </section>
+
+  {% endif %}
+</main>
+</body>
+</html>

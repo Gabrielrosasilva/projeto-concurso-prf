@@ -1,0 +1,399 @@
+"""Acervo de provas: descobrir, baixar e catalogar.
+
+Cada concurso da FEPESE tem um hotsite proprio, e e nele que ficam os PDFs:
+
+    ?go=edital   -> o edital de abertura
+    ?go=provas   -> o caderno de prova de cada cargo, e os gabaritos
+
+O caderno vem com o cargo no rotulo do link ("Monitor de Transporte Escolar",
+"Supervisor Escolar"), que e justamente o que interessa: o que vale estudar e
+o padrao da banca no SEU cargo, nao a media de todos.
+
+## O que vai para o git e o que nao vai
+
+Os PDFs NAO entram no repositorio. Git guarda uma copia inteira de cada
+arquivo binario a cada commit, e algumas centenas de provas deixariam o
+repositorio grande e lento.
+
+O que entra e o **manifesto** (`data/provas.json`): link de origem, banca,
+orgao, cargo, ano e o sha256 de cada arquivo. Com ele, `radar baixar-provas`
+reconstroi o acervo inteiro em qualquer maquina, e o hash prova que o arquivo
+e o mesmo. Versionar a receita em vez do artefato e a mesma logica de
+Dockerfile e imagem.
+"""
+import hashlib
+import json
+import logging
+import re
+import unicodedata
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
+
+from bs4 import BeautifulSoup
+
+from radar import config
+
+log = logging.getLogger(__name__)
+
+EDITAL, PROVA, GABARITO = "edital", "prova", "gabarito"
+
+# O gabarito que vale. O `?go=provas` publica o PROVISORIO - o que sai no dia
+# seguinte a prova, antes dos recursos - e e ele que o caderno traz embutido.
+# O definitivo, com as questoes anuladas e as letras trocadas, e anunciado na
+# lista de avisos da pagina inicial do hotsite, e so la.
+GABARITO_DEFINITIVO = "gabarito_definitivo"
+
+# Rotulos que descrevem o documento, e portanto NAO sao nome de cargo.
+ROTULOS_DE_DOCUMENTO = (
+    "caderno de prova", "caderno", "gabarito", "prova escrita", "edital",
+    "download", "clique aqui", "pdf",
+)
+
+# Documento que aparece na pagina de provas sem ser prova nem gabarito. A
+# lista e curta e literal de proposito: ela existe so como defesa, porque nas
+# tres paginas de hotsite guardadas como fixture nenhum PDF caiu aqui.
+# "Recurso" ficou de fora por ser ambiguo - "Analista de Recursos Humanos" e
+# nome de cargo, e seria descartado como se fosse papelada.
+ROTULOS_QUE_NAO_SAO_PROVA = (
+    "edital", "retificac", "termo aditivo", "comunicado", "cronograma",
+    "convocac", "homologac", "errata", "resultado", "classificac",
+)
+
+
+def _sem_acento(texto: str) -> str:
+    normal = unicodedata.normalize("NFKD", texto or "")
+    return "".join(c for c in normal if not unicodedata.combining(c))
+
+
+def _normalizar(texto: str) -> str:
+    return re.sub(r"\s+", " ", _sem_acento(texto)).strip().lower()
+
+
+@dataclass
+class Documento:
+    """Um PDF do acervo, ainda nao baixado."""
+
+    tipo: str                       # edital | prova | gabarito
+    url: str
+    arquivo: str                    # nome do arquivo na origem
+    cargo: str | None = None
+    concurso_url: str | None = None
+    banca: str | None = None
+    orgao: str | None = None
+    municipio: str | None = None
+    ano: int | None = None
+    sha256: str | None = None
+    caminho: str | None = None      # onde ficou no disco
+    tamanho: int | None = None
+    # Quando o hotsite anunciou o documento, no formato do manifesto
+    # (AAAA-MM-DD). So o gabarito definitivo precisa: uma retificacao dele
+    # substitui a versao anterior, e sem data nao ha como saber qual e qual.
+    publicado_em: str | None = None
+
+    def chave(self) -> str:
+        """O que identifica o documento. Usado para nao catalogar duas vezes."""
+        return self.url
+
+
+def _tipo_do_documento(arquivo: str, rotulos: list[str]) -> str | None:
+    """Na pagina de provas, o que nao e gabarito nem papelada e caderno.
+
+    Isto ja foi o contrario: o caderno precisava PROVAR que era caderno, por
+    palavra no rotulo ("caderno", "prova") ou por nome de arquivo com nivel e
+    numero ("M1.pdf", "S12.pdf"). A regra deixava de fora justamente as duas
+    provas de Agente Penitenciario de SC: em 2013 e em 2019 o link se chama so
+    "AP.pdf", e o rotulo e o nome do cargo, sem palavra-chave nenhuma.
+
+    Exigir prova de que e caderno era o filtro errado - a pagina `?go=provas`
+    ja diz o que ela e. Agora quem precisa se identificar e a excecao.
+    """
+    texto = _normalizar(" ".join([arquivo, *rotulos]))
+
+    if "gabarito" in texto:
+        return GABARITO
+    if any(marca in texto for marca in ROTULOS_QUE_NAO_SAO_PROVA):
+        return None
+    return PROVA
+
+
+def _cargo(rotulos: list[str]) -> str | None:
+    """O rotulo que nomeia o cargo, entre os que apontam para o mesmo PDF.
+
+    A pagina repete o link: uma vez com o nome do cargo ("Supervisor
+    Escolar") e outra descrevendo o arquivo ("Caderno de Prova (S1)"). O
+    cargo e o que sobra depois de tirar os descritivos.
+    """
+    for rotulo in rotulos:
+        normal = _normalizar(rotulo)
+        if not normal or len(normal) < 4:
+            continue
+        if any(marca in normal for marca in ROTULOS_DE_DOCUMENTO):
+            continue
+        return re.sub(r"\s+", " ", rotulo).strip()
+    return None
+
+
+def _links_com_rotulo(html: str, base: str) -> dict[str, dict]:
+    """{url do pdf: {arquivo, rotulos}} - agrupa os rotulos do mesmo arquivo."""
+    sopa = BeautifulSoup(html, "lxml")
+    achados: dict[str, dict] = {}
+
+    for ancora in sopa.find_all("a", href=True):
+        href = ancora["href"]
+        if ".pdf" not in href.lower():
+            continue
+
+        url = urljoin(base, href)
+        nome = re.search(r"arquivo=([^&]+\.pdf)", href, re.IGNORECASE)
+        arquivo = nome.group(1) if nome else href.rsplit("/", 1)[-1].split("?")[0]
+
+        registro = achados.setdefault(url, {"arquivo": arquivo, "rotulos": []})
+        rotulo = ancora.get_text(" ", strip=True)
+        if rotulo:
+            registro["rotulos"].append(rotulo)
+
+    return achados
+
+
+def ler_pagina_de_provas(html: str, base: str) -> list[Documento]:
+    """Cadernos de prova e gabaritos de um hotsite."""
+    documentos: list[Documento] = []
+
+    for url, dados in _links_com_rotulo(html, base).items():
+        tipo = _tipo_do_documento(dados["arquivo"], dados["rotulos"])
+        if tipo is None:
+            continue
+        documentos.append(Documento(
+            tipo=tipo,
+            url=url,
+            arquivo=dados["arquivo"],
+            cargo=_cargo(dados["rotulos"]) if tipo == PROVA else None,
+        ))
+
+    return documentos
+
+
+# Como o hotsite chama o gabarito que vale. O rotulo vem da propria pagina, e
+# cobre tambem "Anexo 01 - Retificacao do gabarito definitivo", que e o
+# formato em que a anulacao tardia de uma questao e publicada.
+ROTULO_DO_DEFINITIVO = "gabarito definitivo"
+
+# Prova de outra FASE do mesmo concurso, que tem gabarito definitivo proprio e
+# nao e a prova escrita: curso de formacao, prova de recuperacao, capacidade
+# fisica. O hotsite lista as tres junto com a que me interessa.
+OUTRAS_FASES = ("curso de formacao", "recuperacao", "prova teorica",
+                "capacidade fisica")
+
+# "13/12/2019 às 12:30" - a data do aviso, que fica na celula ao lado do link.
+DATA_DO_AVISO = re.compile(r"\b(\d{2})/(\d{2})/(\d{4})\b")
+
+
+def ler_pagina_inicial(html: str, base: str) -> list[Documento]:
+    """Os gabaritos DEFINITIVOS anunciados na pagina inicial do hotsite.
+
+    Le por LINHA da tabela de avisos, e nao por link solto, porque a data fica
+    numa celula separada - o link e o dia em que ele foi publicado sao duas
+    colunas da mesma linha. E a data e o que decide qual gabarito vale quando
+    ha mais de um: em 2019 saiu o definitivo em 13/12, e em 23/01 do ano
+    seguinte uma retificacao dele, anulando mais uma questao.
+    """
+    sopa = BeautifulSoup(html, "lxml")
+    documentos: list[Documento] = []
+    vistos: set[str] = set()
+
+    for linha in sopa.find_all("tr"):
+        # So a linha de dentro. A pagina da FEPESE monta o layout inteiro com
+        # tabela dentro de tabela, e a linha de fora contem TODOS os avisos -
+        # a data que ela devolve e a do primeiro deles, nunca a do link certo.
+        if linha.find("tr") is not None:
+            continue
+
+        data = DATA_DO_AVISO.search(linha.get_text(" ", strip=True))
+        dia, mes, ano = data.groups() if data else (None, None, None)
+
+        for ancora in linha.find_all("a", href=True):
+            rotulo = _normalizar(ancora.get_text(" ", strip=True))
+            if ROTULO_DO_DEFINITIVO not in rotulo:
+                continue
+            # A prova escrita e a que me interessa; o curso de formacao e a
+            # recuperacao sao outras provas, com outro gabarito.
+            if any(fase in rotulo for fase in OUTRAS_FASES):
+                continue
+            if ".pdf" not in ancora["href"].lower():
+                continue
+
+            url = urljoin(base, ancora["href"])
+            if url in vistos:
+                continue
+            vistos.add(url)
+
+            nome = re.search(r"arquivo=([^&]+\.pdf)", ancora["href"], re.IGNORECASE)
+            documentos.append(Documento(
+                tipo=GABARITO_DEFINITIVO,
+                url=url,
+                arquivo=(nome.group(1) if nome
+                         else ancora["href"].rsplit("/", 1)[-1].split("?")[0]),
+                publicado_em=f"{ano}-{mes}-{dia}" if data else None,
+            ))
+
+    return documentos
+
+
+def ler_pagina_de_edital(html: str, base: str) -> list[Documento]:
+    """O edital de abertura. E um PDF so, mas a pagina pode ter retificacoes."""
+    return [
+        Documento(tipo=EDITAL, url=url, arquivo=dados["arquivo"])
+        for url, dados in _links_com_rotulo(html, base).items()
+    ]
+
+
+# --- disco e manifesto ------------------------------------------------------
+
+def diretorio_provas() -> Path:
+    caminho = config.diretorio_dados() / "provas"
+    caminho.mkdir(parents=True, exist_ok=True)
+    return caminho
+
+
+def caminho_do_manifesto() -> Path:
+    return config.diretorio_dados() / "provas.json"
+
+
+# Teto de tamanho de cada pedaco do caminho. O Windows para em 260 caracteres
+# no caminho inteiro, e a raiz do acervo ja come uns 70 - ninguem tem pasta de
+# projeto na raiz do disco. Sessenta deixa o nome legivel e sobra folga.
+#
+# Isto nao e teoria: o titulo do concurso de 2013 na FEPESE gruda os quatro
+# cargos num campo so ("...CidadaniaAgente Penitenciario (masculino)Agente
+# Penitenciario (feminino)Agente de Seguranca..."), o que dava 160 caracteres
+# de nome de pasta e um FileNotFoundError no meio do download.
+TAMANHO_MAXIMO_DO_NOME = 60
+
+
+def _nome_seguro(texto: str) -> str:
+    """Nome de pasta que funciona no Windows e no Linux."""
+    limpo = re.sub(r"[^a-z0-9]+", "-", _normalizar(texto or "sem-nome"))
+    limpo = limpo.strip("-") or "sem-nome"
+
+    if len(limpo) > TAMANHO_MAXIMO_DO_NOME:
+        # corta no hifen anterior ao teto, para nao partir palavra no meio
+        limpo = limpo[:TAMANHO_MAXIMO_DO_NOME].rsplit("-", 1)[0].strip("-")
+    return limpo or "sem-nome"
+
+
+def destino(documento: Documento, ocupados: dict[str, str] | None = None) -> Path:
+    """data/provas/<banca>/<ano>/<municipio>/<arquivo>
+
+    Dois hotsites do mesmo municipio e ano podem ter arquivo de mesmo nome: a
+    FEPESE chama de S07.pdf provas de cargos diferentes em concursos
+    diferentes de Palhoca, em 2024. Com `ocupados` ({caminho: url}, do
+    manifesto), o caminho que ja e de OUTRA url ganha o nome do hotsite na
+    frente. Sem isso o segundo arquivo nunca era baixado - o primeiro ja
+    estava la -, e a prova dele apontava para o PDF do outro concurso (B.9).
+    """
+    partes = [
+        _nome_seguro(documento.banca or "sem-banca"),
+        str(documento.ano or "sem-ano"),
+        _nome_seguro(documento.municipio or documento.orgao or "sem-orgao"),
+    ]
+    pasta = diretorio_provas().joinpath(*partes)
+    pasta.mkdir(parents=True, exist_ok=True)
+    caminho = pasta / _nome_seguro(documento.arquivo).replace("-pdf", ".pdf")
+    dono = (ocupados or {}).get(_caminho_relativo(caminho))
+    if dono and dono != documento.url:
+        caminho = pasta / f"{_nome_do_hotsite(documento.url)}-{caminho.name}"
+    return caminho
+
+
+def _nome_do_hotsite(url: str) -> str:
+    """"2024pseducapalhoca" de https://2024pseducapalhoca.fepese.org.br/..."""
+    host = urlparse(url or "").hostname or ""
+    return _nome_seguro(host.split(".")[0] if host else hashlib.sha256(
+        (url or "").encode()).hexdigest()[:12])
+
+
+def _caminho_relativo(caminho: Path) -> str:
+    """Caminho com barra normal, sempre.
+
+    No Windows o str() de um Path sai com contrabarra, e isso iria para o
+    manifesto versionado - que a outra maquina, possivelmente Linux, leria
+    como nome de arquivo com contrabarra dentro. O manifesto precisa ser
+    portatil; ele existe justamente para reconstruir o acervo em qualquer
+    lugar.
+    """
+    return caminho.relative_to(config.diretorio_dados()).as_posix()
+
+
+def sha256_do_arquivo(caminho: Path) -> str:
+    resumo = hashlib.sha256()
+    with caminho.open("rb") as arquivo:
+        for pedaco in iter(lambda: arquivo.read(65536), b""):
+            resumo.update(pedaco)
+    return resumo.hexdigest()
+
+
+def carregar_manifesto() -> list[dict]:
+    caminho = caminho_do_manifesto()
+    if not caminho.exists():
+        return []
+    return json.loads(caminho.read_text(encoding="utf-8"))
+
+
+def gravar_manifesto(registros: list[dict]) -> int:
+    """Escreve o manifesto ordenado, para o diff do commit ficar estavel."""
+    caminho = caminho_do_manifesto()
+    caminho.parent.mkdir(parents=True, exist_ok=True)
+    ordenados = sorted(registros, key=lambda r: (r.get("url") or ""))
+    caminho.write_text(
+        json.dumps(ordenados, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return len(ordenados)
+
+
+def baixar(documento: Documento, buscador, forcar: bool = False,
+           ocupados: dict[str, str] | None = None,
+           caminho: Path | None = None) -> Documento | None:
+    """Salva o PDF no disco e preenche hash, caminho e tamanho.
+
+    Arquivo que ja existe nao e baixado de novo - o acervo cresce sem repetir
+    requisicao. `forcar` serve para reconferir um arquivo suspeito.
+    `ocupados` evita gravar por cima do arquivo de outra url (`destino`), e
+    `caminho` usa o que o manifesto ja gravou.
+    """
+    caminho = caminho or destino(documento, ocupados)
+
+    if caminho.exists() and not forcar:
+        documento.caminho = _caminho_relativo(caminho)
+        documento.sha256 = sha256_do_arquivo(caminho)
+        documento.tamanho = caminho.stat().st_size
+        return documento
+
+    try:
+        resposta = buscador.get(documento.url)
+    except Exception as erro:  # noqa: BLE001 - PDF fora do ar e rotina
+        log.warning("nao baixei %s (%s)", documento.arquivo, type(erro).__name__)
+        return None
+
+    conteudo = resposta.content
+    # O que importa e ser PDF mesmo: pagina de erro devolvida com HTTP 200 e
+    # comum e nao pode entrar no acervo como se fosse prova.
+    #
+    # O cabecalho %PDF nao precisa estar no byte zero - o servidor da FEPESE
+    # manda linhas em branco antes, e o arquivo abre normalmente. Por isso a
+    # busca e no comeco do arquivo, e nao um startswith.
+    if b"%PDF" not in conteudo[:1024]:
+        log.warning("%s nao parece PDF (comeca com %r)", documento.arquivo,
+                    conteudo[:16])
+        return None
+
+    caminho.write_bytes(conteudo)
+    documento.caminho = _caminho_relativo(caminho)
+    documento.sha256 = hashlib.sha256(conteudo).hexdigest()
+    documento.tamanho = len(conteudo)
+    return documento
+
+
+def para_registro(documento: Documento) -> dict:
+    return {k: v for k, v in asdict(documento).items() if v is not None}

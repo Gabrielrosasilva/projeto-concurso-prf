@@ -1,0 +1,496 @@
+"""Os cargos que eu quero, lidos de config/alvo.yml.
+
+O radar ja sabia ONDE a prova e aplicada e se eu sirvo para a vaga. Faltava a
+pergunta mais simples de todas: **e o cargo que eu quero?**
+
+Tres marcas, e elas nao valem a mesma coisa:
+
+- `principal` e a Policia Penal SC. Para ela o cargo manda e a distancia nao
+  importa, entao a marca passa por cima do filtro de anel e do teto de
+  mensagens do Telegram. Vale ate para noticia, que normalmente nunca vira
+  aviso: "governo autoriza concurso da Policia Penal" e exatamente o que eu
+  nao posso perder.
+- `principal_fora` e o MESMO cargo em outro estado - ou sem prova de qual.
+  Ela existe porque as duas perguntas que eu faco sobre esse cargo tem
+  respostas diferentes. **"Quero saber?"** - sim, sempre: um concurso de
+  Policia Penal em qualquer estado e noticia que eu quero na hora, e por isso
+  esta marca avisa com sirene, sem distancia e sem teto, como a de cima.
+  **"Quero estudar por ela?"** - nao: prova de outro estado e outra banca,
+  outro programa e outra lei estadual. Por isso o estudo (Meu foco, acervo,
+  treino) le so `principal`.
+- `secundario` e o resto da minha lista. Marca so para eu reconhecer o cargo;
+  as regras de aviso continuam as mesmas - com uma excecao, `de_olho`, que
+  fura o teto para as cidades que eu escolhi no YAML.
+
+A regra de ouro do projeto continua valendo aqui: **nunca chutar**. O que
+relaxou foi so o ESTADO do cargo, e so para os `termos`. Os `orgaos`
+continuam exigindo prova de SC: "SAP SP abre estagio" esta no feed de verdade
+e a sigla solta nao prova estado nenhum.
+"""
+import re
+from dataclasses import dataclass
+from functools import cache
+
+import yaml
+
+from radar import config
+from radar.regioes import normalizar
+
+PRINCIPAL, SECUNDARIO = "principal", "secundario"
+
+# O cargo do alvo principal em outro estado, ou sem prova de qual. Avisa como
+# o principal; nao entra em nada que seja estudo.
+PRINCIPAL_FORA = "principal_fora"
+
+# As marcas que furam o filtro de distancia e o teto de avisos. Quem pergunta
+# "isso vira mensagem de qualquer jeito?" usa esta tupla; quem pergunta "isso
+# e o MEU concurso?" compara com `PRINCIPAL` sozinho.
+PRINCIPAIS = (PRINCIPAL, PRINCIPAL_FORA)
+
+
+@dataclass(frozen=True)
+class Marca:
+    """O que o texto bateu, e por que. O motivo vai para o banco e para o
+    aviso: eu preciso poder auditar a marca, como faco com o anel."""
+
+    alvo: str
+    nome: str
+    motivo: str
+    #: Fura o teto de avisos sozinho, sem ser alvo principal. Hoje so liga
+    #: pela lista `de_olho` de um bloco secundario.
+    prioritario: bool = False
+
+
+@cache
+def _carregar() -> dict:
+    """Le config/alvo.yml. Arquivo ausente vira lista vazia, e nao erro."""
+    arquivo = config.diretorio_config() / "alvo.yml"
+    if not arquivo.exists():
+        return {}
+    return yaml.safe_load(arquivo.read_text(encoding="utf-8")) or {}
+
+
+def recarregar() -> None:
+    """Esquece o que foi lido. Usado pelos testes e se voce editar o YAML."""
+    _carregar.cache_clear()
+    _padrao.cache_clear()
+
+
+@cache
+def _padrao(termo: str) -> re.Pattern:
+    """O termo casado por PALAVRA INTEIRA.
+
+    Sem a borda, a sigla "SAP" casa dentro de Sapezal, Sapiranga, Massape e
+    SAPE/SC - os quatro ja apareceram na coleta, e nenhum tem a ver com o
+    concurso que eu espero.
+    """
+    return re.compile(rf"\b{re.escape(normalizar(termo))}\b")
+
+
+#: O mesmo casamento para quem esta fora daqui (decisao 161): a lei citada
+#: na fonte, o termo do glossario e o palavrao casam como o alvo.yml - texto
+#: normalizado (sem acento e sem caixa), palavra inteira.
+palavra_inteira = _padrao
+
+
+# O titulo da FEPESE gruda a lista de cargos no fim do nome do orgao:
+# "Secretaria de Estado da Justica e CidadaniaAgente Penitenciario
+# (masculino)Agente Penitenciario (feminino)...". Sem separar isso, nem o
+# orgao nem o cargo casam, porque a palavra que a busca procura comeca colada
+# na anterior. Vale so para minuscula seguida de MAIUSCULA: sigla grudada em
+# sigla ("SAPE/SC") fica como esta.
+MINUSCULA = "a-z" + chr(0xE0) + "-" + chr(0xFF)
+MAIUSCULA = "A-Z" + chr(0xC0) + "-" + chr(0xDE)
+GRUDADAS = re.compile(f"([{MINUSCULA}])([{MAIUSCULA}])")
+
+
+def _primeiro(termos, texto: str) -> str | None:
+    """O primeiro termo da lista que aparece no texto. None se nenhum aparece.
+
+    Devolve o termo, e nao so True, porque e ele que vai escrito no motivo.
+    """
+    for termo in termos or []:
+        if _padrao(str(termo)).search(texto):
+            return str(termo)
+    return None
+
+
+def _e_do_estado(principal: dict, texto: str, uf: str | None) -> bool:
+    """O item e mesmo do estado do alvo principal?
+
+    Com UF na mao, ela decide e ponto. Sem UF - a FEPESE e a IESES nao mandam
+    - quem decide e uma palavra que so existe aqui, nunca a sigla solta.
+    """
+    esperada = (principal.get("uf") or "").upper()
+    if not esperada:
+        return True
+    if uf:
+        return uf.upper() == esperada
+    return bool(_primeiro(principal.get("prova_de_sc"), texto))
+
+
+def _o_que_confirma_o_orgao(principal: dict, texto: str, banca: str | None) -> str | None:
+    """Sem o cargo no texto, o que prova que o item do orgao e o MEU concurso.
+
+    Devolve o pedaco do motivo ("em \\"concurso publico\\"") ou None. Palavra de
+    selecao (`orgao_exclui`) derruba tudo; depois vale uma palavra de
+    `orgao_exige_um_de` no texto, ou a banca ser a das edicoes anteriores.
+    """
+    if _primeiro(principal.get("orgao_exclui"), texto):
+        return None
+    palavra = _primeiro(principal.get("orgao_exige_um_de"), texto)
+    if palavra:
+        return f'em "{palavra}"'
+    if banca and _primeiro(principal.get("bancas"), normalizar(banca)):
+        return f"a banca é {banca}, {principal.get('banca_no_motivo') or 'a das edições anteriores'}"
+    return None
+
+
+def _marcar_principal(
+    principal: dict, texto: str, uf: str | None, banca: str | None
+) -> Marca | None:
+    if not principal:
+        return None
+
+    # A exclusao vem antes de tudo: "Policia Penal Federal" casa com
+    # "policia penal" e e outro concurso, que tem bloco proprio nos
+    # secundarios.
+    if _primeiro(principal.get("exclui"), texto):
+        return None
+
+    nome = principal.get("nome") or PRINCIPAL
+    cargo = _primeiro(principal.get("termos"), texto)
+    do_estado = _e_do_estado(principal, texto, uf)
+
+    # O cargo e o meu e o estado nao e - ou nao da para provar que e. Isso
+    # avisa, e so avisa. A separacao existe porque as duas perguntas tem
+    # respostas diferentes: "Policia Penal do Parana abre 400 vagas" e
+    # noticia que eu quero na hora, e e prova que eu nao posso estudar.
+    if cargo and not do_estado:
+        return Marca(
+            PRINCIPAL_FORA,
+            nome,
+            f'Mesmo cargo do alvo ({nome}), fora do estado: o texto fala em '
+            f'"{cargo}" sem provar que é de SC. Vale o aviso, não o estudo.',
+        )
+
+    # Sem o cargo no texto, quem pode marcar e o nome do orgao - e ai a prova
+    # de estado continua obrigatoria. A sigla "SAP" e o nome de uma secretaria
+    # de Sao Paulo tambem, e "SAP SP abre estagio" esta no feed de verdade.
+    # E o orgao sozinho nao basta: a SEJURI tambem faz selecao de medico e de
+    # CASE (config/alvo.yml, `orgao_exige_um_de` e `orgao_exclui`).
+    if not do_estado:
+        return None
+    confirmacao = None
+    if cargo:
+        motivo = f'Alvo principal ({nome}): o texto fala em "{cargo}".'
+    else:
+        orgao = _primeiro(principal.get("orgaos"), texto)
+        confirmacao = orgao and _o_que_confirma_o_orgao(principal, texto, banca)
+        if not confirmacao:
+            return None
+        motivo = f'Alvo principal ({nome}): o texto fala em "{orgao}" e {confirmacao}.'
+
+    # A banca nunca marca alvo sozinha - a FEPESE faz dezenas de concursos de
+    # prefeitura por ano. Aqui ela entra para o aviso lembrar que o padrao de
+    # prova dessa banca eu ja conheco (se ela ja nao foi o que confirmou). Na
+    # copia PMSC a banca e a do edital novo, e nao a das edicoes anteriores:
+    # a frase sai da chave `banca_no_motivo`.
+    if (banca and _primeiro(principal.get("bancas"), normalizar(banca))
+            and not (confirmacao or "").startswith("a banca é")):
+        motivo += (f" Banca {banca}, "
+                   f"{principal.get('banca_no_motivo') or 'a mesma das edições anteriores'}.")
+
+    return Marca(PRINCIPAL, nome, motivo)
+
+
+def principal() -> dict:
+    """O bloco inteiro do alvo principal, como esta no YAML.
+
+    Devolve {} quando nao ha alvo configurado - e ai quem chama diz que a tela
+    depende de `config/alvo.yml` estar preenchido, em vez de mostrar vazio sem
+    explicar por que.
+    """
+    return _carregar().get("principal") or {}
+
+
+def termos_do_principal() -> list[str]:
+    """Como o cargo do alvo aparece escrito ("policial penal", e afins).
+
+    Serve para achar as provas dele no acervo: o cargo gravado na questao vem
+    do rotulo do hotsite, e cada ano escreveu de um jeito.
+    """
+    return [str(x) for x in principal().get("termos") or []]
+
+
+def sinonimos_do_cargo(cargo: str) -> list[str]:
+    """Os outros nomes do mesmo cargo, segundo `config/alvo.yml`.
+
+    O caso que obrigou isto: as duas provas do meu concurso estao catalogadas
+    como "Agente Penitenciario", o nome que o cargo tinha em 2013 e 2019, e
+    hoje ele se chama "Policial Penal". Os dois nomes nao dividem uma palavra
+    sequer - procurar pelo nome de hoje nao achava prova nenhuma. Quem sabe
+    que sao a mesma coisa sou eu, e ja estava escrito no YAML: e a lista de
+    `termos`, que existe para reconhecer o cargo no texto do feed.
+
+    Vale SO para o alvo principal, e isso e uma limitacao consciente. Nos
+    blocos secundarios os `termos` nomeiam a CARREIRA, e nao um cargo: a
+    Policia Civil lista delegado, escrivao, investigador e agente, que sao
+    quatro cargos diferentes com quatro provas diferentes. Dizer que a prova
+    de Delegado e "o mesmo cargo com outro nome" que a de Agente seria
+    exatamente a equivalencia falsa que a prova substituta existe para nao
+    fingir. No bloco principal eu escrevi os tres nomes do MEU cargo, e por
+    isso ali eles sao sinonimos de verdade.
+
+    A lista `exclui` vale aqui como vale no resto do arquivo: "Policia Penal
+    Federal" contem "policia penal" e e outro concurso, com bloco proprio nos
+    secundarios.
+
+    Cargo fora disso devolve lista vazia, e a busca fica como sempre foi - por
+    palavra em comum.
+    """
+    texto = normalizar(cargo or "")
+    if not texto:
+        return []
+
+    bloco = principal()
+    if _primeiro(bloco.get("exclui"), texto):
+        return []
+
+    termos = [str(t) for t in bloco.get("termos") or []]
+    # Por palavra inteira, como todo o resto deste arquivo. Cobre os dois
+    # jeitos de escrever: o nome curto que eu digito ("policial penal") e o
+    # rotulo como o hotsite publica ("Agente Penitenciario - Feminino (AP)"),
+    # que CONTEM o termo.
+    if any(_padrao(termo).search(texto) for termo in termos):
+        return termos
+    return []
+
+
+def bancas_do_principal() -> list[str]:
+    """As bancas que ja fizeram o concurso do alvo, na ordem do YAML.
+
+    Isto e HISTORIA, e nao previsao. Quem chama tem que tratar como hipotese
+    enquanto nao houver edital novo dizendo quem e.
+    """
+    return [str(x) for x in principal().get("bancas") or []]
+
+
+def banca_na_tela() -> str:
+    """O nome curto da banca do alvo, como a tela escreve ("da AOCP").
+
+    A tela veio da PP com "FEPESE" escrito; a banca agora sai daqui: a chave
+    `banca_na_tela` do bloco principal, ou a primeira de `bancas`. Sem nenhuma
+    das duas, fica o "FEPESE" de antes.
+    """
+    curta = principal().get("banca_na_tela")
+    if curta:
+        return str(curta)
+    bancas = bancas_do_principal()
+    return bancas[0] if bancas else "FEPESE"
+
+
+def nome_na_tela() -> str:
+    """O nome curto do alvo, como a tela escreve ("Polícia Penal SC: 2 questões").
+
+    A tela veio da PP com o nome escrito; agora sai da chave `nome_na_tela` do
+    bloco principal. Sem ela, fica o "Polícia Penal SC" de antes.
+    """
+    return str(principal().get("nome_na_tela") or "Polícia Penal SC")
+
+
+def provas_na_tela() -> str:
+    """As provas do alvo que a tela cita entre parenteses ("2013 e 2019"):
+    a chave `provas_na_tela`, ou as da PP."""
+    return str(principal().get("provas_na_tela") or "2013 e 2019")
+
+
+def e_reforco(cargo: str | None, ano: int | None) -> bool:
+    """Esta prova e de reforco - outro cargo, que treina mas nao mede?
+
+    A lista e `principal.reforco` do YAML. Cargo por palavra inteira, como o
+    resto deste arquivo, e o ano tem que bater: o mesmo cargo em outro ano e
+    outra decisao, e nao entra por semelhanca.
+    """
+    texto = normalizar(cargo or "")
+    return any(
+        item.get("ano") == ano and _padrao(str(item.get("cargo") or "")).search(texto)
+        for item in principal().get("reforco") or []
+    )
+
+
+def orgaos_do_principal() -> list[str]:
+    """Os nomes e siglas do orgao do alvo principal, como o YAML os escreve.
+
+    Existe para o classificador de anel nao ter que repetir a mesma lista: a
+    secretaria do sistema prisional de SC e orgao estadual por natureza, nos
+    tres nomes que ela ja teve, e quem sabe escrever esses nomes e este
+    arquivo.
+    """
+    return [str(o) for o in principal().get("orgaos") or []]
+
+
+def e_do_estado_do_principal(
+    uf: str | None, titulo: str | None = None, resumo: str | None = None
+) -> bool:
+    """Este item e mesmo do estado do alvo principal?
+
+    A mesma regra que o `marcar` usa, exposta para quem ja tem o item no banco
+    e precisa confirmar o estado depois - o acervo de provas, por exemplo: uma
+    prova de Policia Penal do Parana e do cargo que eu quero e NAO e o meu
+    concurso, e sem esta pergunta ela entraria nas contas como se fosse.
+
+    Com UF na mao, ela decide e ponto. Sem UF - a FEPESE e a IESES nao mandam
+    - quem decide e uma palavra que so existe aqui, nunca a sigla solta. Sem
+    nenhum dos dois a resposta e nao: nunca chutar vale aqui como vale no anel
+    de distancia.
+    """
+    texto = normalizar(
+        GRUDADAS.sub(r"\1 \2", f"{titulo or ''} {resumo or ''}")
+    )
+    return _e_do_estado(_carregar().get("principal") or {}, texto, uf)
+
+
+def nomeia_cargo_do_principal(titulo: str, resumo: str | None = None) -> bool:
+    """O texto fala do CARGO do alvo, e nao so da casa que o abre?
+
+    A diferenca decide o que a tela de foco pode afirmar. "SEJURI SC divulga
+    novo edital com vaga para Medico" bate no alvo pelo nome do orgao - e e
+    certo que bata, porque e a secretaria que eu acompanho. Mas nao e o meu
+    concurso, e tratar os dois como a mesma coisa faria a tela anunciar
+    "edital aberto" quando o que abriu foi vaga de medico.
+    """
+    texto = normalizar(
+        GRUDADAS.sub(r"\1 \2", f"{titulo or ''} {resumo or ''}")
+    )
+    return bool(_primeiro(termos_do_principal(), texto))
+
+
+def nomeia_orgao_do_principal(titulo: str, resumo: str | None = None) -> bool:
+    """O texto nomeia o orgao do alvo principal?
+
+    Por PALAVRA INTEIRA, como todo o resto deste arquivo - sem isso a sigla
+    "SAP" casaria dentro de "SAPE/SC", que e a Secretaria da Agricultura.
+    """
+    texto = normalizar(
+        GRUDADAS.sub(r"\1 \2", f"{titulo or ''} {resumo or ''}")
+    )
+    return bool(_primeiro(orgaos_do_principal(), texto))
+
+
+def _texto_e_lugar(
+    titulo: str | None, resumo: str | None, municipio: str | None
+) -> tuple[str, str]:
+    """O texto normalizado, e o mesmo texto com o municipio colado no fim.
+
+    Sao duas strings porque sao duas perguntas. O CARGO se procura so no que a
+    fonte escreveu; a CIDADE da lista `de_olho` vale tambem quando ela so
+    aparece no campo `municipio`, que o classificador ja extraiu do titulo.
+    """
+    texto = normalizar(GRUDADAS.sub(r"\1 \2", f"{titulo or ''} {resumo or ''}"))
+    return texto, f"{texto} {normalizar(municipio or '')}"
+
+
+def _casar_secundario(texto: str, lugar: str) -> tuple[dict, str, str | None] | None:
+    """O primeiro bloco secundario que casa: (bloco, termo, cidade de olho).
+
+    A ordem do YAML e a ordem do CLAUDE.md: o primeiro que casar e o que fica.
+    Por isso "Oficial de Bombeiros" vem antes de "Bombeiro Militar". A cidade
+    vem None quando o bloco nao tem `de_olho`, ou quando a que ele tem nao
+    aparece neste item.
+    """
+    for bloco in _carregar().get("secundarios") or []:
+        achado = _primeiro(bloco.get("termos"), texto)
+        if achado:
+            return bloco, achado, _primeiro(bloco.get("de_olho"), lugar)
+    return None
+
+
+def termos_do_bloco(nome: str) -> list[str]:
+    """Os `termos` do bloco secundario com este nome, ou [] se nao ha bloco.
+
+    Existe para o config/acompanhamentos.yml apontar um bloco daqui pelo
+    nome, em vez de repetir a lista de termos: a Policia Civil se reconhece
+    do mesmo jeito no aviso e no cartao da aba Acompanhando.
+    """
+    procurado = normalizar(nome or "")
+    for bloco in _carregar().get("secundarios") or []:
+        if normalizar(str(bloco.get("nome") or "")) == procurado:
+            return [str(t) for t in bloco.get("termos") or []]
+    return []
+
+
+def primeiro_termo(termos, titulo: str | None, resumo: str | None = None) -> str | None:
+    """O primeiro termo que aparece no titulo ou no resumo, por palavra
+    inteira e sem acento - a mesma comparacao do `marcar`. None se nenhum."""
+    texto = normalizar(GRUDADAS.sub(r"\1 \2", f"{titulo or ''} {resumo or ''}"))
+    return _primeiro(termos, texto)
+
+
+def de_olho() -> list[dict]:
+    """Os pares cargo+cidade que eu mandei acompanhar de perto, na ordem do
+    YAML.
+
+    "De olho" fica entre as duas marcas: o cargo continua secundario - ele nao
+    vira o meu concurso por ser em Florianopolis - mas nessas cidades o aviso
+    fura o teto do dia e a situacao ganha um cartao no Meu foco. Lista vazia
+    quer dizer que eu nao pedi isso para cargo nenhum.
+    """
+    pares = []
+    for bloco in _carregar().get("secundarios") or []:
+        nome = bloco.get("nome") or SECUNDARIO
+        for cidade in bloco.get("de_olho") or []:
+            pares.append({"cargo": nome, "cidade": str(cidade)})
+    return pares
+
+
+def par_de_olho(
+    titulo: str, resumo: str | None = None, municipio: str | None = None
+) -> tuple[str, str] | None:
+    """Em que par (cargo, cidade) da lista `de_olho` este item cai, ou None.
+
+    Existe para o Meu foco poder dizer QUAL cartao cada concurso preenche. A
+    conta e a mesma que o `marcar` faz - as duas passam pelo
+    `_casar_secundario` - e nao um segundo criterio que pudesse discordar.
+    """
+    casou = _casar_secundario(*_texto_e_lugar(titulo, resumo, municipio))
+    if not casou:
+        return None
+    bloco, _, cidade = casou
+    if not cidade:
+        return None
+    return (bloco.get("nome") or SECUNDARIO), cidade
+
+
+def marcar(
+    titulo: str,
+    resumo: str | None = None,
+    uf: str | None = None,
+    banca: str | None = None,
+    municipio: str | None = None,
+) -> Marca | None:
+    """A marca de alvo deste texto, ou None se ele nao for cargo meu."""
+    texto, lugar = _texto_e_lugar(titulo, resumo, municipio)
+
+    marca = _marcar_principal(_carregar().get("principal") or {}, texto, uf, banca)
+    if marca:
+        return marca
+
+    casou = _casar_secundario(texto, lugar)
+    if not casou:
+        return None
+
+    bloco, achado, cidade = casou
+    nome = bloco.get("nome") or SECUNDARIO
+    motivo = f'Alvo secundário ({nome}): o texto fala em "{achado}".'
+    if not cidade:
+        return Marca(SECUNDARIO, nome, motivo)
+
+    # De olho: mesmo cargo, cidade escolhida a dedo. Nao vira alvo principal -
+    # o que muda e o teto de avisos, que este item deixa de respeitar.
+    return Marca(
+        SECUNDARIO,
+        nome,
+        f"{motivo} De olho em {cidade}: o aviso sai mesmo com o teto cheio.",
+        prioritario=True,
+    )

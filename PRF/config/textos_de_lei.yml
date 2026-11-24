@@ -1,0 +1,25 @@
+# O texto oficial de cada no, que vai no pedido de geracao (decisao PMSC-8).
+#
+# O pedido de gerar questoes (`radar gerar --pedido`) de um no desta lista leva
+# o texto da lei - so os artigos do no, quando o nome dele tem o intervalo
+# ("arts. 1º a 28") -, para a IA escrever pelo texto vigente e citar o artigo
+# dele. `conteudo` e o caminho do no; vale o item mais especifico. `arquivo` e a copia local, relativa a
+# pasta do projeto (pmsc/leis/ nao vai para o git: decisao PMSC-4); `url` e o
+# endereco oficial, o mesmo da conferencia da Etapa 1
+# (docs/pmsc_conferencia_do_cronograma.md).
+
+textos:
+  - conteudo: Direito Penal Militar
+    fonte: Código Penal Militar (Decreto-Lei 1.001/1969)
+    url: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    arquivo: pmsc/leis/cpm-dl-1001-1969-camara.html
+
+  - conteudo: Legislação de Trânsito
+    fonte: Código de Trânsito Brasileiro (Lei 9.503/1997)
+    url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    arquivo: pmsc/leis/ctb-lei-9503-1997-camara.html
+
+  - conteudo: Legislação Institucional > Lei 14.751/2023 - Lei Orgânica Nacional das PMs e CBMs
+    fonte: Lei 14.751/2023 - Lei Orgânica Nacional das Polícias Militares e dos Corpos de Bombeiros Militares
+    url: https://www2.camara.leg.br/legin/fed/lei/2023/lei-14751-12-dezembro-2023-795052-normaatualizada-pl.html
+    arquivo: pmsc/leis/lei-14751-2023-camara.html

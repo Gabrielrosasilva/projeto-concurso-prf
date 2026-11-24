@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Questões do macete &middot; Radar de Concursos</title>
+  {# Parte da tela de Macetes, e por isso ja no design system com ela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .alternativas{list-style:none;padding:0;margin:var(--esp-3) 0 0;display:grid;gap:var(--esp-1)}
+    .alternativas li{padding:var(--esp-2) var(--esp-3);border-radius:var(--raio-sm);
+      background:var(--cor-superficie-2);font-size:var(--tam-sm)}
+    .alternativas li.certa{background:var(--cor-verde-fundo);color:var(--cor-verde);
+      font-weight:var(--peso-medio)}
+    .enunciado{margin:var(--esp-2) 0 0}
+    .regra{font-size:var(--tam-base);margin:0 0 var(--esp-2)}
+    .pegadinha{border-left:3px solid var(--cor-vermelho);padding-left:var(--esp-3)}
+    .voltar{display:inline-block;margin-bottom:var(--esp-4);font-size:var(--tam-sm);
+      text-decoration:none}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{% from "_componentes.html" import selo, bloco, aviso_lei %}
+{{ barra('revisao') }}
+
+<main class="ds-pagina">
+  <a class="voltar" href="/macetes">&larr; Central de macetes</a>
+  <header class="ds-cabeca">
+    <h1>Questões reais de {{ macete.materia }}</h1>
+    <p>O macete de IA ao lado da prova de verdade, para conferir um contra o outro.</p>
+  </header>
+
+  {% call bloco(macete.origem, 'Macete (IA)' ~ (' · ' ~ macete.assunto if macete.assunto else '')) %}
+    <p class="regra">{{ macete.regra }}</p>
+    <p class="ds-suave">
+      Fonte citada: {{ macete.fonte }}
+      {% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a>{% endif %}
+    </p>
+    {% if macete.pegadinha %}<p class="pegadinha"><b>⚠ Pegadinha recorrente:</b> {{ macete.pegadinha }}</p>{% endif %}
+    <p class="ds-suave ds-pequeno">{{ macete.modelo }} · material auxiliar: as questões abaixo são a prova de verdade.</p>
+  {% endcall %}
+
+  {% if not leis_conferidas %}
+    <p class="ds-nota" style="margin-top:var(--esp-4)">
+      O aviso de lei alterada depende da lista em <code>config/leis.yml</code>,
+      que ainda não foi conferida: nenhuma questão o recebe por enquanto.
+    </p>
+  {% elif leis_por_conferir %}
+    <p class="ds-nota" style="margin-top:var(--esp-4)">
+      O aviso de lei alterada com o 🟣 vem de itens da lista em
+      <code>config/leis.yml</code> escritos pelo Claude Code e ainda não
+      conferidos por você.
+    </p>
+  {% endif %}
+
+  {% for r in relacionadas %}
+    {% set q = r.questao %}
+    <article class="ds-cartao" style="margin-top:var(--esp-4)">
+      <div class="ds-cartao__cabeca">
+        <h2 class="ds-cartao__titulo">Questão {{ q.numero }} · {{ q.banca or banca_do_alvo() }} {{ q.ano }}{% if q.cargo %} · {{ q.cargo }}{% endif %}</h2>
+        {{ selo(r.origem) }}
+      </div>
+      {% for mud in r.mudancas %}{{ aviso_lei(mud) }}{% endfor %}
+      <p class="enunciado">{{ q.enunciado | destacado(q, 'enunciado') }}</p>
+      <ol class="alternativas">
+        {% for letra, texto in (q.alternativas or {}).items() %}
+          <li class="{{ 'certa' if letra == q.resposta }}">{{ letra }}) {{ texto | destacado(q, letra) }}</li>
+        {% endfor %}
+      </ol>
+      <p class="ds-suave ds-pequeno" style="margin-bottom:0">
+        {{ selo('oficial', 'Gabarito definitivo') }} <b>{{ q.resposta or '-' }}</b> ·
+        <a href="{{ q.prova_url }}" target="_blank" rel="noopener">caderno original</a>
+      </p>
+    </article>
+  {% else %}
+    <p class="ds-nota">As questões citadas por este macete não estão no acervo deste computador. Rode <b>radar questoes</b>.</p>
+  {% endfor %}
+</main>
+</body>
+</html>

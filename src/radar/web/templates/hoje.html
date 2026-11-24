@@ -1,0 +1,2086 @@
+<!doctype html>
+{% set cor = request.query_params.get('cor', '') %}
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Hoje &middot; Radar de Concursos</title>
+  {# A tela do cronograma: o que estudar no dia, a que horas, e onde eu marco
+     como foi. Toda conta (horario, nivel, faixa atual) vem pronta do
+     servico.cronograma.tela_do_dia; aqui so se desenha. Cor e espaco saem do
+     design.css - as cores por tipo de faixa sao as --faixa-*, e as da faixa
+     do topo e dos blocos da noite sao as --heroi-*, --fundo-noite e
+     --sobreaviso-*. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    /* O cronometro sai do servidor com `hidden` e so o cronometro.js tira:
+       sem JavaScript, nada dele aparece. O !important e porque .ds-botao e
+       afins declaram display, e isso venceria o [hidden] do navegador. */
+    .hoje-pagina [hidden]{display:none !important}
+
+    /* --- fundo: pontinhos discretos, so nesta tela --- */
+    body.hoje-pagina{background-image:radial-gradient(var(--pontinho) 1px,transparent 1.3px);background-size:18px 18px}
+
+    /* --- a faixa azul do topo, de ponta a ponta --- */
+    .heroi{background:linear-gradient(135deg,var(--heroi-1),var(--heroi-2));color:var(--heroi-texto)}
+    .heroi__dentro{max-width:1200px;margin:0 auto;padding:var(--esp-6) var(--esp-4) var(--esp-5);
+      display:flex;justify-content:space-between;align-items:flex-end;gap:var(--esp-4);flex-wrap:wrap}
+    .heroi h1{margin:0;font-size:var(--tam-2xl);line-height:var(--linha-titulo);letter-spacing:-.02em;color:var(--heroi-texto)}
+    .heroi .sub{margin:var(--esp-1) 0 0;color:var(--heroi-texto-suave);font-size:var(--tam-base);display:flex;gap:var(--esp-2);align-items:center;flex-wrap:wrap}
+    .heroi__selos{display:flex;gap:var(--esp-2);flex-wrap:wrap;margin-top:var(--esp-3)}
+    .heroi-selo{display:inline-flex;align-items:center;gap:var(--esp-1);padding:.2rem .75rem;border-radius:var(--raio-pill);
+      background:var(--heroi-vidro);border:1px solid var(--heroi-vidro-borda);font-size:var(--tam-sm);font-weight:var(--peso-medio);
+      font-variant-numeric:tabular-nums}
+    .navega{display:flex;gap:var(--esp-1);flex-wrap:wrap}
+    .ds .heroi .navega a{text-decoration:none;font-size:var(--tam-sm);font-weight:var(--peso-medio);padding:var(--esp-1) var(--esp-3);
+      border:1px solid var(--heroi-vidro-borda);border-radius:var(--raio-pill);background:var(--heroi-vidro);color:var(--heroi-texto)}
+    .ds .heroi .navega a:hover{border-color:var(--heroi-texto)}
+    .ds .heroi .navega a.hoje{background:var(--heroi-texto);color:var(--heroi-1);border-color:transparent}
+    .chip-feriado{display:inline-block;padding:.1rem .6rem;border-radius:var(--raio-pill);font-size:var(--tam-xs);
+      font-weight:var(--peso-forte);background:var(--cor-aviso-fundo);color:var(--cor-aviso);border:1px solid currentColor}
+
+    /* --- a grade: uma coluna; duas a partir de 1100px --- */
+    .hoje-grade{max-width:1200px;margin:0 auto;padding:var(--esp-5) var(--esp-4) var(--esp-7);display:grid;gap:var(--esp-4)}
+    .hoje-grade > *{min-width:0}
+    /* As sub-abas ocupam a largura toda, acima das duas colunas. */
+    .subabas-do-hoje{grid-column:1/-1}
+    .subabas-do-hoje .subabas{margin-bottom:0}
+    .lateral{display:grid;gap:var(--esp-4);align-content:start}
+    @media (min-width:1100px){
+      .hoje-grade.com-lateral{grid-template-columns:minmax(0,1fr) 300px;gap:var(--esp-5)}
+      /* A lateral vem antes no HTML (no celular ela fica logo abaixo do
+         topo); na tela larga ela vai para a direita e acompanha a rolagem. */
+      /* As sub-abas na linha 1, e as duas colunas na 2: sem isto elas
+         cairiam para depois do dia, que e onde a auto-colocacao poe quem
+         chega numa linha ja ocupada. */
+      .com-lateral .subabas-do-hoje{grid-row:1}
+      .com-lateral .lateral{grid-column:2;grid-row:2;position:sticky;top:4.5rem;align-self:start}
+      .com-lateral .principal{grid-column:1;grid-row:2}
+    }
+    .principal > :first-child{margin-top:0}
+
+    /* --- os cartoes da lateral --- */
+    .lateral .ds-cartao{padding:var(--esp-4)}
+    .lateral-titulo{margin:0 0 var(--esp-2);font-size:var(--tam-xs);font-weight:var(--peso-forte);letter-spacing:.08em;
+      text-transform:uppercase;color:var(--cor-texto-suave)}
+    .lateral-cronometro:empty{display:none}
+
+    /* --- o cronometro (static/cronometro.js; o outro JS e static/dobra.js) --- */
+    .cronometro.rodando{border-color:var(--cor-verde)}
+    .crono-nome{margin:0;font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .crono-tempo{margin:var(--esp-1) 0 var(--esp-2);font-family:var(--fonte-numero);font-size:2.6rem;font-weight:var(--peso-forte);
+      line-height:1.1;font-variant-numeric:tabular-nums}
+    .crono-botoes{display:flex;gap:var(--esp-2);flex-wrap:wrap}
+    .botao-secundario{padding:var(--esp-2) var(--esp-4);border-radius:var(--raio-sm);border:1px solid var(--cor-borda);
+      background:transparent;color:var(--cor-texto);font:inherit;font-size:var(--tam-sm);font-weight:var(--peso-medio);cursor:pointer}
+    .botao-secundario:hover{border-color:var(--cor-acao)}
+    .crono-testes{display:flex;gap:var(--esp-2);flex-wrap:wrap;margin-top:var(--esp-3)}
+    .crono-testar{padding:var(--esp-1) var(--esp-3);border-radius:var(--raio-sm);border:1px dashed var(--cor-borda);
+      background:transparent;color:var(--cor-texto-suave);font:inherit;font-size:var(--tam-xs);cursor:pointer}
+    .crono-testar:hover{color:var(--cor-texto);border-color:var(--cor-texto-suave)}
+    .crono-msg{margin:var(--esp-2) 0 0;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .crono-msg:empty{display:none}
+    /* O diagnostico da notificacao: sempre visivel, pequeno. */
+    .crono-diag{margin:var(--esp-2) 0 0;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .crono-diag button{padding:0;border:0;background:none;font:inherit;color:var(--cor-acao);text-decoration:underline;cursor:pointer}
+    /* O ▶ pequeno ao lado do horario de cada faixa. */
+    .play-faixa{width:1.9rem;height:1.9rem;border-radius:50%;border:1px solid var(--cor-borda);background:var(--cor-superficie);
+      color:var(--cor-acao);font-size:var(--tam-xs);line-height:1;cursor:pointer;padding:0;display:grid;place-items:center}
+    .play-faixa:hover{border-color:var(--cor-acao)}
+    .play-faixa:focus-visible{outline:2px solid var(--cor-acao);outline-offset:2px}
+    /* O aviso em tela cheia, quando uma faixa acaba. */
+    .aviso-cheio{position:fixed;inset:0;z-index:100;background:var(--cor-veu);display:grid;place-items:center;padding:var(--esp-4)}
+    .aviso-caixa{width:100%;max-width:34rem;background:var(--cor-superficie);border:4px solid var(--cor-aviso);border-radius:var(--raio);
+      padding:var(--esp-6) var(--esp-5);text-align:center;box-shadow:var(--sombra-alta)}
+    .aviso-titulo{margin:0;font-size:var(--tam-2xl);font-weight:var(--peso-forte);line-height:var(--linha-titulo);color:var(--cor-aviso)}
+    .aviso-texto,.aviso-depois{margin:var(--esp-3) 0 0;font-size:var(--tam-md)}
+    .aviso-depois:empty{display:none}
+    .aviso-ok{margin-top:var(--esp-5);font-size:var(--tam-md);padding:var(--esp-3) var(--esp-6)}
+    .agora .rotulo{display:block;font-size:var(--tam-xs);font-weight:var(--peso-forte);letter-spacing:.06em;color:var(--cor-verde)}
+    .agora .principal-agora{margin:var(--esp-1) 0 0;font-size:var(--tam-md);font-weight:var(--peso-forte);line-height:var(--linha-titulo)}
+    .agora .depois{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .objetivo p{margin:0 0 var(--esp-1);font-size:var(--tam-sm)}
+    .objetivo .alvo{font-size:var(--tam-md);font-weight:var(--peso-forte);margin-bottom:var(--esp-2)}
+
+    /* O botao de anotar erro: a mesma forma do botao da lei, discreto, para
+       nao competir com o circulo de "faixa feita". */
+    .botao-anotar{display:inline-flex;align-items:center;gap:var(--esp-1);
+      padding:var(--esp-1) var(--esp-3);border:1px solid var(--cor-borda);
+      border-radius:999px;font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      text-decoration:none;background:var(--cor-superficie-2)}
+    .ds a.botao-anotar{color:var(--cor-texto-suave)}
+    .ds a.botao-anotar:hover{border-color:var(--cor-acao);color:var(--cor-acao)}
+
+    /* Onde a faixa esta na arvore (decisao 71): o assunto, o subassunto e o
+       elemento, na propria faixa. */
+    .faixa .na-arvore{margin:var(--esp-1) 0 0;font-size:var(--tam-sm)}
+    .faixa .na-arvore p{margin:2px 0}
+    .faixa .na-arvore .sub{color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .faixa .caiu-na-faixa{margin:var(--esp-1) 0 0;font-size:var(--tam-sm)}
+    .faixa .caiu-na-faixa .sub{color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .faixa .geradas-da-faixa code{overflow-wrap:anywhere;font-size:var(--tam-xs)}
+    .faixa .nota-da-faixa{margin-top:var(--esp-2);font-size:var(--tam-sm)}
+    .faixa .nota-da-faixa summary{cursor:pointer;color:var(--cor-texto-suave)}
+    .faixa .nota-da-faixa.tem-nota summary{color:var(--cor-texto);font-weight:var(--peso-medio)}
+    .faixa .nota-da-faixa form{display:grid;gap:var(--esp-2);margin-top:var(--esp-2)}
+    .faixa .nota-da-faixa .entendi{display:flex;flex-wrap:wrap;gap:var(--esp-3);border:0;padding:0;margin:0}
+    .faixa .nota-da-faixa .entendi legend{padding:0;margin-bottom:var(--esp-1)}
+    .faixa .nota-da-faixa .motivos-da-nota{display:flex;flex-wrap:wrap;gap:var(--esp-2);border:0;padding:0;margin:0}
+    .faixa .nota-da-faixa .motivos-da-nota legend{padding:0;margin-bottom:var(--esp-1)}
+    .faixa .nota-da-faixa .motivos-da-nota input{width:4.5em}
+    .faixa .nota-da-faixa .motivos-da-nota p{flex-basis:100%;margin:0}
+    .faixa .nota-da-faixa textarea{width:100%;box-sizing:border-box;font:inherit;display:block;margin-top:var(--esp-1)}
+    .faixa .nota-da-faixa button{justify-self:start}
+    .faixa .geradas-da-faixa .estoque-de-geradas{margin:var(--esp-1) 0;font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .faixa .geradas-da-faixa .estoque-todas{color:var(--cor-vermelho)}
+    .faixa .geradas-da-faixa .passos-de-gerar{margin:var(--esp-1) 0 0;padding-left:var(--esp-5)}
+    .faixa .geradas-da-faixa .treinar-no-radar{display:flex;flex-wrap:wrap;gap:var(--esp-2);
+      align-items:center;margin:var(--esp-1) 0 0}
+    .faixa .geradas-da-faixa .treinar-no-radar input[type=number]{width:4.5em}
+    /* O nivel do treino (decisao 151): na mesma linha do botao. */
+    .faixa .geradas-da-faixa .treinar-no-radar .nivel-do-treino{display:inline-block}
+    .faixa .geradas-da-faixa .treinar-no-radar .nivel-do-treino select{width:auto;padding:var(--esp-1) var(--esp-2);font-size:var(--tam-sm)}
+
+    /* A composicao da faixa que mede (decisao 67): de quais assuntos e
+       subassuntos sao as questoes, e de onde saiu cada numero. */
+    .faixa .composicao{margin:var(--esp-2) 0 0;font-size:var(--tam-sm)}
+    .faixa .composicao .so-questoes{font-weight:var(--peso-forte);margin:0 0 var(--esp-2)}
+    .faixa .composicao .materia-da-rodada{margin:var(--esp-2) 0 0}
+    .faixa .composicao ul{margin:var(--esp-1) 0 var(--esp-2);padding-left:var(--esp-5)}
+    .faixa .composicao li{margin:2px 0}
+    .faixa .composicao .sub,.faixa .composicao .regra{color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .faixa .composicao form{margin:var(--esp-2) 0 0}
+    .faixa .composicao details{margin:var(--esp-2) 0 0}
+    .faixa .composicao table{margin:var(--esp-2) 0 0}
+
+    /* --- "fiz X, acertei Y" na propria faixa (etapa E2) --- */
+    .resultado{margin-left:var(--esp-2);font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      color:var(--cor-verde);white-space:nowrap}
+    .fiz{display:flex;flex-wrap:wrap;gap:var(--esp-2);align-items:end;margin-top:var(--esp-2)}
+    .fiz label{display:grid;gap:2px;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .fiz input[type=number]{width:5rem;padding:var(--esp-1) var(--esp-2);
+      border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie);color:var(--cor-texto);font:inherit;
+      font-size:var(--tam-sm);font-variant-numeric:tabular-nums}
+    .fiz input:focus,.form-extra input:focus,.form-extra select:focus{
+      outline:2px solid var(--cor-acao);outline-offset:1px}
+    .caixa{display:flex;align-items:center;gap:var(--esp-1);white-space:nowrap}
+    .fiz .caixa{padding-bottom:var(--esp-1)}
+    .fiz-feita{display:flex;flex-wrap:wrap;gap:var(--esp-3);align-items:center;
+      margin-top:var(--esp-2)}
+    .fiz-feita summary{cursor:pointer;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .fiz-feita form{display:inline}
+
+    /* --- a linha do total do dia --- */
+    .fiz-hoje{margin:0 0 var(--esp-1);font-size:var(--tam-md)}
+    .fiz-de-onde{margin:0 0 var(--esp-2);font-size:var(--tam-xs);
+      color:var(--cor-texto-suave);display:flex;align-items:center;gap:var(--esp-2);
+      flex-wrap:wrap}
+    .fiz-ia{display:flex;align-items:center;gap:var(--esp-2);flex-wrap:wrap}
+
+    /* --- o estudo extra --- */
+    .lista-extras{list-style:none;margin:0 0 var(--esp-4);padding:0;display:grid;gap:var(--esp-3)}
+    .lista-extras li{padding-bottom:var(--esp-3);border-bottom:1px solid var(--cor-borda)}
+    .lista-extras li:last-child{border-bottom:0;padding-bottom:0}
+    .topo-extra{display:flex;flex-wrap:wrap;gap:var(--esp-2);align-items:baseline;
+      font-size:var(--tam-sm)}
+    .editar-extra summary,.novo-extra summary{cursor:pointer}
+    .novo-extra summary{display:inline-block;list-style:none}
+    .novo-extra summary::-webkit-details-marker{display:none}
+    .form-extra{display:grid;gap:var(--esp-3);margin-top:var(--esp-3)}
+    .linha-extra{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--esp-3)}
+    @media (max-width:760px){.linha-extra{grid-template-columns:1fr 1fr}}
+    .form-extra input[type=text],.form-extra input[type=number],.form-extra select{
+      width:100%;padding:var(--esp-2) var(--esp-3);border:1px solid var(--cor-borda);
+      border-radius:var(--raio-sm);background:var(--cor-superficie);color:var(--cor-texto);
+      font:inherit;font-size:var(--tam-sm)}
+    .acoes-extra{display:flex;gap:var(--esp-3);align-items:center;flex-wrap:wrap}
+
+    /* --- o mapa do ano (na lateral) --- */
+    .mapa summary{cursor:pointer;list-style:none}
+    .mapa summary::-webkit-details-marker{display:none}
+    .mapa summary .lateral-titulo{display:inline}
+    .mapa-lista{list-style:none;margin:var(--esp-3) 0 0;padding:0;display:grid;gap:var(--esp-3)}
+    .mapa-lista li{display:grid;grid-template-columns:1rem 1fr;gap:0 var(--esp-2);
+      font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .mapa-marca{grid-row:1/span 3;font-weight:var(--peso-forte);line-height:1.4}
+    .mapa-nome{color:var(--cor-texto)}
+    .mapa-quando,.mapa-foco{grid-column:2;font-size:var(--tam-xs);line-height:1.35}
+    .mapa-foco{color:var(--cor-texto-suave)}
+    .mapa-lista li.passada{opacity:.65}
+    .mapa-lista li.passada .mapa-marca{color:var(--cor-verde)}
+    .mapa-lista li.atual .mapa-marca{color:var(--cor-acao)}
+    .mapa-lista li.atual .mapa-nome{font-weight:var(--peso-forte)}
+    .mapa-aqui{grid-column:2;justify-self:start;margin-top:2px;padding:1px var(--esp-2);
+      border-radius:var(--raio-sm);background:var(--cor-acao-fundo);color:var(--cor-acao);
+      font-size:var(--tam-xs);font-weight:var(--peso-medio)}
+
+    /* --- faixa da semana (as pilulas, na lateral) --- */
+    .semana{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--esp-1)}
+    .pilula{display:flex;flex-direction:column;align-items:center;gap:2px;padding:var(--esp-2) 0;text-decoration:none;
+      border-radius:var(--raio-sm);border:2px solid transparent;font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      background:var(--cor-superficie-2);color:var(--cor-texto-suave)}
+    .pilula b{font-size:var(--tam-md);font-variant-numeric:tabular-nums;line-height:1.1}
+    .ds a.pilula{color:var(--cor-texto-suave)}
+    .ds a.pilula.ideal   {background:var(--meta-ideal-fundo);    color:var(--meta-ideal)}
+    .ds a.pilula.reduzida{background:var(--meta-reduzida-fundo); color:var(--meta-reduzida)}
+    .ds a.pilula.minima  {background:var(--meta-minima-fundo);   color:var(--meta-minima)}
+    .ds a.pilula.nao_fiz {background:var(--meta-nao-fiz-fundo);  color:var(--meta-nao-fiz)}
+    .ds a.pilula.futuro  {background:transparent;border:2px dashed var(--cor-borda)}
+    .pilula.aberta{box-shadow:0 0 0 2px var(--cor-superficie),0 0 0 4px var(--cor-acao)}
+    .sequencia{margin:var(--esp-3) 0 0;font-size:var(--tam-sm)}
+    .sequencia b{font-size:var(--tam-lg);font-variant-numeric:tabular-nums}
+    .frase{margin:var(--esp-2) 0 0;padding:var(--esp-2) var(--esp-3);border-radius:var(--raio-sm);background:var(--cor-acao-fundo);
+      color:var(--cor-texto);font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .motivo{margin:var(--esp-3) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave);display:flex;gap:var(--esp-2);align-items:baseline;flex-wrap:wrap}
+
+    /* --- resumo em 3 numeros --- */
+    /* A 4a coluna (auto) so existe com o botao do Plano B: texto comprido nela
+       toma a largura e espreme os tres numeros - por isso o aviso do dia que
+       mede fica fora da grade. */
+    .resumo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--esp-3);align-items:stretch}
+    .resumo.com-plano-b{grid-template-columns:repeat(3,minmax(0,1fr)) auto}
+    .resumo .ds-cartao{padding:var(--esp-3) var(--esp-4)}
+    .aviso-mede{margin:var(--esp-2) 0 0}
+    .grande{display:block;font-size:var(--tam-xl);font-weight:var(--peso-forte);line-height:1.1;font-variant-numeric:tabular-nums}
+    .resumo small{color:var(--cor-texto-suave);font-size:var(--tam-sm)}
+
+    /* --- os blocos e a linha do tempo --- */
+    .bloco-dia{margin-top:var(--esp-4);padding:var(--esp-4)}
+    .bloco-dia .ds-cartao__cabeca{margin-bottom:var(--esp-3)}
+    .bloco-dia .nome-do-bloco{display:flex;align-items:center;gap:var(--esp-2);flex-wrap:wrap}
+    .bloco-dia .horas{font-family:var(--fonte-numero);font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    /* A dobra do bloco (B.11): SO o sinal do canto direito dobra, e nao o
+       cabecalho inteiro - um clique no titulo ou nos horarios nao pode recolher
+       o bloco sem eu querer. O `pointer-events: none` no <summary> faz o clique
+       atravessar, e o `auto` no sinal o traz de volta so ali; o teclado nao
+       passa por aqui, entao Tab + Enter no cabecalho continua dobrando.
+       Sem o list-style o triangulo padrao do <details> apareceria ao lado do
+       titulo. */
+    .bloco-dobra > summary{list-style:none;cursor:default;pointer-events:none}
+    .bloco-dobra > summary::-webkit-details-marker{display:none}
+    .bloco-dobra > summary:focus-visible{outline:2px solid var(--cor-acao);outline-offset:2px;border-radius:var(--raio-1,4px)}
+    .bloco-dia .dobra-sinal{pointer-events:auto;cursor:pointer;user-select:none;
+      font-size:var(--tam-sm);color:var(--cor-texto-suave);
+      display:inline-flex;align-items:center;justify-content:center;
+      min-width:1.75rem;min-height:1.75rem;margin-left:var(--esp-1);
+      border:1px solid transparent;border-radius:var(--raio-1,4px)}
+    .bloco-dia .dobra-sinal:hover{border-color:var(--cor-borda);color:var(--cor-texto)}
+    .bloco-dia .dobra-sinal::after{content:"▾"}
+    .bloco-dobra[open] .dobra-sinal::after{content:"▴"}
+    /* Fechado, o cabecalho nao precisa do espaco que separava ele das faixas. */
+    .bloco-dobra:not([open]) > summary.ds-cartao__cabeca{margin-bottom:0}
+    /* A frase do ANKI desativado so aparece com o bloco fechado: aberto, a
+       propria faixa minimizada ja diz a mesma coisa. */
+    .bloco-dia .anki-dobrado{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .bloco-dobra[open] .anki-dobrado{display:none}
+    .linha-tempo{list-style:none;margin:0;padding:0;display:grid;gap:var(--esp-2)}
+    .faixa{display:grid;grid-template-columns:7.5rem minmax(0,1fr) auto;gap:var(--esp-3);align-items:start;
+      scroll-margin-top:5rem}
+    .faixa .quando{font-family:var(--fonte-numero);font-size:var(--tam-sm);color:var(--cor-texto-suave);padding-top:var(--esp-3);white-space:nowrap;
+      display:flex;flex-direction:column;align-items:flex-start;gap:var(--esp-1)}
+    .faixa .corpo{--cor-tipo:var(--faixa-questoes);border-left:4px solid var(--cor-tipo);background:var(--cor-superficie-2);
+      border-radius:var(--raio-sm);padding:var(--esp-3) var(--esp-4);min-width:0}
+    .faixa .topo{display:flex;align-items:center;gap:var(--esp-2);flex-wrap:wrap;font-size:var(--tam-sm)}
+    .faixa .tipo{font-weight:var(--peso-forte);color:var(--cor-tipo)}
+    .faixa .materia{padding:.05rem .5rem;border-radius:var(--raio-pill);font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      border:1px solid var(--cor-borda);background:var(--cor-superficie);color:var(--cor-texto-suave)}
+    .faixa .titulo{margin:var(--esp-1) 0 0;font-size:var(--tam-md);font-weight:var(--peso-forte);line-height:var(--linha-titulo)}
+    .faixa .chip-qtd{color:var(--cor-tipo);border-color:var(--cor-tipo);font-weight:var(--peso-forte)}
+    .faixa .chip-caiu{white-space:nowrap}
+    .faixa .chips{display:flex;gap:var(--esp-1);flex-wrap:wrap;margin-top:var(--esp-2)}
+    .chip{padding:.05rem .5rem;border-radius:var(--raio-pill);font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      background:var(--cor-superficie);border:1px solid var(--cor-borda);color:var(--cor-texto-suave);white-space:nowrap}
+    .faixa .detalhe{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-texto)}
+    .faixa details{margin-top:var(--esp-2);font-size:var(--tam-sm)}
+    .faixa summary{cursor:pointer;color:var(--cor-acao);font-weight:var(--peso-medio)}
+    .faixa .filtro{margin:var(--esp-2) 0 0;font-family:var(--fonte-numero);font-size:var(--tam-xs);color:var(--cor-texto-suave);overflow-wrap:anywhere}
+    .faixa .links{margin:var(--esp-3) 0 0;display:flex;gap:var(--esp-3);flex-wrap:wrap}
+    /* O link da lei e botao: e a acao da faixa, nao uma nota de rodape. */
+    .ds a.botao-lei{display:inline-flex;align-items:center;gap:var(--esp-1);padding:var(--esp-1) var(--esp-3);border-radius:var(--raio-sm);
+      border:1px solid var(--cor-acao);background:var(--cor-acao-fundo);color:var(--cor-acao);font-size:var(--tam-sm);
+      font-weight:var(--peso-medio);text-decoration:none}
+    .ds a.botao-lei:hover{background:var(--cor-acao);color:var(--cor-acao-texto)}
+
+    .faixa.t-teoria .corpo{--cor-tipo:var(--faixa-teoria)}
+    .faixa.t-lei_seca .corpo{--cor-tipo:var(--faixa-lei-seca)}
+    .faixa.t-portugues .corpo{--cor-tipo:var(--faixa-portugues)}
+    .faixa.t-raciocinio .corpo{--cor-tipo:var(--faixa-raciocinio)}
+    .faixa.t-revisao .corpo,.faixa.t-revisao_semanal .corpo{--cor-tipo:var(--faixa-revisao)}
+    .faixa.t-simulado .corpo,.faixa.t-diagnostico .corpo{--cor-tipo:var(--faixa-simulado)}
+    .faixa.t-correcao .corpo{--cor-tipo:var(--faixa-correcao)}
+    .faixa.t-anki .corpo{--cor-tipo:var(--faixa-anki)}
+    .faixa.t-bonus .corpo{--cor-tipo:var(--faixa-bonus);border-left-style:dashed;background:transparent;border:1px dashed var(--cor-borda);border-left:4px dashed var(--cor-tipo)}
+
+    /* A pausa e so um respiro: linha fina, sem cartao. */
+    .faixa.t-pausa .quando{padding-top:0;font-size:var(--tam-xs)}
+    .faixa.t-pausa .corpo{background:transparent;border-left:2px solid var(--faixa-pausa);border-radius:0;padding:0 var(--esp-3);
+      font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+
+    /* No dia de hoje: a faixa atual com borda verde e a etiqueta AGORA
+       embaixo do horario; as que passaram, apagadas. */
+    .faixa.atual .corpo{box-shadow:0 0 0 2px var(--cor-verde)}
+    .etiqueta-agora{font-family:var(--fonte);font-size:var(--tam-xs);font-weight:var(--peso-forte);letter-spacing:.08em;padding:.05rem .5rem;
+      border-radius:var(--raio-pill);background:var(--cor-verde);color:var(--cor-superficie)}
+    .faixa.passou{opacity:.55}
+
+    /* --- o circulo de cada faixa: marca e desmarca, sem JavaScript --- */
+    .marca-faixa{margin:0;padding-top:var(--esp-2)}
+    .circulo{width:2.5rem;height:2.5rem;border-radius:50%;border:2px solid var(--cor-borda);background:var(--cor-superficie);
+      color:transparent;font:inherit;font-size:var(--tam-lg);font-weight:var(--peso-forte);line-height:1;cursor:pointer;
+      display:grid;place-items:center;padding:0}
+    .circulo:hover{border-color:var(--cor-verde);color:var(--cor-verde)}
+    .circulo:focus-visible{outline:2px solid var(--cor-acao);outline-offset:2px}
+    .faixa.feita .circulo{background:var(--cor-verde);border-color:var(--cor-verde);color:var(--cor-superficie)}
+    /* Feita: o conteudo apaga e o titulo e riscado, mas continua legivel -
+       ainda posso querer ler o detalhe. */
+    .faixa.feita .corpo{opacity:.55}
+    .faixa-desligada{list-style:none;padding:var(--esp-1) 0;color:var(--cor-texto-suave);font-size:.85rem}
+    .faixa.feita .titulo{text-decoration:line-through}
+    /* A dobra da faixa (decisao 179): a linha do tipo e do titulo abre e
+       fecha. Feita, nasce fechada numa linha so; o resto some ate eu abrir. */
+    .faixa .faixa-dobra{margin-top:0;font-size:inherit}
+    .faixa .faixa-dobra > summary{list-style:none;cursor:pointer;color:inherit;font-weight:inherit}
+    .faixa .faixa-dobra > summary::-webkit-details-marker{display:none}
+    .faixa .faixa-dobra > summary:focus-visible{outline:2px solid var(--cor-acao);outline-offset:2px;border-radius:var(--raio-sm)}
+    .faixa.feita .faixa-dobra:not([open]) > summary{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 var(--esp-3)}
+    .faixa.feita .faixa-dobra:not([open]) > summary .titulo{margin:0;font-size:var(--tam-base)}
+    .faixa.feita .faixa-dobra:not([open]) > summary::after{content:"abrir ▾";margin-left:auto;font-size:var(--tam-xs);
+      color:var(--cor-texto-suave);text-decoration:none}
+    .faixa.feita:has(.faixa-dobra:not([open])) .corpo{padding-top:var(--esp-2);padding-bottom:var(--esp-2)}
+    .faixa.feita:has(.faixa-dobra:not([open])) .marca-faixa{padding-top:var(--esp-1)}
+    /* O resultado nao e riscado com o titulo: e o que eu quero ler. O risco
+       do pai nao desce para o inline-block. */
+    .faixa.feita .titulo .resultado{display:inline-block}
+    /* A faixa enxuta (decisao 180). O detalhe da faixa de estudo em tres
+       linhas, e o clique mostra o resto; sem JavaScript. */
+    .faixa .detalhe-dobra{margin-top:var(--esp-2)}
+    .faixa .detalhe-dobra > summary{list-style:none;color:inherit;font-weight:inherit}
+    .faixa .detalhe-dobra > summary::-webkit-details-marker{display:none}
+    .faixa .detalhe-dobra:not([open]) .detalhe{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .faixa .detalhe-dobra:not([open]) > summary::after{content:"ver tudo ▾";display:block;margin-top:var(--esp-1);font-size:var(--tam-xs);
+      color:var(--cor-acao);font-weight:var(--peso-medio)}
+    /* Os avisos da faixa (o do Qconcursos, o do radar) em letra menor: sao
+       nota, e nao a acao. */
+    .faixa .regra{font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    /* Treinar no radar: os tres botoes numa linha so. */
+    .treinar-rapido{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2);margin-top:var(--esp-3)}
+    .treinar-rapido form{margin:0}
+    .treinar-rapido .rotulo{font-size:var(--tam-sm);font-weight:var(--peso-medio);color:var(--cor-texto-suave)}
+    .botao-vazio{padding:var(--esp-1) var(--esp-3);border-radius:var(--raio-sm);border:1px dashed var(--cor-borda);
+      font-size:var(--tam-sm);color:var(--cor-texto-suave);cursor:help}
+    /* O "mais": fechado, discreto, no fim da faixa. */
+    .faixa .faixa-mais{margin-top:var(--esp-3);border-top:1px dashed var(--cor-borda);padding-top:var(--esp-2)}
+    .faixa .faixa-mais > summary{font-size:var(--tam-sm)}
+    .faixa .faixa-mais[open] > summary{margin-bottom:var(--esp-2)}
+    /* A barra do topo e a proxima faixa (decisao 181). */
+    .progresso-do-dia{margin:0 0 var(--esp-3);padding:var(--esp-3) var(--esp-4)}
+    .progresso-numeros{margin:0;font-size:var(--tam-sm)}
+    .progresso-numeros b{font-variant-numeric:tabular-nums}
+    .progresso-porcento{float:right;margin-left:var(--esp-3);font-weight:var(--peso-forte);font-variant-numeric:tabular-nums;color:var(--cor-verde)}
+    .progresso-do-dia progress{display:block;width:100%;height:.6rem;margin:var(--esp-2) 0 0;border:0;border-radius:var(--raio-pill);
+      background:var(--cor-superficie-2);overflow:hidden;appearance:none;-webkit-appearance:none}
+    .progresso-do-dia progress::-webkit-progress-bar{background:var(--cor-superficie-2);border-radius:var(--raio-pill)}
+    .progresso-do-dia progress::-webkit-progress-value{background:var(--cor-verde);border-radius:var(--raio-pill)}
+    .progresso-do-dia progress::-moz-progress-bar{background:var(--cor-verde);border-radius:var(--raio-pill)}
+    .proxima-faixa{margin:var(--esp-3) 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2) var(--esp-3);font-size:var(--tam-md)}
+    .proxima-rotulo{font-size:var(--tam-xs);font-weight:var(--peso-forte);letter-spacing:.08em;text-transform:uppercase;color:var(--cor-acao)}
+    .proxima-hora{font-family:var(--fonte-numero);font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .proxima-titulo{font-weight:var(--peso-forte);flex:1 1 16rem;min-width:0}
+    .progresso-do-dia.completo{border-color:var(--cor-verde)}
+    .etiqueta-completo{padding:.05rem .6rem;border-radius:var(--raio-pill);font-size:var(--tam-xs);font-weight:var(--peso-forte);
+      background:var(--cor-verde-fundo);color:var(--cor-verde);white-space:nowrap}
+    /* O fechamento do dia (decisao 189): onde mais errei e amanha. */
+    .fecha-sub{margin:var(--esp-4) 0 var(--esp-2);font-size:var(--tam-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--cor-texto-suave)}
+    .errei{margin:0 0 var(--esp-2);padding-left:1.2rem;font-size:var(--tam-sm)}
+    .errei li{margin-bottom:var(--esp-1)}
+    .errei-n{color:var(--cor-vermelho);font-weight:var(--peso-forte)}
+    .motivos-linha{margin:0 0 var(--esp-2);display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-1) var(--esp-2);font-size:var(--tam-xs)}
+    .motivos-linha .motivo-sem{opacity:.75}
+    .refazer-erros{margin:var(--esp-2) 0 0}
+    .fecha-amanha{margin:var(--esp-4) 0;padding:var(--esp-3) var(--esp-4);border:1px solid var(--cor-borda);
+      border-left:4px solid var(--cor-acao);border-radius:var(--raio);font-size:var(--tam-sm)}
+    .fecha-amanha .amanha-topo{margin:0;display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--esp-1) var(--esp-3)}
+    .fecha-amanha .amanha-topo b{font-size:var(--tam-md)}
+    .fecha-amanha ul{margin:var(--esp-2) 0;padding-left:1.2rem}
+    .fecha-amanha li{margin-bottom:var(--esp-1)}
+    /* O cartao "Revisar hoje" (decisao 187). */
+    .revisar-hoje{margin:0 0 var(--esp-3);padding:var(--esp-3) var(--esp-4)}
+    .revisar-titulo{margin:0 0 var(--esp-2);font-size:var(--tam-md)}
+    .revisar-linha{margin:0;font-size:var(--tam-sm)}
+    .revisar-lista{margin:var(--esp-1) 0 var(--esp-2);padding-left:1.2rem;font-size:var(--tam-sm)}
+    .revisar-nome{font-weight:var(--peso-forte)}
+    .revisar-acoes{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2) var(--esp-4)}
+    .revisar-acoes form{margin:0}
+    .revisar-caderno{margin-top:var(--esp-3);padding-top:var(--esp-2);border-top:1px dashed var(--cor-borda)}
+    .revisar-hoje > .revisar-titulo + .revisar-caderno{margin-top:0;padding-top:0;border-top:0}
+    /* A ajuda unica, antes dos blocos. */
+    .ajuda-da-faixa{margin:0 0 var(--esp-3);font-size:var(--tam-sm)}
+    .ajuda-da-faixa > summary{cursor:pointer;color:var(--cor-acao);font-weight:var(--peso-medio)}
+    .ajuda-da-faixa ul{margin:var(--esp-2) 0 0;padding-left:var(--esp-5);color:var(--cor-texto)}
+    .ajuda-da-faixa li{margin-bottom:var(--esp-1)}
+
+    /* --- o Plano B --- */
+    /* O botao abre a escolha do tempo num <details>: sem JavaScript. */
+    .plano-b-controle{display:flex;align-items:center}
+    .plano-b-controle details{position:relative}
+    .plano-b-controle summary{list-style:none;cursor:pointer}
+    .plano-b-controle summary::-webkit-details-marker{display:none}
+    .botao-plano-b{display:inline-flex;align-items:center;gap:var(--esp-1);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio);
+      border:1px solid var(--cor-aviso);background:var(--cor-aviso-fundo);color:var(--cor-aviso);font:inherit;
+      font-size:var(--tam-sm);font-weight:var(--peso-forte);cursor:pointer;white-space:nowrap}
+    .botao-plano-b:hover{filter:brightness(1.08)}
+    .escolha-plano-b{position:absolute;right:0;top:calc(100% + var(--esp-2));z-index:10;min-width:15rem;
+      background:var(--cor-superficie);border:1px solid var(--cor-borda);border-radius:var(--raio);box-shadow:var(--sombra-alta);
+      padding:var(--esp-3)}
+    .escolha-plano-b p{margin:0 0 var(--esp-2);font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .escolha-plano-b form{display:flex;gap:var(--esp-2)}
+    .aviso-plano-b{margin:0 0 var(--esp-4);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio);border:1px solid var(--cor-aviso);
+      background:var(--cor-aviso-fundo);color:var(--cor-aviso);font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .faixa.t-essencial .corpo{--cor-tipo:var(--faixa-lei-seca)}
+    .artigos{margin:var(--esp-2) 0 0;padding-left:var(--esp-5);font-size:var(--tam-sm)}
+    .artigos li{margin-bottom:var(--esp-1)}
+    .aviso-essencial{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-aviso);font-weight:var(--peso-medio)}
+    /* No Plano B nao ha horario: a ordem (1º, 2º) fica no lugar dele. */
+    .faixa .ordem{font-size:var(--tam-lg);font-weight:var(--peso-forte);color:var(--cor-texto)}
+
+    /* --- o bloco das 18h: azul leve --- */
+    .bloco-dia.bloco-noite{background:var(--fundo-noite)}
+
+    /* --- o bloco das 22h: sobreaviso, azul-noite com texto claro. Tudo aqui
+       dentro troca de cor: nada cinza sobre o azul. --- */
+    .bloco-dia.bloco-pos22{background:var(--fundo-sobreaviso);border-color:var(--sobreaviso-borda);color:var(--sobreaviso-texto)}
+    .bloco-pos22 .ds-cartao__titulo,.bloco-pos22 .faixa .titulo,.bloco-pos22 .faixa .detalhe{color:var(--sobreaviso-texto)}
+    .bloco-pos22 .horas,.bloco-pos22 .faixa .quando,.bloco-pos22 .faixa .filtro,.bloco-pos22 .ds-suave,
+    .bloco-pos22 .faixa.t-pausa .corpo{color:var(--sobreaviso-suave)}
+    .bloco-pos22 .faixa .corpo{--cor-tipo:var(--sobreaviso-destaque);background:var(--sobreaviso-superficie)}
+    .bloco-pos22 .faixa.t-bonus .corpo{background:transparent;border-color:var(--sobreaviso-borda);border-left-color:var(--cor-tipo)}
+    .bloco-pos22 .faixa .materia,.bloco-pos22 .chip{background:var(--sobreaviso-superficie);border-color:var(--sobreaviso-borda);color:var(--sobreaviso-texto)}
+    .ds .bloco-pos22 a,.bloco-pos22 .faixa summary{color:var(--sobreaviso-destaque)}
+    .ds .bloco-pos22 a.botao-lei{background:var(--sobreaviso-superficie);border-color:var(--sobreaviso-borda)}
+    .bloco-pos22 .faixa:not(.feita) .circulo{background:var(--sobreaviso-superficie);border-color:var(--sobreaviso-borda)}
+    .bloco-pos22 .play-faixa{background:var(--sobreaviso-superficie);border-color:var(--sobreaviso-borda);color:var(--sobreaviso-destaque)}
+    .bloco-pos22 .faixa:not(.feita) .circulo:hover{border-color:var(--sobreaviso-destaque);color:var(--sobreaviso-destaque)}
+    .etiqueta-sobreaviso{padding:.1rem .6rem;border-radius:var(--raio-pill);font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      background:var(--sobreaviso-superficie);border:1px solid var(--sobreaviso-borda);color:var(--sobreaviso-texto);white-space:nowrap}
+
+    /* --- se o dia apertar --- */
+    .apertar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--esp-3)}
+    .apertar h3{margin:0 0 var(--esp-1);font-size:var(--tam-sm)}
+    .apertar p{margin:0;font-size:var(--tam-sm)}
+
+    /* --- como foi o dia --- */
+    .metas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--esp-2);border:0;padding:0;margin:0 0 var(--esp-3)}
+    .metas legend{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin-bottom:var(--esp-2);padding:0}
+    .opcao{position:relative}
+    .opcao input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+    .opcao > span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:4.5rem;text-align:center;
+      padding:var(--esp-2);border-radius:var(--raio);border:2px solid var(--cor-borda);background:var(--cor-superficie);
+      font-weight:var(--peso-medio);font-size:var(--tam-sm)}
+    .opcao > span small{font-weight:var(--peso-normal);color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .opcao > span .emoji{font-size:var(--tam-lg)}
+    .opcao input:focus-visible + span{outline:2px solid var(--cor-acao);outline-offset:2px}
+    /* A opcao que os checks sugerem: borda tracejada na cor dela. So
+       destaca - quem marca e salva sou eu. */
+    .opcao.sugerida > span{border-style:dashed}
+    .opcao.ideal.sugerida > span{border-color:var(--meta-ideal)}
+    .opcao.reduzida.sugerida > span{border-color:var(--meta-reduzida)}
+    .opcao.minima.sugerida > span{border-color:var(--meta-minima)}
+    .sugestao{margin:0 0 var(--esp-2);font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .opcao input:checked + span{border-style:solid;border-color:var(--cor-acao);background:var(--cor-acao-fundo)}
+    .opcao.ideal input:checked + span{border-color:var(--meta-ideal);background:var(--meta-ideal-fundo)}
+    .opcao.reduzida input:checked + span{border-color:var(--meta-reduzida);background:var(--meta-reduzida-fundo)}
+    .opcao.minima input:checked + span{border-color:var(--meta-minima);background:var(--meta-minima-fundo)}
+    .opcao.nao_fiz input:checked + span{border-color:var(--meta-nao-fiz);background:var(--meta-nao-fiz-fundo)}
+    .ds-campo textarea{width:100%;min-height:4rem;padding:var(--esp-2) var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie);color:var(--cor-texto);font:inherit;font-size:var(--tam-base);resize:vertical}
+    fieldset.bloqueado{border:0;padding:0;margin:0;opacity:.5}
+    .erro{margin:0 0 var(--esp-3);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);
+      background:var(--cor-vermelho-fundo);color:var(--cor-vermelho);font-size:var(--tam-sm);font-weight:var(--peso-medio)}
+    .salvar{font-size:var(--tam-base);padding:var(--esp-3) var(--esp-5)}
+    .ds-bloco.meta-reduzida{background:var(--meta-reduzida-fundo);border-left-color:var(--meta-reduzida)}
+    .ds-bloco.meta-minima{background:var(--meta-minima-fundo);border-left-color:var(--meta-minima)}
+
+    /* --- estados vazios --- */
+    .vazio-grande{text-align:center;padding:var(--esp-7) var(--esp-5)}
+    .vazio-grande .emoji{font-size:3rem;line-height:1}
+    .vazio-grande h2{margin:var(--esp-3) 0 var(--esp-2);font-size:var(--tam-xl);letter-spacing:-.02em}
+    .vazio-grande p{margin:0;color:var(--cor-texto-suave)}
+
+    /* --- celular: uma coluna, horario em cima --- */
+    @media (max-width:640px){
+      .heroi__dentro{padding:var(--esp-5) var(--esp-4) var(--esp-4)}
+      .heroi h1{font-size:var(--tam-xl)}
+      .faixa{grid-template-columns:minmax(0,1fr) auto;gap:var(--esp-1) var(--esp-2)}
+      .faixa .quando{grid-column:1 / -1}
+      .faixa .quando{padding-top:0;flex-direction:row;align-items:center}
+      .resumo,.resumo.com-plano-b{gap:var(--esp-2);grid-template-columns:repeat(3,minmax(0,1fr))}
+      .resumo .plano-b-controle{grid-column:1 / -1}
+      .escolha-plano-b{left:0;right:auto}
+      .resumo .ds-cartao{padding:var(--esp-2) var(--esp-3)}
+      .grande{font-size:var(--tam-lg)}
+      .apertar{grid-template-columns:1fr}
+      .metas{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    /* --- impressao: so o plano do dia --- */
+    @media print{
+      .topo-barra,.navega,.como-foi,.lateral,.plano-b-controle,.play-faixa,.aviso-cheio{display:none !important}
+      .hoje-grade.com-lateral{grid-template-columns:1fr}
+      .faixa.passou{opacity:1}
+      .ds-cartao{box-shadow:none}
+    }
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds hoje-pagina">
+
+{% from "_topo.html" import barra, abas_de_hoje with context %}
+{% from "_componentes.html" import selo %}
+{% import "_resumo.html" as resumo_ui %}
+{{ barra('hoje') }}
+
+{%- macro link_do_dia(d) -%}
+/hoje?data={{ d.isoformat() }}{% if cor %}&amp;cor={{ cor }}{% endif %}
+{%- endmacro -%}
+
+{%- macro dia_legivel(d) -%}
+{{ DIAS_LONGOS[d.weekday()] }}, {{ d.day }} de {{ MESES[d.month - 1] }}
+{%- endmacro -%}
+
+{%- macro resumo_da_faixa(f) -%}
+{{ f.rotulo or TIPO_LEGIVEL[f.tipo] }}{% if f.materia %} · {{ f.materia }}{% endif %}{% if f.questoes %}, {{ f.questoes }} questões{% endif %}
+{%- endmacro -%}
+
+{%- macro hm(h) -%}{{ h.strftime('%H:%M') }}{%- endmacro -%}
+
+{# O filtro de um tema do simulado do Qconcursos: o link do tema (decisao
+   140) ou, sem ele, o filtro escrito do plano. #}
+{%- macro filtro_do_tema(a) -%}
+{%- set la = link_do_qconcursos(a.nome) -%}
+{%- if la %}<br><a href="{{ la.url }}" target="_blank" rel="noopener">abrir no Qconcursos</a> <span class="sub">({{ la.nomes | join('; ') }})</span>
+{%- elif a.filtro %}<br><span class="sub">Filtro: {{ a.filtro }}</span>{% endif -%}
+{%- endmacro -%}
+
+{# Um numero da comparacao do fechamento: "X de Y · Z%", e o rotulo quando a
+   amostra nao sustenta a porcentagem (config/amostra.yml). #}
+{%- macro medida_do_sabado(m, vazio) -%}
+  {%- if m is none -%}<span class="sub">{{ vazio }}</span>
+  {%- else -%}{{ m.acertos }} de {{ m.respondidas }} · {{ m.porcentagem }}%{% if m.de_outras_bancas %}<br><span class="sub">{{ m.origem_ao_lado() }}</span>{% endif %}{% if not m.suficiente %}<br><span class="sub">Amostra insuficiente</span>{% endif %}
+  {%- endif -%}
+{%- endmacro -%}
+
+{# O formulario do estudo extra: um so, para criar e para editar. Com `e`, ele
+   edita aquele extra; sem, cria um novo. As questoes ficam de fora quando o
+   lugar e o radar - lá cada questao ja foi contada uma por uma. #}
+{%- macro formulario_do_extra(e) -%}
+  {% set v = (form_do_extra if e is none else none) or {} %}
+  <form class="form-extra" method="post"
+        action="/hoje/extra{% if e %}/{{ e.id }}{% endif %}{% if cor %}?cor={{ cor }}{% endif %}">
+    <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+    <div class="linha-extra">
+      <label class="ds-campo">O que
+        <select name="o_que">
+          {% for chave, nome in O_QUE_DO_EXTRA.items() %}
+            <option value="{{ chave }}" {{ 'selected' if chave == (v.o_que or (e.o_que if e else 'questoes')) }}>{{ nome }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="ds-campo">Matéria
+        <select name="materia">
+          <option value="">—</option>
+          {% for m in t.plano.materias %}
+            <option value="{{ m.nome }}" {{ 'selected' if m.nome == (v.materia or (e.materia if e else '')) }}>{{ m.nome }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="ds-campo">Minutos
+        <input type="number" name="minutos" min="1" inputmode="numeric" required
+               value="{{ v.minutos or (e.minutos if e else '') }}">
+      </label>
+      <label class="ds-campo">Onde
+        <select name="onde">
+          {% for chave, nome in ONDE_DO_EXTRA.items() %}
+            <option value="{{ chave }}" {{ 'selected' if chave == (v.onde or (e.onde if e else 'outro')) }}>{{ nome }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <label class="ds-campo">Assunto
+      <input type="text" name="assunto" maxlength="200"
+             value="{{ v.assunto or (e.assunto if e else '') }}"
+             placeholder="ex.: progressão de regime">
+    </label>
+    {# O no da arvore de conteudos (Etapa 4). O assunto digitado acima fica
+       onde esta: o no e um vinculo a MAIS, e e ele que leva o anotado do
+       Qconcursos ao subassunto. Vazio e normal - antes era sempre vazio. #}
+    <label class="ds-campo">Conteúdo <span class="ds-dica">(opcional, para o desempenho por conteúdo)</span>
+      {% set escolhido = v.conteudo or (e.conteudo if e else '') %}
+      <select name="conteudo">
+        <option value="">— nenhum —</option>
+        {% for caminho, rotulo in OPCOES_DE_CONTEUDO() %}
+          <option value="{{ caminho }}" {{ 'selected' if caminho == escolhido }}>{{ rotulo }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <div class="linha-extra">
+      <label class="ds-campo">Questões
+        <input type="number" name="questoes" min="0" inputmode="numeric"
+               value="{{ v.questoes or (e.questoes if e and e.questoes is not none else '') }}">
+      </label>
+      <label class="ds-campo">Acertos
+        <input type="number" name="acertos" min="0" inputmode="numeric"
+               value="{{ v.acertos or (e.acertos if e and e.acertos is not none else '') }}">
+      </label>
+      <label class="ds-campo caixa">
+        <input type="checkbox" name="consulta" value="1"
+               {% if v.consulta or (e.consulta if e else false) %}checked{% endif %}>
+        com consulta
+      </label>
+    </div>
+    <p class="ds-pequeno ds-suave">
+      No <b>Radar</b> as questões e os acertos ficam vazios: cada questão que eu
+      respondo lá já é contada uma por uma. Do extra do radar vale o tempo.
+    </p>
+    <label class="ds-campo">Anotação
+      <input type="text" name="anotacao" maxlength="500"
+             value="{{ v.anotacao or (e.anotacao if e else '') }}">
+    </label>
+    <div class="acoes-extra">
+      <button class="ds-botao" type="submit">{{ 'Salvar' if e else 'Anotar' }}</button>
+      {% if e %}
+        <button class="ds-botao ds-botao--secundario" type="submit" name="apagar" value="1">apagar</button>
+      {% endif %}
+    </div>
+  </form>
+{%- endmacro -%}
+
+{%- macro texto_da_sequencia(n) -%}
+{% if not n %}Comece hoje a sua sequência{% elif n == 1 %}🔥 1 dia seguido{% else %}🔥 {{ n }} dias seguidos{% endif %}
+{%- endmacro -%}
+
+{% set nome_do_ciclo = t.plano.titulo.split(' —')[0] if t.plano else '' %}
+{% set meta_acertos = t.plano.meta_da_prova.acertos if t.plano else none %}
+
+{# ============================ a faixa azul do topo ======================= #}
+<header class="heroi">
+  <div class="heroi__dentro">
+    <div>
+      <h1>{{ dia_legivel(t.data) }}</h1>
+      <p class="sub">
+        {% if t.plano %}{{ t.plano.titulo }}{% endif %}
+        {% if t.dia %} · Semana {{ t.dia.semana }} de {{ t.total_semanas }}{% endif %}
+        {% if t.dia and t.dia.feriado %}<span class="chip-feriado">{{ t.dia.feriado }}</span>{% endif %}
+      </p>
+      {% if t.dia or meta_acertos %}
+        <div class="heroi__selos">
+          {% if t.dia %}
+            <span class="heroi-selo">⚡ Nível {{ t.nivel.efetivo }}</span>
+            <span class="heroi-selo" title="Dias do plano seguidos sem zerar (Ideal, Reduzida ou Mínima)">{{ texto_da_sequencia(t.sequencia) }}</span>
+          {% endif %}
+          {% if meta_acertos %}<span class="heroi-selo">🎯 Meta: {{ meta_acertos }} acertos</span>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+    <nav class="navega" aria-label="Outros dias">
+      <a href="{{ link_do_dia(t.anterior) }}">&larr; dia anterior</a>
+      <a class="{{ 'hoje' if t.e_hoje }}" href="/hoje{% if cor %}?cor={{ cor }}{% endif %}">Hoje</a>
+      <a href="{{ link_do_dia(t.proximo) }}">próximo dia &rarr;</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hoje-grade {{ 'com-lateral' if t.plano }}">
+
+  {# As sub-abas: elas ficam DENTRO da grade, na coluna principal, para nao
+     brigarem com a coluna lateral no computador. #}
+  <div class="subabas-do-hoje">{{ abas_de_hoje('hoje') }}</div>
+
+  {# ============================ a coluna lateral ========================= #}
+  {% if t.plano %}
+  <aside class="lateral" aria-label="Resumo do dia">
+    {# O cronometro: escondido ate o cronometro.js tirar o `hidden`. Sem
+       JavaScript ele nao aparece, e o resto da tela nao depende dele. #}
+    <div class="lateral-cronometro" id="cronometro" hidden>
+      <section class="ds-cartao cronometro" aria-label="Cronômetro">
+        <h2 class="lateral-titulo">⏱ Cronômetro</h2>
+        <p class="crono-nome" data-crono="nome">Clique no ▶ de uma faixa para começar.</p>
+        <p class="crono-tempo" data-crono="tempo">--:--</p>
+        <div class="crono-botoes">
+          <button type="button" class="ds-botao" data-crono="pausar" hidden>Pausar</button>
+          <button type="button" class="botao-secundario" data-crono="parar" hidden>Parar</button>
+        </div>
+        <div class="crono-testes">
+          <button type="button" class="crono-testar" data-crono="testar">🔔 Testar aviso</button>
+          {# Da tempo de minimizar o navegador e ver o balao por cima de tudo. #}
+          <button type="button" class="crono-testar" data-crono="testar10">⏳ Testar em 10 s</button>
+        </div>
+        <p class="crono-msg" data-crono="msg" role="status"></p>
+        <p class="crono-diag" data-crono="diag"></p>
+      </section>
+    </div>
+
+    {% if t.dia %}
+      {% set d = t.dia %}
+      <section class="ds-cartao agora" aria-live="polite">
+        {% if t.plano_b %}
+          <h2 class="lateral-titulo">Agora</h2>
+          <p class="principal-agora">🆘 Plano B de {{ tempo_do_plano_b(t.plano_b) }}: quando der, na ordem.</p>
+        {% elif t.agora %}
+          {% set a = t.agora %}
+          <h2 class="lateral-titulo">Agora · {{ hm(t.hora) }}</h2>
+          {% if a.situacao == 'faixa' %}
+            <span class="rotulo">EM ANDAMENTO · {{ hm(a.atual.inicio) }}–{{ hm(a.atual.fim) }}</span>
+            <p class="principal-agora">{{ a.atual.titulo }}</p>
+            {% if a.proxima %}<p class="depois">depois: {{ resumo_da_faixa(a.proxima) }}, às {{ hm(a.proxima.inicio) }}</p>{% endif %}
+          {% elif a.situacao == 'antes' and a.proxima %}
+            <p class="principal-agora">Começa às {{ hm(a.proxima.inicio) }} com {{ resumo_da_faixa(a.proxima) }}</p>
+            <p class="depois">{{ a.proxima.titulo }}</p>
+          {% elif a.situacao == 'entre' %}
+            <p class="principal-agora">Próximo bloco às {{ hm(a.proxima.inicio) }}: {{ resumo_da_faixa(a.proxima) }}</p>
+            <p class="depois">{{ a.proxima.titulo }}</p>
+          {% else %}
+            <p class="principal-agora">Dia encerrado. Marque como foi lá embaixo.</p>
+          {% endif %}
+        {% else %}
+          {% set primeira = d.faixas() | first %}
+          <h2 class="lateral-titulo">Agora</h2>
+          <p class="principal-agora">{% if primeira %}Este dia: começa às {{ hm(primeira.inicio) }}{% else %}Este dia não tem faixa.{% endif %}</p>
+        {% endif %}
+      </section>
+
+      <section class="ds-cartao">
+        <h2 class="lateral-titulo">Esta semana</h2>
+        <nav class="semana" aria-label="Os dias desta semana">
+          {% for p in t.pilulas %}
+            {% set classe = 'futuro' if p.futuro else (p.meta or 'sem') %}
+            <a class="pilula {{ classe }} {{ 'aberta' if p.aberta }}" href="{{ link_do_dia(p.data) }}"
+               title="{{ p.data.strftime('%d/%m') }}: {{ META_LEGIVEL.get(p.meta, 'dia futuro' if p.futuro else 'sem marcação') }}"
+               {% if p.aberta %}aria-current="date"{% endif %}>
+              <span>{{ p.rotulo }}</span><b>{{ p.data.day }}</b>
+            </a>
+          {% endfor %}
+        </nav>
+        <p class="sequencia">
+          {% if t.sequencia %}<b>🔥 {{ t.sequencia }}</b> · {{ 'dia seguido' if t.sequencia == 1 else 'dias seguidos' }} sem zerar
+          {% else %}Comece hoje a sua sequência{% endif %}
+        </p>
+        {% if t.frase %}<p class="frase">{{ t.frase }}</p>{% endif %}
+        <p class="motivo">{{ selo(t.nivel.origem) }} <span>{{ t.nivel.motivo }}</span></p>
+        <p><a class="ds-link-acao" href="/semanas">ver todas as semanas &rarr;</a></p>
+      </section>
+    {% endif %}
+
+    <section class="ds-cartao objetivo">
+      <h2 class="lateral-titulo">Objetivo</h2>
+      {% if t.nome_do_alvo %}<p class="alvo">🎯 {{ t.nome_do_alvo }}</p>{% endif %}
+      {% if meta_acertos %}<p>Meta da prova: {{ meta_acertos }} acertos</p>{% endif %}
+      {% set faltam = t.dias_para_o_fim %}
+      <p class="ds-suave">
+        {% if faltam < 0 %}{{ nome_do_ciclo }} encerrado
+        {% elif faltam == 0 %}Fim do {{ nome_do_ciclo }} hoje
+        {% elif faltam == 1 %}Fim do {{ nome_do_ciclo }} em 1 dia
+        {% else %}Fim do {{ nome_do_ciclo }} em {{ faltam }} dias{% endif %}
+      </p>
+      <p><a class="ds-link-acao" href="/analises/materias">minhas matérias &rarr;</a></p>
+    </section>
+
+    {# O mapa do ano. Num <details> aberto: no computador ele fica do jeito
+       que esta, e no celular, onde a lateral cai por cima do dia, um toque no
+       titulo recolhe a lista inteira. Sem JavaScript, como o resto da tela. #}
+    {% if t.mapa %}
+    <section class="ds-cartao mapa">
+      <details open>
+        <summary><h2 class="lateral-titulo">🗺️ Mapa do ano</h2></summary>
+        <ol class="mapa-lista">
+          {% for p in t.mapa %}
+            <li class="{% if p.atual %}atual{% elif p.passada %}passada{% endif %}"
+                {% if p.atual %}aria-current="true"{% endif %}>
+              <span class="mapa-marca" aria-hidden="true">{% if p.passada %}✓{% elif p.atual %}▸{% else %}·{% endif %}</span>
+              <b class="mapa-nome">{{ p.etapa.nome }}</b>
+              {% if p.atual %}<span class="mapa-aqui">você está aqui</span>{% endif %}
+              <span class="mapa-quando">{{ p.etapa.periodo }}</span>
+              <span class="mapa-foco">{{ p.etapa.foco }}</span>
+            </li>
+          {% endfor %}
+        </ol>
+      </details>
+    </section>
+    {% endif %}
+  </aside>
+  {% endif %}
+
+  <main class="principal">
+
+  {% if erro_de_data %}<p class="erro">{{ erro_de_data }}</p>{% endif %}
+  {% if erro_da_faixa %}<p class="erro" role="alert">{{ erro_da_faixa }}</p>{% endif %}
+
+  {# ============================ estados vazios ======================= #}
+  {% if t.estado == 'sem_arquivo' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">📄</div>
+      <h2>Falta o arquivo do cronograma</h2>
+      <p>Não achei <code>{{ t.mensagem }}</code>. A tela Hoje sai inteira dele.</p>
+    </section>
+
+  {% elif t.estado == 'erro' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">⚠️</div>
+      <h2>O cronograma tem um problema</h2>
+      <p>{{ t.mensagem }}</p>
+      <p class="ds-pequeno">Corrija o <code>config/cronograma.yml</code> e recarregue.</p>
+    </section>
+
+  {% elif t.estado == 'domingo' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">🌿</div>
+      <h2>Domingo é descanso total</h2>
+      <p>Sem estudo, sem Anki, sem questão.</p>
+      {% if t.outro_dia %}
+        {% set teoria = t.outro_dia.manha | selectattr('tipo', 'equalto', 'teoria') | first %}
+        {% set primeira = teoria or (t.outro_dia.faixas() | first) %}
+        {% if primeira %}
+          <p class="ds-pequeno" style="margin-top:var(--esp-4)">Amanhã: <a href="{{ link_do_dia(t.outro_dia.data) }}"><b>{{ primeira.titulo }}</b></a></p>
+        {% endif %}
+      {% endif %}
+    </section>
+
+  {% elif t.estado == 'antes' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">🚀</div>
+      <h2>O {{ nome_do_ciclo }} começa em {{ t.plano.inicio.strftime('%d/%m') }} ({{ DIAS_LONGOS[t.plano.inicio.weekday()] | lower }})</h2>
+      {% if t.outro_dia %}
+        {% set teoria = t.outro_dia.manha | selectattr('tipo', 'equalto', 'teoria') | first %}
+        <p>O primeiro dia: {% if teoria %}<b>{{ teoria.materia }} · {{ teoria.titulo }}</b> de manhã, e {% endif %}<b>{{ t.outro_dia.total_questoes }} questões</b> à noite.</p>
+        <p class="ds-pequeno" style="margin-top:var(--esp-4)"><a class="ds-botao" href="{{ link_do_dia(t.outro_dia.data) }}">Ver o primeiro dia &rarr;</a></p>
+      {% endif %}
+    </section>
+
+  {% elif t.estado == 'depois' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">🏁</div>
+      <h2>O {{ nome_do_ciclo }} terminou em {{ t.plano.fim.strftime('%d/%m') }}</h2>
+      <p>O Ciclo {{ (t.plano.ciclo or 0) + 1 }} entra quando o <code>config/cronograma.yml</code> for atualizado.</p>
+    </section>
+
+  {% elif t.estado == 'fora' %}
+    <section class="ds-cartao vazio-grande">
+      <div class="emoji" aria-hidden="true">🗓️</div>
+      <h2>Este dia não está no cronograma</h2>
+      <p>Ele cai dentro do ciclo, mas o <code>config/cronograma.yml</code> não tem nada para ele.</p>
+    </section>
+
+  {% else %}
+  {% set d = t.dia %}
+
+  {% if t.plano_b %}
+    <p class="aviso-plano-b" role="status">🆘 Plano B ativado — dia corrido: sem teoria, só o essencial e questões de prova do tema de hoje. O dia conta como Mínima e a sua sequência continua.</p>
+  {% endif %}
+
+  {# ============================ resumo ================================ #}
+  <section class="resumo{{ ' com-plano-b' if t.pode_ativar_plano_b }}" aria-label="O dia em três números">
+    {% if t.plano_b %}
+      {% set pb = t.blocos | first %}
+      <div class="ds-cartao"><span class="grande">~{{ tempo_do_plano_b(t.plano_b) }}</span><small>de Plano B</small></div>
+      <div class="ds-cartao"><span class="grande">{{ pb.questoes }}</span><small>questões</small></div>
+      <div class="ds-cartao"><small>horário</small><span class="grande">quando der</span></div>
+    {% else %}
+      <div class="ds-cartao"><span class="grande">{{ duracao_legivel(d.minutos_de_estudo) }}</span><small>de estudo</small></div>
+      <div class="ds-cartao"><span class="grande">{{ d.total_questoes }}</span><small>questões</small></div>
+      <div class="ds-cartao"><small>termina às</small><span class="grande">{{ hm(t.fim_do_dia) if t.fim_do_dia else '--' }}</span></div>
+    {% endif %}
+
+    {# O Plano B: so hoje ou dia passado. Com ele ativo, o botao desfaz. #}
+    {% if t.pode_ativar_plano_b %}
+      <div class="plano-b-controle">
+        {% if t.plano_b %}
+          <form method="post" action="/hoje/plano-b{% if cor %}?cor={{ cor }}{% endif %}">
+            <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+            <input type="hidden" name="minutos" value="">
+            <button class="botao-plano-b" type="submit">↩ Voltar ao plano completo</button>
+          </form>
+        {% else %}
+          <details>
+            <summary class="botao-plano-b">🆘 Ativar Plano B</summary>
+            <div class="escolha-plano-b">
+              <p>Quanto tempo você tem?</p>
+              <form method="post" action="/hoje/plano-b{% if cor %}?cor={{ cor }}{% endif %}">
+                <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                {% for m in t.opcoes_do_plano_b %}
+                  <button class="ds-botao" type="submit" name="minutos" value="{{ m }}">{{ tempo_do_plano_b(m) }}</button>
+                {% endfor %}
+              </form>
+            </div>
+          </details>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+  {% if not t.pode_ativar_plano_b and t.faixas_que_medem and t.dia and not t.futuro %}
+    {# Dia de medir: o Plano B trocaria a linha de base (decisao 135). #}
+    <p class="aviso-mede ds-pequeno ds-suave">🩺 Hoje mede ({{ t.faixas_que_medem | join(' · ') }}): sem Plano B. Se o dia apertar, faça só estas.</p>
+  {% endif %}
+
+  {# ============================ o progresso e a proxima =============== #}
+  {# Decisao 181: quanto do dia ja foi, e o que fazer agora. Os numeros sao
+     do servico (`cronograma.progresso_do_dia`): a barra anda a cada circulo,
+     e a proxima e a primeira faixa que conta e ainda nao esta feita, na ordem
+     do dia - nao a do relogio: a que ficou para tras vem primeiro. #}
+  {% set p = t.progresso %}
+  {% if p and p.total and not t.futuro %}
+    <section class="ds-cartao progresso-do-dia{{ ' completo' if p.completo }}" aria-label="O progresso do dia">
+      <p class="progresso-numeros">
+        <b>{{ p.feitas }} de {{ p.total }}</b> {{ 'faixa' if p.total == 1 else 'faixas' }}
+        · <b>{{ p.questoes_feitas }}</b> de {{ p.questoes_do_plano }} questões
+        {%- if p.minutos_do_plano %} · <b>{{ duracao_legivel(p.minutos_feitos) }}</b> de {{ duracao_legivel(p.minutos_do_plano) }}{% endif %}
+        <span class="progresso-porcento">{{ p.porcentagem }}%</span>
+      </p>
+      <progress max="{{ p.total }}" value="{{ p.feitas }}" aria-label="Faixas feitas: {{ p.feitas }} de {{ p.total }}">{{ p.porcentagem }}%</progress>
+      {% if p.proxima %}
+        {% set pb_, pi_, pf_ = p.proxima %}
+        <p class="proxima-faixa">
+          <span class="proxima-rotulo">▶ Próxima</span>
+          {% if pf_.inicio %}<span class="proxima-hora">{{ hm(pf_.inicio) }}–{{ hm(pf_.fim) }}</span>{% endif %}
+          <span class="proxima-titulo"><span aria-hidden="true">{{ ICONE_DO_TIPO[pf_.tipo] }}</span> {{ pf_.titulo }}{% if pf_.questoes %} <span class="ds-suave">· {{ pf_.questoes }} questões</span>{% endif %}</span>
+          <a class="ds-botao ds-botao--pequeno" href="#faixa-{{ pb_ }}-{{ pi_ }}">Ir para a faixa ↓</a>
+        </p>
+      {% elif p.completo %}
+        <p class="proxima-faixa">✅ <b>Tudo feito{{ ' hoje' if t.e_hoje }}.</b> <a href="#como-foi">Marque como foi o dia ↓</a></p>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {# ============================ revisar hoje ========================== #}
+  {# Decisao 187: a fila do 1-7-30 e o caderno de erros, no topo, so no dia de
+     hoje. A conta e do servico (`estudo.revisar_hoje`, as pontas da mesma
+     fila da home); o botao abre uma questao por tema, os mais atrasados
+     primeiro. Some com zero de proposito: cartao que vive dizendo "0" deixa
+     de ser aviso e vira enfeite. #}
+  {% set rh = revisar_hoje %}
+  {% if rh and (rh.vencidos or erros_para_rever) %}
+    <section class="ds-cartao revisar-hoje" aria-label="Revisar hoje">
+      <h2 class="revisar-titulo">🔁 Revisar hoje</h2>
+      {% if rh.vencidos %}
+        <p class="revisar-linha">Revisão 1-7-30: <b>{{ rh.vencidos }} {{ 'tema vencido' if rh.vencidos == 1 else 'temas vencidos' }}</b>{% if rh.vencidos > rh.primeiros|length %} — os mais atrasados:{% else %}:{% endif %}</p>
+        <ul class="revisar-lista">
+          {% for r in rh.primeiros %}
+            <li><span class="revisar-nome">{{ r.nome }}</span>
+              {%- if r.desde %} <span class="ds-suave">· vencido desde {{ r.desde.strftime('%d/%m') }}{% if r.atraso %} ({{ r.atraso }} {{ 'dia' if r.atraso == 1 else 'dias' }}){% endif %}</span>
+              {%- else %} <span class="ds-suave">· {{ r.porque }}</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+        <div class="revisar-acoes">
+          <form method="post" action="/hoje/revisar">
+            <button class="ds-botao ds-botao--pequeno" type="submit">▶ Revisar agora no radar ({{ rh.na_rodada }} {{ 'questão' if rh.na_rodada == 1 else 'questões' }})</button>
+          </form>
+          <a class="ds-link-acao" href="/analises/desempenho">ver todos ({{ rh.vencidos }}) &rarr;</a>
+        </div>
+      {% endif %}
+      {% if erros_para_rever %}
+        <p class="revisar-linha revisar-caderno">📓 Caderno de erros: <b class="erros-n">{{ erros_para_rever }}</b> {{ 'erro para rever hoje' if erros_para_rever == 1 else 'erros para rever hoje' }}
+          <a class="ds-link-acao" href="/erros">rever os erros &rarr;</a></p>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {# ============================ os tres blocos ======================== #}
+  {#
+     Cada bloco DOBRA: um clique no SINAL do canto direito do cabecalho, em
+     cima dos horarios, recolhe a lista de faixas, e outro clique a traz de
+     volta. E um <details>/<summary>, como no Mapa do ano da lateral, e a
+     dobra funciona sem JavaScript nenhum.
+
+     Duas coisas foram pedidas depois, e mudaram isto:
+       * so o SINAL do canto dobra, e nao o cabecalho inteiro: o resto do
+         <summary> leva `pointer-events: none` no CSS, para um clique no titulo
+         ou nos horarios nao recolher o bloco sem querer. Pelo teclado, o
+         cabecalho continua focavel e o Enter dobra;
+       * a dobra e LEMBRADA entre recarregamentos, pelo `dobra.js`
+         (localStorage). O HTML continua trazendo o padrao, e sem JavaScript a
+         dobra funciona igual - so nao lembra.
+
+     "Depois das 22h" nasce FECHADO, e os outros abertos. O bloco e sobreaviso
+     (pode interromper) e, com `anki: desativado`, nao ha nada ali para fazer
+     fora do Bonus - abrir e acao minha. Fechado, ele mostra no proprio
+     cabecalho a frase de que o ANKI esta temporariamente desativado.
+
+  #}
+  {# A ajuda da faixa (decisao 180): as regras que se repetiam em cada faixa
+     de questoes, escritas uma vez so. #}
+  {% if t.blocos %}
+    <details class="ajuda-da-faixa">
+      <summary>ⓘ Como funcionam os botões da faixa</summary>
+      <ul>
+        <li><b>O círculo</b> marca a faixa como feita, e ela fecha numa linha; clicar na linha abre de novo. Na faixa de questões o número é opcional: sem ele, a faixa conta na meta e no tempo, e nenhuma questão. A faixa que o radar cobriu inteira fecha sozinha.</li>
+        <li><b>Treinar no radar</b>: as questões reais da {{ banca_do_alvo() }} e de outras bancas medem o seu acerto no tema, com a origem ao lado; as de outra banca nunca entram no que a {{ banca_do_alvo() }} cobra. As de {{ selo('ia', curto=True) }} IA só treinam: o acerto delas é um segundo número, nunca somado ao da faixa. Escolher a quantidade, o assunto e o nível fica no “mais”.</li>
+        <li><b>O que você faz no radar conta sozinho</b> no total do dia, no desempenho e na revisão 1-7-30: no “fiz X, acertei Y” anote só as do Qconcursos; se fez tudo no radar, é só o círculo.</li>
+        <li><b>No Qconcursos</b> (também medem): o botão abre o filtro pronto do tema, com os assuntos do próprio site.</li>
+      </ul>
+    </details>
+  {% endif %}
+  {% for b in t.blocos if b.faixas %}
+    {% set tem_anki_desligado = b.faixas | selectattr('desligada') | list %}
+    {# Completo (todas as faixas que contam feitas), o bloco nasce fechado
+       (decisao 181); o `dobra.js` nao o reabre. #}
+    {% set nasce_aberto = b.chave != 'pos22' and not b.completo %}
+    <section class="ds-cartao bloco-dia bloco-{{ b.chave }}" aria-labelledby="bloco-{{ b.chave }}">
+      <details class="bloco-dobra" data-bloco="{{ b.chave }}"{{ ' data-completo' if b.completo }}{{ ' open' if nasce_aberto }}>
+      <summary class="ds-cartao__cabeca" title="Recolher ou expandir este bloco">
+        <div class="nome-do-bloco">
+          <h2 class="ds-cartao__titulo" id="bloco-{{ b.chave }}">{{ b.nome }}</h2>
+          {% if b.chave == 'pos22' %}<span class="etiqueta-sobreaviso">🌙 sobreaviso · pode interromper</span>{% endif %}
+          {% if b.completo %}<span class="etiqueta-completo">✓ completo</span>{% endif %}
+          {# So com o bloco fechado: aberto, a propria faixa ja diz isso. #}
+          {% if tem_anki_desligado %}<span class="anki-dobrado">{{ FRASE_DO_ANKI_DESATIVADO }}</span>{% endif %}
+        </div>
+        <span class="horas">{% if b.inicio %}{{ hm(b.inicio) }} – {{ hm(b.fim) }}{% else %}sem horário{% endif %}{% if b.questoes %} · {{ b.questoes }} questões{% endif %}</span>
+        {# O UNICO alvo de clique do cabecalho: o canto direito, depois dos
+           horarios. O resto do <summary> tem `pointer-events: none` no CSS,
+           para um clique no titulo ou nos horarios nao dobrar o bloco sem eu
+           querer. O teclado continua valendo: Tab ate o cabecalho e Enter. #}
+        <span class="dobra-sinal" aria-hidden="true"></span>
+      </summary>
+      <ol class="linha-tempo">
+        {% for f in b.faixas %}
+          {# O Anki com `anki: desativado`: so a linha minimizada, sem horario,
+             sem circulo. Fica na lista para as posicoes dos checks nao mudarem. #}
+          {% if f.desligada %}
+          <li class="faixa-desligada" id="faixa-{{ b.chave }}-{{ loop.index0 }}">
+            <span aria-hidden="true">{{ ICONE_DO_TIPO[f.tipo] }}</span> {{ FRASE_DO_ANKI_DESATIVADO }}
+          </li>
+          {% else %}
+          {% set atual = t.agora and t.agora.atual is sameas f %}
+          {% set passou = t.hora and f.fim and f.fim <= t.hora %}
+          {% set feita = (b.chave, loop.index0) in t.feitas %}
+          {% set anotado = t.valores.get((b.chave, loop.index0)) %}
+          {# O que o cronometro precisa saber da faixa, escrito pelo servidor:
+             quanto dura, como se chama, e o que vem depois dela (se e pausa,
+             quanto dura a pausa e o que vem depois da pausa). #}
+          {% set cronometravel = f.tipo != 'pausa' and f.duracao %}
+          {% if cronometravel %}
+            {% set prox = t.proxima_de(f) %}
+            {% set prox_pausa = prox and prox.tipo == 'pausa' %}
+            {% set depois = t.proxima_de(prox) if prox_pausa else none %}
+          {% endif %}
+          <li class="faixa t-{{ f.tipo }} {{ 'atual' if atual }} {{ 'passou' if passou and not atual }} {{ 'feita' if feita }}"
+              id="faixa-{{ b.chave }}-{{ loop.index0 }}"
+              {%- if cronometravel %}
+              data-duracao="{{ f.duracao }}" data-titulo="{{ f.titulo }}"
+              data-proxima-titulo="{{ prox.titulo if prox else '' }}"
+              data-proxima-pausa="{{ 'sim' if prox_pausa else 'nao' }}"
+              data-proxima-duracao="{{ prox.duracao if prox_pausa else 0 }}"
+              data-depois-titulo="{{ depois.titulo if depois else '' }}"
+              {%- endif %}>
+            <span class="quando">
+              {% if f.inicio %}<span>{{ hm(f.inicio) }} – {{ hm(f.fim) }}</span>{% else %}<span class="ordem">{{ loop.index }}º</span>{% endif %}
+              {% if atual %}<span class="etiqueta-agora">AGORA</span>{% endif %}
+              {% if cronometravel %}<button type="button" class="play-faixa" hidden
+                  title="Cronometrar {{ f.duracao }} min" aria-label="Cronometrar {{ f.duracao }} min: {{ f.titulo }}">▶</button>{% endif %}
+            </span>
+            {% if f.tipo == 'pausa' %}
+              <div class="corpo">{{ ICONE_DO_TIPO.pausa }} Pausa · {{ f.duracao }} min{% if f.detalhe %} · {{ f.detalhe }}{% endif %}</div>
+            {% else %}
+              <div class="corpo">
+                {# A faixa enxuta (decisao 180): a linha (tipo, materia, quantas,
+                   o "caiu" curto, o titulo e o resultado); o que fazer agora; e
+                   o resto num "mais" fechado. As explicacoes que se repetiam em
+                   cada faixa moram na ajuda unica, no comeco do dia. #}
+                {% set nr_resp = respondidas_no_radar.get((b.chave, loop.index0, f.titulo)) if respondidas_no_radar else none %}
+                {% set no_plano_b = b.chave == 'plano_b' %}
+                {% set de_questoes = TEM_ACERTO(f) %}
+                {% set onde = arvore_das_faixas.get((b.chave, loop.index0)) if arvore_das_faixas else none %}
+                {% set caiu = caiu_das_faixas.get((b.chave, loop.index0)) if caiu_das_faixas else none %}
+                {% set lq = qconcursos_da_faixa(f) %}
+                {% set ficha = fichas_das_faixas.get((b.chave, loop.index0)) if fichas_das_faixas else none %}
+                {% set res = resumos.da_faixa(b.chave, loop.index0) if resumos else [] %}
+                {% set fp = fepese_das_faixas.get((b.chave, loop.index0)) if fepese_das_faixas else none %}
+                {% set ob = outras_bancas_das_faixas.get((b.chave, loop.index0)) if outras_bancas_das_faixas else none %}
+                {% set gf = geradas_das_faixas.get((b.chave, loop.index0)) if geradas_das_faixas else none %}
+                {% set indice_da_faixa_aqui = loop.index0 %}
+                {# A ficha e o resumo: a vista na faixa de estudo, no "mais" na de
+                   questoes (escolha de 20/10). #}
+                {% set ficha_e_resumo %}
+                  {% if ficha %}<a class="botao-anotar botao-ficha" href="/fichas/{{ ficha.id }}?data={{ t.data.isoformat() }}{% if cor %}&amp;cor={{ cor }}{% endif %}"><span aria-hidden="true">📋</span> Ficha de estudo</a>{% endif %}
+                  {% if res %}{{ resumo_ui.botao(res, b.chave, indice_da_faixa_aqui, b.chave == 'noite') }}{% endif %}
+                {% endset %}
+                <details class="faixa-dobra"{{ ' open' if not feita }}>
+                <summary class="faixa-linha" title="{{ 'Abrir a faixa' if feita else 'Recolher a faixa' }}">
+                <div class="topo">
+                  <span class="tipo"><span aria-hidden="true">{{ ICONE_DO_TIPO[f.tipo] }}</span> {{ f.rotulo or TIPO_LEGIVEL[f.tipo] }}</span>
+                  {% if f.materia %}<span class="materia">{{ f.materia }}</span>{% endif %}
+                  {% if f.questoes %}<span class="chip chip-qtd">{{ f.questoes }} questões</span>{% endif %}
+                  {% if no_plano_b and f.duracao %}<span class="chip">⏱ {{ f.duracao }} min</span>{% endif %}
+                  {% if f.onde %}<span class="chip">{{ ONDE_LEGIVEL.get(f.onde, f.onde) }}</span>{% endif %}
+                  {% if f.cronometrado %}<span class="chip">⏱ cronometrado</span>{% endif %}
+                  {% if f.opcional %}<span class="chip">{{ 'se sobrar tempo' if no_plano_b else 'opcional · fora do total' }}</span>{% endif %}
+                  {% if f.baralho %}<span class="chip">🃏 {{ f.baralho }}</span>{% endif %}
+                  {% if f.origem %}<span class="chip">volta do dia {{ f.origem | dia_mes }}</span>{% endif %}
+                  {% if caiu and caiu.etiqueta %}<span class="chip chip-caiu" title="{{ caiu.frase }}">{{ selo('acervo', curto=True) }} {{ caiu.etiqueta }}</span>{% endif %}
+                </div>
+                <p class="titulo">{{ f.titulo }}
+                  {% if anotado and anotado.questoes %}
+                    <span class="resultado">{{ anotado.acertos if anotado.acertos is not none else '—' }}
+                      de {{ anotado.questoes }}{% if anotado.porcentagem is not none %} ·
+                      {{ anotado.porcentagem }}%{% endif %}</span>
+                  {% elif anotado and anotado.no_radar %}
+                    <span class="resultado">feita no radar{% if nr_resp and nr_resp.questoes %} · {{ nr_resp.questoes }} {{ 'questão' if nr_resp.questoes == 1 else 'questões' }}{% endif %}</span>
+                  {% elif anotado and anotado.sem_numero %}
+                    <span class="resultado">feita · sem número</span>
+                  {% endif %}
+                </p>
+                </summary>
+
+                {# --- o que fazer agora --- #}
+                {% if f.artigos %}
+                  <ul class="artigos">
+                    {% for a in f.artigos %}<li><b>{{ a.artigos }}</b> — {{ a.porque }}</li>{% endfor %}
+                  </ul>
+                {% endif %}
+                {% if f.aviso %}<p class="aviso-essencial">⚠️ {{ f.aviso }}</p>{% endif %}
+
+                {# O detalhe da faixa de estudo e o que estudar: a vista, em tres
+                   linhas, e o clique abre o resto. O das outras vai para o "mais". #}
+                {% if f.detalhe and (f.tipo in DETALHE_ABERTO or no_plano_b) %}
+                  <details class="detalhe-dobra"><summary><p class="detalhe">{{ f.detalhe }}</p></summary></details>
+                {% endif %}
+                {% set de_redacao = f.materia == 'Redação' %}
+                {% set acoes_a_vista = f.link or lq or de_redacao or (not de_questoes and (ficha or res)) %}
+                {% if acoes_a_vista %}
+                  <p class="links">
+                    {# A faixa de Redacao da copia PMSC leva a aba dela (decisao PMSC-5). #}
+                    {% if de_redacao %}<a class="botao-anotar" href="/redacao?data={{ t.data.isoformat() }}"><span aria-hidden="true">✍</span> Abrir na aba Redação</a>{% endif %}
+                    {% if f.link %}<a class="botao-lei" href="{{ f.link }}" target="_blank" rel="noopener"><span aria-hidden="true">⚖️</span> {{ rotulo_da_lei(f.link) }}</a>{% endif %}
+                    {% if not de_questoes %}{{ ficha_e_resumo }}{% endif %}
+                    {# O link do Qconcursos do tema (decisao 140): o filtro pronto,
+                       com os assuntos do proprio site; os nomes ficam no "mais". #}
+                    {% if lq %}<a class="botao-anotar" href="{{ lq.url }}" target="_blank" rel="noopener" title="{{ banca_do_alvo() }}, sem anuladas nem desatualizadas · {{ lq.nomes | join('; ') }}"><span aria-hidden="true">🔎</span> Abrir no Qconcursos</a>{% endif %}
+                  </p>
+                {% endif %}
+                {% if lq and lq.aviso %}<p class="regra">{{ lq.aviso }}</p>{% elif not lq and f.filtro %}<p class="filtro">Filtro: {{ f.filtro }}</p>{% endif %}
+
+                {# A faixa que MEDE (diagnostico e simulado no radar): so
+                   questao real da FEPESE, na composicao da decisao 67, e o
+                   botao que cria a rodada ja com ela. Criada, a faixa mostra a
+                   composicao GRAVADA na rodada e o link para ela. #}
+                {% set medida = composicoes.get((b.chave, loop.index0)) if composicoes else none %}
+                {% if medida and medida.no_qconcursos %}
+                  {# O simulado da semana, no Qconcursos (decisao 69): a mesma
+                     regra, entre os temas que eu ja estudei. Sem rodada aqui:
+                     a composicao diz quantas de cada tema, e o filtro. #}
+                  {% set c = medida.composicao %}
+                  <div class="composicao no-qconcursos">
+                    <p class="so-questoes">Só questões: não há o que estudar nesta faixa.</p>
+                    <p>{{ selo('automatico', 'Composição calculada') }}
+                      {% if c.materias | length > 1 %}{{ c.total }} questões divididas entre as matérias pelo peso do edital {{ selo('oficial', curto=True) }};{% endif %}
+                      dentro de cada matéria, entre os temas estudados antes deste dia: pela incidência nas provas do cargo quando o tema tem amostra, e por igual quando não tem, o tema mais recente primeiro.</p>
+                    {% for m in c.materias %}
+                      <p class="materia-da-rodada"><b>{{ m.total }} de {{ m.materia }}</b> · provas do cargo: {{ m.alvo }} {{ selo('acervo', curto=True) }}</p>
+                      <ul>
+                        {% for a in m.com_amostra if a.pedidas %}
+                          <li><b>{{ a.pedidas }}</b> · {{ a.nome }} <span class="sub">(estudado em {{ a.estudado_em | dia_mes }})</span> — provas do cargo: {{ a.alvo }}{% if a.complementar %}; complementar: {{ a.complementar }}, com peso {{ c.peso_do_complementar | numero(2) }} na divisão{% endif %}
+                            {{ filtro_do_tema(a) }}</li>
+                        {% endfor %}
+                        {% for a in m.sem_amostra if a.pedidas %}
+                          <li><b>{{ a.pedidas }}</b> · {{ a.nome }} <span class="sub">(estudado em {{ a.estudado_em | dia_mes }}; provas do cargo: {{ a.alvo }})</span>
+                            {{ filtro_do_tema(a) }}</li>
+                        {% endfor %}
+                      </ul>
+                      {% if m.sem_amostra %}<p class="sub">Temas sem amostra nas provas do cargo: <span class="nao-sei">{{ FRASE_SEM_EVIDENCIA }}</span> Por isso, partes iguais entre eles.</p>{% endif %}
+                      {% set sem_questao = m.assuntos | selectattr('pedidas', 'equalto', 0) | map(attribute='nome') | list %}
+                      {% if sem_questao %}<p class="sub">Sem questão neste simulado, porque há mais temas que questões: {{ sem_questao | join('; ') }}.</p>{% endif %}
+                    {% endfor %}
+                    {% if c.fora %}<p class="sub">Fora da divisão, sem tema estudado antes deste dia: {{ c.fora | join('; ') }}.</p>{% endif %}
+                    {% if not c.materias and not c.fora %}<p class="aviso-essencial">⚠️ Sem o quadro do edital lido, não há peso para dividir as questões entre as matérias.</p>{% endif %}
+                    <p class="regra">No Qconcursos: caderno novo, banca {{ banca_do_alvo() }}, sem consulta, um filtro por tema, na quantidade acima. Tema com link: o filtro já vem pronto; sem link nem filtro no plano, procure pelo nome do tema.</p>
+                  </div>
+                {% elif medida %}
+                  {% set c = medida.composicao %}
+                  <div class="composicao">
+                    <p class="so-questoes">Só questões: não há o que estudar nesta faixa.</p>
+                    <p>{{ selo('automatico', 'Composição calculada') }}
+                      {% if c.materias | length > 1 %}{{ c.total }} questões divididas entre as matérias pelo peso do edital {{ selo('oficial', curto=True) }};{% endif %}
+                      dentro de cada matéria, pela incidência nas provas do cargo quando há amostra, e por igual entre os assuntos do edital quando não há.</p>
+                    {% for m in c.materias %}
+                      <p class="materia-da-rodada"><b>{{ m.total }} de {{ m.materia }}</b> · provas do cargo: {{ m.alvo }} {{ selo('acervo', curto=True) }}</p>
+                      {% if m.com_amostra %}
+                        <ul>
+                          {% for a in m.com_amostra if a.pedidas %}
+                            <li><b>{{ a.pedidas }}</b> · {{ a.nome }} — provas do cargo: {{ a.alvo }}{% if a.complementar %}; complementar: {{ a.complementar }}, com peso {{ c.peso_do_complementar | numero(2) }} na divisão{% endif %}
+                              {% if a.subassuntos %}<br><span class="sub">{% for sub, n in a.subassuntos | dictsort %}{{ n }} {{ sub or 'só no assunto, sem subassunto classificado' }}{{ '; ' if not loop.last }}{% endfor %}</span>{% endif %}</li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                      {% if m.sem_amostra %}
+                        <p class="sub">Assuntos sem amostra nas provas do cargo: <span class="nao-sei">{{ FRASE_SEM_EVIDENCIA }}</span> Por isso, partes iguais entre os assuntos do edital.</p>
+                        <ul>
+                          {% for a in m.sem_amostra if a.pedidas %}
+                            <li><b>{{ a.pedidas }}</b> · {{ a.nome }}
+                              {% if a.subassuntos %}<br><span class="sub">{% for sub, n in a.subassuntos | dictsort %}{{ n }} {{ sub or 'só no assunto, sem subassunto classificado' }}{{ '; ' if not loop.last }}{% endfor %}</span>{% endif %}</li>
+                          {% endfor %}
+                        </ul>
+                        {% set vazios = m.sem_amostra | selectattr('estoque', 'equalto', 0) | map(attribute='nome') | list %}
+                        {% if vazios %}<p class="sub">Sem questão real da {{ banca_do_alvo() }} classificada no acervo: {{ vazios | join('; ') }}.</p>{% endif %}
+                      {% endif %}
+                      {% if m.faltaram %}<p class="aviso-essencial">⚠️ Faltaram {{ m.faltaram }} questões de {{ m.materia }}: o acervo não tem mais questão real classificada nesta matéria.</p>{% endif %}
+                    {% endfor %}
+                    <p class="regra">Só questões reais da {{ banca_do_alvo() }}: das provas do cargo primeiro, depois do acervo complementar aceito; uma por enunciado, sem anulada, com gabarito. Questão gerada por IA não entra: ela treina, não mede.</p>
+                    {% if medida.rodada_id %}
+                      <p class="links"><a class="botao-anotar" href="/simulado/{{ medida.rodada_id }}"><span aria-hidden="true">▶</span> Abrir a rodada desta faixa</a></p>
+                    {% elif not t.futuro or t.e_hoje %}
+                      <form method="post" action="/hoje/rodada">
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                        <button type="submit" class="ds-botao ds-botao--secundario">Criar a rodada com esta composição</button>
+                      </form>
+                    {% else %}
+                      <p class="sub">O botão de criar a rodada aparece no dia da faixa.</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# O Simulado da semana (decisao 170, na PMSC a PMSC-25): tudo no
+                   radar, sem Qconcursos. O GERAR SIMULADO traz as reais de
+                   todas as bancas dos temas da semana, a gerada so onde falta
+                   real, e o que eu errei ou chutei primeiro; o GERAR SIMULADO
+                   IA, a mesma composicao so com geradas. Cada clique gera um
+                   novo (o que esta pela metade reabre). Treina, nao mede. #}
+                {% set sds = simulados_da_semana.get((b.chave, loop.index0)) if simulados_da_semana else none %}
+                {% if sds %}
+                  {% set indice_da_faixa = loop.index0 %}
+                  <div class="composicao simulado-da-semana">
+                    <p class="so-questoes">Só questões, tudo aqui no radar.</p>
+                    {% if sds.liberado %}
+                      <div class="links">
+                        {% if sds.em_andamento %}
+                          <a class="ds-botao" href="/simulado/{{ sds.em_andamento.id }}"><span aria-hidden="true">▶</span> Continuar o simulado ({{ sds.em_andamento.respondidas }} de {{ sds.em_andamento.total }})</a>
+                        {% elif sds.escolhidas %}
+                          <form method="post" action="/hoje/rodada" style="display:inline">
+                            <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                            <input type="hidden" name="bloco" value="{{ b.chave }}">
+                            <input type="hidden" name="indice" value="{{ indice_da_faixa }}">
+                            <button type="submit" class="ds-botao">GERAR SIMULADO</button>
+                          </form>
+                          <span class="sub">{{ sds.escolhidas | length }} questões: {{ sds.do_radar }} reais{% if sds.geradas %} + {{ sds.geradas }} geradas{% endif %}{% if sds.a_rever %}, {{ sds.a_rever }} que você errou ou chutou{% endif %}</span>
+                        {% endif %}
+                      </div>
+                      <div class="links">
+                        {% if sds.em_andamento_ia %}
+                          <a class="ds-botao" href="/simulado/{{ sds.em_andamento_ia.id }}">{{ selo('ia', curto=True) }} Continuar o simulado IA ({{ sds.em_andamento_ia.respondidas }} de {{ sds.em_andamento_ia.total }})</a>
+                        {% elif sds.de_ia %}
+                          <form method="post" action="/hoje/gerar-simulado-ia" style="display:inline">
+                            <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                            <input type="hidden" name="bloco" value="{{ b.chave }}">
+                            <input type="hidden" name="indice" value="{{ indice_da_faixa }}">
+                            <button type="submit" class="ds-botao">{{ selo('ia', curto=True) }} GERAR SIMULADO IA</button>
+                          </form>
+                          <span class="sub">{{ sds.de_ia }} questões escritas por IA, dos mesmos temas</span>
+                        {% endif %}
+                      </div>
+                    {% else %}
+                      <p class="sub">Os botões GERAR SIMULADO e GERAR SIMULADO IA aparecem na sexta, {{ sds.fim_da_semana | dia_mes }}: os temas são os de segunda a sexta.</p>
+                    {% endif %}
+                    {% if sds.terminadas %}
+                      <p class="materia-da-rodada"><b>Já feitos nesta faixa</b></p>
+                      <ul>
+                        {% for r in sds.terminadas %}
+                          <li><a href="/simulado/{{ r.id }}">{{ 'Simulado IA' if r.de_ia else 'Simulado' }} {{ r.vez }}</a>:
+                            {% if r.reais.respondidas %}reais {{ r.reais.acertos }} de {{ r.reais.respondidas }} ({{ '%.0f'|format(r.reais.porcentagem) }}%){% endif %}{% if r.reais.respondidas and r.geradas.respondidas %} · {% endif %}{% if r.geradas.respondidas %}{{ selo('ia', curto=True) }} geradas {{ r.geradas.acertos }} de {{ r.geradas.respondidas }} ({{ '%.0f'|format(r.geradas.porcentagem) }}%){% endif %}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                    <p>{{ selo('automatico', 'Composição calculada') }}
+                      {{ sds.da_parte_da_semana }} dos temas da semana ({{ sds.inicio_da_semana | dia_mes }} a {{ sds.fim_da_semana | dia_mes }}){% if sds.anteriores %} e {{ sds.anteriores }} dos temas de semanas anteriores{% endif %}:
+                      entre as matérias pela proporção do edital {{ selo('oficial', curto=True) }} e, dentro de cada uma, entre os temas que você estudou, o mais recente primeiro.</p>
+                    {% for titulo, temas in [('Da semana', sds.da_semana), ('De semanas anteriores', sds.de_antes)] if temas %}
+                      <p class="materia-da-rodada"><b>{{ titulo }}</b></p>
+                      <ul>
+                        {% for tm in temas %}
+                          {% set partes_do_tema = [] %}
+                          {% if tm.fepese %}{% set _ = partes_do_tema.append(tm.fepese ~ ' ' ~ banca_do_alvo()) %}{% endif %}
+                          {% if tm.outras %}{% set _ = partes_do_tema.append(tm.outras ~ ' de outras bancas') %}{% endif %}
+                          {% if tm.geradas %}{% set _ = partes_do_tema.append(tm.geradas ~ ' geradas por IA') %}{% endif %}
+                          <li><b>{{ tm.pedidas }}</b> · {{ tm.tema }} <span class="sub">({{ tm.materia }}{% if tm.estudado_em %}, estudado em {{ tm.estudado_em | dia_mes }}{% endif %})</span> —
+                            {{ partes_do_tema | join(' · ') }}{% if tm.a_rever %} <span class="sub">({{ tm.a_rever }} que você errou ou chutou)</span>{% endif %}{% if tm.faltam %}{% if partes_do_tema %} · {% endif %}<span class="sub">faltam {{ tm.faltam }}: o radar não tem questão deste tema{% if tm.sem_no %} (ele não tem nó na árvore){% endif %}</span>{% endif %}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endfor %}
+                    <p class="regra">As que você errou ou marcou no chute da última vez vêm antes de todas; depois as que você nunca fez. As reais são da {{ banca_do_alvo() }} e de outras bancas; só onde o radar não tem real, a gerada por IA do mesmo tema completa. Cada GERAR traz um simulado novo. Treina, não mede: no resultado, o acerto das reais e o das geradas ficam separados, nunca somados.</p>
+                  </div>
+                {% endif %}
+
+                {# O Simulado PMSC (decisao PMSC-9): 60 questoes na proporcao do
+                   edital, cada materia primeiro com as reais da AOCP, depois as
+                   de outras bancas, e as geradas onde falta real. Treina, nao
+                   mede. As contas sao do servico.simulado_pmsc. #}
+                {% set spm = simulados_pmsc.get((b.chave, loop.index0)) if simulados_pmsc else none %}
+                {% if spm %}
+                  <div class="composicao simulado-pmsc">
+                    <p class="so-questoes">Só questões: não há o que estudar nesta faixa.</p>
+                    <p>{{ selo('automatico', 'Composição calculada') }}
+                      {{ spm.pedidas }} questões na proporção do edital {{ selo('oficial', curto=True) }}: <b>{{ spm.da_banca }} reais da AOCP</b>{% if spm.outras %}, <b>{{ spm.outras }} reais de outras bancas</b>{% endif %}{% if spm.geradas %} e <b>{{ spm.geradas }} geradas por IA</b> {{ selo('ia', curto=True) }} onde não há real{% endif %}{% if spm.faltam %}; <b>faltam {{ spm.faltam }}</b> (o radar não tem questão bastante){% endif %}.</p>
+                    <ul>
+                      {% for m in spm.materias %}
+                        <li><b>{{ m.pedidas }}</b> · {{ m.materia }} <span class="sub">(meta {{ m.meta }})</span> — {% if m.da_banca %}AOCP {{ m.da_banca | length }}{% endif %}{% if m.outras %}{% if m.da_banca %} · {% endif %}outras bancas {{ m.outras | length }}{% endif %}{% if m.geradas %}{% if m.reais %} · {% endif %}geradas {{ m.geradas | length }}{% endif %}{% if m.faltam %} · <span class="sub">faltam {{ m.faltam }}</span>{% endif %}</li>
+                      {% endfor %}
+                    </ul>
+                    <p class="regra">As nunca feitas primeiro, em cada fonte. Entra questão gerada, e rodada com gerada treina e nunca mede: no resultado, o acerto das reais e o das geradas ficam separados, cada um contra a meta da matéria. O certo e o errado aparecem no fim; a rodada conta as 5 horas da prova, com a redação dentro.</p>
+                    {% if spm.rodada_id %}
+                      <p class="links"><a class="botao-anotar" href="/simulado/{{ spm.rodada_id }}"><span aria-hidden="true">▶</span> Abrir o simulado</a></p>
+                    {% elif spm.da_banca or spm.outras or spm.geradas %}
+                      {% if not t.futuro or t.e_hoje %}
+                        <form method="post" action="/hoje/rodada">
+                          <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                          <input type="hidden" name="bloco" value="{{ b.chave }}">
+                          <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                          <button type="submit" class="ds-botao ds-botao--secundario">Começar o simulado (as 5 horas começam agora)</button>
+                        </form>
+                      {% else %}
+                        <p class="sub">O botão de começar aparece no dia do simulado.</p>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# A faixa de Portugues comeca pelas do radar (decisao 107): as
+                   questoes reais da FEPESE do tema que eu ainda nao respondi;
+                   o resto continua no Qconcursos. #}
+                {% set nr = no_radar.get((b.chave, loop.index0)) if no_radar else none %}
+                {% if nr %}
+                  <div class="composicao no-radar">
+                    {% if nr.rodada_id %}
+                      <p>{{ selo('acervo', curto=True) }} <b>{{ nr.do_radar }} {{ 'questão' if nr.do_radar == 1 else 'questões' }} no radar</b>{% if nr.no_qconcursos %} e {{ nr.no_qconcursos }} no Qconcursos{% endif %}.</p>
+                      <p class="links"><a class="botao-anotar" href="/simulado/{{ nr.rodada_id }}"><span aria-hidden="true">▶</span> Abrir a rodada do radar</a></p>
+                    {% elif nr.do_radar %}
+                      <p>{{ selo('acervo', curto=True) }} Comece pelas <b>{{ nr.do_radar }}</b> {{ 'questão real' if nr.do_radar == 1 else 'questões reais' }} da {{ banca_do_alvo() }} deste tema que o radar tem e você ainda não respondeu ({{ nr.nomes | join('; ') }}{% if nr.proprias %}; {{ nr.proprias }} das provas do cargo{% endif %}){% if nr.no_qconcursos %}; as outras {{ nr.no_qconcursos }} no Qconcursos{% endif %}.</p>
+                      {% if not t.futuro or t.e_hoje %}
+                        <form method="post" action="/hoje/rodada">
+                          <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                          <input type="hidden" name="bloco" value="{{ b.chave }}">
+                          <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                          <button type="submit" class="ds-botao ds-botao--secundario">Começar pelas {{ nr.do_radar }} do radar</button>
+                        </form>
+                      {% else %}
+                        <p class="sub">O botão aparece no dia da faixa.</p>
+                      {% endif %}
+                    {% elif not nr.nos %}
+                      <p class="sub">A faixa não aponta nó da árvore: tudo no Qconcursos.</p>
+                    {% elif nr.no_acervo %}
+                      <p class="sub">As {{ nr.no_acervo }} do radar deste tema já foram respondidas ou estão na outra faixa do dia: tudo no Qconcursos.</p>
+                    {% else %}
+                      <p class="sub">O radar não tem questão da {{ banca_do_alvo() }} classificada neste tema: tudo no Qconcursos.</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# Treinar no radar, num clique (decisao 180): a FEPESE, as outras
+                   bancas e a IA lado a lado. O numero do botao e o que o clique
+                   traz - o que falta da faixa (decisao 185) -, e quantas o tema
+                   tem fica na dica; escolher outro, e o nivel da IA, fica no "mais". #}
+                {% set ia_no_estoque = geradas_no_estoque(gf) %}
+                {% set pd = pedidas_das_faixas.get((b.chave, indice_da_faixa_aqui)) if pedidas_das_faixas else none %}
+                {% set so_falta = ' · o que falta da faixa' if pd and pd.so_o_que_falta else '' %}
+                {% set ia_traz = [ia_no_estoque, (pd.quantas if pd else gf.questoes) or ia_no_estoque, 30] | min if gf else 0 %}
+                {% if fp or ob or gf %}
+                  <div class="treinar-rapido">
+                    <span class="rotulo">Treinar no radar:</span>
+                    {% if fp and fp.disponiveis %}
+                      <form method="post" action="/fepese/treinar">
+                        {% for no in fp.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ indice_da_faixa_aqui }}">
+                        <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                        <input type="hidden" name="quantidade" value="{{ fp.sugeridas }}">
+                        <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
+                                title="Traz {{ fp.sugeridas }} questões reais da {{ banca_do_alvo() }}{{ so_falta }} · {{ fp.disponiveis }} deste tema no radar">{{ banca_do_alvo() }} · {{ fp.sugeridas }}</button>
+                      </form>
+                    {% elif fp %}
+                      <span class="botao-vazio" title="{{ 'Guardadas para a rodada que mede' if fp.reservadas else 'O radar ainda não tem questão da ' ~ banca_do_alvo() ~ ' deste tema' }}">{{ banca_do_alvo() }} · 0</span>
+                    {% endif %}
+                    {% if ob and ob.no_acervo %}
+                      <form method="post" action="/outras-bancas/treinar">
+                        {% for no in ob.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ indice_da_faixa_aqui }}">
+                        <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                        <input type="hidden" name="quantidade" value="{{ ob.sugeridas }}">
+                        <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
+                                title="Traz {{ ob.sugeridas }} questões reais de outras bancas{{ so_falta }} · {{ ob.no_acervo }} deste tema no radar ({{ ob.bancas | join(', ') }})">Outras bancas · {{ ob.sugeridas }}</button>
+                      </form>
+                    {% elif ob %}
+                      <span class="botao-vazio" title="Ainda não há questão de outra banca deste tema no radar">Outras bancas · 0</span>
+                    {% endif %}
+                    {% if gf and not gf.sem_no %}
+                      {% if ia_no_estoque %}
+                        <form method="post" action="/geradas/treinar">
+                          {% for n in gf.nos if n.geradas %}<input type="hidden" name="conteudos" value="{{ n.no }}">{% endfor %}
+                          <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                          <input type="hidden" name="bloco" value="{{ b.chave }}">
+                          <input type="hidden" name="indice" value="{{ indice_da_faixa_aqui }}">
+                          <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                          <input type="hidden" name="quantidade" value="{{ ia_traz }}">
+                          <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
+                                  title="Traz {{ ia_traz }} questões escritas pela IA{{ so_falta }}: só treinam, nível misturado · {{ ia_no_estoque }} deste tema no estoque">{{ selo('ia', curto=True) }} IA · {{ ia_traz }}</button>
+                        </form>
+                      {% else %}
+                        <span class="botao-vazio" title="Não há questão gerada deste tema: os 3 passos para pedir estão no “mais”">{{ selo('ia', curto=True) }} IA · 0</span>
+                      {% endif %}
+                    {% endif %}
+                    {# O Certo/Errado so confere o assunto (decisao PMSC-19): um
+                       link, e nao uma rodada - nada e gravado. So com item. #}
+                    {% set ce = certo_errado_das_faixas.get((b.chave, indice_da_faixa_aqui)) if certo_errado_das_faixas else none %}
+                    {% if ce and gf %}
+                      <a class="ds-botao ds-botao--secundario ds-botao--pequeno"
+                         href="/certo-errado?{% for n in gf.nos %}no={{ n.no | urlencode }}&amp;{% endfor %}titulo={{ f.titulo | urlencode }}"
+                         title="{{ ce }} itens reais de Certo/Errado deste tema, só para ver se está sabendo: nada é gravado">Certo ou Errado · {{ ce }}</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# O sabado (decisao 70): a revisao semanal, o R+7 dos
+                   diagnosticos e a comparacao do fechamento, com o que ja esta
+                   gravado - o plano, o caderno e as rodadas. #}
+                {% set sab = do_sabado.get((b.chave, loop.index0)) if do_sabado else none %}
+                {% if sab and sab.tipo == 'revisao_semanal' %}
+                  <div class="composicao do-sabado">
+                    <p>{{ selo('automatico', 'Calculado do plano e do caderno') }} A semana de {{ sab.inicio | dia_mes }} a {{ sab.fim | dia_mes }}.</p>
+                    <p class="materia-da-rodada"><b>{% if not sab.rapida %}(1) {% endif %}Os erros anotados na semana: {{ sab.erros }}</b></p>
+                    {% if sab.erros %}
+                      <ul>
+                        {% for tema in sab.temas if tema.erros %}<li><b>{{ tema.erros }}</b> · {{ tema.tema }} <span class="sub">({{ tema.materia }})</span></li>{% endfor %}
+                        {% if sab.sem_tema %}<li><b>{{ sab.sem_tema }}</b> · <span class="sub">sem um tema desta semana no assunto anotado</span></li>{% endif %}
+                      </ul>
+                    {% else %}
+                      <p class="sub">Nenhum erro anotado no caderno nesta semana: anote os erros das correções antes de revisar.</p>
+                    {% endif %}
+                    {# A Revisao rapida (decisao 170) e so refazer as erradas: sem
+                       as regras para escrever e sem os artigos-chave. #}
+                    {% if sab.mais_erros and not sab.rapida %}
+                      <p class="materia-da-rodada"><b>(2) Onde mais errou</b>: as regras para escrever no caderno saem destes temas.</p>
+                      <ul>{% for tema in sab.mais_erros %}<li>{{ tema.tema }} · {{ tema.erros }} {{ 'erro' if tema.erros == 1 else 'erros' }}</li>{% endfor %}</ul>
+                      {% if sab.motivos %}<p class="sub">Por motivo: {% for m in sab.motivos %}{{ m.nome }} {{ m.quantos }}{{ ' · ' if not loop.last }}{% endfor %}.</p>{% endif %}
+                    {% endif %}
+                    {% if sab.artigos and not sab.rapida %}
+                      <p class="materia-da-rodada"><b>(3) Os artigos-chave da semana</b></p>
+                      <ul class="artigos">{% for a in sab.artigos %}<li>{{ a.data | dia_mes }} · <b>{{ a.artigos }}</b> — {{ a.porque }}</li>{% endfor %}</ul>
+                    {% endif %}
+                    <details><summary>Os temas da semana ({{ sab.temas | length }})</summary>
+                      <ul>{% for tema in sab.temas %}<li>{{ tema.data | dia_mes }} · {{ tema.tema }} <span class="sub">({{ tema.materia }})</span>{% if tema.ficha_id %} · <a href="/fichas/{{ tema.ficha_id }}?data={{ t.data.isoformat() }}">ficha</a>{% endif %}{% if tema.nos %}<br><span class="sub">{{ tema.nos | join('; ') }}</span>{% endif %}</li>{% endfor %}</ul>
+                    </details>
+                  </div>
+                {% elif sab and sab.tipo == 'erros_das_rodadas' %}
+                  <div class="composicao do-sabado">
+                    <p class="so-questoes">Só questões: não há o que estudar nesta faixa.</p>
+                    {% if not sab.rodadas %}
+                      <p class="sub">Nenhuma rodada dos diagnósticos de {{ sab.dia | dia_mes }} foi criada no radar: não há erro gravado para refazer.</p>
+                    {% elif not sab.erros %}
+                      <p class="sub">As rodadas de {{ sab.dia | dia_mes }} não têm erro gravado: nenhuma questão respondida errada.</p>
+                    {% else %}
+                      <p>{{ selo('automatico', 'Calculado das rodadas') }} {{ sab.erros | length }} {{ 'erro' if sab.erros | length == 1 else 'erros' }} nos diagnósticos de {{ sab.dia | dia_mes }}.
+                        {% if sab.escolhidos | length < sab.erros | length %}Esta faixa refaz {{ sab.escolhidos | length }}, o número do plano, divididos pelos assuntos em que você mais errou.{% else %}Esta faixa refaz todos.{% endif %}</p>
+                      <ul>
+                        {% for assunto, erros, refeitos in sab.por_assunto %}<li><b>{{ refeitos }}</b> de {{ erros }} · {{ assunto }}</li>{% endfor %}
+                      </ul>
+                      <p class="regra">Só as questões reais que você errou nas rodadas de {{ sab.dia | dia_mes }}: nenhuma questão nova, nenhuma de IA.</p>
+                      {% if sab.rodada_id %}
+                        <p class="links"><a class="botao-anotar" href="/simulado/{{ sab.rodada_id }}"><span aria-hidden="true">▶</span> Abrir a rodada desta faixa</a></p>
+                      {% elif not t.futuro or t.e_hoje %}
+                        <form method="post" action="/hoje/rodada">
+                          <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                          <input type="hidden" name="bloco" value="{{ b.chave }}">
+                          <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                          <button type="submit" class="ds-botao ds-botao--secundario">Criar a rodada com os erros</button>
+                        </form>
+                      {% else %}
+                        <p class="sub">O botão de criar a rodada aparece no dia da faixa.</p>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                {% elif sab and sab.tipo == 'comparacao' %}
+                  <div class="composicao do-sabado">
+                    <p>{{ selo('automatico', 'Calculado das rodadas e do ciclo') }} O acerto por matéria, sem consulta, em três medidas separadas, que não se somam. Abaixo de {{ sab.minimo }} respostas (o mínimo da matéria no config/amostra.yml), o número leva "Amostra insuficiente" e não decide nada sozinho.</p>
+                    {# P30 (decisao 146): o fechamento sozinho nunca tem amostra
+                       (de 4 a 13 por materia), e o diagnostico so mede LP e
+                       RL. Quem decide e o acumulado; a tela diz o que ele
+                       deixa de fora. #}
+                    <p><b>O que decide o Ciclo 2 é o acumulado do ciclo</b>, com o fechamento ao lado. Os simulados de sábado feitos no Qconcursos ficam fora do acumulado: a faixa deles não tem matéria.</p>
+                    <div class="ds-rolagem">
+                      <table class="ds-tabela">
+                        <thead><tr><th>Matéria</th><th class="ds-n">Acumulado do ciclo (decide)</th><th class="ds-n">Fechamento de {{ sab.dia | dia_mes }}</th><th class="ds-n">Diagnóstico de {{ sab.com | dia_mes }}</th></tr></thead>
+                        <tbody>
+                          {% for l in sab.linhas %}
+                            <tr><td>{{ l.materia }}</td>
+                              <td class="ds-n">{{ medida_do_sabado(l.ciclo, 'nada sem consulta ainda') }}</td>
+                              <td class="ds-n">{{ medida_do_sabado(l.fechamento, 'sem resposta ainda') }}</td>
+                              <td class="ds-n">{{ medida_do_sabado(l.diagnostico, 'sem diagnóstico') }}</td></tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                {% endif %}
+
+                {% if f.tipo == 'revisao_semanal' %}
+                  {# O sabado revisa a semana: daqui eu abro os erros dela. #}
+                  <p class="links">
+                    <a class="botao-anotar" href="/erros?semana={{ t.data.isoformat() }}&amp;situacao=todos">
+                      <span aria-hidden="true">📓</span> abrir os erros da semana</a>
+                  </p>
+                {% endif %}
+
+                {# "Fiz X, acertei Y" - o check das faixas de questao. Feita, o
+                   formulario recolhe num <details> para corrigir, e ganha o
+                   botao de desmarcar ao lado. Sem JavaScript, como o resto. #}
+                {% if not t.futuro and TEM_ACERTO(f) %}
+                  {# O que ja foi respondido no radar pela faixa conta sozinho no
+                     "Fiz hoje": a faixa avisa, e o "fiz" nao vem com o numero do
+                     plano - um clique em "Fiz" contava tudo de novo (05/10).
+                     So avisa: quem decide o que anotar sou eu. #}
+                  {% set no_radar_f = respondidas_no_radar.get((b.chave, loop.index0, f.titulo)) if respondidas_no_radar else none %}
+                  {% if no_radar_f %}
+                    {# Decisao 138: o que eu fiz no radar conta sozinho, cada um
+                       na sua linha; no "fiz" vai so o de fora. Feita so no
+                       radar, o check vazio vale e guarda o tempo. #}
+                    <p class="regra aviso-no-radar">
+                      {%- if no_radar_f.ia and not no_radar_f.medidas %}Você treinou <b>{{ no_radar_f.ia }} de IA</b> nesta faixa ({{ no_radar_f.ia_acertos }} de {{ no_radar_f.ia }}): já contam no Treino de IA.
+                      {%- else %}Você já respondeu <b>{{ no_radar_f.questoes }} {{ 'questão' if no_radar_f.questoes == 1 else 'questões' }}</b> desta faixa no radar
+                        {%- if no_radar_f.ia %} ({{ no_radar_f.medidas }} {{ 'real' if no_radar_f.medidas == 1 else 'reais' }} e {{ no_radar_f.ia }} de IA){% endif %}: já contam sozinhas.
+                      {%- endif %}
+                      {%- if no_radar_f.chutes %} 🎲 {{ no_radar_f.chutes }} no chute.{% endif %}
+                      No “fiz”, só as de fora do radar; se fez só no radar, é só clicar no círculo.</p>
+                  {% endif %}
+                  {% set marcar %}
+                    <form class="fiz" method="post" action="/hoje/faixa/questoes{% if cor %}?cor={{ cor }}{% endif %}">
+                      <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                      <input type="hidden" name="bloco" value="{{ b.chave }}">
+                      <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                      <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                      {# Sempre vazio (decisao 138): o numero do plano no campo
+                         virava "fiz" com um clique, e contava de novo o que eu
+                         tinha feito no radar (05 e 06/10). #}
+                      <label>{{ 'fiz no Qconcursos' if f.onde == 'qconcursos' else 'fiz fora do radar' }}
+                        <input type="number" name="questoes" min="0" inputmode="numeric"
+                               placeholder="{{ f.questoes or '' }}"
+                               value="{{ anotado.questoes if anotado and anotado.questoes else '' }}">
+                      </label>
+                      <label>acertei
+                        <input type="number" name="acertos" min="0" inputmode="numeric"
+                               placeholder="—"
+                               value="{{ anotado.acertos if anotado and anotado.acertos is not none else '' }}">
+                      </label>
+                      {# O conteudo da faixa, para o anotado chegar ao subassunto
+                         (Etapa 4). Um select so, com o caminho no valor: tres
+                         caixas encadeadas precisariam de JS. Fora do ramo da
+                         faixa o servico recusa - para isso existe o extra. #}
+                      {% set raiz = (anotado.conteudo if anotado and anotado.conteudo else f.conteudo) %}
+                      {% if raiz %}
+                        {% set dentro = OPCOES_DE_CONTEUDO(f.conteudo or raiz) %}
+                        {% if dentro | length > 1 %}
+                        <label>conteúdo
+                          <select name="conteudo">
+                            {% for caminho, rotulo in dentro %}
+                              <option value="{{ caminho }}"
+                                      {% if caminho == raiz %}selected{% endif %}>{{ rotulo }}</option>
+                            {% endfor %}
+                          </select>
+                        </label>
+                        {% else %}
+                          <input type="hidden" name="conteudo" value="{{ raiz }}">
+                        {% endif %}
+                      {% endif %}
+                      <label class="caixa">
+                        <input type="checkbox" name="consulta" value="1"
+                               {% if (anotado.consulta if anotado else CONSULTA_POR_PADRAO(f)) %}checked{% endif %}>
+                        com consulta
+                      </label>
+                      <button class="ds-botao ds-botao--pequeno" type="submit">{{ 'Salvar' if feita else '✓ Fiz' }}</button>
+                    </form>
+                  {% endset %}
+                  {% if feita %}
+                    {# Desmarcar e o circulo verde (decisao 179). #}
+                    <div class="fiz-feita">
+                      <details><summary>corrigir os números</summary>{{ marcar }}</details>
+                    </div>
+                  {% else %}
+                    {{ marcar }}
+                  {% endif %}
+                {% endif %}
+
+
+                {# --- o "mais": o resto, um clique abaixo --- #}
+                {% set nf_ = notas_das_faixas.get((b.chave, indice_da_faixa_aqui, f.titulo)) if notas_das_faixas else none %}
+                <details class="faixa-mais">
+                  <summary>mais{% if nf_ %} · 📝 com nota{% endif %}</summary>
+                  {% if f.detalhe and not (f.tipo in DETALHE_ABERTO or no_plano_b) %}
+                    <details><summary>ver detalhe</summary><p class="detalhe">{{ f.detalhe }}</p></details>
+                  {% endif %}
+                  {% if de_questoes and (ficha or res) %}<p class="links">{{ ficha_e_resumo }}</p>{% endif %}
+                {# Onde a faixa esta na arvore (decisao 71): o assunto, o
+                   subassunto - ou que a arvore nao tem - e o elemento. Pela
+                   ficha (escrita por IA) ou pelos nos do plano; nenhum no e
+                   criado (escolha 5B). #}
+                {% if onde %}
+                  <div class="na-arvore">
+                    {% for a in onde.assuntos %}
+                      <p>{% if loop.first %}{{ selo(onde.origem, curto=True) }} {% endif %}Assunto: <b>{{ a.nome }}</b> · Subassunto: {% if a.subassuntos %}{{ a.subassuntos | join('; ') }}{% elif a.inteiro %}<span class="sub">o assunto inteiro</span>{% else %}<span class="sub">não há subassunto na árvore para este tema</span>{% endif %}{% if a.elementos %} · {{ a.elementos | join('; ') }}{% endif %}</p>
+                    {% endfor %}
+                    {% if onde.elemento %}<p>Elemento: {{ onde.elemento }}{% if onde.tipo_elemento %} <span class="sub">({{ onde.tipo_elemento }})</span>{% endif %}</p>{% endif %}
+                    {% if onde.sem_no %}<p class="sub">A ficha não aponta nó da árvore: o assunto é o que ela escreveu.</p>{% endif %}
+                  </div>
+                {% endif %}
+                {# Caiu ou nao caiu (R1): a mesma conta da ficha, prova a prova. #}
+                {% if caiu %}
+                  <p class="caiu-na-faixa">{{ selo('acervo', curto=True) }} {{ caiu.frase }}{% if not caiu.sem_contagem %} <span class="sub">({{ caiu.por_prova }})</span>{% endif %}
+                    {# As notas que a ficha mostra - pendentes, base de uma
+                       prova so - na propria faixa (P10). #}
+                    {% for n in caiu.notas %}<br><span class="sub">⚠ {{ n }}</span>{% endfor %}</p>
+                {% endif %}
+
+                  {% if lq %}<p class="filtro">No Qconcursos: {{ banca_do_alvo() }}, sem anuladas nem desatualizadas · {{ lq.nomes | join('; ') }}</p>{% endif %}
+                {# As questoes reais de outras bancas do tema (decisao 166):
+                   medem o meu acerto no no, com a origem ao lado, e nunca o
+                   que a FEPESE cobra. A conta e do servico; aqui so se desenha. #}
+                {# As questoes reais da FEPESE do tema, em toda materia (decisao
+                   167): o "Gerar questao real". A faixa de Portugues no
+                   Qconcursos tem o bloco dela, acima. O que a rodada que mede
+                   ainda vai usar fica guardado, e a faixa diz para quando. #}
+                {% if fp %}
+                  {% set indice_da_fepese = loop.index0 %}
+                  {% set para_quando = fp.dias_da_reserva | map('dia_mes') | join(' e ') %}
+                  <div class="composicao fepese-no-radar">
+                    {% if fp.disponiveis %}
+                      <p>{{ selo('prova', curto=True) }} <b>{{ fp.disponiveis }} {{ 'questão real' if fp.disponiveis == 1 else 'questões reais' }} da {{ banca_do_alvo() }}</b> deste tema no radar{% if fp.do_alvo %} ({{ fp.do_alvo }} das provas do cargo){% endif %}{% if fp.feitas %}; você já fez {{ fp.feitas }}{% endif %}.{% if fp.reservadas %} Outras {{ fp.reservadas }} ficam guardadas para a rodada que mede de {{ para_quando }}.{% endif %}</p>
+                      <form class="treinar-no-radar real" method="post" action="/fepese/treinar">
+                        {% for no in fp.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ indice_da_fepese }}">
+                        <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                        <label><input type="number" name="quantidade" min="1" max="30" value="{{ fp.sugeridas }}" aria-label="Quantas questões reais da {{ banca_do_alvo() }}"> questões</label>
+                        <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar questão real</button>
+                      </form>
+                    {% elif fp.reservadas %}
+                      <p class="sub">{{ selo('prova', curto=True) }} As {{ fp.reservadas }} {{ 'questão' if fp.reservadas == 1 else 'questões' }} da {{ banca_do_alvo() }} deste tema ficam guardadas para a rodada que mede de {{ para_quando }}: o treino não as usa.</p>
+                    {% else %}
+                      <p class="sub">{{ selo('prova', curto=True) }} O radar ainda não tem questão da {{ banca_do_alvo() }} classificada neste tema.</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if ob %}
+                  {% set indice_de_outras = loop.index0 %}
+                  <div class="composicao outras-bancas">
+                    {% if ob.no_acervo %}
+                      <p>{{ selo('prova', curto=True) }} <b>{{ ob.no_acervo }} {{ 'questão real' if ob.no_acervo == 1 else 'questões reais' }} de outras bancas</b> deste tema no radar ({{ ob.bancas | join(', ') }}){% if ob.feitas %}; você já fez {{ ob.feitas }}{% endif %}.</p>
+                      <form class="treinar-no-radar real" method="post" action="/outras-bancas/treinar">
+                        {% for no in ob.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ indice_de_outras }}">
+                        <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                        <label><input type="number" name="quantidade" min="1" max="30" value="{{ ob.sugeridas }}" aria-label="Quantas questões de outras bancas"> questões</label>
+                        <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar questões outras bancas</button>
+                      </form>
+                    {% else %}
+                      <p class="sub">{{ selo('prova', curto=True) }} Ainda não há questão de outra banca deste tema no radar.</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# As geradas da faixa (R6): primeiro as reais no Qconcursos, que
+                   medem; depois, se eu quiser, as geradas do radar, que so
+                   treinam. A contagem e o comando vem do servico; aqui so se
+                   desenha. Nada de --valendo nem do botao da API. #}
+                {% if gf %}
+                  <div class="composicao geradas-da-faixa">
+                    <p>Você estudou: <b>{{ gf.tema }}</b>; na árvore:
+                      {% if gf.sem_no %}<b>sem nó na árvore</b>{% else %}{% for n in gf.nos %}<b>{{ n.no }}</b>{% if not loop.last %}; {% endif %}{% endfor %}{% endif %}</p>
+                    <p><b>No Qconcursos</b> (também medem):
+                      {% if lq %}pelo botão “Abrir no Qconcursos” acima{% elif gf.filtro %}{{ gf.filtro }}{% else %}procure pelo nome do tema: “{{ gf.tema }}”{% endif %}</p>
+                    <p><b>Gerar treino</b> {{ selo('ia', curto=True) }}: as questões escritas pela IA só treinam; o acerto delas é um segundo número, nunca somado ao da faixa.</p>
+                    {# O sinal de que eu treino o tema (decisao 138): toda
+                       resposta a gerada dos nos dele, de qualquer dia. A conta
+                       e do metricas; nunca entra no acerto do tema. #}
+                    {% set ti = treino_ia_das_faixas.get((b.chave, loop.index0)) if treino_ia_das_faixas else none %}
+                    {# Pela 1a vez em cada gerada (decisao 152): a frase e do metricas. #}
+                    {% if ti and not ti.vazio %}
+                      <p class="sub">{{ selo('ia', curto=True) }} {{ ti.frase_da_faixa() }}.</p>
+                    {% endif %}
+                    {% if gf.sem_no %}
+                      <p class="sub">Não há como gerar questão deste tema: a árvore não tem nó para ele (pendência).</p>
+                    {% else %}
+                      {# O indice da faixa antes do for de dentro: la, `loop` e o dos nos. #}
+                      {% set indice_da_faixa = loop.index0 %}
+                      {% for n in gf.nos %}
+                        {% if n.geradas %}
+                          <form class="treinar-no-radar" method="post" action="/geradas/treinar">
+                            <input type="hidden" name="conteudo" value="{{ n.no }}">
+                            {# A rodada guarda a faixa: e assim que a faixa sabe
+                               avisar que estas ja contam no "Fiz hoje". #}
+                            <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                            <input type="hidden" name="bloco" value="{{ b.chave }}">
+                            <input type="hidden" name="indice" value="{{ indice_da_faixa }}">
+                            <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                            <input type="hidden" name="quantidade" value="{{ [n.geradas, gf.questoes, 30] | min }}">
+                            <span>{{ n.geradas }} {{ 'questão gerada' if n.geradas == 1 else 'questões geradas' }} deste assunto{% if gf.nos | length > 1 %} ({{ n.nome }}){% endif %}{% if n.feitas %}, você já fez {{ n.feitas }}{% endif %}</span>
+                            <label class="ds-campo nivel-do-treino"><select name="nivel" aria-label="Nível">{% for chave, rotulo in OPCOES_DE_NIVEL %}<option value="{{ chave }}">{{ rotulo }}</option>{% endfor %}</select></label>
+                            <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar treino</button>
+                          </form>
+                          {# O estoque que eu ja vi (decisao 142): o sorteio poe as
+                             nunca feitas na frente, e com metade ou todas feitas a
+                             faixa avisa e os 3 passos aparecem logo abaixo. #}
+                          {% if n.aviso %}<p class="estoque-de-geradas estoque-{{ n.aviso }}">{{ '🔁' if n.aviso == 'todas' else '⏳' }} {{ n.frase_do_aviso }}{% if gf.nos | length > 1 %} ({{ n.nome }}){% endif %}</p>{% endif %}
+                        {% else %}
+                          <p class="sub">Não há questão gerada deste assunto ainda{% if gf.nos | length > 1 %} ({{ n.nome }}){% endif %}.</p>
+                        {% endif %}
+                      {% endfor %}
+                      {# O geral: todos os nos da faixa misturados, sem eu saber
+                         de qual vem a proxima. So com 2 nos ou mais com gerada:
+                         com um so, seria o botao de cima. #}
+                      {% if gf.geral %}
+                        <form class="treinar-no-radar" method="post" action="/geradas/treinar">
+                          {% for no in gf.nos_com_geradas %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                          <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                          <input type="hidden" name="bloco" value="{{ b.chave }}">
+                          <input type="hidden" name="indice" value="{{ indice_da_faixa }}">
+                          <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                          <label>Geral, tudo misturado:
+                            <input type="number" name="quantidade" min="1" max="30" value="{{ gf.geral }}" aria-label="Quantas questões no treino geral"> questões</label>
+                          <label class="ds-campo nivel-do-treino"><select name="nivel" aria-label="Nível">{% for chave, rotulo in OPCOES_DE_NIVEL %}<option value="{{ chave }}">{{ rotulo }}</option>{% endfor %}</select></label>
+                          <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar treino geral</button>
+                        </form>
+                      {% endif %}
+                      {% if gf.precisa_gerar %}
+                        <ol class="passos-de-gerar">
+                          <li>No terminal:{% for n in gf.nos if n.comando %}<br><code>{{ n.comando }}</code>{% endfor %}</li>
+                          <li>No Claude Code do VS Code: <code>"{{ PASSO_NO_CLAUDE_CODE }}"</code></li>
+                          <li>No terminal: <code>{{ COMANDO_DE_IMPORTAR }}</code></li>
+                        </ol>
+                        <p class="regra">{{ TROQUE_O_NIVEL }}</p>
+                        <p class="regra">{{ AVISO_DO_PEDIDO }}{% if gf.nos | selectattr('comando') | list | length > 1 %} Aqui são vários nós: um pedido de cada vez, cada um com os 3 passos.{% endif %}</p>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {# Anotar o erro daqui mesmo, com a data, a materia e o
+                   assunto ja preenchidos, e voltando para esta faixa. So nas
+                   faixas em que eu respondo questao: e nelas que se erra. #}
+                {% if f.tipo in TIPOS_QUE_ANOTAM %}
+                  {# A volta e montada com "&" cru, e nao pelo link_do_dia: o
+                     macro escreve "&amp;" (certo no HTML), e essa volta vai
+                     ser codificada de novo pelo urlencode - o "&amp;" viraria
+                     um parametro chamado "amp;tema". #}
+                  {% set aqui = '/hoje?data=' ~ t.data.isoformat() ~ ('&cor=' ~ cor if cor else '') ~ '#faixa-' ~ b.chave ~ '-' ~ loop.index0 %}
+                  <p class="links">
+                    <a class="botao-anotar" href="{{ link_de_anotar_erro(t.data, f.materia, f.titulo, aqui, (nos_do_erro or {}).get((b.chave, loop.index0), []), t.plano) }}">
+                      <span aria-hidden="true">📓</span> Anotar erro</a>
+                  </p>
+                {% endif %}
+                {# O "como foi" (decisao 142): a nota, quantas chutei fora do
+                   radar e se entendi. Separado do check: escrevo antes ou
+                   depois de marcar, e desmarcar nao apaga. E o que o Ciclo 2
+                   le para saber o tema que o acerto sozinho esconde. #}
+                {% if not t.futuro %}
+                  {% set nf = notas_das_faixas.get((b.chave, loop.index0, f.titulo)) if notas_das_faixas else none %}
+                  <details class="nota-da-faixa{{ ' tem-nota' if nf }}">
+                    <summary>📝 Como foi{% if nf %}:
+                      {%- if nf.entendi_texto %} {{ nf.entendi_texto | lower }}{% endif %}
+                      {%- if nf.chutes is not none %}{{ ',' if nf.entendi_texto }} {{ nf.chutes }} no chute{% endif %}
+                      {%- if nf.motivos %}{{ ',' if nf.entendi_texto or nf.chutes is not none }} motivo de {{ nf.soma_dos_motivos }}{% if nf.erros_do_fiz is not none %} dos {{ nf.erros_do_fiz }}{% endif %} erros{% endif %}
+                      {%- if nf.nota %}{{ ',' if nf.entendi_texto or nf.chutes is not none or nf.motivos }} com nota{% endif %}
+                    {%- else %} <span class="sub">(anotar)</span>{% endif %}</summary>
+                    <form method="post" action="/hoje/faixa/nota{% if cor %}?cor={{ cor }}{% endif %}">
+                      <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                      <input type="hidden" name="bloco" value="{{ b.chave }}">
+                      <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                      <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                      {% if TEM_ACERTO(f) %}
+                        <label>quantas chutei {{ 'no Qconcursos' if f.onde == 'qconcursos' else 'fora do radar' }}
+                          <input type="number" name="chutes" min="0" inputmode="numeric" placeholder="—"
+                                 value="{{ nf.chutes if nf and nf.chutes is not none else '' }}"></label>
+                        {# Os erros de fora do radar por motivo (decisao 174), so em
+                           numeros: a soma nao passa dos erros do "fiz". #}
+                        <fieldset class="motivos-da-nota">
+                          <legend>Por que errei{% if nf and nf.erros_do_fiz is not none %} (dos {{ nf.erros_do_fiz }} erros do “fiz”){% endif %}</legend>
+                          {% for chave, nome in MOTIVOS_DO_ERRO.items() %}
+                            <label>{{ nome }}
+                              <input type="number" name="motivo_{{ chave }}" min="0" inputmode="numeric" placeholder="—"
+                                     value="{{ nf.motivos.get(chave, '') if nf else '' }}"></label>
+                          {% endfor %}
+                          {% if nf and nf.motivos %}
+                            <p class="sub">Dos {{ nf.erros_do_fiz if nf.erros_do_fiz is not none else nf.soma_dos_motivos }} erros: {{ nf.motivos_texto }}{% if nf.sem_motivo %} ({{ nf.sem_motivo }} sem motivo){% endif %}</p>
+                          {% endif %}
+                          {% if nf and nf.motivos_passam %}
+                            <p class="regra">⚠ Os motivos ({{ nf.soma_dos_motivos }}) passam dos {{ nf.teto_dos_motivos }} erros do “fiz”: corrija um dos dois. Até lá eles ficam fora da conta.</p>
+                          {% elif nf and nf.motivos and nf.teto_dos_motivos is none %}
+                            <p class="sub">A soma será conferida quando você anotar o “fiz”.</p>
+                          {% endif %}
+                        </fieldset>
+                      {% endif %}
+                      <fieldset class="entendi">
+                        <legend>Entendi o assunto?</legend>
+                        {% for chave, rotulo in ENTENDI.items() %}
+                          <label><input type="radio" name="entendi" value="{{ chave }}" {{ 'checked' if nf and nf.entendi == chave }}> {{ rotulo }}</label>
+                        {% endfor %}
+                      </fieldset>
+                      <label class="texto-da-nota">Como eu fui
+                        <textarea name="nota" maxlength="2000" rows="3"
+                                  placeholder="Ex.: chutei as de concordância com sujeito composto; ainda não entendi, mas o chute foi bom.">{{ nf.nota if nf else '' }}</textarea></label>
+                      <button class="ds-botao ds-botao--pequeno" type="submit">Salvar a nota</button>
+                      {% if nf %}<span class="sub">Para apagar, esvazie tudo e salve.</span>{% endif %}
+                    </form>
+                  </details>
+                {% endif %}
+                </details>
+                </details>
+              </div>
+              {# O circulo: so hoje ou dia passado - o futuro ainda nao foi feito.
+                 Toda faixa tem um (decisao 179). Na de questoes, ele marca
+                 "fiz" sem numero - ou, com resposta no radar, a feita no radar
+                 -, e o "fiz X, acertei Y" continua la dentro para o numero. #}
+              {% if not t.futuro and TEM_ACERTO(f) %}
+                <form class="marca-faixa" method="post" action="/hoje/faixa/questoes{% if cor %}?cor={{ cor }}{% endif %}">
+                  <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                  <input type="hidden" name="bloco" value="{{ b.chave }}">
+                  <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                  <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                  {% if feita %}<input type="hidden" name="desmarcar" value="1">{% endif %}
+                  <button class="circulo" type="submit"
+                          title="{{ 'Desmarcar' if feita else 'Marcar como feita (o número é opcional)' }}"
+                          aria-label="{{ 'Desmarcar' if feita else 'Marcar como feita' }}: {{ f.titulo }}"
+                          aria-pressed="{{ 'true' if feita else 'false' }}">✓</button>
+                </form>
+              {% elif not t.futuro %}
+                <form class="marca-faixa" method="post" action="/hoje/faixa{% if cor %}?cor={{ cor }}{% endif %}">
+                  <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                  <input type="hidden" name="bloco" value="{{ b.chave }}">
+                  <input type="hidden" name="indice" value="{{ loop.index0 }}">
+                  <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                  <button class="circulo" type="submit"
+                          title="{{ 'Desmarcar' if feita else 'Marcar como feita' }}"
+                          aria-label="{{ 'Desmarcar' if feita else 'Marcar como feita' }}: {{ f.titulo }}"
+                          aria-pressed="{{ 'true' if feita else 'false' }}">✓</button>
+                </form>
+              {% endif %}
+            {% endif %}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ol>
+      </details>
+    </section>
+  {% endfor %}
+
+  {# ============================ se o dia apertar ====================== #}
+  {% if not t.plano_b and (d.reduzida or d.minima) %}
+    <section class="ds-cartao bloco-dia">
+      <div class="ds-cartao__cabeca"><h2 class="ds-cartao__titulo">Se o dia apertar</h2></div>
+      <div class="apertar">
+        <div class="ds-bloco meta-reduzida" style="margin-top:0"><h3>🟦 Reduzida</h3><p>{{ d.reduzida or '—' }}</p></div>
+        <div class="ds-bloco meta-minima" style="margin-top:0"><h3>🟨 Mínima</h3><p>{{ d.minima or '—' }}</p></div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# ============================ como foi o dia ======================== #}
+  {% set r = t.registro %}
+  {% set s = t.sugestao %}
+  {# Os numeros sairam deste formulario na etapa E2: eles sao calculados, e
+     aparecem na linha "Fiz hoje" logo abaixo. O que eu escolho e a meta. #}
+  {% set valores = form or {
+      'meta': r.meta if r else ('minima' if t.plano_b else ''),
+      'anotacao': (r.anotacao or '') if r else '' } %}
+  {% set tt = t.totais %}
+  <section class="ds-cartao bloco-dia como-foi" id="como-foi">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">{% if r %}Editar o registro de {{ t.data.strftime('%d/%m') }}{% else %}Como foi o dia{% endif %}</h2>
+    </div>
+    <p class="ds-cartao__meta">O que eu anoto aqui é o diário do cronograma: não entra em nenhum acerto medido do radar.</p>
+
+    {# O total do dia vem do servico.metricas, a fonte unica: as faixas que eu
+       marquei, o estudo extra e o que eu respondi no radar. A linha mostra os
+       estados que somam o total, para ela fechar a conta na frente de quem le. #}
+    {% if tt and not tt.vazio %}
+      {# Decisao 138: as reais e o treino de IA em linhas proprias, e o
+         total por ultimo. O "Fiz hoje" de antes somava o treino na mesma
+         frase, e o treino parecia questao feita (06/10). #}
+      <p class="fiz-hoje"><b>{{ frase_das_reais(tt.reais) }}</b></p>
+      {% if tt.radar.medidas and tt.anotado.medidas %}
+        <p class="fiz-de-onde">
+          {{ selo(tt.origens.radar) }} medido no radar: {{ tt.radar.porcentagem }}% em {{ tt.radar.medidas }} ·
+          anotado: {{ tt.anotado.porcentagem }}% em {{ tt.anotado.medidas }}
+        </p>
+      {% endif %}
+      {% if tt.total.ia %}
+        {# Do tamanho do "Fiz hoje", e nao miudo: e o resultado do treino do
+           dia, so que num numero a parte. #}
+        <p class="fiz-hoje fiz-ia">{{ selo(tt.origens.treino_ia) }} {{ frase_da_ia(tt.total) }}.</p>
+      {% endif %}
+      <p class="fiz-de-onde">
+        Total do dia: {{ tt.total.questoes }} {{ 'questão' if tt.total.questoes == 1 else 'questões' }}
+        {%- if tt.minutos %} · {{ duracao(tt.minutos) }} de estudo
+          {%- if tt.faixas.minutos and tt.extra.minutos %}
+            ({{ duracao(tt.faixas.minutos) }} do plano + {{ duracao(tt.extra.minutos) }} extra)
+          {%- endif %}
+        {%- endif %}
+      </p>
+      {% if tt.total.erros %}
+        <p class="links">
+          <a class="botao-anotar" href="{{ link_de_anotar_erro(t.data, '', '', '/hoje?data=' ~ t.data.isoformat() ~ ('&cor=' ~ cor if cor else '') ~ '#como-foi') }}">
+            <span aria-hidden="true">📓</span> anotar os erros</a>
+        </p>
+      {% endif %}
+    {% endif %}
+
+    {# O fechamento do dia (decisao 189): onde mais errei e o que vem amanha.
+       A conta e do `servico.fechamento`, que so agrupa o que o metricas ja
+       contou; o radar e o anotado ficam em linhas proprias, nunca somados, e
+       os motivos por origem (decisao 174). #}
+    {% set fc = fechamento %}
+    {% if fc and (fc.errei or fc.motivos) %}
+      <div class="fecha-errei">
+        <h3 class="fecha-sub">Onde mais errei</h3>
+        {% if fc.errei %}
+          <ol class="errei">
+            {% for e in fc.errei %}
+              <li>{{ e.nome }} <span class="errei-n">{{ e.erros }} {{ 'erro' if e.erros == 1 else 'erros' }}</span>
+                <span class="ds-suave">· {{ 'no radar' if e.origem == 'radar' else 'anotado' }}</span></li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+        {% for m in fc.motivos %}
+          <p class="motivos-linha"><span class="ds-suave">{{ m.origem }}:</span>
+            {% for rotulo, n in m.motivos %}<span class="chip">{{ rotulo }} {{ n }}</span> {% endfor %}
+            {%- if m.sem_motivo %}<span class="chip motivo-sem">sem motivo {{ m.sem_motivo }}</span>{% endif %}</p>
+        {% endfor %}
+        {% if fc.para_refazer %}
+          <form method="post" action="/hoje/refazer-erros" class="refazer-erros">
+            <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+            <button class="ds-botao ds-botao--pequeno" type="submit">↻ Refazer {{ 'o erro' if fc.para_refazer == 1 else 'os ' ~ fc.para_refazer ~ ' erros' }} {{ 'de hoje' if t.e_hoje else 'do dia' }} no radar</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% if fc and fc.amanha %}
+      {% set a = fc.amanha %}
+      <div class="fecha-amanha">
+        <p class="amanha-topo"><b>{{ a.titulo }}</b>
+          <span class="ds-suave">{{ a.questoes }} questões{% if a.inicio %} · começa {{ hm(a.inicio) }}{% endif %}</span></p>
+        <ul>
+          {% if a.novos %}<li>📘 {{ 'Tema novo' if a.novos|length == 1 else 'Temas novos' }}: {% for n in a.novos %}<b>{{ n }}</b>{{ ' · ' if not loop.last }}{% endfor %}</li>{% endif %}
+          {% if a.revisoes %}<li>🔁 {{ a.revisoes|length }} {{ 'revisão' if a.revisoes|length == 1 else 'revisões' }}: {{ a.revisoes|join(' · ') }}</li>{% endif %}
+          {% if a.medem %}<li>📝 {{ a.medem|join(' · ') }}</li>{% endif %}
+          {% if a.continua %}<li class="amanha-aviso">⚠️ <b>{{ a.continua[0] }}</b> foi onde você mais errou {{ 'hoje' if t.e_hoje else 'neste dia' }}; {{ 'amanhã' if a.titulo.startswith('Amanhã') else 'no próximo dia' }} tem <b>{{ a.continua[1] }}</b>, do mesmo assunto.</li>{% endif %}
+        </ul>
+        <a class="ds-link-acao" href="/hoje?data={{ a.data.isoformat() }}">ver o dia &rarr;</a>
+      </div>
+    {% endif %}
+
+    {% if erro %}<p class="erro" role="alert">{{ erro }}</p>{% endif %}
+
+    {% if t.futuro %}
+      <p class="ds-nota">Só dá para marcar hoje ou um dia que já passou.</p>
+    {% endif %}
+
+    <form method="post" action="/hoje/registrar{% if cor %}?cor={{ cor }}{% endif %}">
+      <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+      <fieldset {% if t.futuro %}disabled class="bloqueado"{% endif %} style="border:0;padding:0;margin:0">
+        {% if s and s.meta %}
+          <p class="sugestao">Sugestão: {{ META_LEGIVEL[s.meta] }} ({{ s.feitas }} de {{ s.total }} faixas)</p>
+        {% endif %}
+        <fieldset class="metas">
+          <legend>Qual meta eu cumpri?</legend>
+          {% for valor, emoji, rotulo, explica in OPCOES_DE_META %}
+            <label class="opcao {{ valor }} {{ 'sugerida' if s and s.meta == valor }}">
+              <input type="radio" name="meta" value="{{ valor }}" {% if valores.meta == valor %}checked{% endif %}>
+              <span><span class="emoji" aria-hidden="true">{{ emoji }}</span>{{ rotulo }}<small>{{ explica }}</small></span>
+            </label>
+          {% endfor %}
+        </fieldset>
+        <label class="ds-campo" style="margin-bottom:var(--esp-3)">Anotação (opcional)
+          <textarea name="anotacao" maxlength="2000">{{ valores.anotacao }}</textarea>
+        </label>
+        <button class="ds-botao salvar" type="submit">Salvar</button>
+        {% if r %}<span class="ds-pequeno ds-suave">&nbsp; anotado em {{ r.anotado_em | data }}</span>{% endif %}
+      </fieldset>
+    </form>
+
+  </section>
+
+  {# ============================ estudo extra ========================== #}
+  <section class="ds-cartao bloco-dia extras" id="extras">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">➕ Estudo extra</h2>
+    </div>
+    <p class="ds-cartao__meta">
+      O que eu estudei fora das faixas do plano. Conta no volume e no acerto do
+      dia; <b>não muda a meta</b> — fazer mais do que o plano pedia não
+      transforma um dia reduzido em ideal.
+    </p>
+
+    {% if erro_do_extra %}<p class="erro" role="alert">{{ erro_do_extra }}</p>{% endif %}
+
+    {% if t.extras %}
+      <ul class="lista-extras">
+        {% for e in t.extras %}
+          <li>
+            <div class="topo-extra">
+              <b>{{ O_QUE_DO_EXTRA.get(e.o_que, e.o_que) }}</b>
+              {% if e.materia %}<span class="ds-suave">{{ e.materia }}</span>{% endif %}
+              {% if e.assunto %}<span class="ds-suave">{{ e.assunto }}</span>{% endif %}
+              <span class="chip">{{ duracao(e.minutos) }}</span>
+              {% if e.questoes %}
+                <span class="chip">{{ e.acertos if e.acertos is not none else '—' }} de {{ e.questoes }}</span>
+              {% endif %}
+              {% if e.consulta %}<span class="chip">com consulta</span>{% endif %}
+              <span class="chip">{{ ONDE_DO_EXTRA.get(e.onde, e.onde) }}</span>
+            </div>
+            {% if e.anotacao %}<p class="ds-pequeno">{{ e.anotacao }}</p>{% endif %}
+            {% if not t.futuro %}
+              <details class="editar-extra">
+                <summary>editar</summary>
+                {{ formulario_do_extra(e) }}
+              </details>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if not t.futuro %}
+      <details class="novo-extra" {% if erro_do_extra %}open{% endif %}>
+        <summary class="ds-botao ds-botao--secundario">➕ Estudo extra</summary>
+        {{ formulario_do_extra(none) }}
+      </details>
+    {% endif %}
+  </section>
+  {% endif %}
+
+  </main>
+</div>
+
+{# As janelas do resumo (R2): fora dos blocos que dobram, escondidas ate o
+   link do botao apontar para elas. So HTML e CSS. #}
+{% if resumos %}{{ resumo_ui.janelas(resumos) }}{% endif %}
+
+{# O aviso de fim de faixa. Escondido; so o cronometro.js mostra. #}
+<div class="aviso-cheio" id="aviso-cheio" hidden role="alertdialog" aria-modal="true" aria-labelledby="aviso-titulo">
+  <div class="aviso-caixa">
+    <p class="aviso-titulo" id="aviso-titulo" data-aviso="titulo"></p>
+    <p class="aviso-texto" data-aviso="texto"></p>
+    <p class="aviso-depois" data-aviso="depois"></p>
+    <button type="button" class="ds-botao aviso-ok" data-aviso="ok">OK</button>
+  </div>
+</div>
+
+{# Os dois JavaScript do radar, os dois so na tela Hoje e os dois dispensaveis
+   (docs/decisoes.md): o cronometro, que avisa a hora da pausa, e a dobra, que
+   lembra quais blocos eu deixei recolhidos. A tela funciona sem os dois. #}
+<script src="/estatico/cronometro.js" defer></script>
+<script src="/estatico/dobra.js" defer></script>
+</body>
+</html>

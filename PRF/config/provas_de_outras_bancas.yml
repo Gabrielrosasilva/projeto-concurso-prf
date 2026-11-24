@@ -1,0 +1,881 @@
+# As provas de OUTRAS BANCAS que entram no acervo (decisao 168).
+# Lido por src/radar/servico/provas.py: `radar provas --outras-bancas` baixa
+# cada caderno (e o gabarito, quando e um PDF a parte) pelo Buscador, que
+# respeita o robots.txt e espera entre um pedido e outro; depois
+# `radar questoes --banca <banca>` le os cadernos com o leitor da banca.
+#
+# POR QUE UMA LISTA, E NAO UM RASPADOR
+#
+# Cada banca publica de um jeito, e o levantamento de 17/10
+# (docs/levantamento_de_bancas.md) conferiu caderno por caderno: o robots.txt,
+# os termos e a leitura. Uma lista diz exatamente o que entra, e o link de
+# cada um - o radar guarda sempre o link original, nunca uma copia de site.
+#
+# SO ENTRA BANCA CUJO LEITOR EXISTE (`radar/questoes_<banca>.py`, ou o
+# `radar/questoes_por_rodada.py` da FGV, da Access, da Idecan e da Selecon
+# nova). Prova que o robo nao pode baixar entra pela secao BAIXADAS A MAO, no
+# fim (decisao 172).
+#
+# Campos: banca, ano (o da prova), orgao, uf, cargo, pagina (onde a banca
+# lista o concurso; sem ela, o proprio link do caderno), caderno (o PDF) e,
+# quando o gabarito e um PDF a parte, gabarito.
+
+provas:
+# NC-UFPR: o caderno "definitivo" traz a resposta certa marcada (►) e a
+# anulada com asterisco - o gabarito vem dentro. As tres versoes (A, B, C) da
+# Policia Civil sao a mesma prova em outra ordem: entra uma so.
+- banca: NC-UFPR
+  ano: 2021
+  orgao: Polícia Civil do Paraná
+  uf: PR
+  cargo: Delegado de Polícia
+  pagina: https://servicos.nc.ufpr.br/PortalNC/Concurso?concurso=PCPR2020
+  caderno: https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/301A.pdf
+- banca: NC-UFPR
+  ano: 2021
+  orgao: Polícia Civil do Paraná
+  uf: PR
+  cargo: Investigador de Polícia / Papiloscopista
+  pagina: https://servicos.nc.ufpr.br/PortalNC/Concurso?concurso=PCPR2020
+  caderno: https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/304A.pdf
+- banca: NC-UFPR
+  ano: 2022
+  orgao: Prefeitura Municipal de Colombo
+  uf: PR
+  cargo: Guarda Municipal
+  caderno: https://servicos.nc.ufpr.br/documentos/pmcol2022/provas/definitivo/305.pdf
+- banca: NC-UFPR
+  ano: 2023
+  orgao: Prefeitura Municipal de Almirante Tamandaré
+  uf: PR
+  cargo: Guarda Municipal
+  caderno: https://servicos.nc.ufpr.br/documentos/pmat2023/provas/definitivo/208.pdf
+- banca: NC-UFPR
+  ano: 2024
+  orgao: Prefeitura Municipal de Campo Magro
+  uf: PR
+  cargo: Guarda Municipal
+  caderno: https://servicos.nc.ufpr.br/documentos/pmcm2024/provas/definitivo/105.pdf
+
+# Selecon: o gabarito e um PDF a parte, e as colunas embaralham a ordem das
+# questoes. A materia sai da faixa da capa, copiada aqui em `materias`; o
+# bloco "Nocoes de Direito Constitucional e Penal" (21 a 30) foi dividido
+# lendo as questoes (21 a 25 sao de Constitucional, 26 a 30 de Penal). E a
+# capa poe LEP dentro de "Direitos Humanos" (37 a 40: os conselhos da LEP) e
+# de "Legislacao Especial" (44, 54 e 55: direitos, trabalho e egresso), que no
+# meu edital e materia propria: lido questao a questao em 17/10.
+- banca: Selecon
+  ano: 2022
+  orgao: Secretaria de Estado de Justiça e Segurança Pública de Minas Gerais (SEJUSP)
+  uf: MG
+  cargo: Agente de Segurança Penitenciário / Policial Penal
+  pagina: https://selecon.org.br/concursos/sejuspmg/
+  caderno: https://selecon.org.br/wp-content/uploads/2022/01/Prova-A-AGENTE-DE-SEGURANCA-PENITENCIARIO_-POLICIAL-PENAL.pdf
+  gabarito: https://selecon.org.br/wp-content/uploads/2022/01/GABARITO-OFICIAL-PROVA-A.pdf
+  materias:
+    1-10: Língua Portuguesa
+    11-15: Raciocínio Lógico
+    16-20: Informática
+    21-25: Direito Constitucional
+    26-30: Direito Penal
+    31-36: Direitos Humanos
+    37-40: Lei de Execução Penal
+    41-43: Legislação Especial
+    44-44: Lei de Execução Penal
+    45-53: Legislação Especial
+    54-55: Lei de Execução Penal
+    56-60: Legislação Especial
+
+# Cebraspe (decisao 169): o caderno autoriza "a reproducao deste material
+# apenas para fins didaticos, desde que citada a fonte" - a fonte e o link de
+# cada um, guardado no manifesto. O caderno nao diz a materia: `ler` diz so
+# QUAIS questoes sao de lei (contadas lendo o comeco de cada enunciado, no
+# levantamento de 17/10), e a classificacao escolhe a materia de cada uma
+# (`radar classificar --pedido --evidencia fora --genericos`). Certo/Errado
+# fica de fora: so treinaria, e ainda nao tem o acerto a parte.
+- banca: Cebraspe
+  ano: 2022
+  orgao: Secretaria Executiva de Ressocialização de Pernambuco (SERES/PE)
+  uf: PE
+  cargo: Policial Penal
+  pagina: https://www.cebraspe.org.br/concursos/SERES_PE_21
+  caderno: https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+  # PMSC (24/10): entram tambem 1-8 Portugues; 16-17 Informatica; antes, ["21-60"].
+  ler: ["1-8", "16-17", "21-60"]
+  # O gabarito definitivo publicado e do tipo 01, e este caderno e outra
+  # versao: em 42 das 60 a letra diverge. A resposta sai da justificativa
+  # (a alternativa CERTO), com as anuladas do documento de alteracoes.
+  resposta: justificativas
+  anuladas: [18, 19, 41]
+- banca: Cebraspe
+  ano: 2022
+  orgao: Polícia Civil do Rio de Janeiro
+  uf: RJ
+  cargo: Delegado de Polícia
+  pagina: https://www.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO
+  caderno: https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/GAB_DEFINITIVO_662_PCRJ_001_01.PDF
+  ler: ["1-80"]
+- banca: Cebraspe
+  ano: 2022
+  orgao: Polícia Militar de Rondônia
+  uf: RO
+  cargo: Oficial Combatente
+  pagina: https://www.cebraspe.org.br/concursos/PM_RO_22
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/GAB_DEFINITIVO_731_SESDEC_PM_RO_001_01.PDF
+  # PMSC (24/10): entram tambem 61-69 e 71-76 Penal Militar (70 e 77-85 sao do CPPM); antes, ["1-60"].
+  ler: ["1-69", "71-76"]
+# A Policia Civil da Paraiba 2022 fica SEM GABARITO de proposito: o
+# definitivo (GAB_DEFINITIVO_629_PC_PB_003_01_VF.PDF) nao confere com o
+# caderno publicado, mesmo com o mesmo codigo - a 24, 38, 40, 41, 50, 51, 60,
+# 61 e 63 dao letra errada pela lei e pela Informatica, e as 21 a 23 batem. O
+# caderno deve ser de outra versao, embaralhada; sem a justificativa, nao ha
+# como saber a certa. Sem gabarito, a questao fica sem resposta, e o treino
+# de outras bancas so usa questao com gabarito: nao treina nem mede.
+# Conferido pela imagem dos dois PDFs em 17/10.
+- banca: Cebraspe
+  ano: 2022
+  orgao: Polícia Civil da Paraíba
+  uf: PB
+  cargo: Agente de Investigação
+  pagina: https://www.cebraspe.org.br/concursos/PC_PB_21
+  caderno: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+  ler: ["21-56"]
+- banca: Cebraspe
+  ano: 2022
+  orgao: Corpo de Bombeiros Militar de Rondônia
+  uf: RO
+  cargo: Oficial Combatente
+  pagina: https://www.cebraspe.org.br/concursos/CBM_RO_22
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/GAB_DEFINITIVO_734_CBM_RO_OFICIAL_001_01.PDF
+  # PMSC (24/10): entram tambem 1-15 Penal Militar; 86-90 Portugues; antes, ["26-35", "41-55", "65-74"].
+  ler: ["1-15", "26-35", "41-55", "65-74", "86-90"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Polícia Militar de Santa Catarina
+  uf: SC
+  cargo: Oficial
+  pagina: https://www.cebraspe.org.br/concursos/PM_SC_23_OFICIAL
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/GAB_DEFINITIVO_860_PMSC_OFICIAL_OBJ_001_01.PDF
+  # PMSC (24/10): entram tambem 29-35 Penal Militar; 49-50 Estatuto da PMSC; 56-63 Portugues; 76-80 Informatica; antes, ["1-28"].
+  ler: ["1-35", "49-50", "56-63", "76-80"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Polícia Militar do Pará
+  uf: PA
+  cargo: Praça (CFP)
+  pagina: https://www.cebraspe.org.br/concursos/PM_PA_23_CFP
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFP/arquivos/916_PMPA_CFP_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFP/arquivos/GAB_DEFINITIVO_916_PMPA_CFP_001_01.PDF
+  # PMSC (24/10): entram tambem 38-42 e 44 Penal Militar; antes, ["21-37", "48-52", "56-60"].
+  ler: ["21-42", "44", "48-52", "56-60"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Polícia Militar do Pará
+  uf: PA
+  cargo: Oficial (CFO)
+  pagina: https://www.cebraspe.org.br/concursos/PM_PA_23_CFO
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/915_PMPA_CFO_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/GAB_DEFINITIVO_915_PMPA_CFO_001_01.PDF
+  # PMSC (24/10): entram tambem 44-47 e 49 Penal Militar; antes, ["24-43", "56-60"].
+  ler: ["24-47", "49", "56-60"]
+- banca: Cebraspe
+  ano: 2024
+  orgao: Polícia Civil de Pernambuco
+  uf: PE
+  cargo: Agente de Polícia
+  pagina: https://www.cebraspe.org.br/concursos/PC_PE_23
+  caderno: https://cdn.cebraspe.org.br/concursos/PC_PE_23/arquivos/MATRIZ_954PC_PECB1_00_COM_JUSTIFICATIVA.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PC_PE_23/arquivos/GAB_DEFINITIVO_MATRIZ_954PC_PECB1_00.PDF
+  ler: ["1-20"]
+- banca: Cebraspe
+  ano: 2022
+  orgao: Polícia Técnico-Científica de Rondônia (POLITEC)
+  uf: RO
+  cargo: Agente de Criminalística
+  pagina: https://www.cebraspe.org.br/concursos/POLITEC_RO_22
+  caderno: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/698_POLITEC_AGENTE_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/GAB_DEFINITIVO_698_POLITEC_AGENTE_001_01.PDF
+  # PMSC (24/10): entram tambem 1-9 Portugues; antes, ["10-20"].
+  ler: ["1-20"]
+- banca: Cebraspe
+  ano: 2021
+  orgao: Polícia Militar do Tocantins
+  uf: TO
+  cargo: Aluno-Soldado (QPPM)
+  pagina: https://www.cebraspe.org.br/concursos/PM_TO_20_QPPM
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_TO_20_QPPM/arquivos/MATRIZ_573PMTO001.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_TO_20_QPPM/arquivos/GAB_DEFINITIVO_MATRIZ_573PMTO001.PDF
+  # PMSC (24/10): entram tambem 1-20 Portugues; 31-35 Informatica; antes, ["36-45"].
+  ler: ["1-20", "31-45"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Prefeitura de São Cristóvão (SE)
+  uf: SE
+  cargo: Guarda Municipal
+  pagina: https://www.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23
+  caderno: https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/823_PREF_SAO_CRISTOVAO_007_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/GAB_DEFINITIVO_823_PREF_SAO_CRISTOVAO_007_01.PDF
+  alternativas: 4
+  # PMSC (24/10): entram tambem 53-62, 93 e 95-97 Transito (94 e 98 sao placa em figura); antes, ["31-42", "50-52", "75-92", "100"].
+  ler: ["31-42", "50-62", "75-93", "95-97", "100"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Corpo de Bombeiros Militar do Pará
+  uf: PA
+  cargo: Praça (CFP)
+  pagina: https://www.cebraspe.org.br/concursos/CBM_PA_23_CFP
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFP/arquivos/928_CBM_PA_CFP_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFP/arquivos/GAB_DEFINITIVO_928_CBM_PA_CFP_001_01.PDF
+  # PMSC (24/10): entram tambem 1-10 Portugues; 58-59 Penal Militar; antes, ["51-57", "60"].
+  ler: ["1-10", "51-60"]
+- banca: Cebraspe
+  ano: 2023
+  orgao: Corpo de Bombeiros Militar do Pará
+  uf: PA
+  cargo: Oficial (CFO)
+  pagina: https://www.cebraspe.org.br/concursos/CBM_PA_23_CFO
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/927_CBM_PA_CFO_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/GAB_DEFINITIVO_927_CBM_PA_CFO_001_01.PDF
+  # PMSC (24/10): entram tambem 1-10 Portugues; 55-58 Penal Militar; antes, ["47-54"].
+  ler: ["1-10", "47-58"]
+
+# --- BAIXADAS A MAO (decisao 172) --------------------------------------------
+# O robo nao pode baixar estas (os termos ou o robots.txt proibem); voce baixa
+# no navegador e salva em data/provas/manual/. A entrada diz o link ORIGINAL
+# (`caderno`, `gabarito`: e o que o radar guarda e mostra) e o nome do arquivo
+# que voce salvou (`arquivo`, `arquivo_do_gabarito`). `radar provas
+# --outras-bancas` so registra o arquivo no manifesto.
+#
+# `versao` e a do caderno baixado: o PDF pode trazer mais de uma (o "PROVA A"
+# da PM de Sergipe tem a Prova A e a Prova B), e a letra certa de uma versao
+# nao e a da outra - nem a anulada. O radar le so as paginas e o bloco do
+# gabarito dessa versao, e recusa o caderno quando nao as acha.
+# `cargo_no_pdf`: o texto do cargo, quando o PDF junta varios (a SENAPPEN).
+# Cada versao foi conferida na capa e no gabarito em 18/10, e a leitura,
+# questao a questao.
+- banca: FGV
+  ano: 2024
+  orgao: Secretaria de Administração Penitenciária e Ressocialização da Bahia
+  uf: BA
+  cargo: Agente Penitenciário
+  pagina: https://conhecimento.fgv.br/concursos/seapba24
+  caderno: https://conhecimento.fgv.br/sites/default/files/concursos/agente-penitenciariocnm-tipo-1.pdf
+  gabarito: https://conhecimento.fgv.br/sites/default/files/concursos/gabarito_definitivo_seapba.pdf
+  arquivo: agente-penitenciariocnm-tipo-1.pdf
+  arquivo_do_gabarito: gabarito_definitivo_seapba.pdf
+  versao: TIPO 1
+  # 21-25 sao do servidor da Bahia; 26-30, igualdade racial e de genero.
+  # PMSC (24/10): entram tambem 1-10 Portugues; 16-20 Informatica; antes, ["26-80"].
+  ler: ["1-10", "16-80"]
+- banca: Selecon
+  ano: 2024
+  orgao: Secretaria Nacional de Políticas Penais (SENAPPEN)
+  uf: BR
+  cargo: Analista Técnico em Direito
+  pagina: https://selecon.selecao.net.br/informacoes/48/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/746/concursos/48/anexos/6c8efa54-7d4d-41dc-9d74-619aa9d9af96.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/746/concursos/48/anexos/cbf9347c-5afc-40cc-858a-a6ca924867fd.pdf
+  arquivo: ANALISTA TÉCNICO EM DIREITO PROVA A SENAPPEN.pdf
+  arquivo_do_gabarito: ANALISTA TÉCNICO EM DIREITO  SENAPPEN.pdf
+  versao: PROVA A
+  # O PDF junta os cadernos dos 8 cargos; o gabarito tambem.
+  cargo_no_pdf: ANALISTA TÉCNICO EM DIREITO
+  alternativas: 4
+  # PMSC (24/10): entram tambem 1-8 Portugues (9-12, Redacao Oficial, a PMSC nao cobra); antes, ["18-60"].
+  ler: ["1-8", "18-60"]
+- banca: Selecon
+  ano: 2024
+  orgao: Polícia Militar de Sergipe
+  uf: SE
+  cargo: Soldado
+  pagina: https://selecon.selecao.net.br/informacoes/45/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/746/concursos/45/anexos/ff262f5e-57ae-4cb1-87be-eddd2a849d4e.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/746/concursos/45/anexos/f72fba78-1647-47d3-9fb9-bca3675bb043.pdf
+  arquivo: GOVERNO DO ESTADO DE SERGIPE PROVA A.pdf
+  arquivo_do_gabarito: GABARITO GOVERNO DO ESTADO DE SERGIPE .pdf
+  versao: PROVA A
+  alternativas: 4
+  # PMSC (24/10): entram tambem 1-10 Portugues; 21-28 Informatica; antes, ["36-45"].
+  ler: ["1-10", "21-28", "36-45"]
+- banca: Selecon
+  ano: 2024
+  orgao: Polícia Militar de Sergipe
+  uf: SE
+  cargo: Oficial Combatente
+  pagina: https://selecon.selecao.net.br/informacoes/46/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/746/concursos/46/anexos/c8b6ad5b-995d-4345-a363-649b86083925.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/746/concursos/46/anexos/85b57b74-5899-421b-901e-6af4b86b2bc6.pdf
+  arquivo: GOVERNO DO ESTADO DE SERGIPE  PM OFICIAL PROVA A.pdf
+  arquivo_do_gabarito: gabarito_GOVERNO DO ESTADO DE SERGIPE  PM OFICIAL PROVA A.pdf
+  versao: PROVA A
+  alternativas: 4
+  # 8-14 e 22-28 sao de Direito Penal e Processual Penal MILITAR; 48-60, de
+  # Sergipe e da PM.
+  # PMSC (24/10): entram tambem 8-14 Penal Militar; antes, ["1-7", "15-21", "29-47"].
+  ler: ["1-21", "29-47"]
+- banca: Selecon
+  ano: 2024
+  orgao: Prefeitura de Niterói (RJ)
+  uf: RJ
+  cargo: Guarda Civil Municipal
+  pagina: https://selecon.selecao.net.br/informacoes/52/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/746/concursos/52/anexos/6d53f62a-c546-49df-8d27-eb21ad6e868d.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/746/concursos/52/anexos/857ba46a-5826-4de5-a42b-b1d0f498d065.pdf
+  arquivo: GUARDA CIVIL MUNICIPAL DO MUNICÍPIO DE NITERÓI - RJ.pdf
+  arquivo_do_gabarito: gabarito_GUARDA CIVIL MUNICIPAL DO MUNICÍPIO DE NITERÓI - RJ.pdf
+  versao: PROVA A
+  # 35-39 sao de transito; 46-50, de Niteroi.
+  # PMSC (24/10): entram tambem 35-39 Transito; 51-80 Portugues; 81-90 Informatica; antes, ["1-34", "40-45"].
+  ler: ["1-45", "51-90"]
+- banca: Access
+  ano: 2023
+  orgao: Prefeitura de Ribeirão Preto (SP)
+  uf: SP
+  cargo: Guarda Civil Metropolitano
+  pagina: https://concursos.access.org.br/informacoes/69/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/422/concursos/69/anexos/IR7IsjDF6zVygTOUti3I1mgK5KXBdmPXZG2TkIFA.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/422/concursos/69/anexos/zGdTULPdlwjBwJ67pFWVafD6lC8e0vmogOrZNxvK.pdf
+  arquivo: GUARDA CIVIL metropolitano.pdf
+  arquivo_do_gabarito: gabarito_GUARDA CIVIL metropolitano.pdf
+  versao: TIPO 1
+  # PMSC (24/10): entram tambem 1-15 Portugues; 41-43 Transito; antes, ["21-40"].
+  ler: ["1-15", "21-43"]
+- banca: Access
+  ano: 2024
+  orgao: Prefeitura de Cariacica (ES)
+  uf: ES
+  cargo: Guarda Municipal
+  pagina: https://concursos.access.org.br/informacoes/86/
+  caderno: https://anexos.cdn.selecao.net.br/uploads/422/concursos/86/anexos/VU4tyBV8101pc0EVKa1UGC33pI9MA9Z7ohHfCktQ.pdf
+  gabarito: https://anexos.cdn.selecao.net.br/uploads/422/concursos/86/anexos/IfhwYzMDPqEfArdtB3PrdWiQ6k8pPuuSvdXXhEcC.pdf
+  arquivo: GUARDA MUNICIPAL CARIACICA.pdf
+  arquivo_do_gabarito: GABRITO_GUARDA MUNICIPAL CARIACICA.pdf
+  versao: TIPO 1
+  alternativas: 4
+  # PMSC (24/10): entram tambem 1-10 Portugues; 16-19 Informatica; 21-25 e 28-30 Transito; antes, ["41-70"].
+  ler: ["1-10", "16-19", "21-25", "28-30", "41-70"]
+# Segundo lote (18/10, adendo da decisao 172). As duas da Idecan voce baixou
+# de espelhos (o Qconcursos e um blog), e o PDF e o da propria banca ("fornecido
+# pelo IDECAN"): o `caderno` e de onde veio, a `pagina` e a da banca, e o robo
+# nunca vai a nenhum dos dois. Sem o link do gabarito, ele fica com o do
+# caderno e "#gabarito" (`servico.provas.url_do_gabarito`).
+- banca: Idecan
+  ano: 2026
+  orgao: Polícia Civil de Santa Catarina
+  uf: SC
+  cargo: Escrivão de Polícia Civil
+  pagina: https://www.idecan.org.br
+  caderno: https://arquivos.qconcursos.com/prova/arquivo_prova/148512/idecan-2026-pc-sc-escrivao-de-policia-civil-prova.pdf
+  arquivo: idecan-2026-pc-sc-escrivao-de-policia-civil-prova.pdf
+  arquivo_do_gabarito: GABARIITO_idecan-2026-pc-sc-escrivao-de-policia-civil-prova.pdf
+  versao: TIPO A
+  # 39-56 e 59-63 sao de Informatica e Contabilidade; 64-100, Administracao,
+  # Portugues e Raciocinio. A 57 e a 58 sao de crime digital e Marco Civil.
+  # PMSC (24/10): entram tambem 39-56 Informatica; 69-88 Portugues; antes, ["1-38", "57-58"].
+  ler: ["1-58", "69-88"]
+- banca: Idecan
+  ano: 2026
+  orgao: Polícia Civil de Santa Catarina
+  uf: SC
+  cargo: Agente de Polícia Civil
+  pagina: https://www.idecan.org.br
+  caderno: https://dsoconcursos.com.br/wp-content/uploads/2026/03/prova-agente.pdf
+  arquivo: prova-agente.pdf
+  arquivo_do_gabarito: gabarito_prova-agente.pdf
+  versao: TIPO A
+  # PMSC (24/10): entram tambem 40-57 Informatica; 66-85 Portugues; antes, ["1-39", "58-59"].
+  ler: ["1-59", "66-85"]
+# As duas da FGV: o `caderno` e a pagina do concurso, onde o PDF esta - o link
+# direto deste caderno nao veio.
+- banca: FGV
+  ano: 2024
+  orgao: Polícia Civil de Santa Catarina
+  uf: SC
+  cargo: Delegado de Polícia Substituto
+  pagina: https://conhecimento.fgv.br/concursos/pcsc23
+  caderno: https://conhecimento.fgv.br/concursos/pcsc23
+  arquivo: delegado-objetivacns100-tipo-1.pdf
+  arquivo_do_gabarito: pcscdelegado2024_gabarito_definitivo_20240220.pdf
+  versao: TIPO 1
+  # 1-10 Portugues; 76-80 Civil; 86-100 Criminologia, Medicina Legal e
+  # Tecnologia.
+  # PMSC (24/10): entram tambem 1-10 Portugues; antes, ["11-75", "81-85"].
+  ler: ["1-75", "81-85"]
+- banca: FGV
+  ano: 2021
+  orgao: Polícia Civil do Rio Grande do Norte
+  uf: RN
+  cargo: Agente e Escrivão de Polícia Civil Substituto
+  pagina: https://conhecimento.fgv.br/concursos/pcrn20
+  caderno: https://conhecimento.fgv.br/concursos/pcrn20
+  arquivo: AGENTE E ESCRIVÃO DE POLÍCIA - TIPO 1.pdf
+  arquivo_do_gabarito: pcrn_gabarito_definitivo.pdf
+  versao: TIPO 1
+  # O caderno e um so para os dois cargos (o Tipo 1 do Agente e o do Escrivao
+  # sao iguais no gabarito); o gabarito tambem tem o do Delegado, outra prova.
+  cargo_no_gabarito: Agente de Polícia Civil Substituto
+  # 1-60 Portugues, Raciocinio, Informatica, Administracao e Contabilidade;
+  # 96-100 Medicina Legal.
+  # PMSC (24/10): entram tambem 1-20 Portugues; 31-40 Informatica; antes, ["61-95"].
+  ler: ["1-20", "31-40", "61-95"]
+# --- Instituto AOCP, a banca da PMSC (Etapa 3 da PMSC, decisao PMSC-6) ------
+# Banca do alvo e outro cargo: evidencia COMPLEMENTAR (servico/evidencia.py),
+# aceita no data/acervo_complementar.json, e nunca "alvo" - nao existe prova da
+# PMSC pela AOCP. O caderno traz "Tipo 01" no cabecalho (o da PM-ES e o da
+# PM-GO juntam os 4 tipos) e o gabarito pos-recursos tem um bloco por cargo e
+# tipo, "CARGO - PROVA 1" (`cargo_no_gabarito`); o da PM-PE e a lista do
+# pciconcursos, so do Tipo 1 (8 questoes de lei resolvidas em 23/10 batem com
+# ela). `ler` sao so as materias do edital da PMSC; `materias` diz a materia
+# de cada faixa, copiada do caderno e, no bloco misto ("Legislacao
+# Extravagante"), lida questao a questao em 23/10 pelo programa da PMSC
+# (9.099, 7.960 e 9.296 sao de Processo Penal; 9.605, de Penal). Ficaram fora
+# a lei de outro estado, o Direito Administrativo, o Processo Penal Militar,
+# os tratados de Direitos Humanos e a LEP, que a PMSC nao cobra.
+# Sem o link de onde a prova veio, o `caderno` e a pagina que o pedido lista.
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Polícia Militar do Espírito Santo
+  uf: ES
+  cargo: Soldado Combatente (QPMP-C)
+  sigla: PMES
+  caderno: https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-es-soldado-combatente-qpmp-c
+  arquivo: instituto-aocp-2022-pm-es-soldado-combatente-qpmp-c-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2022-pm-es-soldado-combatente-qpmp-c-gabarito.pdf
+  versao: TIPO 1
+  cargo_no_gabarito: SOLDADO COMBATENTE (QPMP-C)
+  # 21-40 Raciocinio Logico e Matematico; 41-60 Geografia; 61-80 Historia.
+  ler: ["1-20"]
+  materias:
+    1-20: Língua Portuguesa
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Polícia Militar de Goiás
+  uf: GO
+  cargo: Soldado de 2ª Classe QPPM - Combatente
+  sigla: PMGO
+  caderno: https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+  arquivo: instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente-gabarito.pdf
+  versao: TIPO 1
+  # O gabarito comeca pelo Soldado Musico, outra prova.
+  cargo_no_gabarito: Soldado de 2ª Classe QPPM - Combatente
+  # 11-15 Goias; 32-37 Administrativo; 42-46 Processo Penal Militar.
+  ler: ["1-10", "16-31", "38-41", "47-50"]
+  materias:
+    1-10: Língua Portuguesa
+    16-19: Direito Penal
+    20: Legislação Especial          # Maria da Penha, no bloco de Penal
+    21-26: Direito Constitucional
+    27-31: Direito Processual Penal
+    38-41: Direito Penal Militar
+    47-48: Legislação Especial       # drogas; hediondos
+    49: Direito Processual Penal     # Juizados Especiais Criminais
+    50: Legislação de Trânsito       # CTB
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Polícia Militar de Goiás
+  uf: GO
+  cargo: Cadete - Polícia Militar (Aspirante)
+  sigla: PMGOCAD
+  caderno: https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar
+  arquivo: instituto-aocp-2022-pm-go-aspirante-da-policia-militar-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2022-pm-go-aspirante-da-policia-militar-gabarito.pdf
+  versao: TIPO 1
+  cargo_no_gabarito: CADETE - POLÍCIA MILITAR
+  # 11-15 Goias; 32-37 Administrativo; 42-45 Processo Penal Militar; 46-47
+  # Estatuto dos PMs de Goias.
+  ler: ["1-10", "16-31", "38-41", "48-50"]
+  materias:
+    1-10: Língua Portuguesa
+    16-20: Direito Penal
+    21-26: Direito Constitucional
+    27-29: Direito Processual Penal
+    30: Legislação Especial          # Maria da Penha, no bloco de Processo Penal
+    31: Direito Processual Penal
+    38-41: Direito Penal Militar
+    48-50: Legislação Especial       # desarmamento; ambiental e ECA; drogas
+- banca: Instituto AOCP
+  ano: 2023
+  orgao: Polícia Militar de Pernambuco
+  uf: PE
+  cargo: Soldado da Polícia Militar
+  sigla: PMPE
+  caderno: https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023
+  arquivo: soldado_da_policia_militar.pdf
+  arquivo_do_gabarito: gabarito_definitivo.pdf
+  versao: TIPO 1
+  # 11-20 Historia de PE; 21-30 Raciocinio; 51 e 57 Estatuto dos Militares de
+  # PE; 52 e 56 Direitos Humanos.
+  ler: ["1-10", "31-50", "53-55", "58-60"]
+  materias:
+    1-10: Língua Portuguesa
+    31-40: Informática
+    41-50: Direito Constitucional
+    53: Direito Penal                # desacato (anulada)
+    54-55: Legislação Especial       # abuso de autoridade; Maria da Penha
+    58-60: Legislação Especial       # pessoa idosa; drogas; hediondos
+- banca: Instituto AOCP
+  ano: 2023
+  orgao: Polícia Militar de Pernambuco
+  uf: PE
+  cargo: 2º Tenente da Polícia Militar
+  sigla: PMPETEN
+  caderno: https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023
+  arquivo: 2_tenente_da_policia_militar.pdf
+  arquivo_do_gabarito: 2_tenente_da_policia_militar_gabarito.pdf
+  versao: TIPO 1
+  # 11-15 lingua estrangeira (o gabarito tem duas letras para cada, uma por
+  # lingua); 16-25 Raciocinio e Estatistica; 32 Constituicao de PE; 36-40
+  # Administrativo; 53-60 tratados de Direitos Humanos e pessoa com
+  # deficiencia; 66-70 Processo Penal Militar.
+  ler: ["1-10", "26-31", "33-35", "41-52", "61-65"]
+  materias:
+    1-10: Língua Portuguesa
+    26-30: Informática
+    31: Direito Constitucional
+    33-35: Direito Constitucional
+    41-42: Direito Penal             # 42: crimes ambientais
+    43: Legislação Especial          # desarmamento, no bloco de Penal
+    44-45: Direito Penal
+    46: Direito Processual Penal
+    47: Legislação Especial          # organizacao criminosa, no bloco de Processo
+    48-50: Direito Processual Penal
+    51-52: Legislação Especial       # ECA
+    61-65: Direito Penal Militar
+- banca: Instituto AOCP
+  ano: 2026
+  orgao: Secretaria da Administração Penitenciária de São Paulo (SAP-SP)
+  uf: SP
+  cargo: Policial Penal
+  sigla: SAPSP
+  caderno: https://arquivos.qconcursos.com/prova/arquivo_prova/154247/instituto-aocp-2026-sap-sp-policial-penal-prova.pdf
+  gabarito: https://arquivos.qconcursos.com/prova/arquivo_gabarito/154247/instituto-aocp-2026-sap-sp-policial-penal-gabarito.pdf
+  arquivo: instituto-aocp-2026-sap-sp-policial-penal-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2026-sap-sp-policial-penal-gabarito.pdf
+  versao: TIPO 1
+  # O gabarito e o Edital CCP 020/2026 (definitivo), com os 4 tipos.
+  cargo_no_gabarito: POLICIAL PENAL
+  alternativas: 4
+  # 21-35 Matematica; 36-37 atualidades e historia; 39-41 e 48-50 leis de SP e
+  # Administrativo; 49 LEP.
+  ler: ["1-20", "38", "42-47"]
+  materias:
+    1-20: Língua Portuguesa
+    38: Informática                  # funcao do Excel
+    42-43: Direito Constitucional
+    44: Legislação Especial          # abuso de autoridade
+    45-46: Direito Penal
+    47: Legislação Especial          # drogas
+- banca: Instituto AOCP
+  ano: 2021
+  orgao: Polícia Civil do Pará
+  uf: PA
+  cargo: Investigador de Polícia Civil
+  sigla: PCPA
+  # O link e a pagina do concurso no site da AOCP, de onde o Gabriel baixou
+  # (24/10).
+  caderno: https://www.institutoaocp.org.br/concursos/302
+  arquivo: instituto-aocp-2021-pc-pa-investigador-de-policia-civil-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2021-pc-pa-investigador-de-policia-civil-gabarito.pdf
+  # O PDF junta as 4 provas (M1 a M4) da mesma prova da manha; o gabarito
+  # pos-recursos tem um bloco por prova, "INVESTIGADOR DE POLICIA CIVIL (IPC) -
+  # PROVA 1".
+  versao: TIPO 1
+  cargo_no_gabarito: INVESTIGADOR DE POLÍCIA CIVIL (IPC)
+  # 6-10 Raciocinio; 13-14 o Para (economia e a Resolucao 185 das RISP), no
+  # bloco de Informatica; 15-29 Estatistica, Contabilidade e Administrativo;
+  # 59 a Lei 9.807 (protecao a testemunha), fora do edital da PMSC.
+  ler: ["1-5", "11-12", "30-58", "60"]
+  materias:
+    1-5: Língua Portuguesa
+    11-12: Informática
+    30-34: Direito Constitucional
+    35-44: Direito Penal
+    45-54: Direito Processual Penal
+    55-58: Legislação Especial       # desarmamento, racismo, orcrim, Maria da Penha
+    60: Legislação Especial          # tortura
+
+- banca: Instituto AOCP
+  ano: 2023
+  orgao: Polícia Militar do Distrito Federal
+  uf: DF
+  cargo: Soldado Policial Militar (QPPMC)
+  sigla: PMDF
+  caderno: https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+  gabarito: https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/gabarito/48884.pdf
+  arquivo: PM-DF_prova.pdf
+  # O gabarito do link e uma tabela em imagem, sem o tipo e sem dizer se e o
+  # definitivo (nenhuma anulada); transcrito em 24/10. As respostas batem com o
+  # caderno da "PROVA 03" nas questoes conferidas uma a uma (2, 4, 6, 15-17,
+  # 19, 41, 46, 53-71 e 80).
+  arquivo_do_gabarito: PM-DF_gabarito_transcrito.txt
+  # O caderno e so da PROVA 03: "Tipo 03" no rodape das paginas 2 a 24 (a capa
+  # nao tem o tipo e fica de fora sozinha).
+  versao: TIPO 3
+  # 9-10 Manual de Redacao da Presidencia (a PMSC nao cobra Redacao Oficial);
+  # 11-14 Ingles; 15-23 Matematica e Raciocinio; 24-30 Atualidades do DF;
+  # 31-40 leis da PMDF e do DF (6.450/77, 12.086/09, 7.289/84, Decreto
+  # 10.443/20, R-200, Decreto distrital 41.167/20, Lei Organica do DF); 42-44
+  # Direitos Humanos (Convencao contra a Tortura, Pacto de Sao Jose, teoria
+  # geral); 45 competencia para o habeas corpus (CF, arts. 102 a 121, fora dos
+  # artigos do edital); 47-52 Administrativo; 72-76 Processo Penal Militar;
+  # 77-79 Criminologia.
+  ler: ["1-8", "41", "46", "53-71", "80"]
+  materias:
+    1-8: Língua Portuguesa
+    41: Direito Constitucional       # estado de defesa e de sitio; PM e o Governador (art. 144)
+    46: Direito Constitucional       # direitos politicos (art. 14)
+    53-54: Direito Penal             # coacao moral; corrupcao passiva
+    55-56: Legislação Especial       # abuso de autoridade; hediondos e tortura, no bloco de Penal
+    57-58: Direito Penal
+    59: Legislação Especial          # Maria da Penha, no bloco de Processo Penal
+    60-64: Direito Processual Penal  # 60 interceptacao (9.296); 63 Juizados (9.099)
+    65-70: Direito Penal Militar
+    71: Direito Penal Militar        # CPM, art. 9, § 2º (crime doloso contra a vida de civil em GLO), no bloco de Processo Penal Militar
+    80: Legislação Especial          # Maria da Penha (art. 12-C, revitimizacao), no bloco de Criminologia
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Polícia Civil de Goiás
+  uf: GO
+  cargo: Agente de Polícia da 3ª Classe
+  sigla: PCGO
+  # O link que o Gabriel mandou em 24/10 e o do edital n. 6/2022 no Qconcursos,
+  # de onde vieram o caderno e o gabarito (o pedido, secao 5, item 10, so dizia
+  # "Qconcursos, busca de provas").
+  caderno: https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+  arquivo: instituto-aocp-2022-pc-go-agente-de-policia-prova.pdf
+  # GABARITO PRELIMINAR (o PDF diz "GABARITO PRELIMINAR - PROVA TIPO 01"), em
+  # lista, de um tipo so: o Gabriel liberou o preliminar em 24/10 ("pode usar
+  # esse ai", decisao PMSC-16), contra a regra da decisao 172. A 45 parece ter
+  # duas certas e a 54 e discutivel: conferir no passo 2.
+  arquivo_do_gabarito: instituto-aocp-2022-pc-go-agente-de-policia-gabarito.pdf
+  versao: TIPO 1
+  # Sem Informatica neste cargo. 11-14 Goias; 15-19 Raciocinio; 20-23
+  # Administrativo (indireta, poderes, a Lei goiana 13.800, licitacao); 59
+  # execucao penal (SV 56, RE 641.320); 60 improbidade; 61 ordem tributaria
+  # (8.137); 62 Lei Henry Borel (14.344/2022, fora da lista da PMSC); 65
+  # crimes do CDC; 66-69 Criminalistica (68 e a Lei 5.970/73); 71-74 Medicina
+  # Legal; 76-80 leis de Goias.
+  ler: ["1-10", "24-58", "63-64", "70", "75"]
+  materias:
+    1-10: Língua Portuguesa
+    24-25: Direito Constitucional    # CF, art. 37, § 6º, e arts. 39 a 41, no bloco de Administrativo
+    26-32: Direito Constitucional
+    33-34: Direito Penal
+    35: Direito Constitucional       # CF, art. 5º, XLIII, XLIV e XLVII, e art. 228, no bloco de Penal
+    36-43: Direito Penal
+    44: Direito Processual Penal
+    45: Direito Constitucional       # qual garantia esta no art. 5º, no bloco de Processo Penal
+    46-54: Direito Processual Penal
+    55-56: Legislação Especial       # tortura; drogas
+    57: Direito Processual Penal     # lesao culposa nos Juizados (Lei 9.099), no bloco de leis especiais
+    58: Legislação Especial          # hediondos
+    63-64: Legislação Especial       # organizacao criminosa (colaboracao); abuso de autoridade
+    70: Direito Processual Penal     # cadeia de custodia (CPP, arts. 158-A a 158-F), no bloco de Criminalistica
+    75: Direito Penal                # lesao gravissima (CP, art. 129, § 2º), no bloco de Medicina Legal
+- banca: Instituto AOCP
+  ano: 2026
+  orgao: Secretaria de Estado de Justiça e Segurança Pública de Minas Gerais (SEJUSP)
+  uf: MG
+  cargo: Policial Penal (Feminino e Masculino)
+  sigla: SEJUSPMG
+  caderno: https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2026-sejusp-mg-policial-penal
+  # O PDF esta em data/provas/aocp/; o leitor procura o `arquivo` em
+  # data/provas/manual/ (como os outros cadernos da AOCP, que estao nas duas).
+  arquivo: instituto-aocp-2026-sejusp-mg-policial-penal-prova.pdf
+  # O gabarito do Qconcursos e uma tabela em imagem, sem o tipo; transcrito em
+  # 24/10. Tem a 58 anulada (X), sinal de que e o pos-recursos. As respostas
+  # batem com o caderno do Tipo 01 nas questoes conferidas uma a uma (1, 4,
+  # 8-10, 12-17, 19-26, 33 e 46-55).
+  arquivo_do_gabarito: instituto-aocp-2026-sejusp-mg-policial-penal-gabarito_transcrito.txt
+  versao: TIPO 1
+  alternativas: 4
+  # 27-32 e 34-35 Direitos Humanos (estrutura e atributos, Corte IDH,
+  # geracoes, o IDC do art. 109, § 5º - fora dos artigos do edital -,
+  # aplicabilidade dos tratados, efeito cliquet, TPI); 36-40 LEP; 41-42 Lei
+  # mineira 11.404/94; 43-45 ReNP de Minas; 56-60 Raciocinio (58 anulada).
+  ler: ["1-26", "33", "46-55"]
+  materias:
+    1-10: Língua Portuguesa
+    11-15: Informática               # 11: Word 2016 (o edital pede o LibreOffice; entra como o Excel da SAP-SP)
+    16-17: Direito Constitucional
+    18: Direito Penal                # legitima defesa do agente de seguranca publica
+    19-20: Direito Constitucional
+    21-25: Direito Penal
+    26: Direito Constitucional       # tratado com quorum de emenda (art. 5º, § 3º), no bloco de Direitos Humanos
+    33: Direito Constitucional       # acao popular (art. 5º, LXXIII), no bloco de Direitos Humanos
+    46-55: Legislação Especial       # drogas; tortura; abuso de autoridade; desarmamento; hediondos; Maria da Penha
+
+# --- As provas da AOCP que o Gabriel salvou em 24/10 a noite (PMSC-17) ------
+# Preparadas e ensaiadas em memoria pelo Claude Code em 24/10; os links de
+# onde vieram, o Gabriel mandou no mesmo dia (PMSC-20).
+# --- Policia Penal DF 2022: so para conferir o assunto (Certo/Errado, PMSC-19)
+# O caderno tem 150 itens de CERTO ou ERRADO e e escaneado (o texto embutido e
+# de OCR: o numero do item 9 e do 77 se perdeu, e o 143 saiu como 148). O
+# Claude Code transcreveu em 24/10, olhando a imagem de cada pagina, os 68
+# itens das materias da PMSC para o `arquivo_transcrito` (JSON em
+# data\provas\manual\, fora do git: o texto e de terceiros, decisao 132), com
+# o gabarito POS-RECURSOS do bloco "POLICIA PENAL - PROVA 01" (o 15 anulado).
+# Certo/Errado nunca mede nem treina como a multipla escolha (decisao 166): a
+# prova fica RECUSADA no acervo complementar (`complementar.CERTO_ERRADO`) e
+# so aparece na tela "Certo ou Errado" do tema, sem gravar resposta.
+# O caderno nao e como o mapa de blocos supunha: 71-80 sao de AFO e 128-135 da
+# Lei Distrital 5.969/2017 (fora); o 96 (indulto) esta no bloco de Processo
+# Penal, mas e extincao da punibilidade - Direito Penal no edital da PMSC; o
+# 64 (preambulo) e o 65 (classificacao da CF) estao no item 1 do edital; o 35
+# e do Word 2013 (entra como o Word da SEJUSP-MG). Fora: 22-25 Redacao
+# Oficial, 26-30 DF, 41-60 RL/atualidades/Administrativo, 71-80 AFO, 101-123
+# LEP, 128-147 lei distrital, Criminologia e Direitos Humanos.
+# O link do caderno veio do Gabriel em 24/10.
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Polícia Penal do Distrito Federal
+  uf: DF
+  cargo: Policial Penal
+  sigla: PPDF
+  caderno: https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2022-governo-do-distrito-federal-policial-penal
+  arquivo: instituto-aocp-2022-governo-do-distrito-federal-policial-penal-prova.pdf
+  arquivo_do_gabarito: instituto-aocp-2022-governo-do-distrito-federal-policial-penal-gabarito.pdf
+  formato: certo_errado
+  arquivo_transcrito: instituto-aocp-2022-governo-do-distrito-federal-policial-penal-transcricao.json
+  ler: ["1-21", "31-40", "61-70", "81-100", "124-127", "148-150"]
+  materias:
+    1-21: Língua Portuguesa
+    31-40: Informática
+    61-70: Direito Constitucional
+    81-90: Direito Penal
+    91-95: Direito Processual Penal
+    96: Direito Penal
+    97-100: Direito Processual Penal
+    124-127: Legislação Especial   # hediondos
+    148-150: Legislação Especial   # Maria da Penha (148-149) e drogas (150)
+
+# --- Policia Penal PR 2024 (DEPPEN-PR) ---------------------------------------
+- banca: Instituto AOCP
+  ano: 2024
+  orgao: Departamento de Polícia Penal do Paraná (DEPPEN-PR)
+  uf: PR
+  cargo: Policial Penal - Todas as Regiões
+  sigla: DEPPENPR
+  caderno: https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes
+  arquivo: instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes-prova.pdf
+  # O gabarito do PDF sao 6 capturas de tela de celular da tabela do site da
+  # AOCP, sem texto, sem o tipo e sem anulada; transcrito em 24/10. O Gabriel
+  # confirmou em 24/10 que e o definitivo. As respostas batem com o caderno nas questoes
+  # conferidas uma a uma (1-10, 21-30, 32-38, 40, 42-61 e 74).
+  arquivo_do_gabarito: instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes-gabarito_transcrito.txt
+  # O caderno e o modelo publicado, SEM numero de tipo ("Tipo   – Pagina 2" no
+  # rodape de toda pagina, com o numero em branco): do jeito que o leitor esta,
+  # nenhuma pagina e do TIPO 1 e o caderno e recusado. O
+  # `questoes_aocp.paginas_da_versao` le esse caderno desde 24/10 (todas as paginas).
+  versao: TIPO 1
+  # 11-20 Raciocinio; 26 improbidade (8.429); 31 Estatuto dos Servidores do PR;
+  # 39 Lei de Acesso a Informacao; 41 Lei paranaense 20.656/2021 (TAC); 54
+  # crimes contra o Estado Democratico de Direito (fora da parte especial do
+  # edital: pessoa, patrimonio, dignidade sexual, fe publica e administracao
+  # publica); 62-64, 66-68 e 70 LEP e Estatuto Penitenciario do PR; 65 e 71
+  # leis do PR (21.404/2023 e LC 245/2022); 69 Criminologia; 72, 73 e 75
+  # Direitos Humanos (Corte IDH, dimensoes, controle de convencionalidade).
+  ler: ["1-10", "21-25", "27-30", "32-38", "40", "42-53", "55-61", "74"]
+  materias:
+    1-10: Língua Portuguesa
+    21-25: Informática               # 21 Word 2016; 22 Calc; 23 bomba logica; 24 extensoes do Firefox; 25 grandezas
+    27-28: Direito Constitucional    # concurso (art. 37, II) e responsabilidade civil (art. 37, § 6º), no bloco de Administrativo
+    29: Direito Constitucional       # organizacao politico-administrativa (art. 18)
+    30: Legislação Especial          # lesao gravissima contra policial penal e hediondo (8.072)
+    32-37: Legislação Especial       # tortura; orcrim (acao controlada); desarmamento; drogas; desarmamento (36: a certa vem do decreto, nao da lei); drogas
+    38: Direito Penal                # crimes ambientais (9.605)
+    40: Legislação Especial          # abuso de autoridade (13.869)
+    42: Legislação Especial          # ECA e Estatuto da Pessoa Idosa
+    43: Direito Processual Penal     # captacao ambiental (Lei 9.296, art. 8º-A)
+    44: Legislação Especial          # Maria da Penha
+    45-49: Direito Constitucional    # nacionalidade; medida provisoria; Congresso; seguranca publica (art. 144); federacao
+    50-53: Direito Penal
+    55: Direito Penal                # crime contra a pessoa e contra o patrimonio
+    56-61: Direito Processual Penal
+    74: Direito Constitucional       # hierarquia dos tratados (art. 5º, § 3º), no bloco de Direitos Humanos
+
+# --- CBM-PE 2024, 2º Tenente -------------------------------------------------
+- banca: Instituto AOCP
+  ano: 2024
+  orgao: Corpo de Bombeiros Militar de Pernambuco (CBMPE)
+  uf: PE
+  cargo: 2º Tenente do Corpo de Bombeiros Militar
+  sigla: CBMPETEN
+  caderno: https://questoes.grancursosonline.com.br/prova/cbm-pe-pe-2024-instituto-aocp-2o-tenente-do-corpo-de-bombeiros-militar
+  arquivo: tenente do corpo bombeiro militar pernanbuco prova.pdf
+  # O gabarito do PDF sao 3 imagens de uma tabela, sem texto e sem o tipo;
+  # transcrito em 24/10. Tem 5 anuladas (14, 15, 29, 37 e 40), sinal de que e o
+  # pos-recursos. A 6-10 (lingua estrangeira) tem duas letras por numero e sai
+  # do gabarito pelo numero repetido, como no 2º Tenente da PM-PE. As respostas
+  # batem com o caderno do Tipo 01 nas questoes conferidas uma a uma (1-3,
+  # 11-13, 43-46, 48 e 66-70).
+  arquivo_do_gabarito: instituto-aocp-2024-cbm-pe-2-tenente-gabarito_transcrito.txt
+  versao: TIPO 1
+  # 5 Manual de Redacao da Presidencia (a PMSC nao cobra Redacao Oficial);
+  # 6-10 lingua estrangeira; 16-20 Estatistica; 21-35 Matematica; 36-40
+  # Biologia; 42 Constituicao de PE; 47 reclamacao ao STF (CF, art. 103-A,
+  # fora dos artigos do edital); 49-55 Administrativo; 56-65 leis de PE
+  # (Codigo Disciplinar 11.817/2000 e Estatuto 6.783/1974).
+  ler: ["1-4", "11-15", "41", "43-46", "48", "66-70"]
+  materias:
+    1-4: Língua Portuguesa           # 4: o destaques.py nao poe o sublinhado (o trecho tambem esta no texto-base); sem ele a questao nao se responde
+    11-15: Informática               # backup no Windows; cameras IP; phishing; 14 Windows 10 e 15 Calc, anuladas
+    41: Direito Constitucional       # competencia legislativa e o CBM (STF; arts. 22, 61 e 144)
+    43-46: Direito Constitucional    # 45 mutacao constitucional (poder constituinte difuso)
+    48: Direito Constitucional       # promulgacao de emenda (art. 60, § 3º)
+    66-70: Direito Penal Militar
+
+# --- CBM-GO 2022, Soldado Combatente ------------------------------------------
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Corpo de Bombeiros Militar do Estado de Goiás (CBM-GO)
+  uf: GO
+  cargo: Soldado Combatente
+  sigla: CBMGO
+  caderno: https://arquivos.qconcursos.com/prova/arquivo_prova/93606/instituto-aocp-2022-cbm-go-soldado-do-corpo-de-bombeiros-prova.pdf
+  arquivo: instituto-aocp-2022-cbm-go-soldado-do-corpo-de-bombeiros-prova.pdf
+  # O gabarito do PDF sao 2 capturas de tela da tabela ao lado do caderno da
+  # PROVA 01, sem texto e sem anulada; transcrito em 24/10. O Gabriel
+  # confirmou em 24/10 que e o definitivo. As respostas batem com o caderno do Tipo 01 nas questoes
+  # conferidas uma a uma (1-3, 6-13, 16-18 e 23-25) - menos a 4.
+  arquivo_do_gabarito: instituto-aocp-2022-cbm-go-soldado-do-corpo-de-bombeiros-gabarito_transcrito.txt
+  versao: TIPO 1
+  # 4 fica fora: a tabela da D ("Carta") como o genero do texto de apoio, que e
+  # um verbete sobre um livro (resenha ou sinopse) - conferir no gabarito
+  # definitivo antes de por no `ler`. 5-7 Goias; 12-15 Raciocinio; 19
+  # Constituicao de Goias; 20-22 Administrativo (poderes, abuso de poder,
+  # improbidade); 26-35 leis de Goias (Estatuto dos Bombeiros, Plano de
+  # Carreira das Pracas 15.704/2006, Codigo de Etica); 36-50 Nocoes de
+  # Atividade Bombeiro Militar.
+  ler: ["1-3", "8-11", "16-18", "23-25"]
+  materias:
+    1-3: Língua Portuguesa
+    8-11: Informática                # aplicativos de rota; PowerPoint 2016 (entra como o Word da SEJUSP-MG); Chrome; adware
+    16-18: Direito Constitucional    # mandado de injuncao; nacionalidade e direitos politicos; arts. 1º, 137, 142 e 144
+    23-25: Direito Penal Militar
+
+# --- CBM-PA 2022, Praca BM (CFP) ----------------------------------------------
+- banca: Instituto AOCP
+  ano: 2022
+  orgao: Corpo de Bombeiros Militar do Pará (CBMPA)
+  uf: PA
+  cargo: Praça BM (Curso de Formação de Praças)
+  sigla: CBMPA
+  caderno: https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-cbm-pa-praca-bm
+  arquivo: instituto-aocp-2022-cbm-pa-praca-bm-prova.pdf
+  # GABARITO DEFINITIVO (o PDF diz), com texto, um bloco por prova ("PRACA BM
+  # - PROVA 1"); o caderno e do Tipo 01. Nenhuma das 10 que entram e anulada.
+  arquivo_do_gabarito: instituto-aocp-2022-cbm-pa-praca-bm-gabarito.pdf
+  versao: TIPO 1
+  cargo_no_gabarito: PRAÇA BM
+  # 11-25 Matematica; 26-35 Raciocinio; 36-50 Quimica; 51-65 Fisica; 66-75
+  # Biologia; 76-90 leis do Para (Estatuto 5.251/1985, LC 142/2021, Lei
+  # 9.207/2021, Codigo de Etica 9.161/2021, Lei 9.234/2021).
+  ler: ["1-10"]
+  materias:
+    1-10: Língua Portuguesa

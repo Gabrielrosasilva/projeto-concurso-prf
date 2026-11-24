@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Meu desempenho &middot; Radar de Concursos</title>
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .mapa{width:100%;border-collapse:collapse;font-size:var(--tam-sm)}
+    .mapa th,.mapa td{text-align:left;padding:var(--esp-1) var(--esp-2);
+      border-bottom:1px solid var(--cor-borda);vertical-align:top}
+    .mapa th{font-size:var(--tam-xs);color:var(--cor-texto-suave);font-weight:var(--peso-normal)}
+    .mapa td.n{white-space:nowrap;font-variant-numeric:tabular-nums}
+    .mapa tr.nivel-materia td.nome{font-weight:var(--peso-forte)}
+    .mapa tr.insuficiente td{color:var(--cor-texto-suave)}
+    .recuo-1{padding-left:var(--esp-2)}
+    .recuo-2{padding-left:var(--esp-5)}
+    .recuo-3{padding-left:var(--esp-6)}
+    .rolagem{overflow-x:auto}
+    .filtros{display:flex;flex-wrap:wrap;gap:var(--esp-2);align-items:end}
+    .resumo{display:flex;flex-wrap:wrap;gap:var(--esp-3);align-items:baseline}
+    .fila{list-style:none;padding:0;margin:0}
+    .fila li{padding:var(--esp-1) 0;border-bottom:1px solid var(--cor-borda)}
+    .fila .porque{display:block;color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .estado{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .divisao{display:block;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .semana{white-space:nowrap}
+    .semana.abaixo{color:var(--cor-texto-suave)}
+    .notas-do-tema{margin:var(--esp-3) 0;padding-top:var(--esp-2);border-top:1px solid var(--cor-borda)}
+    .notas-do-tema:first-of-type{border-top:0}
+    .notas-do-tema p{margin:var(--esp-1) 0}
+    .notas-lista{margin:var(--esp-1) 0;padding-left:var(--esp-5);font-size:var(--tam-sm)}
+    .notas-lista li{margin:var(--esp-1) 0}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra, abas_de_analises with context %}
+{% from "_componentes.html" import selo with context %}
+{{ barra('analises') }}
+
+<main class="ds-pagina">
+  {{ abas_de_analises('desempenho') }}
+
+  <header class="ds-cabeca">
+    <h1>Meu desempenho por conteúdo</h1>
+    <p>
+      Como eu vou em cada conteúdo da árvore, e não só por matéria. Duas
+      origens, <b>nunca somadas num número só</b>: <b>radar</b> é questão real
+      respondida aqui dentro, pela última resposta de cada - da {{ banca_do_alvo() }} ou de
+      outra banca, com a origem ao lado; <b>anotado</b> é o
+      que eu digitei das faixas e dos extras do Qconcursos, no conteúdo que eu
+      escolhi ao anotar. Só o respondido <b>sem consulta</b> conta para o
+      estado - na prova não há lei aberta. Questão escrita por IA não entra em
+      nada disto.
+    </p>
+  </header>
+
+  {# Sem JavaScript: um botao "Ver", como na Incidencia. O cronometro
+     continua sendo o unico JS do projeto. #}
+  <form class="ds-cartao filtros" method="get" action="/analises/desempenho">
+    <label class="ds-campo">Matéria
+      <select name="materia">
+        <option value="">todas</option>
+        {% for nome in materias %}
+          <option value="{{ nome }}" {{ 'selected' if nome == materia }}>{{ nome }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="ds-campo">Período
+      <select name="recorte">
+        <option value="ciclo" {{ 'selected' if recorte == 'ciclo' }}>o ciclo em andamento</option>
+        <option value="sempre" {{ 'selected' if recorte == 'sempre' }}>desde o início</option>
+      </select>
+    </label>
+    <button class="ds-botao" type="submit">Ver</button>
+  </form>
+
+  <section class="ds-cartao">
+    <h2>O que eu já respondi</h2>
+    {% if linhas %}
+      <div class="rolagem">
+        <table class="mapa">
+          <thead>
+            <tr>
+              <th>Conteúdo</th>
+              <th>Estado</th>
+              <th class="n">Acerto</th>
+              <th class="n">Amostra</th>
+              <th class="n">Fora do estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for l in linhas %}
+              <tr class="nivel-{{ l.nivel }} {{ 'insuficiente' if not l.estado.suficiente }}">
+                <td class="nome recuo-{{ l.profundidade }}">{{ l.nome }}</td>
+                <td>{{ l.estado.nome }}
+                  {% if l.frase %}<span class="estado">{{ l.frase }}</span>{% endif %}
+                </td>
+                <td class="n">
+                  {%- if l.estado.porcentagem is not none -%}
+                    {{ l.estado.porcentagem }}%
+                  {%- else -%}—{%- endif -%}
+                  <span class="divisao">{{ l.divisao }}</span>
+                </td>
+                <td class="n">{{ l.estado.amostra }}
+                  {%- if not l.estado.suficiente %} · faltam {{ l.estado.falta_para_o_minimo }}{% endif -%}
+                </td>
+                <td class="n">
+                  {%- set fora = l.desempenho.fora_do_estado -%}
+                  {%- if fora -%}
+                    {{ fora }}
+                    {%- if l.desempenho.com_consulta %} com consulta{% endif -%}
+                    {%- if l.desempenho.sem_resultado %}{{ ',' if l.desempenho.com_consulta }} sem acerto anotado{% endif -%}
+                  {%- else -%}—{%- endif -%}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="miudo">
+        {{ selo('automatico') }} os mínimos de amostra e os cinco estados vêm do
+        <code>config/amostra.yml</code>: {{ minimos.do_nivel('materia') }} respostas
+        na matéria, {{ minimos.do_nivel('assunto') }} no assunto e
+        {{ minimos.do_nivel('subassunto') }} no subassunto ou elemento. Abaixo do
+        mínimo o número aparece e <b>não entra em ordenação nem em projeção</b>.
+        A meta é a da matéria no <code>config/cronograma.yml</code>; sem meta
+        própria, a da prova ({{ minimos.meta_padrao }} de 100).
+      </p>
+    {% else %}
+      <p class="convite">Ainda não respondi nada neste recorte, ou o que eu
+        respondi não está classificado em conteúdo nenhum. A classificação das
+        questões está em <a href="/analises/conferencia">Conferência</a>.</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Quando eu estudei e revisei cada conteúdo</h2>
+    <p class="miudo">Cada conteúdo em que eu já encostei: a última vez que eu
+      estudei ou pratiquei, a última <b>revisão</b> e, no assunto, o acerto
+      semana a semana. Não depende do período escolhido acima: quando eu
+      revisei é sobre a minha vida, e não sobre o ciclo.</p>
+    {% if vistos %}
+      <div class="rolagem">
+        <table class="mapa">
+          <thead>
+            <tr>
+              <th>Conteúdo</th>
+              <th>O que eu fiz</th>
+              <th class="n">Última vez</th>
+              <th class="n">Última revisão</th>
+              <th>Evolução no assunto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in vistos %}
+              <tr class="nivel-{{ s.nivel }}">
+                <td class="nome recuo-{{ s.profundidade }}">{{ s.nome }}</td>
+                <td>{{ s.rotulo }}</td>
+                <td class="n">{{ s.ultima_vez.strftime('%d/%m') if s.ultima_vez else '—' }}</td>
+                <td class="n">{{ s.ultima_revisao.strftime('%d/%m') if s.ultima_revisao else 'nunca' }}</td>
+                <td>
+                  {%- if s.nivel == 'assunto' and s.semanal -%}
+                    {%- for p in s.semanal -%}
+                      <span class="semana {{ 'abaixo' if not p.suficiente }}">semana {{ p.numero }}: {{ p.porcentagem }}% em {{ p.respostas }}</span>
+                      {{- ' · ' if not loop.last -}}
+                    {%- endfor -%}
+                  {%- else -%}—{%- endif -%}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="miudo">
+        {{ selo('automatico') }} <b>Revisão</b> é a faixa de revisão do plano
+        (o R+7) ou o estudo extra de revisão anotados no conteúdo, ou questão
+        dele respondida numa rodada que revisa: a revisão espaçada e as
+        rodadas só de erradas. Questão de rodada comum é prática, não revisão.
+        A faixa sem a chave <code>conteudo</code> no
+        <code>config/cronograma.yml</code> conta no que ela cobre - os nós
+        que o plano dá a ela e os da ficha que eu já conferi - só aqui, na
+        situação e nas datas: o acerto dela não vai a conteúdo nenhum. A
+        evolução usa as contas da tela Semanas - toda resposta sem consulta, e
+        não só a última de cada questão. A semana em cinza teve menos de
+        {{ minimos.do_nivel('assunto') }} respostas no assunto (o mínimo do
+        <code>config/amostra.yml</code>): o número aparece, mas é pouco para
+        dizer se eu melhorei.
+      </p>
+    {% else %}
+      <p class="convite">Ainda não estudei nem pratiquei nenhum conteúdo da
+        árvore{{ ' nesta matéria' if materia }}. A faixa sem a chave
+        <code>conteudo</code> no plano só chega a um conteúdo pelos nós que o
+        plano dá a ela, ou pela ficha do tema depois de conferida.</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>O que voltou para revisão</h2>
+    <p class="miudo">Três gatilhos, e a linha diz qual disparou: erro recente,
+      estado "precisa revisar", ou o prazo 1-7-30 vencido. O prazo passa de
+      etapa com o acerto no radar e com a revisão feita - o R+7, o estudo
+      extra de revisão - no vencimento ou depois. Nada disto está gravado numa
+      tabela: sai do histórico, como a revisão espaçada.</p>
+    {% if fila %}
+      <ul class="fila">
+        {% for r in fila %}
+          <li>
+            <b>{{ r.nome }}</b>
+            {% if r.atraso %}<span class="estado">· {{ r.atraso }} dia(s) de atraso</span>{% endif %}
+            <span class="porque">{{ r.caminho }}</span>
+            <span class="porque">{{ r.porque }}</span>
+            {% if r.erradas or r.erros_do_caderno %}
+              <span class="porque">a refazer:
+                {%- if r.erradas %} {{ r.erradas | length }} questão(ões) errada(s) no radar{% endif -%}
+                {%- if r.erros_do_caderno %}{{ ' ·' if r.erradas }} {{ r.erros_do_caderno | length }} no caderno de erros{% endif -%}
+              </span>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="convite">Nada vencido. Conteúdo que eu nunca estudei não entra
+        aqui: revisar o que eu não vi não é revisão.</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>O que eu ainda não estudei</h2>
+    <p class="miudo">Nó em que eu nunca marquei faixa de estudo nem anotei
+      teoria ou lei seca, e em que nunca respondi questão - ou cuja faixa
+      ainda não tem nó conferido (a ficha por conferir não liga a faixa ao
+      assunto; ela conta só na matéria). Matéria inteira
+      aparece como matéria: listar os assuntos dela um por um seria lista
+      telefonica, e não informação.</p>
+    {% if nao_estudados %}
+      <ul class="fila">
+        {% for s in nao_estudados %}
+          <li><b>{{ s.nome }}</b> <span class="porque">{{ s.caminho }} · {{ NOME_DO_NIVEL.get(s.nivel, s.nivel) }}</span></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="convite">Não há nó sem nenhum estudo registrado.</p>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Questões a refazer</h2>
+    <p class="miudo">As duas listas ficam separadas de propósito: a questão
+      errada no radar eu refaço respondendo; o erro do caderno eu refaço
+      relendo a regra que eu escrevi. Somar as duas daria um número que não
+      corresponde a nenhuma ação.</p>
+    <div class="resumo">
+      <p><b>{{ refazer.do_radar | length }}</b> questão(ões) errada(s) no radar
+      </p>
+      {% if refazer.do_radar %}
+        <form method="post" action="/revisar">
+          <button class="ds-botao ds-botao--pequeno" type="submit">Refazer as erradas</button>
+        </form>
+      {% endif %}
+      <p><b>{{ refazer.do_caderno | length }}</b> no caderno de erros
+        {% if refazer.do_caderno %}<a href="/erros">— abrir o caderno</a>{% endif %}</p>
+    </div>
+  </section>
+
+  {# O "como foi" de cada faixa (decisao 142), por tema: a lista que o Ciclo 2
+     le. O que eu escrevi fica ao lado do acerto, e nunca entra nele. #}
+  {% from "_notas_da_faixa.html" import notas_do_tema %}
+  <section class="ds-cartao" id="como-fui">
+    <h2>Como eu disse que fui (para o Ciclo 2)</h2>
+    <p class="miudo">O que eu escrevi no “📝 Como foi” de cada faixa da tela
+      Hoje: se entendi, quantas chutei fora do radar e a nota. Primeiro os
+      temas que eu ainda não entendi. Os chutes no radar ficam em cada rodada.</p>
+    {% for g in notas_por_tema %}
+      {{ notas_do_tema(g, com_tema=True) }}
+    {% else %}
+      <p class="convite">Nenhuma nota ainda: escreva no “📝 Como foi” da faixa, na tela Hoje.</p>
+    {% endfor %}
+  </section>
+</main>
+</body>
+</html>

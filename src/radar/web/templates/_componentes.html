@@ -1,0 +1,61 @@
+{# Os componentes do design system, como macros. O estilo mora em
+   /estatico/design.css; aqui mora o MARKUP, para toda tela escrever o mesmo
+   selo do mesmo jeito.
+
+   Use assim:
+
+       {% from "_componentes.html" import selo, legenda_dos_selos %}
+       {{ selo(linha.origem) }}
+       {{ selo('ia', 'Macete (IA)') }}
+
+   Os selos moram no radar/origem.py (o SELOS, global do Jinja): as quatro
+   origens do novo.md, tres variacoes com uma palavra a mais (prova,
+   classificacao, tendencia) e o plano. O servico grava a origem no dado e a
+   tela passa a origem adiante - quem escolhe a cor e o dado. `texto` troca
+   so a palavra; a cor e o emoji ficam, porque sao eles que dizem a origem. #}
+
+{% macro selo(tipo, texto=None, curto=False) -%}
+  {%- set s = SELOS[tipo] -%}
+  {%- if curto -%}
+  <span class="ds-selo ds-selo--{{ s.origem }} ds-selo--curto" title="{{ s.texto }}: {{ s.explicacao }}" aria-label="{{ s.texto }}">{{ s.emoji }}</span>
+  {%- else -%}
+  <span class="ds-selo ds-selo--{{ s.origem }}" title="{{ s.explicacao }}"><span aria-hidden="true">{{ s.emoji }}</span> {{ texto or s.texto }}</span>
+  {%- endif -%}
+{%- endmacro %}
+
+{# A origem de um selo, que e a familia de cor do bloco que o acompanha. #}
+{% macro familia(tipo) -%}{{ SELOS[tipo].origem }}{%- endmacro %}
+
+{# Sem `tipos`, todos os selos que alguma tela usa, na ordem do origem.py. #}
+{% macro legenda_dos_selos(tipos=None) %}
+<div class="ds-legenda-selos" aria-label="O que cada selo quer dizer">
+  {% for t in (tipos or SELOS) %}{{ selo(t) }}{% endfor %}
+</div>
+{% endmacro %}
+
+{# Um bloco dentro do cartao, na cor do selo. Tudo que esta dentro dele tem
+   aquela origem - e so aquela. #}
+{% macro bloco(tipo, titulo) %}
+<div class="ds-bloco ds-bloco--{{ familia(tipo) }}">
+  <p class="ds-bloco__titulo">{{ selo(tipo) }} <span>{{ titulo }}</span></p>
+  {{ caller() }}
+</div>
+{% endmacro %}
+
+{# O aviso da especificacao, com o texto dela. O item que uma IA escreveu e
+   eu ainda nao conferi leva o 🟣: e dado de IA, e diz isso. #}
+{# O gabarito que o Claude Code buscou e ninguem conferiu (decisao PMSC-27).
+   Antes da resposta, so o aviso: de onde veio o gabarito pode entregar a
+   letra. Depois, a fonte e a pagina. Sem a pagina, a questao so treina. #}
+{% macro aviso_gabarito(questao, depois=false) %}
+{% if questao.gabarito_a_conferir is defined and questao.gabarito_a_conferir %}
+<p class="ds-alerta">⚠ <b>Verificar a questão</b>: o gabarito desta não veio do site nem da prova{% if depois %} - {{ questao.gabarito_a_conferir }}{% if questao.gabarito_link %} · <a href="{{ questao.gabarito_link }}" target="_blank" rel="noopener">ver o gabarito</a>{% endif %}{% else %}: o Claude Code buscou, e você ainda não conferiu{% endif %}.
+{% if questao.gabarito_link %}Mede o seu acerto, com a página do gabarito ao lado.{% else %}Só treina: não entra no seu acerto até você conferir.{% endif %}
+{% if depois and questao.prova_url is defined and questao.prova_url %}<a href="{{ questao.prova_url }}" target="_blank" rel="noopener">Abrir a questão no site</a>.{% endif %}
+{{ selo('ia', 'Gabarito buscado por IA, por conferir') }}</p>
+{% endif %}
+{% endmacro %}
+
+{% macro aviso_lei(mudanca, frase='A lei mudou depois desta prova') %}
+<p class="ds-aviso-lei">⚠ {% if frase %}{{ frase }}: {% endif %}{{ mudanca.tema }} ({{ mudanca.lei }}){% if mudanca.o_que_mudou %} - {{ mudanca.o_que_mudou }}{% endif %}{% if not mudanca.conferida %} {{ selo('ia', 'Escrito por IA, por conferir') }}{% endif %}</p>
+{% endmacro %}

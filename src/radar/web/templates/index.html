@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Radar de Concursos</title>
+  {# O radar de concursos: a busca, os atalhos por anel e um cartao por
+     concurso. Cor e espaco saem do design.css; aqui so o que e desta tela.
+     As cores dos aneis tem significado: perto verde, proximo amarelo,
+     estadual azul, longe cinza, e "a confirmar" cinza tracejado - e o "ainda
+     nao sei" da tela. O roxo ficou so para a IA (Etapa 7A). #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    /* titulo longo sem espaco (URL, nome comprido) nao pode furar a coluna */
+    .titulo{overflow-wrap:anywhere}
+
+    /* A barra do topo e a MESMA em toda pagina, e o estilo dela vem de
+       _topo_estilo.html. Aqui havia um bloco `nav {...}` de uma navegacao
+       antiga, que sumiu quando os atalhos viraram `.atalhos` - so que o
+       seletor continuou valendo, e como a barra compartilhada e um <nav>,
+       nesta pagina (e so nesta) os quatro destinos apareciam com borda e
+       fundo de botao, diferentes do resto do site. */
+
+    form.filtros{display:grid;gap:var(--esp-2);margin-bottom:var(--esp-4);
+      grid-template-columns:repeat(auto-fit,minmax(135px,1fr))}
+    input{padding:var(--esp-2) var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie);color:var(--cor-texto);font:inherit;font-size:var(--tam-sm);min-width:0}
+    input:focus{outline:2px solid var(--cor-acao);outline-offset:-1px}
+    .acoes{display:flex;gap:var(--esp-2);align-items:center}
+
+    /* Campo de minimo e a caixinha de faixas, lado a lado numa celula so
+       da grade de filtros. */
+    /* O par ocupa duas colunas da grade: o campo sozinho ficava espremido a
+       quase nada quando o nome da faixa escolhida e longo. */
+    .salario{display:flex;gap:var(--esp-1);min-width:0;grid-column:span 2}
+    .salario input{flex:1 1 6rem;min-width:5rem}
+    @media (max-width:520px){ .salario{grid-column:span 1} }
+
+    /* A caixinha usa <details>, entao abre e fecha sem JavaScript. O painel
+       e posicionado por cima da pagina para nao empurrar o resto do layout
+       quando abre. */
+    .menu-faixa{position:relative}
+    .menu-faixa>summary{list-style:none;cursor:pointer;white-space:nowrap;
+      display:flex;align-items:center;gap:var(--esp-1);height:100%;max-width:12rem;
+      overflow:hidden;text-overflow:ellipsis;
+      padding:var(--esp-2) var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm);
+      background:var(--cor-superficie);color:var(--cor-texto-suave);font-size:var(--tam-sm)}
+    .menu-faixa[open]>summary,.menu-faixa>summary:has(+ .opcoes a.ativa){
+      font-weight:var(--peso-medio)}
+    .menu-faixa>summary::-webkit-details-marker{display:none}
+    .menu-faixa>summary:hover{border-color:var(--cor-acao);color:var(--cor-acao)}
+    .menu-faixa[open]>summary{border-color:var(--cor-acao);color:var(--cor-acao)}
+    .menu-faixa .seta{font-size:.7em;opacity:.7}
+
+    .menu-faixa .opcoes{position:absolute;z-index:10;top:calc(100% + .3rem);
+      right:0;min-width:15rem;display:flex;flex-direction:column;gap:.15rem;
+      padding:var(--esp-1);border:1px solid var(--cor-borda);border-radius:var(--raio);
+      background:var(--cor-superficie);box-shadow:var(--sombra-alta)}
+    .ds .menu-faixa .opcoes a{font-size:var(--tam-sm);padding:var(--esp-2) var(--esp-2);border-radius:var(--raio-sm);
+      color:var(--cor-texto);text-decoration:none;white-space:nowrap}
+    .ds .menu-faixa .opcoes a:hover{background:var(--cor-acao-fundo);color:var(--cor-acao)}
+    .ds .menu-faixa .opcoes a.ativa{background:var(--cor-verde-fundo);color:var(--cor-verde);
+      font-weight:var(--peso-forte)}
+    .ds .menu-faixa .opcoes a.limpar-faixa{color:var(--cor-texto-suave);border-top:1px solid
+      var(--cor-borda);border-radius:0;margin-top:.2rem;padding-top:var(--esp-2)}
+
+    /* A busca da aba de noticias e o filtro principal dela, entao ganha mais
+       peso visual que os campos das outras abas. */
+    form.busca-noticia{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-2);margin:0 0 var(--esp-3)}
+    form.busca-noticia input{flex:1;min-width:12rem;font-size:var(--tam-base);padding:var(--esp-3) var(--esp-3)}
+
+    .resumo-fases{display:flex;flex-wrap:wrap;gap:var(--esp-1);margin:0 0 var(--esp-3)}
+    .fase-conta{font-size:var(--tam-xs);padding:.25rem var(--esp-2);border-radius:var(--raio-pill);
+      background:var(--cor-borda);color:var(--cor-texto-suave);border:1px solid transparent}
+    .fase-conta b{font-variant-numeric:tabular-nums}
+    .fase-conta.fase-inscricoes_abertas{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .fase-conta.fase-banca_definida{background:var(--cor-ambar-fundo);color:var(--cor-ambar)}
+    .fase-conta.fase-autorizado{background:transparent;color:var(--cor-texto-suave);
+      border:1px dashed var(--cor-texto-suave)}
+    .fase-conta.fase-prevista{background:var(--cor-acao-fundo);color:var(--cor-acao)}
+
+    .contagem{color:var(--cor-texto-suave);font-size:var(--tam-sm);margin:0 0 var(--esp-3)}
+    .aviso-filtro{background:var(--cor-ambar-fundo);color:var(--cor-ambar);
+      font-size:var(--tam-sm);padding:var(--esp-2) var(--esp-3);border-radius:var(--raio-sm);margin:0 0 var(--esp-3)}
+    .ds .aviso-filtro a{color:inherit}
+
+    /* --------------------------------------------------------- cartoes --- */
+    /* Cada concurso e um cartao do design system, com a borda da esquerda
+       na cor do anel. */
+    ul.lista{list-style:none;padding:0;margin:0;display:grid;gap:var(--esp-2);
+      grid-template-columns:minmax(0,1fr)}
+    ul.lista>li{background:var(--cor-superficie);border:1px solid var(--cor-borda);
+      border-radius:var(--raio);box-shadow:var(--sombra);padding:var(--esp-3) var(--esp-4);
+      border-left:3px solid var(--cor-borda)}
+    ul.lista>li.nucleo{border-left-color:var(--cor-verde)}
+    ul.lista>li.proximo{border-left-color:var(--cor-ambar)}
+    ul.lista>li.estadual{border-left-color:var(--cor-azul)}
+    ul.lista>li.indefinida{border-left-style:dashed;border-left-color:var(--cor-texto-suave)}
+
+    .topo{display:flex;gap:var(--esp-2);align-items:flex-start}
+    .topo .titulo{flex:1}
+    .ds a.titulo{color:var(--cor-texto);text-decoration:none;font-weight:var(--peso-medio);display:block}
+    .ds a.titulo:hover{color:var(--cor-acao)}
+    .fav{display:block;margin:0;padding:0}
+    .fav button{background:transparent;border:0;padding:0 .1rem;cursor:pointer;
+      font-size:1.25rem;line-height:1.2;color:var(--cor-texto-suave)}
+    .fav button:hover{color:var(--cor-ambar)}
+    .fav button.marcada{color:var(--cor-ambar)}
+
+    .selos{display:flex;flex-wrap:wrap;gap:var(--esp-1);align-items:center;margin-top:var(--esp-2)}
+    .selo{font-size:var(--tam-xs);padding:.15rem var(--esp-2);border-radius:var(--raio-pill);
+      font-weight:var(--peso-medio);display:inline-flex;gap:.28rem;align-items:baseline;
+      border:1px solid transparent}
+    /* O rotulo diz o que o valor e; sem ele "FEPESE" nao quer dizer nada. */
+    .selo .rot{font-weight:var(--peso-normal);opacity:.7}
+    .selo.nucleo{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .selo.proximo{background:var(--cor-ambar-fundo);color:var(--cor-ambar)}
+    .selo.estadual{background:var(--cor-azul-fundo);color:var(--cor-azul)}
+    .selo.remoto{background:var(--cor-borda);color:var(--cor-texto-suave)}
+    .selo.indefinida{background:transparent;color:var(--cor-texto-suave);
+      border:1px dashed var(--cor-texto-suave)}
+    .selo.neutro{background:transparent;color:var(--cor-texto-suave);font-weight:var(--peso-normal);
+      border:1px solid var(--cor-borda)}
+    .selo.aberta{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .selo.fechada{background:var(--cor-borda);color:var(--cor-texto-suave)}
+    .selo.prazo{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .selo.prazo.urgente{font-weight:var(--peso-forte)}
+    .selo.dinheiro{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .selo.dinheiro.sem-valor{background:transparent;color:var(--cor-texto-suave);
+      border:1px dashed var(--cor-borda);font-weight:var(--peso-normal)}
+    .meta{color:var(--cor-texto-suave);font-size:var(--tam-xs)}
+    .motivo{color:var(--cor-texto-suave);font-size:var(--tam-xs);margin-top:var(--esp-1);font-style:italic}
+
+    /* Editar salario: um link recarrega a pagina com ?editar=<id>, e o cartao
+       correspondente troca o valor por um campo. Tentei <details> antes; ele
+       crescia para uns 90px dentro do selo e deixava uma caixa vazia na tela.
+       Link e previsivel, funciona sem JavaScript e da para testar. */
+    .ds a.lapis{opacity:.6;font-size:.85em;text-decoration:none;color:inherit}
+    .ds a.lapis:hover{opacity:1}
+    form.salario{display:inline-flex;gap:var(--esp-1);align-items:center}
+    form.salario input{padding:.15rem var(--esp-1);font-size:var(--tam-xs);width:6.5rem;
+      border-radius:var(--raio-sm)}
+    .ds form.salario a{font-size:var(--tam-xs);color:var(--cor-texto-suave);text-decoration:none}
+
+    /* Minha anotacao sobre o concurso. Fica abaixo dos selos, ocupando a
+       largura do cartao: o texto costuma ser uma frase inteira, e nao um
+       valor curto como o salario. */
+    .nota{margin-top:var(--esp-2);font-size:var(--tam-sm);background:var(--cor-fundo);
+      border-left:3px solid var(--cor-borda);border-radius:0 var(--raio-sm) var(--raio-sm) 0;
+      padding:var(--esp-2) var(--esp-3);white-space:pre-wrap}
+    .nota .rot{color:var(--cor-texto-suave);font-size:var(--tam-xs);display:block}
+    form.nota-edicao{margin-top:var(--esp-2);display:grid;gap:var(--esp-1)}
+    form.nota-edicao textarea{font:inherit;font-size:var(--tam-sm);padding:var(--esp-2) var(--esp-2);
+      border:1px solid var(--cor-borda);border-radius:var(--raio-sm);background:var(--cor-superficie);
+      color:var(--cor-texto);resize:vertical;min-height:3.6rem;width:100%}
+    .ds a.anotar{font-size:var(--tam-xs);text-decoration:none;
+      margin-top:var(--esp-1);display:inline-block}
+
+    .etapas{display:flex;flex-wrap:wrap;gap:var(--esp-1);list-style:none;padding:0;
+      margin:var(--esp-2) 0 .2rem}
+    .etapas li{font-size:var(--tam-xs);padding:.15rem var(--esp-2);border-radius:var(--raio-pill);
+      border:1px dashed var(--cor-borda);color:var(--cor-texto-suave)}
+    .etapas li.feita{border-style:solid;border-color:transparent;
+      background:var(--cor-borda);color:var(--cor-texto-suave)}
+    .etapas li.atual{border-style:solid;border-color:transparent;font-weight:var(--peso-forte);
+      background:var(--cor-verde-fundo);color:var(--cor-verde)}
+
+    ul.lista>li.vazio{text-align:center;padding:var(--esp-6) var(--esp-4);border-style:dashed;
+      border-left-width:1px;box-shadow:none}
+    .vazio p{margin:var(--esp-1) 0;color:var(--cor-texto-suave);font-size:var(--tam-sm)}
+    .vazio .grande{font-size:var(--tam-md);color:var(--cor-texto);font-weight:var(--peso-medio)}
+
+    /* ------------------------------------------------- busca e atalhos --- */
+    /* A busca vem antes dos atalhos porque e o que eu uso mais: procurar pelo
+       nome do orgao resolve o caso que nenhum atalho resolve. */
+    form.busca{display:flex;gap:var(--esp-2);margin-bottom:var(--esp-3)}
+    form.busca input{flex:1 1 auto}
+
+    .atalhos{display:flex;flex-wrap:wrap;gap:var(--esp-2);margin-bottom:var(--esp-3)}
+    .ds .atalhos a{display:inline-flex;align-items:center;gap:var(--esp-1);
+      text-decoration:none;padding:var(--esp-2) var(--esp-3);border-radius:var(--raio-pill);
+      font-size:var(--tam-sm);font-weight:var(--peso-medio);border:1px solid var(--cor-borda);
+      background:var(--cor-superficie);color:var(--cor-texto-suave)}
+    .ds .atalhos a:hover{border-color:var(--cor-acao)}
+    .atalhos a .n{font-weight:var(--peso-forte);font-variant-numeric:tabular-nums;opacity:.75}
+    .ds .atalhos a.ativo{border-color:transparent}
+    .ds .atalhos a.ativo.perto{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .ds .atalhos a.ativo.estadual{background:var(--cor-azul-fundo);color:var(--cor-azul)}
+    .ds .atalhos a.ativo.abertas{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .ds .atalhos a.ativo.tudo{background:var(--cor-acao-fundo);color:var(--cor-acao)}
+
+    /* "mais filtros" nasce fechado: sao seis campos que eu uso de vez em
+       quando, e abertos eles empurravam a lista para baixo da dobra. */
+    .mais-filtros{margin-bottom:var(--esp-4);border:1px solid var(--cor-borda);
+      border-radius:var(--raio);background:var(--cor-superficie)}
+    .mais-filtros>summary{list-style:none;cursor:pointer;padding:var(--esp-2) var(--esp-3);
+      font-size:var(--tam-sm);font-weight:var(--peso-medio);color:var(--cor-texto-suave);
+      display:flex;align-items:center;gap:var(--esp-1)}
+    .mais-filtros>summary::-webkit-details-marker{display:none}
+    .mais-filtros>summary:hover{color:var(--cor-acao)}
+    .mais-filtros[open]>summary{border-bottom:1px solid var(--cor-borda);
+      color:var(--cor-acao)}
+    .mais-filtros .seta{font-size:.7em;opacity:.7}
+    .mais-filtros .corpo{padding:var(--esp-3)}
+    .mais-filtros .aceso{background:var(--cor-acao-fundo);color:var(--cor-acao);
+      font-size:var(--tam-xs);padding:.05rem var(--esp-2);border-radius:var(--raio-pill);font-weight:var(--peso-forte)}
+    .outros-aneis{display:flex;flex-wrap:wrap;gap:var(--esp-2);margin-top:var(--esp-3);
+      padding-top:var(--esp-3);border-top:1px dashed var(--cor-borda)}
+    .ds .outros-aneis a{text-decoration:none;font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      padding:var(--esp-1) var(--esp-3);border-radius:var(--raio-pill);border:1px solid var(--cor-borda);
+      color:var(--cor-texto-suave);background:var(--cor-superficie)}
+    .ds .outros-aneis a:hover{border-color:var(--cor-acao);color:var(--cor-acao)}
+    .ds .outros-aneis a.ativo{border-color:transparent;background:var(--cor-acao-fundo);
+      color:var(--cor-acao)}
+
+    /* --------------------------------------------- cartao enxuto ------ */
+    /* A linha que responde as tres perguntas de sempre: onde, quanto, ate
+       quando. Tudo numa linha so, separada por pontos - a versao anterior
+       usava um selo por informacao e o cartao virava um paragrafo de selos. */
+    .linha-chave{display:flex;flex-wrap:wrap;align-items:center;gap:var(--esp-1);
+      margin-top:var(--esp-2);font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .linha-chave .sep{opacity:.45}
+    .linha-chave .onde{color:var(--cor-texto);font-weight:var(--peso-medio)}
+    .linha-chave .dinheiro{color:var(--cor-texto);font-weight:var(--peso-forte);
+      font-variant-numeric:tabular-nums}
+    .linha-chave .dinheiro.sem-valor{color:var(--cor-texto-suave);font-weight:var(--peso-medio)}
+    .linha-chave .prazo-frio{color:var(--cor-texto-suave)}
+    .linha-chave .lapis{margin-left:.15rem}
+
+    /* "detalhes" nasce fechado. O conteudo continua no HTML, entao o Ctrl+F
+       do navegador continua achando banca e motivo mesmo com ele fechado. */
+    .detalhes{margin-top:var(--esp-2)}
+    .detalhes>summary{list-style:none;cursor:pointer;display:inline-flex;
+      align-items:center;gap:var(--esp-1);font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      color:var(--cor-texto-suave);padding:.15rem 0}
+    .detalhes>summary::-webkit-details-marker{display:none}
+    .detalhes>summary:hover{color:var(--cor-acao)}
+    .detalhes[open]>summary{color:var(--cor-acao)}
+    .detalhes .seta{font-size:.75em;opacity:.7}
+    .detalhes .selos{margin-top:var(--esp-2)}
+
+    /* ------------------------------------------------------- ver mais --- */
+    .ver-mais{margin:var(--esp-5) 0 0;text-align:center}
+    .ds .ver-mais a{display:inline-block;padding:var(--esp-2) var(--esp-5);border-radius:var(--raio-pill);
+      border:1px solid var(--cor-borda);background:var(--cor-superficie);
+      text-decoration:none;font-weight:var(--peso-medio);font-size:var(--tam-sm)}
+    .ds .ver-mais a:hover{border-color:var(--cor-acao)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('concursos') }}
+{% from "_componentes.html" import selo %}
+
+{# Um cartao da lista principal, com rotulo em cada informacao. #}
+{% macro cartao(c) %}
+  <li class="{{ c.relevancia }}">
+    <div class="topo">
+      <form class="fav" method="post" action="/favoritar">
+        <input type="hidden" name="concurso_id" value="{{ c.id }}">
+        <input type="hidden" name="voltar" value="{{ url_atual }}">
+        <button type="submit" class="{{ 'marcada' if c.interesse == favorito }}"
+                title="{{ 'Tirar do mural' if c.interesse == favorito else 'Fixar no mural' }}"
+                aria-label="{{ 'Tirar do mural' if c.interesse == favorito else 'Fixar no mural' }}"
+        >{{ '★' if c.interesse == favorito else '☆' }}</button>
+      </form>
+      <a class="titulo" href="{{ c.url }}" target="_blank" rel="noopener">{{ c.titulo | titulo }}</a>
+    </div>
+
+    {# A LINHA: onde, quanto e ate quando. Sao as tres perguntas que eu faco
+       antes de decidir se abro o concurso; o resto ficou em "detalhes". #}
+    <div class="linha-chave">
+      {% if noticias %}
+        {# Nesta aba o que importa e a FASE, nao a distancia. #}
+        <span class="selo fase-conta fase-{{ c.situacao }}">
+          {{ rotulo_situacao.get(c.situacao, c.situacao) }}</span>
+      {% endif %}
+      <span class="selo {{ c.relevancia }}">{{ rotulo_anel.get(c.relevancia, c.relevancia) }}</span>
+
+      <span class="onde">
+        {%- if c.municipio %}{{ c.municipio | municipio }}{% if c.uf %}/{{ c.uf }}{% endif %}
+        {%- elif c.uf %}{{ c.uf }}
+        {%- else %}cidade não identificada{% endif %}</span>
+
+      {# Salario so aparece quando ele existe. "R$ ??" ocupava o mesmo espaco
+         de um dado e nao dizia nada: mais da metade dos concursos nao informa
+         valor no titulo, entao a linha vinha cheia de interrogacao. O lapis
+         para anotar continua a um clique, dentro de "detalhes". #}
+      {% if c.salario or editar == c.id %}<span class="sep">&middot;</span>{% endif %}
+
+      {% if editar == c.id %}
+        <span class="selo dinheiro sem-valor">
+          <span class="rot">Salário:</span>
+          <form class="salario" method="post" action="/salario">
+            <input type="hidden" name="concurso_id" value="{{ c.id }}">
+            <input type="hidden" name="voltar" value="{{ url_sem_editar }}">
+            <input name="salario" inputmode="decimal" placeholder="ex: 5200"
+                   value="{{ '{:.0f}'.format(c.salario) if c.salario else '' }}"
+                   aria-label="Remuneração em reais" autofocus>
+            <button class="ds-botao ds-botao--pequeno" type="submit">Salvar</button>
+            <a href="{{ url_sem_editar }}">cancelar</a>
+          </form>
+        </span>
+      {% elif c.salario %}
+        <span class="dinheiro">
+          <span class="rot">Salário:</span>
+          R$ {{ '{:,.0f}'.format(c.salario)|replace(',', '.') }}
+          {# De onde veio o valor: eu digitei, ou o radar leu do texto do
+             anuncio - e a leitura por regra de texto pode errar. #}
+          {% if c.salario_manual %}<span class="rot">(anotado por mim)</span>
+          {% else %}{{ selo(c.origem_do_salario, 'lido do anúncio') }}{% endif %}
+          <a class="lapis" href="{{ url_com_editar }}{{ c.id }}"
+             title="Anotar a remuneração" aria-label="Anotar a remuneração">&#9998;</a>
+        </span>
+      {% endif %}
+
+      <span class="sep">&middot;</span>
+
+      {% set faltam = c.inscricoes_ate | dias %}
+      {% if c.inscricoes_ate and faltam >= 0 %}
+        <span class="selo prazo{{ ' urgente' if faltam <= 7 }}">
+          <span class="rot">Inscrição até:</span>
+          {{ c.inscricoes_ate | data }} &middot; faltam {{ faltam }}d</span>
+      {% elif c.inscricoes_ate %}
+        <span class="prazo-frio"><span class="rot">Status:</span>
+          encerrou em {{ c.inscricoes_ate | data }}</span>
+      {% else %}
+        <span class="prazo-frio"><span class="rot">Status:</span>
+          prazo não confirmado</span>
+      {% endif %}
+    </div>
+
+    {# DETALHES: o que eu consulto depois de decidir que o concurso interessa.
+       Nasce fechado. O conteudo continua no HTML mesmo fechado, entao a busca
+       do navegador (Ctrl+F) continua achando banca e motivo. #}
+    <details class="detalhes">
+      <summary>detalhes <span class="seta">&#9662;</span></summary>
+      <div class="selos">
+      <span class="selo neutro"><span class="rot">Banca:</span>
+        {{ c.banca if c.banca else 'a confirmar' }}</span>
+
+      <span class="selo neutro"><span class="rot">Tipo:</span> {{ c.tipo }}</span>
+
+      {# Sem valor conhecido o salario sai da linha principal, mas o lapis
+         continua aqui: e o mesmo campo, no lugar onde eu procuro detalhe. #}
+      {% if not c.salario %}
+        <span class="selo neutro"><span class="rot">Salário:</span>
+          não informado
+          <a class="lapis" href="{{ url_com_editar }}{{ c.id }}"
+             title="Anotar a remuneração" aria-label="Anotar a remuneração">&#9998;</a>
+        </span>
+      {% endif %}
+
+      {% if c.inscricoes_ate %}
+        <span class="selo {{ 'aberta' if faltam >= 0 else 'fechada' }}">
+          <span class="rot">Inscrição:</span>
+          {{ 'aberta' if faltam >= 0 else 'fechada' }}</span>
+      {% endif %}
+
+      {# O que o edital exige. So aparece quando alguem leu o PDF: sem leitura,
+         um selo "sem CNH" seria mentira, e nao ausencia de informacao. #}
+      {% if c.escolaridade %}
+        <span class="selo {{ 'aberta' if 'superior' in c.escolaridade else 'neutro' }}">
+          <span class="rot">Vagas de nível:</span> {{ c.escolaridade }}</span>
+      {% endif %}
+      {% set exig = (c.extra or {}).get('exigencias') or {} %}
+      {% if exig.cnh %}
+        <span class="selo neutro"><span class="rot">Exige CNH:</span>
+          {{ 'sim' if exig.cnh == 'sim' else 'categoria ' ~ exig.cnh }}</span>
+      {% endif %}
+      {% if exig.taf %}
+        <span class="selo urgente"><span class="rot">Teste físico:</span> sim</span>
+      {% endif %}
+      {% if c.idade_maxima %}
+        <span class="selo neutro"><span class="rot">Idade máxima:</span>
+          {{ c.idade_maxima }}</span>
+      {% endif %}
+
+      <span class="meta">{{ c.publicado_em | data('sem data') }}</span>
+    </div>
+
+    {# Minha anotacao. Este campo e meu: a coleta nunca o sobrescreve. #}
+    {% if anotar == c.id %}
+      <form class="nota-edicao" method="post" action="/notas">
+        <input type="hidden" name="concurso_id" value="{{ c.id }}">
+        <input type="hidden" name="voltar" value="{{ url_sem_editar }}">
+        <textarea name="notas" placeholder="O que eu preciso lembrar deste concurso"
+                  aria-label="Minha anotacao" autofocus>{{ c.notas or '' }}</textarea>
+        <div class="acoes">
+          <button class="ds-botao ds-botao--pequeno" type="submit">Salvar</button>
+          <a href="{{ url_sem_editar }}">cancelar</a>
+        </div>
+      </form>
+    {% elif c.notas %}
+      <div class="nota">
+        <span class="rot">Minha anotacao</span>{{ c.notas }}
+        <a class="lapis" href="{{ url_com_anotar }}{{ c.id }}"
+           title="Editar a anotacao" aria-label="Editar a anotacao">&#9998;</a>
+      </div>
+    {% else %}
+      <a class="anotar" href="{{ url_com_anotar }}{{ c.id }}">+ anotar</a>
+    {% endif %}
+
+    {% if favoritos %}
+      {# No mural detalhado vale o caminho inteiro. Toda etapa antes da atual
+         ja aconteceu, por definicao da sequencia - nao e chute. #}
+      {% set indice = etapas|map(attribute=0)|list %}
+      {% if c.situacao in indice %}
+        <ol class="etapas">
+          {% for chave, rotulo in etapas %}
+            <li class="{{ 'feita' if loop.index0 < indice.index(c.situacao) }}{{ ' atual' if loop.index0 == indice.index(c.situacao) }}">{{ rotulo }}</li>
+          {% endfor %}
+        </ol>
+      {% endif %}
+    {% endif %}
+
+    {% if c.motivo_relevancia %}<div class="motivo">{{ c.motivo_relevancia }}</div>{% endif %}
+    </details>
+  </li>
+{% endmacro %}
+
+  <main class="ds-pagina">
+    {% from "_topo.html" import abas_de_concursos %}
+    {{ abas_de_concursos('concursos') }}
+    <header class="ds-cabeca">
+      <h1>Radar de Concursos</h1>
+      <p>Acompanhamento pessoal &middot; Grande Florianópolis e região</p>
+    </header>
+
+    {% if not noticias %}
+    {# A busca vem primeiro: e o que resolve o caso que nenhum atalho resolve.
+       Ela manda so `termo`, entao clicar num atalho depois nao carrega filtro
+       escondido junto. #}
+    <form class="busca" method="get" autocomplete="off">
+      {% if todos %}<input type="hidden" name="todos" value="true">{% endif %}
+      {% if abertas %}<input type="hidden" name="abertas" value="true">{% endif %}
+      {% if favoritos %}<input type="hidden" name="favoritos" value="true">{% endif %}
+      {% if relevancia %}<input type="hidden" name="relevancia" value="{{ relevancia }}">{% endif %}
+      <input name="termo" value="{{ termo }}"
+             placeholder="Buscar por órgão, cargo ou cidade">
+      <button class="ds-botao" type="submit">Buscar</button>
+      {% if termo %}<a class="ds-botao ds-botao--secundario" href="{{ url_sem_termo }}">Limpar</a>{% endif %}
+    </form>
+
+    {# Quatro atalhos, e so. Os outros aneis foram para "mais filtros": eu
+       abro `remoto` e `a confirmar` uma vez por semana, e eles ocupavam o
+       mesmo tamanho dos que eu abro todo dia. #}
+    <div class="atalhos">
+      <a class="perto {{ 'ativo' if not relevancia and not todos and not abertas and not favoritos }}" href="/concursos">
+        Perto <span class="n">{{ perto }}</span>
+      </a>
+      <a class="estadual {{ 'ativo' if relevancia == 'estadual' }}"
+         href="/concursos?relevancia=estadual"
+         title="Órgão estadual de SC: os polos de prova saem no edital">
+        Estadual SC <span class="n">{{ contagem.estadual }}</span>
+      </a>
+      <a class="abertas {{ 'ativo' if abertas }}" href="/concursos?abertas=true">
+        Abertos <span class="n">{{ n_abertas }}</span>
+      </a>
+      <a class="tudo {{ 'ativo' if todos }}" href="/concursos?todos=true">
+        Todos <span class="n">{{ total_geral }}</span>
+      </a>
+    </div>
+    {% endif %}
+
+    {% if not noticias %}
+    <details class="mais-filtros" {{ 'open' if filtros_avancados_ativos }}>
+      <summary>
+        Mais filtros
+        {% if filtros_avancados_ativos %}<span class="aceso">ligado</span>{% endif %}
+        <span class="seta">&#9662;</span>
+      </summary>
+      <div class="corpo">
+    <form class="filtros" method="get" autocomplete="off">
+      {% if todos %}<input type="hidden" name="todos" value="true">{% endif %}
+      {% if abertas %}<input type="hidden" name="abertas" value="true">{% endif %}
+      {% if favoritos %}<input type="hidden" name="favoritos" value="true">{% endif %}
+      {% if relevancia %}<input type="hidden" name="relevancia" value="{{ relevancia }}">{% endif %}
+      <input name="uf" placeholder="UF (ex: SC)" value="{{ uf }}" maxlength="2">
+      <input name="banca" placeholder="Banca (ex: FEPESE)" value="{{ banca }}">
+      <input name="termo" placeholder="Palavra-chave" value="{{ termo }}">
+      {# O campo de MAXIMO saiu do formulario de proposito: quem digita quer
+         dizer "a partir de X". As faixas fechadas continuam existindo, mas
+         pela caixinha ao lado, que e mais rapida que digitar dois numeros. #}
+      <div class="salario">
+        <input name="salario_min" type="number" step="100" min="0"
+               placeholder="Salário min" value="{{ salario_min }}"
+               autocomplete="off">
+        <details class="menu-faixa">
+          <summary title="Escolher uma faixa">
+            {{ faixa_ativa if faixa_ativa else 'Remuneração' }}
+            <span class="seta">&#9662;</span>
+          </summary>
+          <div class="opcoes">
+            {% for rotulo, faixa_min, faixa_max in faixas %}
+              <a class="{{ 'ativa' if faixa_ativa == rotulo }}"
+                 href="{{ url_sem_salario }}salario_min={{ faixa_min or '' }}&salario_max={{ faixa_max or '' }}"
+              >{{ rotulo }}</a>
+            {% endfor %}
+            {% if faixa_ativa or salario_min or salario_max %}
+              <a class="limpar-faixa"
+                 href="{{ url_sem_salario.rstrip('?&') }}">limpar remuneração</a>
+            {% endif %}
+          </div>
+        </details>
+      </div>
+      <div class="acoes">
+        <button class="ds-botao" type="submit">Filtrar</button>
+        <a class="ds-botao ds-botao--secundario" href="/concursos">Limpar</a>
+      </div>
+    </form>
+
+    {# Os aneis que sairam da barra de atalhos, e as duas visoes que nao sao
+       anel: o mural e a busca em tudo. #}
+    <div class="outros-aneis">
+      <a class="{{ 'ativo' if relevancia == 'remoto' }}" href="/concursos?relevancia=remoto">
+        Longe ({{ contagem.remoto }})</a>
+      <a class="{{ 'ativo' if relevancia == 'indefinida' }}" href="/concursos?relevancia=indefinida">
+        A confirmar ({{ contagem.indefinida }})</a>
+      <a class="{{ 'ativo' if favoritos }}" href="/concursos?favoritos=true">
+        Meu mural ({{ n_favoritos }})</a>
+      <a href="/concursos?noticias=true">Notícias e andamento</a>
+    </div>
+      </div>
+    </details>
+    {% endif %}
+
+    {% if noticias %}
+      {# Aqui a busca e o filtro principal - nao ha aneis nem prazos, so o
+         nome do que voce procura. #}
+      <form class="busca-noticia" method="get" autocomplete="off">
+        <input type="hidden" name="noticias" value="true">
+        <input name="termo" value="{{ termo }}" autofocus
+               placeholder="PM, polícia científica, bombeiro, Guarda Municipal...">
+        <button class="ds-botao" type="submit">Procurar</button>
+        {% if termo %}<a class="ds-botao ds-botao--secundario" href="/concursos?noticias=true">Limpar</a>{% endif %}
+        <a class="ds-botao ds-botao--secundario" href="/concursos">Voltar aos concursos</a>
+      </form>
+
+      {% if fases %}
+        <div class="resumo-fases">
+          {% for chave in ordem_das_fases %}
+            {% if fases.get(chave) %}
+              <span class="fase-conta fase-{{ chave }}">
+                {{ rotulo_situacao.get(chave, chave) }}
+                <b>{{ fases[chave] }}</b>
+              </span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <p class="contagem">
+      {% if noticias %}
+        {{ itens|length }} resultado(s){% if termo %} para "{{ termo }}"{% endif %}
+      {% else %}
+        {{ itens|length }} de {{ total_geral }} concurso(s) no banco
+      {% endif %}
+    </p>
+
+    {% if n_sem_salario %}
+      <p class="aviso-filtro">
+        Filtrando por remuneração.
+        <strong>{{ n_sem_salario }}</strong> concurso(s) não informam salário no título
+        e ficaram de fora - dá para preencher o valor na mão pelo lápis de cada um.
+        <a href="?{{ 'favoritos=true&' if favoritos }}{{ 'abertas=true&' if abertas }}{{ 'todos=true' if todos }}">Ver sem esse filtro</a>
+      </p>
+    {% endif %}
+
+    <ul class="lista">
+      {% for c in itens %}
+        {{ cartao(c) }}
+      {% else %}
+        <li class="vazio">
+          {% if total_geral == 0 %}
+            <p class="grande">Nada coletado ainda.</p>
+            <p>Rode <code>radar coletar</code> no terminal.</p>
+          {% elif favoritos %}
+            <p class="grande">Seu mural está vazio.</p>
+            <p>Clique na estrela &#9734; de qualquer concurso para fixar aqui.</p>
+          {% elif abertas %}
+            <p class="grande">Nenhuma inscrição aberta agora.</p>
+            <p>O prazo só é conhecido depois de ler a página de cada edital.
+               Rode <code>radar detalhar</code> no terminal.</p>
+          {% elif noticias %}
+            <p class="grande">
+              {% if termo %}Nada encontrado para "{{ termo }}".{% else %}Procure um concurso acima.{% endif %}
+            </p>
+            <p>
+              {% if termo %}
+                Tente um termo mais curto - "PM" em vez de "Polícia Militar de
+                Santa Catarina".
+              {% else %}
+                Esta aba procura em <strong>tudo</strong>: qualquer região,
+                qualquer fase, inclusive o que já encerrou. E o que mostra se
+                um órgão costuma abrir concurso.
+              {% endif %}
+            </p>
+          {% elif filtro_ativo %}
+            <p class="grande">Nenhum resultado com esses filtros.</p>
+            <p><a href="{{ url_sem_salario.rstrip('?&') }}">Tirar o filtro de remuneração</a>
+               &middot; <a href="/concursos">Limpar tudo</a></p>
+          {% elif not relevancia and not todos %}
+            <p class="grande">Nenhum concurso perto de você agora.</p>
+            <p>Há {{ contagem.remoto }} longe e {{ contagem.indefinida }} a confirmar.
+               <a href="/concursos?todos=true">Ver todos os {{ total_geral }}</a>.</p>
+            <p>Isso é normal: o radar só avisa quando abrir algo na sua região.</p>
+          {% else %}
+            <p class="grande">Nenhum resultado com esses filtros.</p>
+            <p><a href="/concursos">Limpar e voltar</a></p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if tem_mais %}
+      <p class="ver-mais">
+        <a href="{{ url_ver_mais }}">Ver mais {{ por_vez }}</a>
+      </p>
+    {% endif %}
+  </main>
+
+</body>
+</html>

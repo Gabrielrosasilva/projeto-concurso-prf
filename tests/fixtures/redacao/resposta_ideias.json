@@ -1,0 +1,22 @@
+{
+  "lote": "<o teste troca pelo lote do pedido>",
+  "modelo": "claude-opus-5-5",
+  "respostas": [
+    {
+      "id": "r1",
+      "ideias": {
+        "teses": [
+          {
+            "tese": "Fixture: a PM é a porta de entrada do sistema de justiça criminal.",
+            "argumentos": [
+              {"argumento": "Fixture: o policiamento ostensivo previne.", "fundamentacao": "CF art. 144, § 5º.", "exemplo": "Fixture: a ronda no bairro."},
+              {"argumento": "", "fundamentacao": "este argumento é descartado: vazio", "exemplo": ""}
+            ]
+          },
+          {"tese": "", "argumentos": []}
+        ],
+        "proposta": {"agente": "o Estado", "acao": "ampliar o policiamento comunitário", "meio": "conselhos de segurança", "finalidade": "aproximar a polícia da comunidade"}
+      }
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{# A barra de navegacao do topo, igual em todas as paginas.
+
+   Os sete destinos: os seis do sitemap da especificacao
+   (docs/especificacao.md) e, na frente deles, o cronograma do dia:
+
+     Hoje      - o que estudar hoje, a que horas, e onde marco como foi
+     Meu foco  - a home: o alvo, o que estudar agora, o que revisar
+     Estudar   - treinar: Simulado e Gerar questoes
+     Revisao   - Macetes (e, quando existirem, pegadinhas e assuntos)
+     Analises  - o quadro do edital contra as provas, onde estudar primeiro
+     Concursos - a lista, Acompanhando, Calendario, Previsao
+     Mais      - fontes e evidencias, configuracoes
+
+   Use assim, no topo do <body>:
+
+       {% from "_topo.html" import barra with context %}
+       {{ barra('concursos') }}
+
+   O "with context" e o que deixa a barra ler o `request`: o botao ☀️/🌙
+   precisa saber o tema atual e o endereco para onde voltar.
+
+   O parametro e qual destino fica aceso: hoje, foco, estudar, revisao,
+   analises, concursos, mais. #}
+
+{# A faixa fina "MODO PRF" (decisao PRF-1): esta pasta e a copia PRF, e os
+   radares da Policia Penal (8000) e da PMSC (8001) podem rodar ao mesmo tempo,
+   com as mesmas telas. Vem dentro da barra, e as duas telas sem barra (a
+   questao e o 404) a chamam sozinhas. A cor e do design.css (.ds-modo-prf). #}
+{% macro faixa_prf() %}
+<div class="ds-modo-prf" role="note">MODO PRF</div>
+{% endmacro %}
+
+{% macro barra(ativo='') %}
+{{ faixa_prf() }}
+<nav class="topo-barra" aria-label="Navegacao principal">
+  <a class="marca" href="/">Radar</a>
+
+  <div class="abas">
+    <a class="item {{ 'ativo' if ativo == 'hoje' }}" href="/hoje">📅 Hoje</a>
+    <a class="item {{ 'ativo' if ativo == 'foco' }}" href="/">🎯 Meu foco</a>
+    <a class="item {{ 'ativo' if ativo == 'estudar' }}" href="/estudar">📚 Estudar</a>
+    {# A redacao da PMSC (decisao PMSC-5): 25% da nota, com aba propria. #}
+    <a class="item {{ 'ativo' if ativo == 'redacao' }}" href="/redacao">✍ Redação</a>
+    <a class="item {{ 'ativo' if ativo == 'revisao' }}" href="/revisao">🧠 Revisão</a>
+    <a class="item {{ 'ativo' if ativo == 'analises' }}" href="/analises">📊 Análises</a>
+    <a class="item {{ 'ativo' if ativo == 'concursos' }}" href="/concursos">🏛 Concursos</a>
+    <a class="item {{ 'ativo' if ativo == 'mais' }}" href="/mais">⚙ Mais</a>
+  </div>
+
+  {# O icone e o do tema para onde o clique LEVA: no escuro aparece o sol. #}
+  {% if tema_da_pagina(request) == 'escuro' %}
+  <a class="tema" href="{{ link_de_trocar_tema(request) }}" title="Mudar para o tema claro" aria-label="Mudar para o tema claro">☀️</a>
+  {% else %}
+  <a class="tema" href="{{ link_de_trocar_tema(request) }}" title="Mudar para o tema escuro" aria-label="Mudar para o tema escuro">🌙</a>
+  {% endif %}
+</nav>
+{% endmacro %}
+
+
+{# As sub-abas de Estudar. "Gerar questoes" fica ao lado de Simulado, e nao
+   dentro dele: o Simulado responde questao que a banca cobrou, e o Gerar
+   escreve questao para treinar. A rodada, essa sim, e a mesma tela. #}
+{% macro abas_de_estudar(ativa='') %}
+<div class="subabas">
+  <a class="{{ 'ativo' if ativa == 'simulado' }}" href="/simulado">Simulado</a>
+  <a class="{{ 'ativo' if ativa == 'geradas' }}" href="/geradas">Gerar questões</a>
+</div>
+{% endmacro %}
+
+
+{# As sub-abas de Revisao. O Caderno de erros vem primeiro, e o /revisao abre
+   nele: o que eu errei ontem manda mais que o costume da banca. #}
+{% macro abas_de_revisao(ativa='') %}
+<div class="subabas">
+  <a class="{{ 'ativo' if ativa == 'erros' }}" href="/erros">Caderno de erros</a>
+  <a class="{{ 'ativo' if ativa == 'macetes' }}" href="/macetes">Macetes</a>
+</div>
+{% endmacro %}
+
+
+{# As sub-abas da tela Hoje: o dia, as semanas, as fichas de estudo de cada
+   tema (Etapa 6B) e o caderno de erros. #}
+{% macro abas_de_hoje(ativa='hoje') %}
+<div class="subabas">
+  <a class="{{ 'ativo' if ativa == 'hoje' }}" href="/hoje">Hoje</a>
+  <a class="{{ 'ativo' if ativa == 'semanas' }}" href="/semanas">Semanas</a>
+  <a class="{{ 'ativo' if ativa == 'fichas' }}" href="/fichas">Fichas</a>
+  <a class="{{ 'ativo' if ativa == 'erros' }}" href="/erros">Caderno de erros</a>
+</div>
+{% endmacro %}
+
+
+{# As sub-abas de Analises: o quadro do edital contra as provas, e o meu
+   progresso em cada materia. #}
+{% macro abas_de_analises(ativa='') %}
+<div class="subabas">
+  <a class="{{ 'ativo' if ativa == 'edital' }}" href="/analises">Edital</a>
+  <a class="{{ 'ativo' if ativa == 'materias' }}" href="/analises/materias">Minhas matérias</a>
+  <a class="{{ 'ativo' if ativa == 'desempenho' }}" href="/analises/desempenho">Meu desempenho</a>
+  <a class="{{ 'ativo' if ativa == 'incidencia' }}" href="/analises/incidencia">Incidência</a>
+  <a class="{{ 'ativo' if ativa == 'conferencia' }}" href="/analises/conferencia">Conferência</a>
+</div>
+{% endmacro %}
+
+
+{# As sub-abas de Concursos: a lista, os favoritos e as duas consultas que
+   antes moravam no menu "Mais". #}
+{% macro abas_de_concursos(ativa='') %}
+<div class="subabas">
+  <a class="{{ 'ativo' if ativa == 'concursos' }}" href="/concursos">Todos</a>
+  <a class="{{ 'ativo' if ativa == 'acompanhando' }}" href="/acompanhando">Acompanhando</a>
+  <a class="{{ 'ativo' if ativa == 'calendario' }}" href="/calendario">Calendário</a>
+  <a class="{{ 'ativo' if ativa == 'previsao' }}" href="/previsao">Previsão</a>
+</div>
+{% endmacro %}

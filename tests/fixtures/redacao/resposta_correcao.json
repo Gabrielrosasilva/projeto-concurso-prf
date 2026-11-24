@@ -1,0 +1,117 @@
+{
+  "lote": "<o teste troca pelo lote do pedido>",
+  "modelo": "claude-opus-5-5",
+  "respostas": [
+    {
+      "id": "r1",
+      "correcao": {
+        "nota_conteudo": 14,
+        "criterios": [
+          {
+            "criterio": "Atendimento e desenvolvimento do tema",
+            "nota": 4,
+            "comentario": "Fixture de teste: tema atendido, desenvolvimento raso no D2.",
+            "positivos": [
+              "Fixture: o tema foi atendido desde a introdução."
+            ],
+            "negativos": [
+              "Fixture: o D2 não tem exemplo concreto."
+            ]
+          },
+          {
+            "criterio": "Coesão e coerência",
+            "nota": 3.5,
+            "comentario": "Fixture de teste."
+          },
+          {
+            "criterio": "Atendimento à estrutura dissertativo-argumentativa",
+            "nota": 3.5,
+            "comentario": "Fixture de teste."
+          },
+          {
+            "criterio": "Informatividade e argumentação",
+            "nota": 3,
+            "comentario": "Fixture de teste."
+          }
+        ],
+        "erros": [
+          {
+            "trecho": "haviam muitos problemas",
+            "correcao": "havia muitos problemas",
+            "regra": "haver no sentido de existir é impessoal",
+            "tipo": "concordância",
+            "explicacao": "Fixture: haver no sentido de existir fica no singular."
+          },
+          {
+            "trecho": "a polícia, atua",
+            "correcao": "a polícia atua",
+            "regra": "não se separa o sujeito do verbo por vírgula",
+            "tipo": "Pontuação"
+          },
+          {
+            "trecho": "à partir de",
+            "correcao": "a partir de",
+            "regra": "não há crase antes de verbo",
+            "tipo": "tipo-que-nao-existe"
+          },
+          {
+            "trecho": "onde a lei diz",
+            "correcao": "em que a lei diz",
+            "regra": "onde só para lugar"
+          },
+          {
+            "trecho": "eles tem",
+            "correcao": "eles têm",
+            "regra": "acento no plural do verbo ter"
+          },
+          {
+            "trecho": "mais a polícia",
+            "correcao": "mas a polícia",
+            "regra": "mas é adversativo"
+          },
+          {
+            "trecho": "",
+            "correcao": "sem trecho",
+            "regra": "este é descartado: não tem trecho"
+          }
+        ],
+        "linhas_informadas": 25,
+        "nota_final": 19.5,
+        "tres_pontos": [
+          "Fixture: o segundo argumento não tem exemplo concreto.",
+          "Fixture: a proposta não diz o meio.",
+          "Fixture: seis erros de português."
+        ],
+        "paragrafo_mais_fraco": "Desenvolvimento 2",
+        "paragrafo_reescrito": "Fixture de teste: o parágrafo reescrito.",
+        "motivo_zero": "",
+        "melhorias": [
+          {
+            "voce_escreveu": "a polícia é importante",
+            "como_fica": "a polícia ostensiva previne o crime",
+            "por_que": "Fixture: a frase vaga não argumenta."
+          },
+          {
+            "voce_escreveu": "",
+            "como_fica": "sem o original: descartada",
+            "por_que": "x"
+          }
+        ],
+        "pontos_positivos": [
+          "Fixture: os quatro parágrafos estão no lugar.",
+          ""
+        ],
+        "focos": [
+          "Fixture: foco 1.",
+          "Fixture: foco 2.",
+          "Fixture: foco 3.",
+          "Fixture: o quarto sai."
+        ],
+        "legibilidade": {
+          "avaliacao": "legível",
+          "observacao": "Fixture: letra regular."
+        }
+      }
+    }
+  ]
+}

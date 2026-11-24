@@ -1,0 +1,260 @@
+"""Onde ler o texto oficial de cada materia e assunto, de config/leis.yml.
+
+Este modulo devolve ENDERECO, e nada mais. O radar nao baixa, nao copia e nao
+guarda o texto de lei nenhuma: quem publica lei e o Planalto e a ALESC, e a
+versao vigente so esta certa la. Guardar uma copia aqui seria guardar a lei de
+hoje para ler daqui a dois anos.
+
+A regra do projeto vale igual: **nunca chutar**. Assunto sem marca no YAML e
+materia sem `url` devolvem None, e a tela simplesmente nao mostra o "ler a
+lei". Um link errado e pior que link nenhum - eu estudaria a lei errada
+achando que era a certa.
+"""
+from dataclasses import dataclass
+from functools import cache
+
+import yaml
+
+from radar import config
+from radar.conteudos import SEPARADOR
+from radar.origem import OFICIAL
+from radar.regioes import normalizar
+
+
+@dataclass(frozen=True)
+class Lei:
+    """Onde ler o texto oficial de um assunto."""
+    origem = OFICIAL
+
+
+    titulo: str
+    url: str
+    #: O que eu preciso saber ANTES de abrir: lei revogada, data divergente.
+    #: None quando nao ha ressalva nenhuma.
+    nota: str | None = None
+
+
+@cache
+def _arquivo() -> dict:
+    """Le config/leis.yml inteiro. Arquivo ausente vira {}, e nao erro."""
+    arquivo = config.diretorio_config() / "leis.yml"
+    if not arquivo.exists():
+        return {}
+    return yaml.safe_load(arquivo.read_text(encoding="utf-8")) or {}
+
+
+def _carregar() -> list[dict]:
+    return _arquivo().get("materias") or []
+
+
+def recarregar() -> None:
+    """Esquece o que foi lido. Usado pelos testes e se voce editar o YAML."""
+    _arquivo.cache_clear()
+
+
+def exige_artigo(materia: str | None) -> bool:
+    """Texto de IA desta materia tem que citar artigo de lei?
+
+    Sim, a menos que a materia esteja em `sem_lei`. O padrao e exigir: uma
+    materia de Direito escrita de outro jeito escaparia de uma lista do que
+    exige, e nao escapa de uma lista do que nao exige.
+    """
+    procurada = normalizar(materia or "")
+    return procurada not in {
+        normalizar(str(nome)) for nome in _arquivo().get("sem_lei") or []
+    }
+
+
+def _bloco_da_materia(materia: str | None) -> dict | None:
+    procurada = normalizar(materia or "")
+    if not procurada:
+        return None
+    for bloco in _carregar():
+        if normalizar(bloco.get("materia") or "") == procurada:
+            return bloco
+    return None
+
+
+def _como_lei(item: dict | None) -> Lei | None:
+    """A entrada do YAML virada em Lei, ou None quando falta o endereco.
+
+    Sem `url` nao ha link, e nao adianta ter titulo: o bloco existe so para
+    eu documentar a materia no YAML.
+    """
+    if not item or not item.get("url"):
+        return None
+    return Lei(
+        titulo=item.get("lei") or item["url"],
+        url=item["url"],
+        nota=item.get("nota") or None,
+    )
+
+
+def da_materia(materia: str | None) -> Lei | None:
+    """O texto oficial que cobre a materia inteira, quando existe um so.
+
+    Direito Penal tem: e o Codigo Penal, e todo assunto dela esta la dentro.
+    Legislacao Especial nao tem: sao cinco leis avulsas, e cada assunto aponta
+    para a sua.
+    """
+    return _como_lei(_bloco_da_materia(materia))
+
+
+def do_assunto(materia: str | None, assunto: str | None) -> Lei | None:
+    """O texto oficial daquele assunto, caindo no da materia quando nao ha.
+
+    A marca `quando` do YAML e procurada DENTRO do nome que o edital usa, e
+    nao comparada com ele: o edital escreve "Lei Complementar n.o 529 de 17 de
+    dezembro de 2011 (Regimento Interno dos estabelecimentos penais do Estado
+    de Santa Catarina)", e copiar essa frase para o YAML seria copiar um texto
+    que a proxima edicao do edital reescreve.
+    """
+    bloco = _bloco_da_materia(materia)
+    if bloco is None:
+        return None
+
+    procurado = normalizar(assunto or "")
+    if procurado:
+        for item in bloco.get("assuntos") or []:
+            marca = normalizar(item.get("quando") or "")
+            if marca and marca in procurado:
+                return _como_lei(item)
+
+    return _como_lei(bloco)
+
+
+# --- a lei que mudou depois da prova ----------------------------------------
+#
+# A especificacao pede o aviso "A lei mudou depois desta prova" na questao
+# antiga cujo tema foi alterado por lei posterior. A lista de temas mora em
+# `mudancas:` do config/leis.yml, e so vale depois de eu conferir: e ela que
+# diz qual lei, quais provas ficaram velhas e como reconhecer a questao.
+#
+# Cada item:
+#
+#   - tema: Progressao de regime
+#     lei: Lei 13.964/2019 (Pacote Anticrime)
+#     o_que_mudou: fracoes de 16% a 70% (LEP art. 112)
+#     anos: [2013, 2019]          # QUAIS provas ficaram velhas - escrito, e
+#                                 # nao deduzido da data: o radar nao sabe o
+#                                 # dia da prova, so o ano
+#     marcas: [progressao]        # procuradas no enunciado e nas alternativas
+#     materias: [Lei de Execucao Penal]   # opcional: so nestas materias
+#     provas: [<link do caderno>]  # opcional: so nestes cadernos (decisao 171)
+#     procedencia: Claude Code (...), 03/10/2026, pela compilacao da Camara
+#     conferida: false
+#
+# `provas` existe porque o `anos` pega toda prova do mesmo ano que tenha a
+# marca - inclusive a feita DEPOIS da mudanca, quando a lei e do meio do ano
+# (a Lei 14.365 e de junho de 2022, e a prova de Colombo, de outubro).
+#
+# O item que eu escrevo nao precisa de procedencia: ele e meu. O que uma IA
+# escreveu leva a `procedencia` (regra do projeto: dado de IA so entra com
+# ela) e fica POR CONFERIR - o aviso aparece, mas com o 🟣 e o "por
+# conferir" - ate eu marcar `conferida: true`.
+
+
+@dataclass(frozen=True)
+class Mudanca:
+    """Uma lei posterior que deixou velha a questao de uma prova."""
+
+    tema: str
+    lei: str
+    o_que_mudou: str | None = None
+    procedencia: str | None = None
+    conferida: bool = True
+
+
+def _por_conferir(item: dict) -> bool:
+    """Item escrito por IA (tem procedencia) e ainda nao marcado conferido."""
+    return bool(item.get("procedencia")) and not item.get("conferida")
+
+
+def mudancas_conferidas() -> bool:
+    """A lista de leis alteradas existe no YAML? Sem ela, nao ha aviso - e a
+    tela precisa dizer que a falta e da lista, e nao da lei."""
+    return "mudancas" in _arquivo()
+
+
+def mudancas_por_conferir() -> int:
+    """Quantos itens das duas listas - `mudancas` e `fronteira` - vieram de
+    IA e eu ainda nao conferi."""
+    itens = (_arquivo().get("mudancas") or []) + (_arquivo().get("fronteira") or [])
+    return sum(1 for item in itens if _por_conferir(item))
+
+
+def mudancas_da_questao(
+    ano: int | None, materia: str | None, texto: str | None,
+    prova_url: str | None = None,
+) -> list[Mudanca]:
+    """As leis posteriores que afetam esta questao, pela lista do YAML.
+
+    As condicoes, todas por escrito no YAML: o ano da prova esta em `anos`, o
+    caderno esta em `provas` (quando o item restringe), a materia esta em
+    `materias` (quando o item restringe), e alguma `marca` aparece no texto.
+    Nada e deduzido: sem o item, nenhuma questao ganha aviso - aviso inventado
+    seria pior que aviso nenhum.
+    """
+    procurado = normalizar(texto or "")
+    da_materia = normalizar(materia or "")
+    achadas = []
+    for item in _arquivo().get("mudancas") or []:
+        if ano not in (item.get("anos") or []):
+            continue
+        if item.get("provas") and prova_url not in item["provas"]:
+            continue
+        materias = [normalizar(str(m)) for m in item.get("materias") or []]
+        if materias and da_materia not in materias:
+            continue
+        marcas = [normalizar(str(m)) for m in item.get("marcas") or []]
+        if not any(marca and marca in procurado for marca in marcas):
+            continue
+        achadas.append(Mudanca(
+            tema=str(item.get("tema") or ""),
+            lei=str(item.get("lei") or ""),
+            o_que_mudou=item.get("o_que_mudou") or None,
+            procedencia=item.get("procedencia") or None,
+            conferida=not _por_conferir(item),
+        ))
+    return achadas
+
+
+# --- o que mudou num ponto que nenhuma questao cobra (decisao 84) ---------------
+#
+# A lista `fronteira:` do config/leis.yml: o artigo mudou depois da prova, num
+# ponto que a questao nao cobra - nao ha aviso na questao, e sim na ficha do
+# tema, onde vale saber dele.
+
+
+def fronteira_do_tema(materia: str | None, nos, titulo: str | None) -> list[Mudanca]:
+    """Os itens da `fronteira` que tocam um tema da ficha de estudo.
+
+    Duas maneiras, as duas escritas no YAML: um no do item no mesmo ramo da
+    arvore que um no do tema (um debaixo do outro), ou uma marca do item no
+    titulo do tema, quando a materia e a do item. Nada e deduzido do texto.
+    """
+    procurado = normalizar(titulo or "")
+    da_materia = normalizar(materia or "")
+    achadas = []
+    for item in _arquivo().get("fronteira") or []:
+        nos_do_item = [str(n) for n in item.get("nos") or []]
+        pelo_no = any(_mesmo_ramo(a, b) for a in nos_do_item for b in nos or ())
+        materias = [normalizar(str(m)) for m in item.get("materias") or []]
+        marcas = [normalizar(str(m)) for m in item.get("marcas") or []]
+        pela_marca = (da_materia in materias
+                      and any(marca and marca in procurado for marca in marcas))
+        if pelo_no or pela_marca:
+            achadas.append(Mudanca(
+                tema=str(item.get("tema") or ""),
+                lei=str(item.get("lei") or ""),
+                o_que_mudou=item.get("o_que_mudou") or None,
+                procedencia=item.get("procedencia") or None,
+                conferida=not _por_conferir(item),
+            ))
+    return achadas
+
+
+def _mesmo_ramo(um: str, outro: str) -> bool:
+    """Um no e o outro, ou um debaixo do outro."""
+    return (um == outro or um.startswith(outro + SEPARADOR)
+            or outro.startswith(um + SEPARADOR))

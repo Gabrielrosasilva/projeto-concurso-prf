@@ -1,0 +1,45 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.pytest_cache/
+*.egg-info/
+
+# O banco fica fora do git: e desta maquina e tem texto de prova de terceiros.
+# Qualquer .db, e nao so o de data/: o repositorio no GitHub e publico.
+*.db
+*.db-journal
+
+# PDFs de prova e de edital: de terceiros, nunca no git.
+*.pdf
+data/provas/
+data/editais/
+data/edital_do_alvo.json
+
+# O pedido para a IA e a resposta dela, no caminho sem API: sao de passagem.
+data/pedido_ia.json
+data/resposta_ia*.json
+
+# Rastro de execucao desta maquina.
+data/radar_web.pid
+data/logs/
+data/copias/
+
+# Textos oficiais das leis (Camara, LexML): copia de pagina de terceiros.
+leis/
+
+# O que veio da PMSC (banco intocado, leis, config): so de leitura, local.
+fontes/
+
+# Texto de prova, gabarito e edital de terceiros que os testes usam como dado
+# fixo: ficam so nesta maquina (regra 5 do CLAUDE.md, decisao PRF-5). Os testes
+# que leem estes arquivos rodam aqui; num clone do GitHub, falham.
+tests/fixtures/aocp_provas/
+tests/fixtures/cebraspe/
+tests/fixtures/ncufpr/
+tests/fixtures/selecon/
+tests/fixtures/provas/
+tests/fixtures/auditoria/quadro_*.txt
+tests/fixtures/ieses/caderno.txt
+tests/fixtures/ieses/gabarito.txt
+tests/fixtures/ieses/edital_trechos.txt

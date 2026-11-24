@@ -1,0 +1,57 @@
+[project]
+name = "radar-concursos"
+version = "0.1.0"
+description = "Radar pessoal de concursos publicos na Grande Florianopolis"
+requires-python = ">=3.11"
+
+dependencies = [
+    "requests==2.32.3",
+    "feedparser==6.0.14",       # le RSS/Atom e ja resolve data e feed quebrado
+    "beautifulsoup4==4.12.3",   # le a pagina do post e o hotsite da banca
+    "lxml==5.3.0",
+    "SQLAlchemy==2.0.36",
+    "typer==0.27.2",
+    "click==8.5.0",       # preso de proposito: o typer quebra com click
+                          # fora da faixa que ele espera (ja aconteceu aqui)
+    "rich==13.9.4",
+    "fastapi==0.115.6",
+    "uvicorn==0.34.0",
+    "jinja2==3.1.5",
+    # necessario para o FastAPI ler formulario HTML (o botao de favoritar
+    # manda POST; mutar dado por GET deixaria o navegador favoritar sozinho
+    # ao pre-carregar links)
+    "python-multipart==0.0.20",
+    "python-dotenv==1.0.1",
+    "PyYAML==6.0.2",
+    "pypdf==6.19.0",           # le o texto do PDF da prova            # config/perfil.yml e config/regioes.yml
+    # A posicao de cada letra e os tracos da pagina, que o pypdf nao da: e
+    # por eles que se acha o sublinhado e o negrito da questao (decisao 178).
+    "pdfminer.six==20251107",
+    # Base de fusos horarios. O Linux tem a dele em /usr/share/zoneinfo;
+    # o Windows nao tem nenhuma, e sem isto o ZoneInfo quebra la.
+    # E o UNICO nao preso em versao exata, de proposito: e tabela de dados,
+    # nao codigo. Se o Brasil voltar a ter horario de verao, a regra nova
+    # chega numa versao nova - travar aqui seria congelar o fuso errado.
+    "tzdata>=2025.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.4",
+    # necessario para o TestClient do FastAPI: permite testar a pagina web
+    # sem subir servidor nenhum.
+    "httpx==0.28.1",
+]
+
+[project.scripts]
+radar = "radar.cli:app"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

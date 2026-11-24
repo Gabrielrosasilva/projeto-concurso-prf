@@ -1,0 +1,155 @@
+# A redacao da PMSC 2026: o que a banca cobra, o metodo, os temas e o pedido
+# de correcao para a IA. Lido pela aba Redacao do radar PMSC (Etapa 3 do
+# PEDIDO_PMSC.md). E DADO: pode editar a mao.
+#
+# PROCEDENCIA: escrito pelo Claude (claude-opus-5-5) em 23/10/2026, a partir do
+# item 11 do Edital 002/CCP/2026 - CFP (Instituto AOCP) e das provas de redacao
+# da AOCP para a PM-GO (2022) e a PM-ES (2022).
+
+regras_do_edital:
+  tema: "Ordem Pública: sistema de justiça criminal; políticas públicas de ordem pública e cidadania; a ordem pública na CF/88 - competências das PMs, a PM como força auxiliar e reserva do Exército, a PM organizada com base na hierarquia e disciplina."
+  tipo: dissertativo-argumentativo
+  linhas_minimo: 20
+  linhas_maximo: 30
+  nota_maxima: 20
+  nota_minima: 10
+  # Quem passa da 2.000a posicao na objetiva nao tem a redacao corrigida.
+  corrigida_ate_a_posicao: 2000
+  formula: "NPR = NC - (NE / TL): NC é a nota de conteúdo (0 a 20), NE o número de erros de português e TL o total de linhas escritas. Cada linha abaixo de 20 tira 0,20."
+  criterios_de_conteudo:
+    - Atendimento e desenvolvimento do tema
+    - Coesão e coerência
+    - Atendimento à estrutura dissertativo-argumentativa
+    - Informatividade e argumentação
+  zero:
+    - Fugir do tema
+    - Não ser dissertativo-argumentativo
+    - Letra ilegível
+    - Escrever a lápis ou com tinta que não seja azul ou preta
+    - Qualquer marca que identifique o candidato (nome, assinatura, rubrica)
+    - Folha definitiva em branco
+
+esqueleto:
+  - parte: Introdução
+    linhas: "4 a 5"
+    o_que_escrever: "Contexto (a lei ou o fato) + o problema do tema + a TESE com os dois argumentos."
+    modelo: "A Constituição Federal de 1988, em seu artigo 144, estabelece que a segurança pública é dever do Estado, direito e responsabilidade de todos. Nesse contexto, [o tema] depende de [argumento 1] e de [argumento 2]."
+  - parte: Desenvolvimento 1
+    linhas: "7 a 8"
+    o_que_escrever: "Tópico frasal (o argumento 1 em uma frase) + fundamentação (por que é verdade) + exemplo concreto + fecho ligando à tese."
+    modelo: "Em primeiro lugar, [argumento 1]. Isso ocorre porque [fundamentação]. Um exemplo disso é [exemplo]. Dessa forma, [ligação com a tese]."
+  - parte: Desenvolvimento 2
+    linhas: "7 a 8"
+    o_que_escrever: "O mesmo desenho, com o argumento 2."
+    modelo: "Além disso, [argumento 2]. [Fundamentação]. [Exemplo]. Assim, [ligação com a tese]."
+  - parte: Conclusão
+    linhas: "4 a 5"
+    o_que_escrever: "Retome a tese com outras palavras + proposta com AGENTE, AÇÃO, MEIO e FINALIDADE."
+    modelo: "Portanto, [tese com outras palavras]. Para isso, cabe ao [agente] [ação], por meio de [meio], a fim de [finalidade]."
+
+roteiro_de_ideias:
+  minutos: 10
+  passos:
+    - "Reescreva o tema com as suas palavras e sublinhe a palavra-chave."
+    - "Responda: O QUE é isso? POR QUE importa (para a sociedade e para a PM)? COMO melhorar?"
+    - "Escolha 2 argumentos entre as 4 fontes: a lei; o papel da PM; a consequência de não fazer; a solução."
+    - "Escreva a tese em UMA frase. Só então comece o texto."
+
+conectivos:
+  abrir: [Em primeiro lugar, Inicialmente, Além disso, Ademais, Por outro lado]
+  explicar: [Isso ocorre porque, Visto que, Uma vez que]
+  exemplificar: [Um exemplo disso é, É o caso de]
+  fechar: [Dessa forma, Assim, Portanto, Diante disso]
+
+erros_que_mais_tiram_ponto:
+  - "Vírgula entre sujeito e verbo."
+  - "Crase antes de palavra masculina ou de verbo."
+  - "\"Haviam problemas\" (o certo é \"havia\": haver no sentido de existir não vai ao plural)."
+  - "\"Onde\" para o que não é lugar (use \"em que\", \"no qual\")."
+  - "mas x mais; a x há; mal x mau; porque x por que."
+  - "Acento: \"têm\" no plural, \"veem\" sem acento."
+  - "Escrever em primeira pessoa (\"eu acho\")."
+  - "Menos de 20 linhas."
+
+# So o que e certo. Numero inventado vira erro de conteudo: a IA nunca deve
+# sugerir estatistica que nao esteja aqui.
+repertorio:
+  - "CF art. 144, caput: a segurança pública é dever do Estado, direito e responsabilidade de todos, exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio."
+  - "CF art. 144, § 5º: às polícias militares cabem a polícia ostensiva e a preservação da ordem pública."
+  - "CF art. 144, § 6º: as polícias militares são forças auxiliares e reserva do Exército e se subordinam aos Governadores."
+  - "CF art. 42: os militares dos Estados integram instituições organizadas com base na hierarquia e na disciplina."
+  - "Lei 13.675/2018: institui o Sistema Único de Segurança Pública (SUSP), que integra os órgãos de segurança."
+  - "Lei 14.751/2023: Lei Orgânica Nacional das Polícias Militares e dos Corpos de Bombeiros Militares."
+  - "Lei 11.340/2006 (Maria da Penha): proteção à mulher em situação de violência doméstica."
+  - "O sistema de justiça criminal: polícia, Ministério Público, Judiciário e execução penal - a PM é a porta de entrada."
+  - "Policiamento comunitário e prevenção: a polícia próxima da comunidade recebe mais informação e mais confiança."
+  - "Direitos humanos na atuação policial: o uso da força é legal quando necessário e proporcional."
+
+temas:
+  # quarta-feira, a redacao da semana
+  - data: '2026-10-28'
+    tema: "O papel da Polícia Militar na preservação da ordem pública"
+    textos:
+      - texto: "Fixture de teste: o primeiro trecho de lei, sobre a polícia ostensiva."
+        lei: "CF, art. 144, § 5º"
+        url: "https://exemplo.gov.br/cf"
+        acesso: "25 out. 2026"
+      - texto: "Fixture de teste: o segundo trecho de lei, sobre a ordem pública."
+        lei: "Lei 14.751/2023, art. 3º"
+        url: "https://exemplo.gov.br/lei-14751"
+        acesso: "25 out. 2026"
+      - texto: "Este nao aparece: nao tem a fonte."
+        lei: "sem fonte"
+  - data: '2026-11-04'
+    tema: "Segurança pública: dever do Estado, direito e responsabilidade de todos"
+    comando: "Fixture de teste: redija um texto DISSERTATIVO que discuta a seguinte temática: A SEGURANÇA É SÓ DO ESTADO OU DE TODOS?"
+    textos:
+      - titulo: "Fixture: o título da notícia"
+        texto: "Fixture de teste: o trecho literal da notícia."
+        fonte: "Agência Fixture, 01/01/2026"
+        url: "https://exemplo.gov.br/noticia"
+        acesso: "26 out. 2026"
+      - texto: "Fixture de teste: o trecho de lei."
+        lei: "CF, art. 144"
+        url: "https://exemplo.gov.br/cf"
+        acesso: "26 out. 2026"
+      - titulo: "Este nao aparece: noticia sem fonte"
+        texto: "Fixture de teste: sem a fonte."
+        url: "https://exemplo.gov.br/sem-fonte"
+  - {data: '2026-11-11', tema: "O sistema de justiça criminal e o combate à impunidade"}
+  - {data: '2026-11-18', tema: "Policiamento comunitário como política pública de ordem pública e cidadania"}
+  - {data: '2026-11-25', tema: "Hierarquia e disciplina como base das instituições militares"}
+  - {data: '2026-12-02', tema: "As polícias militares como forças auxiliares e reserva do Exército"}
+  - {data: '2026-12-09', tema: "A confiança da população na polícia e a preservação da ordem pública"}
+  # sabado, dentro do simulado completo
+  - {data: '2026-11-14', tema: "Violência contra a mulher e a atuação da Polícia Militar"}
+  - {data: '2026-11-21', tema: "Prevenção da criminalidade entre os jovens: educação e segurança pública"}
+  - {data: '2026-11-28', tema: "Segurança pública e direitos humanos: os limites da atuação policial"}
+  - {data: '2026-12-05', tema: "Integração entre os órgãos de segurança pública para a preservação da ordem pública"}
+
+# Temas que a propria AOCP ja deu em PM, para ver o formato da proposta. Os
+# dois sao de 2022 e NAO sao de ordem publica: o edital da PMSC restringe.
+temas_anteriores_da_aocp:
+  - {prova: "PM-GO 2022, Soldado", tema: "O tempo utilizado na internet é prejudicial para as pessoas ou é uma necessidade do mundo contemporâneo?", linhas: "20 a 30", link: "https://cdn.direcaoconcursos.com.br/uploads/2023/03/Prova-discursiva_PMGO.pdf"}
+  - {prova: "PM-ES 2022, Soldado Combatente", tema: "A importância da valorização da saúde mental no ambiente de trabalho", linhas: "15 a 30", link: "https://cdn.direcaoconcursos.com.br/uploads/2023/03/Prova-discursiva_PM-ES.pdf"}
+
+# O pedido que vai para a IA na correcao. A resposta volta em JSON, com
+# procedencia (modelo e data), e e gravada em data/redacoes.json.
+pedido_de_correcao: |
+  Você é um corretor (examinador) da banca Instituto AOCP. Corrija a redação abaixo para o concurso de Soldado da PMSC 2026, exatamente pelos critérios do edital (item 11.5), como na correção oficial.
+  NOTA DE CONTEÚDO (NC, de 0 a 20), pelos quatro critérios: (1) atendimento ao tema e seu desenvolvimento (informatividade e argumentação); (2) coesão intra e entre parágrafos (referencial e sequencial); (3) coerência (progressão, articulação, não contradição); (4) atendimento à estrutura dissertativo-argumentativa (organização do texto e dos parágrafos). Para cada critério: a nota, um comentário curto, o que está bom (positivos) e o que melhorar (negativos).
+  ERROS DE PORTUGUÊS (o NE): cada erro de ortografia, acentuação, crase, concordância, regência, pontuação ou morfossintaxe, um por ocorrência, com o trecho EXATAMENTE como está no texto (o radar o marca no lugar), a correção, a regra, o tipo e uma explicação em linguagem simples, para quem não estuda gramática há anos.
+  MELHORIAS: o "você escreveu, como fica, por quê" do que não é erro de português mas tira nota de conteúdo: repetição, conectivo fraco ou errado, frase longa demais, argumento vago, exemplo genérico, proposta sem agente, ação, meio ou finalidade.
+  Dê também: de 2 a 4 PONTOS POSITIVOS gerais; os 3 PONTOS que mais tiraram nota; 3 FOCOS para a próxima redação; e o PARÁGRAFO MAIS FRACO reescrito como o corretor o escreveria.
+  Quando o texto vier da foto da folha (origem "foto"), avalie a LEGIBILIDADE da letra: "legível", "com trechos difíceis" ou "ilegível", e o que observar. Letra ilegível é nota zero (edital, 11.13).
+  Os TEXTOS MOTIVADORES da proposta vão no pedido: trecho copiado deles não é argumento do candidato e não conta como informatividade.
+  MOTIVO DE ZERO, se houver (edital, 11.13): fuga ao tema, texto que não é dissertativo-argumentativo, letra ilegível, identificação do candidato.
+  Regras do edital: 20 a 30 linhas; NPR = NC - NE / TL, menos 0,20 por linha abaixo de 20. A conta é do radar: a sua nota_final serve só para comparar.
+  Seja rigoroso e realista como um corretor de banca: não dê nota maior para agradar e não elogie à toa, mas diga o que está bom. Nunca invente estatística, número ou lei: se sugerir repertório, use só a lista "repertorio" enviada junto ou os textos motivadores.
+
+pedido_de_reescrita: |
+  Você é o mesmo corretor da banca Instituto AOCP. O candidato recebeu a correção da redação e reescreveu à mão o parágrafo mais fraco (campo "reescrita"). Compare com o parágrafo original (na "redacao"), com o que a correção apontou ("o_que_a_correcao_disse") e com o modelo do corretor ("paragrafo_reescrito_pelo_corretor").
+  Diga se melhorou ("sim", "em parte" ou "não"); num comentário direto, o que ficou melhor e o que não ficou; o que ainda falta; e os erros de português da reescrita (trecho, correção, regra). Não reescreva de novo: o objetivo é ele aprender a fazer. Se ele só copiou o modelo do corretor, diga isso.
+
+pedido_de_ideias: |
+  Para o tema abaixo, dê: 3 teses possíveis (uma frase cada); para cada tese, 2 argumentos com uma frase de fundamentação; 1 exemplo concreto do dia a dia do policiamento para cada argumento (sem números inventados); e 1 proposta de intervenção com agente, ação, meio e finalidade. Use só o repertório enviado junto. Devolva em JSON.

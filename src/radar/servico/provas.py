@@ -1,0 +1,1754 @@
+"""As provas: montar o acervo, ler os cadernos, e o que eles ensinam.
+
+Um assunto so, em quatro passos que vao um atras do outro:
+
+1. **o acervo** - achar o hotsite do concurso, baixar edital, prova e
+   gabarito, e gravar no manifesto versionado;
+2. **as questoes** - separar o caderno em questoes, com materia e gabarito;
+3. **o padrao da banca** - o que ela mais cobra, o que ela repete, e o assunto
+   fino de cada questao;
+4. **a prova substituta** - qual prova do acervo mais se parece com o cargo
+   que eu quero, quando nao existe prova dele.
+
+O que este arquivo NAO faz e ir atras do PDF sozinho: quem fala com o site e
+o `radar.provas`, que aqui entra como `arquivos_de_prova` para nao se
+confundir com o proprio modulo.
+"""
+import logging
+import re
+from dataclasses import dataclass, field
+import json
+import time
+from datetime import date, datetime
+from difflib import SequenceMatcher
+from pathlib import Path
+
+import yaml
+from sqlalchemy import func, select
+
+from radar import alvo as alvos
+from radar import assuntos as classificador_de_assunto
+from radar import config
+from radar import edital_ieses, macetes, substituta
+from radar import gabarito as gabarito_oficial
+from radar import provas as arquivos_de_prova
+from radar import provas_ieses
+from radar import questoes as leitor_de_questoes
+from radar import gabarito_por_versao
+from radar import questoes_cebraspe, questoes_ieses, questoes_ncufpr, questoes_por_rodada
+from radar import questoes_aocp, questoes_certo_errado, questoes_selecon
+from radar.collectors.base import Buscador
+from radar.db import criar_tabelas, sessao
+from radar.models import Concurso, QuestaoDeProva, agora
+from radar.servico.comum import (
+    ano_do_concurso as _ano_do_concurso,
+    cargo_parecido as _cargo_parecido,
+    sem_acento as _sem_acento,
+)
+from radar.servico.simulado import materias_universais
+
+log = logging.getLogger(__name__)
+
+
+# Cada hotsite da FEPESE tem estas duas paginas, e e so o que precisamos ler.
+PAGINAS_DO_HOTSITE = ("provas", "edital")
+
+
+@dataclass
+class ResultadoAcervo:
+    concursos: int = 0
+    provas: int = 0
+    gabaritos: int = 0
+    editais: int = 0
+    falhas: int = 0
+    #: A rodada parou porque varios hotsites seguidos nao responderam.
+    parou_sem_resposta: bool = False
+
+    @property
+    def documentos(self) -> int:
+        return self.provas + self.gabaritos + self.editais
+
+    def __str__(self) -> str:
+        if not self.concursos:
+            return "Nada novo para o acervo."
+        texto = (
+            f"{self.concursos} concurso(s) lido(s): {self.provas} prova(s), "
+            f"{self.gabaritos} gabarito(s), {self.editais} edital(is)"
+            + (f", {self.falhas} falha(s)" if self.falhas else "")
+        )
+        if self.parou_sem_resposta:
+            texto += (f". Parou: {SEGUIDOS_SEM_RESPOSTA} concursos seguidos sem resposta "
+                      "(o site pode ter bloqueado o acesso; espere dias antes de tentar de novo)")
+        return texto
+
+
+#: Quantos hotsites seguidos sem resposta param a rodada. Em 17/10 o firewall
+#: da FEPESE bloqueou os hotsites depois de ~1.000 pedidos da leitura pelo
+#: conteudo, e a rodada seguiu batendo neles: 760 falhas, todas inuteis.
+SEGUIDOS_SEM_RESPOSTA = 5
+
+
+def _hotsite(concurso: Concurso) -> str | None:
+    """Onde a banca publica os documentos daquele concurso.
+
+    A FEPESE guarda o endereco num campo a parte; na IESES a propria url do
+    concurso JA e o hotsite.
+    """
+    if concurso.fonte == "ieses":
+        return concurso.url
+    return (concurso.extra or {}).get("hotsite")
+
+
+# De que fontes da para montar acervo hoje. Cada uma publica os PDFs de um
+# jeito, e por isso a leitura da pagina e por banca.
+FONTES_COM_ACERVO = ("fepese", "ieses")
+
+
+# Ordem de prioridade para gastar requisicao.
+#
+# O alvo principal vem na frente e NAO olha distancia. O acervo existe para me
+# mostrar o padrao da banca no cargo que eu vou prestar, e o cargo que eu vou
+# prestar e a Policia Penal SC - concurso estadual, onde a prova for. Enquanto
+# a regra era so geografica, as duas unicas provas de Agente Penitenciario que
+# existem (2013 e 2019) ficavam de fora do acervo por serem `estadual`, que
+# nao e nem `nucleo` nem `indefinida`. Era o acervo contrariando o motivo de
+# ele existir.
+#
+# Depois dele continua valendo o de sempre: prova de concurso encerrado perto
+# de casa, que e o padrao da banca na minha regiao.
+PRIORIDADE_ACERVO = (
+    lambda: Concurso.alvo == alvos.PRINCIPAL,
+    lambda: Concurso.relevancia.in_(("nucleo", "proximo")),
+    lambda: Concurso.relevancia == "indefinida",
+)
+
+
+def _concursos_com_prova(
+    limite: int, abertos: bool = False, revisitar: bool = False
+) -> list[Concurso]:
+    """Quem ainda nao esta no acervo, na ordem de prioridade.
+
+    O manifesto e a memoria: concurso cuja url ja aparece la nao e lido de
+    novo. Assim nao precisa de coluna no banco so para marcar isso.
+
+    Com `revisitar`, a memoria e ignorada de proposito. Ela parte de que o
+    hotsite nao muda depois da prova, e isso e falso: o gabarito DEFINITIVO do
+    concurso de 2019 foi publicado dias depois do caderno, e a retificacao
+    dele um mes depois disso. Documento novo em concurso velho so aparece
+    passando por cima de novo.
+    """
+    ja_no_acervo = (
+        set() if revisitar
+        else {r.get("concurso_url") for r in arquivos_de_prova.carregar_manifesto()}
+    )
+
+    escolhidos: list[Concurso] = []
+    with sessao() as s:
+        for condicao in PRIORIDADE_ACERVO:
+            if len(escolhidos) >= limite:
+                break
+            consulta = (
+                select(Concurso)
+                .where(Concurso.fonte.in_(FONTES_COM_ACERVO))
+                # So concurso ja realizado tem prova publicada. A IESES nao
+                # informa status nenhum, entao para ela vale a data: o hotsite
+                # de quem ja fez a prova traz os cadernos, e o de quem nao fez
+                # ainda simplesmente nao rende documento.
+                .where(
+                    (Concurso.situacao == "encerrado")
+                    | (Concurso.fonte == "ieses")
+                    # Concurso que ainda nao aconteceu nao tem prova, mas TEM
+                    # edital - e o edital e o que diz se eu posso prestar.
+                    | (abertos and Concurso.situacao != "encerrado")
+                )
+                .where(condicao())
+                .order_by(Concurso.publicado_em.desc().nullslast())
+            )
+            for concurso in s.scalars(consulta):
+                if len(escolhidos) >= limite:
+                    break
+                if concurso.url in ja_no_acervo or not _hotsite(concurso):
+                    continue
+                escolhidos.append(concurso)
+
+    return escolhidos
+
+
+# --- o acervo pelo conteudo (decisao 167) -----------------------------------
+#
+# O acervo de sempre escolhe o concurso pela distancia, e a Policia Civil SC
+# 2017, a Policia Cientifica e as Guardas de longe nunca entraram nele. Para
+# estudar, o que vale e o cargo ter Direito: `--por-conteudo` le a pagina de
+# provas de todo concurso encerrado da FEPESE e baixa so o caderno cujo cargo
+# esta no `config/complementar.yml` (`cargos_com_direito`).
+
+def caminho_dos_lidos_por_conteudo() -> Path:
+    """O registro do que a leitura pelo conteudo ja varreu. Sem ele, o
+    concurso sem cargo de Direito voltaria em toda rodada - ele nao entra no
+    manifesto, que so guarda documento baixado."""
+    return config.diretorio_dados() / "acervo_por_conteudo.json"
+
+
+def carregar_lidos_por_conteudo() -> dict[str, dict]:
+    caminho = caminho_dos_lidos_por_conteudo()
+    if not caminho.exists():
+        return {}
+    return json.loads(caminho.read_text(encoding="utf-8")).get("concursos", {})
+
+
+def gravar_lidos_por_conteudo(lidos: dict[str, dict]) -> None:
+    caminho = caminho_dos_lidos_por_conteudo()
+    caminho.parent.mkdir(parents=True, exist_ok=True)
+    corpo = json.dumps({"concursos": dict(sorted(lidos.items()))},
+                       ensure_ascii=False, indent=1) + "\n"
+    # No Windows a gravacao seguida do mesmo arquivo falhou uma vez com
+    # "Invalid argument" (17/10, no 28o concurso): outro programa segurava o
+    # arquivo por um instante. Mais duas tentativas, e so entao desiste.
+    for tentativa in range(3):
+        try:
+            caminho.write_text(corpo, encoding="utf-8")
+            return
+        except OSError:
+            if tentativa == 2:
+                raise
+            time.sleep(1)
+
+
+def cargos_com_direito(caminho: Path | None = None) -> list[str]:
+    """Os pedacos de nome de cargo cujo caderno tem Direito, ja sem acento."""
+    arquivo = caminho or (config.diretorio_config() / "complementar.yml")
+    if not Path(arquivo).exists():
+        return []
+    dados = yaml.safe_load(Path(arquivo).read_text(encoding="utf-8")) or {}
+    return [arquivos_de_prova._normalizar(str(t))
+            for t in (dados.get("cargos_com_direito") or []) if str(t).strip()]
+
+
+def cargo_com_direito(cargo: str | None, termos: list[str]) -> bool:
+    texto = arquivos_de_prova._normalizar(cargo or "")
+    return bool(texto) and any(termo in texto for termo in termos)
+
+
+def _concursos_por_conteudo(limite: int, revisitar: bool = False) -> list[Concurso]:
+    """Todo concurso encerrado da FEPESE que ainda nao foi lido, perto ou
+    longe, do mais novo para o mais velho."""
+    ja_lidos = set() if revisitar else (
+        {r.get("concurso_url") for r in arquivos_de_prova.carregar_manifesto()}
+        | set(carregar_lidos_por_conteudo()))
+    escolhidos: list[Concurso] = []
+    with sessao() as s:
+        consulta = (select(Concurso)
+                    .where(Concurso.fonte == "fepese")
+                    .where(Concurso.situacao == "encerrado")
+                    .order_by(Concurso.publicado_em.desc().nullslast()))
+        for concurso in s.scalars(consulta):
+            if len(escolhidos) >= limite:
+                break
+            if concurso.url in ja_lidos or not _hotsite(concurso):
+                continue
+            escolhidos.append(concurso)
+    return escolhidos
+
+
+def _so_os_de_direito(encontrados: list, termos: list[str]) -> list:
+    """Os cadernos dos cargos de Direito e, se houver algum, os gabaritos do
+    concurso (o definitivo traz as anuladas). Sem caderno de interesse, nada:
+    o gabarito sozinho nao vira questao."""
+    cadernos = [d for d in encontrados if d.tipo == arquivos_de_prova.PROVA
+                and cargo_com_direito(d.cargo, termos)]
+    if not cadernos:
+        return []
+    gabaritos = [d for d in encontrados if d.tipo in (
+        arquivos_de_prova.GABARITO, arquivos_de_prova.GABARITO_DEFINITIVO)]
+    return cadernos + gabaritos
+
+
+# --- as provas de outras bancas (decisao 168) --------------------------------
+
+def _ler_ncufpr(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # O caderno "definitivo" traz o gabarito dentro.
+    return questoes_ncufpr.ler_prova(caminho)
+
+
+def _ler_selecon(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # A Selecon nova (Prova A e Prova B no mesmo PDF) le pela versao; a da
+    # SEJUSP/MG, de versao unica, pelo leitor dela: o gabarito e um PDF a
+    # parte, e a materia sai da faixa da capa (config).
+    if prova.get("versao"):
+        return _ler_por_rodada(caminho, prova, gabarito, "ponto", "fecha")
+    return questoes_selecon.ler_prova(
+        caminho, gabarito, questoes_selecon.faixas_do_config(prova.get("materias")))
+
+
+def _ler_por_rodada(caminho: Path, prova: dict, gabarito: Path | None,
+                    marca: str, alternativa: str) -> list:
+    """O caderno que vem em mais de uma versao (decisao 172): so as paginas e
+    o bloco do gabarito da `versao` da lista. Sem a versao, ou sem o bloco
+    dela no gabarito, nada entra - a letra de outra versao mediria errado."""
+    versao, cargo = prova.get("versao"), prova.get("cargo_no_pdf")
+    if not versao or gabarito is None:
+        log.warning("%s: falta a versao ou o gabarito na lista", caminho.name)
+        return []
+    # O gabarito pode chamar o cargo de outro jeito: o caderno da PC RN e o
+    # "AGENTE E ESCRIVAO", e o gabarito tem um bloco do "Agente de Policia
+    # Civil Substituto", outro do Escrivao e outro do Delegado.
+    cargo_do_gabarito = prova.get("cargo_no_gabarito") or cargo
+    try:
+        respostas = gabarito_por_versao.da_versao(gabarito, versao, cargo_do_gabarito)
+        return questoes_por_rodada.ler_prova(
+            caminho, respostas, versao=versao, cargo=cargo, marca=marca,
+            alternativa=alternativa, ler=prova.get("ler"),
+            letras="ABCD" if prova.get("alternativas") == 4 else "ABCDE")
+    except ValueError as erro:
+        log.warning("%s: %s", caminho.name, erro)
+        return []
+
+
+def _ler_fgv(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # "41" sozinho na linha, e (A) a (E).
+    return _ler_por_rodada(caminho, prova, gabarito, "numero", "parenteses")
+
+
+def _ler_access(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # "Questao 26" sozinho na linha, e (A) a (E) - ou (A) a (D).
+    return _ler_por_rodada(caminho, prova, gabarito, "questao", "parenteses")
+
+
+def _ler_idecan(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # "13. Enunciado", e (A) a (E).
+    return _ler_por_rodada(caminho, prova, gabarito, "ponto", "parenteses")
+
+
+def _ler_cebraspe(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # So as questoes de lei (`ler`); a resposta do gabarito definitivo, ou da
+    # justificativa quando o definitivo e de outra versao do caderno.
+    return questoes_cebraspe.ler_prova(
+        caminho, gabarito, ler=prova.get("ler"),
+        letras="ABCD" if prova.get("alternativas") == 4 else "ABCDE",
+        resposta_das_justificativas=prova.get("resposta") == "justificativas",
+        anuladas=prova.get("anuladas"))
+
+
+def _ler_aocp(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    """O caderno do Instituto AOCP, a banca da PMSC (decisao PMSC-6): so as
+    paginas e o bloco do gabarito do tipo da lista, como na decisao 172. A
+    materia de cada faixa vem da lista (`materias`): e por ela que o acervo
+    complementar reconhece a materia do edital e que a classificacao monta o
+    pedido."""
+    if prova.get("formato") == "certo_errado":
+        # O caderno escaneado nao tem texto que se leia: o que entra e a
+        # transcricao conferida, com o gabarito dentro (decisao PMSC-19).
+        transcrito = pasta_dos_baixados_a_mao() / (prova.get("arquivo_transcrito") or "")
+        if not prova.get("arquivo_transcrito") or not transcrito.exists():
+            log.warning("%s: falta a transcricao dos itens de Certo/Errado", caminho.name)
+            return []
+        try:
+            return questoes_certo_errado.ler_transcricao(
+                transcrito, ler=prova.get("ler"),
+                materias=questoes_selecon.faixas_do_config(prova.get("materias")))
+        except ValueError as erro:
+            log.warning("%s: %s", transcrito.name, erro)
+            return []
+    versao = prova.get("versao")
+    if not versao or gabarito is None:
+        log.warning("%s: falta a versao ou o gabarito na lista", caminho.name)
+        return []
+    try:
+        return questoes_aocp.ler_prova(
+            caminho, gabarito, versao=versao,
+            cargo_no_gabarito=prova.get("cargo_no_gabarito"), ler=prova.get("ler"),
+            letras="ABCD" if prova.get("alternativas") == 4 else "ABCDE",
+            materias=questoes_selecon.faixas_do_config(prova.get("materias")))
+    except ValueError as erro:
+        log.warning("%s: %s", caminho.name, erro)
+        return []
+
+
+#: As bancas cujo caderno o radar sabe ler, e o leitor de cada uma. Cada
+#: leitor recebe o PDF, a entrada da prova no config e o gabarito a parte.
+LEITORES_DE_OUTRAS_BANCAS = {"NC-UFPR": _ler_ncufpr, "SELECON": _ler_selecon,
+                             "CEBRASPE": _ler_cebraspe, "FGV": _ler_fgv,
+                             "ACCESS": _ler_access, "IDECAN": _ler_idecan,
+                             "INSTITUTO AOCP": _ler_aocp}
+
+
+def _ler_de_outra_banca(registro: dict, caminho: Path, leitor) -> list:
+    """O caderno de outra banca, com o que o config diz dele e o gabarito que
+    o manifesto baixou."""
+    prova = next((p for p in carregar_provas_de_outras_bancas()
+                  if p.get("caderno") == registro.get("url")), {})
+    gabarito = None
+    if url_do_gabarito(prova):
+        do_gabarito = next((r for r in arquivos_de_prova.carregar_manifesto()
+                            if r.get("url") == url_do_gabarito(prova)), None)
+        gabarito = _caminho(do_gabarito)
+    return leitor(caminho, prova, gabarito)
+
+
+def url_do_gabarito(prova: dict) -> str | None:
+    """O link do gabarito na lista. O baixado a mao sem link conhecido (voce
+    nao lembra de onde veio) fica com o do caderno e "#gabarito": e so o nome
+    dele no manifesto, e nenhum endereco e inventado."""
+    if prova.get("gabarito"):
+        return prova["gabarito"]
+    if prova.get("arquivo_do_gabarito") and prova.get("caderno"):
+        return prova["caderno"] + "#gabarito"
+    return None
+
+
+def carregar_provas_de_outras_bancas(caminho: Path | None = None) -> list[dict]:
+    """A lista do `config/provas_de_outras_bancas.yml`, so das bancas que o
+    radar sabe ler."""
+    arquivo = caminho or (config.diretorio_config() / "provas_de_outras_bancas.yml")
+    if not Path(arquivo).exists():
+        return []
+    dados = yaml.safe_load(Path(arquivo).read_text(encoding="utf-8")) or {}
+    return [p for p in (dados.get("provas") or [])
+            if p.get("caderno") and (p.get("banca") or "").upper() in LEITORES_DE_OUTRAS_BANCAS]
+
+
+#: Quantas vezes tentar o PDF que veio cortado ou que falhou.
+TENTATIVAS_DO_PDF = 3
+
+
+def _pdf_inteiro(caminho: Path) -> bool:
+    """O PDF termina com %%EOF? O CDN do Cebraspe ja entregou um caderno pela
+    metade com status 200 (17/10): 64 KB de 850 KB."""
+    with open(caminho, "rb") as arquivo:
+        arquivo.seek(0, 2)
+        tamanho = arquivo.tell()
+        arquivo.seek(max(tamanho - 2048, 0))
+        return b"%%EOF" in arquivo.read()
+
+
+def _baixar_inteiro(documento, buscador, ocupados):
+    """Baixa e confere; o que falhou ou veio cortado e tentado de novo. O CDN
+    do Cebraspe da 404 de vez em quando para arquivo que existe."""
+    for tentativa in range(TENTATIVAS_DO_PDF):
+        baixado = arquivos_de_prova.baixar(documento, buscador, ocupados=ocupados,
+                                           forcar=tentativa > 0)
+        if baixado is not None:
+            caminho = config.diretorio_dados() / baixado.caminho
+            if _pdf_inteiro(caminho):
+                return baixado
+            caminho.unlink(missing_ok=True)
+    return None
+
+
+def pasta_dos_baixados_a_mao() -> Path:
+    """Onde voce salva o PDF que o robo nao pode baixar (decisao 172)."""
+    return config.diretorio_dados() / "provas" / "manual"
+
+
+def _registrar_baixado_a_mao(documento, nome: str):
+    """O PDF que voce baixou a mao entra no manifesto como se o robo o
+    tivesse baixado: o link e o original (o do caderno na lista), e o arquivo
+    e o da pasta `data/provas/manual/`. Sem o arquivo, ou sem o fim do PDF,
+    nada."""
+    caminho = pasta_dos_baixados_a_mao() / nome
+    if not caminho.exists():
+        log.warning("falta %s em data/provas/manual/", nome)
+        return None
+    # O gabarito transcrito de uma imagem e texto, e nao PDF (questoes_aocp).
+    if caminho.suffix.lower() != ".txt" and not _pdf_inteiro(caminho):
+        log.warning("%s nao termina como PDF: baixe de novo", nome)
+        return None
+    return arquivos_de_prova.baixar(documento, buscador=None, caminho=caminho)
+
+
+def montar_acervo_de_outras_bancas() -> ResultadoAcervo:
+    """Baixa os cadernos (e os gabaritos a parte) da lista. O que ja esta no
+    manifesto nao e baixado de novo; o que tem `arquivo` foi baixado a mao, e
+    so e registrado."""
+    resultado = ResultadoAcervo()
+    lista = carregar_provas_de_outras_bancas()
+    if not lista:
+        return resultado
+    registros = arquivos_de_prova.carregar_manifesto()
+    conhecidos = {r.get("url") for r in registros}
+    ocupados = {r["caminho"]: r.get("url") for r in registros if r.get("caminho")}
+    buscador = Buscador()
+    for prova in lista:
+        resultado.concursos += 1
+        documentos = [(arquivos_de_prova.PROVA, prova["caderno"], prova.get("arquivo"))]
+        if url_do_gabarito(prova):
+            documentos.append((arquivos_de_prova.GABARITO, url_do_gabarito(prova),
+                               prova.get("arquivo_do_gabarito")))
+        for tipo, url, a_mao in documentos:
+            if url in conhecidos:
+                continue
+            documento = arquivos_de_prova.Documento(
+                tipo=tipo, url=url, arquivo=url.rsplit("/", 1)[-1],
+                cargo=prova.get("cargo") if tipo == arquivos_de_prova.PROVA else None,
+                concurso_url=prova.get("pagina") or prova["caderno"],
+                banca=prova["banca"], orgao=prova.get("orgao"),
+                municipio=prova.get("municipio"), ano=prova.get("ano"))
+            if a_mao:
+                baixado = _registrar_baixado_a_mao(documento, a_mao)
+            else:
+                baixado = _baixar_inteiro(documento, buscador, ocupados)
+            if baixado is None:
+                resultado.falhas += 1
+                continue
+            registros.append(arquivos_de_prova.para_registro(baixado))
+            conhecidos.add(baixado.url)
+            ocupados.setdefault(baixado.caminho, baixado.url)
+            if tipo == arquivos_de_prova.PROVA:
+                resultado.provas += 1
+            else:
+                resultado.gabaritos += 1
+        arquivos_de_prova.gravar_manifesto(registros)
+    return resultado
+
+
+def _documentos_do_hotsite(
+    concurso: Concurso, hotsite: str, buscador, resultado
+) -> list[arquivos_de_prova.Documento]:
+    """Os PDFs que o hotsite oferece. Cada banca publica de um jeito.
+
+    A FEPESE tem uma pagina por assunto (`?go=provas`, `?go=edital`); a IESES
+    poe tudo numa pagina so, com os arquivos num CDN.
+    """
+    encontrados: list[arquivos_de_prova.Documento] = []
+
+    if concurso.fonte == "ieses":
+        try:
+            html = buscador.get(hotsite + "/").text
+        except Exception as erro:  # noqa: BLE001 - hotsite fora do ar e rotina
+            # Medido: 10 dos 26 hotsites da IESES ja sairam do ar, quase todos
+            # de 2023 para tras. Falhar um nao pode parar os outros.
+            log.warning("hotsite %s: %s", hotsite, type(erro).__name__)
+            resultado.falhas += 1
+            return []
+        return provas_ieses.ler_hotsite(html, hotsite + "/")
+
+    for pagina in PAGINAS_DO_HOTSITE:
+        try:
+            html = buscador.get(f"{hotsite}/?go={pagina}&edital=1").text
+        except Exception as erro:  # noqa: BLE001 - hotsite fora do ar e rotina
+            log.warning("hotsite %s, pagina %s: %s", hotsite, pagina,
+                        type(erro).__name__)
+            resultado.falhas += 1
+            continue
+
+        leitor = (arquivos_de_prova.ler_pagina_de_provas if pagina == "provas"
+                  else arquivos_de_prova.ler_pagina_de_edital)
+        encontrados.extend(leitor(html, hotsite + "/"))
+
+    # A pagina inicial e a terceira, e ela existe por um motivo so: o gabarito
+    # DEFINITIVO nao esta em `?go=provas`. La fica o provisorio, publicado no
+    # dia seguinte a prova; o definitivo, com as questoes anuladas e as letras
+    # trocadas, e anunciado na lista de avisos da capa.
+    try:
+        capa = buscador.get(hotsite + "/").text
+    except Exception as erro:  # noqa: BLE001 - hotsite fora do ar e rotina
+        log.warning("hotsite %s, capa: %s", hotsite, type(erro).__name__)
+        resultado.falhas += 1
+    else:
+        encontrados.extend(arquivos_de_prova.ler_pagina_inicial(capa, hotsite + "/"))
+
+    return encontrados
+
+
+def montar_acervo(
+    limite: int = 20, abertos: bool = False, revisitar: bool = False,
+    por_conteudo: bool = False,
+) -> ResultadoAcervo:
+    """Le os hotsites e baixa edital, prova e gabarito.
+
+    Uma requisicao por pagina do hotsite e uma por PDF, todas com a pausa da
+    classe Coletor. Por isso o limite: ler os 520 concursos de uma vez levaria
+    horas e a maior parte nao interessa.
+
+    `por_conteudo` troca a distancia pelo cargo (decisao 167): todo concurso
+    encerrado da FEPESE, e dele so o caderno de cargo com Direito.
+    """
+    criar_tabelas()
+    resultado = ResultadoAcervo()
+
+    if por_conteudo:
+        escolhidos = _concursos_por_conteudo(limite, revisitar)
+        termos = cargos_com_direito()
+        lidos = carregar_lidos_por_conteudo()
+    else:
+        escolhidos = _concursos_com_prova(limite, abertos, revisitar)
+    if not escolhidos:
+        return resultado
+
+    registros = arquivos_de_prova.carregar_manifesto()
+    conhecidos = {r.get("url") for r in registros}
+    # O caminho de cada arquivo ja no disco, e de que url ele e (B.9).
+    ocupados = {r["caminho"]: r.get("url") for r in registros if r.get("caminho")}
+    buscador = Buscador()
+
+    sem_resposta = 0
+    for concurso in escolhidos:
+        hotsite = _hotsite(concurso).rstrip("/")
+        falhas_antes = resultado.falhas
+        encontrados = _documentos_do_hotsite(concurso, hotsite, buscador, resultado)
+        resultado.concursos += 1
+        # O hotsite que falhou inteiro, varias vezes seguidas, e o site que
+        # parou de responder (ou bloqueou): insistir so piora.
+        sem_resposta = sem_resposta + 1 if (resultado.falhas > falhas_antes
+                                            and not encontrados) else 0
+        if sem_resposta >= SEGUIDOS_SEM_RESPOSTA:
+            resultado.parou_sem_resposta = True
+            break
+        if por_conteudo:
+            encontrados = _so_os_de_direito(encontrados, termos)
+            # So se marca como lido o hotsite que respondeu inteiro: o que
+            # caiu no meio volta na proxima rodada.
+            if resultado.falhas == falhas_antes:
+                lidos[concurso.url] = {
+                    "lido_em": date.today().isoformat(),
+                    "cadernos": sum(1 for d in encontrados
+                                    if d.tipo == arquivos_de_prova.PROVA)}
+
+        for documento in encontrados:
+            if documento.url in conhecidos:
+                continue
+
+            documento.concurso_url = concurso.url
+            documento.banca = concurso.banca or "FEPESE"
+            documento.orgao = concurso.orgao or concurso.titulo
+            documento.municipio = concurso.municipio
+            documento.ano = _ano_do_concurso(concurso)
+
+            baixado = arquivos_de_prova.baixar(documento, buscador, ocupados=ocupados)
+            if baixado is None:
+                resultado.falhas += 1
+                continue
+
+            registros.append(arquivos_de_prova.para_registro(baixado))
+            conhecidos.add(baixado.url)
+            ocupados.setdefault(baixado.caminho, baixado.url)
+
+            if baixado.tipo == arquivos_de_prova.PROVA:
+                resultado.provas += 1
+            elif baixado.tipo in (arquivos_de_prova.GABARITO,
+                                  arquivos_de_prova.GABARITO_DEFINITIVO):
+                resultado.gabaritos += 1
+            else:
+                resultado.editais += 1
+
+        # Grava a cada concurso, e nao so no fim. O comando leva minutos: se
+        # ele for interrompido no meio - Ctrl+C, queda de rede, maquina
+        # desligando - o que ja foi baixado fica catalogado, e a proxima
+        # rodada continua de onde parou em vez de recomecar.
+        arquivos_de_prova.gravar_manifesto(registros)
+        if por_conteudo:
+            gravar_lidos_por_conteudo(lidos)
+
+    return resultado
+
+
+def baixar_do_manifesto(forcar: bool = False) -> dict[str, int]:
+    """Reconstroi o acervo em disco a partir do manifesto versionado.
+
+    E o que torna os PDFs descartaveis: eles nao vao para o git, mas qualquer
+    maquina refaz a pasta inteira a partir do JSON.
+    """
+    registros = arquivos_de_prova.carregar_manifesto()
+    if not registros:
+        return {"total": 0, "baixados": 0, "ja_tinha": 0, "falhas": 0, "a_mao": 0}
+
+    buscador = Buscador()
+    contagem = {"total": len(registros), "baixados": 0, "ja_tinha": 0, "falhas": 0,
+                "a_mao": 0}
+
+    for registro in registros:
+        if (registro.get("caminho") or "").startswith("provas/manual/"):
+            # O que voce baixou a mao o robo nunca busca (decisao 172): os
+            # termos da FGV e do Qconcursos proibem robo, e o robots.txt do CDN
+            # da Selecon e da Access tambem. Faltando, so avisa.
+            if (config.diretorio_dados() / registro["caminho"]).exists():
+                contagem["ja_tinha"] += 1
+            else:
+                contagem["a_mao"] += 1
+            continue
+        documento = arquivos_de_prova.Documento(**{
+            campo: registro.get(campo)
+            for campo in ("tipo", "url", "arquivo", "cargo", "concurso_url",
+                          "banca", "orgao", "municipio", "ano")
+        })
+        # O caminho que o manifesto gravou, e nao o recalculado: o da prova
+        # que dividia o nome com outra tem o hotsite na frente (B.9).
+        caminho = (config.diretorio_dados() / registro["caminho"]
+                   if registro.get("caminho") else arquivos_de_prova.destino(documento))
+        if caminho.exists() and not forcar:
+            contagem["ja_tinha"] += 1
+            continue
+
+        if arquivos_de_prova.baixar(documento, buscador, forcar=forcar, caminho=caminho):
+            contagem["baixados"] += 1
+        else:
+            contagem["falhas"] += 1
+
+    return contagem
+
+
+# --- padrao da banca (fase 4) -----------------------------------------------
+
+@dataclass
+class ResultadoExtracao:
+    provas: int = 0
+    questoes: int = 0
+    atualizadas: int = 0
+    repetidas: int = 0
+    vazias: int = 0
+    #: Questoes cujo texto mudou na releitura, e o que acompanhou a mudanca.
+    texto_mudou: int = 0
+    classificacoes_levadas: int = 0
+    geradas_religadas: int = 0
+    #: O numero passou a ser de OUTRA questao: a classificacao nao vai junto.
+    conteudo_trocado: int = 0
+
+    def __str__(self) -> str:
+        if not self.provas:
+            return "Nenhuma prova nova para ler."
+        texto = f"{self.provas} prova(s) lida(s), {self.questoes} questão(ões)"
+        if self.atualizadas:
+            texto += f", {self.atualizadas} atualizada(s)"
+        if self.texto_mudou:
+            texto += (f", {self.texto_mudou} com o texto mudado "
+                      f"({self.classificacoes_levadas} classificação(ões) levada(s) "
+                      f"para a chave nova, {self.geradas_religadas} gerada(s) religada(s))")
+        if self.conteudo_trocado:
+            texto += (f", {self.conteudo_trocado} com outra questão no mesmo número "
+                      f"(a classificação ficou na chave antiga)")
+        if self.repetidas:
+            texto += f", {self.repetidas} já vista(s) em outra prova"
+        if self.vazias:
+            texto += f", {self.vazias} sem questão"
+        return texto
+
+
+def _provas_por_ler(limite: int, refazer: bool = False,
+                    banca: str | None = None) -> list[dict]:
+    """Provas do manifesto que ainda nao viraram questao no banco.
+
+    Com `refazer`, devolve todas de novo: e o que permite passar um parser
+    melhorado por cima do acervo inteiro. Com `banca`, so as dela: o leitor de
+    uma banca consertado nao precisa reler o caderno das outras.
+    """
+    with sessao() as s:
+        ja_lidas = (
+            set() if refazer
+            else set(s.scalars(select(QuestaoDeProva.prova_url).distinct()))
+        )
+
+    pendentes = [
+        registro for registro in arquivos_de_prova.carregar_manifesto()
+        if registro.get("tipo") == arquivos_de_prova.PROVA
+        and registro.get("caminho")
+        and registro["url"] not in ja_lidas
+        and (banca is None or (registro.get("banca") or "").upper() == banca.upper())
+    ]
+    return pendentes[:limite]
+
+
+def _companheiros(registro: dict) -> tuple[dict | None, dict | None]:
+    """O gabarito e o edital do mesmo concurso que este caderno.
+
+    So a IESES precisa dos dois: la o gabarito e um PDF a parte, e a materia de
+    cada questao vem do edital. O caderno da FEPESE traz as duas coisas dentro.
+    """
+    do_concurso = [
+        r for r in arquivos_de_prova.carregar_manifesto()
+        if r.get("concurso_url") == registro.get("concurso_url")
+    ]
+    # O codigo do cargo e o mesmo nos dois arquivos: prova-1016, gabarito-1016.
+    codigo = Path(registro.get("arquivo", "")).stem.split("_")[-1]
+
+    gabarito = next(
+        (r for r in do_concurso
+         if r.get("tipo") == arquivos_de_prova.GABARITO
+         and Path(r.get("arquivo", "")).stem.split("_")[-1] == codigo),
+        None,
+    )
+    edital = next(
+        (r for r in do_concurso if r.get("tipo") == arquivos_de_prova.EDITAL),
+        None,
+    )
+    return gabarito, edital
+
+
+def _caminho(registro: dict | None) -> Path | None:
+    if not registro or not registro.get("caminho"):
+        return None
+    caminho = config.diretorio_dados() / registro["caminho"]
+    return caminho if caminho.exists() else None
+
+
+def _definitivos_do_concurso(registro: dict) -> list[dict]:
+    """Os gabaritos definitivos do mesmo concurso, do mais velho ao mais novo.
+
+    A ordem e a data de publicacao porque cada um substitui o anterior: em
+    2019 saiu o definitivo em 13/12 e, em 23/01 do ano seguinte, a retificacao
+    que anulou mais uma questao. Aplicando na ordem, o ultimo e o que fica.
+    """
+    return sorted(
+        (
+            r for r in arquivos_de_prova.carregar_manifesto()
+            if r.get("concurso_url") == registro.get("concurso_url")
+            and r.get("tipo") == arquivos_de_prova.GABARITO_DEFINITIVO
+            and r.get("caminho")
+        ),
+        key=lambda r: r.get("publicado_em") or "",
+    )
+
+
+def _aplicar_gabarito_definitivo(registro: dict, lidas: list) -> None:
+    """Poe o gabarito que VALE por cima do que veio no caderno.
+
+    O caderno da FEPESE traz a resposta marcada dentro do PDF, e e comodo -
+    mas ele e publicado no dia seguinte a prova, antes dos recursos. E o
+    gabarito PROVISORIO. No concurso de 2019 o definitivo anulou 5 questoes e
+    trocou a letra de outras 4, em 100: treinar pelo caderno significava
+    marcar como erro 4 respostas certas minhas e perseguir 5 questoes que nao
+    tem resposta.
+
+    Grade que nao passa em `e_deste_caderno` e ignorada em silencio, e isso e
+    de proposito: aplicar a grade do cargo errado trocaria as 100 respostas de
+    uma vez, e ficar com o provisorio e menos pior do que isso.
+    """
+    for gabarito in _definitivos_do_concurso(registro):
+        caminho = _caminho(gabarito)
+        if not caminho:
+            continue
+
+        # Um PDF traz a grade de varios cargos; a minha e a que passa nas tres
+        # conferencias de `e_deste_caderno`.
+        minha = next(
+            (
+                grade for grade in gabarito_oficial.ler_grades_do_pdf(caminho)
+                if gabarito_oficial.e_deste_caderno(
+                    grade, registro.get("cargo"),
+                    registro.get("arquivo") or "", len(lidas),
+                )
+            ),
+            None,
+        )
+        if minha is None:
+            continue
+
+        trocadas, anuladas = gabarito_oficial.aplicar(lidas, minha)
+        log.info(
+            "gabarito definitivo %s: %d resposta(s) trocada(s), %d anulada(s)",
+            gabarito.get("arquivo"), trocadas, anuladas,
+        )
+
+
+def _ler_caderno(registro: dict, caminho: Path) -> list:
+    """As questoes de um caderno. Cada banca imprime o dela de um jeito."""
+    leitor = LEITORES_DE_OUTRAS_BANCAS.get((registro.get("banca") or "").upper())
+    if leitor is not None:
+        return _ler_de_outra_banca(registro, caminho, leitor)
+    if (registro.get("banca") or "").upper() != "IESES":
+        lidas = leitor_de_questoes.ler_prova(caminho)
+        if lidas:
+            _aplicar_gabarito_definitivo(registro, lidas)
+        return lidas
+
+    gabarito_registro, edital_registro = _companheiros(registro)
+
+    gabarito = {}
+    caminho_gabarito = _caminho(gabarito_registro)
+    if caminho_gabarito:
+        gabarito = questoes_ieses.ler_gabarito(caminho_gabarito)
+
+    texto_do_caderno = leitor_de_questoes.extrair_texto(caminho)
+    lidas = questoes_ieses.dividir_em_questoes(texto_do_caderno, gabarito=gabarito)
+
+    caminho_edital = _caminho(edital_registro)
+    codigo, _ = questoes_ieses.codigo_e_cargo(texto_do_caderno)
+    if caminho_edital and codigo and lidas:
+        # Quantas questoes o caderno tem importa: o que passa das materias
+        # listadas no edital e Conhecimentos Especificos.
+        materias = edital_ieses.materias_do_cargo(
+            leitor_de_questoes.extrair_texto(caminho_edital),
+            codigo,
+            max(q.numero for q in lidas),
+        )
+        for questao in lidas:
+            questao.materia = materias.get(questao.numero)
+
+    return lidas
+
+
+def extrair_questoes(limite: int = 30, refazer: bool = False,
+                     banca: str | None = None) -> ResultadoExtracao:
+    """Le os cadernos do acervo e guarda as questoes.
+
+    Nao vai a internet: trabalha em cima dos PDFs que `radar provas` ja baixou.
+    `banca` limita aos cadernos dela.
+    """
+    criar_tabelas()
+    resultado = ResultadoExtracao()
+
+    pendentes = _provas_por_ler(limite, refazer, banca)
+    if not pendentes:
+        return resultado
+    lidas_agora: set[str] = set()
+
+    # "Repetida" e a questao que a banca reaproveitou de outra prova. Refazendo
+    # o acervo inteiro, o banco ja tem todas: comparar com ele acusaria as 5021
+    # como repetidas de si mesmas. Ai a conta e so entre as provas da rodada.
+    conhecidas: set[str] | None = set() if refazer else None
+    # O texto que mudou na releitura muda a chave e a impressao: a
+    # classificacao e a base das geradas vao junto, no fim (B.7).
+    trocas_de_chave: dict[str, set[str]] = {}
+    trocas_de_impressao: dict[str, set[str]] = {}
+
+    for registro in pendentes:
+        caminho = config.diretorio_dados() / registro["caminho"]
+        if not caminho.exists():
+            continue
+
+        lidas = _ler_caderno(registro, caminho)
+        resultado.provas += 1
+        if not lidas:
+            resultado.vazias += 1
+            continue
+        lidas_agora.add(registro["url"])
+
+        with sessao() as s:
+            if conhecidas is None:
+                conhecidas = set(s.scalars(select(QuestaoDeProva.impressao)))
+
+            for questao in lidas:
+                if questao.impressao in conhecidas:
+                    resultado.repetidas += 1
+                conhecidas.add(questao.impressao)
+
+                # Upsert pela chave natural (prova_url, numero). Apagar e
+                # gravar de novo seria mais simples, mas o simulado guarda o id
+                # da questao: o historico ficaria apontando para o nada.
+                existente = s.scalar(
+                    select(QuestaoDeProva)
+                    .where(QuestaoDeProva.prova_url == registro["url"])
+                    .where(QuestaoDeProva.numero == questao.numero)
+                )
+                destino = existente or QuestaoDeProva(
+                    prova_url=registro["url"], numero=questao.numero
+                )
+                if existente is not None:
+                    chave_antiga = leitor_de_questoes.chave_da_questao(existente.enunciado,
+                                                    existente.alternativas)
+                    impressao_antiga = existente.impressao
+                    texto_antigo = _texto_inteiro(existente.enunciado, existente.alternativas)
+                destino.concurso_url = registro.get("concurso_url")
+                destino.banca = registro.get("banca")
+                destino.ano = registro.get("ano")
+                destino.municipio = registro.get("municipio")
+                destino.cargo = registro.get("cargo")
+                destino.materia = questao.materia
+                destino.enunciado = questao.enunciado
+                destino.alternativas = questao.alternativas
+                destino.resposta = questao.resposta
+                destino.anulada = questao.anulada
+                destino.impressao = questao.impressao
+                # O leitor que acha o texto de apoio o entrega (o Cebraspe);
+                # os outros deixam como estava - na FEPESE quem preenche e o
+                # `radar questoes --textos-base`.
+                if getattr(questao, "texto_base", None):
+                    destino.texto_base = questao.texto_base
+
+                if existente is None:
+                    s.add(destino)
+                    resultado.questoes += 1
+                else:
+                    resultado.atualizadas += 1
+                    chave_nova = leitor_de_questoes.chave_da_questao(destino.enunciado, destino.alternativas)
+                    if chave_nova != chave_antiga and not _mesma_questao(
+                            texto_antigo, _texto_inteiro(destino.enunciado, destino.alternativas)):
+                        # O leitor consertado pos OUTRA questao neste numero:
+                        # levar a classificacao seria classificar a questao errada.
+                        resultado.conteudo_trocado += 1
+                        continue
+                    if chave_nova != chave_antiga:
+                        trocas_de_chave.setdefault(chave_antiga, set()).add(chave_nova)
+                        resultado.texto_mudou += 1
+                    if destino.impressao != impressao_antiga:
+                        trocas_de_impressao.setdefault(impressao_antiga, set()).add(
+                            destino.impressao)
+
+    # Questao nova nasce sem evidencia: a regra unica a preenche, com as
+    # outras, agora que o caderno esta no banco.
+    from radar.servico import evidencia
+    evidencia.atualizar()
+    if trocas_de_chave or trocas_de_impressao:
+        _acompanhar_a_releitura(resultado, trocas_de_chave, trocas_de_impressao)
+    # Caderno do alvo que entrou agora (ou foi relido) ganha o texto-base. Sao
+    # dois PDFs, e reler os dois e mais simples do que saber qual mudou.
+    guardar_textos_base()
+    # O sublinhado e o negrito so dos cadernos lidos agora (decisao 178):
+    # reler todos levaria minutos. Depois do texto-base, que recebe as marcas
+    # do texto de apoio.
+    guardar_destaques(lidas_agora)
+    return resultado
+
+
+@dataclass
+class TextosBase:
+    provas: int = 0
+    #: Quantas questoes ficaram com texto-base (as que citam um texto).
+    questoes: int = 0
+
+
+def guardar_textos_base() -> TextosBase:
+    """O texto de apoio de cada questao de Portugues das provas do ALVO e das
+    do COMPLEMENTAR aceitas.
+
+    O alvo desde 06/10/2026 (decisao 132); o complementar aceito desde 09/10,
+    porque os resumos citam questoes de interpretacao dele e a explicacao
+    precisa do texto (decisao 133). A prova complementar nao aceita fica de
+    fora, como em toda estatistica. O caderno e lido de novo por colunas, e so
+    a coluna `texto_base` muda: enunciado, alternativas, chave e
+    classificacao ficam como estao. Prova sem o PDF na maquina e pulada. O
+    texto e de terceiros: mora so no banco, nunca em arquivo versionado.
+    """
+    from radar.regioes import normalizar
+    from radar.servico import complementar, evidencia
+
+    criar_tabelas()
+    resultado = TextosBase()
+    with sessao() as s:
+        do_alvo = evidencia.provas(s, evidencia.ALVO)
+    lidas = do_alvo | complementar.provas_aceitas()
+    for registro in arquivos_de_prova.carregar_manifesto():
+        if registro.get("url") not in lidas:
+            continue
+        # A banca com leitor proprio (a AOCP da PMSC, decisao PMSC-6) ja grava
+        # o texto-base na leitura; a leitura por colunas da FEPESE o apagaria.
+        if (registro.get("banca") or "").upper() in LEITORES_DE_OUTRAS_BANCAS:
+            continue
+        caminho = _caminho(registro)
+        if caminho is None:
+            continue
+        textos = leitor_de_questoes.textos_base(leitor_de_questoes.extrair_por_colunas(caminho))
+        resultado.provas += 1
+        with sessao() as s:
+            for questao in s.scalars(
+                    select(QuestaoDeProva).where(QuestaoDeProva.prova_url == registro["url"])):
+                de_portugues = "portugu" in normalizar(questao.materia or "")
+                questao.texto_base = (leitor_de_questoes.texto_da_questao(questao.enunciado, textos)
+                                      if de_portugues else None)
+                if questao.texto_base:
+                    resultado.questoes += 1
+    return resultado
+
+
+#: O enunciado que fala de um trecho marcado: o que a tela tem de mostrar.
+#: "Sublinhado" e "grifado" pedem o traco; "destacado" e "em destaque" a
+#: FEPESE faz ora com o traco, ora em negrito, e qualquer um serve.
+PEDE_SUBLINHADO = re.compile(r"sublinhad|grifad", re.IGNORECASE)
+PEDE_DESTAQUE = re.compile(r"destacad|em destaque|negrit", re.IGNORECASE)
+
+
+@dataclass
+class Destaques:
+    provas: int = 0
+    #: Quantas questoes ficaram com alguma marca.
+    questoes: int = 0
+    sublinhados: int = 0
+    negritos: int = 0
+    #: As que falam de um trecho sublinhado (ou grifado) e ficaram sem ele: o
+    #: caderno sem o traco, ou o trecho que nao se achou - quase sempre no
+    #: texto de apoio que o radar nao guardou. [(banca, ano, cargo, numero, url)]
+    sem_o_sublinhado: list = field(default_factory=list)
+    #: As que falam de um trecho destacado (ou em negrito) e ficaram sem marca
+    #: nenhuma. Aqui entra tambem o "papel destacado" do texto corrido.
+    sem_destaque: list = field(default_factory=list)
+
+
+def guardar_destaques(urls: set[str] | None = None) -> Destaques:
+    """O sublinhado e o negrito de cada questao, lidos do caderno (decisao 178).
+
+    Todo caderno que ja virou questao e que esta na maquina, de qualquer
+    banca; `urls` limita aos cadernos lidos agora. So a coluna `destaques`
+    muda: enunciado, alternativas, chave e classificacao ficam como estao. O
+    texto-base precisa estar gravado antes - a marca do texto de apoio vai
+    para ele.
+    """
+    from radar import destaques
+
+    criar_tabelas()
+    resultado = Destaques()
+    with sessao() as s:
+        com_questao = set(s.scalars(select(QuestaoDeProva.prova_url).distinct()))
+    transcritas = _transcricoes_de_certo_errado()
+    for registro in arquivos_de_prova.carregar_manifesto():
+        url = registro.get("url")
+        if url not in com_questao or (urls is not None and url not in urls):
+            continue
+        caminho = _caminho(registro)
+        if caminho is None:
+            continue
+        # O caderno escaneado de Certo/Errado nao tem traco que se leia (o
+        # leitor achava letra solta): o termo vem da transcricao (PMSC-19).
+        transcrito = transcritas.get(url)
+        try:
+            blocos = None if transcrito else destaques.ler_marcas(caminho)
+        except Exception as erro:  # o PDF que o pdfminer nao abre nao para o resto
+            log.warning("sem destaques de %s: %s", caminho.name, erro)
+            continue
+        resultado.provas += 1
+        with sessao() as s:
+            questoes = list(s.scalars(
+                select(QuestaoDeProva).where(QuestaoDeProva.prova_url == url)))
+            campos = {q.id: {destaques.ENUNCIADO: q.enunciado,
+                             destaques.TEXTO_BASE: q.texto_base,
+                             **{letra: texto for letra, texto in (q.alternativas or {}).items()}}
+                      for q in questoes}
+            if transcrito:
+                termos = questoes_certo_errado.termos_da_transcricao(transcrito)
+                achadas = {q.id: questoes_certo_errado.marcas(q.enunciado or "", *termos[q.numero])
+                           for q in questoes if q.numero in termos}
+            else:
+                achadas = destaques.localizar(blocos, campos)
+            for q in questoes:
+                marcas = achadas.get(q.id) or None
+                q.destaques = marcas
+                tipos = {m["tipo"] for m in marcas or []}
+                if marcas:
+                    resultado.questoes += 1
+                resultado.sublinhados += sum(1 for m in marcas or []
+                                             if m["tipo"] == destaques.SUBLINHADO)
+                resultado.negritos += sum(1 for m in marcas or []
+                                          if m["tipo"] == destaques.NEGRITO)
+                identidade = (q.banca, q.ano, q.cargo, q.numero, url)
+                if PEDE_SUBLINHADO.search(q.enunciado or "") and destaques.SUBLINHADO not in tipos:
+                    resultado.sem_o_sublinhado.append(identidade)
+                elif PEDE_DESTAQUE.search(q.enunciado or "") and not tipos:
+                    resultado.sem_destaque.append(identidade)
+    return resultado
+
+
+def _transcricoes_de_certo_errado() -> dict[str, Path]:
+    """{caderno: transcricao} das provas de Certo/Errado da lista (PMSC-19)."""
+    saida = {}
+    for prova in carregar_provas_de_outras_bancas():
+        if prova.get("formato") == "certo_errado" and prova.get("arquivo_transcrito"):
+            caminho = pasta_dos_baixados_a_mao() / prova["arquivo_transcrito"]
+            if caminho.exists():
+                saida[prova["caderno"]] = caminho
+    return saida
+
+
+def _texto_inteiro(enunciado: str | None, alternativas: dict | None) -> str:
+    """O enunciado e as alternativas num texto so, sem acento, caixa nem pontuacao."""
+    partes = [enunciado or ""] + [str(t or "") for _, t in sorted((alternativas or {}).items())]
+    texto = leitor_de_questoes._sem_acento(" ".join(partes)).lower()
+    return " ".join(re.sub(r"[^a-z0-9]+", " ", texto).split())
+
+
+def _mesma_questao(antes: str, depois: str) -> bool:
+    """O texto relido e o da mesma questao, so limpo ou completado?
+
+    Limpar (tirar o titulo grudado) deixa um texto dentro do outro; completar
+    (a palavra partida que voltou) muda pouco. Questao trocada no numero muda
+    quase tudo.
+    """
+    return (antes in depois or depois in antes
+            or SequenceMatcher(None, antes, depois).ratio() >= 0.8)
+
+
+def _acompanhar_a_releitura(resultado: ResultadoExtracao, trocas_de_chave: dict,
+                            trocas_de_impressao: dict) -> None:
+    """Leva a classificacao e a base das geradas para o texto relido, e grava
+    os dois arquivos versionados de onde o banco e reconstruido."""
+    from radar import acervo
+    from radar.servico import classificacoes, geradas
+
+    with sessao() as s:
+        em_uso = {leitor_de_questoes.chave_da_questao(q.enunciado, q.alternativas)
+                  for q in s.scalars(select(QuestaoDeProva))}
+    levadas = classificacoes.rechavear(trocas_de_chave, em_uso)
+    resultado.classificacoes_levadas = levadas["levadas"] + levadas["juntadas"]
+    resultado.geradas_religadas = geradas.rechavear(trocas_de_chave, trocas_de_impressao)
+    if resultado.geradas_religadas:
+        acervo.exportar_geradas()
+
+
+@dataclass
+class IncidenciaDaEvidencia:
+    """O que uma evidencia cobra por materia: o alvo, o complementar aceito ou
+    outra banca. Uma nunca e somada a outra (regra inviolavel 1)."""
+
+    evidencia: str
+    #: [(materia pelo nome do edital, questoes distintas)], da mais cobrada.
+    linhas: list
+    #: Questoes distintas: a mesma questao em cadernos de varios cargos do
+    #: mesmo concurso e uma so (decisao 14 da 3B).
+    questoes: int
+    #: Linhas no banco, contando cada caderno. Igual a `questoes` quando a
+    #: banca nao repete caderno.
+    ocorrencias: int
+    provas: int
+
+
+def incidencia_por_evidencia(
+    cargo: str | None = None, banca: str | None = None, ano: int | None = None
+) -> tuple[list[IncidenciaDaEvidencia], int]:
+    """O que a banca cobra, por materia, separado por evidencia.
+
+    Devolve ([alvo, complementar, fora] - so as que tem questao - e quantas
+    questoes de provas complementares RECUSADAS ficaram de fora). Antes era um
+    numero so, com o alvo, o complementar, as provas recusadas e a IESES juntos
+    (auditoria de 04/10): a regra inviolavel 1 proibe. Anulada nao conta: a
+    banca desfez a pergunta. A materia sai pelo nome do edital, entao "Direito
+    Processo Penal" (2013) e "Direito Processual Penal" sao uma linha.
+    """
+    from radar import conteudos as arvore
+    from radar.servico import complementar, evidencia, questoes_do_qconcursos
+
+    criar_tabelas()
+    consulta = (
+        select(QuestaoDeProva.materia, QuestaoDeProva.prova_url,
+               QuestaoDeProva.evidencia, QuestaoDeProva.enunciado,
+               QuestaoDeProva.alternativas)
+        .where(QuestaoDeProva.anulada.is_not(True))
+        # A questao do Qconcursos (PMSC-26) nao conta o que a banca cobra: o
+        # script tirou de 10 a 20 por assunto, e nao a prova inteira.
+        .where(QuestaoDeProva.prova_url.not_like(questoes_do_qconcursos.PREFIXO + "%"))
+    )
+    if cargo:
+        consulta = consulta.where(_cargo_parecido(cargo))
+    if banca:
+        consulta = consulta.where(QuestaoDeProva.banca.ilike(f"%{banca}%"))
+    if ano:
+        consulta = consulta.where(QuestaoDeProva.ano == ano)
+    with sessao() as s:
+        linhas = s.execute(consulta).all()
+
+    taxonomia = arvore.carregar_taxonomia()
+    aceitas = complementar.provas_aceitas()
+    recusadas = 0
+    por_evidencia: dict[str, dict] = {}
+    for materia, prova, qual, enunciado, alternativas in linhas:
+        if qual == evidencia.COMPLEMENTAR and prova not in aceitas:
+            # Prova que a validacao da 3B recusou nao entra em estatistica.
+            recusadas += 1
+            continue
+        bloco = por_evidencia.setdefault(
+            qual or evidencia.FORA,
+            {"chaves": {}, "todas": set(), "ocorrencias": 0, "provas": set()})
+        nome = taxonomia.nome_do_edital(materia) or "sem matéria"
+        chave = leitor_de_questoes.chave_da_questao(enunciado, alternativas)
+        bloco["chaves"].setdefault(nome, set()).add(chave)
+        bloco["todas"].add(chave)
+        bloco["ocorrencias"] += 1
+        bloco["provas"].add(prova)
+
+    saida = []
+    for qual in evidencia.EVIDENCIAS:
+        bloco = por_evidencia.get(qual)
+        if not bloco:
+            continue
+        contagem = sorted(((nome, len(chaves)) for nome, chaves in bloco["chaves"].items()),
+                          key=lambda par: (-par[1], par[0]))
+        saida.append(IncidenciaDaEvidencia(
+            evidencia=qual, linhas=contagem,
+            questoes=len(bloco["todas"]),
+            ocorrencias=bloco["ocorrencias"], provas=len(bloco["provas"])))
+    return saida, recusadas
+
+
+def questoes_repetidas(minimo: int = 2) -> list[tuple[str, int, str]]:
+    """Enunciados que aparecem em mais de uma prova.
+
+    Banca que reaproveita questao entrega o padrao de graca: essas sao as que
+    mais valem estudar.
+    """
+    criar_tabelas()
+    consulta = (
+        select(
+            QuestaoDeProva.impressao,
+            func.count().label("vezes"),
+            func.min(QuestaoDeProva.enunciado),
+        )
+        .group_by(QuestaoDeProva.impressao)
+        .having(func.count() >= minimo)
+        .order_by(func.count().desc())
+    )
+    with sessao() as s:
+        return [(imp, vezes, enunciado) for imp, vezes, enunciado in s.execute(consulta)]
+
+
+def contar_questoes() -> int:
+    criar_tabelas()
+    with sessao() as s:
+        return s.scalar(select(func.count()).select_from(QuestaoDeProva)) or 0
+
+
+# --- macetes: o costume da banca (fase 7) -----------------------------------
+
+def bancas_com_questao() -> list[str]:
+    """As bancas que tem prova no acervo, da que tem mais questoes para a que
+    tem menos. Hoje so a FEPESE: o coletor de provas e por banca."""
+    criar_tabelas()
+    consulta = (
+        select(QuestaoDeProva.banca)
+        .where(QuestaoDeProva.banca.is_not(None))
+        .group_by(QuestaoDeProva.banca)
+        .order_by(func.count().desc())
+    )
+    with sessao() as s:
+        return list(s.scalars(consulta))
+
+
+def bancas_sem_acervo() -> list[str]:
+    """Bancas que aparecem nos meus concursos mas ainda nao tem prova aqui.
+
+    Serve para a tela explicar por que o menu e curto, em vez de parecer que o
+    radar so conhece uma banca.
+    """
+    criar_tabelas()
+    com_prova = {b.lower() for b in bancas_com_questao()}
+    consulta = (
+        select(Concurso.banca)
+        .where(Concurso.banca.is_not(None))
+        .group_by(Concurso.banca)
+        .order_by(func.count().desc())
+    )
+    with sessao() as s:
+        citadas = list(s.scalars(consulta))
+    return [b for b in citadas if b.lower() not in com_prova]
+
+
+def _separar(questoes: list[QuestaoDeProva]) -> tuple[list, list, list]:
+    """(as que valem, as do cargo, as de prova recusada) - decisao 75.
+
+    O costume de qualquer banca e estatistica, e a regra inviolavel 1 nao deixa
+    misturar evidencia. Da banca do alvo vale o acervo complementar ACEITO no
+    data/acervo_complementar.json; as provas do cargo tem a Central de macetes
+    (e a incidencia), e a prova que a Etapa 3B recusou nao entra em conta
+    nenhuma. De outra banca vale a prova dela (fora), que nunca se soma com a
+    da FEPESE: o filtro de banca ja separa as duas.
+    """
+    from radar.servico import complementar, evidencia
+
+    criar_tabelas()
+    with sessao() as s:
+        por_prova = evidencia.por_prova(s)
+    aceitas = complementar.provas_aceitas()
+
+    valem, do_cargo, recusadas = [], [], []
+    for q in questoes:
+        qual = por_prova.get(q.prova_url, evidencia.FORA)
+        if qual == evidencia.ALVO:
+            do_cargo.append(q)
+        elif qual == evidencia.COMPLEMENTAR and q.prova_url not in aceitas:
+            recusadas.append(q)
+        else:
+            valem.append(q)
+    return valem, do_cargo, recusadas
+
+
+def composicao_do_caderno(banca: str | None = None) -> list[macetes.FatiaDoCaderno]:
+    """Quantas questoes de cada materia caem num caderno tipico da banca."""
+    criar_tabelas()
+    return macetes.composicao_do_caderno(_questoes_filtradas(banca=banca))
+
+
+def _questoes_filtradas(
+    banca: str | None = None,
+    cargo: str | None = None,
+    tema: str | None = None,
+) -> list[QuestaoDeProva]:
+    """As questoes do recorte que VALEM para o costume da banca (decisao 75):
+    o `_separar` do `_questoes_do_recorte`."""
+    return _separar(_questoes_do_recorte(banca, cargo, tema))[0]
+
+
+def _questoes_do_recorte(
+    banca: str | None = None,
+    cargo: str | None = None,
+    tema: str | None = None,
+) -> list[QuestaoDeProva]:
+    """As questoes do recorte pedido, de toda evidencia.
+
+    O `tema` e texto livre de proposito: eu escrevo "crase" ou "primeiros
+    socorros", e nao o nome exato da materia. A busca olha a materia E o
+    enunciado, sem acento, porque o nome que a banca usa ("Lingua Portuguesa")
+    raramente e a palavra que eu penso ("crase").
+    """
+    consulta = select(QuestaoDeProva)
+
+    if banca:
+        consulta = consulta.where(QuestaoDeProva.banca.ilike(f"%{banca}%"))
+    if cargo:
+        consulta = consulta.where(QuestaoDeProva.cargo.ilike(f"%{cargo}%"))
+    if tema:
+        procurado = f"%{_sem_acento(tema)}%"
+        consulta = consulta.where(
+            func.sem_acento(func.coalesce(QuestaoDeProva.materia, "")).ilike(procurado)
+            | func.sem_acento(QuestaoDeProva.enunciado).ilike(procurado)
+        )
+
+    with sessao() as s:
+        return list(s.scalars(consulta))
+
+
+def analisar_banca(
+    banca: str | None = None,
+    cargo: str | None = None,
+    tema: str | None = None,
+) -> macetes.Analise:
+    """O que a banca costuma cobrar no recorte pedido.
+
+    Quando o tema aponta para uma materia so - "crase" e Lingua Portuguesa em
+    56 de 59 questoes -, a analise traz junto o retrato daquela materia inteira
+    na banca: quanto ela cai por caderno e de que assuntos e feita. E a
+    pergunta seguinte natural de quem procurou por um assunto.
+    """
+    criar_tabelas()
+    questoes, do_cargo, recusadas = _separar(_questoes_do_recorte(banca, cargo, tema))
+    analise = macetes.analisar(questoes)
+    # O que ficou de fora vai contado na tela, e nunca somado ao resto.
+    analise.do_cargo = len(do_cargo)
+    analise.recusadas = len(recusadas)
+
+    if not questoes:
+        return analise
+
+    dominante = macetes.materia_dominante(questoes)
+    analise.materia_dominante = dominante
+    if dominante and tema:
+        # O retrato e da materia INTEIRA na banca, e nao do recorte: a pergunta
+        # e "quanto isso cai nas provas", e nao "quanto isso cai no que eu
+        # acabei de filtrar".
+        da_materia = [
+            q for q in _questoes_filtradas(banca, cargo)
+            if q.materia == dominante
+        ]
+        analise.retrato = macetes.retratar_materia(da_materia, dominante)
+        analise.assunto_procurado = macetes.assunto_do_tema(tema, analise.retrato)
+
+    return analise
+
+
+# --- prova substituta (fase 3) ----------------------------------------------
+
+def provas_parecidas(
+    cargo: str,
+    banca: str | None = None,
+    municipio: str | None = None,
+    quantas: int = 8,
+) -> list[substituta.Parecida]:
+    """As provas do acervo mais parecidas com o cargo que eu quero.
+
+    Existe porque o cargo que eu quero costuma nao ter prova no acervo:
+    Guarda Municipal ainda nao tem nenhuma. A Policia Penal tinha o mesmo
+    problema ate o alvo principal passar a entrar no acervo esteja onde
+    estiver. Em vez de tela vazia, a lista mostra o que existe e EM CIMA DE
+    QUE a semelhanca foi medida.
+    """
+    criar_tabelas()
+    if not (cargo or "").strip():
+        return []
+
+    consulta = (
+        select(
+            QuestaoDeProva.cargo,
+            QuestaoDeProva.banca,
+            QuestaoDeProva.municipio,
+            QuestaoDeProva.ano,
+            func.count(),
+        )
+        .where(QuestaoDeProva.cargo.is_not(None))
+        .group_by(
+            QuestaoDeProva.cargo,
+            QuestaoDeProva.banca,
+            QuestaoDeProva.municipio,
+            QuestaoDeProva.ano,
+        )
+    )
+    with sessao() as s:
+        candidatas = [
+            substituta.Parecida(cargo=c, banca=b, municipio=m, ano=a, questoes=n)
+            for c, b, m, a, n in s.execute(consulta)
+        ]
+
+    ano_recente = agora().year - 2
+    return substituta.ordenar(
+        candidatas,
+        cargo,
+        banca,
+        municipio,
+        ano_recente,
+        # Os outros nomes do mesmo cargo, quando `config/alvo.yml` conhece
+        # algum. Sem isso, procurar "Policial Penal" nao achava as duas provas
+        # de "Agente Penitenciario" que existem no acervo - o cargo mudou de
+        # nome e os dois nomes nao dividem palavra nenhuma.
+        sinonimos=alvos.sinonimos_do_cargo(cargo),
+    )[:quantas]
+
+
+def recado_sobre_o_cargo(cargo: str, parecidas: list) -> str:
+    """O que dizer quando nao ha prova parecida o bastante."""
+    if parecidas:
+        return ""
+    return substituta.explicar_ausencia(cargo, materias_universais())
+
+
+# --- assunto fino da questao (fase 4) ---------------------------------------
+
+def questoes_sem_assunto(
+    limite: int | None = None, so_alvo: bool = False
+) -> list[QuestaoDeProva]:
+    """As questoes de Conhecimentos Especificos que ainda nao tem assunto.
+
+    Uma por ENUNCIADO: das 2.673 questoes, so 1.763 tem enunciado diferente, e
+    classificar a mesma pergunta duas vezes seria pagar duas vezes pelo mesmo
+    rotulo.
+
+    Com `so_alvo`, entram apenas as questoes das provas do MEU cargo no MEU
+    estado - as mesmas que o Meu foco conta. E o recorte que faz a conta
+    caber, e e tambem o unico em que o assunto fino muda alguma coisa para
+    mim: assunto de prova de Merendeira e da mesma banca e nao me serve.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        consulta = (
+            select(QuestaoDeProva)
+            .where(QuestaoDeProva.assunto.is_(None))
+            .where(QuestaoDeProva.materia.is_not(None))
+            # Nao se paga para classificar questao que a banca anulou.
+            .where(QuestaoDeProva.anulada.is_not(True))
+        )
+        if so_alvo:
+            # Import aqui dentro, e nao no topo: o `foco` e uma tela, e monta
+            # a resposta dela em cima deste pacote. Importar la de cima
+            # fecharia o circulo.
+            from radar import foco
+
+            consulta = consulta.where(
+                QuestaoDeProva.prova_url.in_(foco._provas_do_alvo(s))
+            )
+        candidatas = list(s.scalars(consulta))
+
+    # So o que o catalogo de materias NAO cobre: o resto ja tem assunto de
+    # graca, pelas palavras-chave. E o que mantem Portugues e Raciocinio
+    # Logico fora da conta paga, inclusive na prova do alvo.
+    especificas = [
+        q for q in candidatas if macetes.chave_da_materia(q.materia) is None
+    ]
+
+    if so_alvo:
+        # Materia que o edital de hoje nao lista nao tem em que escolher, e
+        # pagar por ela seria pagar por "indefinido". E o caso das materias
+        # que sairam do programa entre uma edicao e outra: 2013 cobrou
+        # Direito Administrativo e Nocoes de Informatica, e 2019 nao cobra.
+        permitidas = {_chave_de_materia(m) for m in assuntos_permitidos(True)}
+        especificas = [
+            q for q in especificas if _chave_de_materia(q.materia) in permitidas
+        ]
+
+    por_enunciado: dict[str, QuestaoDeProva] = {}
+    for questao in especificas:
+        por_enunciado.setdefault(questao.impressao, questao)
+
+    escolhidas = sorted(
+        por_enunciado.values(), key=lambda q: (q.materia or "", q.numero)
+    )
+    return escolhidas[:limite] if limite else escolhidas
+
+
+def gravar_assuntos(
+    por_id: dict[int, str], modelo: str, quando: datetime | None = None
+) -> int:
+    """Grava o assunto e propaga para as questoes de enunciado igual.
+
+    Propagar e o que faz o gasto valer mais: uma classificacao paga rotula
+    todas as copias daquela pergunta no acervo.
+
+    `modelo` e OBRIGATORIO, e sem ele nao se grava nada. Em 24/09/2026
+    descobrimos 93 assuntos no banco que nunca passaram pela API - escritos a
+    mao na sessao e exportados como se fossem pagos. Nao havia campo que
+    mostrasse isso, e por isso nao havia como auditar. Agora ha, e a porta de
+    entrada e esta: assunto sem procedencia nao entra.
+    """
+    if not modelo or not str(modelo).strip():
+        raise ValueError(
+            "assunto sem modelo nao e gravado: diga qual modelo classificou"
+        )
+    if not por_id:
+        return 0
+
+    criar_tabelas()
+    agora_mesmo = quando or agora()
+    gravados = 0
+    with sessao() as s:
+        for ident, assunto in por_id.items():
+            questao = s.get(QuestaoDeProva, ident)
+            if questao is None:
+                continue
+            iguais = list(s.scalars(
+                select(QuestaoDeProva).where(
+                    QuestaoDeProva.impressao == questao.impressao
+                )
+            ))
+            for copia in iguais:
+                copia.assunto = assunto
+                copia.assunto_modelo = modelo
+                copia.assunto_em = agora_mesmo
+                gravados += 1
+    return gravados
+
+
+def _chave_de_materia(nome: str | None) -> str:
+    """Como dois nomes de materia sao comparados: sem acento e sem caixa.
+
+    O edital escreve "LEI DE EXECUÇÃO PENAL" no anexo e o caderno escreve "Lei
+    de Execução Penal" no cabecalho da secao. Sao a mesma materia.
+    """
+    return classificador_de_assunto._chave(nome or "")
+
+
+def assuntos_permitidos(so_alvo: bool) -> dict:
+    """A lista de assuntos que a IA pode escolher, ou {} quando nao ha lista.
+
+    So existe para o recorte do alvo, e isso e proposital: a lista sai do
+    CONTEUDO PROGRAMATICO do edital do MEU concurso, e ele nao diz nada sobre
+    a prova de Merendeira de outra prefeitura.
+    """
+    if not so_alvo:
+        return {}
+
+    from radar import foco
+
+    return foco.programa_do_alvo()
+
+
+def classificar_assuntos(
+    limite: int | None = None,
+    teto_em_dolar: float = 1.0,
+    so_alvo: bool = False,
+) -> dict:
+    """Classifica o assunto das questoes de Conhecimentos Especificos.
+
+    Custa dinheiro: e a unica parte do radar que fala com uma API paga. O teto
+    e conferido antes de cada lote, com o custo real que a API informou.
+
+    O que foi pago sai do banco na mesma hora e vai para `data/assuntos.json`,
+    que e versionado. Sem isso, refazer o banco - ou trocar de computador -
+    faria eu pagar de novo pela mesma questao.
+    """
+    chave = config.chave_da_anthropic()
+    if not chave:
+        return {"erro": "sem chave", "classificados": 0}
+
+    # A lista vem antes da fila, e nao depois: sem o programa do edital nao ha
+    # em que escolher, e sem isso a IA voltaria a inventar nome de assunto.
+    # Nao gastar e a resposta certa, e dizer por que e melhor do que devolver
+    # fila vazia sem explicacao.
+    permitidos = assuntos_permitidos(so_alvo)
+    if so_alvo and not permitidos:
+        return {"erro": "sem programa do edital", "classificados": 0,
+                "pendentes": 0}
+
+    pendentes = questoes_sem_assunto(limite, so_alvo=so_alvo)
+    if not pendentes:
+        return {"classificados": 0, "pendentes": 0}
+
+    resultado = classificador_de_assunto.classificar(
+        pendentes, chave, teto_em_dolar=teto_em_dolar, permitidos=permitidos
+    )
+    # O modelo que respondeu vai junto do rotulo, e nao so no log: e ele que
+    # diz, meses depois, que aquele assunto saiu de uma chamada de verdade.
+    gravados = gravar_assuntos(
+        resultado.classificados, classificador_de_assunto.MODELO
+    )
+
+    guardados = 0
+    if gravados:
+        from radar import acervo
+
+        guardados = acervo.exportar_assuntos()
+
+    return {
+        "pendentes": len(pendentes),
+        "classificados": len(resultado.classificados),
+        "gravados": gravados,
+        "guardados": guardados,
+        "custo": resultado.uso.custo,
+        "chamadas": resultado.uso.chamadas,
+        "parou_no_teto": resultado.parou_no_teto,
+        "falhas": resultado.falhas,
+    }
+
+
+@dataclass
+class CoberturaDaMateria:
+    """Quantas questoes de uma materia ja tem assunto, e por qual caminho."""
+
+    materia: str
+    questoes: int
+    com_assunto: int
+    #: "catalogo" (de graca, por palavra-chave), "edital" (pago, escolhendo
+    #: dentro do programa) ou "fora" (materia que o edital de hoje nao cobra
+    #: mais, e por isso nao tem lista em que escolher).
+    origem: str
+
+    @property
+    def porcentagem(self) -> float:
+        return (self.com_assunto / self.questoes * 100) if self.questoes else 0.0
+
+
+def cobertura_de_assunto(so_alvo: bool = True) -> list[CoberturaDaMateria]:
+    """Quanto de cada materia ja tem assunto, da pior para a melhor.
+
+    As duas origens entram na mesma tabela porque a pergunta e uma so - "esta
+    questao tem assunto?" - mas elas nao sao a mesma coisa, e a coluna diz
+    qual e qual. Portugues e Raciocinio Logico saem do catalogo de
+    palavras-chave, de graca; as outras nove saem do programa do edital, e
+    cada uma delas foi paga uma vez.
+    """
+    criar_tabelas()
+    with sessao() as s:
+        consulta = (
+            select(QuestaoDeProva)
+            .where(QuestaoDeProva.materia.is_not(None))
+            .where(QuestaoDeProva.anulada.is_not(True))
+        )
+        if so_alvo:
+            from radar import foco
+
+            consulta = consulta.where(
+                QuestaoDeProva.prova_url.in_(foco._provas_do_alvo(s))
+            )
+        questoes = list(s.scalars(consulta))
+
+    por_materia: dict[str, list] = {}
+    for questao in questoes:
+        por_materia.setdefault(questao.materia, []).append(questao)
+
+    no_programa = {_chave_de_materia(m) for m in assuntos_permitidos(so_alvo)}
+
+    cobertura = []
+    for materia, lista in por_materia.items():
+        chave = macetes.chave_da_materia(materia)
+        if chave:
+            # De graca: quem responde e o catalogo de palavras-chave, que
+            # trabalha por ENUNCIADO distinto. A proporcao volta para numero
+            # de questoes porque e isso que a prova tem.
+            _, sem = macetes.assuntos_de(lista, chave)
+            distintos = len({q.impressao for q in lista})
+            com = (round((distintos - sem) / distintos * len(lista))
+                   if distintos else 0)
+            origem = "catalogo"
+        else:
+            com = sum(1 for q in lista if q.assunto)
+            # Materia que saiu do programa entre uma edicao e outra nao tem em
+            # que escolher, e nunca vai ser classificada: 2013 cobrou Direito
+            # Administrativo e Nocoes de Informatica, e 2019 nao cobra.
+            origem = ("edital" if not so_alvo or _chave_de_materia(materia)
+                      in no_programa else "fora")
+
+        cobertura.append(CoberturaDaMateria(
+            materia=materia, questoes=len(lista), com_assunto=com, origem=origem
+        ))
+
+    return sorted(cobertura, key=lambda c: (c.porcentagem, c.materia))

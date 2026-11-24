@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Análises &middot; Radar de Concursos</title>
+  {# O edital do alvo contra as provas, e por onde estudar. Cor e espaco saem
+     do design.css; aqui so o que e desta tela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .ds-cartao > h2{font-size:var(--tam-xs);margin:0 0 var(--esp-3);text-transform:uppercase;
+      letter-spacing:.07em;color:var(--cor-texto-suave)}
+
+    /* ------------------------------------------------- situacao do alvo -- */
+    .veredito{display:flex;align-items:baseline;gap:var(--esp-2);flex-wrap:wrap;
+      margin-bottom:var(--esp-3)}
+    .veredito .marca{font-size:var(--tam-xs);font-weight:var(--peso-forte);text-transform:uppercase;
+      letter-spacing:.06em;padding:.2rem var(--esp-2);border-radius:var(--raio-pill)}
+    .marca.aberto{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .marca.fechado{background:var(--cor-acao-fundo);color:var(--cor-acao)}
+    .veredito .frase{font-size:var(--tam-md);font-weight:var(--peso-forte)}
+
+    dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--esp-2) var(--esp-3);
+      margin:0;font-size:var(--tam-sm)}
+    dt{color:var(--cor-texto-suave);white-space:nowrap}
+    dd{margin:0;overflow-wrap:anywhere}
+
+    /* "nao sei ainda" tem cara propria: nao pode parecer um dado. */
+    .nao-sei{color:var(--cor-ambar);background:var(--cor-ambar-fundo);
+      padding:.05rem var(--esp-2);border-radius:var(--raio-sm);font-size:.85em;
+      font-weight:var(--peso-medio)}
+    .hipotese{color:var(--cor-ambar);font-weight:var(--peso-medio)}
+
+    /* A outra inscricao aberta na secretaria: azul de informacao, e nao o
+       roxo de antes - desde a Etapa 7A o roxo e a cor da IA. */
+    .aviso-orgao{margin:var(--esp-3) 0 0;padding:var(--esp-2) var(--esp-3);border-radius:var(--raio-sm);
+      background:var(--cor-azul-fundo);color:var(--cor-azul);font-size:var(--tam-sm)}
+    .ds .aviso-orgao a{color:inherit;font-weight:var(--peso-forte)}
+
+    /* -------------------------------------------------------- de olho --- */
+    /* Cartao pequeno de proposito: e o cargo secundario numa cidade que me
+       serve, e nao o concurso que esta no titulo da pagina. */
+    .de-olho{list-style:none;padding:0;margin:0;display:grid;gap:var(--esp-2)}
+    .de-olho li{display:flex;gap:var(--esp-2);align-items:baseline;flex-wrap:wrap;
+      font-size:var(--tam-sm)}
+    .de-olho .onde{font-weight:var(--peso-forte)}
+    .de-olho .estado{font-size:var(--tam-xs);font-weight:var(--peso-forte);text-transform:uppercase;
+      letter-spacing:.05em;padding:.05rem var(--esp-2);border-radius:var(--raio-pill);
+      background:var(--cor-acao-fundo);color:var(--cor-acao);white-space:nowrap}
+    .de-olho .estado.aberta{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+    .ds .de-olho a{color:var(--cor-texto-suave);text-decoration:none;font-size:var(--tam-sm)}
+    .ds .de-olho a:hover{text-decoration:underline;color:var(--cor-acao)}
+    .de-olho .prazo{color:var(--cor-vermelho);font-size:var(--tam-xs);font-weight:var(--peso-medio)}
+
+    /* --------------------------------------------------------- sinais --- */
+    .sinais{list-style:none;padding:0;margin:0;display:grid;gap:var(--esp-2)}
+    .sinais li{display:grid;grid-template-columns:auto minmax(0,1fr);
+      gap:var(--esp-3);align-items:baseline;font-size:var(--tam-sm)}
+    .sinais .quando{color:var(--cor-texto-suave);font-variant-numeric:tabular-nums;
+      white-space:nowrap;font-size:var(--tam-xs)}
+    .sinais .tipo{font-size:var(--tam-xs);font-weight:var(--peso-forte);text-transform:uppercase;
+      letter-spacing:.05em;color:var(--cor-acao);background:var(--cor-acao-fundo);
+      padding:.05rem var(--esp-1);border-radius:var(--raio-sm);margin-right:var(--esp-1)}
+    .ds .sinais a{color:var(--cor-texto);text-decoration:none}
+    .ds .sinais a:hover{text-decoration:underline;color:var(--cor-acao)}
+
+    /* -------------------------------------------------------- materias --- */
+    td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .barra{display:block;height:6px;border-radius:var(--raio-pill);background:var(--cor-acao);
+      min-width:2px}
+    .barra-caixa{display:block;background:var(--cor-acao-fundo);border-radius:var(--raio-pill);
+      width:100%;min-width:60px}
+    td.zero{color:var(--cor-texto-suave)}
+    .legenda{margin:var(--esp-3) 0 0;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+
+    /* As materias que caem na prova e nao tem assunto classificado. Lista, e
+       nao barra: barra seria uma medida, e aqui a medida e justamente o que
+       falta. */
+    .mudas{margin-top:var(--esp-4)}
+    .mudas ul{list-style:none;margin:var(--esp-2) 0 0;padding:0;display:grid;gap:var(--esp-1)}
+    .mudas li{display:flex;justify-content:space-between;gap:var(--esp-3);
+      font-size:var(--tam-sm);padding:var(--esp-1) var(--esp-2);border-radius:var(--raio-sm);
+      background:var(--cor-ambar-fundo)}
+    .muda-nome{font-weight:var(--peso-medio)}
+    .muda-peso{color:var(--cor-texto-suave);white-space:nowrap}
+
+    /* A materia que mais pesa fica em negrito; a pior delas ganha cor. Sao
+       dois niveis de destaque porque sao duas informacoes: o que vale mais,
+       e onde eu estou pior. */
+    tr.pesada td:first-child{font-weight:var(--peso-forte)}
+    tr.pior td{background:var(--cor-vermelho-fundo)}
+    tr.pior td:first-child{color:var(--cor-vermelho)}
+    td .marca{font-size:var(--tam-xs);text-transform:uppercase;letter-spacing:.05em;
+      color:var(--cor-vermelho);background:var(--cor-superficie);border:1px solid var(--cor-vermelho);
+      padding:.05rem var(--esp-1);border-radius:var(--raio-sm);margin-left:var(--esp-1);
+      white-space:nowrap;font-weight:var(--peso-forte)}
+    .feitas{color:var(--cor-texto-suave);font-size:var(--tam-xs);font-weight:var(--peso-normal)}
+    .legenda.destaque{color:var(--cor-texto)}
+
+    /* ------------------------------------------- onde estudar primeiro --- */
+    /* Barras deitadas, so com CSS - como as da aba Macetes. Sem JavaScript
+       nenhum: a largura sai pronta do servidor, ja calculada. */
+    .estudo{display:grid;gap:var(--esp-3)}
+    .assunto-linha{display:grid;gap:var(--esp-1)}
+    .assunto-topo{display:flex;justify-content:space-between;gap:var(--esp-3);
+      align-items:baseline;flex-wrap:wrap}
+    .assunto-nome{font-weight:var(--peso-medio);font-size:var(--tam-sm);overflow-wrap:anywhere}
+    .assunto-nome .materia{font-weight:var(--peso-normal);color:var(--cor-texto-suave);
+      font-size:var(--tam-xs);margin-left:var(--esp-2);white-space:nowrap}
+    .assunto-valor{white-space:nowrap;font-variant-numeric:tabular-nums;
+      font-size:var(--tam-sm);color:var(--cor-acao);font-weight:var(--peso-forte)}
+    .barra-estudo{height:14px;border-radius:var(--raio-sm);background:var(--cor-acao-fundo)}
+    .barra-estudo span{display:block;height:100%;border-radius:var(--raio-sm);
+      background:var(--cor-acao);min-width:3px}
+    /* Amarelo de "nao sei ainda": esta barra e so o tamanho esperado do
+       assunto, porque nao ha simulado dele para descontar o meu acerto. Ela
+       nao mede a mesma coisa que as azuis, e nao pode ter a mesma cor. */
+    .assunto-linha.sem-medida .assunto-valor{color:var(--cor-ambar)}
+    .assunto-linha.sem-medida .barra-estudo{background:var(--cor-ambar-fundo)}
+    .assunto-linha.sem-medida .barra-estudo span{background:var(--cor-ambar)}
+    .apoio{font-size:var(--tam-xs);color:var(--cor-texto-suave);display:flex;gap:var(--esp-2);
+      flex-wrap:wrap;align-items:baseline}
+    .ds .apoio .lei{text-decoration:none;font-weight:var(--peso-medio)}
+    .ds .apoio .lei:hover{text-decoration:underline}
+    .apoio .ressalva{color:var(--cor-ambar)}
+    .conclusao{margin:0 0 var(--esp-4);padding:var(--esp-3) var(--esp-3);border-radius:var(--raio-sm);
+      background:var(--cor-acao-fundo);color:var(--cor-texto);font-size:var(--tam-sm)}
+
+    /* -------------------------------------------------------- treinar --- */
+    .treinar{display:flex;align-items:center;gap:var(--esp-4);flex-wrap:wrap}
+    .treinar .conta{color:var(--cor-texto-suave);font-size:var(--tam-sm)}
+
+    .vazio{color:var(--cor-texto-suave);font-size:var(--tam-sm);margin:0}
+
+    /* De onde vem cada numero da tela: uma linha por fonte, com o selo. */
+    .fontes{display:grid;gap:var(--esp-1);margin:var(--esp-1) 0 var(--esp-3);font-size:var(--tam-xs);
+      color:var(--cor-texto-suave)}
+    .fontes .ds-selo{margin-right:var(--esp-1)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra, abas_de_analises with context %}
+{% from "_componentes.html" import selo %}
+{{ barra('analises') }}
+
+<main class="ds-pagina">
+  {{ abas_de_analises('edital') }}
+  <header class="ds-cabeca">
+    <h1>Análises · {{ p.nome_do_alvo }}</h1>
+    <p>O edital contra as provas, e por onde estudar. O resumo do
+      dia está no <a href="/">Meu foco</a>.</p>
+  </header>
+
+  {% if not p.configurado %}
+    <section class="ds-cartao">
+      <p class="vazio">Nenhum alvo principal em <code>config/alvo.yml</code>.
+        Esta tela inteira sai de lá.</p>
+    </section>
+  {% else %}
+
+  {# ------------------------------------------------ situacao do alvo ---- #}
+  <section class="ds-cartao">
+    <h2>Situação</h2>
+
+    <div class="veredito">
+      {% if p.aberto %}
+        <span class="marca aberto">Edital aberto</span>
+        <span class="frase">Há inscrição aberta agora.</span>
+      {% else %}
+        <span class="marca fechado">Sem edital aberto</span>
+        <span class="frase">Nenhuma inscrição aberta para o cargo.</span>
+      {% endif %}
+    </div>
+
+    <dl>
+      {% if p.aberto %}
+        <dt>Inscrição até</dt>
+        <dd>
+          {% if p.aberto.inscricoes_ate %}{{ p.aberto.inscricoes_ate | data }}
+          {% else %}<span class="nao-sei">não sei ainda</span>{% endif %}
+        </dd>
+        <dt>Edital</dt>
+        <dd><a href="{{ p.aberto.url }}" target="_blank" rel="noopener">{{ p.aberto.titulo | titulo }}</a></dd>
+      {% endif %}
+
+      <dt>Último concurso</dt>
+      <dd>
+        {% if p.ultima %}
+          {% if p.ultima.ano %}<strong>{{ p.ultima.ano }}</strong> &middot; {% endif %}
+          <a href="{{ p.ultima.url }}" target="_blank" rel="noopener">{{ p.ultima.titulo | titulo }}</a>
+        {% else %}
+          <span class="nao-sei">não sei ainda</span>
+        {% endif %}
+      </dd>
+
+      <dt>Banca</dt>
+      <dd>
+        {% if p.banca.nome and not p.banca.confirmada %}
+          <span class="hipotese">{{ p.banca.como_hipotese }}</span>
+        {% elif p.banca.nome %}
+          {{ p.banca.como_hipotese }}
+        {% else %}
+          <span class="nao-sei">não sei ainda</span>
+        {% endif %}
+      </dd>
+
+      <dt>Validade</dt>
+      <dd>
+        {% if p.validade %}
+          {{ p.validade }}
+          {# O prazo esta no edital; a data em que ele comeca a contar sai na
+             homologacao, publicada no Diario Oficial - que este projeto nao
+             le, por causa do robots.txt. Dizer "vence em X" seria inventar. #}
+          <br><span class="nao-sei">quando começa a contar: não sei ainda</span>
+        {% else %}
+          <span class="nao-sei">não sei ainda</span>
+        {% endif %}
+      </dd>
+    </dl>
+
+    {% if p.aberto_no_orgao %}
+      <p class="aviso-orgao">
+        A secretaria está com outra inscrição aberta, que <strong>não é</strong>
+        do meu cargo:
+        <a href="{{ p.aberto_no_orgao.url }}" target="_blank" rel="noopener">{{ p.aberto_no_orgao.titulo | titulo }}</a>
+      </p>
+    {% endif %}
+  </section>
+
+  {# ----------------------------------------------------- de olho ------- #}
+  {% if p.de_olho %}
+  <section class="ds-cartao">
+    <h2>De olho</h2>
+    <ul class="de-olho">
+      {% for v in p.de_olho %}
+        <li>
+          <span class="onde">{{ v.nome }}</span>
+          {% if v.situacao %}
+            <span class="estado {{ 'aberta' if v.situacao == 'inscricoes_abertas' }}">
+              {{ rotulo_situacao.get(v.situacao, v.situacao) }}</span>
+            {% if v.inscricoes_ate %}
+              <span class="prazo">até {{ v.inscricoes_ate | data }}</span>
+            {% endif %}
+            <a href="{{ v.url }}" target="_blank" rel="noopener">{{ v.titulo | titulo }}</a>
+          {% else %}
+            <span class="nao-sei">nada no radar ainda</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="legenda">Não é o meu alvo: é o cargo que eu prestaria nessas duas
+      cidades. Sai de <code>de_olho</code>, no <code>config/alvo.yml</code>.</p>
+  </section>
+  {% endif %}
+
+  {# ----------------------------------------------------- sinais -------- #}
+  <section class="ds-cartao">
+    <h2>Sinais recentes</h2>
+    {% if p.sinais %}
+      <ul class="sinais">
+        {% for s in p.sinais %}
+          <li>
+            <span class="quando">{{ s.quando | data }}</span>
+            <span>
+              <span class="tipo">{{ s.tipo | tipo_do_evento }}</span>
+              {% if s.link %}
+                <a href="{{ s.link }}" target="_blank" rel="noopener">{{ s.texto | evento }}</a>
+              {% else %}{{ s.texto | evento }}{% endif %}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="vazio">
+        Nada recente. A linha do tempo começa a ser gravada na primeira coleta
+        depois que o concurso entra no radar, então concurso antigo aparece
+        aqui sem histórico - <span class="nao-sei">não sei ainda</span> o que
+        aconteceu antes disso.
+      </p>
+    {% endif %}
+  </section>
+
+  {# ---------------------------------------------------- materias ------- #}
+  <section class="ds-cartao">
+    <h2>
+      Matérias
+      {%- if p.ano_do_edital %}: edital de {{ p.ano_do_edital }} contra as provas{% endif %}
+    </h2>
+
+    {% if p.materias_do_edital %}
+      <div class="fontes">
+        <span>{{ selo(p.origens.edital) }}<b>Edital {{ p.ano_do_edital }} e peso:</b>
+          quadro de distribuição de questões lido do PDF
+          {% if p.arquivo_do_edital %}<code>{{ p.arquivo_do_edital }}</code>{% else %}do edital{% endif %}
+          ({{ p.total_do_edital }} questões).</span>
+        {% if p.anos_das_provas %}
+        <span>{{ selo(p.origens.provas) }}<b>Prova {{ p.anos_das_provas | join(' e ') }}:</b>
+          questões válidas no banco, contadas pela matéria do caderno. Ficam de
+          fora as anuladas no gabarito definitivo:
+          {% for ano in p.anos_das_provas -%}
+            {{ ano }}, {{ p.anuladas_por_ano.get(ano, 0) }}{{ '; ' if not loop.last else '.' }}
+          {%- endfor %}
+          {% if p.anos_das_provas | length < PROVAS_PARA_TENDENCIA %}<b>Base pequena:</b>
+          {{ p.anos_das_provas | length }} prova{{ 's' if p.anos_das_provas | length > 1 }} do cargo.{% endif %}</span>
+        {% endif %}
+        <span>{{ selo(p.origens.meu_acerto) }}<b>Meu acerto</b> soma duas origens, e a
+          linha de baixo de cada matéria mostra a divisão: <b>radar</b> é
+          questão real respondida aqui dentro, pela última resposta de cada;
+          <b>anotado</b> é o que eu digitei das faixas e dos extras do
+          Qconcursos, no conteúdo que eu escolhi ao anotar. Só o que foi
+          respondido sem consulta entra. Os dois nunca são somados na
+          divisão - eles medem de maneiras diferentes.</span>
+      </div>
+      <div class="ds-rolagem">
+      <table class="ds-tabela">
+        <thead>
+          <tr>
+            <th>Matéria</th>
+            <th class="n">Edital {{ p.ano_do_edital }}</th>
+            <th class="n">Peso</th>
+            <th class="n">Meu acerto</th>
+            {% for ano in p.anos_das_provas %}<th class="n">Prova {{ ano }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in p.materias_do_edital %}
+            {% set peso = m.peso(p.total_do_edital) %}
+            {% set acerto = p.acerto_por_materia.get(m.nome) %}
+            {% set pesada = m.nome in p.materias_pesadas %}
+            <tr class="{{ 'pesada' if pesada }} {{ 'pior' if m.nome == p.pior_materia }}">
+              <td>
+                {{ m.nome }}
+                {%- if m.nome == p.pior_materia %}
+                  <span class="marca">comece por aqui</span>
+                {%- endif %}
+              </td>
+              <td class="n">{{ m.questoes }}</td>
+              <td class="n" style="width:22%">
+                <span class="barra-caixa">
+                  <span class="barra" style="width:{{ '%.0f'|format(peso * 4) }}%"></span>
+                </span>
+                {{ '%.0f'|format(peso) }}%
+              </td>
+              {# Materia nunca treinada nao vale zero: zero diria que eu errei
+                 tudo, quando o que houve foi eu nao ter feito. #}
+              <td class="n {{ 'zero' if not acerto or acerto.respondidas < MINIMO_NA_MATERIA }}">
+                {%- if acerto and acerto.respondidas < MINIMO_NA_MATERIA -%}
+                  {# Mostra, mas apagado: abaixo do minimo e sorte, e nao
+                     entra no "comece por aqui". #}
+                  {{ '%.0f'|format(acerto.porcentagem) }}%
+                  <span class="feitas">· {{ acerto.respondidas }} de {{ MINIMO_NA_MATERIA }} · {{ AMOSTRA_INSUFICIENTE }}</span>
+                {%- elif acerto -%}
+                  {{ '%.0f'|format(acerto.porcentagem) }}%
+                  <span class="feitas">de {{ acerto.respondidas }}</span>
+                {%- else -%}
+                  {# "nao treinei" era falso: a faixa feita sem acerto anotado
+                     tambem cai aqui (P01, decisao 147). #}
+                  sem acerto medido
+                {%- endif -%}
+                {%- if acerto and p.divisao_por_materia.get(m.nome) %}
+                  <span class="feitas">{{ p.divisao_por_materia[m.nome] }}</span>
+                {%- endif -%}
+              </td>
+              {% for ano in p.anos_das_provas %}
+                {% set caiu = p.incidencia.get(m.nome, {}).get(ano, 0) %}
+                <td class="n {{ 'zero' if not caiu }}">{{ caiu if caiu else '--' }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+
+      {% if p.pior_materia %}
+        <p class="legenda destaque">
+          <strong>{{ p.pior_materia }}</strong> é onde eu vou pior entre as
+          matérias que mais pesam &mdash; é por ela que vale começar hoje.
+          {% set menor = p.materias_do_edital | map(attribute='questoes') | min %}
+          Errar numa matéria de {{ menor }} questões custa {{ menor }} questões; errar numa de
+          {{ p.materias_do_edital|selectattr('nome', 'equalto', p.pior_materia)
+             |map(attribute='questoes')|first }} decide a prova.
+        </p>
+      {% endif %}
+
+      {% if fora_do_edital %}
+        <p class="legenda">
+          Caiu na prova mas <strong>não está</strong> no quadro do edital de
+          {{ p.ano_do_edital }}:
+          {% for nome in fora_do_edital %}
+            {{ nome }}{% if not loop.last %} &middot; {% endif %}
+          {% endfor %}.
+          Matéria muda de uma edição para a outra - é por isso que as duas
+          colunas ficam lado a lado.
+        </p>
+      {% endif %}
+
+      <p class="legenda">
+        A coluna do edital é o que ele <strong>promete</strong> cobrar; as de
+        prova são o que <strong>caiu</strong>. Onde elas batem, o peso é regra.
+        &quot;--&quot; quer dizer que a matéria não apareceu naquele caderno.
+      </p>
+    {% else %}
+      <p class="vazio">
+        <span class="nao-sei">não sei ainda</span> &mdash; o quadro de
+        distribuição de questões sai do PDF do edital, e ele ainda não está no
+        acervo. Rode <code>radar provas</code>.
+      </p>
+    {% endif %}
+  </section>
+
+  {# --------------------------------------------- onde estudar primeiro - #}
+  {% if p.materias_do_edital %}
+  <section class="ds-cartao">
+    <h2>Onde estudar primeiro</h2>
+
+    {% if p.onde_comecar %}
+      {# A maior barra e a primeira: a lista ja vem ordenada do servidor. #}
+      {% set maior = p.onde_comecar[0].ordem %}
+
+      <div class="fontes">
+        <span>{{ selo(p.origens.assunto) }}o <b>assunto</b> é o da classificação de
+          cada questão na árvore de conteúdos: os mesmos números de Análises &gt;
+          Incidência.</span>
+        <span>{{ selo(p.origens.estimativa) }}<b>questões esperadas</b> e <b>pontos a
+          ganhar</b> são conta sobre esses assuntos e sobre
+          {{ p.anos_das_provas | length }} prova{{ 's' if p.anos_das_provas | length != 1 }}
+          - leitura, e não fato.</span>
+        <span>{{ selo(p.origens.meu_acerto) }}<b>meu acerto</b> aparece nos dois
+          recortes, cada um com o seu número: o medido no radar (pela última
+          resposta de cada questão) e o anotado das faixas e dos extras ligados
+          ao assunto, sem consulta. Juntos, eles só decidem se a amostra basta e
+          a ordem.</span>
+      </div>
+      <p class="conclusao">{{ p.conclusao_do_estudo }}</p>
+
+      <div class="estudo">
+        {% for a in p.onde_comecar %}
+          <div class="assunto-linha {{ 'sem-medida' if a.pontos is none }}">
+            <div class="assunto-topo">
+              <span class="assunto-nome">{{ a.assunto }}{%
+                if not a.repete_a_materia %}<span class="materia">{{ a.materia }}</span>{%
+                endif %}</span>
+              <span class="assunto-valor">
+                {%- if a.so_no_complementar -%}
+                  só no acervo complementar
+                {%- elif a.pontos is not none -%}
+                  {{ a.pontos | numero }} pontos a ganhar
+                {%- else -%}
+                  {{ a.esperadas | numero }} questões esperadas
+                {%- endif -%}
+              </span>
+            </div>
+
+            <div class="barra-estudo">
+              <span style="width:{{ '%.1f'|format(a.ordem / maior * 100) }}%"></span>
+            </div>
+
+            <div class="apoio">
+              <span>
+                {# As duas fatias, cada uma sobre a sua base, e nunca somadas
+                   (regra inviolavel 1): uma questao da minha prova vale mais
+                   que uma de outro concurso da mesma banca. #}
+                {{ a.proprias }} de {{ a.base_do_alvo }} nas provas do cargo
+                {%- if a.peso_do_complementar and a.complementar %} &middot;
+                  {{ a.complementar }} de {{ a.base_do_complementar }} no acervo
+                  complementar, com peso {{ a.peso_do_complementar | numero(2) }} só na ordem
+                {%- endif -%}
+              </span>
+              <span>&middot;</span>
+              <span>
+                {#- O acerto aparece nos dois recortes, e nunca somado
+                    (decisao 7): a soma so faz a conta da ordem. -#}
+                {%- set meu = a.divisao or (a.acertos ~ ' de ' ~ a.respondidas) -%}
+                {%- if a.so_no_complementar -%}
+                  nenhuma questão esperada: o assunto não caiu nas provas do cargo
+                  {%- if a.respondidas %}; meu acerto: {{ meu }}{% endif -%}
+                {%- elif a.pontos is not none -%}
+                  {{ a.esperadas | numero }} questões esperadas; meu acerto: {{ meu }}
+                  {%- if a.dias_sem_revisar %}; {{ a.dias_sem_revisar }} dia(s) sem revisar (×{{ a.fator | numero }}){% endif -%}
+                {%- elif a.respondidas -%}
+                  meu acerto: {{ meu }} · {{ AMOSTRA_INSUFICIENTE }}
+                {%- else -%}
+                  sem acerto medido: nenhuma resposta no radar nem acerto anotado
+                {%- endif -%}
+              </span>
+              {% if a.lei %}
+                <a class="lei" href="{{ a.lei.url }}" target="_blank" rel="noopener"
+                   title="{{ a.lei.titulo }}">ler a lei</a>
+                {% if a.lei.nota %}<span class="ressalva">({{ a.lei.nota }})</span>{% endif %}
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% set peso_c = p.onde_comecar[0].peso_do_complementar %}
+      <p class="legenda">
+        <strong>Questões esperadas</strong> é o peso da matéria no edital de
+        {{ p.ano_do_edital }} vezes a fatia que o assunto ocupa nas provas do
+        cargo. <strong>Pontos a ganhar</strong> é isso vezes o que eu ainda
+        erro: é o que está em jogo hoje, e não o tamanho do assunto. A ordem
+        {% if peso_c %}soma à fatia do cargo a do acervo complementar com peso
+        {{ peso_c | numero(2) }} (<code>config/prioridade.yml</code>, a mesma
+        regra da prioridade das fichas), e {% endif %}multiplica pelo
+        <strong>tempo sem revisar</strong>: ×1 no dia, até ×2 depois de um mês.
+        Assunto nunca treinado tem esse fator neutro.
+      </p>
+
+      {% if p.onde_comecar | selectattr('pontos', 'none') | first %}
+        <p class="legenda">
+          As barras <span class="nao-sei">amarelas</span> são assuntos que eu
+          nunca treinei, ou treinei menos de {{ MINIMO_NO_ASSUNTO }} questões -
+          abaixo disso a porcentagem é sorte. Não dá para calcular pontos a
+          ganhar sem acerto medido, então elas entram pelo tamanho do assunto
+          - as <strong>questões esperadas</strong>{% if peso_c %}, mais o
+          complementar com o seu peso{% endif %} -, que é o máximo que elas
+          poderiam valer. Treinar o assunto é o que troca essa barra por uma
+          azul, e o número por um de verdade.
+        </p>
+      {% endif %}
+
+      <p class="legenda">
+        {% set n_provas = p.anos_das_provas | length %}
+        {{ selo(p.origens.estimativa, 'Base pequena') }}
+        São só <strong>{{ n_provas }} prova{{ 's' if n_provas != 1 }}</strong>
+        do cargo no acervo ({{ p.anos_das_provas | join(' e ') }}), e isso
+        sustenta pouco uma fatia.
+        {% if peso_c %}Por isso entra o <strong>acervo complementar</strong>:
+        as provas da mesma banca aceitas no levantamento da Etapa 3B
+        (<code>data/acervo_complementar.json</code>), nas mesmas matérias. Ele
+        nunca é somado ao do cargo: as questões esperadas e os pontos a ganhar
+        são só das provas do cargo, e o complementar pesa só na ordem - ele
+        diz do costume da banca, e não do que a prova do meu cargo cobrou.
+        {% else %}O acervo complementar está com peso 0 no
+        <code>config/prioridade.yml</code>: a ordem é só a das provas do cargo.
+        {% endif %}
+      </p>
+
+      {% if p.assuntos_fora_da_tela %}
+        <p class="legenda">
+          Outros {{ p.assuntos_fora_da_tela }} assuntos ficaram abaixo destes e
+          não entraram no gráfico.
+        </p>
+      {% endif %}
+
+      {# A materia que nao rendeu assunto nenhum NAO some daqui. Ela cai no
+         edital valendo questao, e sumir do grafico diria "nao cai" - quando o
+         que houve foi eu nao ter classificado nada dela. #}
+      {% if p.materias_sem_assunto %}
+        <div class="mudas">
+          <p class="legenda">
+            Estas matérias caem na prova, e nenhuma questão das provas do cargo
+            delas está classificada num assunto da árvore. Por qual assunto
+            começar nelas:
+            <span class="nao-sei">{{ FRASE_SEM_EVIDENCIA }}</span>
+          </p>
+          <ul>
+            {% for m in p.materias_sem_assunto %}
+              <li>
+                <span class="muda-nome">{{ m.nome }}</span>
+                <span class="muda-peso">{{ m.questoes }} questões no edital</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if p.questoes_sem_assunto %}
+        <p class="legenda">
+          {{ p.questoes_sem_assunto }} questões das provas do cargo ainda estão
+          <strong>sem assunto</strong> na árvore (pendentes, ou classificadas
+          só na matéria) e não entram em nenhuma barra - o que falta não é elas
+          não caírem, é a classificação delas. Elas aparecem em
+          <code>radar conteudos --pendentes</code>, e a classificação sai de
+          <code>radar classificar --pedido</code>.
+        </p>
+      {% endif %}
+
+      <p class="legenda">
+        O link <strong>ler a lei</strong> vai para o Planalto (lei federal e
+        Constituição) ou para a ALESC (lei estadual de SC), e sai de
+        <code>config/leis.yml</code>. É só link: o radar não baixa nem guarda o
+        texto de lei nenhuma - a versão vigente só está certa na fonte.
+      </p>
+    {% else %}
+      <p class="vazio">
+        <span class="nao-sei">{{ FRASE_SEM_EVIDENCIA }}</span> Nenhuma questão
+        das provas do cargo está classificada num assunto da árvore, e sem
+        assunto não há fatia para multiplicar pelo peso do edital. A
+        classificação sai de <code>radar classificar --pedido</code>.
+      </p>
+      {% if p.materias_sem_assunto %}
+        <div class="mudas">
+          <ul>
+            {% for m in p.materias_sem_assunto %}
+              <li>
+                <span class="muda-nome">{{ m.nome }}</span>
+                <span class="muda-peso">{{ m.questoes }} questões no edital</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endif %}
+  </section>
+  {% endif %}
+
+  {# ----------------------------------------------------- treinar ------- #}
+  <section class="ds-cartao">
+    <h2>Treinar</h2>
+    {# O botao aparece pela conta do SORTEIO, e nao pela do painel: o painel
+       conta toda questao do cargo, e o sorteio so usa as que tem gabarito.
+       Quando as duas discordam - caderno no acervo sem o gabarito ao lado - o
+       botao prometia rodada e entregava redirecionamento. #}
+    {% if fontes_do_treino.proprias %}
+      <form class="treinar" method="post" action="/foco/treinar">
+        <button class="ds-botao" type="submit">Treinar {{ questoes_do_treino }} questões</button>
+        <span class="conta">
+          {% if fontes_do_treino.proprias_novas %}
+            das provas do cargo: {{ fontes_do_treino.proprias_novas }} de
+            {{ fontes_do_treino.proprias }} que eu ainda não respondi
+          {% elif fontes_do_treino.da_banca_novas %}
+            as provas do cargo acabaram &mdash; agora vem das
+            {{ fontes_do_treino.da_banca_novas }} da mesma banca nas mesmas
+            matérias
+          {% else %}
+            já respondi todas: a rodada vai repetir questão
+          {% endif %}
+        </span>
+      </form>
+      <p class="legenda">
+        A ordem e sempre esta: primeiro as questões das provas do próprio
+        cargo{% if p.anos_das_provas %} ({{ p.anos_das_provas|join(' e ') }}){% endif %},
+        que são a prova de verdade; quando elas acabam, as
+        {{ fontes_do_treino.da_banca }} da mesma banca nas mesmas matérias, em
+        outros concursos. Matéria que não caiu na minha prova não entra &mdash;
+        Conhecimentos Específicos de outro cargo não me serve de nada.
+      </p>
+    {% else %}
+      <p class="vazio">
+        Nenhuma questão do cargo no acervo ainda. Rode
+        <code>radar provas</code> e depois <code>radar questoes</code>.
+      </p>
+    {% endif %}
+  </section>
+
+  {% endif %}
+</main>
+
+</body>
+</html>

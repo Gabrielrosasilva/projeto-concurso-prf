@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Calendário &middot; Radar de Concursos</title>
+  {# Os prazos de inscricao na agenda: o que vai entrar no .ics e como
+     importar. Cor e espaco saem do design.css; aqui so o que e desta tela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .ds-cartao h2{margin:0 0 var(--esp-2);font-size:var(--tam-md)}
+    .ds-cartao p{margin:0 0 var(--esp-2)}
+    .ds-cartao p:last-child{margin-bottom:0}
+    .sob-botao{font-size:var(--tam-xs);color:var(--cor-texto-suave);margin-top:var(--esp-2)}
+
+    ol{margin:var(--esp-1) 0 0;padding-left:var(--esp-5);font-size:var(--tam-sm)}
+    ol li{margin-bottom:var(--esp-1)}
+    .sistema{font-weight:var(--peso-medio);font-size:var(--tam-sm);margin:var(--esp-4) 0 0}
+
+    /* Um compromisso por linha: a data na coluna da esquerda, em vermelho de
+       prazo; o que e e de onde, na da direita. */
+    .compromisso{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--esp-1) var(--esp-3);
+      padding:var(--esp-2) 0;border-bottom:1px solid var(--cor-borda);font-size:var(--tam-sm)}
+    .compromisso:last-of-type{border-bottom:0}
+    .quando{font-variant-numeric:tabular-nums;color:var(--cor-vermelho);
+      font-weight:var(--peso-medio);white-space:nowrap}
+    .oque{overflow:hidden;text-overflow:ellipsis}
+    .onde{grid-column:2;font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('concursos') }}
+
+<main class="ds-pagina">
+  {% from "_topo.html" import abas_de_concursos %}
+  {{ abas_de_concursos('calendario') }}
+
+  <header class="ds-cabeca">
+    <h1>Calendário</h1>
+    <p>Os prazos de inscrição na agenda do seu celular</p>
+  </header>
+
+  <section class="ds-cartao">
+    <h2>Para que serve</h2>
+    <p>
+      O aviso do Telegram chega <b>uma vez</b> e some no meio das outras
+      mensagens. O calendário lembra de novo <b>dois dias antes</b> do fim da
+      inscrição - que é quando ainda dá tempo de juntar documento e pagar
+      boleto.
+    </p>
+    <p>
+      O botão abaixo baixa um arquivo <code>.ics</code>, que é o formato que
+      todo calendário entende. Você abre o arquivo uma vez e os compromissos
+      entram na sua agenda.
+    </p>
+  </section>
+
+  <section class="ds-cartao">
+    {% if eventos %}
+      <h2>O que vai entrar na agenda</h2>
+      {% for e in eventos %}
+        <div class="compromisso">
+          <span class="quando">{{ e.quando.strftime('%d/%m') }}</span>
+          <span class="oque">{{ e.titulo | titulo }}</span>
+          <span class="onde">{{ e.descricao }}</span>
+        </div>
+      {% endfor %}
+
+      <p style="margin-top:var(--esp-4)">
+        <a class="ds-botao" href="/calendario.ics" download>
+          Baixar {{ eventos | length }} compromisso(s)
+        </a>
+      </p>
+      <p class="sob-botao">
+        Entra o que é favorito e o que está perto de casa, com prazo conhecido
+        e ainda em pé. Prazo vencido não entra: compromisso no passado só
+        atrapalha quem abre a agenda.
+      </p>
+    {% else %}
+      <div class="ds-vazio">
+        <p>Nenhum prazo em pe para exportar agora.</p>
+        <p>Entra o que é favorito ou está perto de casa, com data de inscrição
+           conhecida e ainda aberta.</p>
+      </div>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2>Como importar, depois de baixar</h2>
+
+    <p class="sistema">No celular (Android ou iPhone)</p>
+    <ol>
+      <li>Toque no arquivo baixado.</li>
+      <li>O próprio celular pergunta em qual calendário adicionar.</li>
+    </ol>
+
+    <p class="sistema">No Google Agenda, pelo computador</p>
+    <ol>
+      <li>Abra <b>calendar.google.com</b>.</li>
+      <li>Engrenagem &rarr; <b>Configurações</b> &rarr; <b>Importar e exportar</b>.</li>
+      <li>Escolha o arquivo e clique em <b>Importar</b>.</li>
+    </ol>
+
+    <p class="sistema">No Outlook</p>
+    <ol>
+      <li><b>Arquivo</b> &rarr; <b>Abrir e Exportar</b> &rarr; <b>Importar/Exportar</b>.</li>
+      <li>Escolha <b>Importar um arquivo iCalendar (.ics)</b>.</li>
+    </ol>
+
+    <p class="sob-botao">
+      Baixando de novo mais tarde, os compromissos que já existem são
+      <b>atualizados</b>, e não duplicados: cada um leva um identificador fixo,
+      tirado do endereço do concurso. Se o prazo for retificado, a agenda
+      corrige sozinha.
+    </p>
+  </section>
+
+</main>
+</body>
+</html>

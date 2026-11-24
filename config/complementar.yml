@@ -1,0 +1,176 @@
+# Os termos que procuram uma materia do edital DENTRO de um caderno
+# complementar. Lido por src/radar/servico/complementar.py (Etapa 3B).
+#
+# POR QUE ISTO EXISTE
+#
+# No acervo complementar a maioria das provas e de prefeitura, e o caderno
+# nao separa Direito Penal de Direito Constitucional: joga tudo num bloco
+# "Conhecimentos Especificos" (3.405 questoes) ou "Conhecimentos Gerais".
+# Contar so pelo NOME da materia no caderno perderia essas questoes.
+#
+# O QUE ESTA CONTAGEM VALE, E O QUE NAO VALE
+#
+# Ela e INDICIO (🟡), nunca evidencia: o termo pode aparecer de passagem, e a
+# falta dele nao prova que o assunto nao caiu. Serve para decidir quais
+# provas vale a pena classificar - e e a classificacao, questao a questao,
+# que diz de verdade qual conteudo caiu. O relatorio mostra as duas colunas
+# separadas e nunca as soma.
+#
+# O termo casa como PALAVRA INTEIRA: "dolo" nao casa dentro de "dolorosa".
+# Por isso nao use pedaco de palavra ("sociologic" nao casa nada) - escreva a
+# palavra como ela aparece.
+#
+# E DADO: mexer aqui nao muda o banco nem pede migracao. Materia sem termo
+# nenhum fica so com a contagem pelo nome.
+
+termos:
+  Direito Penal:
+  - código penal
+  - decreto-lei 2.848
+  - tipicidade
+  - dolo
+  - culpabilidade
+  - crime doloso
+  Direito Processual Penal:
+  - código de processo penal
+  - processo penal
+  - inquérito policial
+  - prisão em flagrante
+  - prisão preventiva
+  Direito Constitucional:
+  - constituição federal
+  - constituição da república
+  - direitos e garantias fundamentais
+  - administração pública direta
+  Lei de Execução Penal:
+  - execução penal
+  - lei 7.210
+  - lei n. 7.210
+  - progressão de regime
+  - remição da pena
+  - falta grave
+  Legislação Especial:
+  - lei de drogas
+  - lei 11.343
+  - crimes hediondos
+  - lei 8.072
+  - abuso de autoridade
+  - lei 13.869
+  - tortura
+  - estatuto do desarmamento
+  Legislação Estadual:
+  - sistema prisional
+  - estabelecimento penal
+  - agente penitenciário
+  - polícia penal
+  - secretaria de estado da justiça
+  Direitos Humanos:
+  - direitos humanos
+  - declaração universal
+  - pacto de san josé
+  - convenção americana
+  - regras de mandela
+  Sociologia Aplicada:
+  - sociologia
+  - sociológica
+  - sociológico
+  - durkheim
+  - weber
+  - controle social
+  Língua Portuguesa:
+  - concordância verbal
+  - regência verbal
+  - crase
+  - oração subordinada
+  Raciocínio Lógico:
+  - proposição
+  - tabela-verdade
+  - negação da proposição
+  - análise combinatória
+  Administração Pública:
+  - administração pública
+  - licitação
+  - improbidade administrativa
+  - servidor público
+  Noções de Informática:
+  - planilha eletrônica
+  - navegador
+  - sistema operacional
+  - correio eletrônico
+  Direito Administrativo:
+  - ato administrativo
+  - poder de polícia
+  - processo administrativo disciplinar
+
+# O catalogo de palavras-chave do `src/radar/macetes.py` tem nomes proprios
+# ("Crase", "Verbos"); a arvore usa o texto LITERAL do edital de 2019. Este
+# mapa liga um ao outro, e e o que permite propor assunto para as milhares de
+# questoes de Portugues e Raciocinio Logico do complementar sem ler uma a uma.
+#
+# A proposta que sai daqui e AUTOMATICA (🟡): a procedencia diz isso, e ela
+# vale depois da sua conferencia POR AMOSTRA (20 por materia). Nome do
+# catalogo que nao estiver aqui nao vira classificacao nenhuma - a questao
+# fica sem linha, em vez de ir para um assunto parecido.
+#
+# Quando o enunciado casa com DOIS assuntos (crase e regencia andam juntas), a
+# questao tambem fica sem linha: escolher um dos dois seria chute.
+
+catalogo_para_edital:
+  Língua Portuguesa:
+    Interpretacao de texto: Compreensão e interpretação de texto (s)
+    Verbos: Emprego de tempos e modos verbais
+    Classes de palavras: "Classes gramaticais variáveis: substantivo, adjetivo, artigo, numeral, pronome, verbo"
+    Concordancia: Concordância nominal e verbal
+    Crase: Emprego da crase
+    Ortografia: Ortografia oficial
+    Pontuacao: Pontuação
+    Sintaxe da oracao: "Termos integrantes da oração: objeto direto e indireto, agente da passiva e complemento nominal"
+    Acentuacao: Acentuação gráfica
+    Colocacao pronominal: "Pronomes: emprego, forma de tratamento e colocação"
+    Vozes verbais: Vozes do verbo
+    # Sem par no edital de 2019 (ficam sem linha, de proposito): Emprego de
+    # palavras, Figuras de linguagem, Periodo composto, Formacao de palavras,
+    # Semantica, Regencia, Coesao e coerencia.
+  Raciocínio Lógico:
+    Logica proposicional: Lógica proposicional (ou sentencial)
+    Probabilidade: Princípios de contagem e probabilidade
+    Analise combinatoria: Princípios de contagem e probabilidade
+    Conjuntos: Operações com conjuntos
+    Porcentagem: Raciocínio lógico envolvendo problemas aritméticos e geométricos
+    Problemas com valores e idades: Raciocínio lógico envolvendo problemas aritméticos e geométricos
+    Regra de tres e proporcao: Raciocínio lógico envolvendo problemas aritméticos e geométricos
+    Sequencias e padroes: Raciocínio lógico envolvendo problemas aritméticos e geométricos
+
+# O ACERVO PELO CONTEUDO (decisao 167)
+#
+# `radar provas --por-conteudo` le a pagina de provas de TODO concurso
+# encerrado da FEPESE, perto ou longe, e baixa so o caderno cujo CARGO casa
+# com um destes pedacos de nome (sem acento e sem caixa, em qualquer lugar do
+# nome: "guarda" casa "Guarda Municipal" e "Guarda Civil"). O acervo de
+# sempre escolhe pela distancia, e e por isso que a Policia Civil SC 2017 e a
+# Policia Cientifica ficaram de fora: para estudar, o que importa e o cargo
+# ter Direito, e nao onde a prova foi.
+#
+# Escreva o pedaco que identifica o cargo, e nao a materia: o nome da materia
+# so aparece dentro do caderno. "seguranca" sozinho casaria "Tecnico em
+# Seguranca do Trabalho", por isso vai "seguranca publica".
+cargos_com_direito:
+- guarda
+- policia
+- policial
+- escrivao
+- delegado
+- investigador
+- perito
+- papiloscop
+- penitenciari
+- prisional
+- socioeducativ
+- seguranca publica
+- agente de seguranca
+- procurador
+- advogad
+- juridic
+- oficial de justica
+- defensor
+- promotor

@@ -1,0 +1,1725 @@
+# Onde ler o texto OFICIAL de cada materia e assunto de Direito do edital.
+#
+# Isto e uma lista de enderecos, e so isso. O radar nao baixa, nao copia e nao
+# guarda o texto de lei nenhuma: ele abre o link no site de quem publica. Lei
+# muda - e o unico lugar em que a versao vigente esta certa e a fonte oficial.
+# (No fim do arquivo mora a outra lista, a `mudancas`: as leis que mudaram
+# depois das provas de 2013 e 2019, para o aviso na questao antiga.)
+#
+# Uma fonte, e nao mais: o Planalto (planalto.gov.br), para lei federal e
+# para a Constituicao. A copia PMSC tinha tambem a ALESC, para as leis de
+# Santa Catarina; elas sairam na copia PRF (24/11/2026, decisao PRF-3).
+#
+# Cada endereco daqui foi aberto de verdade antes de ser gravado (24/09/2026):
+# todos responderam 200, e o titulo da pagina confere com a lei.
+#
+# COMO O CASAMENTO E FEITO
+#
+# `materia` casa com o nome da materia no quadro do edital. `quando` e uma
+# marca procurada DENTRO do nome do assunto que o edital usa - o mesmo jeito
+# do config/alvo.yml, e pelo mesmo motivo: o assunto do edital e comprido
+# ("Lei Complementar n.o 529 de 17 de dezembro de 2011 (Regimento Interno dos
+# estabelecimentos penais do Estado de Santa Catarina)") e copiar a frase
+# inteira aqui seria copiar um texto que a proxima edicao reescreve. Acento e
+# caixa nao importam: os dois lados sao normalizados antes de comparar.
+#
+# O assunto sem `quando` que sirva cai no link da propria materia. Materia sem
+# `url` e assunto sem marca ficam SEM LINK - e a tela nao mostra o "ler a lei"
+# para eles. Assunto de doutrina (Teoria geral dos direitos humanos) nao tem
+# texto oficial, e inventar um link seria pior que nao ter.
+
+# As materias que NAO se apoiam em lei. Texto que a IA escreve para elas -
+# questao gerada, macete - cita a regra (gramatical, logica), e nao artigo.
+# Em TODA outra materia, o artigo e obrigatorio: e mais seguro exigir por
+# padrao do que deixar escapar uma materia de Direito com nome diferente
+# ("Direito Processo Penal", como o caderno de 2013 escreve).
+sem_lei:
+  - Lingua Portuguesa
+  - Raciocinio Logico
+  - Nocoes de Informatica
+  # Na arvore da PMSC a materia e "Informatica" (24/10): sem ela aqui, o resumo
+  # e o macete de Writer, Calc e Windows eram recusados por nao citar artigo.
+  - Informatica
+  - Sociologia Aplicada
+
+materias:
+
+  # --- Direito Constitucional ------------------------------------------------
+  #
+  # A materia inteira e um texto so, entao o link fica na materia e todo
+  # assunto dela herda: nacionalidade, direitos sociais, seguranca publica e
+  # ordem social sao todos capitulos da mesma Constituicao.
+  - materia: Direito Constitucional
+    lei: Constituição Federal de 1988
+    url: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+
+  # --- Direito Penal ---------------------------------------------------------
+  - materia: Direito Penal
+    lei: Código Penal (Decreto-Lei 2.848/1940)
+    url: https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm
+
+  # --- Direito Processual Penal ----------------------------------------------
+  - materia: Direito Processual Penal
+    lei: Código de Processo Penal (Decreto-Lei 3.689/1941)
+    url: https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm
+
+  # --- Lei de Execucao Penal -------------------------------------------------
+  #
+  # Materia de 10 questoes com um assunto so, que e a propria lei.
+  - materia: Lei de Execucao Penal
+    lei: Lei 7.210/1984 - Lei de Execução Penal
+    url: https://www.planalto.gov.br/ccivil_03/leis/l7210.htm
+
+  # --- Direitos Humanos ------------------------------------------------------
+  #
+  # A materia NAO tem link proprio de proposito: metade dela e doutrina
+  # (teoria geral, afirmacao historica, conceito), e doutrina nao tem texto
+  # oficial. So os assuntos que apontam para um documento e que ganham link.
+  - materia: Direitos Humanos
+    assuntos:
+      - quando: na constituicao federal
+        lei: Constituição Federal de 1988
+        url: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+
+      - quando: tratados internacionais
+        lei: Constituição Federal de 1988
+        url: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+
+      # "Politica Nacional" e "Programa Nacional (PNDH-3)" apontam para o
+      # mesmo decreto: o PNDH-3 E o instrumento da politica nacional.
+      - quando: politica nacional de direitos humanos
+        lei: Decreto 7.037/2009 - PNDH-3
+        url: https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d7037.htm
+
+      - quando: programa nacional de direitos humanos
+        lei: Decreto 7.037/2009 - PNDH-3
+        url: https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/decreto/d7037.htm
+
+      # "Regras minimas da ONU para o tratamento de pessoas presas" (Regras de
+      # Mandela) fica SEM LINK: e documento da ONU, nao lei brasileira, e por
+      # isso nao esta nem no Planalto nem na ALESC. Tem traducao oficial
+      # publicada pelo CNJ, que nao e nenhuma das duas fontes deste arquivo -
+      # entao a escolha aqui e nao linkar em vez de linkar de qualquer jeito.
+
+  # --- Administracao Publica -------------------------------------------------
+  - materia: Administracao Publica
+    assuntos:
+      - quando: improbidade
+        lei: Lei 8.429/1992 - Improbidade Administrativa
+        url: https://www.planalto.gov.br/ccivil_03/leis/l8429.htm
+
+      # Os principios da administracao publica estao no art. 37 da
+      # Constituicao; e de la que o edital os cobra.
+      - quando: principios administrativos
+        lei: Constituição Federal de 1988 (art. 37)
+        url: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+
+      - quando: administracao direta e indireta
+        lei: Decreto-Lei 200/1967 - organização da Administração Federal
+        url: https://www.planalto.gov.br/ccivil_03/decreto-lei/del0200.htm
+
+      # "Nocoes de Administracao Publica", "Modelos de gestao" e "Ciclos de
+      # transformacao" sao doutrina de gestao publica: ficam sem link.
+
+  # --- Legislacao Especial ---------------------------------------------------
+  #
+  # Cinco leis avulsas, uma por assunto. A materia nao tem link porque nao ha
+  # um texto que a cubra.
+  - materia: Legislacao Especial
+    assuntos:
+      - quando: abuso de autoridade
+        lei: Lei 4.898/1965 - Abuso de Autoridade
+        url: https://www.planalto.gov.br/ccivil_03/leis/l4898.htm
+        # O edital de 2019 cobra a 4.898, que era a lei da epoca. Ela foi
+        # revogada pela Lei 13.869/2019, publicada em setembro daquele ano -
+        # o link acima e o que o edital pede, e esta nota existe para eu nao
+        # estudar uma lei revogada sem saber: https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/L13869.htm
+        nota: >-
+          revogada pela Lei 13.869/2019 - o edital de 2019 ainda cobrava esta;
+          confira qual das duas o edital novo pede
+
+      - quando: desarmamento
+        lei: Lei 10.826/2003 - Estatuto do Desarmamento
+        url: https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm
+
+      - quando: tortura
+        lei: Lei 9.455/1997 - Crimes de Tortura
+        url: https://www.planalto.gov.br/ccivil_03/leis/l9455.htm
+
+      - quando: "11.343"
+        lei: Lei 11.343/2006 - SISNAD (drogas)
+        url: https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm
+
+      - quando: maria da penha
+        lei: Lei 11.340/2006 - Lei Maria da Penha
+        url: https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm
+
+  # --- As tres materias de lei do edital da PMSC (decisao PMSC-8) ------------
+  #
+  # O link de "ler a lei" e o da conferencia da Etapa 1
+  # (docs/pmsc_conferencia_do_cronograma.md). O texto que vai no pedido de
+  # gerar mora em pmsc/config/textos_de_lei.yml. A marca `quando` e procurada
+  # no caminho inteiro do no: o titulo do Estatuto ("Titulo I - Do ingresso")
+  # nao repete o numero da lei.
+  - materia: Direito Penal Militar
+    lei: Código Penal Militar (Decreto-Lei 1.001/1969)
+    url: https://www.planalto.gov.br/ccivil_03/decreto-lei/del1001.htm
+
+  - materia: Legislacao de Transito
+    lei: Código de Trânsito Brasileiro (Lei 9.503/1997)
+    url: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+
+  - materia: Legislacao Institucional
+    assuntos:
+      - quando: "14.751"
+        lei: Lei 14.751/2023 - Lei Orgânica Nacional das PMs e CBMs
+        url: https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14751.htm
+
+# --- A LEI QUE MUDOU DEPOIS DA PROVA -----------------------------------------
+#
+# A lista do aviso "⚠ A lei mudou depois desta prova" (src/radar/leis.py). Cada
+# item diz qual norma mudou o que, QUAIS provas ficaram velhas (`anos`, escrito
+# e nao deduzido) e como reconhecer a questao: `marcas`, procuradas sem acento
+# e sem caixa no enunciado e nas alternativas, e `materias`, quando restringe.
+#
+# As datas das duas provas, conferidas nos documentos oficiais do acervo:
+#   2013: 10/11/2013 (edital SJC 2013, item 11.1.4);
+#   2019: 01/12/2019 (Edital 001/2019-SAP/SC, termos aditivos 3 e 4, e o
+#         cabecalho do gabarito: "01 de dezembro, das 13 as 18 h").
+#
+# Os itens abaixo foram escritos pelo Claude Code em 03/10/2026. Cada questao
+# de Direito das duas provas foi conferida contra o texto compilado e
+# atualizado da norma - a compilacao da Camara dos Deputados para lei federal,
+# codigos e Constituicao (o Planalto recusa a conexao daqui) - e so entrou
+# aqui a mudanca com a anotacao da compilacao na mao
+# ("Redacao dada pela Lei n ..."). A `fonte` de cada item e o texto que foi
+# lido; ela NAO e link de "ler a lei" (esses continuam so no Planalto, la
+# em cima). As mudancas das leis de SC sairam na copia PRF (decisao PRF-3).
+#
+# Todos estao POR CONFERIR (`conferida: false`): o aviso aparece com o 🟣 ate
+# voce conferir o item e trocar para `conferida: true` - ou apagar o item, se
+# ele estiver errado.
+mudancas:
+
+  # --- Constituicao -----------------------------------------------------------
+
+  # 2019, q42 (contribuicoes do art. 195).
+  - tema: Contribuições da seguridade social (CF, art. 195)
+    lei: Emenda Constitucional 132/2023
+    o_que_mudou: o art. 195 ganhou o inciso V (contribuição sobre bens e serviços), e o inciso I, "b" (receita ou faturamento), e o IV (importador) estão revogados a partir de 2027
+    anos: [2013, 2019]
+    materias: [Direito Constitucional]
+    marcas: [importador de bens ou servicos, receita ou o faturamento]
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- Codigo de Processo Penal -----------------------------------------------
+
+  # 2013, q55 (como o inquerito comeca). O art. 5º, II, nao mudou: o aviso e
+  # o do art. 3º-A, que poe a requisicao pelo juiz em xeque.
+  - tema: Requisição de inquérito pelo juiz (CPP, art. 5º, II)
+    lei: Lei 13.964/2019 (art. 3º-A do CPP)
+    o_que_mudou: o art. 5º, II, não mudou, mas o art. 3º-A deu ao processo penal estrutura acusatória e vedou a iniciativa do juiz na fase de investigação, o que põe em xeque a requisição do inquérito pela autoridade judiciária
+    anos: [2013, 2019]
+    materias: [Direito Processual Penal, Direito Processo Penal]
+    marcas: [requisicao da autoridade judiciaria]
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # 2013, q57 (prazo do inquerito).
+  - tema: Prazo do inquérito com o investigado preso
+    lei: Lei 13.964/2019 (art. 3º-B do CPP)
+    o_que_mudou: o art. 10 continua (10 dias com o indiciado preso, 30 solto), mas o juiz das garantias pode prorrogar uma única vez, por até 15 dias, o inquérito com o investigado preso (art. 3º-B, VIII e § 2º)
+    anos: [2013, 2019]
+    materias: [Direito Processual Penal, Direito Processo Penal]
+    marcas: [encerramento do inquerito]
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # 2019, q67 (o juiz e o auto de prisao em flagrante).
+  - tema: Auto de prisão em flagrante e liberdade provisória (CPP, art. 310)
+    lei: Leis 13.964/2019, 15.272/2025 e 15.358/2026
+    o_que_mudou: o juiz decide em audiência de custódia, em até 24 horas da prisão (hoje por videoconferência); deve negar a liberdade provisória ao reincidente, ao integrante de organização criminosa armada ou milícia e a quem porta arma de uso restrito (§ 2º); e examina as circunstâncias dos §§ 5º e 6º
+    anos: [2013, 2019]
+    materias: [Direito Processual Penal, Direito Processo Penal]
+    marcas: [liberdade provisoria, relaxar a prisao]
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- Crime hediondo ---------------------------------------------------------
+
+  # 2019, q33 (anulada; o excerto 4 descreve a regra antiga).
+  - tema: Progressão de regime no crime hediondo
+    lei: Leis 13.964/2019, 14.843/2024 e 15.358/2026
+    o_que_mudou: o § 2º do art. 2º da Lei 8.072 (2/5 e 3/5) foi revogado; os percentuais do hediondo estão no art. 112 da LEP (hoje de 70% a 85%), e o exame criminológico passou a ser exigido em toda progressão
+    anos: [2013, 2019]
+    marcas: [crime hediondo, delito tipificado como hediondo]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- Improbidade e LEP ------------------------------------------------------
+
+  # 2019, q46: o gabarito oficial ficou errado.
+  - tema: Improbidade administrativa - acordo, posse e prescrição (Lei 8.429/1992)
+    lei: Lei 14.230/2021 (e a Lei 13.964/2019, no acordo)
+    o_que_mudou: a vedação de acordo (art. 17, § 1º) caiu e hoje o Ministério Público pode celebrar acordo de não persecução civil (art. 17-B); a posse depende da declaração de imposto de renda (art. 13); e a prescrição é de 8 anos contados do fato (art. 23)
+    anos: [2013, 2019]
+    materias: [Administracao Publica, Direito Administrativo]
+    marcas: ["8.429", acordo ou a conciliacao, declaracao dos bens e valores]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1992/lei-8429-2-junho-1992-357452-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # 2019, q89.
+  - tema: Monitoração eletrônica (LEP, arts. 146-B a 146-E)
+    lei: Leis 14.843/2024, 14.994/2024 e 15.280/2025
+    o_que_mudou: o art. 146-B passou a prever a monitoração também nos regimes aberto e semiaberto (e na progressão para eles), na restritiva de direitos com limitação de frequência e no livramento condicional; e o art. 146-E a tornou obrigatória na saída do condenado por crime contra a mulher por razões da condição do sexo feminino ou por crime contra a dignidade sexual
+    anos: [2013, 2019]
+    materias: [Lei de Execucao Penal]
+    marcas: [monitoracao eletronica]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- As provas novas de 17/10 (decisao 171, passo 2, 18/10/2026) -------------
+  #
+  # As 449 questoes de Direito das provas novas foram conferidas contra o que
+  # mudou depois da data de cada prova. Estes itens tem `provas`: os links dos
+  # cadernos em que o aviso vale. Sem ela, o `anos` pegaria toda prova do mesmo
+  # ano com a marca - inclusive a feita DEPOIS da mudanca (a Lei 14.365 e de
+  # junho de 2022, e a prova de Colombo, de outubro). Sem `materias`: cada
+  # caderno escreve a materia de um jeito.
+
+  # Cebraspe 2022, q10; NC-UFPR 2021, q13; Cebraspe 2022, q47; Cebraspe 2022, q24.
+  - tema: "Porte de maconha para consumo pessoal (Lei 11.343, arts. 28 e 48)"
+    lei: "STF, RE 635.659 (Tema 506 da repercussão geral), 26/06/2024"
+    o_que_mudou: "o STF fixou que adquirir, guardar, ter em depósito, transportar ou trazer consigo cannabis para consumo pessoal não é infração penal, e sim ilícito extrapenal: a advertência e a medida educativa são aplicadas em procedimento não penal, e presume-se usuário quem tem até 40 g ou seis plantas-fêmeas"
+    anos: [2021, 2022]
+    marcas: ["sementes de Cannabis", "utensílios destinados ao cultivo", "cultivo clandestino para utilização própria", "abolitio criminis", "Juizado Especial Criminal estadual", "para consumo pessoal", "vasos de cultivo de maconha", "admoestação verbal e multa", "não se imporá prisão em flagrante", "termo circunstanciado", "vedada a detenção do agente"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+      - https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/304A.pdf
+    fonte: https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4034145&numeroProcesso=635659&classeProcesso=RE&numeroTema=506
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelo portal do STF
+    conferida: false
+
+  # Cebraspe 2023, q26; Cebraspe 2022, q42.
+  - tema: "Prescrição da improbidade administrativa (Lei 8.429, art. 23)"
+    lei: "STF, ADIs 7.156 e 7.236, julgadas em 01/07/2026 (acórdão ainda não publicado)"
+    o_que_mudou: "o STF declarou inconstitucional a redução pela metade do prazo de prescrição depois da interrupção, fixou em 20 anos o prazo máximo de prescrição das ações de improbidade e manteve a exigência de dolo e o rol taxativo do art. 11"
+    anos: [2022, 2023]
+    marcas: ["violação genérica aos princípios", "novo regime prescricional", "dolo ou a culpa", "São imprescritíveis as sanções", "prazo prescricional previsto"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+      - https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/915_PMPA_CFO_001_01.PDF
+    fonte: https://noticias.stf.jus.br/postsnoticias/stf-invalida-reducao-de-prazo-de-prescricao-prevista-na-reforma-da-lei-de-improbidade-administrativa/
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela notícia do julgamento (sem o texto oficial)
+    conferida: false
+
+  # Cebraspe 2022, q42; Cebraspe 2022, q45.
+  - tema: "Tráfico privilegiado: regime e substituição da pena (Lei 11.343, art. 33, § 4º)"
+    lei: "STF, Súmula Vinculante 59 (19/10/2023)"
+    o_que_mudou: "a Súmula Vinculante 59 tornou obrigatórios o regime aberto e a substituição da pena privativa de liberdade por restritiva de direitos no tráfico privilegiado, quando não houver vetor negativo na primeira fase da dosimetria e estiverem presentes os requisitos dos arts. 33, § 2º, c, e 44 do CP"
+    anos: [2022]
+    marcas: ["Tráfico privilegiado é crime hediondo", "regime inicial fechado", "previsão legal expressa", "tráfico privilegiado"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=26&sumula=8161
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelo portal do STF
+    conferida: false
+
+  # FEPESE 2014, q16.
+  - tema: "Imunidade recíproca (CF, art. 150, § 2º)"
+    lei: "Emenda Constitucional 132/2023"
+    o_que_mudou: "a imunidade recíproca, que a Constituição estendia só às autarquias e às fundações instituídas e mantidas pelo Poder Público, passou a alcançar também a empresa pública prestadora de serviço postal"
+    anos: [2014]
+    marcas: ["imunidade tributária é extensiva", "dependem de autorização legislativa"]
+    provas:
+      - http://deinfra.fepese.org.br/?go=download&path=2&arquivo=adv_1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q65.
+  - tema: "Biocombustíveis e regime fiscal favorecido (CF, art. 225, § 1º, VIII)"
+    lei: "Emenda Constitucional 132/2023"
+    o_que_mudou: "a incumbência do poder público de manter regime fiscal favorecido passou a valer para os biocombustíveis em geral (saiu a restrição 'destinados ao consumo final') e também para o hidrogênio de baixa emissão de carbono, com referência ao novo IBS (art. 156-A)"
+    anos: [2022]
+    marcas: ["regime fiscal favorecido", "biocombustíveis destinados ao consumo final"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # FEPESE 2014, q20; FEPESE 2014, q21.
+  - tema: "Licitações e contratos: da Lei 8.666 para a Lei 14.133"
+    lei: "Lei 14.133/2021 (a Lei 8.666/1993 deixou de valer em 30/12/2023)"
+    o_que_mudou: "a Lei 8.666/1993 foi revogada; a anulação da licitação e do contrato e o reajuste por apostila estão hoje na Lei 14.133/2021 (arts. 71, 136 e 147 a 149), com redação própria"
+    anos: [2014]
+    marcas: ["anulação do procedimento licitatório", "não gera obrigação de indenizar", "licitação e contrato administrativo", "simples apostila", "reajuste de preços previsto", "dispensando a celebração de aditamento"]
+    provas:
+      - http://deinfra.fepese.org.br/?go=download&path=2&arquivo=adv_1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2021/lei-14133-1-abril-2021-791222-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # FEPESE 2014, q10; Cebraspe 2023, q51.
+  - tema: "Acumulação de cargo de professor (CF, art. 37, XVI, b)"
+    lei: "Emenda Constitucional 138/2025"
+    o_que_mudou: "a acumulação permitida deixou de ser a de um cargo de professor com outro técnico ou científico e passou a ser a de um cargo de professor com outro de qualquer natureza"
+    anos: [2014, 2023]
+    marcas: ["acumulação remunerada", "cargo público de professor", "outro técnico e científico", "vedação ao acúmulo", "cargo público remunerado", "corpo de bombeiros militar"]
+    provas:
+      - http://deinfra.fepese.org.br/?go=download&path=2&arquivo=adv_1.pdf
+      - https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFP/arquivos/928_CBM_PA_CFP_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q52.
+  - tema: "Progressão de regime: as frações (LEP, art. 112)"
+    lei: "Leis 15.358/2026 e 15.402/2026"
+    o_que_mudou: "o art. 112 foi reescrito: as frações dos crimes hediondos subiram (primário 70%, reincidente 80%, reincidente com resultado morte 85%), e o caput e os incisos I a III mudaram de texto e de ordem, com o caput em 1/6 e ressalva para os crimes do Título XII do CP"
+    anos: [2022]
+    marcas: ["progredir de regime", "ao menos 25% da pena", "reincidente na prática de crime hediondo"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q40.
+  - tema: "Audiência de custódia (CPP, art. 310)"
+    lei: "Lei 15.358/2026"
+    o_que_mudou: "o caput passou a mandar que o juiz faça a audiência de custódia por videoconferência em tempo real. O prazo continua o mesmo: até 24 horas após a realização da prisão"
+    anos: [2022]
+    marcas: ["audiência de custódia", "24 horas depois da prisão"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # FEPESE 2014, q25.
+  - tema: "Declaração de bens do agente público (Lei 8.429, art. 13)"
+    lei: "Lei 14.230/2021"
+    o_que_mudou: "a pena para o agente que se recusa a prestar a declaração de bens no prazo ou a presta falsa continua a demissão, mas o texto perdeu a expressão 'a bem do serviço público', e a declaração passou a ser a do imposto de renda"
+    anos: [2014]
+    marcas: ["a bem do serviço público", "prestar declaração dos bens", "aprovação das contas"]
+    provas:
+      - http://deinfra.fepese.org.br/?go=download&path=2&arquivo=adv_1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1992/lei-8429-2-junho-1992-357452-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # NC-UFPR 2021, q20.
+  - tema: "Tribunais de Contas dos Municípios (CF, arts. 31 e 75)"
+    lei: "Emenda Constitucional 139/2026"
+    o_que_mudou: "os Tribunais de Contas passaram a ser declarados instituições permanentes e essenciais ao controle externo, e a CF passou a vedar expressamente a extinção, a criação ou a instalação de Tribunais e Conselhos de Contas, inclusive os dos Municípios onde houver; o § 4º do art. 31 (vedação de criar órgão de contas municipal) e os sete conselheiros do art. 75, parágrafo único, não mudaram"
+    anos: [2021]
+    marcas: ["Tribunal de Contas Municipal", "Tribunais de Contas de Município", "integrados por sete Conselheiros"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/304A.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # FEPESE 2022, q7.
+  - tema: "Desapropriação de bens de outro ente federado (Decreto-Lei 3.365, art. 2º, § 2º)"
+    lei: "Lei 14.620/2023"
+    o_que_mudou: "a desapropriação de bens dos Estados, dos Municípios e do DF pela União continua a exigir autorização legislativa, mas essa autorização passou a ser dispensada quando a desapropriação for feita mediante acordo entre os entes federativos, que fixa as responsabilidades financeiras pelas indenizações"
+    anos: [2022]
+    marcas: ["desapropriados pela União", "independentemente de autorização legislativa", "desapropriações por utilidade pública"]
+    provas:
+      - https://2022bcprocurador.fepese.org.br/?go=download&path=2&inline=1&arquivo=8PM.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3365-21-junho-1941-413383-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # NC-UFPR 2021, q2.
+  - tema: "Regime jurídico único dos servidores (CF, art. 39)"
+    lei: "STF, ADI 2.135 (mérito, 06/11/2024)"
+    o_que_mudou: "o STF julgou constitucional a EC 19/1998 na parte que revogou a redação original do art. 39, caput, e caiu a cautelar de 2007: o regime jurídico único deixou de ser obrigatório, e cada ente pode adotar também o regime de emprego público (CLT) nas novas contratações"
+    anos: [2021]
+    marcas: ["regime jurídico de seus servidores", "regime de emprego público", "o regime celetista"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/301A.pdf
+    fonte: https://portal.stf.jus.br/constituicao-supremo/artigo.asp?abrirBase=CF&abrirArtigo=39
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelo portal do STF
+    conferida: false
+
+  # NC-UFPR 2021, q18.
+  - tema: "Proteção de dados pessoais como direito fundamental (CF, art. 5º, LXXIX)"
+    lei: "Emenda Constitucional 115/2022"
+    o_que_mudou: "a protecao dos dados pessoais, inclusive nos meios digitais, passou a ser direito fundamental expresso e autonomo na Constituicao, nos termos da lei"
+    anos: [2021]
+    marcas: ["autodeterminação informativa", "direito à privacidade", "banhos quentes"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/301A.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q29.
+  - tema: "Habeas corpus de ofício (CPP, art. 647-A)"
+    lei: "Lei 14.836/2024"
+    o_que_mudou: "o CPP passou a dizer expressamente que qualquer autoridade judicial pode expedir de oficio ordem de habeas corpus, individual ou coletivo, mesmo quando a acao ou o recurso nao for conhecido"
+    anos: [2022]
+    marcas: ["concessão de ofício", "salvo-conduto ao paciente", "o habeas corpus"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q47.
+  - tema: "Arquivamento do inquérito (CPP, art. 28)"
+    lei: "Lei 13.964/2019, eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305 (24/08/2023)"
+    o_que_mudou: "o arquivamento do inquerito passou a ser ordenado pelo Ministerio Publico, com comunicacao a vitima, que pode submeter a materia a revisao da instancia ministerial em 30 dias; o STF manteve a submissao ao juiz e permitiu que ele tambem provoque a revisao em caso de patente ilegalidade"
+    anos: [2022]
+    marcas: ["impedir o arquivamento do inquérito", "direito líquido e certo", "mandado de segurança"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # FEPESE 2023, q28.
+  - tema: "Direitos dos trabalhadores domésticos (CF, art. 7º, § 1º)"
+    lei: "Emenda Constitucional 141/2026"
+    o_que_mudou: "o parágrafo único do art. 7º, que lista os direitos dos trabalhadores domésticos, foi renumerado como § 1º, sem mudar a lista de incisos assegurados (a mesma emenda mudou os incisos XIII e XV, que a questão não cobra)"
+    anos: [2023]
+    marcas: ["trabalhadores domésticos", "piso salarial proporcional", "aviso prévio proporcional"]
+    provas:
+      - https://aguasjoinville.fepese.org.br/?go=download&path=2&inline=1&arquivo=1S1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q67.
+  - tema: "Perda da nacionalidade brasileira (CF, art. 12, § 4º)"
+    lei: "Emenda Constitucional 131/2023"
+    o_que_mudou: "a aquisição de outra nacionalidade deixou de ser causa de perda da nacionalidade brasileira; hoje a perda só ocorre pelo cancelamento da naturalização (fraude no processo ou atentado contra a ordem constitucional e o Estado Democrático) ou por pedido expresso do próprio brasileiro, ressalvada a apatridia"
+    anos: [2022]
+    marcas: ["venha a adquirir outra nacionalidade", "exercer determinados direitos civis", "perda da sua nacionalidade brasileira"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2023, q35.
+  - tema: "Guardas municipais e segurança urbana (CF, art. 144, § 8º)"
+    lei: "STF, RE 608.588 (Tema 656 da repercussão geral), 20/02/2025"
+    o_que_mudou: "o STF declarou constitucional o exercício de ações de segurança urbana pelas guardas municipais, inclusive policiamento ostensivo e comunitário e prisão em flagrante, respeitadas as atribuições dos demais órgãos do art. 144 e excluída qualquer atividade de polícia judiciária, sob controle externo do Ministério Público"
+    anos: [2023]
+    marcas: ["órgão policial de segurança pública"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/823_PREF_SAO_CRISTOVAO_007_01.PDF
+    fonte: https://www.lex.com.br/guardas-municipais-podem-fazer-policiamento-urbano/
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela notícia do julgamento (sem o texto oficial)
+    conferida: false
+
+  # Cebraspe 2022, q51.
+  - tema: "Saída temporária (LEP, art. 122)"
+    lei: "Lei 14.843/2024"
+    o_que_mudou: "a saída temporária ficou só para a frequência a curso (inciso II): a visita à família e a participação em atividades de retorno ao convívio social foram revogadas, e o condenado por crime hediondo ou com violência ou grave ameaça contra pessoa perdeu o direito a ela"
+    anos: [2022]
+    marcas: ["frequentar curso superior", "tratamento médico periódico hospitalar", "permissão de saída"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Selecon 2022, q50.
+  - tema: "Uso comedido e proporcional da força (Lei 13.675, art. 4º, IX)"
+    lei: "Lei 14.751/2023"
+    o_que_mudou: "o princípio do uso comedido e proporcional da força ganhou complemento: passou a ser o uso pelos agentes da segurança pública, pautado nos documentos internacionais de proteção aos direitos humanos de que o Brasil seja signatário"
+    anos: [2022]
+    marcas: ["uso comedido e proporcional", "um princípio e um objetivo", "combate ao crime organizado"]
+    provas:
+      - https://selecon.org.br/wp-content/uploads/2022/01/Prova-A-AGENTE-DE-SEGURANCA-PENITENCIARIO_-POLICIAL-PENAL.pdf
+    fonte: https://legis.senado.leg.br/norma/37911403/publicacao/37919882
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelo texto da lei no Senado (a Câmara não abriu)
+    conferida: false
+
+  # Cebraspe 2022, q45.
+  - tema: "Afastamento do agressor do lar (Lei 11.340, art. 12-C)"
+    lei: "Lei 15.411/2026"
+    o_que_mudou: "o caput do art. 12-C passou a mandar afastar o agressor também quando o risco atual ou iminente for à integridade sexual, moral ou patrimonial da mulher, e não só à vida ou à integridade física ou psicológica. Os incisos que dizem quem afasta não mudaram: o juiz; o delegado, se o município não for sede de comarca; o policial, se além disso não houver delegado disponível"
+    anos: [2022]
+    marcas: ["afastado do lar", "pelo delegado de polícia", "integridade física ou psicológica"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Selecon 2022, q29.
+  - tema: "Lesão corporal contra agente do sistema prisional (CP, art. 129, § 12)"
+    lei: "Leis 15.134/2025 e 15.159/2025"
+    o_que_mudou: "o § 12 do art. 129 foi reescrito em incisos e alíneas: o aumento de 1/3 a 2/3 para a lesão dolosa contra integrantes do sistema prisional, no exercício da função ou em decorrência dela, passou para o inciso I, alínea a, e o parágrafo ganhou novas hipóteses (membros do Judiciário, do MP, da Defensoria e da Advocacia Pública, oficiais de justiça e lesão em instituição de ensino, esta com aumento de 2/3 até o dobro no inciso II)"
+    anos: [2022]
+    marcas: ["integrante do Conselho Penitenciário", "em virtude da função pública", "lesão corporal grave majorada"]
+    provas:
+      - https://selecon.org.br/wp-content/uploads/2022/01/Prova-A-AGENTE-DE-SEGURANCA-PENITENCIARIO_-POLICIAL-PENAL.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2023, q17.
+  - tema: "Multa e extinção da punibilidade (CP, art. 51)"
+    lei: "STF, ADI 7.032 (22/03/2024)"
+    o_que_mudou: "o STF deu interpretação conforme ao art. 51 do CP: o pagamento da multa aplicada junto com a pena privativa de liberdade é condição para a extinção da punibilidade, salvo comprovada impossibilidade de pagar, ainda que parcelado"
+    anos: [2023]
+    marcas: ["inadimplemento da sanção pecuniária", "comprovar a impossibilidade de fazê-lo", "privativa de liberdade e multa"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+    fonte: https://www.stf.jus.br/arquivo/informativo/documento/informativo1129.htm
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelo portal do STF
+    conferida: false
+
+  # NC-UFPR 2021, q73.
+  - tema: "Prescrição reduzida pela idade (CP, art. 115)"
+    lei: "Lei 15.160/2025"
+    o_que_mudou: "a redução pela metade do prazo prescricional para o menor de 21 anos ao tempo do crime ou o maior de 70 na data da sentença deixou de valer para crime que envolva violência sexual contra a mulher"
+    anos: [2021]
+    marcas: ["quando tinha 66 anos de idade", "crime de peculato", "prescrição da pretensão punitiva retroativa"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/301A.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # NC-UFPR 2021, q63.
+  - tema: "Prioridade de tramitação (CPP, art. 394-A)"
+    lei: "Lei 14.994/2024"
+    o_que_mudou: "a prioridade de tramitação do art. 394-A passou a valer também para os processos de violência contra a mulher, que ganharam ainda isenção de custas, taxas e despesas para a vítima, salvo má-fé"
+    anos: [2021]
+    marcas: ["prioridade de tramitação", "rito sumaríssimo", "crime hediondo"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pcpr2020/prova/definitivo/301A.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # Cebraspe 2022, q37.
+  # A data da prova (13/03/2022) e da Folha Dirigida, nao de documento oficial.
+  - tema: "Busca em escritório de advocacia (Lei 8.906, art. 7º)"
+    lei: "Lei 14.365/2022"
+    o_que_mudou: "a busca e apreensão em escritório de advocacia passou a ser medida excepcional, pedida pelo órgão acusatório com base em indício e nunca só em declarações de colaborador. Vieram também regras para o representante da OAB na diligência e na análise do material, e a proibição de o advogado delatar o próprio cliente"
+    anos: [2022]
+    marcas: ["escritório do advogado Orozimbo", "inviolabilidade relativa", "inviolabilidade absoluta"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1994/lei-8906-4-julho-1994-349751-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- As provas baixadas a mao de 18/10 (decisao 172, aprovado por voce) ------
+  #
+  # Guarda de Ribeirao Preto 2023, q24; Guarda de Cariacica 2024, q45 (sem a
+  # resposta aqui: voce ainda vai responder as duas). O aviso diz que o STF mudou o entendimento (a ADPF 995 e depois da prova
+  # de Ribeirao Preto, 16/04/2023; o Tema 656, depois das duas).
+  - tema: "Guardas municipais na segurança pública (CF, art. 144, § 8º)"
+    lei: "STF, ADPF 995 (25/08/2023) e RE 608.588 (Tema 656 da repercussão geral, 20/02/2025)"
+    o_que_mudou: "o STF afastou as interpretações que excluíam as guardas municipais do Sistema de Segurança Pública (ADPF 995) e declarou constitucional o exercício de ações de segurança urbana por elas, inclusive policiamento ostensivo e comunitário e prisão em flagrante, sem atividade de polícia judiciária (Tema 656); a letra do art. 144 não mudou"
+    anos: [2023, 2024]
+    marcas: ["guardas municipais"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/422/concursos/69/anexos/IR7IsjDF6zVygTOUti3I1mgK5KXBdmPXZG2TkIFA.pdf
+      - https://anexos.cdn.selecao.net.br/uploads/422/concursos/86/anexos/VU4tyBV8101pc0EVKa1UGC33pI9MA9Z7ohHfCktQ.pdf
+    fonte: https://noticias.stf.jus.br/postsnoticias/guardas-municipais-integram-o-sistema-de-seguranca-publica-decide-stf/
+    procedencia: Claude Code (claude-opus-5-5), 18/10/2026, pelas notícias do STF (ADPF 995, 28/08/2023; Tema 656, 20/02/2025), sem o acórdão
+    conferida: false
+
+  # --- As provas da AOCP (Etapa 3 da PMSC, decisao PMSC-6, passo 2, 24/10/2026) -----
+  #
+  # As 106 questoes de Direito, Informatica e Transito das provas da AOCP lidas
+  # contra o que mudou depois de cada prova (a regra da 171, passo 2), pela fonte
+  # oficial aberta. O gabarito continua certo; a regra mudou. Cada item vale so
+  # no caderno da questao (`provas`).
+  # Cadete - Polícia Militar (Aspirante) 2022, q30.
+  - tema: "Lei Maria da Penha: o descumprimento de medida protetiva (art. 24-A) e a audiência do art. 16"
+    lei: "Lei 14.994/2024 e Lei 15.380/2026, 09/10/2024"
+    o_que_mudou: "a pena do descumprimento de medida protetiva (art. 24-A) passou a reclusão, de 2 a 5 anos, e multa (Lei 14.994/2024); e o art. 16 ganhou parágrafo único: a audiência serve para confirmar a retratação, não a representação, e só é designada se a vítima manifestar o desejo de se retratar antes do recebimento da denúncia (Lei 15.380/2026)"
+    anos: [2022]
+    marcas: ["apenas a autoridade judicial poderá conceder fiança", "descumprimento de medida protetiva de urgência", "renúncia à representação perante o juiz"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cadete - Polícia Militar (Aspirante) 2022, q38.
+  - tema: "CPM, art. 11: o militar estrangeiro em comissão ou estágio"
+    lei: "Lei 14.688/2023, 20/09/2023"
+    o_que_mudou: "o militar estrangeiro fica sujeito à lei penal militar brasileira quando em comissão ou estágio 'em instituições militares', e não mais só 'nas forças armadas' (em vigor 60 dias depois da publicação de 21/09/2023)"
+    anos: [2022]
+    marcas: ["Os militares estrangeiros", "em comissão ou estágio nas forças armadas"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara (a cópia em pmsc/leis)
+    conferida: false
+  # Cadete - Polícia Militar (Aspirante) 2022, q49.
+  - tema: "ECA, art. 241-E: o que é material de violência sexual contra criança ou adolescente"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "o art. 241-E passou a definir 'material ou conteúdo de violência sexual contra criança ou adolescente', real ou fictício, inclusive o gerado por inteligência artificial, e diz expressamente que basta a conotação sexual ou libidinosa, ainda que não haja exposição de órgãos genitais ou que esses estejam cobertos"
+    anos: [2022]
+    marcas: ["O art. 241-E da Lei n° 8.069/90", "cena de sexo explícito ou pornográfica"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cadete - Polícia Militar (Aspirante) 2022, q50.
+  - tema: "Porte de maconha para consumo pessoal (Lei 11.343, arts. 28 e 48)"
+    lei: "STF, RE 635.659 (Tema 506 da repercussão geral), 26/06/2024"
+    o_que_mudou: "o STF fixou que adquirir, guardar, ter em depósito, transportar ou trazer consigo cannabis para consumo pessoal não é infração penal, e sim ilícito extrapenal: a advertência e a medida educativa são aplicadas em procedimento não penal, e presume-se usuário quem tem até 40 g ou seis plantas-fêmeas"
+    anos: [2022]
+    marcas: ["natureza jurídica de crime, ainda que despenalizado", "porte de droga para consumo próprio"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar
+    fonte: https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4034145&numeroProcesso=635659&classeProcesso=RE&numeroTema=506
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q18.
+  - tema: "Feminicídio: de qualificadora a crime autônomo (CP, art. 121-A)"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "o inciso VI do § 2º do art. 121 do CP (feminicídio) foi revogado, e o feminicídio virou crime autônomo, o art. 121-A, com pena de reclusão de 20 a 40 anos"
+    anos: [2022]
+    marcas: ["qualificadoras de motivo torpe e de feminicídio", "homicídio praticado contra mulher em situação de violência doméstica e familiar"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q19.
+  - tema: "Roubo: a pena e a majorante do celular (CP, art. 157)"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "a pena do roubo passou a reclusão de 6 a 10 anos, e o § 2º do art. 157 ganhou a majorante da subtração de aparelho de telefonia celular, computador ou dispositivo semelhante (inciso IX), que também caberia no caso"
+    anos: [2022]
+    marcas: ["portando uma faca e mediante grave ameaça", "um celular de última geração"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q29.
+  - tema: "Habeas corpus de ofício (CPP, art. 647-A)"
+    lei: "Lei 14.836/2024, 08/04/2024"
+    o_que_mudou: "o CPP passou a dizer expressamente (art. 647-A) que qualquer autoridade judicial pode expedir de ofício ordem de habeas corpus, individual ou coletivo, mesmo quando a ação ou o recurso não for conhecido"
+    anos: [2022]
+    marcas: ["expedir de ofício ordem de habeas corpus", "princípio da inércia da jurisdição"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q30.
+  - tema: "Prioridade de tramitação (CPP, art. 394-A)"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "a prioridade de tramitação do art. 394-A passou a valer também para os processos de violência contra a mulher, que ganharam ainda isenção de custas, taxas e despesas para a vítima, salvo má-fé"
+    anos: [2022]
+    marcas: ["prioridade de tramitação em todas as instâncias"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q40.
+  - tema: "CPM, art. 55: as penas principais"
+    lei: "Lei 14.688/2023, 20/09/2023"
+    o_que_mudou: "as alíneas f e g do art. 55 do CPM foram revogadas; hoje as penas principais são morte, reclusão, detenção, prisão e impedimento, e a reforma não está mais na lista"
+    anos: [2022]
+    marcas: ["As penas de impedimento e reforma são consideradas penas acessórias"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara (a cópia em pmsc/leis)
+    conferida: false
+  # Soldado de 2ª Classe QPPM - Combatente 2022, q48.
+  - tema: "Injúria racial: do CP para a Lei 7.716 (art. 2º-A)"
+    lei: "Lei 14.532/2023, 11/01/2023"
+    o_que_mudou: "a injúria em razão de raça, cor, etnia ou procedência nacional virou o art. 2º-A da Lei 7.716/1989 (crime de racismo, reclusão de 2 a 5 anos), e o § 3º do art. 140 do CP ficou só com religião, pessoa idosa ou com deficiência; continua fora da Lei 8.072"
+    anos: [2022]
+    marcas: ["Injúria racial (art. 140, §3º, do Código Penal)"]
+    provas:
+      - https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado da Polícia Militar 2023, q43.
+  - tema: "Acumulação de cargo de professor pelo militar estadual (CF, arts. 37, XVI, e 42, § 3º)"
+    lei: "Emenda Constitucional 138/2025, 19/12/2025"
+    o_que_mudou: "a acumulação permitida deixou de ser a de um cargo de professor com outro técnico ou científico e passou a ser a de um cargo de professor com outro de qualquer natureza; o art. 42, § 3º, estende o art. 37, XVI, aos militares dos Estados, com prevalência da atividade militar"
+    anos: [2023]
+    marcas: ["acumulação remunerada com um cargo público de professor"]
+    provas:
+      - https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023
+    fonte: https://www2.camara.leg.br/legin/fed/emecon/2025/emendaconstitucional-138-19-dezembro-2025-798508-norma-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Soldado da Polícia Militar 2023, q60.
+  - tema: "Tráfico de pessoas contra criança ou adolescente é hediondo (Lei 8.072, art. 1º, XII)"
+    lei: "Lei 14.811/2024, 12/01/2024"
+    o_que_mudou: "o art. 1º da Lei 8.072 ganhou o inciso XII: é hediondo o tráfico de pessoas cometido contra criança ou adolescente (art. 149-A, caput, I a V, e § 1º, II, do CP)"
+    anos: [2023]
+    marcas: ["são considerados crimes hediondos, EXCETO", "tráfico de pessoas"]
+    provas:
+      - https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- A PC-PA 2021 da AOCP (passo 2 da regra da 171, 24/10/2026) -------------
+  #
+  # As 26 questoes de lei da PC-PA 2021 (Investigador) lidas contra o que mudou
+  # depois da prova: 17 sem mudanca no que cobram, 9 com aviso, nenhuma fora do
+  # treino. O gabarito continua certo. Cada item vale so no caderno da PC-PA.
+  # Investigador de Polícia Civil 2021, q31.
+  - tema: "CF, art. 12, § 4º: a perda da nacionalidade brasileira"
+    lei: "Emenda Constitucional 131/2023, 03/10/2023"
+    o_que_mudou: "a aquisição de outra nacionalidade deixou de ser causa de perda da nacionalidade brasileira; hoje a perda só ocorre pelo cancelamento da naturalização (fraude no processo ou atentado contra a ordem constitucional e o Estado Democrático) ou por pedido expresso, ressalvada a apatridia"
+    anos: [2021]
+    marcas: ["Será declarada a perda da nacionalidade do brasileiro que adquirir outra nacionalidade", "reconhecimento de nacionalidade originária pela lei estrangeira"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara (a cópia em pmsc/leis)
+    conferida: false
+  # Investigador de Polícia Civil 2021, q45.
+  - tema: "CPP, art. 3º-A: a estrutura acusatória do processo penal"
+    lei: "Lei 13.964/2019 (art. 3º-A do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o art. 3º-A (processo penal de estrutura acusatória, vedadas a iniciativa do juiz na fase de investigação e a substituição da atuação probatória da acusação), suspenso com as regras do juiz das garantias pela liminar de 22/01/2020, passou a valer com o julgamento das ADIs"
+    anos: [2021]
+    marcas: ["O processo penal terá estrutura inquisitória", "permitida a iniciativa do juiz na fase de investigação"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Investigador de Polícia Civil 2021, q46.
+  - tema: "CPP, art. 5º, II: a requisição do inquérito pelo juiz e o art. 3º-A"
+    lei: "Lei 13.964/2019 (art. 3º-A do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o art. 5º, II, não mudou, mas o art. 3º-A, suspenso na época da prova, passou a valer: o processo penal tem estrutura acusatória e é vedada a iniciativa do juiz na fase de investigação, o que põe em xeque a requisição do inquérito pela autoridade judiciária"
+    anos: [2021]
+    marcas: ["mediante requisição da autoridade judiciária", "Nos crimes de ação pública, o inquérito policial será iniciado de ofício"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Investigador de Polícia Civil 2021, q47.
+  - tema: "CPP, art. 10 e art. 3º-B: o prazo do inquérito com o investigado preso"
+    lei: "Lei 13.964/2019 (art. 3º-B, VIII e § 2º, do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o art. 10 continua (10 dias com o indiciado preso, 30 solto), mas o juiz das garantias pode prorrogar o inquérito com o investigado preso (art. 3º-B, VIII e § 2º: uma vez, por até 15 dias), e o STF afastou o relaxamento automático da prisão quando o prazo não é cumprido"
+    anos: [2021]
+    marcas: ["Se o investigado estiver preso", "podendo ser prorrogado após decisão do magistrado responsável"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=512814&ori=1
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Investigador de Polícia Civil 2021, q48.
+  - tema: "CP, art. 171, § 5º: a ação penal do estelionato"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "foi revogado o § 5º do art. 171 do CP, que desde 2019 condicionava a ação penal do estelionato à representação da vítima; o estelionato voltou a ser de ação pública incondicionada (salvo os casos do art. 182), e o inquérito pode ser instaurado de ofício"
+    anos: [2021]
+    marcas: ["apurar um suposto crime de estelionato", "protocolar uma petição de notícia de crime na mesma repartição ou diretamente no Ministério Público"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Investigador de Polícia Civil 2021, q49.
+  - tema: "CP, art. 155: as penas do furto e o ANPP"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "o furto simples passou a 1 a 6 anos e o qualificado do § 4º manteve 2 a 8 anos; o novo § 6º, II, pune com 4 a 10 anos a subtração de celular, computador ou dispositivo eletrônico ou informático semelhante - o televisor não está na lista, mas, se fosse enquadrado ali, a pena mínima de 4 anos afastaria o ANPP"
+    anos: [2021]
+    marcas: ["cometeu crime de furto qualificado após quebrar uma janela residencial", "um aparelho televisor", "a pena mínima do crime de furto qualificado não supera quatro anos de prisão"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Investigador de Polícia Civil 2021, q50.
+  - tema: "Porte de maconha para consumo pessoal (Lei 11.343, art. 28)"
+    lei: "STF, RE 635.659 (Tema 506 da repercussão geral), 26/06/2024"
+    o_que_mudou: "o STF fixou que adquirir, guardar, ter em depósito, transportar ou trazer consigo cannabis para consumo pessoal não é infração penal, e sim ilícito extrapenal, presumindo-se usuário quem tem até 40 g ou seis plantas-fêmeas, até que o Congresso legisle"
+    anos: [2021]
+    marcas: ["meio quilo de maconha", "desclassifique o indiciamento por tráfico para o de porte para consumo de entorpecentes"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4034145&numeroProcesso=635659&classeProcesso=RE&numeroTema=506
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Investigador de Polícia Civil 2021, q55.
+  - tema: "Estatuto do Desarmamento, art. 4º, § 2º: a compra de munição"
+    lei: "STF, ADIs 6.119, 6.139 e 6.466 (interpretação conforme do art. 4º, § 2º, da Lei 10.826), 30/06/2023"
+    o_que_mudou: "no julgamento dos decretos de armas, o STF fixou que a compra de munição deve corresponder apenas ao necessário à segurança dos cidadãos e que o Executivo não pode criar presunções de efetiva necessidade além das previstas em lei"
+    anos: [2021]
+    marcas: ["A aquisição de munição somente poderá ser feita no calibre correspondente à arma registrada", "na quantidade estabelecida no regulamento dessa Lei"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://noticias.stf.jus.br/postsnoticias/stf-invalida-decretos-que-flexibilizavam-compra-e-uso-de-armas-de-fogo/
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Investigador de Polícia Civil 2021, q58.
+  - tema: "Lei Maria da Penha, art. 16: a audiência de retratação"
+    lei: "Lei 15.380/2026, 06/04/2026"
+    o_que_mudou: "o art. 16 ganhou parágrafo único: a audiência serve para confirmar a retratação da vítima e só é designada se ela manifestar expressamente, antes do recebimento da denúncia, o desejo de se retratar; o STF já tinha vedado a designação de ofício na ADI 7.267 (sessão virtual encerrada em 21/08/2023)"
+    anos: [2021]
+    marcas: ["só será admitida a renúncia à representação perante o juiz", "em audiência especialmente designada com tal finalidade"]
+    provas:
+      - https://www.institutoaocp.org.br/concursos/302
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- As provas de outras bancas que ja estavam no acervo (passo 2, 24/10/2026) --
+  #
+  # As questoes de lei das provas de outras bancas classificadas na arvore da
+  # PMSC em 24/10 (lote 2026-10-24), lidas contra o que mudou depois de cada
+  # prova. O gabarito continua certo; a regra mudou. Cada item vale so no
+  # caderno da questao (`provas`).
+  # Selecon 2024, Guarda Civil Municipal, q15.
+  - tema: "Administração Pública e militares dos Estados (arts. 37 a 42): Emenda Constitucional 138/2025"
+    lei: "Emenda Constitucional 138/2025, 19/12/2025"
+    o_que_mudou: "o art. 37, XVI, b, da CF passou a permitir a acumulação de um cargo de professor com outro de qualquer natureza (antes, só com outro técnico ou científico), mantidas a compatibilidade de horários e o teto"
+    anos: [2024]
+    marcas: ["acumulação remunerada de cargos públicos", "professor da Universidade Federal com o cargo de tradutor de LIBRAS", "professor de universidade estadual com outros dois cargos no magistério"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/746/concursos/52/anexos/6d53f62a-c546-49df-8d27-eb21ad6e868d.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/emecon/2025/emendaconstitucional-138-19-dezembro-2025-798508-publicacaooriginal-177473-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # NC-UFPR 2022, Guarda Municipal, q25.
+  - tema: "Crimes contra a pessoa: Lei 15.163/2025"
+    lei: "Lei 15.163/2025, 03/07/2025"
+    o_que_mudou: "O art. 136 passou a reclusão de 2 a 5 anos no caput, de 3 a 7 anos com lesão grave (§ 1º) e de 8 a 14 anos com morte (§ 2º); o § 3º (mais 1/3 contra menor de 14) ficou igual."
+    anos: [2022]
+    marcas: ["resulta em morte, a pena é de reclusão de 8 a 15 anos", "resulta em lesão corporal de natureza grave, a pena é de reclusão de 3 a 10 anos"]
+    provas:
+      - https://servicos.nc.ufpr.br/documentos/pmcol2022/provas/definitivo/305.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Investigação, q25.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 14.344/2022 (publicada em 25/05/2022, em vigor 45 dias depois)"
+    lei: "Lei 14.344/2022 (publicada em 25/05/2022, em vigor 45 dias depois), 24/05/2022"
+    o_que_mudou: "O art. 121, § 2º, ganhou o inciso IX: é qualificado o homicídio contra menor de 14 anos (pena de 12 a 30 anos), com os aumentos do § 2º-B. Se a prova foi antes da vigência, a qualificadora ainda não existia."
+    anos: [2022]
+    marcas: ["B é um adolescente de 13 anos", "instiga-o a se matar", "homicídio qualificado."]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2024, Agente de Polícia, q11.
+  - tema: "Furto, roubo e extorsão: Lei 15.397/2026"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "O § 1º do art. 155 passou a aumentar a pena de metade (antes, de um terço) quando o furto é praticado durante o repouso noturno; o furto simples passou a 1 a 6 anos."
+    anos: [2024]
+    marcas: ["causa de aumento de pena no caso de furto noturno", "configura causa de aumento de pena relativa ao furto noturno"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PE_23/arquivos/MATRIZ_954PC_PECB1_00_COM_JUSTIFICATIVA.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Delegado de Polícia, q15.
+  - tema: "Crimes contra a dignidade sexual: Lei 15.487/2026"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "O art. 241-D do ECA passou a punir quem alicia, assedia, convida, instiga ou constrange, por qualquer meio, menor de 14 anos com o fim de praticar ato libidinoso (pena de 3 a 5 anos, se não for crime mais grave), com aumento se usa perfil falso ou rede social."
+    anos: [2022]
+    marcas: ["assediar e constranger criança via meio de comunicação", "previsto no art. 241-D do Estatuto da Criança e do Adolescente", "Em seguida, Fernando convidou Caio para ir até sua casa"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2021, Aluno-Soldado (QPPM), q41.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 14.994/2024"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "Foi revogado o inciso VI do § 2º do art. 121, e o feminicídio passou a ser o art. 121-A (matar mulher por razões da condição do sexo feminino), com pena de 20 a 40 anos."
+    anos: [2021]
+    marcas: ["O feminicídio tem como sujeito ativo exclusivamente o homem", "em contexto caracterizado por relação de poder e submissão"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_TO_20_QPPM/arquivos/MATRIZ_573PMTO001.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Criminalística, q17.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 14.994/2024"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "Foi revogado o inciso VI do § 2º do art. 121, e o feminicídio passou a ser o art. 121-A, com pena de 20 a 40 anos."
+    anos: [2022]
+    marcas: ["Todos os homicídios praticados contra mulheres são classificados como feminicídio", "relativamente ao crime de homicídio"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/698_POLITEC_AGENTE_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # FGV 2024, Agente Penitenciário, q54.
+  - tema: "Espécies de pena (privativa de liberdade, restritivas de direitos e multa): Lei 15.397/2026"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "A pena do roubo (art. 157, caput) passou de reclusão de 4 a 10 anos para reclusão de 6 a 10 anos, e multa."
+    anos: [2024]
+    marcas: ["pela prática do crime de roubo simples", "a uma pena final de 04 anos e 08 meses de reclusão"]
+    provas:
+      - https://conhecimento.fgv.br/sites/default/files/concursos/agente-penitenciariocnm-tipo-1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Selecon 2024, Oficial Combatente, q19.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 15.358/2026"
+    lei: "Lei 15.358/2026, 24/03/2026"
+    o_que_mudou: "O art. 121 ganhou o § 2º-D: o homicídio doloso cometido por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada, no contexto das condutas do marco legal do combate ao crime organizado, tem pena de 20 a 40 anos."
+    anos: [2024]
+    marcas: ["a pena será agravada se o crime for praticado por milícia privada", "sob o pretexto de prestação de serviço de segurança"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/746/concursos/46/anexos/c8b6ad5b-995d-4345-a363-649b86083925.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Selecon 2024, Oficial Combatente, q20.
+  - tema: "Crimes contra o patrimônio: Lei 15.397/2026"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "O § 1º do art. 155 passou a aumentar a pena de metade (antes, de um terço) quando o furto é praticado durante o repouso noturno."
+    anos: [2024]
+    marcas: ["a pena é aumentada em um terço", "se o crime de furto é praticado durante o período da noite"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/746/concursos/46/anexos/c8b6ad5b-995d-4345-a363-649b86083925.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # FGV 2021, Agente e Escrivão de Polícia Civil Substituto, q74.
+  - tema: "Apropriação indébita, estelionato e receptação: Lei 15.397/2026"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "Foi revogado o § 5º do art. 171 do CP, que desde 2019 condicionava a ação penal do estelionato à representação; hoje ela é pública incondicionada, salvo os casos do art. 182."
+    anos: [2021]
+    marcas: ["estelionato, que depende de representação das vítimas", "estelionato, que independe de representação das vítimas"]
+    provas:
+      - https://conhecimento.fgv.br/concursos/pcrn20
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # FGV 2024, Delegado de Polícia Substituto, q37.
+  - tema: "Crimes contra a dignidade sexual: Lei 15.487/2026"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "O art. 241-C do ECA passou a punir com reclusão de 3 a 5 anos (antes, 1 a 3) quem simula a participação de criança ou adolescente em conteúdo de violência sexual, inclusive com inteligência artificial, e o art. 241-E diz que basta nudez com finalidade sexual, real ou fictícia."
+    anos: [2024]
+    marcas: ["art. 241-C do ECA", "por meio de um aplicativo que se vale de inteligência artificial"]
+    provas:
+      - https://conhecimento.fgv.br/concursos/pcsc23
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Investigação, q46.
+  - tema: "Racismo (Lei 7.716/1989): Lei 14.532/2023"
+    lei: "Lei 14.532/2023, 11/01/2023"
+    o_que_mudou: "o § 2º do art. 20 passou a abranger também a publicação em redes sociais, na rede mundial de computadores ou de qualquer natureza, e o § 3º foi reescrito sem mudar as medidas; a mesma lei criou a injúria racial como crime da Lei 7.716 (art. 2º-A) e os aumentos dos arts. 20-A e 20-B"
+    anos: [2022]
+    marcas: ["praticado por intermédio de meios de comunicação social", "interdição das respectivas mensagens ou páginas de informação na rede mundial de computadores"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1989/lei-7716-5-janeiro-1989-356354-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Investigação, q47.
+  - tema: "Organização criminosa (Lei 12.850/2013): Lei 15.245/2025"
+    lei: "Lei 15.245/2025, 29/10/2025"
+    o_que_mudou: "o § 1º do art. 2º da Lei 12.850 passou a valer 'se o fato não constituir crime mais grave', e a lei ganhou os crimes de obstrução e de conspiração para obstrução de ações contra o crime organizado (arts. 21-A e 21-B, reclusão de 4 a 12 anos)"
+    anos: [2022]
+    marcas: ["O crime de impedir ou, de qualquer forma, embaraçar investigação de infração penal que envolva organização criminosa", "durante o inquérito policial, mas não durante o processo penal"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2013/lei-12850-2-agosto-2013-776714-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Investigação, q52.
+  - tema: "Identificação criminal (Lei 12.037/2009): Lei 15.295/2025"
+    lei: "Lei 15.295/2025, 19/12/2025"
+    o_que_mudou: "o parágrafo único do art. 5º virou § 1º: nas hipóteses do art. 3º, IV e VII, a identificação criminal 'incluirá' (e não mais 'poderá incluir') a coleta de material biológico; o art. 3º ganhou o inciso VII (denúncia recebida por crime com grave violência, sexual, contra criança ou de organização criminosa armada), e o § 2º manda coletar também na prisão em flagrante por esses crimes (em vigor 30 dias depois da publicação de 22/12/2025)"
+    anos: [2022]
+    marcas: ["poderá incluir a coleta de material biológico para a obtenção de perfil genético", "O civilmente identificado não será, em nenhuma hipótese, submetido à identificação criminal."]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2009/lei-12037-1-outubro-2009-591435-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Agente de Investigação, q55.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.487/2026"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "o art. 241-C passou a punir a simulação de criança ou adolescente em conteúdo de violência sexual por qualquer recurso tecnológico, inclusive inteligência artificial (reclusão de 3 a 5 anos); o art. 241-E trocou 'cena de sexo explícito ou pornográfica' por 'material ou conteúdo de violência sexual'; e a infiltração do art. 190-A passou a valer também para o art. 244-A do ECA e o art. 218-C do CP"
+    anos: [2022]
+    marcas: ["simulação da participação de criança ou adolescente em cena de sexo explícito ou pornográfica", "infiltração de agentes de polícia na internet"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Delegado de Polícia, q13.
+  - tema: "Organização criminosa (Lei 12.850/2013): Lei 15.245/2025"
+    lei: "Lei 15.245/2025, 29/10/2025"
+    o_que_mudou: "o § 1º do art. 2º da Lei 12.850 passou a valer 'se o fato não constituir crime mais grave', e a lei ganhou os crimes de obstrução e de conspiração para obstrução de ações contra o crime organizado (arts. 21-A e 21-B, reclusão de 4 a 12 anos)"
+    anos: [2022]
+    marcas: ["embaraçar a investigação de crime praticado por uma organização criminosa", "cometeu crime previsto na Lei n.º 12.850/2013."]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2013/lei-12850-2-agosto-2013-776714-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Delegado de Polícia, q29.
+  - tema: "Organização criminosa (Lei 12.850/2013): Lei 15.358/2026 e Lei 15.487/2026"
+    lei: "Lei 15.358/2026 e Lei 15.487/2026, 24/03/2026"
+    o_que_mudou: "os meios de obtenção de prova do Capítulo II da Lei 12.850, incluída a infiltração virtual, passaram a valer para os crimes de domínio social estruturado (Lei 15.358/2026, arts. 8º e 32), e a infiltração na internet do art. 190-A do ECA ganhou o art. 244-A do ECA e o art. 218-C do CP (Lei 15.487/2026, de 06/08/2026)"
+    anos: [2022]
+    marcas: ["agentes de polícia infiltrados virtuais somente é admitida", "crimes previstos na Lei n.º 12.850/2013 e outros a eles conexos"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2026/lei-15358-24-marco-2026-798846-publicacaooriginal-178585-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2023, Oficial, q18.
+  - tema: "Crimes hediondos (Lei 8.072/1990): Lei 15.134/2025 e Lei 15.159/2025"
+    lei: "Lei 15.134/2025 e Lei 15.159/2025, 06/05/2025"
+    o_que_mudou: "o inciso I-A ganhou alíneas: além dos agentes dos arts. 142 e 144 da CF, do sistema prisional e da Força Nacional (alínea a), são hediondas a lesão gravíssima e a seguida de morte contra membro do Judiciário, do MP, da Defensoria, da Advocacia Pública ou oficial de justiça e seus familiares (alínea b) e nas dependências de instituição de ensino (alínea c, Lei 15.159/2025, de 03/07/2025)"
+    anos: [2023]
+    marcas: ["delito de lesão corporal gravíssima", "cônjuge de integrante da Força Nacional de Segurança Pública"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2023, Guarda Municipal, q76.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.240/2025"
+    lei: "Lei 15.240/2025, 28/10/2025"
+    o_que_mudou: "o art. 130 do ECA passou a incluir a negligência entre as hipóteses (maus-tratos, negligência, opressão ou abuso sexual impostos pelos pais ou responsável) em que o juiz pode afastar o agressor da moradia comum"
+    anos: [2023]
+    marcas: ["o afastamento de Judas da moradia comum.", "como medida cautelar"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/823_PREF_SAO_CRISTOVAO_007_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # FGV 2024, Agente Penitenciário, q72.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.487/2026"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "o art. 241-B passou a punir adquirir, possuir, armazenar ou solicitar registro que contenha 'violência sexual contra criança ou adolescente', com reclusão de 3 a 6 anos (antes, 1 a 4), e a diminuição pela pequena quantidade passou a ser de 1/6 a 1/3 (antes, de 1 a 2/3)"
+    anos: [2024]
+    marcas: ["pequena quantidade de vídeos que continham cenas de sexo explícito envolvendo adolescentes", "em razão da quantidade do material apreendido"]
+    provas:
+      - https://conhecimento.fgv.br/sites/default/files/concursos/agente-penitenciariocnm-tipo-1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Access 2024, Guarda Municipal, q57.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.280/2025"
+    lei: "Lei 15.280/2025, 05/12/2025"
+    o_que_mudou: "o art. 101, V, do ECA passou a prever o tratamento médico, psicológico ou psiquiátrico 'extensivo às famílias, se for o caso, especialmente em caso de vitimização em crime contra a dignidade sexual'"
+    anos: [2024]
+    marcas: ["requisição de tratamento médico, psicológico ou psiquiátrico, em regime hospitalar ou ambulatorial", "medidas de proteção à criança e ao adolescente"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/422/concursos/86/anexos/VU4tyBV8101pc0EVKa1UGC33pI9MA9Z7ohHfCktQ.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Selecon 2024, Oficial Combatente, q45.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.487/2026"
+    lei: "Lei 15.487/2026, 06/08/2026"
+    o_que_mudou: "o art. 241-C passou a falar em recurso tecnológico que altere imagem ou voz da vítima, inclusive inteligência artificial, mas ainda sobre fotografia, vídeo ou outra representação visual; o art. 241-D passou a proteger o menor de 14 anos (antes, a criança); e o art. 241-E trocou 'cena de sexo explícito ou pornográfica' por 'conteúdo de violência sexual'"
+    anos: [2024]
+    marcas: ["adulterar arquivo de áudio, simulando a participação de criança em evento de sexo explícito", "armazenar vídeo que contenha cena pornográfica envolvendo adolescente", "aliciar criança, por qualquer meio de comunicação"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/746/concursos/46/anexos/c8b6ad5b-995d-4345-a363-649b86083925.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Selecon 2024, Guarda Civil Municipal, q27.
+  - tema: "Estatuto da Criança e do Adolescente (Lei 8.069/1990): Lei 15.280/2025"
+    lei: "Lei 15.280/2025, 05/12/2025"
+    o_que_mudou: "o art. 101, V, do ECA passou a prever o tratamento médico, psicológico ou psiquiátrico 'extensivo às famílias, se for o caso, especialmente em caso de vitimização em crime contra a dignidade sexual'"
+    anos: [2024]
+    marcas: ["requisição de tratamento médico, psicológico ou psiquiátrico em regime hospitalar ou ambulatorial", "medidas de proteção à criança e ao adolescente"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/746/concursos/52/anexos/6d53f62a-c546-49df-8d27-eb21ad6e868d.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # FGV 2024, Delegado de Polícia Substituto, q34.
+  - tema: "Lei 11.340/2006, art. 24-A: Lei 14.994/2024 e Lei 15.383/2026"
+    lei: "Lei 14.994/2024 e Lei 15.383/2026, 09/10/2024"
+    o_que_mudou: "o descumprimento de medida protetiva (art. 24-A) passou a reclusão de 2 a 5 anos e multa (antes, detenção de 3 meses a 2 anos), a lesão do art. 129, § 13, passou a reclusão de 2 a 5 anos (antes, 1 a 4), e a Lei 15.383/2026 (09/04/2026) criou o aumento de 1/3 até a metade quando o descumprimento viola área de exclusão ou o monitoramento eletrônico"
+    anos: [2024]
+    marcas: ["descumprimento de medida protetiva de urgência", "desferiu um soco na face da esposa"]
+    provas:
+      - https://conhecimento.fgv.br/concursos/pcsc23
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html ; https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Cebraspe 2022, Delegado de Polícia, q35.
+  - tema: "Investigação preliminar: inquérito policial, ANPP e controle externo: Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305"
+    lei: "Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o arquivamento do inquérito, que na época da prova ainda era ordenado pelo juiz a pedido do MP (o art. 28 novo estava suspenso desde 22/01/2020), passou a ser ordenado pelo Ministério Público, que submete a manifestação ao juiz e comunica a vítima, o investigado e a autoridade policial, podendo mandar os autos à instância de revisão ministerial para homologação; o juiz pode provocar essa revisão se vir patente ilegalidade ou teratologia"
+    anos: [2022]
+    marcas: ["recebeu a notícia de que o IP havia sido arquivado", "para que este determine o desarquivamento do IP", "o Ministério Público deverá insistir na manutenção do arquivamento do IP"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+    fonte: https://portal.stf.jus.br/processos/detalhe.asp?incidente=5840274
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q21.
+  - tema: "Investigação preliminar: inquérito policial, ANPP e controle externo: Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305"
+    lei: "Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o arquivamento do inquérito, que na época da prova ainda era ordenado pelo juiz a pedido do MP (o art. 28 novo estava suspenso desde 22/01/2020), passou a ser ordenado pelo Ministério Público, que submete a manifestação ao juiz e comunica a vítima, o investigado e a autoridade policial, podendo mandar os autos à instância de revisão ministerial para homologação; o juiz pode provocar essa revisão se vir patente ilegalidade ou teratologia"
+    anos: [2022]
+    marcas: ["Depois de ordenado o arquivamento do inquérito pela autoridade judiciária", "a autoridade policial não poderá proceder a novas pesquisas"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://portal.stf.jus.br/processos/detalhe.asp?incidente=5840274
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q22.
+  - tema: "Investigação preliminar: inquérito policial, ANPP e controle externo: Lei 13.964/2019 (art. 3º-B, VIII e § 2º, do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305"
+    lei: "Lei 13.964/2019 (art. 3º-B, VIII e § 2º, do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o art. 10 não mudou, mas o juiz das garantias, suspenso na época da prova, pode prorrogar uma vez, por até 15 dias, o inquérito com o investigado preso; o STF deu interpretação conforme: novas prorrogações fundamentadas são possíveis, e o prazo vencido não revoga a prisão automaticamente"
+    anos: [2022]
+    marcas: ["o prazo para conclusão do inquérito, em regra, será de", "10 dias, contados a partir da data da efetivação da prisão", "representou à autoridade judicial pela prisão preventiva do suspeito"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://portal.stf.jus.br/processos/detalhe.asp?incidente=5840274
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # FGV 2021, Agente e Escrivão de Polícia Civil Substituto, q84.
+  - tema: "Interceptação telefônica (Lei 9.296/1996): Lei 13.964/2019 (art. 3º-A do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305"
+    lei: "Lei 13.964/2019 (art. 3º-A do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "o art. 3º-A, suspenso desde 22/01/2020, passou a valer com interpretação conforme: o processo penal tem estrutura acusatória e é vedada a iniciativa do juiz na fase de investigação, o que põe em xeque a interceptação decretada de ofício no inquérito (o art. 3º da Lei 9.296 ainda diz 'de ofício', e o art. 3º-B, XI, a, do CPP fala em decidir sobre os requerimentos)"
+    anos: [2021]
+    marcas: ["pode ser decretada pelo juiz, durante o inquérito, de ofício", "de ofício ou após representação da autoridade policial"]
+    provas:
+      - https://conhecimento.fgv.br/concursos/pcrn20
+    fonte: https://portal.stf.jus.br/processos/detalhe.asp?incidente=5840274
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Cebraspe 2023, Oficial (CFO), q57.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Revogou as alíneas f (suspensão do exercício do posto, graduação, cargo ou função) e g (reforma) do art. 55 e os arts. 64 e 65; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2023]
+    marcas: ["somente penas principais", "reclusão, reforma e indignidade para o oficialato"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/927_CBM_PA_CFO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q5.
+  - tema: "Título III - Da imputabilidade penal (arts. 48 a 52): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O parágrafo único do art. 48 (semi-imputável) passou a dizer que a pena pode ser reduzida de 1/3 a 2/3, e não mais 'atenuada'; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["Pode ser atenuada a pena se a doença ou a deficiência mental não suprime", "É excluída a imputabilidade caso a doença ou a deficiência mental"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q6.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Revogou o art. 64 (pena de suspensão do exercício do posto, graduação, cargo ou função, convertida em detenção para quem já estava na reserva) e a alínea f do art. 55; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["No caso de pena de suspensão do exercício do cargo", "este deverá apresentar-se para cumprir a suspensão, sem vencimentos"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q9.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 109, II, passou a dizer perda 'em favor da Fazenda Pública' (antes, 'da Fazenda Nacional'), ressalvado o direito do lesado ou de terceiro de boa-fé; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["não haverá perda do instrumento do crime em favor da Fazenda Nacional", "Será certa a perda do capacete do tenente Moraes em favor da Fazenda Nacional"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q10.
+  - tema: "Título VI - Das medidas de segurança (arts. 110 a 120): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 112 trocou a internação 'em manicômio judiciário' pela internação 'em estabelecimento de custódia e tratamento', e o art. 110 reescreveu as espécies de medida de segurança; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["o capitão Cabral poderá cumprir medida de segurança em manicômio judiciário", "estabelecimento psiquiátrico anexo ao manicômio judiciário"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q11.
+  - tema: "Título VII - Da ação penal (arts. 121 e 122): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 121 (antes: 'somente pode ser promovida por denúncia do Ministério Público da Justiça Militar') passou a dizer 'pelo Ministério Público, na forma da lei' e ganhou parágrafo único admitindo a ação privada subsidiária; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["a ação penal será promovida", "pelo advogado do querelante, mediante queixa"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2023, Oficial (CFO), q44.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Revogou a alínea g (reforma) do art. 55 e o art. 65, e reescreveu o art. 98, VII (incapacidade para o exercício do poder familiar, da tutela ou da curatela); em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2023]
+    marcas: ["todas as penas apresentadas são acessórias", "reclusão; reforma; exclusão das Forças Armadas"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/915_PMPA_CFO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2023, Oficial (CFO), q47.
+  - tema: "Título VI - Das medidas de segurança (arts. 110 a 120): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 110 ganhou os §§ 1º e 2º: saiu a internação em 'manicômio judiciário', entrou o tratamento ambulatorial entre as não detentivas e a 'cassação' virou 'interdição de licença para direção de veículos motorizados'; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2023]
+    marcas: ["internação em manicômio judiciário", "A cassação de licença para direção de veículos motorizados"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/915_PMPA_CFO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q63.
+  - tema: "Título II - Do crime (arts. 29 a 47): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 24 passou a ter dois incisos: é superior quem tem nível hierárquico, posto ou graduação superiores conforme a antiguidade, ou quem, em virtude da função, exerce autoridade sobre outro de igual posto ou graduação; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["sargentos de mesma turma Aécio e Bira", "o sargento Aécio não poderá ser considerado superior ao sargento Bira"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q65.
+  - tema: "Título III - Da imputabilidade penal (arts. 48 a 52): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Reescreveu o parágrafo único do art. 48 (redução de 1/3 a 2/3) e o art. 113 (substituição da pena por internação ou tratamento ambulatorial, prazo mínimo de 1 a 3 anos); em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["o semi-imputável será direcionado a tratamento curativo ou terapêutico", "obsta a aplicação de medida de segurança"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q68.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Acrescentou o § 2º ao art. 84 (sursis da pena até 4 anos, por 4 a 6 anos, para o maior de 70 anos ou por razões de saúde) e mudou os prazos do caput (3 a 5 anos na reclusão, 2 a 4 na detenção); em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["pena privativa de liberdade inferior a quatro anos", "poderá ser suspensa por quatro a seis anos, desde que preenchidos os requisitos de natureza subjetiva"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2022, Oficial Combatente, q69.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 99 passou a exigir, para a perda do posto e da patente (pena acima de 2 anos, por crime comum ou militar), que o oficial seja submetido ao julgamento previsto no art. 142, § 3º, VI, da Constituição; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["A pena acessória de perda do posto e da patente", "dependerá de julgamento próprio por tribunal competente"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2023, Oficial, q29.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Revogou a alínea g (reforma) do art. 55 e o art. 65; em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2023]
+    marcas: ["pena principal e pena acessória, respectivamente", "a reclusão e a reforma"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Cebraspe 2023, Oficial, q33.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "Reescreveu o caput do art. 84 (antes, suspensão por 2 a 6 anos) e criou o § 2º; o antigo parágrafo único virou § 1º ('a suspensão não se estende à pena acessória'); em vigor 60 dias após a publicação de 21/09/2023."
+    anos: [2023]
+    marcas: ["A execução da pena pode ser suspensa pelo prazo máximo de oito anos", "pode ser estendida às penas de reforma, suspensão do exercício do posto"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Access 2024, Guarda Municipal, q29.
+  - tema: "CTB arts. 114 a 160: Lei nº 15.503/2026"
+    lei: "Lei nº 15.503/2026, 14/09/2026"
+    o_que_mudou: "Acrescentou o § 2º-A ao art. 143 do CTB: os condutores da categoria B podem conduzir veículo de propulsão elétrica ou híbrida com tração predominantemente elétrica e peso bruto total de até 4.250 kg."
+    anos: [2024]
+    marcas: ["Categoria B – condutor de veículo motorizado, não abrangido pela categoria A", "cujo peso bruto total não exceda a três mil e quinhentos quilogramas"]
+    provas:
+      - https://anexos.cdn.selecao.net.br/uploads/422/concursos/86/anexos/VU4tyBV8101pc0EVKa1UGC33pI9MA9Z7ohHfCktQ.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+
+  # --- A PM-DF 2023 e a SEJUSP-MG 2026 da AOCP (passo 2, 24/10/2026) -----------
+  #
+  # As questoes de lei das duas provas novas da AOCP (lote 2026-10-24-b), lidas
+  # contra o que mudou depois de cada prova. O gabarito continua certo; a regra
+  # mudou. Cada item vale so no caderno da questao (`provas`).
+  # Instituto AOCP 2023, Soldado Policial Militar (QPPMC), q65.
+  - tema: "Título VI - Das medidas de segurança (arts. 110 a 120): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 110 ganhou os §§ 1º e 2º: detentivas são a internação em estabelecimento de custódia e tratamento ou em seção especial de estabelecimento penal; não detentivas, o tratamento ambulatorial, a interdição de licença para direção de veículos motorizados, o exílio local e a proibição de frequentar determinados lugares; patrimoniais, a interdição de estabelecimento ou sede de sociedade ou associação e o confisco. Em vigor 60 dias após a publicação no DOU de 21/09/2023."
+    anos: [2023]
+    marcas: ["cassação de licença para direção de veículos motorizados", "internação em manicômio judiciário"]
+    provas:
+      - https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Instituto AOCP 2023, Soldado Policial Militar (QPPMC), q68.
+  - tema: "Título II - Dos crimes contra a autoridade ou disciplina militar (arts. 149 a 182): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O caput do art. 152 passou a 'Concertarem-se militares para a prática do crime previsto no art. 149 deste Código' (antes, 'militares ou assemelhados'); os arts. 149 (motim) e 154 (aliciação) também perderam o 'assemelhado'. Em vigor 60 dias após a publicação no DOU de 21/09/2023."
+    anos: [2023]
+    marcas: ["militares ou assemelhados", "militar ou assemelhado"]
+    provas:
+      - https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Instituto AOCP 2023, Soldado Policial Militar (QPPMC), q69.
+  - tema: "Título V - Das penas (arts. 55 a 109): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O caput do art. 2º passou a dizer: 'Ninguém pode ser punido por fato que lei posterior deixa de considerar crime, cessando em virtude dela a execução e os efeitos penais da sentença condenatória'. Em vigor 60 dias após a publicação no DOU de 21/09/2023."
+    anos: [2023]
+    marcas: ["a própria vigência de sentença condenatória irrecorrível", "salvo quanto aos efeitos de natureza civil"]
+    provas:
+      - https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Instituto AOCP 2023, Soldado Policial Militar (QPPMC), q71.
+  - tema: "Título I - Da aplicação da lei penal militar (arts. 1º a 28): Lei nº 14.688/2023"
+    lei: "Lei nº 14.688/2023, 20/09/2023"
+    o_que_mudou: "O caput do § 2º do art. 9º passou a dizer 'Os crimes militares de que trata este artigo, incluídos os previstos na legislação penal, nos termos do inciso II do caput deste artigo'; os contextos dos incisos I a III, entre eles a garantia da lei e da ordem, não mudaram. Em vigor 60 dias após a publicação no DOU de 21/09/2023."
+    anos: [2023]
+    marcas: ["crime doloso contra a vida de um civil", "operação militar de garantia da lei e da ordem"]
+    provas:
+      - https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação oficial (a cópia em pmsc/leis)
+    conferida: false
+  # Instituto AOCP 2023, Soldado Policial Militar (QPPMC), q80.
+  - tema: "Lei 11.340/2006, art. 12-C: Lei nº 15.411/2026"
+    lei: "Lei nº 15.411/2026, 20/05/2026"
+    o_que_mudou: "O caput do art. 12-C passou a abranger o risco atual ou iminente à vida ou à integridade física, sexual, psicológica, moral ou patrimonial da mulher ou de seus dependentes (antes, só à vida ou à integridade física ou psicológica). Os incisos ficaram iguais: I - juiz; II - delegado, quando o Município não for sede de comarca; III - policial, quando o Município não for sede de comarca e não houver delegado disponível no momento da denúncia."
+    anos: [2023]
+    marcas: ["afastamento do agressor do lar", "caso o Município não seja sede de comarca"]
+    provas:
+      - https://s3-improved-files-sec1.iesde.com.br/resolucaoq/prova/prova/48884.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2026, Policial Penal (Feminino e Masculino), q55.
+  - tema: "Lei 11.340/2006, art. 12-C: Lei nº 15.411/2026"
+    lei: "Lei nº 15.411/2026, 20/05/2026"
+    o_que_mudou: "O caput do art. 12-C passou a abranger o risco atual ou iminente à vida ou à integridade física, sexual, psicológica, moral ou patrimonial da mulher ou de seus dependentes (antes, só à vida ou à integridade física ou psicológica). Os incisos ficaram iguais: I - juiz; II - delegado, quando o Município não for sede de comarca; III - policial, quando o Município não for sede de comarca e não houver delegado disponível no momento da denúncia."
+    anos: [2026]
+    marcas: ["constata risco atual à integridade física da ofendida", "imediatamente afastado do lar"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2026-sejusp-mg-policial-penal
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11340-7-agosto-2006-545133-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- A PC-GO 2022 da AOCP (passo 2, 24/10/2026) -----------------------------
+  #
+  # As questoes de lei da PC-GO 2022 (lote 2026-10-24-c), com o gabarito
+  # preliminar liberado pelo Gabriel, lidas contra o que mudou depois da prova.
+  # O gabarito continua certo; a regra mudou. Cada item vale so no caderno da
+  # questao (`provas`).
+  # Instituto AOCP 2022, Agente de Polícia da 3ª Classe, q38.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 14.994/2024 e Lei 15.358/2026"
+    lei: "Lei 14.994/2024 e Lei 15.358/2026, 09/10/2024"
+    o_que_mudou: "O § 7º do art. 121 (aumentos do feminicídio) foi revogado e o feminicídio virou o art. 121-A: a presença física ou virtual de descendente ou ascendente da vítima é hoje o § 2º, III, do art. 121-A (Lei 14.994/2024). E o art. 121 ganhou o § 2º-D: pena de 20 a 40 anos se o homicídio é cometido por integrante de organização criminosa ultraviolenta, grupo paramilitar ou milícia privada, no contexto das condutas do art. 2º da Lei 15.358/2026 (24/03/2026); o § 6º (milícia sob pretexto de segurança ou grupo de extermínio, aumento de 1/3 até a metade) continua."
+    anos: [2022]
+    marcas: ["na presença física ou virtual de descendente ou de ascendente da vítima", "praticado por milícia privada"]
+    provas:
+      - https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2022, Agente de Polícia da 3ª Classe, q39.
+  - tema: "Crimes contra a vida e lesão corporal: Lei 14.994/2024"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "O inciso VI do § 2º do art. 121 do CP (feminicídio) foi revogado, e o feminicídio virou crime autônomo, o art. 121-A (matar mulher por razões da condição do sexo feminino: violência doméstica e familiar ou menosprezo ou discriminação à condição de mulher), com pena de 20 a 40 anos; na Lei 8.072, é hediondo pelo art. 1º, I-B."
+    anos: [2022]
+    marcas: ["homicídio qualificado em função do gênero feminino", "O feminicídio não é considerado crime hediondo"]
+    provas:
+      - https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2022, Agente de Polícia da 3ª Classe, q52.
+  - tema: "Investigação preliminar: inquérito policial, ANPP e controle externo: Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305"
+    lei: "Lei 13.964/2019 (art. 28 do CPP), eficaz desde o julgamento das ADIs 6.298, 6.299, 6.300 e 6.305, 24/08/2023"
+    o_que_mudou: "O arquivamento do inquérito, que na época da prova ainda era ordenado pelo juiz a pedido do MP (o art. 28 novo estava suspenso desde 22/01/2020), passou a ser ordenado pelo Ministério Público, que submete a manifestação ao juiz e comunica a vítima, o investigado e a autoridade policial, podendo mandar os autos à instância de revisão ministerial para homologação; o juiz pode provocar essa revisão se vir patente ilegalidade ou teratologia. O art. 18 manteve a letra."
+    anos: [2022]
+    marcas: ["Depois de ordenado o arquivamento do inquérito pela autoridade judiciária", "a autoridade policial não poderá proceder a novas pesquisas"]
+    provas:
+      - https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+    fonte: https://portal.stf.jus.br/processos/detalhe.asp?incidente=5840274
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Instituto AOCP 2022, Agente de Polícia da 3ª Classe, q55.
+  - tema: "Modalidades do crime de tortura: Lei 15.410/2026"
+    lei: "Lei 15.410/2026, 20/05/2026"
+    o_que_mudou: "O art. 1º da Lei 9.455 ganhou o inciso III: constitui crime de tortura submeter mulher, reiteradamente, a intenso sofrimento físico ou mental, no contexto de violência doméstica e familiar, sem prejuízo das penas de outras infrações. O inciso I, c (discriminação racial ou religiosa), e o § 1º não mudaram."
+    anos: [2022]
+    marcas: ["em razão de discriminação sexual ou ideológica", "um dos tipos penais classificados como crimes de tortura"]
+    provas:
+      - https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9455-7-abril-1997-349431-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2022, Agente de Polícia da 3ª Classe, q58.
+  - tema: "Crimes hediondos (Lei 8.072/1990): Lei 15.134/2025 e Lei 15.159/2025 (e outras que ampliaram o rol)"
+    lei: "Lei 15.134/2025 e Lei 15.159/2025 (e outras que ampliaram o rol), 06/05/2025"
+    o_que_mudou: "O inciso I-A do art. 1º ganhou alíneas: a lesão gravíssima e a seguida de morte são hediondas contra agente dos arts. 142 e 144 da CF, do sistema prisional ou da Força Nacional (a), contra membro do Judiciário, do MP, da Defensoria, da Advocacia Pública ou oficial de justiça (b, Lei 15.134/2025) e nas dependências de instituição de ensino (c, Lei 15.159/2025, de 03/07/2025). O rol ganhou ainda o feminicídio (I-B, Lei 14.994/2024), o vicaricídio (I-C, Lei 15.384/2026), os incisos X a XII (Lei 14.811/2024) e, no parágrafo único, os crimes do CPM (VI), do ECA (VII) e de domínio social estruturado (VIII, Lei 15.358/2026)."
+    anos: [2022]
+    marcas: ["lesão corporal dolosa de natureza gravíssima", "são crimes hediondos, dentre outros"]
+    provas:
+      - https://arquivos.qconcursos.com/regulamento/arquivo/66456/pc_go_2022_edital_n_6-edital.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- A Policia Penal DF 2022 da AOCP, Certo/Errado (passo 2, 24/10/2026) ------
+  #
+  # Os 37 itens de lei da prova de Certo/Errado (PMSC-19), que so aparecem na
+  # tela de conferir o assunto, lidos contra o que mudou depois da prova: 35
+  # sem mudanca, 2 com aviso, nenhum fora. Cada item vale so no caderno dela.
+  # Instituto AOCP 2022, Policial Penal, item 83 (Certo/Errado).
+  - tema: "Estupro de vulnerável (art. 217-A do CP): Lei 15.353/2026 (e Lei 15.280/2025)"
+    lei: "Lei 15.353/2026 (e Lei 15.280/2025), 08/03/2026"
+    o_que_mudou: "O art. 217-A do CP ganhou o § 4º-A (é absoluta a presunção de vulnerabilidade da vítima e inadmissível sua relativização) e teve o § 5º reescrito; antes, a Lei 15.280/2025 (05/12/2025) elevou a pena do caput de 8 a 15 para 10 a 18 anos de reclusão."
+    anos: [2022]
+    marcas: ["13 anos de idade"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2022-governo-do-distrito-federal-policial-penal
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2022, Policial Penal, item 149 (Certo/Errado).
+  - tema: "Lesão corporal na violência doméstica (art. 129, §§ 9º e 13, do CP): Lei 14.994/2024 (e Leis 15.380/2026 e 15.438/2026)"
+    lei: "Lei 14.994/2024 (e Leis 15.380/2026 e 15.438/2026), 09/10/2024"
+    o_que_mudou: "A pena da lesão corporal em violência doméstica (art. 129, § 9º, do CP) passou a reclusão de 2 a 5 anos, e a do § 13 também; em 2026, a Lei 11.340 ganhou o parágrafo único do art. 16 (a audiência só confirma a retratação) e o art. 16-A (decadência em 12 meses nos crimes que dependem de representação). A lesão continua de ação pública incondicionada."
+    anos: [2022]
+    marcas: ["lesões corporais leves", "condicionada à representação"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2022-governo-do-distrito-federal-policial-penal
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+
+  # --- PR 2024, CBM-PE 2024, CBM-GO 2022 e CBM-PA 2022 da AOCP (passo 2, 24/10) --
+  #
+  # As questoes de lei das 4 provas que entraram com os links de 24/10
+  # (lote 2026-10-24-d, decisao PMSC-20), lidas contra o que mudou depois de
+  # cada prova. O gabarito continua certo; a regra mudou. Cada item vale so no
+  # caderno da questao (`provas`).
+  # Instituto AOCP 2022, Soldado Combatente, q24.
+  - tema: "Título VI - Das medidas de segurança (arts. 110 a 120): Lei 14.688/2023"
+    lei: "Lei 14.688/2023, 20/09/2023"
+    o_que_mudou: "O art. 110 do CPM ganhou os §§ 1º e 2º: detentivas são a internação em estabelecimento de custódia e tratamento ou em seção especial de estabelecimento penal; não detentivas, o tratamento ambulatorial, a interdição de licença para direção de veículos motorizados, o exílio local e a proibição de frequentar determinados lugares; e o inciso III do art. 86 (revogação obrigatória do sursis do militar punido por infração disciplinar grave) foi revogado, passando a hipótese ao § 1º, como revogação facultativa (em vigor 60 dias depois da publicação de 21/09/2023)."
+    anos: [2022]
+    marcas: ["As medidas de segurança são pessoais ou patrimoniais", "punido por infração disciplinar de qualquer natureza"]
+    provas:
+      - https://arquivos.qconcursos.com/prova/arquivo_prova/93606/instituto-aocp-2022-cbm-go-soldado-do-corpo-de-bombeiros-prova.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2022, Soldado Combatente, q25.
+  - tema: "Título II - Dos crimes contra a autoridade ou disciplina militar (arts. 149 a 182): Lei 14.688/2023"
+    lei: "Lei 14.688/2023, 20/09/2023"
+    o_que_mudou: "O caput do art. 150 do CPM passou a dizer 'Reunirem-se dois ou mais militares, com armamento ou material bélico de propriedade militar, praticando violência à pessoa ou à coisa pública ou particular em lugar sujeito ou não à administração militar' (antes, 'militares ou assemelhados'); em vigor 60 dias depois da publicação de 21/09/2023."
+    anos: [2022]
+    marcas: ["Reunirem-se dois ou mais militares ou assemelhados", "organização de grupo para a prática de violência"]
+    provas:
+      - https://arquivos.qconcursos.com/prova/arquivo_prova/93606/instituto-aocp-2022-cbm-go-soldado-do-corpo-de-bombeiros-prova.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2024, 2º Tenente do Corpo de Bombeiros Militar, q46.
+  - tema: "Administração Pública e militares dos Estados (arts. 37 a 42): Emenda Constitucional 135/2024 e STF, RE 608.588 (Tema 656)"
+    lei: "Emenda Constitucional 135/2024 e STF, RE 608.588 (Tema 656), 20/12/2024"
+    o_que_mudou: "O § 11 do art. 37 passou a excluir do teto só as parcelas indenizatórias expressamente previstas em lei ordinária, aprovada pelo Congresso Nacional, de caráter nacional, aplicada a todos os Poderes e órgãos autônomos (antes, 'previstas em lei'); e, em 20/02/2025, o STF fixou que as guardas municipais podem exercer ações de segurança urbana, inclusive policiamento ostensivo e comunitário, sem polícia judiciária (a letra do art. 144, § 8º, não mudou)."
+    anos: [2024]
+    marcas: ["parcelas de caráter indenizatório", "guardas municipais destinadas ao policiamento ostensivo"]
+    provas:
+      - https://questoes.grancursosonline.com.br/prova/cbm-pe-pe-2024-instituto-aocp-2o-tenente-do-corpo-de-bombeiros-militar
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2024, Policial Penal - Todas as Regiões, q30.
+  - tema: "Crimes hediondos (Lei 8.072/1990): Lei 15.134/2025 e Lei 15.159/2025"
+    lei: "Lei 15.134/2025 e Lei 15.159/2025, 06/05/2025"
+    o_que_mudou: "O inciso I-A do art. 1º da Lei 8.072 passou a ter alíneas: a lesão gravíssima e a seguida de morte são hediondas contra agente dos arts. 142 e 144 da CF, integrante do sistema prisional ou da Força Nacional, ou seus familiares (a); contra membro do Judiciário, do MP, da Defensoria, da Advocacia Pública ou oficial de justiça (b, Lei 15.134/2025); e nas dependências de instituição de ensino (c, Lei 15.159/2025, de 03/07/2025)."
+    anos: [2024]
+    marcas: ["lesão corporal gravíssima cometida contra policial penal", "agente integrante do sistema prisional estadual"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pela compilação da Câmara
+    conferida: false
+  # Instituto AOCP 2024, Policial Penal - Todas as Regiões, q35.
+  - tema: "Lei nº 11.343, de 23 de agosto de 2006 (SISNAD): STF, RE 635.659 (Tema 506 da repercussão geral)"
+    lei: "STF, RE 635.659 (Tema 506 da repercussão geral), 26/06/2024"
+    o_que_mudou: "O STF fixou que adquirir, guardar, ter em depósito, transportar ou trazer consigo cannabis para consumo pessoal não é infração penal, e sim ilícito extrapenal (advertência e medida educativa, sem efeito penal), presumindo-se usuário quem tem até 40 g ou seis plantas-fêmeas; a presunção é relativa e não impede o flagrante por tráfico."
+    anos: [2024]
+    marcas: ["cerca de 50 (cinquenta) gramas", "tão somente falta administrativa"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes
+    fonte: https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4034145&numeroProcesso=635659&classeProcesso=RE&numeroTema=506
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+  # Instituto AOCP 2024, Policial Penal - Todas as Regiões, q37.
+  - tema: "Lei nº 11.343, de 23 de agosto de 2006 (SISNAD): STF, RE 635.659 (Tema 506 da repercussão geral)"
+    lei: "STF, RE 635.659 (Tema 506 da repercussão geral), 26/06/2024"
+    o_que_mudou: "O STF fixou que adquirir, guardar, ter em depósito, transportar ou trazer consigo cannabis para consumo pessoal não é infração penal, e sim ilícito extrapenal (advertência e medida educativa aplicadas em procedimento não penal), presumindo-se usuário quem tem até 40 g ou seis plantas-fêmeas."
+    anos: [2024]
+    marcas: ["odor aparentemente da queima de maconha", "contravenção penal de porte de entorpecentes para consumo pessoal"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/provas/instituto-aocp-2024-deppen-pr-policial-penal-todas-as-regioes
+    fonte: https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4034145&numeroProcesso=635659&classeProcesso=RE&numeroTema=506
+    procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
+    conferida: false
+
+# --- O que mudou num ponto que nenhuma questao cobra ---------------------------
+#
+# Os "casos de fronteira" do docs/leis_alteradas.md: o artigo mudou depois da
+# prova, mas num ponto que a questao nao cobra - por isso nao ha aviso nela.
+# Vale saber deles ao estudar o tema: a ficha mostra o item quando um no dele
+# (`nos`) esta no mesmo ramo de um no do tema, ou quando uma marca dele
+# (`marcas`) esta no titulo do tema, na mesma materia. Escritos por IA, com a
+# procedencia, e por conferir, como os da lista de cima (decisao 84). A
+# `fonte` e onde conferir: a compilacao da Camara, ou o Planalto quando a da
+# Camara nao foi a usada na conferencia de 03/10.
+fronteira:
+
+  # 2013 q35 e 2019 q44.
+  - tema: Polícias penais (CF, art. 144)
+    lei: Emenda Constitucional 104/2019
+    o_que_mudou: criou as polícias penais federal, estaduais e distrital (art. 144, VI), às quais cabe a segurança dos estabelecimentos penais (§ 5º-A), e deu nova redação ao § 6º; a EC é de 04/12/2019, quatro dias depois da prova de 2019
+    materias: [Direito Constitucional]
+    nos: [Direito Constitucional > organização da segurança pública]
+    marcas: [seguranca publica]
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false
+
+  # 2019 q87.
+  - tema: Direitos do preso (LEP, arts. 41, 41-A e 41-B)
+    lei: Leis 14.994/2024 e 15.358/2026
+    o_que_mudou: quem suspende ou restringe os direitos dos incisos V, X e XV é o juiz da execução penal, por ato motivado (§ 1º), e o condenado por crime contra a mulher por razões da condição do sexo feminino não tem a visita íntima ou conjugal (§ 2º), os dois da Lei 14.994/2024; e os arts. 41-A e 41-B, novos (Lei 15.358/2026), permitem gravar o encontro no parlatório ou virtual do preso ligado a organização criminosa ultraviolenta, grupo paramilitar ou milícia, e mandam a conversa monitorada com o advogado para um juízo de controle separado
+    materias: [Lei de Execução Penal]
+    nos: [Lei de Execução Penal > Lei de Execução Penal (Lei nº 7.210 de 11 de julho de 1984) > Direitos do preso]
+    marcas: [direitos do preso]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false
+
+  # 2019 q82.
+  - tema: Remição no regime domiciliar (LEP, art. 126, § 9º)
+    lei: Lei 15.402/2026
+    o_que_mudou: o cumprimento da pena em regime domiciliar não impede a remição
+    materias: [Lei de Execução Penal]
+    nos: [Lei de Execução Penal > Lei de Execução Penal (Lei nº 7.210 de 11 de julho de 1984) > Remição]
+    marcas: [remicao]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false
+
+  # Nenhuma questao do alvo cobra a saida temporaria em si; a arvore nao tem
+  # no para ela, e o item chega a ficha pelo titulo.
+  - tema: Saída temporária (LEP, art. 122)
+    lei: Lei 14.843/2024
+    o_que_mudou: a saída temporária ficou só para frequência a curso supletivo profissionalizante, de segundo grau ou superior (os incisos I e III foram revogados), pelo tempo das atividades do curso (§ 3º); e o § 2º veda a saída temporária e o trabalho externo sem vigilância direta a quem cumpre pena por crime hediondo ou com violência ou grave ameaça contra pessoa
+    materias: [Lei de Execução Penal]
+    nos: []
+    marcas: [saida temporaria]
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1980-1987/lei-7210-11-julho-1984-356938-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false
+
+  # 2019 q62.
+  - tema: Violência vicária (Lei 11.340/2006, art. 7º, VI)
+    lei: Lei 15.384/2026
+    o_que_mudou: o art. 7º ganhou o inciso VI, a violência vicária
+    materias: [Legislação Especial]
+    nos: ["Legislação Especial > Lei dos Crimes contra Violência Doméstica ou “Lei Maria da Penha” (Lei nº 11.340/2006) > Formas de violência doméstica e familiar"]   # os outros dois nós foram juntados neste em 05/10 (decisão 99)
+    marcas: [maria da penha, violencia domestica]
+    fonte: https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, conferido na lista de leis alteradas (docs/leis_alteradas.md)
+    conferida: false
+
+  # 2019 q59.
+  - tema: Um tipo novo de tortura (Lei 9.455/1997, art. 1º, III)
+    lei: Lei 15.410/2026
+    o_que_mudou: o art. 1º ganhou o inciso III, um tipo novo de tortura
+    materias: [Legislação Especial]
+    nos: [Legislação Especial > Crimes de tortura (Lei nº 9.455 de 7 de abril de 1997)]
+    marcas: [tortura]
+    fonte: https://www.planalto.gov.br/ccivil_03/leis/l9455.htm
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, conferido na lista de leis alteradas (docs/leis_alteradas.md)
+    conferida: false
+
+  # 2019 q64.
+  - tema: Arma de fogo e tráfico (Lei 10.826/2003, art. 21-A)
+    lei: Lei 15.358/2026
+    o_que_mudou: aumento de pena de 2/3 quando o crime do Estatuto se liga ao tráfico (art. 21-A); a pena do art. 12 não mudou
+    materias: [Legislação Especial]
+    nos: [Legislação Especial > Estatuto do Desarmamento (Lei nº 10.826 de 22 de dezembro de 2003) > Crimes do Estatuto]
+    marcas: [desarmamento]
+    fonte: https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm
+    procedencia: Claude Code (claude-opus-5-5), 03/10/2026, conferido na lista de leis alteradas (docs/leis_alteradas.md)
+    conferida: false
+
+  # 2013 q33 e q36, 2019 q45.
+  - tema: Seguridade social e educação (CF, arts. 194, 201 e 206)
+    lei: Emendas Constitucionais 103/2019 e 108/2020
+    o_que_mudou: a EC 103/2019 (reforma da Previdência) reescreveu o art. 201, e o art. 206 ganhou o inciso IX, a garantia do direito à educação e à aprendizagem ao longo da vida (EC 108/2020); no art. 194, VI, a "diversidade da base de financiamento" continua - o que as questões cobram nesses artigos não mudou
+    materias: [Direito Constitucional]
+    nos: [Direito Constitucional > seguridade social, "Direito Constitucional > educação, cultura e desporto"]
+    marcas: [seguridade, educacao]
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false
+
+  # 2013 q48 e 2019 q52.
+  - tema: Legítima defesa do refém (CP, art. 25, parágrafo único)
+    lei: Lei 13.964/2019 (Pacote Anticrime)
+    o_que_mudou: considera-se também em legítima defesa o agente de segurança pública que repele agressão ou risco de agressão a vítima mantida refém durante a prática de crimes; o caput, que as questões cobram, não mudou
+    materias: [Direito Penal]
+    nos: ["Direito Penal > Tipicidade, ilicitude, culpabilidade, punibilidade > Excludentes de ilicitude"]
+    marcas: [legitima defesa, excludentes de ilicitude]
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 04/10/2026, pela compilação da Câmara (texto de 03/10)
+    conferida: false

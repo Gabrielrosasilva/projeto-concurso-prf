@@ -1,0 +1,1063 @@
+"""A aba Concursos > Acompanhando: um cartao por carreira (decisao 141).
+
+Quem e de qual carreira sai do `radar/acompanhamentos.py`; este arquivo
+monta o resto - a situacao, os marcos, as novidades com o 🔔, o "visto", o
+botao "Verificar atualizacoes" e a pesquisa do Claude Code - e guarda o que
+nao cabe no banco em `data/acompanhamentos.json`.
+
+As regras de precisao, que valem para o arquivo inteiro:
+
+  * **novidade e FATO, nao noticia.** So acende o 🔔 o que a linha do tempo
+    registrou como mudanca (o concurso apareceu, mudou de situacao, saiu
+    edital, abriu inscricao, marcou prova, retificou) ou o que a pesquisa do
+    Claude Code trouxe como fato confirmado, com link. Item que o
+    classificador chamou de noticia vai para o historico, sem 🔔;
+  * **todo fato tem data, link e selo.** 🟢 quando veio da propria banca,
+    🟡 quando veio do site de noticias, 🟣 quando veio da pesquisa do Claude
+    Code - e ai ele diz "por conferir" ate eu conferir;
+  * **rumor nunca muda nada.** Texto de previsao ("deve sair", "pode abrir")
+    entra como "nao confirmado": fica no historico, nao acende o 🔔, nao
+    preenche marco e nao vai para o Telegram;
+  * **nada de data chutada.** Marco sem fonte e "aguardando";
+  * **a pesquisa nunca mexe no banco.** Ela nao muda a situacao de concurso
+    nenhum: so o que a coleta le na fonte faz isso.
+"""
+import hashlib
+import json
+import logging
+import re
+import threading
+from dataclasses import dataclass, field
+from datetime import date, datetime, time, timedelta
+from pathlib import Path
+from urllib.parse import urlparse
+
+from sqlalchemy import select
+
+from radar import acompanhamentos as carreiras
+from radar import config
+from radar import eventos as linha_do_tempo
+from radar.db import criar_tabelas, sessao
+from radar.models import Concurso, Evento, agora
+from radar.origem import IA, NOTICIA, OFICIAL
+from radar.regioes import normalizar
+from radar.util import formatar_data, fuso_local
+
+log = logging.getLogger(__name__)
+
+
+def caminho() -> Path:
+    return config.diretorio_dados() / "acompanhamentos.json"
+
+
+# O botao roda a coleta numa thread, e a tela pode ler o arquivo no meio.
+# Uma trava so para as duas coisas: escrever o arquivo e rodar a verificacao.
+_TRAVA_DO_ARQUIVO = threading.Lock()
+_VERIFICANDO = threading.Lock()
+
+
+def _ler() -> dict:
+    arquivo = caminho()
+    if not arquivo.exists():
+        return {}
+    try:
+        return json.loads(arquivo.read_text(encoding="utf-8")) or {}
+    except json.JSONDecodeError:
+        # Arquivo quebrado nao pode derrubar a aba: ela mostra o que a coleta
+        # sabe, sem o "visto" e sem a pesquisa, e o log diz o que houve.
+        log.warning("data/acompanhamentos.json ilegivel; seguindo sem ele")
+        return {}
+
+
+def _alterar(mudanca) -> dict:
+    """Le, aplica `mudanca(dados)` e grava, tudo dentro da trava."""
+    with _TRAVA_DO_ARQUIVO:
+        dados = _ler()
+        mudanca(dados)
+        arquivo = caminho()
+        arquivo.parent.mkdir(parents=True, exist_ok=True)
+        arquivo.write_text(
+            json.dumps(dados, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        return dados
+
+
+def _momento(texto) -> datetime | None:
+    if not texto:
+        return None
+    try:
+        valor = datetime.fromisoformat(str(texto))
+    except ValueError:
+        return None
+    return valor if valor.tzinfo else valor.replace(tzinfo=fuso_local())
+
+
+def _inicio_do_dia(dia: date | None) -> datetime | None:
+    if dia is None:
+        return None
+    return datetime.combine(dia, time(0), tzinfo=fuso_local())
+
+
+def _quando(concurso: Concurso) -> datetime:
+    return concurso.publicado_em or concurso.coletado_em
+
+
+# --- o que vai na tela ----------------------------------------------------------
+
+#: Os tipos de evento que sao FATO de concurso. `apareceu` entra so quando o
+#: item e concurso (o site publicou o concurso); de noticia, ele e historico.
+FATOS = (
+    linha_do_tempo.APARECEU,
+    linha_do_tempo.MUDOU_SITUACAO,
+    linha_do_tempo.EDITAL_PUBLICADO,
+    linha_do_tempo.EDITAL_RETIFICADO,
+    linha_do_tempo.INSCRICOES_ABERTAS,
+    linha_do_tempo.INSCRICOES_ENCERRADAS,
+    linha_do_tempo.PROVA_MARCADA,
+)
+
+#: O que a coleta chama de "nao e concurso". Nao diz situacao de edicao
+#: nenhuma, e nao acende o 🔔.
+TIPOS_SEM_SITUACAO = ("noticia", "seletivo")
+
+#: As situacoes em que o edital ja saiu.
+COM_EDITAL = ("edital_publicado", "inscricoes_abertas", "encerrado")
+
+#: O que a fonte grava quando nao sabe a fase: nao diz a situacao da edicao
+#: enquanto outro item dela souber.
+VALORES_SEM_SITUACAO = (None, "", "desconhecida")
+
+#: "2019 – Secretaria de Estado..." - o titulo da FEPESE comeca pelo ano do
+#: concurso, e a pagina de 2019 foi republicada em 2024. Sem olhar o ano, ela
+#: passava por edicao atual so por ter data recente.
+ANO_NO_TITULO = re.compile(r"^\s*(\d{4})\s*[–—-]")
+
+
+@dataclass
+class Linha:
+    """Uma linha de novidade ou de historico: um fato, com data, selo e link."""
+
+    data: datetime
+    texto: str
+    selo: str
+    link: str | None = None
+    #: O titulo do item da coleta, quando o fato e de um item.
+    item: str | None = None
+    #: So na pesquisa do Claude Code: o id, para os botoes de conferir.
+    pesquisa: str | None = None
+    #: "por conferir", "conferida", "não confere" ou "não confirmado".
+    estado: str | None = None
+    #: Fato (acende o 🔔) ou so historico.
+    fato: bool = True
+    #: Quando o radar ficou sabendo, se for diferente de `data`: a pesquisa
+    #: traz fato de semana passada, e ela e novidade no dia em que chega.
+    chegou: datetime | None = None
+
+    @property
+    def momento_da_novidade(self) -> datetime:
+        return self.chegou or self.data
+
+
+@dataclass
+class Marco:
+    """Banca, edital, inscricoes ou prova: o valor, ou "aguardando"."""
+
+    nome: str
+    valor: str = "aguardando"
+    selo: str | None = None
+    link: str | None = None
+
+    @property
+    def sabido(self) -> bool:
+        return self.selo is not None
+
+    @property
+    def ressalva(self) -> str | None:
+        """O que o 🟡 sozinho nao diz: o marco que veio SO do site de
+        noticias vem com "segundo site de noticias" por extenso (pendencia J).
+        O Concursos no Brasil marca quase tudo como edital publicado, e o
+        emoji passa batido; a banca (🟢) e a pesquisa conferida (🟣) nao."""
+        return FRASE_DO_SITE_DE_NOTICIAS if self.selo == NOTICIA else None
+
+
+#: A ressalva do marco que veio so do site de noticias.
+FRASE_DO_SITE_DE_NOTICIAS = "segundo site de notícias"
+
+
+@dataclass
+class UltimoConcurso:
+    """O concurso que ja aconteceu, numa linha so (09/10): o ano do edital, a
+    banca, as datas e o link. Vem da pesquisa (🟣), e e so informacao - nao
+    acende o 🔔 nem preenche marco, que sao do proximo concurso."""
+
+    ano: int
+    link: str
+    banca: str | None = None
+    edital: date | None = None
+    prova: date | None = None
+    fonte: str | None = None
+    selo: str = IA
+
+    def como_dicionario(self) -> dict:
+        return {"ano": self.ano, "banca": self.banca,
+                "edital": self.edital.isoformat() if self.edital else None,
+                "prova": self.prova.isoformat() if self.prova else None,
+                "link": self.link}
+
+
+def _ultimo_guardado(dados: dict, nome: str) -> UltimoConcurso | None:
+    item = (dados.get("ultimos_concursos") or {}).get(nome)
+    if not item or not item.get("ano") or not item.get("link"):
+        return None
+
+    def dia(campo):
+        try:
+            return date.fromisoformat(item[campo]) if item.get(campo) else None
+        except ValueError:
+            return None
+
+    return UltimoConcurso(ano=int(item["ano"]), link=item["link"], banca=item.get("banca"),
+                          edital=dia("edital"), prova=dia("prova"), fonte=item.get("fonte"))
+
+
+#: A linha do proximo concurso quando nao ha nada dele.
+SEM_NOTICIA_DO_PROXIMO = "nenhuma notícia de concurso novo"
+
+
+@dataclass
+class Cartao:
+    nome: str
+    #: A situacao em palavras, ou a frase de quando nao ha item recente.
+    situacao: str
+    #: O item que disse a situacao (None quando nao ha).
+    referencia: Linha | None = None
+    marcos: list[Marco] = field(default_factory=list)
+    #: O que eu ainda nao vi, do mais novo para o mais velho.
+    novidades: list[Linha] = field(default_factory=list)
+    historico: list[Linha] = field(default_factory=list)
+    itens: int = 0
+    visto_em: datetime | None = None
+    #: A banca do alvo principal, quando se sabe (pendencia J): o cartao
+    #: aponta para Analises > Edital e para o padrao dela. So na carreira
+    #: `cargo: principal`, e so com o marco Banca preenchido - pelo item, ou
+    #: pela pesquisa que eu ja conferi; a por conferir nao liga nada.
+    banca_para_estudar: Marco | None = None
+    #: O nome dessa banca no acervo de provas, para o link do padrao dela;
+    #: None quando o acervo nao tem prova dela - e o cartao diz isso, em vez
+    #: de levar a uma tela de padrao vazia.
+    banca_no_acervo: str | None = None
+    #: O ultimo concurso que ja aconteceu, quando a pesquisa disse (09/10).
+    ultimo: UltimoConcurso | None = None
+    #: A frase do proximo concurso quando o cartao nao tem nada dele: "nenhuma
+    #: noticia", ou a previsao nao confirmada mais nova. None quando ha marco
+    #: ou fato do proximo - ai os marcos e as novidades ja dizem.
+    proximo: str | None = None
+    #: A previsao (anuncio sem ato) por tras da frase, com o link.
+    previsao: Linha | None = None
+
+
+def _selo_do_item(concurso: Concurso) -> str:
+    oficiais = carreiras.regras().fontes_oficiais
+    return OFICIAL if (concurso.fonte or "").lower() in oficiais else NOTICIA
+
+
+def _edicao_antiga(concurso: Concurso, hoje: date) -> bool:
+    achado = ANO_NO_TITULO.match(concurso.titulo or "")
+    return bool(achado) and int(achado.group(1)) < hoje.year - 1
+
+
+def _edicao(itens: list[Concurso], hoje: date) -> list[Concurso]:
+    """Os itens da edicao de agora: o que e concurso, dentro da janela do YAML
+    e sem ano velho no titulo.
+
+    Item mais antigo e de outra edicao: o edital de 2019 nao diz nada sobre o
+    proximo, e dizer "edital publicado" por causa dele seria exatamente o
+    chute que a tela nao pode dar.
+    """
+    return [c for c in itens
+            if c.tipo not in TIPOS_SEM_SITUACAO and _e_da_edicao_de_agora(c, hoje)]
+
+
+def _e_da_edicao_de_agora(concurso: Concurso, hoje: date) -> bool:
+    """Dentro da janela do YAML e sem ano velho no titulo - o tempo da edicao,
+    sem olhar o tipo. E o que decide os marcos (com o tipo) e o 🔔 (decisao
+    163)."""
+    janela = _inicio_do_dia(hoje) - timedelta(
+        days=carreiras.regras().janela_da_edicao_em_dias)
+    return _quando(concurso) >= janela and not _edicao_antiga(concurso, hoje)
+
+
+def _mais_novo(itens: list[Concurso], sabe) -> Concurso | None:
+    """O item mais recente que sabe o que se pergunta, ou None."""
+    que_sabem = [c for c in itens if sabe(c)]
+    return max(que_sabem, key=_quando) if que_sabem else None
+
+
+def _referencia(edicao: list[Concurso]) -> Concurso | None:
+    """O item que diz a situacao da edicao de agora, ou None.
+
+    O mais recente que SABE a situacao (decisao 160); so quando nenhum sabe,
+    o mais recente de todos. Uma retificacao "sem informacao" do Diario
+    Oficial nao esconde a fase que outro item da mesma edicao ja provou - o
+    cartao dos Bombeiros dizia "sem informacao" com o edital do IDIB no
+    radar.
+    """
+    return (_mais_novo(edicao, lambda c: c.situacao not in VALORES_SEM_SITUACAO)
+            or _mais_novo(edicao, lambda c: True))
+
+
+def _pesquisas_que_valem(pesquisas: list[dict], marco: str) -> dict | None:
+    """A pesquisa CONFERIDA e confirmada mais nova deste marco, ou None."""
+    validas = [p for p in pesquisas
+               if p.get("marco") == marco and p.get("confirmado")
+               and p.get("conferida") == "ok"]
+    return max(validas, key=lambda p: p.get("data") or "") if validas else None
+
+
+def _marco_da_pesquisa(nome: str, pesquisa: dict | None) -> Marco:
+    if pesquisa is None:
+        return Marco(nome)
+    valor = (pesquisa.get("valor") or pesquisa.get("descricao") or "").strip()
+    return Marco(nome, valor, IA, pesquisa.get("link"))
+
+
+def _marco_do_item(nome: str, item: Concurso, valor: str) -> Marco:
+    return Marco(nome, valor, _selo_do_item(item), item.url)
+
+
+def _marcos(edicao: list[Concurso], pesquisas: list[dict]) -> list[Marco]:
+    """Os quatro marcos, cada um do item mais recente da edicao que o sabe
+    (decisao 160); sem item que saiba, a pesquisa que eu ja conferi; sem as
+    duas, "aguardando".
+
+    Cada marco leva o selo e o link do SEU item. Ate 11/10 os quatro saiam
+    so do item mais recente, e a fonte que publica um ato por vez (o Diario
+    Oficial: contrato, edital, errata) escondia a banca atras de uma errata -
+    a PC SC dizia "Banca: aguardando" com o contrato do Idecan no radar.
+    """
+    com_banca = _mais_novo(edicao, lambda c: c.banca)
+    if com_banca:
+        banca = _marco_do_item("Banca", com_banca, com_banca.banca)
+    else:
+        banca = _marco_da_pesquisa("Banca", _pesquisas_que_valem(pesquisas, "banca"))
+
+    com_edital = _mais_novo(edicao, lambda c: c.situacao in COM_EDITAL)
+    if com_edital:
+        quando = (f" em {formatar_data(com_edital.publicado_em)}"
+                  if com_edital.publicado_em else "")
+        edital = _marco_do_item("Edital", com_edital, f"publicado{quando}")
+    else:
+        edital = _marco_da_pesquisa("Edital", _pesquisas_que_valem(pesquisas, "edital"))
+
+    com_prazo = _mais_novo(edicao, lambda c: c.inscricoes_ate)
+    if com_prazo:
+        if com_prazo.inscricoes_de:
+            prazo = (f"{formatar_data(com_prazo.inscricoes_de)} a "
+                     f"{formatar_data(com_prazo.inscricoes_ate)}")
+        else:
+            prazo = f"até {formatar_data(com_prazo.inscricoes_ate)}"
+        inscricoes = _marco_do_item("Inscrições", com_prazo, prazo)
+    else:
+        inscricoes = _marco_da_pesquisa(
+            "Inscrições", _pesquisas_que_valem(pesquisas, "inscricoes"))
+
+    com_prova = _mais_novo(edicao, lambda c: c.data_prova)
+    if com_prova:
+        prova = _marco_do_item("Prova", com_prova, formatar_data(com_prova.data_prova))
+    else:
+        prova = _marco_da_pesquisa("Prova", _pesquisas_que_valem(pesquisas, "prova"))
+
+    return [banca, edital, inscricoes, prova]
+
+
+#: A etiqueta do fato de item que nao e da edicao de agora (decisao 163).
+EDICAO_ANTIGA = "edição antiga"
+
+
+def _linha_do_evento(evento: Evento, concurso: Concurso, da_edicao: bool = True) -> Linha:
+    """A linha de um evento. So e FATO (acende o 🔔) o evento de concurso da
+    edicao de agora (decisao 163): o edital de 2019 que a SEJURI tem no site
+    "entrou no radar" em 11/10, e o sino acendia como se fosse novidade. O de
+    fora da edicao vai para o historico, com a etiqueta "edicao antiga"."""
+    fato_de_concurso = evento.tipo in FATOS and concurso.tipo != "noticia"
+    fato = fato_de_concurso and da_edicao
+    if fato:
+        estado = None
+    else:
+        estado = EDICAO_ANTIGA if fato_de_concurso else "notícia"
+    return Linha(
+        data=evento.data,
+        texto=linha_do_tempo.para_tela(evento.descricao) or evento.descricao,
+        selo=_selo_do_item(concurso),
+        link=evento.link or concurso.url,
+        item=concurso.titulo,
+        fato=fato,
+        estado=estado,
+    )
+
+
+def _estado_da_pesquisa(p: dict) -> str:
+    if not p.get("confirmado"):
+        return "não confirmado"
+    if p.get("conferida") == "ok":
+        return "conferida"
+    if p.get("conferida") == "recusada":
+        return "não confere"
+    return "por conferir"
+
+
+def _linha_da_pesquisa(p: dict) -> Linha:
+    estado = _estado_da_pesquisa(p)
+    data = _momento(p.get("data")) or _momento(p.get("criado_em")) or agora()
+    fonte = p.get("fonte") or "fonte não informada"
+    tipo = "oficial" if p.get("tipo_de_fonte") == "oficial" else "notícia"
+    return Linha(
+        data=data,
+        texto=f"{p.get('descricao', '')} ({fonte}, {tipo})",
+        selo=IA,
+        link=p.get("link"),
+        pesquisa=p.get("id"),
+        estado=estado,
+        fato=estado in ("por conferir", "conferida"),
+        chegou=_momento(p.get("criado_em")),
+    )
+
+
+def _sem_repetir(linhas: list[Linha]) -> list[Linha]:
+    """Uma linha por link, a mais nova: o mesmo item com tres eventos no dia
+    em que apareceu e UMA novidade, e nao tres."""
+    vistos: set[str] = set()
+    unicas = []
+    for linha in sorted(linhas, key=lambda x: x.data, reverse=True):
+        chave = linha.link or f"{linha.texto}|{linha.data.isoformat()}"
+        if chave in vistos:
+            continue
+        vistos.add(chave)
+        unicas.append(linha)
+    return unicas
+
+
+#: Quantas linhas o historico de um cartao mostra. O resto continua no banco
+#: e na aba Concursos; o cartao e para o que importa agora.
+LINHAS_NO_HISTORICO = 30
+
+
+def cartoes(hoje: date | None = None) -> list[Cartao]:
+    """Um cartao por carreira do YAML, na ordem: a principal, depois quem tem
+    novidade, depois a ordem do arquivo."""
+    criar_tabelas()
+    hoje = hoje or agora().astimezone(fuso_local()).date()
+    regras = carreiras.regras()
+    dados = _ler()
+    vistos = dados.get("visto") or {}
+    pesquisas = dados.get("pesquisas") or []
+    desde = _inicio_do_dia(regras.novidades_desde)
+
+    with sessao() as s:
+        todos = list(s.scalars(select(Concurso)))
+        por_carreira = {a.nome: [c for c in todos if carreiras.casa(a, c)]
+                        for a in regras.acompanhamentos}
+        urls = {c.url for itens in por_carreira.values() for c in itens}
+        eventos_por_url: dict[str, list[Evento]] = {}
+        if urls:
+            for evento in s.scalars(select(Evento).where(Evento.concurso_url.in_(urls))):
+                eventos_por_url.setdefault(evento.concurso_url, []).append(evento)
+
+        montados = []
+        for ordem, acompanhamento in enumerate(regras.acompanhamentos):
+            itens = por_carreira[acompanhamento.nome]
+            # O que eu marquei "Nao interessa" sai do cartao inteiro (09/10).
+            minhas = [p for p in pesquisas if p.get("acompanhamento") == acompanhamento.nome
+                      and p.get("conferida") != "ignorada"]
+            visto = _momento(vistos.get(acompanhamento.nome))
+            corte = max([m for m in (visto, desde) if m is not None], default=None)
+
+            linhas: list[Linha] = []
+            for concurso in itens:
+                eventos = eventos_por_url.get(concurso.url, [])
+                if not eventos:
+                    # Item que entrou antes de existir linha do tempo: aparece
+                    # no historico pela data dele, e nunca como novidade.
+                    texto = ("Publicado pela fonte" if concurso.publicado_em
+                             else "Entrou no radar")
+                    linhas.append(Linha(
+                        data=_quando(concurso), texto=texto,
+                        selo=_selo_do_item(concurso), link=concurso.url,
+                        item=concurso.titulo, fato=False))
+                da_edicao = _e_da_edicao_de_agora(concurso, hoje)
+                for evento in eventos:
+                    linhas.append(_linha_do_evento(evento, concurso, da_edicao))
+            linhas += [_linha_da_pesquisa(p) for p in minhas]
+
+            novidades = _sem_repetir([
+                linha for linha in linhas
+                if linha.fato and (corte is None or linha.momento_da_novidade > corte)
+            ])
+            edicao = _edicao(itens, hoje)
+            ref = _referencia(edicao)
+            if ref:
+                situacao = linha_do_tempo.NOME_DA_SITUACAO.get(ref.situacao, ref.situacao)
+                referencia = Linha(_quando(ref), ref.titulo, _selo_do_item(ref), ref.url)
+            else:
+                meses = round(regras.janela_da_edicao_em_dias / 30)
+                # Fala so da coleta: o ultimo concurso e o proximo tem linha propria.
+                situacao = f"a coleta automática não achou concurso desta carreira nos últimos {meses} meses"
+                referencia = None
+
+            principal = acompanhamento.cargo == carreiras.PRINCIPAL
+            marcos = _marcos(edicao, minhas)
+            banca = next(m for m in marcos if m.nome == "Banca")
+            cartao = Cartao(
+                nome=acompanhamento.nome,
+                situacao=situacao,
+                referencia=referencia,
+                marcos=marcos,
+                novidades=novidades,
+                historico=sorted(linhas, key=lambda x: x.data, reverse=True)[:LINHAS_NO_HISTORICO],
+                itens=len(itens),
+                visto_em=visto,
+                banca_para_estudar=banca if principal and banca.sabido else None,
+            )
+            if cartao.banca_para_estudar:
+                cartao.banca_no_acervo = banca_no_acervo(banca.valor)
+            cartao.ultimo = _ultimo_guardado(dados, acompanhamento.nome)
+            _dizer_o_proximo(cartao, ref, minhas)
+            montados.append(((0 if principal else 1, 0 if novidades else 1, ordem), cartao))
+
+    return [cartao for _, cartao in sorted(montados, key=lambda par: par[0])]
+
+
+def _dizer_o_proximo(cartao: Cartao, ref: Concurso | None, minhas: list[dict]) -> None:
+    """A linha do proximo concurso, quando os marcos e as novidades nao dizem.
+
+    Ha marco preenchido, item recente da coleta ou fato da pesquisa (por
+    conferir ou conferido): o cartao ja diz, e a linha fica None. So previsao:
+    a mais nova, como "nao confirmada". Nada: "nenhuma noticia".
+    """
+    fatos = [p for p in minhas if p.get("confirmado") and p.get("conferida") != "recusada"]
+    if ref is not None or fatos or any(m.sabido for m in cartao.marcos):
+        return
+    previsoes = [p for p in minhas if not p.get("confirmado")]
+    if previsoes:
+        mais_nova = max(previsoes, key=lambda p: p.get("data") or "")
+        cartao.previsao = _linha_da_pesquisa(mais_nova)
+        cartao.proximo = "só previsão, não confirmada"
+    else:
+        cartao.proximo = SEM_NOTICIA_DO_PROXIMO
+
+
+def banca_no_acervo(nome: str) -> str | None:
+    """A banca do acervo de provas que este nome diz, ou None.
+
+    O marco pode vir por extenso ("Fundação de Estudos e Pesquisas
+    Sócio-Econômicos (FEPESE)"): vale a banca do acervo que aparece nele como
+    palavra inteira, sem acento nem caixa. Banca sem prova aqui nao tem padrao
+    para mostrar.
+    """
+    from radar.servico.provas import bancas_com_questao
+
+    texto = f" {re.sub(r'[^a-z0-9]+', ' ', normalizar(nome or ''))} "
+    for banca in bancas_com_questao():
+        palavra = re.sub(r"[^a-z0-9]+", " ", normalizar(banca)).strip()
+        if palavra and f" {palavra} " in texto:
+            return banca
+    return None
+
+
+def marcar_visto(nome: str, quando: datetime | None = None) -> bool:
+    """O 🔔 deste cartao zera: o que aconteceu ate agora eu ja vi."""
+    if carreiras.por_nome(nome) is None:
+        return False
+    momento = (quando or agora()).isoformat()
+    _alterar(lambda dados: dados.setdefault("visto", {}).__setitem__(nome, momento))
+    return True
+
+
+# --- o botao "Verificar atualizacoes" ----------------------------------------------
+
+def _executar_coleta() -> list[str]:
+    """A mesma coleta do `radar atualizar` (as duas primeiras etapas), sem
+    mandar mensagem: quem avisa no Telegram e o robo do GitHub."""
+    from radar import servico
+
+    linhas = [str(r) for r in servico.coletar_tudo()]
+    linhas.append(f"Páginas lidas: {servico.detalhar_pendentes(limite=15)}")
+    return linhas
+
+
+def verificacao() -> dict:
+    """A ultima verificacao ({inicio, fim, resumo, erro}) e se ha uma rodando."""
+    ultima = dict(_ler().get("ultima_verificacao") or {})
+    ultima["rodando"] = _VERIFICANDO.locked()
+    for chave in ("inicio", "fim"):
+        ultima[chave] = _momento(ultima.get(chave))
+    return ultima
+
+
+def minutos_para_liberar(momento: datetime | None = None) -> int:
+    """Quantos minutos faltam para o botao valer de novo. 0 = pode clicar."""
+    inicio = _momento((_ler().get("ultima_verificacao") or {}).get("inicio"))
+    if inicio is None:
+        return 0
+    passou = (momento or agora()) - inicio
+    falta = timedelta(minutes=carreiras.regras().intervalo_minimo_minutos) - passou
+    return max(0, -(-int(falta.total_seconds()) // 60))
+
+
+def _rodar(executar) -> None:
+    try:
+        resumo, erro = executar(), None
+    except Exception as falha:  # noqa: BLE001 - a tela mostra, e a aba segue
+        log.warning("a verificacao falhou", exc_info=True)
+        resumo, erro = [], f"{type(falha).__name__}: {falha}"
+    fim = agora().isoformat()
+
+    def gravar(dados):
+        ultima = dados.setdefault("ultima_verificacao", {})
+        ultima.update(fim=fim, resumo=resumo, erro=erro)
+
+    try:
+        _alterar(gravar)
+    finally:
+        _VERIFICANDO.release()
+
+
+def iniciar_verificacao(executar=None, em_segundo_plano: bool = True,
+                        momento: datetime | None = None) -> str:
+    """Roda a coleta agora. Devolve "iniciada", "rodando" ou "cedo".
+
+    Em segundo plano porque a coleta leva minutos (o atraso de cortesia do
+    Coletor entre uma pagina e outra), e a tela nao pode ficar presa nesse
+    tempo. Os testes rodam na hora, com uma coleta falsa.
+    """
+    if minutos_para_liberar(momento):
+        return "cedo"
+    if not _VERIFICANDO.acquire(blocking=False):
+        return "rodando"
+
+    inicio = (momento or agora()).isoformat()
+    _alterar(lambda dados: dados.__setitem__(
+        "ultima_verificacao", {"inicio": inicio, "fim": None, "resumo": [], "erro": None}))
+
+    executar = executar or _executar_coleta
+    if em_segundo_plano:
+        threading.Thread(target=_rodar, args=(executar,), daemon=True,
+                         name="verificar-acompanhamentos").start()
+    else:
+        _rodar(executar)
+    return "iniciada"
+
+
+def novidades_desde(momento: datetime | None, cartoes_: list[Cartao]) -> int:
+    """Quantas novidades da tela sao de depois deste momento."""
+    if momento is None:
+        return 0
+    return sum(1 for c in cartoes_ for linha in c.novidades
+               if linha.momento_da_novidade >= momento)
+
+
+# --- a pesquisa do Claude Code (o que o robo nao enxerga) ----------------------------
+
+#: Os marcos do PROXIMO concurso (09/10): e so isso que a aba acompanha. O
+#: "outro" saiu - por ele entravam lei de salario, reestruturacao, convocacao
+#: e gabarito de edicao que ja acabou. A "previsao" (anuncio sem ato, promessa)
+#: entra sempre como nao confirmada.
+MARCOS = ("previsao", "autorizacao", "comissao", "banca", "edital", "inscricoes",
+          "prova", "retificacao")
+TIPOS_DE_FONTE = ("oficial", "noticia")
+
+#: Sufixos que so orgao publico registra no registro.br. A banca nao tem
+#: sufixo proprio: ela vem do `dominios_oficiais` do YAML.
+SUFIXOS_DE_GOVERNO = ("gov.br", "leg.br", "jus.br", "mp.br")
+
+
+def _dominio(link: str) -> str:
+    return (urlparse(link).hostname or "").rstrip(".")
+
+
+def link_oficial(link: str) -> bool:
+    """O link e do governo ou de uma banca do YAML? Compara pelo FIM do nome,
+    com o ponto antes: `sap.fepese.org.br` passa, `gov.br.qualquer.com` e
+    `cdn.direcaoconcursos.com.br` nao."""
+    dominio = _dominio(link)
+    aceitos = SUFIXOS_DE_GOVERNO + carreiras.regras().dominios_oficiais
+    return any(dominio == d or dominio.endswith("." + d) for d in aceitos)
+
+
+def tipo_de_fonte_pelo_link(declarado: str, link: str) -> tuple[str, str | None]:
+    """O tipo que vale e, quando a IA disse "oficial" e o link nao e, o motivo
+    do rebaixamento. A IA declara; quem decide e o dominio - na pesquisa de
+    07/10 a copia do Diario Oficial no CDN de um curso entrou como oficial."""
+    if declarado != "oficial" or link_oficial(link):
+        return declarado, None
+    return "noticia", (f"o domínio {_dominio(link) or '(nenhum)'} não é de governo "
+                       f"nem de banca do dominios_oficiais")
+
+#: Palavra de quem ainda nao sabe. Fato com ela vira "nao confirmado".
+ESPECULACAO = re.compile(
+    r"\b(deve|devem|devera|deverao|pode|podem|podera|poderao|previsao|previsto|"
+    r"prevista|expectativa|promete|prometido|em breve|estuda|estudam|cogita|"
+    r"rumor|boato|possivel|possibilidade|especula)\b"
+)
+
+INSTRUCAO_DA_PESQUISA = """Voce recebe UMA carreira de concurso publico que eu acompanho, de SANTA CATARINA (o nome do pedido diz a cidade, quando e de uma prefeitura), com o que o meu radar ja sabe dela.
+
+Eu quero saber duas coisas, e so elas:
+1. O PROXIMO concurso desta carreira vai abrir, agora ou no futuro? Traga em `novidades` so os passos dele: previsao ou anuncio (prefeito, governador, secretario, comandante), autorizacao, comissao organizadora, contratacao da banca, edital, inscricoes, data da prova, retificacao.
+2. Quando foi o ULTIMO concurso que ja aconteceu? Responda em `ultimo_concurso`: o ano do edital, a banca, a data do edital, a data da prova e o link do edital (ou da noticia do edital). Responda sempre que souber, mesmo sem novidade.
+
+NAO traga - a resposta com isso e recusada ou vira ruido:
+- passos do concurso que ja aconteceu (prova aplicada, gabarito, resultado, convocacao, nomeacao, curso de formacao): eles vao so no `ultimo_concurso`, nunca em `novidades`;
+- lei de salario, plano de cargos, reestruturacao da carreira, reajuste: nao e concurso;
+- concurso de outro estado.
+
+Regras de `novidades` - a que fugir delas e recusada:
+- So com data e link: o ato publicado, a pagina da banca, o diario oficial, a noticia que relata. Nunca invente link: copie a URL que voce abriu.
+- Prefira a fonte oficial. Noticia de site de concurso vale, com tipo_de_fonte "noticia". tipo_de_fonte "oficial" so quando o LINK e do proprio orgao (.gov.br, .leg.br, .jus.br, .mp.br) ou da banca: o radar confere pelo dominio e rebaixa.
+- Anuncio, promessa ou "deve sair" vai com marco "previsao" e "confirmado": false.
+- Nao repita o que esta em `ja_sei`. So o que aconteceu nos ultimos 12 meses.
+- Sem novidade, `novidades` vazia: lista vazia e uma resposta certa.
+
+Cada novidade: `data` (AAAA-MM-DD, o dia do fato), `marco` (um de: previsao, autorizacao, comissao, banca, edital, inscricoes, prova, retificacao), `descricao` (uma frase), `valor` (curto e opcional: a banca, a data da prova, o periodo de inscricao), `link`, `fonte`, `tipo_de_fonte` ("oficial" ou "noticia") e `confirmado` (true ou false).
+
+O `ultimo_concurso`: `ano` (o do edital), `banca`, `edital` (AAAA-MM-DD, opcional), `prova` (AAAA-MM-DD, opcional), `link` e `fonte`; ou null quando voce nao achar com link."""
+
+
+def _ja_sei(cartao: Cartao) -> dict:
+    """O que o radar ja sabe, para a pesquisa nao trazer de volta."""
+    return {
+        "situacao": cartao.situacao,
+        "marcos": {m.nome: m.valor for m in cartao.marcos},
+        "links": sorted({linha.link for linha in cartao.historico if linha.link}),
+        "ultimo_concurso": cartao.ultimo.como_dicionario() if cartao.ultimo else None,
+    }
+
+
+class CarreiraDesconhecida(ValueError):
+    """O nome pedido nao esta no config/acompanhamentos.yml."""
+
+
+def achar_carreira(nome: str) -> str:
+    """O nome da carreira como o YAML escreve, sem diferenciar acento nem
+    caixa: o terminal do Windows as vezes come o acento ("Policia Penal SC").
+    Nome que nao existe e recusado com a lista dos que existem - pesquisar a
+    carreira errada em silencio seria pior que nao pesquisar."""
+    procurado = normalizar(nome or "")
+    for acompanhamento in carreiras.todos():
+        if normalizar(acompanhamento.nome) == procurado:
+            return acompanhamento.nome
+    validos = "; ".join(a.nome for a in carreiras.todos())
+    raise CarreiraDesconhecida(
+        f"Não há carreira {nome!r} em config/acompanhamentos.yml. As que existem: {validos}.")
+
+
+def pedido_de_pesquisa(nomes: list[str] | None = None) -> dict:
+    """O lote para o Claude Code do VS Code: um pedido por carreira, ou so as
+    de `nomes` (o `--carreira`). Nome desconhecido: `CarreiraDesconhecida`."""
+    escolhidas = {achar_carreira(n) for n in nomes} if nomes else None
+    escolhidos = [c for c in cartoes() if escolhidas is None or c.nome in escolhidas]
+    pedidos = [
+        {"id": f"a{numero}", "acompanhamento": cartao.nome,
+         "instrucao": INSTRUCAO_DA_PESQUISA, "ja_sei": _ja_sei(cartao)}
+        for numero, cartao in enumerate(escolhidos, start=1)
+    ]
+    agora_ = agora()
+    return {
+        "lote": f"novidades-{agora_:%Y%m%d-%H%M%S}",
+        "tipo": "novidades",
+        "criado_em": agora_.isoformat(),
+        "como_responder": (
+            "Este arquivo foi gerado por `radar acompanhar --pedido`. Para cada "
+            "item de `pedidos`, siga a `instrucao` com a internet aberta e use o "
+            "`ja_sei` do item para nao repetir o que o radar ja tem. Responda "
+            "TODOS num unico arquivo JSON, no formato de `formato_da_resposta`: o "
+            "mesmo `lote`, o `modelo` que escreveu e o `id` de cada pedido com a "
+            "lista `novidades` dele (vazia quando nao houver nada novo) e o "
+            "`ultimo_concurso` (ou null). Salve "
+            "como data/resposta_ia.json e rode `radar acompanhar --importar "
+            "data/resposta_ia.json`. Novidade sem link, sem data, com marco fora "
+            "da lista (o \"outro\" nao existe mais), de mais de 12 meses ou ja "
+            "conhecida sera RECUSADA; previsao entra como nao confirmada."
+        ),
+        "formato_da_resposta": {
+            "lote": "<o lote deste arquivo>", "modelo": "<o modelo que escreveu>",
+            "respostas": [{"id": "a1", "novidades": [{
+                "data": "2026-10-01", "marco": "banca",
+                "descricao": "O governo contratou a banca do concurso.",
+                "valor": "<o nome da banca>", "link": "https://...",
+                "fonte": "Diário Oficial de SC", "tipo_de_fonte": "oficial",
+                "confirmado": True}],
+                "ultimo_concurso": {"ano": 2019, "banca": "<a banca>",
+                                    "edital": "2019-03-01", "prova": "2019-05-12",
+                                    "link": "https://...", "fonte": "<o site>"}}],
+        },
+        "pedidos": pedidos,
+    }
+
+
+def salvar_pedido(lote: dict) -> Path:
+    """O mesmo data/pedido_ia.json dos outros pedidos: pedido novo substitui
+    o que estiver la sem resposta."""
+    from radar.servico import manual
+
+    return manual.salvar_pedido(lote)
+
+
+def _id_da_pesquisa(acompanhamento: str, link: str) -> str:
+    return hashlib.sha256(f"{acompanhamento}|{link}".encode()).hexdigest()[:12]
+
+
+def _recusa(pedido_id: str, motivo: str) -> str:
+    return f"{pedido_id}: {motivo}"
+
+
+def importar_novidades(lote: dict, respostas: list[dict], modelo: str,
+                       hoje: date | None = None) -> dict:
+    """Confere a resposta e grava o que presta em data/acompanhamentos.json.
+
+    Devolve {"gravadas", "repetidas", "rumores", "recusas", "rebaixadas"}:
+    `rebaixadas` diz, uma por linha, a "oficial" que o dominio do link fez
+    virar "noticia". Nada aqui toca o banco: a pesquisa nunca muda a situacao
+    de um concurso.
+    """
+    hoje = hoje or agora().astimezone(fuso_local()).date()
+    mais_velha = hoje - timedelta(days=carreiras.regras().janela_da_edicao_em_dias)
+    pedidos = {p["id"]: p for p in lote.get("pedidos") or []}
+    existentes = _ler().get("pesquisas") or []
+    links_conhecidos = {
+        (p.get("acompanhamento"), p.get("link")) for p in existentes
+    }
+    fatos_conhecidos = {
+        (p.get("acompanhamento"), p.get("marco"), p.get("data"),
+         normalizar(p.get("descricao") or "")) for p in existentes
+    }
+
+    novas, recusas, rebaixadas, repetidas, rumores = [], [], [], 0, 0
+    ultimos: dict[str, dict] = {}
+    criado_em = agora().isoformat()
+
+    for resposta in respostas:
+        pedido = pedidos.get(str(resposta.get("id")))
+        if pedido is None:
+            recusas.append(_recusa(str(resposta.get("id")), "id que não estava no pedido"))
+            continue
+        nome = pedido["acompanhamento"]
+        if resposta.get("ultimo_concurso"):
+            ultimo, motivo = _ultimo_da_resposta(resposta["ultimo_concurso"], hoje)
+            if motivo:
+                recusas.append(_recusa(pedido["id"], f"ultimo_concurso: {motivo}"))
+            else:
+                ultimos[nome] = {**ultimo, "procedencia": modelo,
+                                 "lote": lote.get("lote"), "criado_em": criado_em}
+        ja_no_radar = set((pedido.get("ja_sei") or {}).get("links") or [])
+        for item in resposta.get("novidades") or []:
+            if not isinstance(item, dict):
+                recusas.append(_recusa(pedido["id"], "novidade que não é objeto"))
+                continue
+            link = str(item.get("link") or "").strip()
+            descricao = " ".join(str(item.get("descricao") or "").split())
+            marco = str(item.get("marco") or "").strip().lower()
+            tipo_de_fonte = str(item.get("tipo_de_fonte") or "").strip().lower()
+            valor = " ".join(str(item.get("valor") or "").split())[:80]
+            try:
+                dia = date.fromisoformat(str(item.get("data") or "").strip())
+            except ValueError:
+                recusas.append(_recusa(pedido["id"], f"sem data AAAA-MM-DD: {descricao[:60]!r}"))
+                continue
+
+            if not re.match(r"^https?://\S+$", link):
+                recusas.append(_recusa(pedido["id"], f"sem link: {descricao[:60]!r}"))
+                continue
+            if not 10 <= len(descricao) <= 300:
+                recusas.append(_recusa(pedido["id"], f"descrição vazia ou longa demais ({link})"))
+                continue
+            if marco not in MARCOS:
+                motivo_do_marco = (" - so o proximo concurso: lei, salario e edicao que "
+                                   "ja acabou nao entram" if marco == "outro" else "")
+                recusas.append(_recusa(pedido["id"],
+                                       f"marco fora da lista: {marco!r}{motivo_do_marco}"))
+                continue
+            if tipo_de_fonte not in TIPOS_DE_FONTE:
+                recusas.append(_recusa(pedido["id"], f"tipo_de_fonte fora da lista: {tipo_de_fonte!r}"))
+                continue
+            if dia > hoje:
+                recusas.append(_recusa(pedido["id"], f"data no futuro: {dia.isoformat()} ({link})"))
+                continue
+            if dia < mais_velha:
+                recusas.append(_recusa(pedido["id"], f"fato antigo: {dia.isoformat()} ({link})"))
+                continue
+
+            chave_do_fato = (nome, marco, dia.isoformat(), normalizar(descricao))
+            if (link in ja_no_radar or (nome, link) in links_conhecidos
+                    or chave_do_fato in fatos_conhecidos):
+                repetidas += 1
+                continue
+
+            tipo_de_fonte, motivo = tipo_de_fonte_pelo_link(tipo_de_fonte, link)
+            if motivo:
+                rebaixadas.append(_recusa(pedido["id"], f"{motivo} ({link})"))
+
+            confirmado = item.get("confirmado") is True and marco != "previsao"
+            if confirmado and ESPECULACAO.search(normalizar(descricao)):
+                # A IA disse que e fato e escreveu como previsao: vale o texto.
+                confirmado = False
+            if not confirmado:
+                rumores += 1
+
+            links_conhecidos.add((nome, link))
+            fatos_conhecidos.add(chave_do_fato)
+            novas.append({
+                "id": _id_da_pesquisa(nome, link),
+                "acompanhamento": nome,
+                "data": dia.isoformat(),
+                "marco": marco,
+                "descricao": descricao,
+                "valor": valor,
+                "link": link,
+                "fonte": " ".join(str(item.get("fonte") or "").split())[:120],
+                "tipo_de_fonte": tipo_de_fonte,
+                "confirmado": confirmado,
+                "procedencia": modelo,
+                "lote": lote.get("lote"),
+                "criado_em": criado_em,
+                "conferida": None,
+            })
+
+    def gravar(dados):
+        dados.setdefault("pesquisas", []).extend(novas)
+        guardados = dados.setdefault("ultimos_concursos", {})
+        for nome, ultimo in ultimos.items():
+            # Edicao mais velha nao troca a mais nova que ja estava aqui.
+            if int(ultimo["ano"]) >= int((guardados.get(nome) or {}).get("ano") or 0):
+                guardados[nome] = ultimo
+
+    if novas or ultimos:
+        _alterar(gravar)
+    return {"gravadas": len(novas), "repetidas": repetidas, "rumores": rumores,
+            "recusas": recusas, "rebaixadas": rebaixadas, "ultimos": len(ultimos)}
+
+
+def _ultimo_da_resposta(item, hoje: date) -> tuple[dict, str | None]:
+    """O `ultimo_concurso` da resposta, conferido: ano, banca, link e as datas.
+    Devolve (o que guardar, None) ou ({}, o motivo da recusa)."""
+    if not isinstance(item, dict):
+        return {}, "não é objeto"
+    try:
+        ano = int(item.get("ano"))
+    except (TypeError, ValueError):
+        return {}, f"sem ano: {item.get('ano')!r}"
+    if not 1990 <= ano <= hoje.year:
+        return {}, f"ano fora do lugar: {ano}"
+    link = str(item.get("link") or "").strip()
+    if not re.match(r"^https?://\S+$", link):
+        return {}, f"sem link (ano {ano})"
+    guardado = {"ano": ano, "link": link,
+                "banca": " ".join(str(item.get("banca") or "").split())[:80] or None,
+                "fonte": " ".join(str(item.get("fonte") or "").split())[:120] or None}
+    for campo in ("edital", "prova"):
+        texto = str(item.get(campo) or "").strip()
+        if not texto:
+            guardado[campo] = None
+            continue
+        try:
+            dia = date.fromisoformat(texto)
+        except ValueError:
+            return {}, f"{campo} sem data AAAA-MM-DD: {texto!r}"
+        if dia > hoje:
+            # Prova marcada para a frente e do PROXIMO concurso, nao do ultimo.
+            return {}, f"{campo} no futuro ({texto}): isso e do proximo concurso"
+        guardado[campo] = dia.isoformat()
+    return guardado, None
+
+
+def nao_interessa(pesquisa_id: str) -> bool:
+    """Tira o item do 🔔 e do cartao sem dizer que ele esta errado (09/10).
+    Vale para rumor tambem: a previsao que nao me interessa sai igual."""
+    achou = {"ok": False}
+
+    def mudar(dados):
+        for p in dados.get("pesquisas") or []:
+            if p.get("id") == pesquisa_id:
+                p["conferida"] = "ignorada"
+                p["conferida_em"] = agora().isoformat()
+                achou["ok"] = True
+
+    _alterar(mudar)
+    return achou["ok"]
+
+
+def conferir(pesquisa_id: str, confere: bool) -> bool:
+    """Eu li a fonte: confere (vale para o marco) ou nao confere (sai do 🔔).
+
+    So fato confirmado se confere. Rumor continua rumor: conferir uma
+    previsao nao a transforma em ato publicado.
+    """
+    achou = {"ok": False}
+
+    def mudar(dados):
+        for p in dados.get("pesquisas") or []:
+            if p.get("id") == pesquisa_id and p.get("confirmado"):
+                p["conferida"] = "ok" if confere else "recusada"
+                p["conferida_em"] = agora().isoformat()
+                achou["ok"] = True
+
+    _alterar(mudar)
+    return achou["ok"]
+
+
+# --- o Telegram: so o critico ------------------------------------------------------
+
+#: O que muda a minha vida, nas palavras do pedido: banca definida, edital,
+#: inscricoes, data da prova e retificacao.
+CRITICOS = (
+    linha_do_tempo.EDITAL_PUBLICADO,
+    linha_do_tempo.INSCRICOES_ABERTAS,
+    linha_do_tempo.PROVA_MARCADA,
+    linha_do_tempo.EDITAL_RETIFICADO,
+)
+
+#: A mesma janela do aviso de favorito: aviso e sobre o que mudou agora.
+JANELA_DO_TELEGRAM_EM_DIAS = 30
+
+
+def _e_critico(evento: Evento) -> bool:
+    if evento.tipo in CRITICOS:
+        return True
+    return (evento.tipo == linha_do_tempo.MUDOU_SITUACAO
+            and (evento.descricao or "").rstrip().endswith("-> banca_definida"))
+
+
+def eventos_a_avisar() -> list[tuple[Evento, Concurso, str]]:
+    """Os eventos criticos das carreiras que ainda nao viraram mensagem.
+
+    O mesmo `avisado_em` do aviso de favorito: um evento de concurso que e
+    favorito E de uma carreira acompanhada sai uma vez so, por quem chegar
+    primeiro.
+    """
+    criar_tabelas()
+    regras = carreiras.regras()
+    if not regras.acompanhamentos:
+        return []
+    desde = agora() - timedelta(days=JANELA_DO_TELEGRAM_EM_DIAS)
+    corte = _inicio_do_dia(regras.telegram_desde)
+    if corte and corte > desde:
+        desde = corte
+
+    consulta = (
+        select(Evento, Concurso)
+        .join(Concurso, Concurso.url == Evento.concurso_url)
+        .where(Evento.avisado_em.is_(None))
+        .where(Evento.tipo.in_(CRITICOS + (linha_do_tempo.MUDOU_SITUACAO,)))
+        .where(Evento.data >= desde)
+        .order_by(Evento.data.asc(), Evento.id.asc())
+    )
+    fila = []
+    with sessao() as s:
+        for evento, concurso in s.execute(consulta).all():
+            if concurso.tipo == "noticia" or not _e_critico(evento):
+                continue
+            donos = carreiras.de_quais(concurso)
+            if donos:
+                fila.append((evento, concurso, donos[0].nome))
+    return fila

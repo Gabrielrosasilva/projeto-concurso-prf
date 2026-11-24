@@ -1,0 +1,162 @@
+{# O resumo do tema (R2): o botao da faixa e a janela por cima da pagina, so
+   com HTML e CSS (.ds-janela, no design.css). A parte 1 - caiu ou nao caiu -
+   e calculada na hora (🔵); as outras sao texto de IA (🟣), cada frase com o
+   que a sustenta. A conta e a escolha dos temas moram no servico. #}
+{% from "_componentes.html" import selo %}
+
+{# O botao: um tema abre o resumo dele (na Noite, ja em "como a banca
+   cobra"); varios temas abrem a lista. #}
+{% macro botao(itens, chave, indice, noite=False, classe='botao-anotar botao-resumo') -%}
+  {%- if itens | length == 1 -%}
+    {%- set r = itens[0] -%}
+    <a class="{{ classe }}" href="#{{ r.id }}{% if noite and r.escrito %}-cobra{% endif %}"><span aria-hidden="true">📝</span> Resumo</a>
+  {%- elif itens -%}
+    <a class="{{ classe }}" href="#lista-{{ chave }}-{{ indice }}"><span aria-hidden="true">📝</span> Resumos ({{ itens | length }})</a>
+  {%- endif -%}
+{%- endmacro %}
+
+{# O texto em trechos (o servico corta). O termo do glossario fica
+   sublinhado, e o significado aparece ao passar o mouse ou tocar: :hover e
+   :focus no design.css, e o tabindex deixa tocar no celular. A letra da
+   questao ainda nao respondida fica escondida (decisao 148). #}
+{% macro trechos(lista, respondidos) -%}
+  {%- for t in lista -%}
+    {%- if t.significado -%}
+      <span class="ds-termo" tabindex="0">{{ t.texto | sem_gabarito(respondidos) }}<span class="ds-termo__dica" role="tooltip"><b>{{ t.termo }}:</b> {{ t.significado }}</span></span>
+    {%- else -%}{{ t.texto | sem_gabarito(respondidos) }}{%- endif -%}
+  {%- endfor -%}
+{%- endmacro %}
+
+{# Uma frase: o texto e a fonte embaixo (a fonte nunca ganha termo). #}
+{% macro frase(fr, respondidos) -%}
+  {{- trechos(fr.trechos, respondidos) -}}
+  <span class="ds-resumo__fonte">Fonte: {{ fr.fontes | join('; ') | sem_gabarito(respondidos) }}</span>
+{%- endmacro %}
+
+{% macro lista(frases, respondidos) %}
+  <ul>{% for fr in frases %}<li>{{ frase(fr, respondidos) }}</li>{% endfor %}</ul>
+{% endmacro %}
+
+{# O resumo enxuto (decisao 161), o mesmo na janela e na pagina da ficha. De
+   cima para baixo: os artigos (abertos, um bloco por artigo), o basico, o que
+   mais derruba e, dobrados num <details>, o resto. `prefixo` faz as ancoras:
+   o link da Noite cai em "{prefixo}-cobra", e o navegador abre o <details>
+   que tem a ancora dentro. #}
+{% macro corpo(e, respondidos, prefixo) %}
+  <div class="ds-resumo">
+    {% if e.blocos %}
+      <section id="{{ prefixo }}-artigos">
+        <h3>📜 Os artigos {{ selo('ia', curto=True) }}</h3>
+        {% for b in e.blocos %}
+          <div class="ds-resumo__bloco">
+            <h4>{{ b.rotulo }}</h4>
+            {% if b.frases %}{{ lista(b.frases, respondidos) }}{% endif %}
+            {% if b.traducao %}
+              <details class="ds-resumo__traduz">
+                <summary>🗣 Traduz pra mim {{ selo('ia', curto=True) }}</summary>
+                <dl class="ds-bloco ds-bloco--ia">
+                  {% for nome, linha in b.traducao %}
+                    <dt>{{ nome }}</dt><dd>{{ frase(linha, respondidos) }}</dd>
+                  {% endfor %}
+                </dl>
+                <p class="ds-resumo__fonte">{{ selo('ia', curto=True) }} Tradução escrita por {{ e.traducao_procedencia }}.</p>
+              </details>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </section>
+      {% if e.nao_confunda %}
+        <details class="ds-resumo__dobra" id="{{ prefixo }}-confunda">
+          <summary>⚖️ Não confunda {{ selo('ia', curto=True) }}</summary>
+          <table class="ds-tabela ds-resumo__confunda">
+            <thead><tr><th>Situação</th><th>O que é</th><th>O que acontece</th></tr></thead>
+            <tbody>
+              {% for l in e.nao_confunda %}
+                <tr>
+                  <td>{{ trechos(l.situacao, respondidos) }}</td>
+                  <td>{{ trechos(l.o_que_e, respondidos) }}</td>
+                  <td>{{ trechos(l.o_que_acontece, respondidos) }}<span class="ds-resumo__fonte">Fonte: {{ l.fontes | join('; ') | sem_gabarito(respondidos) }}</span></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <p class="ds-resumo__fonte">{{ selo('ia', curto=True) }} Tradução escrita por {{ e.traducao_procedencia }}.</p>
+        </details>
+      {% endif %}
+    {% elif e.regras_chave %}
+      <section id="{{ prefixo }}-artigos">
+        <h3>📜 As regras-chave {{ selo('ia', curto=True) }}</h3>
+        {{ lista(e.regras_chave, respondidos) }}
+      </section>
+    {% endif %}
+    {% if e.basico %}
+      <section id="{{ prefixo }}-basico">
+        <h3>O básico é isto {{ selo('ia', curto=True) }}</h3>
+        {{ lista(e.basico, respondidos) }}
+      </section>
+    {% endif %}
+    {% if e.derruba %}
+      <section id="{{ prefixo }}-derruba">
+        <h3>⚠ O que mais derruba {{ selo('ia', curto=True) }}</h3>
+        {{ lista(e.derruba, respondidos) }}
+      </section>
+    {% endif %}
+    {% for chave, nome, frases in (('dominar', 'O que eu preciso dominar', e.dominar),
+                                    ('cobra', 'Como a banca cobra', e.como_cobra),
+                                    ('outras', 'As outras pegadinhas', e.outras_pegadinhas))
+          if frases %}
+      <details class="ds-resumo__dobra">
+        <summary>{{ nome }} {{ selo('ia', curto=True) }}</summary>
+        <div id="{{ prefixo }}-{{ chave }}">{{ lista(frases, respondidos) }}</div>
+      </details>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{# Uma janela por tema, e uma por faixa de varios temas (a lista). #}
+{% macro janelas(resumos, volta='#fechado') %}
+  {% for r in resumos.temas.values() %}
+    <div class="ds-janela" id="{{ r.id }}" role="dialog" aria-label="Resumo: {{ r.tema }}">
+      <div class="ds-janela__caixa">
+        <div class="ds-janela__topo">
+          <h2>📝 {{ r.tema }}</h2>
+          <a class="ds-link-acao" href="{{ volta }}">Fechar ✕</a>
+        </div>
+        <p class="ds-suave">{{ r.materia }}</p>
+        {% if not r.tem_ficha %}
+          <p class="ds-vazio">Resumo ainda não escrito para este tema.</p>
+        {% else %}
+          <h3>1. Caiu ou não caiu</h3>
+          <p>{{ selo('acervo', curto=True) }} <b>{{ alvo_na_tela() }} ({{ provas_do_alvo() }}):</b> {{ r.caiu.frase }}
+            {% if not r.caiu.sem_contagem %}<span class="ds-janela__fontes">prova a prova: {{ r.caiu.por_prova }}</span>{% endif %}</p>
+          {% for n in r.caiu.notas %}<p class="ds-suave">{{ n }}</p>{% endfor %}
+          <p>{{ selo('acervo', curto=True) }} <b>Outras provas {{ banca_do_alvo() }} (complementar aceito):</b>
+            {% if r.complementar %}{{ r.complementar | replace('Acervo complementar ' ~ banca_do_alvo() ~ ': ', '') }}{% else %}o tema não tem nó: não contado{% endif %}</p>
+          {% if r.escrito %}
+            {{ corpo(r.enxuto, resumos.respondidos, r.id) }}
+            <p class="ds-janela__fontes">{{ selo('ia', curto=True) }} Texto escrito por {{ r.procedencia }}.
+              {% if r.conferido %}Conferido por você em {{ r.conferido }}.{% else %}Ainda não conferido por você.{% endif %}</p>
+          {% else %}
+            <p class="ds-vazio">Resumo ainda não escrito para este tema.</p>
+          {% endif %}
+          <p><a class="ds-link-acao" href="/fichas/{{ r.ficha_id }}">Ficha completa</a></p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  {% for (chave, indice), ids in resumos.por_faixa.items() if ids | length > 1 %}
+    <div class="ds-janela" id="lista-{{ chave }}-{{ indice }}" role="dialog" aria-label="Resumos da faixa">
+      <div class="ds-janela__caixa">
+        <div class="ds-janela__topo">
+          <h2>📝 Os temas desta faixa</h2>
+          <a class="ds-link-acao" href="{{ volta }}">Fechar ✕</a>
+        </div>
+        <ul>
+          {% for i in ids %}{% set r = resumos.temas[i] %}
+            <li><a href="#{{ r.id }}">{{ r.tema }}</a> <span class="ds-suave">· {{ r.materia }}{% if not r.escrito %} · resumo ainda não escrito{% endif %}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+{% endmacro %}

@@ -1,0 +1,104 @@
+# Os minimos de amostra do radar, num lugar so. Lido por src/radar/amostra.py,
+# de onde a incidencia, o desempenho e as telas tiram a regua.
+#
+# Abaixo do minimo, a tela nao tira conclusao: escreve exatamente "Nao ha
+# evidencia suficiente no acervo para afirmar isso." (regra inviolavel 4).
+#
+# COMO LER
+#
+#   acervo   - o que se diz sobre o que a BANCA cobrou: os padroes de cobranca
+#              de um no (forma de perguntar, gabarito, termos, tipo de
+#              questao). Proposta da Etapa 3A: 3 questoes em 2 provas. Com so
+#              2 provas do alvo, materia que caiu em uma prova so (LEP,
+#              Sociologia) nunca chega la - e e isso mesmo: uma prova so nao
+#              mostra padrao, mostra o que aconteceu uma vez.
+#
+#   desempenho - o que se diz sobre MIM: o estado de um no da arvore de
+#              conteudos (Amostra insuficiente, Precisa revisar, Em
+#              aprendizado, Desempenho consistente, Bom desempenho com
+#              amostra suficiente). Sao os limites da decisao 6 da Etapa 0,
+#              lidos por src/radar/amostra.py.
+#
+# As duas secoes nunca se somam: uma fala da banca, a outra de mim.
+#
+#   treino_ia - o que se diz sobre mim nas questoes GERADAS (decisao 152):
+#              quantas primeiras respostas (uma por gerada) cada nivel da
+#              arvore precisa para o "Treino de IA" valer. Fica separado do
+#              desempenho porque a gerada nao mede: ela treina.
+
+acervo:
+  minimo_questoes: 3
+  minimo_provas: 2
+
+  # Tendencia de letra no gabarito ("a FEPESE gosta da C?", nos Macetes):
+  # abaixo disto de questoes com gabarito nao se fala de tendencia. Buscando
+  # "crase" saem 59 questoes, mas so 7 enunciados diferentes: qualquer letra
+  # que aparecesse duas vezes viraria "tendencia" que e so sorteio.
+  tendencia_de_gabarito: 50
+
+  # Com menos provas que isto, o que se tira delas leva o aviso "base
+  # pequena" (regra 4 da especificacao): os cartoes, o Meu foco, a home e a
+  # previsao. Hoje o alvo tem duas provas.
+  provas_para_tendencia: 3
+
+  # A classificacao automatica do catalogo (o complementar de Portugues e de
+  # Raciocinio Logico) se confere por amostra: tantas por materia, na tela
+  # Analises > Conferencia. Se a taxa de erro da amostra for alta, o lote
+  # volta (pendencia B.8).
+  amostra_do_catalogo: 20
+  # A amostra do que a segunda leitura as cegas conferiu num lote (as provas
+  # novas de 17/10, decisao 173), por grupo: confiro as primeiras; com 1 erro,
+  # mais estas. Nenhum erro, o grupo passa; 2 ou mais, volta.
+  amostra_do_lote: 10
+  amostra_do_lote_extra: 10
+
+desempenho:
+  # Quantas respostas SEM CONSULTA cada nivel da arvore precisa ter para o
+  # numero dele valer. Com 10 questoes a margem de uma porcentagem ainda e de
+  # uns 30 pontos; com 20, de uns 22. Abaixo do minimo o numero aparece na
+  # tela com o rotulo "Amostra insuficiente" e nao ordena nem projeta nada.
+  #
+  # O subassunto e o elemento pedem menos por necessidade: ha subassunto com 6
+  # questoes no acervo inteiro, e exigir 10 ali seria nunca medir - por falta
+  # de prova, nao por falta de estudo meu.
+  minimos:
+    materia: 20
+    assunto: 10
+    subassunto: 6
+    elemento: 6
+
+  # Abaixo desta porcentagem o no "precisa revisar", mesmo que a meta dele
+  # seja menor que isso.
+  precisa_revisar_abaixo_de: 60
+
+  # A meta de materia que nao tem meta propria no config/cronograma.yml: a da
+  # prova inteira do edital de 2019, 79 de 100.
+  meta_padrao: 79
+
+  # A evolucao do meu acerto (a home): o acerto dos ultimos 30 dias contra o
+  # de antes. Cada metade da comparacao precisa disto de respostas, senao a
+  # variacao e sorteio; abaixo, a tela convida a responder.
+  evolucao: 20
+
+  # O estado mais alto ("Bom desempenho com amostra suficiente") pede mais que
+  # estar na meta: o dobro do minimo, respondido em dois dias diferentes ou
+  # mais. Uma tarde boa num assunto fresco na cabeca nao e dominio.
+  bom_desempenho:
+    vezes_o_minimo: 2
+    dias_distintos: 2
+
+treino_ia:
+  # Quantas PRIMEIRAS respostas (uma por questao gerada; refazer nao conta)
+  # cada nivel precisa para o numero do treino de IA valer. Abaixo disto ele
+  # aparece com "Amostra insuficiente" e nao tira conclusao.
+  #
+  # Mais alto que o das reais, de proposito: cada no tem umas 20 geradas no
+  # estoque, entao da para chegar la (10 no subassunto e meia volta), e a
+  # gerada e menos confiavel que a questao da banca - a maioria foi escrita
+  # do zero, sem questao da FEPESE por tras -, e precisa de mais base para
+  # dizer alguma coisa. O elemento (um artigo) pede o mesmo do subassunto.
+  minimos:
+    materia: 30
+    assunto: 15
+    subassunto: 10
+    elemento: 10

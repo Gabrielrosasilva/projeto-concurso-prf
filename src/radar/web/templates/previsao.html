@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Previsão de abertura &middot; Radar de Concursos</title>
+  {# Quando cada municipio costuma abrir concurso de novo. Cor e espaco saem
+     do design.css; aqui so o que e desta tela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .aviso{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin-bottom:var(--esp-5)}
+    .aviso b{color:var(--cor-texto)}
+
+    /* Os tres grupos tem a cor da situacao: atrasado vermelho, na janela
+       amarelo, em dia verde - no numero do titulo e na borda de cada um. */
+    .grupo{display:flex;align-items:center;gap:var(--esp-2);margin:var(--esp-5) 0 var(--esp-3);
+      font-size:var(--tam-md)}
+    .grupo .quantos{font-size:var(--tam-xs);font-weight:var(--peso-medio);
+      padding:.1rem var(--esp-2);border-radius:var(--raio-pill)}
+    .grupo.atrasado .quantos{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .grupo.esperado .quantos{background:var(--cor-ambar-fundo);color:var(--cor-ambar)}
+    .grupo.em_dia .quantos{background:var(--cor-verde-fundo);color:var(--cor-verde)}
+
+    .lista{display:grid;gap:var(--esp-3)}
+    .lista .ds-cartao{padding:var(--esp-3) var(--esp-4);border-left:3px solid var(--cor-borda)}
+    .lista .atrasado{border-left-color:var(--cor-vermelho)}
+    .lista .esperado{border-left-color:var(--cor-ambar)}
+    .lista .em_dia{border-left-color:var(--cor-verde)}
+
+    .topo{display:flex;justify-content:space-between;align-items:baseline;gap:var(--esp-4);
+      flex-wrap:wrap}
+    .municipio{font-weight:var(--peso-medio)}
+    .quando{font-size:var(--tam-sm);color:var(--cor-texto-suave);white-space:nowrap}
+    .motivo{font-size:var(--tam-sm);color:var(--cor-texto-suave);margin:var(--esp-1) 0 0}
+    .anos{font-size:var(--tam-xs);color:var(--cor-texto-suave);margin:var(--esp-1) 0 0;
+      font-variant-numeric:tabular-nums}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{% from "_componentes.html" import selo %}
+{{ barra('concursos') }}
+
+<main class="ds-pagina">
+  {% from "_topo.html" import abas_de_concursos %}
+  {{ abas_de_concursos('previsao') }}
+
+  <header class="ds-cabeca">
+    <h1>Previsão de abertura</h1>
+    <p>Onde vale ficar de olho agora, perto de casa</p>
+  </header>
+
+  <div class="ds-cartao aviso">
+    {{ selo('tendencia') }} Toda data desta tela é previsão, e não fato.
+    <br><br>
+    A conta: cada concurso vale por <b>até {{ validade_minima }} anos</b>,
+    prorrogáveis uma vez por igual período (Constituição Federal, art. 37,
+    III) - por isso o próximo sai entre {{ validade_minima }} e
+    {{ validade_maxima }} anos depois do último. Dentro dessa faixa, quem
+    manda é o ritmo do próprio município.
+    <br><br>
+    {% if cobertura %}{{ selo(cobertura[0].origem) }} {% endif %}O que isto <b>não sabe</b>: o histórico é só o
+    que as fontes coletadas publicaram -
+    {% for c in cobertura -%}
+      {{ c.fonte }} ({{ c.primeiro_ano }}{% if c.ultimo_ano != c.primeiro_ano %} a {{ c.ultimo_ano }}{% endif %},
+      {{ c.concursos }} concursos){{ '; ' if not loop.last else '.' }}
+    {%- else %}nenhuma ainda.{% endfor %}
+    Município que contratou banca fora delas tem concurso que não está aqui,
+    e aparece mais atrasado do que é.
+  </div>
+
+  {% if not previsoes %}
+    <div class="ds-vazio">
+      <p>Nenhum município com histórico ainda.</p>
+      <p>Rode <code>radar coletar</code>.</p>
+    </div>
+  {% endif %}
+
+  {% for grupo, titulo in [
+      ('atrasado', 'Atrasados'),
+      ('esperado', 'Na janela de agora'),
+      ('em_dia', 'Em dia')] %}
+    {% set doGrupo = previsoes | selectattr('situacao', 'equalto', grupo) | list %}
+    {% if doGrupo %}
+      <h2 class="grupo {{ grupo }}">
+        {{ titulo }} <span class="quantos">{{ doGrupo | length }}</span>
+      </h2>
+      <div class="lista">
+        {% for p in doGrupo %}
+          <div class="ds-cartao {{ grupo }}">
+            <div class="topo">
+              <span class="municipio">{{ p.municipio | municipio }}</span>
+              <span class="quando">{{ p.quando }}</span>
+            </div>
+            <p class="motivo">{{ p.motivo }}</p>
+            <p class="anos">
+              Base: {{ p.anos | length }} concurso{{ 's' if p.anos | length != 1 }}
+              conhecido{{ 's' if p.anos | length != 1 }} ({{ p.anos | join(', ') }}){% if p.anos | length < PROVAS_PARA_TENDENCIA %} ·
+              <b>base pequena</b>{% endif %}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+
+</main>
+</body>
+</html>

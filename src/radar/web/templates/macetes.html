@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Macetes &middot; Radar de Concursos</title>
+  {# A primeira tela no design system. Cor, espaco e letra vem de la; o que
+     fica aqui embaixo e so desta pagina: a pizza, as barras, as listas. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    /* ---------------------------------------------------- filtro ------- */
+    .filtro{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:var(--esp-3);
+      align-items:end}
+    @media (max-width:660px){.filtro{grid-template-columns:1fr}}
+
+    /* ------------------------------------------------------ pizza ------- */
+    /* Desenhada com conic-gradient: sem JavaScript, como o resto da tela.
+       O furo no meio e um circulo da cor do cartao por cima. */
+    .pizza-caixa{display:flex;gap:var(--esp-5);align-items:center;flex-wrap:wrap}
+    .pizza{position:relative;width:180px;height:180px;border-radius:50%;flex:0 0 auto}
+    .pizza .furo{position:absolute;inset:26%;background:var(--cor-superficie);
+      border-radius:50%;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;text-align:center;line-height:1.15}
+    .pizza .furo .n{font-size:var(--tam-lg);font-weight:var(--peso-forte);
+      font-variant-numeric:tabular-nums}
+    .pizza .furo .rot{font-size:.66rem;color:var(--cor-texto-suave)}
+    .legenda-pizza{display:grid;gap:var(--esp-1);flex:1 1 260px;min-width:0;
+      margin:0;padding:0;font-size:var(--tam-sm)}
+    .legenda-pizza li{display:grid;grid-template-columns:auto 1fr auto;
+      gap:var(--esp-2);align-items:baseline;list-style:none}
+    .legenda-pizza .cor{width:.7rem;height:.7rem;border-radius:3px;align-self:center}
+    .legenda-pizza .nome{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .legenda-pizza .valor{color:var(--cor-texto-suave);font-size:var(--tam-xs);
+      font-variant-numeric:tabular-nums;white-space:nowrap}
+    .legenda-pizza li.alvo .nome{font-weight:var(--peso-forte)}
+
+    /* --------------------------------------------- numeros em destaque -- */
+    .numeros{display:flex;flex-wrap:wrap;gap:var(--esp-5);margin-top:var(--esp-2)}
+    .numero .n{font-size:var(--tam-xl);font-weight:var(--peso-forte);line-height:1.1;
+      font-variant-numeric:tabular-nums}
+    .numero .rotulo{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+
+    /* ---------------------------------------------------- listas -------- */
+    .item-lista{padding:var(--esp-2) 0;border-bottom:1px solid var(--cor-borda)}
+    .item-lista:last-child{border-bottom:0}
+    .item-lista .topo{font-weight:var(--peso-medio)}
+    .item-lista .sub{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .item-lista p{margin:var(--esp-1) 0 0;font-size:var(--tam-sm)}
+
+    .parecida{display:grid;grid-template-columns:1fr auto;gap:var(--esp-1) var(--esp-4)}
+    .parecida .onde{font-size:var(--tam-xs);color:var(--cor-texto-suave);
+      text-align:right;white-space:nowrap}
+    .parecida .porque{grid-column:1/-1}
+
+    table{width:100%;border-collapse:collapse;font-size:var(--tam-sm)}
+    th,td{text-align:left;padding:var(--esp-2);border-bottom:1px solid var(--cor-borda)}
+    th{font-size:var(--tam-xs);color:var(--cor-texto-suave);font-weight:var(--peso-medio)}
+    td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+    tr:last-child td{border-bottom:0}
+    .barrinha{display:inline-block;width:90px;height:8px;border-radius:4px;
+      background:var(--cor-borda);vertical-align:middle;overflow:hidden}
+    .barrinha span{display:block;height:100%;background:var(--cor-verde)}
+
+    /* --------------------------------------- central: detalhe do macete */
+    .regra{font-size:var(--tam-base);margin:0 0 var(--esp-2)}
+    .pegadinha{border-left:3px solid var(--cor-vermelho);padding-left:var(--esp-3);
+      margin:var(--esp-2) 0}
+    .procedencia{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+    .termos b{font-weight:var(--peso-medio)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{% from "_componentes.html" import selo, bloco, legenda_dos_selos, aviso_lei %}
+{{ barra('revisao') }}
+
+<main class="ds-pagina">
+
+  <header class="ds-cabeca">
+    <h1>Macetes</h1>
+    <p>O que a banca tem costume de cobrar, tirado das provas</p>
+  </header>
+
+  {# ============================================ central de macetes ===== #}
+  <section class="ds-secao">
+    <h2>Central de macetes · {{ banca_do_alvo() }}</h2>
+    <p>
+      Um cartão por matéria, das questões reais da banca ({{ banca_do_alvo() }}), sem as
+      anuladas. Cada parte do cartão fica na cor da sua origem:
+    </p>
+  </section>
+  {{ legenda_dos_selos(('prova', 'acervo', 'ia')) }}
+
+  {% if not leis_conferidas %}
+    <p class="ds-nota">
+      O aviso <b>⚠ A lei mudou depois desta prova</b> depende da lista de leis
+      alteradas em <code>config/leis.yml</code>, que ainda não foi conferida.
+      Até lá, nenhuma questão ganha o aviso - o que não quer dizer que a lei
+      não tenha mudado.
+    </p>
+  {% elif leis_por_conferir %}
+    <p class="ds-nota">
+      {{ selo('ia', 'Escrito por IA, por conferir') }} {{ leis_por_conferir }}
+      item(ns) da lista de leis alteradas em <code>config/leis.yml</code>
+      foram escritos pelo Claude Code, a partir do texto compilado da lei, e
+      ainda não foram conferidos por você: o aviso deles aparece com o 🟣 até
+      você marcar <code>conferida: true</code> em cada um.
+    </p>
+  {% endif %}
+
+  {# Sem nenhum macete importado, o "como trazer" aparece UMA vez aqui, e
+     nao repetido em cada cartao - 14 notas iguais eram so barulho. #}
+  {% set algum_macete = cartoes | selectattr('macetes') | list %}
+  {% if cartoes and not algum_macete %}
+    <p class="ds-nota" style="margin-top:var(--esp-3)">
+      {{ selo('ia', 'Macete (IA)') }} nenhum importado ainda. Eles vêm sem
+      API: <code>radar gerar --pedido --macetes</code>, respondido no Claude
+      Code, e <code>radar gerar --importar data/resposta_ia.json</code>.
+    </p>
+  {% endif %}
+
+  {% if cartoes %}
+  <div class="ds-grade" style="margin-top:var(--esp-4)">
+    {% for c in cartoes %}
+      <article class="ds-cartao" id="materia-{{ loop.index }}">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">{{ c.materia }}</h3>
+          {{ selo(c.origem, c.questoes ~ ' questões analisadas') }}
+        </div>
+        <p class="ds-cartao__meta">
+          {{ c.de_onde | capitalize }}, sem as anuladas{% if c.base_pequena %}
+          · <b>base pequena</b>{% endif %}
+        </p>
+        {% if c.com_lei_mudada %}
+          <p class="ds-aviso-lei">⚠ {{ c.com_lei_mudada }} questão(ões) com lei alterada depois da prova{% if leis_por_conferir %} {{ selo('ia', 'Escrito por IA, por conferir') }}{% endif %}</p>
+        {% endif %}
+
+        {% call bloco(c.origem, 'Padrão da banca') %}
+          {% if c.comandos %}
+            <ul>
+              {% for k in c.comandos %}
+                <li><span class="ds-numero">{{ k.quantas }} de {{ c.questoes }}</span> questões: {{ k.nome }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>Nenhuma forma de perguntar se repete nestas {{ c.questoes }} questões.</p>
+          {% endif %}
+          {% if c.termos %}
+            <p class="termos">Palavras que mais aparecem:
+              {% for t in c.termos %}<b>{{ t.palavra }}</b> ({{ t.quantas }}){{ ', ' if not loop.last }}{% endfor %}
+            </p>
+          {% endif %}
+        {% endcall %}
+
+        {% for m in c.macetes %}
+          {% call bloco(m.origem, 'Macete (IA)' ~ (' · ' ~ m.assunto if m.assunto else '')) %}
+            <p class="regra">{{ m.regra }}</p>
+            <p class="ds-suave">
+              Fonte citada: {{ m.fonte }}
+              {% if c.lei %} · <a href="{{ c.lei.url }}" target="_blank" rel="noopener">ler {{ c.lei.titulo }}</a>{% endif %}
+            </p>
+            {% if m.pegadinha %}
+              <p class="pegadinha"><b>⚠ Pegadinha recorrente:</b> {{ m.pegadinha }}</p>
+            {% endif %}
+            {% for mud in m.mudancas %}{{ aviso_lei(mud) }}{% endfor %}
+            <p>
+              <a class="ds-link-acao" href="/macetes/{{ m.impressao }}/questoes">Ver questões reais relacionadas ({{ m.questoes }}) &rarr;</a>
+            </p>
+            <p class="procedencia">{{ m.procedencia }} · confira na fonte antes de confiar</p>
+          {% endcall %}
+        {% else %}
+          <p class="ds-suave ds-pequeno" style="margin:var(--esp-3) 0 0">
+            {{ selo('ia', 'Macete (IA)') }} nenhum ainda para esta matéria.
+          </p>
+        {% endfor %}
+      </article>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="ds-cartao ds-vazio">
+      <p>Ainda não há questão da minha prova no acervo.</p>
+      <p>Rode <b>radar provas</b> e <b>radar questoes</b>.</p>
+    </div>
+  {% endif %}
+
+  {# ====================================== o costume de qualquer banca === #}
+  <section class="ds-secao">
+    <h2>O costume de qualquer banca</h2>
+    <p>Contagem sobre as provas aceitas da banca, no recorte que eu escolher. As
+      provas do meu cargo têm a Central de macetes, acima, e prova recusada no
+      levantamento da Etapa 3B não entra (regra 1: evidências nunca somadas).</p>
+  </section>
+
+  <div class="ds-cartao">
+    <form class="filtro" method="get">
+      <label class="ds-campo">
+        Banca
+        <select name="banca">
+          <option value="">Escolha a banca</option>
+          {% for nome in bancas %}
+            <option value="{{ nome }}" {% if nome == banca %}selected{% endif %}>{{ nome }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="ds-campo">
+        Cargo ou área
+        <input type="text" name="cargo" value="{{ cargo or '' }}"
+               placeholder="Guarda, Professor, Tecnico...">
+      </label>
+      <label class="ds-campo">
+        Matéria ou tema
+        <input type="text" name="tema" value="{{ tema or '' }}"
+               placeholder="crase, informatica, probabilidade...">
+      </label>
+      <button class="ds-botao" type="submit">Ver</button>
+    </form>
+    <p class="ds-suave ds-pequeno" style="margin:var(--esp-3) 0 0">
+      O tema é texto livre: escreva <b>crase</b> ou <b>probabilidade</b>, e não
+      o nome exato da matéria. A busca olha a matéria e o enunciado, e ignora
+      acento.
+    </p>
+  </div>
+
+  {# ------------------------------------------- prova substituta ------- #}
+  {% if cargo %}
+    <div class="ds-cartao" style="margin-top:var(--esp-4)">
+      <h3 class="ds-cartao__titulo">Provas de "{{ cargo }}" no acervo</h3>
+      {% if parecidas %}
+        <p class="ds-cartao__meta">
+          Da mais parecida para a menos, com o motivo ao lado. Dividir uma
+          palavra no nome não faz duas profissões serem a mesma coisa - o
+          motivo está aí para eu julgar.
+        </p>
+        {% for p in parecidas %}
+          <div class="item-lista parecida">
+            <span class="topo">{{ p.cargo }}</span>
+            <span class="onde">
+              {{ p.banca }}{% if p.municipio %} &middot; {{ p.municipio | municipio }}{% endif %}
+              {%- if p.ano %} &middot; {{ p.ano }}{% endif %}
+              &middot; {{ p.questoes }} questões</span>
+            <span class="porque sub">{{ p.motivo }}</span>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="ds-nota" style="margin-top:var(--esp-2)">{{ recado_do_cargo }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {# ------------------------------------------------ sem banca escolhida - #}
+  {% if not banca %}
+    <div class="ds-cartao ds-vazio" style="margin-top:var(--esp-4)">
+      <p><b>Escolha uma banca acima para começar.</b></p>
+      <p>Depois disso dá para afunilar por cargo e por tema.</p>
+    </div>
+
+    {% if bancas_sem_acervo %}
+      <div class="ds-cartao" style="margin-top:var(--esp-4)">
+        <h3 class="ds-cartao__titulo">Por que só aparece {{ bancas | join(', ') }}</h3>
+        <p class="ds-cartao__meta">
+          A lista vem das provas que estão baixadas aqui, e não dos concursos.
+        </p>
+        <p class="ds-pequeno">
+          Estas bancas já aparecem nos seus concursos, mas ainda não têm prova
+          no acervo: <b>{{ bancas_sem_acervo | join(', ') }}</b>.
+        </p>
+        <p class="ds-pequeno" style="margin-bottom:0">
+          Cada banca publica as provas de um jeito diferente, então incluir uma
+          delas quer dizer escrever um coletor para o site dela. Dá para fazer,
+          uma de cada vez - e a FEPESE veio primeiro por ser a que mais aplica
+          prova perto de casa.
+        </p>
+      </div>
+    {% endif %}
+
+  {# ------------------------------------------------ nada encontrado ----- #}
+  {% elif analise.total == 0 %}
+    <div class="ds-cartao ds-vazio" style="margin-top:var(--esp-4)">
+      <p>Nenhuma questão no acervo para esse recorte.</p>
+      {% if analise.do_cargo or analise.recusadas %}
+        <p>Ficaram fora desta conta{% if analise.do_cargo %} {{ analise.do_cargo }} das provas do meu cargo (estão na Central de macetes, acima){% endif %}{% if analise.do_cargo and analise.recusadas %} e{% endif %}{% if analise.recusadas %} {{ analise.recusadas }} de provas que a Etapa 3B recusou{% endif %}.</p>
+      {% endif %}
+      <p>O acervo tem prova de cargo municipal de SC. Tema de TI, por
+         exemplo, não aparece porque essas provas não cobram TI.</p>
+    </div>
+
+  {% else %}
+
+    <p class="ds-suave ds-pequeno" style="margin:var(--esp-4) 0">
+      {{ selo(analise.origens.recorte) }}
+      <b>{{ analise.total }}</b> questões no recorte,
+      <b>{{ analise.distintas }}</b> com enunciado diferente.
+      {% if analise.total > analise.distintas %}
+        A banca reaproveita: é por isso que as contas de gabarito e de assunto
+        contam uma vez por enunciado.
+      {% endif %}
+      {% if analise.do_cargo or analise.recusadas %}
+        Ficaram fora desta conta{% if analise.do_cargo %} {{ analise.do_cargo }} das provas do meu cargo (estão na Central de macetes, acima){% endif %}{% if analise.do_cargo and analise.recusadas %} e{% endif %}{% if analise.recusadas %} {{ analise.recusadas }} de provas que a Etapa 3B recusou{% endif %}.
+      {% endif %}
+    </p>
+
+    <div class="ds-grade">
+
+    {# ------------------------------------------- o assunto procurado ---- #}
+    {% if analise.assunto_procurado %}
+      {% set a = analise.assunto_procurado %}
+      <article class="ds-cartao" style="grid-column:1/-1">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">{{ a.nome }} nas provas da {{ banca }}</h3>
+          {{ selo(analise.origens.assunto) }}
+        </div>
+        <p class="ds-cartao__meta">Quanto esse assunto caiu, dentro de {{ analise.retrato.materia }}</p>
+        <div class="numeros">
+          <div class="numero"><div class="n">{{ a.questoes }}</div><div class="rotulo">questões</div></div>
+          <div class="numero"><div class="n">{{ a.cadernos }}</div><div class="rotulo">de {{ analise.retrato.cadernos }} cadernos</div></div>
+          <div class="numero"><div class="n">{{ "%.0f"|format(a.cadernos / analise.retrato.cadernos * 100) }}%</div><div class="rotulo">das provas com essa matéria</div></div>
+          <div class="numero"><div class="n">{{ a.distintas }}</div><div class="rotulo">perguntas diferentes</div></div>
+        </div>
+      </article>
+    {% endif %}
+
+    {# ------------------------------------- grafico 1: caderno tipico ---- #}
+    {% if composicao %}
+      <article class="ds-cartao" style="grid-column:1/-1">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">Quantas questões caem numa prova</h3>
+          {{ selo(composicao[0].origem) }}
+        </div>
+        <p class="ds-cartao__meta">
+          A fatia é a participação da matéria no total de questões da
+          {{ banca }}; o número ao lado é quanto ela cai por prova, e em
+          quantas provas a média foi tirada. Os dois
+          não andam juntos porque nem toda matéria cai em todo cargo - Temas
+          de Educação são 10 questões, mas só em prova de professor.
+        </p>
+        <div class="pizza-caixa">
+          <div class="pizza" style="background:conic-gradient({% for f in fatias_do_caderno %}{{ f.cor }} {{ '%.2f'|format(f.inicio) }}% {{ '%.2f'|format(f.fim) }}%{{ ', ' if not loop.last }}{% endfor %})">
+            <div class="furo">
+              <span class="n">{{ total_da_composicao }}</span>
+              <span class="rot">questões<br>da banca</span>
+            </div>
+          </div>
+          <ul class="legenda-pizza">
+            {% for f in fatias_do_caderno %}
+              <li class="{{ 'alvo' if f.rotulo == analise.materia_dominante }}">
+                <span class="cor" style="background:{{ f.cor }}"></span>
+                <span class="nome" title="{{ f.rotulo }}">{{ f.rotulo }}</span>
+                <span class="valor">
+                  {{ "%.0f"|format(f.porcentagem) }}%{% if f.por_caderno %} &middot;
+                  {{ "%.1f"|format(f.por_caderno) }}/prova{% if f.provas %} em {{ f.provas }}
+                  prova{{ 's' if f.provas != 1 }}{% endif %}{% endif %}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </article>
+    {% endif %}
+
+    {# ------------------------------------- grafico 2: assuntos ---------- #}
+    {% if analise.retrato and analise.retrato.assuntos %}
+      <article class="ds-cartao" style="grid-column:1/-1">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">O que mais cai em {{ analise.retrato.materia }}</h3>
+          {{ selo(analise.origens.assunto) }}
+        </div>
+        <p class="ds-cartao__meta">
+          Assunto por assunto, nas {{ analise.retrato.questoes }} questões dessa
+          matéria. Uma questão pode entrar em mais de um assunto, então a soma
+          não fecha com o total.
+        </p>
+        <div class="pizza-caixa">
+          <div class="pizza" style="background:conic-gradient({% for f in fatias_de_assunto %}{{ f.cor }} {{ '%.2f'|format(f.inicio) }}% {{ '%.2f'|format(f.fim) }}%{{ ', ' if not loop.last }}{% endfor %})">
+            <div class="furo">
+              <span class="n">{{ analise.retrato.questoes }}</span>
+              <span class="rot">questões<br>da matéria</span>
+            </div>
+          </div>
+          <ul class="legenda-pizza">
+            {% for f in fatias_de_assunto %}
+              <li class="{{ 'alvo' if analise.assunto_procurado and f.rotulo == analise.assunto_procurado.nome }}">
+                <span class="cor" style="background:{{ f.cor }}"></span>
+                <span class="nome" title="{{ f.rotulo }}">{{ f.rotulo }}</span>
+                <span class="valor">{{ "%.0f"|format(f.valor) }} questões</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if analise.retrato.sem_assunto %}
+          <p class="ds-suave ds-pequeno" style="margin-bottom:0">
+            {{ analise.retrato.sem_assunto }} enunciados diferentes ficaram sem
+            assunto detectado. O assunto sai de uma lista de palavras-chave
+            escrita a mão, e ela não cobre tudo - melhor deixar de fora do que
+            empurrar para um assunto qualquer.
+          </p>
+        {% endif %}
+      </article>
+    {% endif %}
+
+    {% if analise.comandos %}
+      <article class="ds-cartao">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">Como a banca pergunta</h3>
+          {{ selo(analise.origens.comandos) }}
+        </div>
+        <p class="ds-cartao__meta">No recorte que você pediu</p>
+        {% for c in analise.comandos %}
+          <div class="item-lista">
+            <div class="topo">{{ c.nome }}</div>
+            <div class="sub ds-numero">{{ c.quantas }} questões &middot; {{ "%.0f"|format(c.porcentagem) }}% do recorte</div>
+            {# O conselho foi escrito a mao no macetes.py: nao e contagem, e
+               por isso nao pode passar por 🔵 sem dizer isso. #}
+            <p><span class="ds-suave">Dica fixa do radar, não é contagem:</span> {{ c.conselho }}</p>
+          </div>
+        {% endfor %}
+      </article>
+    {% endif %}
+
+    {% if analise.repetidas %}
+      <article class="ds-cartao">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">Questões que ela repete</h3>
+          {{ selo(analise.origens.repetidas) }}
+        </div>
+        <p class="ds-cartao__meta">O mesmo enunciado em vários cadernos do acervo: é o que já aconteceu, e não uma previsão</p>
+        {% for r in analise.repetidas %}
+          <div class="item-lista">
+            <div class="sub">aparece em {{ r.cadernos }} cadernos{% if r.materia %} &middot; {{ r.materia }}{% endif %}</div>
+            <p>{{ r.enunciado[:220] }}{% if r.enunciado|length > 220 %}...{% endif %}</p>
+          </div>
+        {% endfor %}
+      </article>
+    {% endif %}
+
+    {% if analise.gabarito %}
+      <article class="ds-cartao">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">Sobre o chute</h3>
+          {{ selo(analise.origens.gabarito) }}
+        </div>
+        <p class="ds-cartao__meta">Contando uma vez por enunciado diferente</p>
+        <table>
+          <tr><th>Letra</th><th class="n">Vezes</th><th class="n">Fatia</th><th></th></tr>
+          {% for letra, n, pct in analise.gabarito %}
+            <tr>
+              <td>{{ letra }})</td>
+              <td class="n">{{ n }}</td>
+              <td class="n">{{ "%.0f"|format(pct) }}%</td>
+              <td class="n"><span class="barrinha"><span style="width:{{ (pct * 3)|round }}%"></span></span></td>
+            </tr>
+          {% endfor %}
+        </table>
+        <p class="ds-nota" style="margin:var(--esp-3) 0 0">
+          {% if analise.gabarito_veredito == "equilibrado" %}
+            As letras estão equilibradas: <b>não existe letra mais provável</b>
+            nesta banca. O "chute na C" não vale aqui.
+          {% elif analise.gabarito_veredito == "tendencia" %}
+            Há desequilíbrio entre as letras neste recorte. Vale conferir se
+            não é efeito de poucas questões diferentes.
+          {% else %}
+            Poucos enunciados diferentes para afirmar qualquer coisa sobre a
+            letra. Abaixo de 50, o que parece tendência é sorteio.
+          {% endif %}
+        </p>
+      </article>
+    {% endif %}
+
+    </div>
+
+    <p class="ds-nota" style="margin-top:var(--esp-4)">
+      Esta parte é só contagem, e não inventa nada: tudo acima dá para conferir
+      abrindo as provas do acervo. Macete e pegadinha escritos por IA ficam na
+      Central de macetes, no topo da página, sempre com o selo {{ selo('ia') }}.
+    </p>
+
+  {% endif %}
+
+</main>
+</body>
+</html>

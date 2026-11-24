@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Redação corrigida &middot; Radar de Concursos</title>
+  {# Uma redacao corrigida (decisoes PMSC-5 e PMSC-22): a conta do edital passo
+     a passo, feita pelo radar; a correcao didatica - o que esta bom, o que
+     tirou nota, o texto com os erros no lugar, o "voce escreveu -> como fica",
+     a reescrita e os focos -, sempre com o selo e a procedencia da IA. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .nota-final{font-size:var(--tam-2xl);font-weight:var(--peso-forte);margin:0}
+    .conta{font-family:var(--fonte-numero);font-size:var(--tam-sm)}
+    .dica{margin:var(--esp-2) 0 0;font-size:var(--tam-sm);color:var(--cor-texto-suave)}
+    .erros li{margin-bottom:var(--esp-3)}
+    .erros s{color:var(--cor-vermelho)}
+    .erros b{color:var(--cor-verde)}
+    .reescrito,.original,.anotado{white-space:pre-wrap;line-height:1.7}
+    .anotado mark{background:var(--cor-vermelho-fundo);color:inherit;border-bottom:2px solid var(--cor-vermelho);
+      padding:0 .1em}
+    .anotado sup{color:var(--cor-vermelho);font-weight:var(--peso-forte);margin-left:.1em}
+    .bom li::marker{content:"✓ ";color:var(--cor-verde)}
+    .ruim li::marker{content:"✗ ";color:var(--cor-vermelho)}
+    .tipo{font-size:var(--tam-xs);text-transform:uppercase;letter-spacing:.04em;color:var(--cor-texto-suave)}
+    .melhoria td{vertical-align:top}
+    .melhorou-sim{color:var(--cor-verde);font-weight:var(--peso-forte)}
+    .melhorou-nao{color:var(--cor-vermelho);font-weight:var(--peso-forte)}
+    .melhorou-parte{color:var(--cor-ambar);font-weight:var(--peso-forte)}
+    .passo{border-left:3px solid var(--cor-azul);padding-left:var(--esp-3)}
+    .modelo p{text-indent:2em;line-height:1.7;margin:0 0 var(--esp-2)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('redacao') }}
+{% from "_componentes.html" import selo %}
+
+<main class="ds-pagina">
+  <p><a href="/redacao#historico">← Redação</a></p>
+  <header class="ds-cabeca">
+    <h1>{{ r.tema }}</h1>
+    <p>{{ r.data }} · {{ r.linhas }} linhas na folha
+      {% if r.origem == 'foto' %}· transcrita da foto da folha{% endif %}</p>
+  </header>
+
+  {% set n = r.nota %}
+  {% set minimo = (regras.regras_do_edital or {}).linhas_minimo or 20 %}
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">Nota final</h2>
+    <p class="nota-final">{{ '%.2f'|format(n.final)|replace('.', ',') }}</p>
+    {% if r.motivo_zero %}
+      <p class="ds-alerta">Nota zero: {{ r.motivo_zero }}. Sem o zero, a conta daria
+        {{ '%.2f'|format([n.bruta - n.desconto, 0]|max)|replace('.', ',') }}.</p>
+    {% elif n.aprovada %}
+      <p>Acima do mínimo de 10.</p>
+    {% else %}
+      <p class="ds-alerta">Abaixo do mínimo de 10: na prova, eliminaria.</p>
+    {% endif %}
+    <p class="conta">NC {{ '%g'|format(n.nc) }} − NE {{ n.ne }} ÷ TL {{ n.tl }} = {{ '%.2f'|format(n.bruta) }}
+      {% if n.desconto %}− {{ n.linhas_faltando }} linha(s) abaixo de {{ minimo }} × 0,20 = {{ '%.2f'|format(n.desconto) }}{% endif %}
+      → <b>{{ '%.2f'|format(n.final) }}</b></p>
+    {% if n.acima_do_maximo %}<p class="dica">Passou do limite de linhas: o que vem depois da 30ª não conta (edital, 11.7).</p>{% endif %}
+    {% if r.legibilidade and r.legibilidade.avaliacao %}
+      <p><b>Letra:</b> {{ r.legibilidade.avaliacao }}{% if r.legibilidade.observacao %} — {{ r.legibilidade.observacao }}{% endif %}
+        <span class="dica">(letra ilegível é nota zero: edital, 11.13)</span></p>
+    {% endif %}
+    <p class="dica">A conta é do radar, pelo item 11.5 do edital. O NC e a lista de erros são da correção {{ selo('ia', curto=True) }}.
+      {% if r.nota_final_da_ia is not none and ('%.2f'|format(r.nota_final_da_ia)) != ('%.2f'|format(n.final)) %}
+        A IA tinha calculado {{ '%.2f'|format(r.nota_final_da_ia)|replace('.', ',') }}: vale a do radar.{% endif %}</p>
+  </section>
+
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">O resumo do corretor {{ selo('ia') }}</h2>
+    <p class="dica">{{ r.procedencia }}. Correção escrita por IA no critério da AOCP (edital, 11.5): confira cada erro pela regra.</p>
+    {% if r.pontos_positivos %}
+      <h3>O que está bom</h3>
+      <ul class="bom">{% for p in r.pontos_positivos %}<li>{{ p }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if r.tres_pontos %}
+      <h3>O que mais tirou nota</h3>
+      <ol>{% for p in r.tres_pontos %}<li>{{ p }}</li>{% endfor %}</ol>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">Por critério</h2>
+    <table class="ds-tabela">
+      <thead><tr><th>Critério</th><th>Nota</th><th>O que está bom</th><th>O que melhorar</th></tr></thead>
+      <tbody>{% for c in r.criterios %}
+        <tr>
+          <td>{{ c.criterio }}</td>
+          <td>{{ '%g'|format(c.nota) }}</td>
+          <td>{% if c.positivos %}<ul class="bom">{% for p in c.positivos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</td>
+          <td>{% if c.negativos %}<ul class="ruim">{% for p in c.negativos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
+            {% if c.comentario %}<p class="dica">{{ c.comentario }}</p>{% endif %}</td>
+        </tr>
+      {% endfor %}</tbody>
+    </table>
+    <p class="dica">Nota de conteúdo (NC): {{ '%g'|format(r.nota_conteudo) }} de 20.</p>
+  </section>
+
+  <section class="ds-cartao" id="texto">
+    <h2 class="ds-cartao__titulo">O seu texto, com os erros marcados ({{ r.erros|length }})</h2>
+    {% if anotado %}
+      <p class="anotado">{% for pedaco, numero in anotado %}{% if numero %}<mark>{{ pedaco }}<sup>{{ numero }}</sup></mark>{% else %}{{ pedaco }}{% endif %}{% endfor %}</p>
+    {% endif %}
+    <p class="dica">Cada erro divide pelas linhas escritas: são eles que formam o NE da conta.</p>
+    {% if r.erros %}
+      <ol class="erros">{% for e in r.erros %}
+        <li>{% if e.tipo %}<span class="tipo">{{ e.tipo }}</span><br>{% endif %}
+          Você escreveu <s>{{ e.trecho }}</s> → o certo é <b>{{ e.correcao }}</b>
+          {% if e.explicacao %}<br>{{ e.explicacao }}{% endif %}
+          {% if e.regra %}<br><span class="dica">Regra: {{ e.regra }}</span>{% endif %}</li>
+      {% endfor %}</ol>
+    {% else %}
+      <p class="ds-vazio">Nenhum erro de português listado.</p>
+    {% endif %}
+  </section>
+
+  {% if r.melhorias %}
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">Você escreveu → como fica melhor</h2>
+    <p class="dica">Não são erros de português (não entram no NE): é estilo, coesão e argumentação, o que pesa na nota de conteúdo.</p>
+    <table class="ds-tabela melhoria">
+      <thead><tr><th>Você escreveu</th><th>Como fica</th><th>Por quê</th></tr></thead>
+      <tbody>{% for m in r.melhorias %}
+        <tr><td>{{ m.voce_escreveu }}</td><td><b>{{ m.como_fica }}</b></td><td>{{ m.por_que }}</td></tr>
+      {% endfor %}</tbody>
+    </table>
+  </section>
+  {% endif %}
+
+  {% if r.paragrafo_reescrito %}
+  <section class="ds-cartao" id="reescrita">
+    <h2 class="ds-cartao__titulo">O parágrafo mais fraco{% if r.paragrafo_mais_fraco %}: {{ r.paragrafo_mais_fraco }}{% endif %}</h2>
+    <p class="dica">Como o corretor o escreveria:</p>
+    <p class="reescrito">{{ r.paragrafo_reescrito }}</p>
+    <div class="passo">
+      <p><b>Sua vez:</b> sem copiar o modelo, reescreva à mão esse parágrafo com o que a correção apontou.
+        Fotografe e mande no Claude Code: <i>"corrige a reescrita da redação de {{ r.data }}"</i>.</p>
+    </div>
+    {% for x in r.reescritas or [] %}
+      <h3>Sua reescrita {{ loop.index }}
+        {% if x.melhorou == 'sim' %}<span class="melhorou-sim">· melhorou</span>
+        {% elif x.melhorou == 'em parte' %}<span class="melhorou-parte">· melhorou em parte</span>
+        {% else %}<span class="melhorou-nao">· ainda não</span>{% endif %}</h3>
+      <p class="reescrito">{{ x.texto }}</p>
+      <p>{{ x.comentario }}</p>
+      {% if x.o_que_ainda_falta %}<p><b>O que ainda falta:</b> {{ x.o_que_ainda_falta }}</p>{% endif %}
+      {% if x.erros %}
+        <ul class="erros">{% for e in x.erros %}
+          <li><s>{{ e.trecho }}</s> → <b>{{ e.correcao }}</b>{% if e.regra %}<br><span class="dica">{{ e.regra }}</span>{% endif %}</li>
+        {% endfor %}</ul>
+      {% endif %}
+      <p class="dica">{{ selo('ia', curto=True) }} {{ x.procedencia }}</p>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {# A redacao-modelo do tema (decisao PMSC-24): so aqui, depois da correcao,
+     fechada - para comparar com o seu texto, nunca para decorar. #}
+  {% if modelo %}
+  <section class="ds-cartao" id="modelo">
+    <details>
+      <summary><b>A redação-modelo deste tema</b> {{ selo('ia') }}</summary>
+      <p class="dica">Compare com a sua: onde está a tese, o que cada desenvolvimento prova e a proposta com
+        agente, ação, meio e finalidade. Não decore: na prova o tema e os textos serão outros.</p>
+      <div class="modelo">{% for p in modelo.paragrafos %}<p>{{ p }}</p>{% endfor %}</div>
+      {% if modelo.pontos %}
+        <h3>Por que funciona</h3>
+        <ul>{% for p in modelo.pontos %}<li>{{ p }}</li>{% endfor %}</ul>
+      {% endif %}
+      <p class="dica">{{ selo('ia', curto=True) }} {{ modelo.procedencia }}</p>
+    </details>
+  </section>
+  {% endif %}
+
+  {% if r.focos %}
+  <section class="ds-cartao">
+    <h2 class="ds-cartao__titulo">Para a próxima redação</h2>
+    <ol>{% for f in r.focos %}<li>{{ f }}</li>{% endfor %}</ol>
+  </section>
+  {% endif %}
+
+  <section class="ds-cartao">
+    <details>
+      <summary>O texto {% if r.origem == 'foto' %}transcrito da foto{% else %}que você colou{% endif %}</summary>
+      <p class="original">{{ r.texto }}</p>
+    </details>
+    {% if r.textos_motivadores %}
+      <p class="dica">Textos motivadores da proposta: {% for x in r.textos_motivadores %}{{ x.fonte or x.lei }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
+    {% endif %}
+  </section>
+</main>
+</body>
+</html>
