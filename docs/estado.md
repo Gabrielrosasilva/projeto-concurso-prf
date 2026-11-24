@@ -23,8 +23,7 @@ Etapas 0 e 1 feitas; a 1 espera o aval do Gabriel. A Etapa 2 nao comecou.
 ## Fora do git por enquanto
 - `PRF/` menos `PRF/config/`: o script e o que ele coletou (Etapa 2). Os rascunhos `PEDIDO_PRF.md` e `PRIMEIRO_PEDIDO.md` da raiz.
 
-## Testes
-- Os testes leem um espelho do `data/` com a arvore antiga fixa (PRF-9).
+## Testes (leem um espelho do `data/` com a arvore antiga fixa, PRF-9)
 - Etapa 1: os 76 arquivos que leem o cronograma ou a arvore - 1.695 passam, 4 falham desde a copia (leem `pmsc/config/`, que nao existe aqui): 2 do `test_redacao`, 1 do `test_simulado_da_semana`, 1 do `test_fichas`. A suite inteira nao rodou.
 
 ## Proximo
