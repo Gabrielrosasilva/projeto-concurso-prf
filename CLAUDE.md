@@ -26,7 +26,8 @@ explica **por que**. Codigo, commits, telas e nomes: em **portugues**.
 
 - Edital novo previsto para 2027, ainda nao saiu. **Ate la vale o de 2021**
   (o PDF esta nesta pasta). Banca, materias, pesos e numero de itens: **so do
-  edital lido** (`docs/edital.md`, com o link), nunca de memoria.
+  edital lido** (`docs/edital.md`, com o link), nunca de memoria. A ordem de
+  prioridade das materias, com os itens de cada prova: `docs/prioridade.md`.
 - **Formato principal: Certo/Errado do Cebraspe.** Um item errado anula um
   certo; em branco nao conta. O radar mede assim (nota liquida) e mostra o
   acerto bruto ao lado, nunca no lugar.
@@ -70,7 +71,8 @@ So abra o arquivo que a tarefa pede.
 - `origem.py`: os selos (🟢 oficial, 🔵 acervo, 🟡 automatico, 🟣 IA); o
   servico grava a origem, o template so desenha.
 - `conteudos.py` + `data/conteudos.json`: a arvore (materia > assunto >
-  subassunto); tudo que aponta para conteudo usa o caminho do no.
+  subassunto); tudo que aponta para conteudo usa o caminho do no. Nasce do
+  edital pelo `edital_cebraspe.py` (`radar conteudos --semear --edital`).
 - `fichas.py`, `artigos.py`, `traducao.py`, `glossario.py`: a ficha, o resumo
   e o "Traduz pra mim" de cada tema (`data/fichas.json`).
 - Leitores de prova: `questoes_cebraspe.py`, `questoes_certo_errado.py`,

@@ -46,6 +46,9 @@ familias:
     - Direito Penal Militar
     - Legislação de Trânsito
     - Legislação Institucional
+    # A Etica do edital da PRF de 2021 e quase toda norma (Lei 8.112, Decretos
+    # 1.171, 6.029, 9.203, LAI): o elemento dela e artigo, como no Direito.
+    - Ética e Cidadania
     elementos:
     - artigo
     - inciso
@@ -72,6 +75,7 @@ familias:
   raciocinio:
     materias:
     - Raciocínio Lógico
+    - Raciocínio Lógico-Matemático   # o nome do edital da PRF de 2021
     elementos:
     - tipo de problema
     - conceito lógico
@@ -122,13 +126,19 @@ tipos_de_questao:
 - interpretação de texto
 - comparação entre conceitos
 
+# Na copia PRF (Etapa 1, 24/11/2026): as duas da prova de 2013 da Policia
+# Penal sairam; fica a materia do edital da PRF de 2018 que o de 2021 tirou.
 materias_fora_do_edital:
-- nome: Noções de Informática
-  procedencia: prova de 2013 (Agente Penitenciário)
-- nome: Direito Administrativo
-  procedencia: prova de 2013 (Agente Penitenciário)
+- nome: História da PRF
+  procedencia: edital PRF de 2018 (Bloco I) e prova de 2019, itens 49 e 50
 
 sinonimos_de_materia:
+  # Os nomes do edital da PRF de 2018 para as materias do de 2021 (os dois
+  # editais lidos na Etapa 1 da PRF, docs/edital.md).
+  Noções de Física: Física
+  Ética no Serviço Público: Ética e Cidadania
+  Geopolítica Brasileira: Geopolítica
+  Direitos Humanos e Cidadania: Direitos Humanos
   Direito Processo Penal: Direito Processual Penal
   # O NC-UFPR (Policia Civil PR 2020, decisao 168) escreve "Nocoes de ..." e
   # "Legislacao Penal Especial". Nenhuma prova da FEPESE usava estes nomes

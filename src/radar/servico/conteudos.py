@@ -95,11 +95,17 @@ def semear(programa: dict[str, list[str]] | None = None,
                     "Rode `radar conteudos --semear` depois de baixar o edital.")
         return 0
     taxonomia = taxonomia or arvore.carregar_taxonomia()
+    return semear_nos(arvore.semente(programa, taxonomia))
 
+
+def semear_nos(nos: list[arvore.No]) -> int:
+    """Grava os nos que o banco ainda nao tem e escreve o JSON. Devolve quantos
+    entraram. Os nos vem prontos, pai antes de filho: da `semente` (o edital da
+    FEPESE) ou do `edital_cebraspe` (o da PRF). Rodar de novo nao duplica."""
     criar_tabelas()
     entraram = 0
     with sessao() as s:
-        for no in arvore.semente(programa, taxonomia):
+        for no in nos:
             entraram += _gravar(s, no)
     exportar()
     return entraram

@@ -735,8 +735,11 @@ def _reais():
 
 def test_as_fichas_reais_passam_na_conferencia_contra_a_arvore_real():
     """O data/fichas.json versionado: toda ficha tem procedencia, e passaria de
-    novo pela importacao contra a arvore real (data/conteudos.json)."""
-    linhas = json.loads((RAIZ / "data" / "conteudos.json").read_text(encoding="utf-8"))
+    novo pela importacao contra a arvore das fichas. Na copia PRF a arvore de
+    verdade e a do edital da PRF, e as fichas ainda sao as herdadas: a arvore
+    delas esta fixa em tests/fixtures/conteudos_da_raiz.json (decisao PRF-9)."""
+    linhas = json.loads((RAIZ / "tests" / "fixtures" / "conteudos_da_raiz.json")
+                        .read_text(encoding="utf-8"))
     niveis = {l["caminho"]: l["nivel"] for l in linhas}
     # Na copia PMSC o data/fichas.json tem tambem as fichas das materias que a
     # PP nao tem (Penal Militar, Transito...): a taxonomia e a do pmsc/config.

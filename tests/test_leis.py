@@ -304,7 +304,9 @@ def test_a_fronteira_tem_procedencia_fonte_oficial_e_nos_que_existem():
     import json
     from pathlib import Path
 
-    arquivo = Path(__file__).resolve().parent.parent / "data" / "conteudos.json"
+    # A arvore do config/ da raiz, fixa (decisao PRF-9): o data/conteudos.json
+    # de verdade e a arvore do edital da PRF.
+    arquivo = Path(__file__).resolve().parent / "fixtures" / "conteudos_da_raiz.json"
     caminhos = {n["caminho"] if isinstance(n, dict) else n
                 for n in json.loads(arquivo.read_text(encoding="utf-8"))}
 

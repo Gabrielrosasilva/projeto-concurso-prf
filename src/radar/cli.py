@@ -4128,6 +4128,9 @@ def conteudos(
         False, "--pendentes", help="Lista as questões sem classificação, por prova"),
     semear: bool = typer.Option(
         False, "--semear", help="Põe na árvore o que o edital tem e ela ainda não"),
+    edital: str = typer.Option(
+        None, "--edital",
+        help="Com --semear: o PDF do edital do Cebraspe (lê o item dos objetos de avaliação)"),
     juntar: str = typer.Option(
         None, "--juntar",
         help="Caminho do nó duplicado, que some (com --em). Grava, com cópia antes"),
@@ -4172,7 +4175,25 @@ def conteudos(
         console.print(f"[dim]Cópia do banco antes: {copia}[/]")
         return
 
-    if semear:
+    if semear and edital:
+        # O edital do Cebraspe (a PRF, Etapa 1): o programa sai do PDF que eu
+        # aponto, e nao do acervo do alvo - o alvo da PRF nao tem acervo.
+        from radar import edital_cebraspe
+
+        texto = edital_cebraspe.texto_do_pdf(Path(edital))
+        materias = edital_cebraspe.ler_programa(texto)
+        if not materias:
+            console.print("[red]Não achei o programa neste PDF[/] (o item \"DOS OBJETOS "
+                          "DE AVALIAÇÃO\" com os blocos). Nada mudou.")
+            raise typer.Exit(code=1)
+        nos_do_edital = edital_cebraspe.nos_da_arvore(
+            materias, edital_cebraspe.procedencia(texto),
+            arvore_de_conteudos.carregar_taxonomia())
+        entraram = servico.conteudos.semear_nos(nos_do_edital)
+        console.print(f"[green]{entraram}[/] nó(s) novo(s) de {len(nos_do_edital)} do "
+                      f"edital ({len(materias)} matérias): "
+                      f"{escape(edital_cebraspe.procedencia(texto))}")
+    elif semear:
         entraram = servico.conteudos.semear(programa=foco.programa_do_alvo())
         console.print(f"[green]{entraram}[/] nó(s) novo(s) do edital")
 
