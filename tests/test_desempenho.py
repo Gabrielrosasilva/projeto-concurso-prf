@@ -462,3 +462,13 @@ def test_a_pagina_nao_usa_javascript(plano, monkeypatch):
     texto = TestClient(app).get("/analises/desempenho").text
 
     assert "<script" not in texto and "onchange=" not in texto
+
+
+def test_sem_o_cronograma_o_anotado_fica_vazio_e_a_tela_nao_cai(banco_temporario, monkeypatch):
+    """A copia PRF ainda nao tem cronograma (Etapa 5): sem faixa nao ha o que
+    eu anotei nela, e o anotado vem vazio em vez de derrubar a tela."""
+    def sem_arquivo(*args, **kwargs):
+        raise FileNotFoundError("cronograma.yml")
+
+    monkeypatch.setattr(cronograma, "carregar", sem_arquivo)
+    assert por_conteudo.anotado_por_materia(hoje=HOJE) == {}

@@ -21,7 +21,9 @@ O caderno escaneado tambem nao tem o traco do sublinhado que o
 transcricao (`destaques`, a lista dos termos de cada item), pelo `marcas`.
 """
 import json
+import logging
 import re
+from dataclasses import dataclass
 from pathlib import Path
 
 from radar.questoes import Questao
@@ -103,3 +105,275 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
                       "fim": achado.end(), "trecho": achado.group()})
         de = achado.end()
     return saida or None
+
+
+# --- o caderno do Cebraspe, direto do PDF (Etapa 2 da PRF) ---------------------
+#
+# O caderno de Certo/Errado do Cebraspe tem texto de verdade (nao e escaneado):
+# o radar le direto dele. A forma, conferida nas provas da PRF de 2019 e 2021:
+#
+#   - o item e o numero no comeco da linha, seguido do texto ("20 Infere-se...").
+#     Os itens vem em sequencia, e e a sequencia que separa o item de um numero
+#     qualquer no comeco da linha;
+#   - antes dos itens de um grupo vem o cabecalho dele: o texto ("Texto
+#     1A18-I") ou a situacao - o paragrafo abre com DOIS espacos - e o comando,
+#     a frase com "julgue" ("Com relação ao texto, julgue os itens a seguir.");
+#   - o cabecalho da pagina ("CEBRASPE – PRF – Edital: 2021"), o "BLOCO I" e o
+#     "Espaço livre" das colunas vazias nao sao de item nenhum.
+#
+# O texto vem do pypdf, que poe o numero junto do item mas parte a palavra do
+# texto justificado ("Siste ma"). O pdfminer escreve a palavra inteira, mas
+# solta o numero do item: e dele que sai o vocabulario que conserta a palavra
+# partida (`religar`).
+
+# O que nao e de item nenhum: o cabecalho da pagina, e a linha so de palavras
+# em caixa alta ("BLOCO II", e o "TEXTO" solto que a diagramacao deixa na
+# prova de 2019) - linha de item sempre tem minuscula, numero ou pontuacao.
+MOBILIA_DO_CADERNO = re.compile(
+    r"^\s*(?:(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
+ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
+ROTULO_DO_TEXTO = re.compile(r"^\s*Texto\s+([0-9A-Z]+(?:-[IVX]+)?)\s*$")
+# A legenda da figura ("Figura 1A9-I"): como o rotulo do texto, abre o
+# cabecalho do grupo - e nao e frase do comando.
+ROTULO_DA_FIGURA = re.compile(r"^\s*Figura\s+[0-9A-Z]+(?:-[IVX]+)?\s*$")
+NUMERO_DO_ITEM = re.compile(r"^(\d{1,3})(?:\s+(\S.*))?$")
+# O comando: "julgue os itens" - e, no caderno de lingua estrangeira, "judge
+# the following items" (ingles) ou "juzgue los ítems" (espanhol).
+JULGUE = re.compile(r"\b(?:julgue|judge|juzgue)\b", re.IGNORECASE)
+FIM_DE_FRASE = re.compile(r"[.!?:)”\"]\s*$")
+PALAVRA = re.compile(r"[^\W\d_]+(?:-[^\W\d_]+)*")
+#: A letra do gabarito definitivo e a resposta da questao (X: anulado).
+RESPOSTA_DA_LETRA = {"C": "c", "E": "e", "X": None}
+
+
+@dataclass
+class ItemDoCaderno:
+    numero: int
+    afirmacao: str             # o texto do item, sem o numero
+    comando: str | None        # "Com relação ao texto, julgue os itens a seguir."
+    texto_base: str | None     # o texto ou a situacao do grupo
+
+
+def _texto_do_pdfminer(caminho: Path) -> str:
+    from pdfminer.high_level import extract_text
+
+    # O pdfminer avisa de fonte fora do padrao em quase todo PDF, sem mudar
+    # nada no texto: sao dezenas de linhas poluindo a saida do comando.
+    logging.getLogger("pdfminer").setLevel(logging.ERROR)
+    return extract_text(str(caminho))
+
+
+def vocabulario(texto: str) -> set[str]:
+    """As palavras do texto, em minuscula - com hifen, quando tem."""
+    return {palavra.lower() for palavra in PALAVRA.findall(texto)}
+
+
+def _deve_juntar(antes: str, depois: str, palavras: set[str]) -> bool:
+    """O fim de `antes` e o comeco de `depois` sao a mesma palavra partida?
+    So quando a juncao e palavra do vocabulario e um dos pedacos nao e: "de
+    vida" fica separado, porque "de" e "vida" sao palavras. O pedaco que acaba
+    em hifen ("norte- americano", "causando- lhe") emenda quando a palavra
+    composta existe."""
+    if antes.endswith("-"):
+        fim = re.search(r"[^\W\d_]+(?:-[^\W\d_]+)*-$", antes)
+        comeco = re.match(r"^[^\W\d_]+(?:-[^\W\d_]+)*", depois)
+        return bool(fim and comeco and (fim.group() + comeco.group()).lower() in palavras)
+    fim = re.search(r"[^\W\d_]+$", antes)
+    comeco = re.match(r"^-?[^\W\d_]+(?:-[^\W\d_]+)*", depois)
+    if not fim or not comeco:
+        return False
+    junto = (fim.group() + comeco.group()).lower()
+    pedacos = (fim.group().lower(), comeco.group().lstrip("-").lower())
+    return junto in palavras and any(p not in palavras for p in pedacos)
+
+
+def religar(texto: str, palavras: set[str]) -> str:
+    """O texto do pypdf com a palavra partida de volta ("Siste ma" vira
+    "Sistema", "infere -se" vira "infere-se")."""
+    saida: list[str] = []
+    for pedaco in texto.split(" "):
+        if saida and pedaco and _deve_juntar(saida[-1], pedaco, palavras):
+            saida[-1] += pedaco
+        else:
+            saida.append(pedaco)
+    return " ".join(saida)
+
+
+def _juntar_linhas(linhas: list[str], palavras: set[str]) -> str:
+    """As linhas viram um paragrafo. A linha que acaba em hifen emenda na de
+    baixo: sem o hifen quando a palavra inteira existe ("muni-" + "cípio"), e
+    com ele quando o hifen e da palavra ("inter-" + "regional")."""
+    texto = ""
+    for linha in (l.strip() for l in linhas):
+        if not linha:
+            continue
+        if texto.endswith("-") and linha[:1].islower():
+            fim = re.search(r"[^\W\d_]+-$", texto)
+            comeco = re.match(r"[^\W\d_]+", linha)
+            sem_hifen = (fim.group()[:-1] + comeco.group()).lower() if fim and comeco else ""
+            texto = texto[:-1] + linha if sem_hifen in palavras else texto + linha
+        else:
+            texto = f"{texto} {linha}" if texto else linha
+    return " ".join(texto.split())
+
+
+def _comeco_do_comando(linhas: list[str]) -> int | None:
+    """Onde comeca o comando: a ULTIMA frase que tem "julgue" e vai ate o fim
+    das linhas. Frase comeca em linha que abre com maiuscula, depois de linha
+    que fecha frase. A instrucao do caderno ("caso julgue o item CERTO") vem
+    antes, e por isso fica de fora."""
+    for indice in range(len(linhas) - 1, -1, -1):
+        linha = linhas[indice].strip()
+        anterior = linhas[indice - 1] if indice else ""
+        fecha = (indice == 0 or FIM_DE_FRASE.search(anterior) or ROTULO_DO_TEXTO.match(anterior)
+                 or ROTULO_DA_FIGURA.match(anterior))
+        if linha[:1].isupper() and fecha and not ROTULO_DA_FIGURA.match(linha) \
+                and JULGUE.search(" ".join(linhas[indice:])):
+            return indice
+    return None
+
+
+def _fim_do_item(linhas: list[str]) -> int:
+    """Quantas linhas do trecho sao do item; o resto e o cabecalho do grupo
+    seguinte. O item acaba no paragrafo de dois espacos (texto ou situacao),
+    no rotulo "Texto ..." ou no comando que vem logo depois dele."""
+    for indice in range(1, len(linhas)):
+        if (linhas[indice].startswith("  ") or ROTULO_DO_TEXTO.match(linhas[indice])
+                or ROTULO_DA_FIGURA.match(linhas[indice])):
+            return indice
+    comando = _comeco_do_comando(linhas[1:])
+    return len(linhas) if comando is None else comando + 1
+
+
+def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
+                   palavras: set[str]) -> tuple[str | None, str | None]:
+    """(comando, texto do grupo) de um cabecalho. O texto comeca no rotulo ou
+    no primeiro paragrafo de dois espacos (a instrucao do caderno, antes, fica
+    de fora); o texto com rotulo e guardado em `textos`, para o grupo que so o
+    cita ("Considerando ... o texto 1A18-I, julgue")."""
+    inicio_do_comando = _comeco_do_comando(linhas)
+    if inicio_do_comando is None:
+        return None, None
+    comando = religar(_juntar_linhas(linhas[inicio_do_comando:], palavras), palavras)
+    # A legenda da figura nao e texto: a figura e imagem, e o radar nao a tem.
+    antes = [linha for linha in linhas[:inicio_do_comando] if not ROTULO_DA_FIGURA.match(linha)]
+    rotulo = None
+    inicio = None
+    for indice, linha in enumerate(antes):
+        achado = ROTULO_DO_TEXTO.match(linha)
+        if achado or linha.startswith("  "):
+            rotulo = achado.group(1) if achado else None
+            inicio = indice + 1 if achado else indice
+            break
+    texto = None
+    if inicio is not None:
+        texto = religar(_juntar_linhas(antes[inicio:], palavras), palavras) or None
+        if texto and rotulo:
+            textos[rotulo.upper()] = texto
+    if texto is None:
+        citado = re.search(r"\btexto\s+([0-9A-Z]+-[IVX]+)", comando, re.IGNORECASE)
+        texto = textos.get(citado.group(1).upper()) if citado else None
+    return comando, texto
+
+
+def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1) -> list[ItemDoCaderno]:
+    """Os itens do caderno, cada um com o comando e o texto do grupo dele.
+
+    A linha vazia sai antes de tudo: ela vem do "Espaço livre" e da quebra de
+    pagina, e no meio do caminho escondia que a linha de cima fechava frase."""
+    linhas = [ESPACO_LIVRE.sub(" ", linha).rstrip() for linha in texto.splitlines()
+              if not MOBILIA_DO_CADERNO.match(linha)]
+    linhas = [linha for linha in linhas if linha.strip()]
+    inicios = []
+    esperado = primeiro
+    for indice, linha in enumerate(linhas):
+        achado = NUMERO_DO_ITEM.match(linha)
+        if achado and int(achado.group(1)) == esperado:
+            inicios.append(indice)
+            esperado += 1
+    if not inicios:
+        return []
+
+    textos: dict[str, str] = {}
+    comando, texto_base = _ler_cabecalho(linhas[:inicios[0]], textos, palavras)
+    itens = []
+    for posicao, inicio in enumerate(inicios):
+        fim = inicios[posicao + 1] if posicao + 1 < len(inicios) else len(linhas)
+        trecho = linhas[inicio:fim]
+        corte = _fim_do_item(trecho)
+        numero, resto = NUMERO_DO_ITEM.match(trecho[0]).groups()
+        afirmacao = religar(_juntar_linhas([resto or ""] + trecho[1:corte], palavras), palavras)
+        itens.append(ItemDoCaderno(int(numero), afirmacao, comando, texto_base))
+        if corte < len(trecho):
+            novo_comando, novo_texto = _ler_cabecalho(trecho[corte:], textos, palavras)
+            if novo_comando:
+                comando, texto_base = novo_comando, novo_texto
+    return itens
+
+
+def ler_gabarito_do_cebraspe(texto: str) -> dict[int, str]:
+    """{item: "C", "E" ou "X"} do gabarito definitivo de Certo/Errado.
+
+    No texto do pdfminer a grade sai em pares, numero e letra ("9 C 29 E 49 E
+    69 X"). ValueError quando o mesmo item tem duas letras, quando nao ha item
+    nenhum ou quando falta item no meio: gabarito pela metade nunca entra.
+    """
+    pedacos = texto.split()
+    gabarito: dict[int, str] = {}
+    for numero, letra in zip(pedacos, pedacos[1:]):
+        if numero.isdigit() and letra in RESPOSTA_DA_LETRA:
+            item = int(numero)
+            if gabarito.get(item, letra) != letra:
+                raise ValueError(f"item {item} com duas letras no gabarito")
+            gabarito[item] = letra
+    if not gabarito:
+        raise ValueError("o gabarito nao tem item de Certo/Errado")
+    faltam = sorted(set(range(min(gabarito), max(gabarito) + 1)) - set(gabarito))
+    if faltam:
+        raise ValueError(f"faltam itens no gabarito: {faltam[:5]}")
+    return gabarito
+
+
+def ler_caderno(caminho: Path, caminho_do_gabarito: Path | None, ler: list[str] | None = None,
+                materias: list[tuple[int, int, str]] | None = None,
+                texto: str | None = None, texto_do_gabarito: str | None = None,
+                palavras: set[str] | None = None) -> list[Questao]:
+    """Os itens do caderno de Certo/Errado do Cebraspe, como questoes, com a
+    resposta do gabarito DEFINITIVO.
+
+    O item de figura (o numero sem texto nenhum) fica de fora: sem a figura
+    ele nao se responde. ValueError quando os itens lidos nao sao os do
+    gabarito. `texto`, `texto_do_gabarito` e `palavras` sao para o teste, que
+    nao le PDF.
+    """
+    from radar.questoes import extrair_texto
+
+    if texto_do_gabarito is None:
+        if caminho_do_gabarito is None:
+            raise ValueError("falta o gabarito definitivo")
+        texto_do_gabarito = _texto_do_pdfminer(caminho_do_gabarito)
+    gabarito = ler_gabarito_do_cebraspe(texto_do_gabarito)
+    if texto is None:
+        texto = extrair_texto(caminho)
+    if palavras is None:
+        palavras = vocabulario(_texto_do_pdfminer(caminho))
+
+    itens = itens_do_caderno(texto, palavras, primeiro=min(gabarito))
+    lidos = [item.numero for item in itens]
+    if set(lidos) != set(gabarito):
+        raise ValueError(f"o caderno tem os itens {lidos[:1]}..{lidos[-1:]} ({len(lidos)}) "
+                         f"e o gabarito {min(gabarito)}..{max(gabarito)} ({len(gabarito)})")
+    questoes = []
+    for item in itens:
+        if not _dentro(item.numero, ler) or not item.afirmacao:
+            continue
+        materia = materia_da_faixa(item.numero, materias) if materias else None
+        if materias and not materia:
+            continue
+        letra = gabarito[item.numero]
+        enunciado = "\n\n".join(p for p in (item.comando, item.afirmacao) if p)
+        questoes.append(Questao(
+            numero=item.numero, enunciado=enunciado, alternativas=dict(ALTERNATIVAS),
+            resposta=RESPOSTA_DA_LETRA[letra], materia=materia, anulada=letra == "X",
+            texto_base=item.texto_base))
+    return questoes

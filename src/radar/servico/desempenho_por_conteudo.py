@@ -516,8 +516,15 @@ def _anotado(chave_do_no, recorte: str, plano=None, hoje: date | None = None) ->
 
     `chave_do_no` devolve None quando aquele no nao tem lugar na tela que
     pediu - e ai a anotacao fica de fora, nunca aproximada.
+
+    Sem o cronograma nao ha faixa, e sem faixa nao ha o que anotar nela: a
+    tela segue sem o anotado, em vez de cair (a copia PRF ate a Etapa 5).
     """
-    plano = plano or plano_de_estudo.carregar()
+    if plano is None:
+        try:
+            plano = plano_de_estudo.carregar()
+        except (FileNotFoundError, plano_de_estudo.ErroNoCronograma):
+            return {}
     inicio, fim = _janela(recorte, plano, hoje)
     saida: dict[object, Anotado] = {}
     materias = materias_da_arvore()

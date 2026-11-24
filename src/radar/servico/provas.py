@@ -320,6 +320,17 @@ def _ler_idecan(caminho: Path, prova: dict, gabarito: Path | None) -> list:
 
 
 def _ler_cebraspe(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    if prova.get("formato") == "certo_errado":
+        # O caderno de Certo/Errado do Cebraspe, lido direto do PDF, com o
+        # gabarito definitivo a parte (Etapa 2 da PRF). A materia vem das
+        # faixas da lista; sem faixa, a questao entra sem materia.
+        try:
+            return questoes_certo_errado.ler_caderno(
+                caminho, gabarito, ler=prova.get("ler"),
+                materias=questoes_selecon.faixas_do_config(prova.get("materias")))
+        except ValueError as erro:
+            log.warning("%s: %s", caminho.name, erro)
+            return []
     # So as questoes de lei (`ler`); a resposta do gabarito definitivo, ou da
     # justificativa quando o definitivo e de outra versao do caderno.
     return questoes_cebraspe.ler_prova(

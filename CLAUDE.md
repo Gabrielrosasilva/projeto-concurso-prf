@@ -75,8 +75,11 @@ So abra o arquivo que a tarefa pede.
   edital pelo `edital_cebraspe.py` (`radar conteudos --semear --edital`).
 - `fichas.py`, `artigos.py`, `traducao.py`, `glossario.py`: a ficha, o resumo
   e o "Traduz pra mim" de cada tema (`data/fichas.json`).
-- Leitores de prova: `questoes_cebraspe.py`, `questoes_certo_errado.py`,
-  `gabarito.py`, `destaques.py` (sublinhado e negrito do caderno).
+- Leitores de prova: `questoes_cebraspe.py`, `questoes_certo_errado.py` (o
+  caderno de Certo/Errado do Cebraspe, direto do PDF: `ler_caderno`),
+  `gabarito.py`, `destaques.py` (sublinhado e negrito do caderno). As provas
+  da `PRF/` entram pela lista `PRF/config/provas_de_outras_bancas.yml`; o que
+  o script da `PRF/` faz esta em `docs/script_prf.md`.
 - `cache.py`: conta pesada repetida numa tela.
 - A questao e reconhecida pela CHAVE (enunciado + alternativas), nunca so pela
   impressao do enunciado.

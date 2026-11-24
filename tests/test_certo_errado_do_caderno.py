@@ -1,0 +1,169 @@
+"""O caderno de Certo/Errado do Cebraspe lido direto do PDF (Etapa 2 da PRF).
+
+O caderno abaixo e INVENTADO, no formato que o pypdf devolve das provas da
+PRF de 2019 e 2021, com os defeitos de verdade: o cabecalho da pagina, o
+"BLOCO", o "Espaço livre", a palavra partida pelo texto justificado, o texto
+com rotulo, a situacao, o comando em duas linhas, o item de figura e o item
+anulado. Nada aqui le PDF, banco ou internet.
+"""
+import pytest
+
+from radar import questoes_certo_errado as ce
+
+CADERNO = """CEBRASPE – TESTE – Edital: 2020
+Nas questões a seguir, marque, para cada item, C caso julgue o item CERTO.
+BLOCO I
+Texto 1A1-I
+  O farol da ilha acende quando a tarde cai, e os ba rcos voltam
+devagar para o porto.
+  Ninguém sabe quem acendeu o farol pela primeira vez.
+Fulano. Revista de Teste, 2019.
+Com relação às ideias do texto 1A1-I precedente, julgue os itens a
+seguir.
+1 O farol acende de manhã.
+2 Os barcos voltam devagar para o porto, segundo o
+texto.
+Considerando os sentidos do texto 1A1-I, julgue o item que se segue.
+3 A palavra “farol” poderia ser substituída por lanterna.
+Espaço livre
+
+CEBRASPE – TESTE – Edital: 2020
+  Em uma operação, foram fiscalizados 20 veículos na primeira hora e
+40 na segunda.
+Considerando essa situação hipotética, julgue os itens seguintes.
+4 Foram fiscalizados 60 veículos nas duas horas.
+5 Na segunda hora foi fiscalizado o dobro da primeira.
+       Figura 1A2-I
+A partir da figura precedente, julgue o item a seguir.
+6
+BLOCO II
+No que se refere ao Siste ma Nacional de Trânsito, julgue os
+itens a seguir.
+7 O condutor norte- americano infere -se habilitado.
+8 O agente pode reter o veículo.
+"""
+
+# O gabarito como o pdfminer o devolve: a grade em pares, numero e letra.
+GABARITO = "CARGO: TESTE\nItem\nGabarito\n1\nE\n2\nC\n3\nX\n4\nE\n5\nC\n6\nC\n7\nE\n8\nC\n"
+
+# O vocabulario vem do texto do pdfminer, que nao parte palavra.
+PALAVRAS = ce.vocabulario(
+    "O farol da ilha acende quando a tarde cai, e os barcos voltam devagar. "
+    "Sistema Nacional de Trânsito. O condutor norte-americano infere-se habilitado.")
+
+
+def _itens():
+    return {item.numero: item for item in ce.itens_do_caderno(CADERNO, PALAVRAS)}
+
+
+# --- o gabarito -------------------------------------------------------------------
+
+def test_o_gabarito_sai_dos_pares_numero_e_letra():
+    assert ce.ler_gabarito_do_cebraspe(GABARITO) == {
+        1: "E", 2: "C", 3: "X", 4: "E", 5: "C", 6: "C", 7: "E", 8: "C"}
+
+
+@pytest.mark.parametrize("texto, motivo", [
+    ("1 C 2 E 2 C", "duas letras"),
+    ("1 C 3 E", "faltam itens"),
+    ("Item Gabarito", "nao tem item"),
+])
+def test_gabarito_pela_metade_nao_entra(texto, motivo):
+    with pytest.raises(ValueError, match=motivo):
+        ce.ler_gabarito_do_cebraspe(texto)
+
+
+# --- a palavra partida ------------------------------------------------------------
+
+def test_a_palavra_partida_volta_inteira_so_quando_existe():
+    assert ce.religar("o Siste ma de trânsito", PALAVRAS) == "o Sistema de trânsito"
+    assert ce.religar("o norte- americano e infere -se", PALAVRAS) == \
+        "o norte-americano e infere-se"
+    # "de" e "vida" sao palavras: a juncao "devida" nao e conserto.
+    assert ce.religar("de vida", ce.vocabulario("de vida devida")) == "de vida"
+
+
+# --- os itens ---------------------------------------------------------------------
+
+def test_cada_item_tem_o_numero_e_o_texto_dele():
+    itens = _itens()
+    assert sorted(itens) == [1, 2, 3, 4, 5, 6, 7, 8]
+    assert itens[2].afirmacao == "Os barcos voltam devagar para o porto, segundo o texto."
+    assert itens[3].afirmacao == "A palavra “farol” poderia ser substituída por lanterna."
+    assert itens[7].afirmacao == "O condutor norte-americano infere-se habilitado."
+
+
+def test_o_texto_com_rotulo_vale_para_o_grupo_que_so_o_cita():
+    itens = _itens()
+    assert itens[1].comando == ("Com relação às ideias do texto 1A1-I precedente, "
+                                "julgue os itens a seguir.")
+    assert itens[1].texto_base.startswith("O farol da ilha acende quando a tarde cai, e os barcos")
+    assert itens[1].texto_base.endswith("Fulano. Revista de Teste, 2019.")
+    # A instrucao do caderno ("caso julgue o item CERTO") nao e o comando.
+    assert itens[3].comando == "Considerando os sentidos do texto 1A1-I, julgue o item que se segue."
+    assert itens[3].texto_base == itens[1].texto_base
+
+
+def test_a_situacao_e_o_comando_que_vem_depois_do_item():
+    itens = _itens()
+    assert itens[4].texto_base == ("Em uma operação, foram fiscalizados 20 veículos na "
+                                   "primeira hora e 40 na segunda.")
+    assert itens[5].comando == "Considerando essa situação hipotética, julgue os itens seguintes."
+    # O comando em duas linhas, logo depois do item de figura, com a palavra
+    # consertada; o "BLOCO II" e a legenda da figura nao entram em nada.
+    assert itens[7].comando == ("No que se refere ao Sistema Nacional de Trânsito, "
+                                "julgue os itens a seguir.")
+    assert itens[7].texto_base is None
+    assert itens[6].afirmacao == "" and itens[6].texto_base is None
+
+
+def test_o_comando_em_ingles_tambem_vale():
+    caderno = ("  A deep freeze hit Texas this week.\n"
+               "About ideas stated in the text above, judge the following items.\n"
+               "1 Texas was cold.\n2 Texas was hot.\n")
+    itens = ce.itens_do_caderno(caderno, set())
+    assert itens[1].comando.endswith("judge the following items.")
+    assert itens[1].texto_base == "A deep freeze hit Texas this week."
+
+
+# --- as questoes ------------------------------------------------------------------
+
+def _questoes(**opcoes):
+    return {q.numero: q for q in ce.ler_caderno(None, None, texto=CADERNO,
+                                                 texto_do_gabarito=GABARITO,
+                                                 palavras=PALAVRAS, **opcoes)}
+
+
+def test_o_item_vira_questao_de_certo_ou_errado_com_o_gabarito_definitivo():
+    questoes = _questoes()
+    assert 6 not in questoes                     # o item de figura fica de fora
+    assert questoes[1].alternativas == {"c": "Certo", "e": "Errado"}
+    assert (questoes[1].resposta, questoes[2].resposta) == ("e", "c")
+    assert questoes[3].anulada and questoes[3].resposta is None
+    assert questoes[1].enunciado == ("Com relação às ideias do texto 1A1-I precedente, julgue "
+                                     "os itens a seguir.\n\nO farol acende de manhã.")
+    assert questoes[1].materia is None           # sem faixa, sem materia
+
+
+def test_a_materia_vem_da_faixa_e_o_item_fora_de_faixa_fica_de_fora():
+    questoes = _questoes(materias=[(1, 3, "Língua Portuguesa"), (7, 8, "Legislação de Trânsito")])
+    assert sorted(questoes) == [1, 2, 3, 7, 8]
+    assert questoes[2].materia == "Língua Portuguesa"
+    assert questoes[8].materia == "Legislação de Trânsito"
+
+
+def test_caderno_e_gabarito_que_nao_batem_sao_recusados():
+    with pytest.raises(ValueError, match="o caderno tem os itens"):
+        ce.ler_caderno(None, None, texto=CADERNO, texto_do_gabarito=GABARITO + "9\nC\n",
+                       palavras=PALAVRAS)
+
+
+def test_a_lista_de_outras_bancas_manda_o_certo_errado_para_este_leitor(monkeypatch, tmp_path):
+    from radar.servico import provas
+
+    chamadas = []
+    monkeypatch.setattr(ce, "ler_caderno",
+                        lambda caminho, gabarito, **opcoes: chamadas.append(opcoes) or ["ok"])
+    prova = {"formato": "certo_errado", "materias": {"1-3": "Língua Portuguesa"}}
+    assert provas._ler_cebraspe(tmp_path / "c.pdf", prova, tmp_path / "g.pdf") == ["ok"]
+    assert chamadas == [{"ler": None, "materias": [(1, 3, "Língua Portuguesa")]}]

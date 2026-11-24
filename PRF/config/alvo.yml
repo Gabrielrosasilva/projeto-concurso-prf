@@ -1,0 +1,21 @@
+# O alvo da copia PRF (Etapa 2, 24/11/2026, decisao PRF-11). Lido por
+# src/radar/alvo.py. So o que vem dos editais lidos (docs/edital.md): o cargo,
+# a banca e a abrangencia. E o que a regra da evidencia usa - a prova do alvo
+# (o cargo) e o complementar (outra prova da banca) - e o que a tela escreve
+# no lugar do "Policia Penal SC / FEPESE" da copia.
+#
+# O radar de concursos de SC da PMSC (secundarios, prova_de_sc, de_olho) nao
+# veio para ca: a PRF e concurso nacional (edital de 2021, item 1.2).
+principal:
+  nome: PRF - Policial Rodoviário Federal
+  # Sem `uf`: o concurso e nacional, e o estado nao filtra prova nenhuma.
+  termos:
+    - policial rodoviario federal
+  # A banca dos editais de 2018 e 2021. O de 2027 ainda nao saiu: quando
+  # sair, confira aqui.
+  bancas:
+    - Cebraspe
+  banca_na_tela: Cebraspe
+  nome_na_tela: PRF
+  provas_na_tela: 2019 e 2021
+  banca_no_motivo: a dos editais de 2018 e 2021
