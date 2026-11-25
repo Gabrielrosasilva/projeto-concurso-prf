@@ -42,11 +42,10 @@ da PRF 2021. As provas de professor misturam itens de língua (servem) com
 itens de didática (não servem). O Itamaraty (IRBr) tem espanhol só na
 discursiva.
 
-## Falta (próximo passo, com o aval do Gabriel)
+## Feito (25/11/2026, PRF-26)
 
-1. Os 6 de Certo/Errado entram em `PRF/config/provas_de_outras_bancas.yml`
-   (baixadas a mão, os PDFs já estão aqui) com as faixas só dos itens do
-   programa da PRF: língua espanhola sem didática; em Física, a mecânica do
-   edital; em Geografia, o Brasil do item de Geopolítica. Como na PRF-16.
-2. `radar questoes --banca CEBRASPE` e a classificação nos nós (duas leituras
-   às cegas, PRF-19).
+As 6 de Certo/Errado entraram em `PRF/config/provas_de_outras_bancas.yml`
+(seção do fim), com as faixas só dos itens do programa da PRF, e foram
+classificadas com duas leituras às cegas, como na PRF-19: 97 de 380 itens
+(Física 27, Geopolítica 23, Espanhol 47). O que ficou fora de cada caderno
+está no `# fora:` da entrada. As de múltipla escolha continuam de fora.

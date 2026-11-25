@@ -200,6 +200,97 @@ def test_o_comando_em_ingles_tambem_vale():
     assert itens[1].texto_base == "A deep freeze hit Texas this week."
 
 
+# --- o caderno em que o pypdf perde o recuo (FUB e SEE/DF de 2016) ---------------
+
+# INVENTADO, na forma da FUB: o pypdf nao poe os dois espacos do paragrafo, e
+# o cabecalho da pagina abre com o codigo de barras do caderno.
+CADERNO_SEM_RECUO = """||999XYZ_001_01N123456|| CESPE | CEBRASPE – XYZ – Aplicação: 2016
+Um carro parte do repouso e atinge 20 m/s em 10 s.
+Considerando essa situação hipotética, julgue os itens a seguir.
+51 A aceleração média do carro foi de
+2 m/s2.
+52 O carro percorreu 100 m. Nesse caso, a velocidade média foi
+de 10 m/s.
+Uma bola de 1 kg cai de uma altura de 5 m.
+A respeito dessa situação, julgue os itens seguintes.
+53 A bola chega ao chão com 50 J de energia
+cinética.
+||999XYZ_001_01N123456|| CESPE | CEBRASPE – XYZ – Aplicação: 2016
+54 O peso da bola é de 10 N.
+"""
+
+# O mesmo trecho como o pdfminer o devolve: blocos separados por linha vazia,
+# a primeira linha do item num bloco so dela e a continuacao no seguinte.
+PDFMINER_SEM_RECUO = """||999XYZ_001_01N123456||
+
+CESPE | CEBRASPE – XYZ – Aplicação: 2016
+
+Um  carro  parte  do  repouso  e  atinge  20  m/s  em  10  s.
+
+Considerando essa situação hipotética, julgue os itens a seguir.
+
+51 A aceleração média do carro foi de
+
+2 m/s2.
+
+52 O carro percorreu 100 m. Nesse caso, a velocidade média foi
+
+de 10 m/s.
+
+Uma  bola  de  1  kg  cai  de  uma  altura  de  5  m.
+
+A respeito dessa situação, julgue os itens seguintes.
+
+53 A bola chega ao chão com 50 J de energia
+
+cinética.
+
+1
+
+¿Qué hora es?
+
+54 O peso da bola é de 10 N.
+"""
+
+
+def _itens_sem_recuo(paragrafos):
+    itens = ce.itens_do_caderno(CADERNO_SEM_RECUO, set(), primeiro=51, paragrafos=paragrafos)
+    return {item.numero: item for item in itens}
+
+
+def test_sem_o_recuo_a_situacao_seguinte_grudava_no_item():
+    # O defeito, para lembrar: sem os paragrafos do pdfminer.
+    itens = _itens_sem_recuo(None)
+    assert itens[52].afirmacao.endswith("Uma bola de 1 kg cai de uma altura de 5 m.")
+    assert itens[53].texto_base is None
+
+
+def test_o_paragrafo_do_pdfminer_separa_a_situacao_do_item():
+    itens = _itens_sem_recuo(ce.inicios_de_paragrafo(PDFMINER_SEM_RECUO))
+    assert itens[51].texto_base == "Um carro parte do repouso e atinge 20 m/s em 10 s."
+    # O item de duas frases fica inteiro: a segunda nao vira paragrafo.
+    assert itens[52].afirmacao == "O carro percorreu 100 m. Nesse caso, a velocidade média foi de 10 m/s."
+    assert itens[53].texto_base == "Uma bola de 1 kg cai de uma altura de 5 m."
+    assert itens[53].comando == "A respeito dessa situação, julgue os itens seguintes."
+
+
+def test_o_cabecalho_com_o_codigo_de_barras_nao_gruda_no_item():
+    itens = _itens_sem_recuo(None)
+    assert itens[53].afirmacao == "A bola chega ao chão com 50 J de energia cinética."
+    assert ce.MOBILIA_DO_CADERNO.match("714005_01N167818 CEBRASPE – SEE/PE – Edital: 2022")
+
+
+def test_inicios_de_paragrafo_pula_a_continuacao_do_item_e_o_numero_da_margem():
+    inicios = ce.inicios_de_paragrafo(PDFMINER_SEM_RECUO)
+    # A continuacao do item 52 comeca com minuscula; a do 51 vem logo depois
+    # da primeira linha: nenhuma das duas abre paragrafo.
+    assert ce._chave_da_linha("de 10 m/s.") not in inicios
+    assert ce._chave_da_linha("2 m/s2.") not in inicios
+    # O "1" sozinho e numeracao da margem: a linha depois dele abre paragrafo,
+    # e a chave casa com a linha do pypdf, que traz o numero colado no fim.
+    assert ce._chave_da_linha("¿Qué hora es? 1") in inicios
+
+
 # --- as questoes ------------------------------------------------------------------
 
 def _questoes(**opcoes):

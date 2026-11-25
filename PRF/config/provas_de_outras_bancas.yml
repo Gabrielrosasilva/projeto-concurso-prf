@@ -2437,3 +2437,132 @@ provas:
     75-81: Direito Penal
     89-91: Legislação Especial
     101-106: Legislação Especial
+# --- Espanhol, Fisica e Geopolitica de outros concursos do Cebraspe ----------
+# As materias com pouca questao no banco (docs/levantamento_cebraspe.md, PRF-25
+# e PRF-26). Os links e as descricoes vieram de
+# apis.cebraspe.org.br/cebraspe/eventos/{slug} em 25/11/2026, e os PDFs foram
+# baixados com o User-Agent do radar (estao em PRF/levantamento_cebraspe/pdf e
+# em data/provas/manual/). As faixas foram dadas por agentes do Claude Code
+# (claude-opus-5-5, 25/11/2026), lendo item a item contra o programa da PRF:
+# Espanhol sem a didatica (e sem pronuncia, silabacao e acento so ortografico);
+# Fisica so com a mecanica do edital (e sem o item que so se responde pela
+# figura); Geografia so com o Brasil dos 10 topicos da Geopolitica. `ano` e o
+# da aplicacao (a SEE/DF do concurso de 2016 aplicou em 2017).
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2016
+  orgao: Fundação Universidade de Brasília (FUB)
+  uf: DF
+  cargo: Técnico de Laboratório - Física
+  pagina: https://www.cebraspe.org.br/concursos/FUB_16_1
+  caderno: https://cdn.cebraspe.org.br/concursos/FUB_16_1/arquivos/281FUB_012_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/FUB_16_1/arquivos/Gab_Definitivo_281FUB_012_01.pdf
+  arquivo: cebraspe_fub_2016_tecnico_de_laboratorio_fisica_prova.pdf
+  arquivo_do_gabarito: cebraspe_fub_2016_tecnico_de_laboratorio_fisica_gabarito_definitivo.pdf
+  # fora: 71 e 73 torque (equilibrio de rotacao); 74-77 hidrostatica; 78
+  # periodo da mola (MHS); 81-84 ondas; 85-100 termometria, dilatacao,
+  # calorimetria, diagrama de fase e Carnot; 101-116 eletricidade; 117-120
+  # instrumentos de medida
+  materias:
+    51-70: Física
+    72: Física
+    79-80: Física
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2022
+  orgao: Secretaria de Educação e Esportes de Pernambuco (SEE/PE)
+  uf: PE
+  cargo: Professor - Física
+  pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
+  caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_005_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_005_01.PDF
+  arquivo: cebraspe_see_pe_2022_professor_fisica_prova.pdf
+  arquivo_do_gabarito: cebraspe_see_pe_2022_professor_fisica_gabarito_definitivo.pdf
+  # fora: 51 Eratostenes; 52 Kepler; 53-55, 57-58 mecanica que depende da
+  # figura (53-54 com a formula ilegivel no PDF); 62-90 hidrostatica,
+  # termodinamica, eletricidade, magnetismo, oscilacao, ondas e optica; 91-120
+  # didatica, curriculo e educacao inclusiva
+  materias:
+    56: Física
+    59-61: Física
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Secretaria de Estado de Educação do Distrito Federal (SEE/DF)
+  uf: DF
+  cargo: Professor de Educação Básica - Geografia
+  pagina: https://www.cebraspe.org.br/concursos/SEE_16_DF
+  caderno: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/290_SEEDF_014_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/Gab_Definitivo_290_SEEDF_014_01.pdf
+  arquivo: cebraspe_see_df_2016_professor_geografia_prova.pdf
+  arquivo_do_gabarito: cebraspe_see_df_2016_professor_geografia_gabarito_definitivo.pdf
+  # fora: 71-76 pensamento geografico; 77 misto (desertificacao no Nordeste e
+  # na Europa); 79-82, 85-88 natureza, regionalizacao e geoecologia sem o
+  # Brasil; 90-110 sociedade da informacao, cartografia, ensino, geopolitica
+  # mundial e EJA; 115-120 ensino em ciclos e pensadores
+  materias:
+    78: Geopolítica
+    83-84: Geopolítica
+    89: Geopolítica
+    111-114: Geopolítica
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2022
+  orgao: Secretaria de Educação e Esportes de Pernambuco (SEE/PE)
+  uf: PE
+  cargo: Professor - Geografia
+  pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
+  caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_006_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_006_01.PDF
+  arquivo: cebraspe_see_pe_2022_professor_geografia_prova.pdf
+  arquivo_do_gabarito: cebraspe_see_pe_2022_professor_geografia_gabarito_definitivo.pdf
+  # fora: 51-70 conceitos, ensino, TICs, avaliacao e curriculo; 71-76, 78, 80-82,
+  # 84, 86, 88, 90-91 geopolitica e economia mundiais sem o Brasil (Ucrania,
+  # Bretton Woods, Japao, conjuntura de 2022); 92-93 impacto ambiental sem o
+  # Brasil; 99-101 ecossistemas genericos; 106-120 educacao
+  materias:
+    77: Geopolítica
+    79: Geopolítica
+    83: Geopolítica
+    85: Geopolítica
+    87: Geopolítica
+    89: Geopolítica
+    94-98: Geopolítica
+    102-105: Geopolítica
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Secretaria de Estado de Educação do Distrito Federal (SEE/DF)
+  uf: DF
+  cargo: Professor de Educação Básica - Espanhol
+  pagina: https://www.cebraspe.org.br/concursos/SEE_16_DF
+  caderno: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/290_SEEDF_017_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/Gab_Definitivo_290_SEEDF_017_01.pdf
+  arquivo: cebraspe_see_df_2016_professor_espanhol_prova.pdf
+  arquivo_do_gabarito: cebraspe_see_df_2016_professor_espanhol_gabarito_definitivo.pdf
+  # fora: 72 pronuncia; 73 o "e" por eufonia; 74 divisao silabica; 91-120
+  # didatica, metodologia e diretrizes curriculares
+  materias:
+    71: Língua Estrangeira (Inglês ou Espanhol)
+    75-90: Língua Estrangeira (Inglês ou Espanhol)
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2022
+  orgao: Secretaria de Educação e Esportes de Pernambuco (SEE/PE)
+  uf: PE
+  cargo: Professor - Língua Espanhola
+  pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
+  caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_008_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_008_01.PDF
+  arquivo: cebraspe_see_pe_2022_professor_espanhol_prova.pdf
+  arquivo_do_gabarito: cebraspe_see_pe_2022_professor_espanhol_gabarito_definitivo.pdf
+  # fora: 54-59, 69, 72-73, 84 silabacao, acentuacao grafica e diérese; 88 o
+  # "u" por eufonia; 92-120 metodologia, curriculo, educacao inclusiva e
+  # didatica. O 91 (anulado) entra: e do programa.
+  materias:
+    51-53: Língua Estrangeira (Inglês ou Espanhol)
+    60-68: Língua Estrangeira (Inglês ou Espanhol)
+    70-71: Língua Estrangeira (Inglês ou Espanhol)
+    74-83: Língua Estrangeira (Inglês ou Espanhol)
+    85-87: Língua Estrangeira (Inglês ou Espanhol)
+    89-91: Língua Estrangeira (Inglês ou Espanhol)

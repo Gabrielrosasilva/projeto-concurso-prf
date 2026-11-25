@@ -60,6 +60,21 @@
     "trecho": null
   },
   {
+    "chave": "00228d584dcb06abb5ca6470b392f681",
+    "classificada_em": "2026-11-25T15:58:18.585309+00:00",
+    "conferida_em": "2026-11-25T15:58:51.433230+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Leitura do texto: Eugenio era barbeiro ('Un barbero intelectual') e ensinava na peluquería.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "O texto cita 'una escuela rural' e diz que Eugenio ensinava a ler e escrever, mas o fazia na barbearia (peluquería), não como mestre da escola.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "De la lectura del último periodo del texto queda claro que Eugenio era un maestro en una escuela rural."
+  },
+  {
     "chave": "002f87c6a83e12ad0028a2c9c707bbbd",
     "classificada_em": "2026-11-25T13:36:12.963748+00:00",
     "conferida_em": null,
@@ -300,6 +315,21 @@
     "trecho": "Infração de trânsito concomitante é aquela em que o cometimento de uma infração tem como pressuposto o cometimento de outra"
   },
   {
+    "chave": "00bf7ae5079a95f37fe3b41b767fc4bb",
+    "classificada_em": "2026-11-25T15:58:54.172030+00:00",
+    "conferida_em": "2026-11-25T15:58:54.162164+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "Vertentes do ambientalismo: preservacionismo (proteção integral) e conservacionismo (uso sustentável)",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Movimento ambientalista: preservacionismo e conservacionismo > Preservacionismo x conservacionismo; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Correntes do ambientalismo: preservacionismo e conservacionismo > Preservacionismo x conservacionismo"
+  },
+  {
     "chave": "00c2ba1a49baf4cf282c150b31618998",
     "classificada_em": "2026-11-25T13:37:28.661795+00:00",
     "conferida_em": null,
@@ -450,6 +480,21 @@
     "trecho": null
   },
   {
+    "chave": "016b5c3e6cb8fbf38e800bab56f4b4d7",
+    "classificada_em": "2026-11-25T15:58:54.462523+00:00",
+    "conferida_em": "2026-11-25T15:58:54.448664+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "dispositivo": "Mata Atlântica: bioma heterogêneo (florestas ombrófilas, estacionais, mista, restingas, manguezais)",
+    "item_do_edital": "Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "pegadinha": "A extensão litorânea (do Rio Grande do Norte ao Rio Grande do Sul) está correta; o erro é chamar de homogênea uma cobertura que é um complexo de formações heterogêneas.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica dos biomas brasileiros; segunda, às cegas, Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica da vegetação nativa"
+  },
+  {
     "chave": "01733bc13aecf8ce3ff67db85f1ef7ec",
     "classificada_em": "2026-11-25T13:37:21.050989+00:00",
     "conferida_em": null,
@@ -490,7 +535,7 @@
     "pegadinha": "Velocidade alta (720 km/h = 200 m/s) e distância curta (50 m) fazem parecer que o tiro vai reto; mas em 0,25 s o projétil cai cerca de 0,31 m, mais que o raio do alvo (0,10 m).",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "cálculo",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Lançamento horizontal; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial"
   },
@@ -2070,6 +2115,21 @@
     "trecho": null
   },
   {
+    "chave": "0627882ed4389f332e84dc195335f469",
+    "classificada_em": "2026-11-25T15:58:50.025972+00:00",
+    "conferida_em": "2026-11-25T15:58:50.014490+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Movimento circular",
+    "dispositivo": "Transmissão por corrente: v = ω·R igual nas duas → ωcatraca/ωcoroa = Rcoroa/Rcatraca = 3",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "Achar que peças ligadas pela corrente têm a mesma velocidade angular; o que é igual é a velocidade linear, e ω é inversamente proporcional ao raio.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Movimento circular > Transmissão de movimento circular (coroa e catraca); segunda, às cegas, Física > Movimento circular > Transmissão de movimento circular (coroa, catraca e roda) > Polias ligadas por corrente (mesma velocidade linear)"
+  },
+  {
     "chave": "0628be6be1213a826f673ebbff9539af",
     "classificada_em": "2026-11-25T14:32:12.288345+00:00",
     "conferida_em": "2026-11-25T14:32:12.301526+00:00",
@@ -2533,6 +2593,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "074b9af7a3fda19b20e174e58859d1fb",
+    "classificada_em": "2026-11-25T15:58:53.542160+00:00",
+    "conferida_em": "2026-11-25T15:58:53.529784+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Integração entre indústria e estrutura urbana e setor agrícola no Brasil",
+    "dispositivo": "Modernização da agropecuária e formação dos complexos agroindustriais (integração agricultura-indústria)",
+    "item_do_edital": "Integração entre indústria e estrutura urbana e setor agrícola no Brasil",
+    "pegadinha": "Apresenta o agro como mero exportador de produtos brutos, ignorando os complexos agroindustriais que agregam valor pela transformação industrial.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Integração entre indústria e estrutura urbana e setor agrícola no Brasil > Modernização da agropecuária e agroindústria; segunda, às cegas, Geopolítica > Integração entre indústria e estrutura urbana e setor agrícola no Brasil > Modernização agrícola e complexos agroindustriais"
   },
   {
     "chave": "0753b27e58b9c12b7517e9081f888f89",
@@ -3915,6 +3990,21 @@
     "trecho": null
   },
   {
+    "chave": "0a1f2b31ad1abc8ef34f3f642249cdcc",
+    "classificada_em": "2026-11-25T15:58:50.367880+00:00",
+    "conferida_em": "2026-11-25T15:58:50.357309+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações",
+    "dispositivo": "1ª lei de Newton: velocidade constante → resultante nula → força da escada = peso",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "Confundir força com potência (P = F·v): com velocidade constante a resultante é nula e a força da escada equilibra o peso, sem depender da velocidade.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Primeira lei de Newton e equilíbrio de forças; segunda, às cegas, Física > Leis de Newton e suas aplicações > Primeira lei de Newton (inércia e equilíbrio) > Princípio da inércia (MRU com resultante nula)"
+  },
+  {
     "chave": "0a3277d4c01e247ed0b674230db27fee",
     "classificada_em": "2026-11-25T03:05:46.030797+00:00",
     "conferida_em": "2026-11-25T03:06:58.138703+00:00",
@@ -5083,6 +5173,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "0d58781521e2cb1a95b8268717705de0",
+    "classificada_em": "2026-11-25T15:58:51.545514+00:00",
+    "conferida_em": "2026-11-25T15:58:51.533371+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Mí' com tilde é pronome pessoal de 1ª pessoa usado após preposição (hacia mí); 'mi' sem tilde é possessivo.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "Confusão entre 'mí' (pronome pessoal tônico, com tilde) e 'mi' (possessivo, sem tilde).",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Acento diacrítico (tilde diacrítica); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Tilde diacrítica mí (pronome) x mi (possessivo)"
   },
   {
     "chave": "0d5fbc4123805409ccd440b1ad27ae89",
@@ -6283,6 +6388,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "1090cf24644df489e81f2897184704c1",
+    "classificada_em": "2026-11-25T15:58:52.302967+00:00",
+    "conferida_em": "2026-11-25T15:58:52.291986+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Sé' (saber) se distingue de 'se' pronome; 'cómo' com tilde é interrogativo, distinto de 'como' relativo/conjunção/forma de comer.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A primeira parte é correta (as duas palavras levam tilde diacrítica); o erro está em chamar 'cómo' de pronome relativo.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Acento diacrítico (tilde diacrítica); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Tilde diacrítica (sé, cómo)"
   },
   {
     "chave": "10a0e5c1eca7d45501dda56987be9717",
@@ -9118,6 +9238,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "16f2b37c523071254da94b8a64090d51",
+    "classificada_em": "2026-11-25T15:58:50.438394+00:00",
+    "conferida_em": "2026-11-25T15:58:50.428900+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Conservação de energia e suas transformações",
+    "dispositivo": "Velocidade constante → Ec constante; o aumento da Ep vem do trabalho do motor",
+    "item_do_edital": "Conservação de energia e suas transformações",
+    "pegadinha": "O modelo da bola lançada para cima (Ec vira Ep); aqui a velocidade é constante, a Ec não muda e a Ep vem do trabalho do motor.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Conservação de energia e suas transformações > Transformações de energia; segunda, às cegas, Física > Conservação de energia e suas transformações > Transformações de energia mecânica > Transformação de energia (trabalho externo em energia potencial)"
   },
   {
     "chave": "16f782addfadf0ebf135c89a810cff5d",
@@ -13995,6 +14130,21 @@
     "trecho": null
   },
   {
+    "chave": "229c93049c193ce04c512a02c7700457",
+    "classificada_em": "2026-11-25T15:58:20.065272+00:00",
+    "conferida_em": "2026-11-25T15:58:52.573131+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Leitura do texto: o júri elogiou ('ponderaron en el fallo') a capacidade da autora.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "'Fallo' (= veredicto, decisão do júri) lembra 'falha' do português e sugere que o júri apontou um erro.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "El jurado del premio detectó un error en el planteamiento de la escritora."
+  },
+  {
     "chave": "22c05bf2bda5560e903db9add3e719de",
     "classificada_em": "2026-11-25T14:32:24.718639+00:00",
     "conferida_em": "2026-11-25T14:32:24.735916+00:00",
@@ -14293,6 +14443,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "238451e9974115c6f7b395e8f97d2ccb",
+    "classificada_em": "2026-11-25T15:58:51.267015+00:00",
+    "conferida_em": "2026-11-25T15:58:51.256254+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Sin embargo' e 'no obstante' são locuções adversativas equivalentes (= porém, no entanto).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Conectivo adversativo (sin embargo); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Conectivo adversativo 'sin embargo'"
   },
   {
     "chave": "238f097df1111285dbcd8edf63699583",
@@ -16230,6 +16395,21 @@
     "trecho": null
   },
   {
+    "chave": "28a34de1a6298b296458d0a553aba7f4",
+    "classificada_em": "2026-11-25T15:58:51.392215+00:00",
+    "conferida_em": "2026-11-25T15:58:51.368153+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "O gerúndio toma como sujeito o mesmo do verbo principal ('me dijo' = Victorina); o pronome 'se' é reflexivo dela.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Sujeito do gerúndio; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos"
+  },
+  {
     "chave": "28af81655ca32fa513b341b13a88939b",
     "classificada_em": "2026-11-25T03:05:59.168266+00:00",
     "conferida_em": "2026-11-25T03:07:03.055068+00:00",
@@ -16768,6 +16948,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
+  },
+  {
+    "chave": "2a1c19407d1c6b48a6928b88b2896af4",
+    "classificada_em": "2026-11-25T15:58:18.099334+00:00",
+    "conferida_em": "2026-11-25T15:58:51.047153+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Sentido de vocábulo no contexto: 'canon cultural y social establecido' = norma/padrão fixado pela sociedade.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "El sentido de “canon” (R.12) es de regla o precepto fijado por el uso social."
   },
   {
     "chave": "2a30e2497e95528f67a0d9ba56c8c81a",
@@ -19215,6 +19410,21 @@
     "trecho": null
   },
   {
+    "chave": "2fa7335c63712249b7448893e91dc98f",
+    "classificada_em": "2026-11-25T15:58:52.247203+00:00",
+    "conferida_em": "2026-11-25T15:58:52.235675+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Aunque' introduz oração subordinada adverbial concessiva.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Conectivo concessivo (aunque); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Oração subordinada concessiva (aunque)"
+  },
+  {
     "chave": "2fac5ed6e1a94d7cef77a6dadc76d098",
     "classificada_em": "2026-11-25T13:36:34.822549+00:00",
     "conferida_em": null,
@@ -19485,6 +19695,21 @@
     "trecho": null
   },
   {
+    "chave": "3042b086910dd580ba5004f3df807634",
+    "classificada_em": "2026-11-25T15:58:49.639401+00:00",
+    "conferida_em": "2026-11-25T15:58:49.628862+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Trabalho",
+    "dispositivo": "Teorema trabalho-energia: τ resultante = ΔEc",
+    "item_do_edital": "Trabalho",
+    "pegadinha": "Atingir a velocidade na metade do tempo dobra a força média, o que sugere dobrar o trabalho; mas o deslocamento cai à metade e o trabalho (= ΔEc) é o mesmo.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Trabalho > Teorema trabalho-energia (trabalho da força resultante); segunda, às cegas, Física > Trabalho > Teorema da energia cinética (trabalho da força resultante) > Teorema trabalho-energia cinética (τ = ΔEc)"
+  },
+  {
     "chave": "3053950d5037e09c3894f4f1f6c67fd6",
     "classificada_em": "2026-11-25T13:37:01.230423+00:00",
     "conferida_em": null,
@@ -19603,6 +19828,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "309bd4c8ea807992dadb87eb5759ef71",
+    "classificada_em": "2026-11-25T15:58:53.659406+00:00",
+    "conferida_em": "2026-11-25T15:58:53.645583+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Centro e periferia no capitalismo mundial; desenvolvimento desigual e inserção periférica do Brasil",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Brasil na divisão internacional do trabalho; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Brasil na divisão internacional do trabalho (centro e periferia)"
   },
   {
     "chave": "309dc9b22a668d30bdc8d08c3b3b3b0a",
@@ -20650,7 +20890,7 @@
     "pegadinha": null,
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), lido item a item, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": null
   },
@@ -23100,6 +23340,21 @@
     "trecho": null
   },
   {
+    "chave": "399c6f89978c512f60ad192bb64a1b05",
+    "classificada_em": "2026-11-25T15:58:51.486134+00:00",
+    "conferida_em": "2026-11-25T15:58:51.468510+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Vino' é 3ª pessoa do singular do pretérito indefinido (perfecto simple) de venir, verbo irregular.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Vino' coincide com o substantivo 'vino' (vinho) e pode parecer forma de presente.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito indefinido de verbos irregulares; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito indefinido de verbos irregulares (venir: vino)"
+  },
+  {
     "chave": "39a57c7b6a717f61b1ab9b1a5e5bdc92",
     "classificada_em": "2026-10-24T20:28:05.514854+00:00",
     "conferida_em": null,
@@ -24118,6 +24373,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "3c0c217a524ea285b2c5703fb85788b0",
+    "classificada_em": "2026-11-25T15:58:51.909277+00:00",
+    "conferida_em": "2026-11-25T15:58:51.898144+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Heterossemântico: 'risco' em espanhol = penhasco; 'risco' (perigo) em espanhol é 'riesgo'.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Riscos' parece 'riscos' (perigos) do português, mas em espanhol significa penhascos/rochedos.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos cognatos); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos amigos): risco"
   },
   {
     "chave": "3c2c313bc6568c4cc513df458aa2a3b2",
@@ -27105,6 +27375,21 @@
     "trecho": null
   },
   {
+    "chave": "44612a67588ec5befc2d6d2cd1c2cc57",
+    "classificada_em": "2026-11-25T15:58:50.256451+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Física",
+    "dispositivo": "vmáx = √(μ·g·R): proporcional a √R",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "conceito",
+    "trecho": "pendente até a sua conferência (decisão 171): primeira Física > Movimento circular > Força centrípeta (curva plana com atrito); segunda, às cegas, Física > Leis de Newton e suas aplicações > Força centrípeta em curva plana > Velocidade máxima em curva plana (v = √(μ·g·R))"
+  },
+  {
     "chave": "4461a05c73cca004a4772de0e4271448",
     "classificada_em": "2026-11-03T12:33:20.375810+00:00",
     "conferida_em": "2026-11-03T12:33:19.899813+00:00",
@@ -27568,6 +27853,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "45d2642ff67c36de90fcbb7ae36970ed",
+    "classificada_em": "2026-11-25T15:58:51.967221+00:00",
+    "conferida_em": "2026-11-25T15:58:51.955716+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Vocabulário: 'pupitre' = carteira escolar; 'zurdo' = canhoto.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos cognatos); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos amigos): pupitre"
   },
   {
     "chave": "45d838f215c53ed69b3451b0a81f9ff2",
@@ -28620,6 +28920,21 @@
     "trecho": null
   },
   {
+    "chave": "4932f8d2b4b17f87ada5832eb9cc297f",
+    "classificada_em": "2026-11-25T15:58:49.549112+00:00",
+    "conferida_em": "2026-11-25T15:58:49.537149+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações > Segunda lei de Newton",
+    "dispositivo": "2ª lei de Newton: F = m·a (a = Δv/Δt = 10/10 = 1 m/s²; F = 900 N)",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "A conta dá 900 N (a = 1 m/s²), perto de 1.000 N; quem não converte 36 km/h para 10 m/s ou arredonda erra o lado.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Segunda lei de Newton; segunda, às cegas, Física > Leis de Newton e suas aplicações > Segunda lei de Newton > Princípio fundamental da dinâmica (F = m·a)"
+  },
+  {
     "chave": "4934c657a100f8abf63c22ee0c427bbc",
     "classificada_em": "2026-11-25T13:36:46.821234+00:00",
     "conferida_em": null,
@@ -29640,6 +29955,21 @@
     "trecho": null
   },
   {
+    "chave": "4b1a07b30799533b8a0886f4f8e1b0af",
+    "classificada_em": "2026-11-25T15:58:53.426607+00:00",
+    "conferida_em": "2026-11-25T15:58:53.416018+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil",
+    "dispositivo": "Regionalizações do Brasil: macrorregiões do IBGE, complexos geoeconômicos (Geiger) e os quatro Brasis (Milton Santos)",
+    "item_do_edital": "A divisão inter-regional do trabalho e da produção no Brasil",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Regionalizações do Brasil > Macrorregiões do IBGE, complexos regionais e quatro Brasis; segunda, às cegas, Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Regionalização do Brasil (divisões regionais)"
+  },
+  {
     "chave": "4b23e0116702213fe163ec818e24595c",
     "classificada_em": "2026-11-03T01:43:41.128194+00:00",
     "conferida_em": null,
@@ -29893,6 +30223,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "4b96c0c60eb9bdb23bec157b231788c5",
+    "classificada_em": "2026-11-25T15:58:50.848295+00:00",
+    "conferida_em": "2026-11-25T15:58:50.838946+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Cinemática escalar, cinemática vetorial > Queda livre",
+    "dispositivo": "Queda livre: MUV com a = g; s(t) = s0 + v0·t + g·t²/2",
+    "item_do_edital": "Cinemática escalar, cinemática vetorial",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Queda livre; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial > Queda livre > Queda livre como MUV (h = g·t²/2)"
   },
   {
     "chave": "4bbe03698de29dbd230b322eee6c65c2",
@@ -31050,6 +31395,21 @@
     "trecho": null
   },
   {
+    "chave": "4e550d066be41f35c049d179bbead1c7",
+    "classificada_em": "2026-11-25T15:58:52.912961+00:00",
+    "conferida_em": "2026-11-25T15:58:52.902317+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Uno' impessoal designa qualquer pessoa e costuma incluir o próprio falante.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A primeira parte (uno é pronome indefinido) é correta; o erro é dizer que não costuma designar o falante.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pronome indefinido uno (valor impessoal); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pronome indefinido 'uno' com valor genérico"
+  },
+  {
     "chave": "4e58cfb7d037c97231e1722b636d4fed",
     "classificada_em": "2026-11-25T03:05:31.073609+00:00",
     "conferida_em": "2026-11-25T03:06:51.073715+00:00",
@@ -31198,6 +31558,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "4eb56c2f2cba76681f073625f4252251",
+    "classificada_em": "2026-11-25T15:58:53.842361+00:00",
+    "conferida_em": "2026-11-25T15:58:53.832504+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Industrialização por substituição de importações ligada à conjuntura internacional da Segunda Guerra",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "Afirma que o crescimento varguista esteve desvinculado da Segunda Guerra, quando a conjuntura da guerra (substituição de importações, acordos como o de Volta Redonda) foi decisiva.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Economia brasileira no pós-Segunda Guerra; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Brasil na economia internacional do pós-Segunda Guerra"
   },
   {
     "chave": "4ebea3db2c196041731445165173dd82",
@@ -31438,6 +31813,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "4f7b50b2ac044cbf56a7506b2e3068bd",
+    "classificada_em": "2026-11-25T15:58:49.699531+00:00",
+    "conferida_em": "2026-11-25T15:58:49.689082+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Quantidade de movimento e conservação da quantidade de movimento, impulso > Teorema do impulso",
+    "dispositivo": "Teorema do impulso: F·Δt = Δp → F = 900·10/0,1 = 90.000 N = peso de 9.000 kg",
+    "item_do_edital": "Quantidade de movimento e conservação da quantidade de movimento, impulso",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Quantidade de movimento e conservação da quantidade de movimento, impulso > Teorema do impulso > Impulso igual à variação da quantidade de movimento (I = F·Δt = Δp); segunda, às cegas, Física > Quantidade de movimento e conservação da quantidade de movimento, impulso > Teorema do impulso > Impulso igual à variação da quantidade de movimento (F·Δt = m·Δv)"
   },
   {
     "chave": "4f7f607145fb4d44c04bb1f0f089eda4",
@@ -31755,6 +32145,21 @@
     "trecho": null
   },
   {
+    "chave": "509e4cf4bc6cbb2b11cdadc55452848f",
+    "classificada_em": "2026-11-25T15:58:53.953136+00:00",
+    "conferida_em": "2026-11-25T15:58:53.942238+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Perda de participação do Brasil no valor adicionado mundial da indústria de transformação",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "A primeira parte (China e EUA lideram a produção industrial) está certa; o erro é dizer que o Brasil aumentou sua participação no valor adicionado da indústria de transformação, que na verdade caiu.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Desindustrialização e competitividade da indústria; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Desindustrialização e reestruturação produtiva"
+  },
+  {
     "chave": "50aef25a3d191c94227697528dd12f75",
     "classificada_em": "2026-11-25T03:05:41.697077+00:00",
     "conferida_em": "2026-11-25T03:06:56.509849+00:00",
@@ -31798,6 +32203,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "50c1035a4a10cc875f17468b8bf6a391",
+    "classificada_em": "2026-11-25T15:58:52.619597+00:00",
+    "conferida_em": "2026-11-25T15:58:52.608326+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Veintiuno' apocopa para 'veintiún' apenas antes de substantivo masculino; posposto (siglo XXI) lê-se 'veintiuno'.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A forma apocopada 'veintiún' existe, mas só diante de substantivo; no título o numeral vem depois de 'siglo' (siglo veintiuno).",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Numerais; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Numerais (veintiuno/veintiún)"
   },
   {
     "chave": "50c297bb9fba00cc01edca60c11c3e30",
@@ -32023,6 +32443,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "5175b82e43afe9a42233dfffd8584e22",
+    "classificada_em": "2026-11-25T15:58:54.402114+00:00",
+    "conferida_em": "2026-11-25T15:58:54.389407+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "dispositivo": "Expansão da fronteira agrícola sobre o Cerrado (correção de solos ácidos) e sua devastação",
+    "item_do_edital": "Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "pegadinha": "Inverte o quadro: o Cerrado é um dos biomas mais devastados, porque a correção dos solos e a irrigação viabilizaram a expansão agrícola.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica dos biomas brasileiros; segunda, às cegas, Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica da vegetação nativa"
   },
   {
     "chave": "5176616b5b52abab0a83eb20dd0fd238",
@@ -32473,6 +32908,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "52a4c01d4472100e831ad6fcbe18d05f",
+    "classificada_em": "2026-11-25T15:58:50.134173+00:00",
+    "conferida_em": "2026-11-25T15:58:50.123043+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Movimento circular",
+    "dispositivo": "v = 2π·f·R = 2·3·2·0,15 = 1,8 m/s",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "Usar o diâmetro (30 cm) no lugar do raio (15 cm) daria 3,6 m/s.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Movimento circular > Velocidade linear e velocidade angular; segunda, às cegas, Física > Movimento circular > Transmissão de movimento circular (coroa, catraca e roda) > Relação entre velocidade linear e angular (v = 2π·f·R)"
   },
   {
     "chave": "52b362b2c6c0a1716bd606ae7d5fceaa",
@@ -33570,6 +34020,21 @@
     "trecho": "a substituição da forma verbal “Há” por Existe manteria os sentidos do texto, seu grau de formalidade e sua correção gramatical"
   },
   {
+    "chave": "5527a403de0f08dec01fdbb4319bda25",
+    "classificada_em": "2026-11-25T15:58:53.599283+00:00",
+    "conferida_em": "2026-11-25T15:58:53.587732+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles",
+    "dispositivo": "Rede urbana brasileira: desconcentração produtiva, crescimento das cidades médias e integração campo-cidade",
+    "item_do_edital": "A estrutura urbana brasileira e as grandes metrópoles",
+    "pegadinha": "A reestruturação produtiva fortaleceu cidades médias (inclusive as do agronegócio) e integrou campo e cidade, ao contrário de desarticulá-las e dissociar o binômio.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Rede urbana e reestruturação produtiva; segunda, às cegas, Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Rede urbana e hierarquia das cidades"
+  },
+  {
     "chave": "552e04311ed70a60b971bf6b91d043a7",
     "classificada_em": "2026-11-25T13:36:28.126924+00:00",
     "conferida_em": null,
@@ -34440,6 +34905,21 @@
     "trecho": "pendente: crimes contra a ordem tributária (Lei 8.137/1990): o programa de Legislação Especial do edital não lista a lei"
   },
   {
+    "chave": "575e3d6dd594998c84937ccc23905a1b",
+    "classificada_em": "2026-11-25T15:58:49.850896+00:00",
+    "conferida_em": "2026-11-25T15:58:49.839941+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Cinemática escalar, cinemática vetorial",
+    "dispositivo": "MUV: Δs = vm·Δt = 5·10 = 50 m",
+    "item_do_edital": "Cinemática escalar, cinemática vetorial",
+    "pegadinha": "Calcular com 36 (km/h) sem converter para 10 m/s daria 180 m.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado (MUV)"
+  },
+  {
     "chave": "576892dafac9c9fc572802d5161cdcc8",
     "classificada_em": "2026-11-25T03:05:37.929830+00:00",
     "conferida_em": "2026-11-25T03:06:54.883966+00:00",
@@ -34468,6 +34948,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "5782d6e49a0ee4c981f0cf68cd3721f6",
+    "classificada_em": "2026-11-25T15:58:51.150107+00:00",
+    "conferida_em": "2026-11-25T15:58:51.138561+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Heterogenéricos: palavras com gênero diferente no português e no espanhol (el análisis, el puente, la sangre).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "Em português 'a análise' é feminino; em espanhol 'el análisis' é masculino.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Gênero dos substantivos (heterogenéricos: el análisis); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Gênero dos substantivos heterogenéricos (el análisis)"
   },
   {
     "chave": "578659571b16ad7550d660f0f01d679e",
@@ -36000,6 +36495,21 @@
     "trecho": null
   },
   {
+    "chave": "5bccdc902af9e8ea0577505707135eb4",
+    "classificada_em": "2026-11-25T15:58:50.536325+00:00",
+    "conferida_em": "2026-11-25T15:58:50.526388+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações",
+    "dispositivo": "Equilíbrio de translação: ΣF = 0 (1ª lei de Newton)",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Primeira lei de Newton e equilíbrio de forças; segunda, às cegas, Física > Leis de Newton e suas aplicações > Primeira lei de Newton (inércia e equilíbrio) > Condição de equilíbrio de translação (ΣF = 0)"
+  },
+  {
     "chave": "5bd13b2657f828436a94cc67185470e2",
     "classificada_em": "2026-11-03T01:43:51.063072+00:00",
     "conferida_em": null,
@@ -36253,6 +36763,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "5c768d6841f91e3dec0ff63e40fdf746",
+    "classificada_em": "2026-11-25T15:58:51.016828+00:00",
+    "conferida_em": "2026-11-25T15:58:51.006519+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Primero, tercero, bueno, malo etc. perdem o -o diante de substantivo masculino singular (el primer caso).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "Primer e primero parecem variantes livres, mas diante de substantivo masculino singular só cabe a forma apocopada.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Apócope (primero → primer); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Apócope de adjetivos (primer/primero)"
   },
   {
     "chave": "5c80cee5cc35d875572735073d5ec270",
@@ -39250,7 +39775,7 @@
     "pegadinha": "No ponto mais alto a velocidade vertical é zero, o que lembra equilíbrio; mas o peso continua agindo: a resultante é o peso (m·g) e a aceleração continua sendo g.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Segunda lei de Newton; segunda, às cegas, Física > Leis de Newton e suas aplicações"
   },
@@ -39598,6 +40123,21 @@
     "status": "completa",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "sendo vedadas a pesquisa e a lavra de minérios por particulares nesses territórios"
+  },
+  {
+    "chave": "64941244c106e12d4f9126bf3adc73e8",
+    "classificada_em": "2026-11-25T15:58:19.460307+00:00",
+    "conferida_em": "2026-11-25T15:58:52.057369+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Estilo direto x estilo indireto",
+    "dispositivo": "No discurso indireto o narrador reporta a fala com verbo dicendi ('aseguran') sem reproduzi-la literalmente entre aspas.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "En él, la cita que pertenece a Catalina Marín está en estilo indirecto."
   },
   {
     "chave": "64997205de599fc4f0b33b0efa282ca8",
@@ -44400,6 +44940,21 @@
     "trecho": "fora do treino (decisão 171): gabarito discutível: As alternativas a e d também descrevem práticas que não se devem adotar (confiar que o firewall bloqueia todas as ameaças; antivírus sem nenhuma outra camada), o que dá mais de uma resposta defensável além do ERP; não há fonte oficial que resolva. (as duas leituras, a da classificação e a da data da prova, viram mais de uma resposta)"
   },
   {
+    "chave": "703f341809ff96ad48011880714c923d",
+    "classificada_em": "2026-11-25T15:58:51.621685+00:00",
+    "conferida_em": "2026-11-25T15:58:51.609517+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Dije' é 1ª pessoa do singular do pretérito indefinido de decir, verbo irregular.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito indefinido de verbos irregulares; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito indefinido de verbos irregulares (decir: dije)"
+  },
+  {
     "chave": "704628d5d3bcfa5ca2c6e1dd9164ea6d",
     "classificada_em": "2026-10-24T16:45:20.203463+00:00",
     "conferida_em": null,
@@ -46155,6 +46710,21 @@
     "trecho": null
   },
   {
+    "chave": "745aede42cb1de9d03865fda7847ce15",
+    "classificada_em": "2026-11-25T15:58:19.235536+00:00",
+    "conferida_em": "2026-11-25T15:58:51.862764+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterotônicos x heterossemânticos",
+    "dispositivo": "Heterotônicos: mesma palavra com sílaba tônica diferente nas duas línguas; heterossemânticos: palavras parecidas com sentido diferente.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A diferença de acentuação (micrófono x microfone) caracteriza heterotônico, não heterossemântico.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "La palabra «micrófono» de acuerdo con su acentuación puede ser considerada heterosemántica en relación a la palabra «microfone»"
+  },
+  {
     "chave": "746b2e84607edf3c5f783171cdcea912",
     "classificada_em": "2026-11-25T03:05:34.301864+00:00",
     "conferida_em": "2026-11-25T03:06:52.927248+00:00",
@@ -46318,6 +46888,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "74bad9fbf81c03b82a485756e825bfd0",
+    "classificada_em": "2026-11-25T15:58:50.197732+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Física",
+    "dispositivo": "Atrito estático como resultante centrípeta: μ·m·g = m·v²/R → vmáx = √(μ·g·R), independe da massa",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "A intuição de que o carro mais pesado faz a curva mais devagar; a massa se cancela em μ·m·g = m·v²/R.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "conceito",
+    "trecho": "pendente até a sua conferência (decisão 171): primeira Física > Movimento circular > Força centrípeta (curva plana com atrito); segunda, às cegas, Física > Leis de Newton e suas aplicações > Força centrípeta em curva plana > Velocidade máxima em curva plana (v = √(μ·g·R))"
   },
   {
     "chave": "74bb031c2d24faff8bfbbcf44f70267a",
@@ -46813,6 +47398,21 @@
     "status": "completa",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "Não se permite o transporte de bicicleta em veículo com o compartimento de carga aberto, mesmo que o comprimento da bicicleta ultrapasse o comprimento da caçamba"
+  },
+  {
+    "chave": "75fb3fd5a7c446bf2371df6ada13bb46",
+    "classificada_em": "2026-11-25T15:58:54.115715+00:00",
+    "conferida_em": "2026-11-25T15:58:54.104825+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "Classificação das políticas ambientais: regulatória (comando e controle), estruturadora (intervenção direta) e indutora (incentivos)",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "A definição dada (intervenção direta do poder público na proteção do meio ambiente) é a da política estruturadora, não a da indutora, que age por incentivos.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Tipos de política ambiental > Políticas ambientais regulatória, estruturadora e indutora; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Instrumentos de política ambiental > Política ambiental indutora x regulatória"
   },
   {
     "chave": "760d84baaf6ecb39bb3e3b2bf0a843ae",
@@ -47580,6 +48180,21 @@
     "trecho": null
   },
   {
+    "chave": "789f25f6876dedb7276f48649ca9be23",
+    "classificada_em": "2026-11-25T15:58:51.832174+00:00",
+    "conferida_em": "2026-11-25T15:58:51.821829+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Se' em 'se necesita un técnico' marca construção impessoal/passiva reflexa, não pronome reflexivo.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A forma 'se' lembra o reflexivo, mas em 'se necesita un técnico' não há ação que recai sobre o próprio sujeito.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Valores de se (impessoal / passiva reflexa x reflexivo); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Usos de 'se' (impessoal/passiva reflexa x reflexivo)"
+  },
+  {
     "chave": "78a023eca4d2a80555c9e74a1388cab8",
     "classificada_em": "2026-11-25T13:36:39.829979+00:00",
     "conferida_em": null,
@@ -47668,6 +48283,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "78ca6f7b1e6f87b0ba63ba882aa3210c",
+    "classificada_em": "2026-11-25T15:58:53.075577+00:00",
+    "conferida_em": "2026-11-25T15:58:53.065082+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Substantivos terminados em -z fazem o plural em -ces (nuez > nueces).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Plural de substantivos terminados em -z; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Plural de substantivos terminados em -z (nuez/nueces)"
   },
   {
     "chave": "78d00cced14dfe23537080bdc5de7032",
@@ -48703,6 +49333,21 @@
     "status": "completa",
     "tipo_de_questao": "caso prático",
     "trecho": "Maria tem de comprovar o ato danoso, o prejuízo sofrido, o nexo de causalidade e o dolo ou a culpa de João"
+  },
+  {
+    "chave": "7b1011cfd9e5121d613fea4a9af416a9",
+    "classificada_em": "2026-11-25T15:58:52.024080+00:00",
+    "conferida_em": "2026-11-25T15:58:52.012643+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Introdução argumentativa apresenta o tema e a tese/polêmica a ser discutida.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "O fragmento parece narrar fatos, mas apresenta a polêmica (a acusação contra os videojogos) que o texto vai discutir.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola > Tipologia textual (texto argumentativo); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola > Tipologia textual: texto argumentativo"
   },
   {
     "chave": "7b11523ab4a074fdf8ab4a270a66dbce",
@@ -49785,6 +50430,21 @@
     "trecho": "Caso se deseje pesquisar, no Google, exatamente a frase"
   },
   {
+    "chave": "7da04105cd6ecb83a4d541267a05ae9a",
+    "classificada_em": "2026-11-25T15:58:50.490611+00:00",
+    "conferida_em": "2026-11-25T15:58:50.481326+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Conservação de energia e suas transformações > Conservação da energia mecânica",
+    "dispositivo": "A energia mecânica só se conserva quando apenas forças conservativas realizam trabalho",
+    "item_do_edital": "Conservação de energia e suas transformações",
+    "pegadinha": "Ausência de forças dissipativas não basta: o motor (força não conservativa) realiza trabalho, e a Ep do passageiro aumenta com Ec constante.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Conservação de energia e suas transformações > Conservação da energia mecânica; segunda, às cegas, Física > Conservação de energia e suas transformações > Conservação da energia mecânica > Condição de conservação da energia mecânica"
+  },
+  {
     "chave": "7db69c5d1d81fb32646d7f4210e6df48",
     "classificada_em": "2026-11-25T03:06:04.726032+00:00",
     "conferida_em": "2026-11-25T03:07:05.770672+00:00",
@@ -50083,6 +50743,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "7ea88a3d798a73e5726324db2694b8c6",
+    "classificada_em": "2026-11-25T15:59:44.471262+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Física",
+    "dispositivo": "Ec = m·v²/2 = 900·10²/2 = 45 kJ",
+    "item_do_edital": "Energia cinética, energia potencial, atrito",
+    "pegadinha": "Entre o início e o fim do teste o carro está em repouso (variação líquida nula); a banca considerou a variação de 45 kJ de cada fase.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), conferência do gabarito, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "cálculo",
+    "trecho": "fora do treino (decisão 171): gabarito discutível: o carro parte do repouso e termina parado, a variação da energia cinética no teste inteiro é zero, e o gabarito definitivo diz Certo (só fecha com os 45 kJ de cada fase)"
   },
   {
     "chave": "7eb5b1a207e4da37e194aef7e7075fbb",
@@ -50805,6 +51480,21 @@
     "trecho": "sem ter realizado o exame toxicológico exigido por lei no prazo periódico"
   },
   {
+    "chave": "807af38252b75724d419d57006d255a3",
+    "classificada_em": "2026-11-25T15:58:50.961587+00:00",
+    "conferida_em": "2026-11-25T15:58:50.949361+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Interrogativos e exclamativos (qué, cómo, cuál...) levam tilde diacrítica para se distinguir de relativos e conjunções.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Acento diacrítico (tilde diacrítica); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Tilde diacrítica nos interrogativos (qué)"
+  },
+  {
     "chave": "807f9e648a123e6a2b88e1081a812f57",
     "classificada_em": "2026-11-25T13:37:22.414182+00:00",
     "conferida_em": null,
@@ -50863,6 +51553,21 @@
     "status": "completa",
     "tipo_de_questao": "conceito",
     "trecho": "Os browsers para navegação na Internet suportam nativamente arquivos em Java e em Flash"
+  },
+  {
+    "chave": "80b486e3980b5ff2ea19d1cca1b968ae",
+    "classificada_em": "2026-11-25T15:58:19.959783+00:00",
+    "conferida_em": "2026-11-25T15:58:52.436275+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Vocabulário no contexto: 'madre de trillizos' = mãe de trigêmeos.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "Según el texto, Paola Vicenci dio a luz a tres hijos en un único parto."
   },
   {
     "chave": "80bafa4b00b10dde1b83b854a68877e7",
@@ -51028,6 +51733,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "81379389da41b2725ffa2533b7f200e4",
+    "classificada_em": "2026-11-25T15:58:52.356412+00:00",
+    "conferida_em": "2026-11-25T15:58:52.345600+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Pronome átono enclítico retoma o referente pelo sentido do período, não necessariamente o nome mais próximo.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Enfermo' é o substantivo mais próximo, mas 'lo' retoma o processo de cuidar / a mente de quem cuida, não o doente.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Referência pronominal (anáfora); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Referência anafórica do pronome átono 'lo'"
   },
   {
     "chave": "813e21ee783555f63ca6b813348266d0",
@@ -52995,6 +53715,21 @@
     "trecho": "pendente: questão mista: o item I cobra tonicidade (suscetível é paroxítona, não proparoxítona - Acentuação gráfica), o II cobra pontuação (a vírgula antes de 'porque' não separa coordenada aditiva - Pontuação) e o III cobra sinonímia (suscetível = passível - Compreensão e interpretação de texto (s)); o gabarito (apenas III) depende dos três, e o pedido aceita um assunto só"
   },
   {
+    "chave": "8665770cfed176c97c2491b51bde0554",
+    "classificada_em": "2026-11-25T15:58:52.965732+00:00",
+    "conferida_em": "2026-11-25T15:58:52.955451+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Interrogativos e exclamativos (qué, cómo, cuál...) levam tilde diacrítica.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Acento diacrítico (tilde diacrítica); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Tilde diacrítica nos interrogativos (cómo)"
+  },
+  {
     "chave": "866e6c4a5cc57e78745c9150979e9d7b",
     "classificada_em": "2026-11-25T13:36:17.364198+00:00",
     "conferida_em": null,
@@ -53460,6 +54195,21 @@
     "trecho": "essa ação somente será possível se os sítios em questão estiverem disponibilizados em uma intranet e utilizarem o protocolo HTTPS"
   },
   {
+    "chave": "880d221d170581e0fc22a877d5a20645",
+    "classificada_em": "2026-11-25T15:58:17.816736+00:00",
+    "conferida_em": "2026-11-25T15:58:50.661979+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Física > Conservação de energia e suas transformações > Conservação da energia mecânica",
+    "dispositivo": "m·g·hA = m·v²/2 + m·g·hB; mesmo com B no solo, v = √(2·9,8·4) ≈ 8,85 m/s",
+    "item_do_edital": "Conservação de energia e suas transformações",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "No ponto B, a velocidade do esqueitista é inferior a 10,0 m/s."
+  },
+  {
     "chave": "880fc0942a213e33cc9a787d7dc65356",
     "classificada_em": "2026-11-25T13:36:12.914867+00:00",
     "conferida_em": null,
@@ -53533,6 +54283,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "8832c7cb7c76a5b4d3b1caa209232945",
+    "classificada_em": "2026-11-25T15:58:49.905915+00:00",
+    "conferida_em": "2026-11-25T15:58:49.895900+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Cinemática escalar, cinemática vetorial",
+    "dispositivo": "Aceleração média: am = Δv/Δt = 10/10 = 1 m/s²",
+    "item_do_edital": "Cinemática escalar, cinemática vetorial",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado (MUV) > Aceleração média (a = Δv/Δt)"
   },
   {
     "chave": "8836756f2b8cc8475219045dea225870",
@@ -54465,6 +55230,21 @@
     "trecho": null
   },
   {
+    "chave": "8a52fc054f319ba015cf06ac1e1c3d2b",
+    "classificada_em": "2026-11-25T15:59:44.514196+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Geopolítica",
+    "dispositivo": "Política ambiental para a Amazônia e proteção de terras indígenas na conjuntura de 2019-2022 (alta do desmatamento)",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "Soa como discurso oficial plausível, mas na época da prova (2022) o quadro era de enfraquecimento da fiscalização e aumento do desmatamento; o item depende da conjuntura.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), conferência do gabarito, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "fora do treino (decisão 171): gabarito datado: o Errado depende da política ambiental do governo em 2022"
+  },
+  {
     "chave": "8a5bd38f365c2830a00ac94f979af7ae",
     "classificada_em": "2026-11-25T13:37:29.361043+00:00",
     "conferida_em": null,
@@ -54508,6 +55288,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "8a760613bcd40beb39c42ff024d4d090",
+    "classificada_em": "2026-11-25T15:58:50.746275+00:00",
+    "conferida_em": "2026-11-25T15:58:50.735354+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Conservação de energia e suas transformações > Conservação da energia mecânica",
+    "dispositivo": "Sem forças dissipativas, Em = Ec + Ep constante",
+    "item_do_edital": "Conservação de energia e suas transformações",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Conservação de energia e suas transformações > Conservação da energia mecânica; segunda, às cegas, Física > Conservação de energia e suas transformações > Conservação da energia mecânica > Princípio da conservação da energia mecânica"
   },
   {
     "chave": "8a7c92fce7e6d66e886b876dbe7ea1e8",
@@ -55375,7 +56170,7 @@
     "pegadinha": null,
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), lido item a item, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": null
   },
@@ -55498,6 +56293,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "8d40b7f6b4e3d0c1eaf02ad901ffb27f",
+    "classificada_em": "2026-11-25T15:58:18.794429+00:00",
+    "conferida_em": "2026-11-25T15:58:51.653978+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Leitura do texto: a mesma hora em cidades com fusos horários diferentes.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "As horas diferentes (doze e onze da noite) podem sugerir momentos distintos, mas são o mesmo instante em fusos diferentes.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "El momento en términos de tiempo de la voz narrativa en el texto es el mismo aunque hable de dos horas diferentes"
   },
   {
     "chave": "8d4406d87380f8f8d6ba131a1409e7fe",
@@ -56250,6 +57060,21 @@
     "trecho": "O processo criminal transitado em julgado é hipótese constitucional para a cassação dos direitos políticos"
   },
   {
+    "chave": "8efa8162323ae81c5492fbae1cb7c7ad",
+    "classificada_em": "2026-11-25T15:58:53.896440+00:00",
+    "conferida_em": "2026-11-25T15:58:53.885245+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles",
+    "dispositivo": "Segregação socioespacial nas cidades brasileiras: dimensão social, econômica, política e cultural",
+    "item_do_edital": "A estrutura urbana brasileira e as grandes metrópoles",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Segregação socioespacial > Segregação socioespacial; segunda, às cegas, Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Segregação socioespacial urbana"
+  },
+  {
     "chave": "8efab01c151ba8e8f925cf819351eedb",
     "classificada_em": "2026-11-25T13:37:44.918667+00:00",
     "conferida_em": null,
@@ -56278,6 +57103,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "8f1ce3aef03060aaae4fdf6b645c7b54",
+    "classificada_em": "2026-11-25T15:58:54.342634+00:00",
+    "conferida_em": "2026-11-25T15:58:54.329833+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "dispositivo": "Ciclos econômicos (café, industrialização, urbanização) e desmatamento histórico da Mata Atlântica",
+    "item_do_edital": "Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica dos biomas brasileiros; segunda, às cegas, Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Devastação histórica da vegetação nativa"
   },
   {
     "chave": "8f346627b3597ef99e0598864cd1a494",
@@ -57240,6 +58080,21 @@
     "trecho": null
   },
   {
+    "chave": "9141049a1c7fceeccef7a6e22792a373",
+    "classificada_em": "2026-11-25T15:58:53.310159+00:00",
+    "conferida_em": "2026-11-25T15:58:53.299064+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil",
+    "dispositivo": "Planejamento regional (SUDENE, 1959) e persistência das desigualdades inter-regionais no Brasil",
+    "item_do_edital": "A divisão inter-regional do trabalho e da produção no Brasil",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Desigualdades regionais e planejamento regional; segunda, às cegas, Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Desigualdades regionais e planejamento regional (SUDENE)"
+  },
+  {
     "chave": "9144ce209cb3b9eee4ee67bc5860b21e",
     "classificada_em": "2026-11-25T03:02:17.158272+00:00",
     "conferida_em": "2026-11-25T03:02:17.146976+00:00",
@@ -57780,6 +58635,21 @@
     "trecho": null
   },
   {
+    "chave": "929e50d994bd64990f2f34fab9dfbf3c",
+    "classificada_em": "2026-11-25T15:58:54.228126+00:00",
+    "conferida_em": "2026-11-25T15:58:54.215324+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "Vertentes do ambientalismo: preservacionismo (proteção integral, sem uso direto) e conservacionismo (uso sustentável)",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "Atribui aos preservacionistas a estratégia de uso sustentável com populações locais, que é a dos conservacionistas.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Movimento ambientalista: preservacionismo e conservacionismo > Preservacionismo x conservacionismo; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Correntes do ambientalismo: preservacionismo e conservacionismo > Preservacionismo x conservacionismo"
+  },
+  {
     "chave": "92ab2f09e085b324f05d7c68125b3b95",
     "classificada_em": "2026-11-25T13:37:53.628668+00:00",
     "conferida_em": null,
@@ -58245,6 +59115,21 @@
     "trecho": null
   },
   {
+    "chave": "93b83f04b22a01edbeed566adef9534e",
+    "classificada_em": "2026-11-25T15:58:19.537729+00:00",
+    "conferida_em": "2026-11-25T15:58:52.078070+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Oração subordinada substantiva",
+    "dispositivo": "'Que mañana llueva' funciona como sujeito de 'es probable': subordinada substantiva.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "La frase «Es probable que mañana llueva» posee una construcción subordinada substantiva."
+  },
+  {
     "chave": "93c1c9cdbde4974e31d4a743ef842f6d",
     "classificada_em": "2026-11-25T13:37:07.239257+00:00",
     "conferida_em": null,
@@ -58588,6 +59473,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "949f5f2af70841711c2adee4305c77e8",
+    "classificada_em": "2026-11-25T15:58:52.183394+00:00",
+    "conferida_em": "2026-11-25T15:58:52.171968+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Luego' em espanhol = depois, mais tarde.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Luego' lembra 'logo' (imediatamente) do português; e a tradução omite os pronomes 'se lo', o que pode parecer erro.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos cognatos); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Heterossemânticos (falsos amigos): luego"
   },
   {
     "chave": "94add99e9ddb8980c8ddc718ac84e797",
@@ -59430,6 +60330,21 @@
     "trecho": "pendente até a sua conferência (decisão 171): outro assunto. Primeira leitura: Direito Constitucional > Direitos e garantias fundamentais: direitos e garantias individuais e coletivos > Remédios constitucionais > CF, art. 142, § 2º. Segunda, às cegas (media): Direito Constitucional > Defesa do Estado e das instituições democráticas: segurança pública > Forças Armadas e militares (CF, arts. 42 e 142) - Regime constitucional do militar estadual: HC em punição disciplinar (142, § 2º), elegibilidade e acumulação (art. 42)."
   },
   {
+    "chave": "96c79b3497c918e9059907168110cd81",
+    "classificada_em": "2026-11-25T15:58:52.674602+00:00",
+    "conferida_em": "2026-11-25T15:58:52.664743+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Mil millones' = um bilhão (10^9); 'billón' em espanhol = 10^12.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Billón' em espanhol vale um trilhão, o que pode confundir a equivalência.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Numerais; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Numerais (mil millones = bilhão)"
+  },
+  {
     "chave": "96cef2c27c62cce34b0ecee598f7efd5",
     "classificada_em": "2026-11-25T13:36:56.839177+00:00",
     "conferida_em": null,
@@ -59563,6 +60478,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "972332fa336e9c9fb3126bcb27a6ee33",
+    "classificada_em": "2026-11-25T15:58:52.859264+00:00",
+    "conferida_em": "2026-11-25T15:58:52.848558+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Os dois verbos na 2ª pessoa do singular têm o mesmo sujeito elíptico 'tú' (de valor genérico).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Sujeito elíptico (tú genérico); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos"
   },
   {
     "chave": "97233741094901dd242c1690206196ff",
@@ -62955,6 +63885,21 @@
     "trecho": "fora do treino (decisão 171): a lei mudou: CTB art. 20, XII, e art. 261, § 10: redação da Lei 14.071/2020, vigente desde 12/4/2021. A PRF passou a aplicar a suspensão do direito de dirigir quando ela é prevista de forma específica para a infração (o art. 165, álcool, prevê suspensão por 12 meses), em processo instaurado junto com o da multa e de competência do órgão que aplica a multa. O item, Errado em 2019, hoje seria Certo. (conferido no texto da Câmara, fontes/leis/ctb-lei-9503-1997-camara.html)"
   },
   {
+    "chave": "9fcb76c94e762dd1fff052320b00d9c8",
+    "classificada_em": "2026-11-25T15:58:53.789123+00:00",
+    "conferida_em": "2026-11-25T15:58:53.776911+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Ordem de Bretton Woods (1944) e abertura liberal inicial do governo Dutra (1946-1951)",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Economia brasileira no pós-Segunda Guerra; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Brasil na economia internacional do pós-Segunda Guerra"
+  },
+  {
     "chave": "9fd438f18d6f4d4aefbf46a1f5ed4b15",
     "classificada_em": "2026-11-25T13:37:15.866612+00:00",
     "conferida_em": null,
@@ -63448,6 +64393,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "a13f7ee6f32d9ea43578f74eb9e4507a",
+    "classificada_em": "2026-11-25T15:58:53.254120+00:00",
+    "conferida_em": "2026-11-25T15:58:53.243000+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil",
+    "dispositivo": "Divisões regionais oficiais do IBGE (a partir de 1941) e concentração industrial no Sudeste, consolidada depois de 1950",
+    "item_do_edital": "A divisão inter-regional do trabalho e da produção no Brasil",
+    "pegadinha": "Mistura a data correta das primeiras divisões regionais oficiais (IBGE, década de 1940) com uma hegemonia industrial que ainda se consolidava, e troca 'Sudeste' por 'sudoeste'.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Regionalizações do Brasil; segunda, às cegas, Geopolítica > A divisão inter-regional do trabalho e da produção no Brasil > Regionalização do Brasil (divisões regionais)"
   },
   {
     "chave": "a14ed4fa0922ef4570c5b39b9b41e159",
@@ -65920,7 +66880,7 @@
     "pegadinha": "Só a componente vertical se anula no ponto mais alto; a horizontal (v₀·cos θ) continua, então a velocidade vetorial não é nula.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Lançamento oblíquo; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial"
   },
@@ -65968,6 +66928,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "a822ff126854ada2302d14502cbaab27",
+    "classificada_em": "2026-11-25T15:58:52.124025+00:00",
+    "conferida_em": "2026-11-25T15:58:52.113398+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Cuál' com tilde é interrogativo (aqui em interrogativa indireta); o relativo é 'cual' sem tilde, com artigo (el cual).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A oração é de fato subordinada substantiva, o que torna o item plausível; o erro está em chamar 'cuál' de relativo.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Interrogativo indireto x pronome relativo (cuál); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Interrogativo indireto (cuál) x pronome relativo"
   },
   {
     "chave": "a8418bd33bed62cfba2ea47af2979f8f",
@@ -66945,6 +67920,36 @@
     "trecho": null
   },
   {
+    "chave": "aa64d573fb046bc7c52da298c5dd78ba",
+    "classificada_em": "2026-11-25T15:58:54.006553+00:00",
+    "conferida_em": "2026-11-25T15:58:53.996105+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "CF/1988, art. 225, §§ 2º e 3º (recuperação do ambiente degradado e sanções penais e administrativas)",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Política e gestão ambiental no Brasil; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Política e legislação ambiental no Brasil"
+  },
+  {
+    "chave": "aa683b66fd9cc14799ededd6fa0efd12",
+    "classificada_em": "2026-11-25T15:58:17.366934+00:00",
+    "conferida_em": "2026-11-25T15:58:49.976444+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Física > Conservação de energia e suas transformações > Conservação da energia mecânica",
+    "dispositivo": "Conservação da energia mecânica: m·g·h = m·v²/2 → v = √(2gh) = √400 = 20 m/s",
+    "item_do_edital": "Conservação de energia e suas transformações",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "A água atinge o ponto B com o módulo da velocidade igual a 20 m/s."
+  },
+  {
     "chave": "aa68461325e9b715103fd5d849bec8d5",
     "classificada_em": "2026-11-25T13:38:01.095453+00:00",
     "conferida_em": null,
@@ -66988,6 +67993,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "aa726e72190200d93af9875a54a76ac9",
+    "classificada_em": "2026-11-25T15:58:51.700763+00:00",
+    "conferida_em": "2026-11-25T15:58:51.689454+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Gustar' é intransitivo: o sujeito é a coisa que agrada (me gustan los aviones) e a pessoa vem como objeto indireto (me).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "Em português 'gostar de' tem sujeito na pessoa que gosta; em espanhol o que agrada é o sujeito e a pessoa é objeto indireto.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Verbos do tipo gustar (construção com objeto indireto); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Verbo gustar (construção com objeto indireto)"
   },
   {
     "chave": "aa7dbc9dea07708f32bba4d6711a1c2d",
@@ -67213,6 +68233,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "ab3aa3a556023c117abee46f084dd983",
+    "classificada_em": "2026-11-25T15:58:53.132348+00:00",
+    "conferida_em": "2026-11-25T15:58:53.118480+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "O imperativo negativo usa o presente do subjuntivo (no te involucres, no reduzcas, no hagas) e inverte o sentido da ordem.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "As formas negativas estão bem conjugadas (presente do subjuntivo), mas o item diz que mantêm o mesmo sentido, quando a negação o inverte. Item anulado pela banca.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Imperativo afirmativo x imperativo negativo; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Imperativo afirmativo e negativo"
   },
   {
     "chave": "ab4d705db2a88c9c32911dd172c051a4",
@@ -69855,6 +70890,21 @@
     "trecho": null
   },
   {
+    "chave": "b1f4e8501a5f93800975476ff05b3cd4",
+    "classificada_em": "2026-11-25T15:58:18.725815+00:00",
+    "conferida_em": "2026-11-25T15:58:51.575737+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Sentido de expressão no contexto: 'caminar con los pies de un viajero retirado' descreve o andar lento de quem já não viaja.",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "'Retirado' pode ser lido como 'afastado num lugar', mas no contexto indica alguém que deixou a atividade (aposentado).",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "La expresión “viajero retirado” (R.4) se refiere a la persona que, durante un viaje, está apartada en un lugar."
+  },
+  {
     "chave": "b1fe793fe2fc52f52775b0d156b47aef",
     "classificada_em": "2026-11-25T14:32:35.573232+00:00",
     "conferida_em": "2026-11-25T14:32:35.593632+00:00",
@@ -70200,6 +71250,21 @@
     "trecho": null
   },
   {
+    "chave": "b2e80ae2f09fb69e79499c88166c764f",
+    "classificada_em": "2026-11-25T15:58:17.620317+00:00",
+    "conferida_em": "2026-11-25T15:58:50.395836+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Física > Potência > Potência média",
+    "dispositivo": "P = τ/Δt = n·m·g·H/Δt: mais passageiros por minuto, mais potência",
+    "item_do_edital": "Potência",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "quanto maior for o número de passageiros transportados por minuto, maior será a potência desenvolvida pelo motor para movimentar a escada."
+  },
+  {
     "chave": "b2ed3ee15a71c63836754f1093ebc4e7",
     "classificada_em": "2026-11-25T13:37:26.042417+00:00",
     "conferida_em": null,
@@ -70258,6 +71323,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "b2f9dfe529910b28bad7bf2a2ab2db8d",
+    "classificada_em": "2026-11-25T15:58:50.077021+00:00",
+    "conferida_em": "2026-11-25T15:58:50.067287+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Movimento circular",
+    "dispositivo": "Roda e catraca no mesmo eixo: f = 6 Hz; v = 2π·f·R = 2·3·6·0,4 = 14,4 m/s",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "Usar a frequência da coroa (2 Hz) na roda, em vez da da catraca (6 Hz), que gira solidária com a roda.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Movimento circular > Transmissão de movimento circular (coroa e catraca); segunda, às cegas, Física > Movimento circular > Transmissão de movimento circular (coroa, catraca e roda) > Polias de mesmo eixo (mesma velocidade angular)"
   },
   {
     "chave": "b311fcf638ba4f211dd44642d7989332",
@@ -72850,7 +73930,7 @@
     "pegadinha": "Em colisões a energia cinética pode se perder, o que faz desconfiar do 'permanece constante'; mas, em sistema isolado, a quantidade de movimento total sempre se conserva.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "segundo a lei de conservação da quantidade de movimento, a soma das quantidades de movimento dos dois veículos, antes e após a colisão, permanece constante"
   },
@@ -74605,7 +75685,7 @@
     "pegadinha": "Confunde as direções: o movimento vertical é que é uniformemente variado (função quadrática do tempo); o horizontal é uniforme, x = v₀·t (função do 1º grau), porque não há aceleração horizontal.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Lançamento horizontal; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial"
   },
@@ -74773,6 +75853,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "be40e4be773ddb4f5949e20d63f05f23",
+    "classificada_em": "2026-11-25T15:58:52.542204+00:00",
+    "conferida_em": "2026-11-25T15:58:52.528634+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Em verbos como interesar/gustar, o sujeito é o que interessa ('las situaciones'); a pessoa é objeto indireto ('me').",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "O pronome 'me' faz pensar em sujeito 'yo', mas o verbo concorda com 'las situaciones' (interesan).",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Verbos do tipo gustar (construção com objeto indireto); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Verbos do tipo gustar/interesar (sujeito posposto)"
   },
   {
     "chave": "be41b349a213438215be770adc51dda1",
@@ -79455,6 +80550,21 @@
     "trecho": "não é necessário, para a configuração do referido delito, que o agente o pratique no exercício de suas funções"
   },
   {
+    "chave": "c9b15bd79b2b29a41e81c2cffab4b64d",
+    "classificada_em": "2026-11-25T15:58:53.198117+00:00",
+    "conferida_em": "2026-11-25T15:58:53.187623+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "Interação sociedade-natureza: uso de agrotóxicos na agropecuária e contaminação de solos e águas; ranking mundial de consumo",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "A primeira parte (Brasil grande consumidor de agrotóxicos, ligado à contaminação dos solos) soa verdadeira; o erro está no dado comparativo de que a China teria deixado de ser a maior consumidora, posição que não perdeu.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Agrotóxicos e contaminação ambiental; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Impactos ambientais da agropecuária (agrotóxicos)"
+  },
+  {
     "chave": "c9b7161e860934cfc2e4acc5749a84a5",
     "classificada_em": "2026-11-25T13:36:33.508412+00:00",
     "conferida_em": null,
@@ -80025,6 +81135,21 @@
     "trecho": null
   },
   {
+    "chave": "cb35d719242d8730e8beecc78cc335d3",
+    "classificada_em": "2026-11-25T15:58:20.209354+00:00",
+    "conferida_em": "2026-11-25T15:58:52.705312+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "Leitura do texto: 'Estoy en desacuerdo con el mito que afirma que los nativos digitales están mágicamente influenciados...'",
+    "item_do_edital": "1 Compreensão de texto escrito em língua espanhola.",
+    "pegadinha": "O texto usa a expressão 'nativos digitales', mas para negar o mito de que eles já sabem usar a tecnologia por nascerem nela.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "el narrador considera que la generación que nació en la era digital, son nativos digitales porque ya nacen sabiendo usar los equipos tecnológicos."
+  },
+  {
     "chave": "cb478a367ee8cb0606732361052a1f54",
     "classificada_em": "2026-11-25T13:36:11.054692+00:00",
     "conferida_em": null,
@@ -80068,6 +81193,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "cb60f3501bb07607cb8e3933ad5e1284",
+    "classificada_em": "2026-11-25T15:58:50.591090+00:00",
+    "conferida_em": "2026-11-25T15:58:50.580297+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke)",
+    "dispositivo": "Lei de Hooke: F = k·x; metade da mola sob a mesma força estica a metade → k dobra",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "Achar que cortar a mola não muda a constante (ou que a reduz à metade); a constante é inversamente proporcional ao comprimento.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke); segunda, às cegas, Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke) > Constante elástica e comprimento da mola"
   },
   {
     "chave": "cb6b24f2c833e72e10cf9b9b1a391201",
@@ -80908,6 +82048,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "cd68410f893c56e952db620a1bab503f",
+    "classificada_em": "2026-11-25T15:58:51.094088+00:00",
+    "conferida_em": "2026-11-25T15:58:51.083239+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Em espanhol 'puesto que' é locução conjuntiva causal, equivalente a 'pues', 'ya que'.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "Em português 'posto que' é usado também como concessivo, o que pode levar a duvidar do valor causal em espanhol.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Conectivo causal (puesto que); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Conectivo causal 'puesto que'"
   },
   {
     "chave": "cd690397bfa63711a0fae385fd8c252b",
@@ -84900,6 +86055,21 @@
     "trecho": null
   },
   {
+    "chave": "d6de71ed995ef9134134aee45069fae8",
+    "classificada_em": "2026-11-25T15:59:44.554608+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol)",
+    "dispositivo": "Construção com 'se' sem agente expresso (impessoal / passiva reflexa).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "O verbo concorda com '632 alumnos', o que sugere passiva reflexa; o gabarito oficial aceitou 'estrutura impessoal'.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), conferência do gabarito, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "fora do treino (decisão 171): gabarito discutível: «se incluyeron 632 alumnos» concorda com o plural, é passiva reflexa e não impessoal, e o gabarito definitivo diz Certo"
+  },
+  {
     "chave": "d6f296b7fb04572d9fa2ebfcf015270e",
     "classificada_em": "2026-11-25T13:36:51.870919+00:00",
     "conferida_em": null,
@@ -87000,6 +88170,21 @@
     "trecho": null
   },
   {
+    "chave": "dbb3bd0e15f18cf77cc1e68ba9be66a0",
+    "classificada_em": "2026-11-25T15:58:51.775483+00:00",
+    "conferida_em": "2026-11-25T15:58:51.764940+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Substantivo feminino iniciado por a/ha tônico recebe 'el' no singular por eufonia, sem mudar de gênero (el agua fría).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "O artigo 'el' faz 'agua' parecer masculino, mas o adjetivo 'transparente' (e 'el agua fría') mostra que é feminino.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Artigo el diante de substantivo feminino iniciado por a tônica; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Artigo 'el' diante de substantivo feminino iniciado por a tônica (el agua)"
+  },
+  {
     "chave": "dbc266b6f91e499d969e484069a3bdc7",
     "classificada_em": "2026-11-25T13:37:10.466698+00:00",
     "conferida_em": null,
@@ -87373,6 +88558,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "dc97b8f7888bbb18fd065b37187fd031",
+    "classificada_em": "2026-11-25T15:58:52.408973+00:00",
+    "conferida_em": "2026-11-25T15:58:52.398908+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Haber no presente do subjuntivo (haya) + particípio = pretérito perfecto de subjuntivo.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito perfecto de subjuntivo; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Pretérito perfeito do subjuntivo"
   },
   {
     "chave": "dc99ba183200401744eb8ea51c84e35c",
@@ -88515,6 +89715,21 @@
     "trecho": null
   },
   {
+    "chave": "e02bc8b6f29f7072fb8c114ae03836a1",
+    "classificada_em": "2026-11-25T15:58:20.285296+00:00",
+    "conferida_em": "2026-11-25T15:58:52.728424+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Si no x sino",
+    "dispositivo": "'Si no' = conjunção condicional + negação; 'sino' = conjunção adversativa (no solo... sino que además).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A primeira parte (si no = condicional negativa) é correta; o erro está no valor de 'sino'.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "la expresión «sino», en el segundo parráfo, introduce una oración negativa, aunque no necesariamente condicional."
+  },
+  {
     "chave": "e031d10021aa8304ad9ea2b4b753921e",
     "classificada_em": "2026-11-25T14:32:21.673443+00:00",
     "conferida_em": "2026-11-25T14:32:21.694334+00:00",
@@ -89190,6 +90405,21 @@
     "trecho": "configura controle exercido pela administração pública no exercício de sua autotutela"
   },
   {
+    "chave": "e1ce013ad0081a332375b9b1548087fe",
+    "classificada_em": "2026-11-25T15:58:53.484651+00:00",
+    "conferida_em": "2026-11-25T15:58:53.472926+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Desindustrialização: queda da participação da indústria de transformação no PIB, com aumento da participação dos serviços",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "O tema da desindustrialização é real; o erro está em incluir a queda dos serviços no PIB (a participação dos serviços cresceu) e em atribuí-la à transferência de fábricas da região concentrada.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Desindustrialização e competitividade da indústria; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Desindustrialização e reestruturação produtiva"
+  },
+  {
     "chave": "e1ce87a080ae889fc7da354e448ffe33",
     "classificada_em": "2026-11-25T14:32:31.565389+00:00",
     "conferida_em": "2026-11-25T14:32:31.588504+00:00",
@@ -89335,7 +90565,7 @@
     "pegadinha": "A velocidade muda o tempo todo (em módulo e direção), o que leva a pensar que a aceleração também muda; mas a única aceleração é a da gravidade, constante em módulo, direção e sentido.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Lançamento oblíquo; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial"
   },
@@ -90538,6 +91768,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
+  },
+  {
+    "chave": "e4d11d15fd65e6ae9f1b2909701ebb9b",
+    "classificada_em": "2026-11-25T15:58:50.313960+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Física",
+    "dispositivo": "Fat = Fcp = m·v²/R (atrito estático, até o máximo μe·N)",
+    "item_do_edital": "Movimento circular",
+    "pegadinha": "Tratar o atrito como valor fixo (μ·N); o atrito estático se ajusta à necessidade e é igual a m·v²/R até o limite.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": "conceito",
+    "trecho": "pendente até a sua conferência (decisão 171): primeira Física > Movimento circular > Força centrípeta (curva plana com atrito); segunda, às cegas, Física > Leis de Newton e suas aplicações > Força centrípeta em curva plana"
   },
   {
     "chave": "e4d88a2332055130883f1c60a61db876",
@@ -91755,6 +93000,21 @@
     "trecho": null
   },
   {
+    "chave": "e843eeb415329f60739f456c5aab52ec",
+    "classificada_em": "2026-11-25T15:58:50.637258+00:00",
+    "conferida_em": "2026-11-25T15:58:50.628490+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke)",
+    "dispositivo": "Equilíbrio: k·x = m·g → x = 0,1·9,8/1 = 0,98 cm",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "Não converter 1 N/cm e 100 g; o resultado (0,98 cm) fica logo abaixo de 1 cm.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke); segunda, às cegas, Física > Leis de Newton e suas aplicações > Força elástica (lei de Hooke) > Lei de Hooke no equilíbrio (k·x = m·g)"
+  },
+  {
     "chave": "e865658964e29bd869d6b5b2145b3848",
     "classificada_em": "2026-11-25T13:36:28.372670+00:00",
     "conferida_em": null,
@@ -91768,6 +93028,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "e8803d8d224ecc9a516e3617bba3b718",
+    "classificada_em": "2026-11-25T15:58:18.954389+00:00",
+    "conferida_em": "2026-11-25T15:58:51.728965+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Artigo neutro lo",
+    "dispositivo": "O artigo neutro 'lo' substantiva adjetivos, advérbios e orações (lo bueno, lo que dices); não acompanha substantivo.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "El articulo neutro «lo» nunca acompaña a un sustantivo."
   },
   {
     "chave": "e880e6196694bce140e8695e18f05e4f",
@@ -92713,6 +93988,21 @@
     "status": "completa",
     "tipo_de_questao": "comparação entre conceitos",
     "trecho": "violação ao princípio da sustentabilidade, que significa que o administrador deve observar critérios objetivos"
+  },
+  {
+    "chave": "eb725685190174faff20aa5345465358",
+    "classificada_em": "2026-11-25T15:58:50.906221+00:00",
+    "conferida_em": "2026-11-25T15:58:50.896170+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Pronome anafórico retoma o referente plural compatível em gênero e número: 'ellos' = os textos da vida cotidiana.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Referência pronominal (anáfora); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Referência anafórica do pronome pessoal 'ellos'"
   },
   {
     "chave": "eb7b0b912cf2c2c5a745fac9175151b4",
@@ -94365,6 +95655,21 @@
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
   },
   {
+    "chave": "ef70af64c4daf161b00aae93826c47cc",
+    "classificada_em": "2026-11-25T15:58:49.956535+00:00",
+    "conferida_em": "2026-11-25T15:58:49.947915+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Potência > Potência média",
+    "dispositivo": "P = ΔEp/Δt = ρ·Q·g·h = 1.000·150·10·20 = 3·10⁷ W",
+    "item_do_edital": "Potência",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Potência > Potência média; segunda, às cegas, Física > Potência > Potência média > Potência hidráulica (P = ρ·Q·g·h)"
+  },
+  {
     "chave": "ef82fdcceb616b7e446be042943e0d14",
     "classificada_em": "2026-11-25T03:05:46.540367+00:00",
     "conferida_em": "2026-11-25T03:06:58.310878+00:00",
@@ -95310,6 +96615,21 @@
     "trecho": null
   },
   {
+    "chave": "f1ad21d1eebc1d81c16c7e93fc79d858",
+    "classificada_em": "2026-11-25T15:58:50.797572+00:00",
+    "conferida_em": "2026-11-25T15:58:50.786393+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Trabalho",
+    "dispositivo": "Força conservativa: τpeso = m·g·(hinicial − hfinal); em trajeto fechado, τ = 0",
+    "item_do_edital": "Trabalho",
+    "pegadinha": "Somar o trabalho da descida e o da subida como se ambos fossem positivos; o peso é conservativo e, em trajeto fechado, o trabalho é nulo.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Trabalho > Trabalho da força peso; segunda, às cegas, Física > Trabalho > Trabalho da força peso (força conservativa) > Força conservativa (trabalho independe da trajetória)"
+  },
+  {
     "chave": "f1b4be661342329a9d30e2c4a02042e1",
     "classificada_em": "2026-11-25T13:36:10.654235+00:00",
     "conferida_em": null,
@@ -95805,6 +97125,21 @@
     "trecho": null
   },
   {
+    "chave": "f2e43e004082c2a1f5826549cf3d24da",
+    "classificada_em": "2026-11-25T15:58:49.797524+00:00",
+    "conferida_em": "2026-11-25T15:58:49.787372+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Cinemática escalar, cinemática vetorial",
+    "dispositivo": "MUV: vm = (v0 + v)/2 = 5 m/s",
+    "item_do_edital": "Cinemática escalar, cinemática vetorial",
+    "pegadinha": "Tomar a velocidade final (10 m/s) ou 36 km/h sem converter no lugar da média (0 + 10)/2 = 5 m/s.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "cálculo",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado; segunda, às cegas, Física > Cinemática escalar, cinemática vetorial > Movimento uniformemente variado (MUV) > Velocidade média no MUV"
+  },
+  {
     "chave": "f2f0d5be094ef72bf6758701913d1dc4",
     "classificada_em": "2026-11-25T13:36:17.682224+00:00",
     "conferida_em": null,
@@ -96268,6 +97603,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "f3f48162bae5a047c169a6f36730774f",
+    "classificada_em": "2026-11-25T15:58:49.752153+00:00",
+    "conferida_em": "2026-11-25T15:58:49.744244+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Física > Leis de Newton e suas aplicações > Terceira lei de Newton (ação e reação)",
+    "dispositivo": "3ª lei de Newton: ação e reação têm mesma intensidade, mesma direção e sentidos opostos, em corpos diferentes",
+    "item_do_edital": "Leis de Newton e suas aplicações",
+    "pegadinha": "A intuição de que o corpo em movimento 'bate mais forte' que o parado; pela ação e reação as forças têm a mesma intensidade.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Física > Leis de Newton e suas aplicações > Terceira lei de Newton (ação e reação); segunda, às cegas, Física > Leis de Newton e suas aplicações > Terceira lei de Newton (ação e reação) > Princípio da ação e reação"
   },
   {
     "chave": "f40fd1bfc2d79195bbe675aa4033e651",
@@ -96930,6 +98280,21 @@
     "trecho": null
   },
   {
+    "chave": "f5e27a2d82fa59d6fc4d9b1abc75727a",
+    "classificada_em": "2026-11-25T15:58:52.806214+00:00",
+    "conferida_em": "2026-11-25T15:58:52.783197+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "'Según' é preposição (= segundo, conforme); não é forma apocopada do ordinal 'segundo'.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "A analogia com primer/primero faz 'según' parecer apócope de 'segundo'.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Preposição según; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Preposição 'según'"
+  },
+  {
     "chave": "f5f534278e9f34b5e1cba00f929c5529",
     "classificada_em": "2026-11-25T14:32:32.757471+00:00",
     "conferida_em": "2026-11-25T14:32:32.777739+00:00",
@@ -97170,6 +98535,21 @@
     "trecho": "ainda que seja incapaz de exercer controle sobre suas ações"
   },
   {
+    "chave": "f67a7bc366f01d0db3693f708b2aa8df",
+    "classificada_em": "2026-11-25T15:58:54.060242+00:00",
+    "conferida_em": "2026-11-25T15:58:54.048826+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Geografia e gestão ambiental",
+    "dispositivo": "Trajetória da política ambiental brasileira pós-1988: descentralização, participação social e desenvolvimento sustentável",
+    "item_do_edital": "Geografia e gestão ambiental",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Geografia e gestão ambiental > Política e gestão ambiental no Brasil; segunda, às cegas, Geopolítica > Geografia e gestão ambiental > Política e legislação ambiental no Brasil"
+  },
+  {
     "chave": "f67ad8510ab9f132b0cf9a39cbe929ea",
     "classificada_em": "2026-11-03T01:44:00.451175+00:00",
     "conferida_em": null,
@@ -97350,6 +98730,21 @@
     "trecho": "o Microsoft Edge e o Google Chrome diferenciam-se, em suas versões mais recentes"
   },
   {
+    "chave": "f6dde018bc2cf1c7adf668a0a7af7314",
+    "classificada_em": "2026-11-25T15:58:51.208842+00:00",
+    "conferida_em": "2026-11-25T15:58:51.197122+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "Oração introduzida pelo relativo 'que' retomando 'años' é subordinada adjetiva (de relativo).",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Oração subordinada adjetiva (relativa); segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Oração subordinada adjetiva (de relativo)"
+  },
+  {
     "chave": "f6e2c941e873831e6fb5e975a8a564a3",
     "classificada_em": "2026-11-25T13:36:37.137748+00:00",
     "conferida_em": null,
@@ -97453,6 +98848,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
+  },
+  {
+    "chave": "f73fd4fe6689cf062018ae0144ae95a9",
+    "classificada_em": "2026-11-25T15:58:52.482959+00:00",
+    "conferida_em": "2026-11-25T15:58:52.470652+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "O artigo neutro 'lo' substantiva o adjetivo ('lo humano' = tudo o que é humano); não tem plural.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "'Lo' parece artigo masculino (como 'o' em português), mas é neutro e 'lo humano' (o que é humano) não equivale a 'los humanos'.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Artigo neutro lo; segunda, às cegas, Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Artigo neutro lo (lo + adjetivo)"
   },
   {
     "chave": "f75786beadf136ba030fec923a0f18d4",
@@ -98188,6 +99598,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "f8cfb852c525e40ba49442d05f2fae91",
+    "classificada_em": "2026-11-25T15:58:18.477364+00:00",
+    "conferida_em": "2026-11-25T15:58:51.334330+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Estilo direto x estilo indireto",
+    "dispositivo": "Fala reproduzida literalmente entre aspas, com verbo de dizer, é discurso direto; o indireto reformula a fala em oração subordinada.",
+    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
+    "pegadinha": "O verbo dicendi 'me dijo' logo depois pode sugerir discurso indireto, mas a fala entre aspas reproduz as palavras da personagem.",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "En la línea 7, el trecho entrecomillado es parte de un discurso en estilo indirecto."
   },
   {
     "chave": "f8d73672ac7dd4244c24c411192f63d5",
@@ -99615,6 +101040,21 @@
     "trecho": null
   },
   {
+    "chave": "fb61c15e97e7247d50dd960b45564993",
+    "classificada_em": "2026-11-25T15:58:53.368737+00:00",
+    "conferida_em": "2026-11-25T15:58:53.357950+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "dispositivo": "Clima subtropical do Sul: médias anuais abaixo de 18 ºC, controladas pela latitude, altitude e continentalidade",
+    "item_do_edital": "Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Clima do Brasil; segunda, às cegas, Geopolítica > Macrodivisão natural do espaço brasileiro: biomas, domínios e ecossistemas > Climas do Brasil"
+  },
+  {
     "chave": "fb6562c31719244778ecb2315aba9e72",
     "classificada_em": "2026-11-25T13:36:30.049184+00:00",
     "conferida_em": null,
@@ -100468,6 +101908,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "fd996d2d5125383d028bcf86df0eb62f",
+    "classificada_em": "2026-11-25T15:58:53.730278+00:00",
+    "conferida_em": "2026-11-25T15:58:53.706034+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
+    "conteudo": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "dispositivo": "Redução da dívida externa e acúmulo de reservas internacionais na década de 2000",
+    "item_do_edital": "A integração do Brasil ao processo de internacionalização da economia",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Dívida externa e inserção financeira internacional; segunda, às cegas, Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Dívida externa brasileira"
   },
   {
     "chave": "fda1f52057d6006a2e53a72ca0e49c80",

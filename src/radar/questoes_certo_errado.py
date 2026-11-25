@@ -129,8 +129,13 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
 # O que nao e de item nenhum: o cabecalho da pagina, e a linha so de palavras
 # em caixa alta ("BLOCO II", e o "TEXTO" solto que a diagramacao deixa na
 # prova de 2019) - linha de item sempre tem minuscula, numero ou pontuacao.
+# Nos cadernos de outros concursos (FUB e SEE/DF de 2016, SEE/PE de 2022) o
+# cabecalho comeca pelo codigo de barras do caderno ("||281FUB_012_01N369409||
+# CESPE | CEBRASPE – FUB" e "714005_01N167818 CEBRASPE – SEE/PE"): sem
+# reconhece-lo, o cabecalho grudava no item do fim da pagina.
 MOBILIA_DO_CADERNO = re.compile(
-    r"^\s*(?:(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
+    r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+)?(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]"
+    r"|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
 ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
 # O rotulo do texto, com o codigo ("Texto 1A18-I") ou sem ("Texto", na Policia
 # Civil de Sergipe de 2018): sem o codigo, o texto so nao se cita pelo nome.
@@ -175,6 +180,64 @@ def _texto_do_pdfminer(caminho: Path) -> str:
     # nada no texto: sao dezenas de linhas poluindo a saida do comando.
     logging.getLogger("pdfminer").setLevel(logging.ERROR)
     return extract_text(str(caminho))
+
+
+def _chave_da_linha(linha: str) -> str:
+    """O comeco da linha sem espaco nenhum: o pypdf parte a palavra ("activi
+    dad") e o pdfminer dobra o espaco do texto justificado ("Em  um"), e assim
+    a mesma linha dos dois casa. O numero no fim sai: no texto com a
+    numeracao de linha na margem, o pypdf o cola na linha ("corazón? 1") e o
+    pdfminer o solta."""
+    return re.sub(r"\d+$", "", re.sub(r"\s+", "", linha))[:30]
+
+
+def inicios_de_paragrafo(texto_do_pdfminer: str) -> set[str]:
+    """As linhas que abrem paragrafo, pela chave (`_chave_da_linha`).
+
+    Nos cadernos da FUB e da SEE/DF de 2016 o pypdf perde o recuo do
+    paragrafo, e a situacao do grupo seguinte grudava no ultimo item do grupo
+    anterior. O pdfminer separa o texto em blocos (linha vazia entre eles), e
+    abre paragrafo o bloco que comeca com maiuscula - menos o que continua o
+    item: no caderno da FUB a primeira linha do item ("56 A velocidade
+    média do automóvel, na primeira fase do teste,") e um bloco so dela, e o
+    resto do item vem no bloco seguinte. O item de uma linha que fecha frase
+    fica com o risco: se a segunda frase dele comecar na linha de baixo, ela
+    passa por paragrafo (o `_marcar_paragrafos` so a separa quando um comando
+    vem depois)."""
+    inicios: set[str] = set()
+    continua_o_item = False
+    for bloco in re.split(r"\n\s*\n", texto_do_pdfminer):
+        linhas = [linha.strip() for linha in bloco.splitlines() if linha.strip()]
+        if not linhas or MOBILIA_DO_CADERNO.match(linhas[0]) or ESPACO_LIVRE.fullmatch(linhas[0]):
+            continue
+        # O numero sozinho e a numeracao da margem do texto, nao item.
+        if len(linhas) == 1 and NUMERO_DA_MARGEM.match(linhas[0]):
+            continue
+        # A pergunta e a exclamacao do espanhol abrem com o sinal invertido
+        # ("¿Qué hora son, mi corazón?"): a maiuscula vem depois dele.
+        if linhas[0].lstrip("¿¡«“\"")[:1].isupper() and not continua_o_item:
+            inicios.add(_chave_da_linha(linhas[0]))
+        continua_o_item = bool(len(linhas) == 1 and NUMERO_DO_ITEM.match(linhas[0])
+                               and not FIM_DE_FRASE.search(linhas[0]))
+    return inicios
+
+
+def _marcar_paragrafos(linhas: list[str], inicios: set[str]) -> list[str]:
+    """Poe os dois espacos do recuo que o pypdf perdeu, na linha que abre
+    paragrafo pelo pdfminer. So marca quando um comando ("julgue") vem depois,
+    antes do proximo item: o item de duas frases, com a segunda no comeco da
+    linha, nao pode perder a segunda para o grupo seguinte."""
+    saida = list(linhas)
+    for indice, linha in enumerate(linhas):
+        if linha.startswith("  ") or _chave_da_linha(linha) not in inicios:
+            continue
+        for distancia, seguinte in enumerate(linhas[indice:]):
+            if distancia and NUMERO_DO_ITEM.match(seguinte):
+                break
+            if JULGUE.search(seguinte):
+                saida[indice] = "  " + linha
+                break
+    return saida
 
 
 def vocabulario(texto: str) -> set[str]:
@@ -341,14 +404,19 @@ def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
     return comando, texto
 
 
-def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1) -> list[ItemDoCaderno]:
+def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1,
+                     paragrafos: set[str] | None = None) -> list[ItemDoCaderno]:
     """Os itens do caderno, cada um com o comando e o texto do grupo dele.
 
     A linha vazia sai antes de tudo: ela vem do "Espaço livre" e da quebra de
-    pagina, e no meio do caminho escondia que a linha de cima fechava frase."""
+    pagina, e no meio do caminho escondia que a linha de cima fechava frase.
+    `paragrafos`: as linhas que abrem paragrafo pelo pdfminer
+    (`inicios_de_paragrafo`), para o caderno em que o pypdf perde o recuo."""
     linhas = [ESPACO_LIVRE.sub(" ", linha).rstrip() for linha in texto.splitlines()
               if not MOBILIA_DO_CADERNO.match(linha)]
     linhas = _sem_numeracao_da_margem([linha for linha in linhas if linha.strip()])
+    if paragrafos:
+        linhas = _marcar_paragrafos(linhas, paragrafos)
     inicios = []
     esperado = primeiro
     for indice, linha in enumerate(linhas):
@@ -420,10 +488,17 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | None, ler: list[str] 
     gabarito = ler_gabarito_do_cebraspe(texto_do_gabarito)
     if texto is None:
         texto = extrair_texto(caminho)
+    paragrafos = None
     if palavras is None:
-        palavras = vocabulario(_texto_do_pdfminer(caminho))
+        texto_do_pdfminer = _texto_do_pdfminer(caminho)
+        palavras = vocabulario(texto_do_pdfminer)
+        # So no caderno em que o pypdf perdeu TODO recuo (FUB e SEE/DF de
+        # 2016). Onde ele o tem (a PRF, a SEE/PE de 2022), o pdfminer parte o
+        # texto linha a linha, e a marca dele separava a segunda frase do item.
+        if not any(linha.startswith("  ") for linha in texto.splitlines()):
+            paragrafos = inicios_de_paragrafo(texto_do_pdfminer)
 
-    itens = itens_do_caderno(texto, palavras, primeiro=min(gabarito))
+    itens = itens_do_caderno(texto, palavras, primeiro=min(gabarito), paragrafos=paragrafos)
     lidos = [item.numero for item in itens]
     if set(lidos) != set(gabarito):
         raise ValueError(f"o caderno tem os itens {lidos[:1]}..{lidos[-1:]} ({len(lidos)}) "
