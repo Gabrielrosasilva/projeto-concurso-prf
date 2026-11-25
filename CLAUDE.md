@@ -43,8 +43,7 @@ explica **por que**. Codigo, commits, telas e nomes: em **portugues**.
 3. **Lei pelo texto vigente oficial**, em `leis/` (o Planalto bloqueia robo:
    Camara ou LexML). Questao com lei que mudou depois da prova leva aviso ou
    sai do treino.
-4. `robots.txt` e os termos de cada site, sem excecao. **Qconcursos e TEC fora
-   de robo.** Guarde sempre o link original.
+4. `robots.txt` e os termos de cada site, sem excecao. **Guarde sempre o link original.**
 5. **PDF de prova, texto de prova de terceiros e o banco ficam fora do git.**
 6. Teste com dado fixo em arquivo: nunca internet, nunca a data de hoje, nunca
    dependente do Windows.
