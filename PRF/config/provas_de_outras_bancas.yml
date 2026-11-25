@@ -2363,6 +2363,21 @@ provas:
   arquivo_do_gabarito: cebraspe_prf_2021_policial_gabarito_definitivo_lingua_inglesa.pdf
   materias:
     1-8: Língua Estrangeira (Inglês ou Espanhol)
+# O caderno de espanhol da mesma prova (o Gabriel escolheu espanhol). Os nomes
+# dos arquivos vieram de apis.cebraspe.org.br/cebraspe/eventos/prf_21, em
+# 25/11/2026; baixados com o User-Agent do radar.
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2021
+  orgao: PRF
+  cargo: Policial Rodoviário Federal
+  pagina: http://www.cebraspe.org.br/concursos/prf_21
+  caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_ESP_02.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/GAB_DEFINITIVO_578_PRF_ESP_02.PDF
+  arquivo: cebraspe_prf_2021_policial_prova_lingua_espanhola.pdf
+  arquivo_do_gabarito: cebraspe_prf_2021_policial_gabarito_definitivo_lingua_espanhola.pdf
+  materias:
+    1-8: Língua Estrangeira (Inglês ou Espanhol)
 - banca: CEBRASPE
   formato: certo_errado
   ano: 2021

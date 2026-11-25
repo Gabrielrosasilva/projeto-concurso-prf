@@ -48,7 +48,14 @@ cronograma so se monta na Etapa 5, na ordem do pedido (sem pular a 3 e a 4).
 - Correcao pelo Claude, com os criterios do Cebraspe (edital 10.6.4), pela aba
   Redacao do radar (o caminho sem API: `data/pedido_ia.json` e
   `radar redacao --importar`). O Gabriel manda o texto digitado.
-- A aba ainda e a da AOCP (PMSC): precisa virar a do Cebraspe.
+- **PENDENCIA (antes ou junto da Etapa 5):** a aba ainda e a da AOCP (PMSC) e
+  precisa virar a do Cebraspe: a nota pela NPD = NC - 4 x (NE / TL) do edital
+  (10.6.4), ate 30 linhas, eliminado abaixo de 10, e textos-modelo novos no
+  lugar de `data/redacoes_modelo.json` (AOCP). Base oficial ja baixada: o
+  padrao de resposta definitivo da discursiva de 2021
+  (`PRF/cebraspe_prf_2021_policial_padrao_de_resposta_discursiva.pdf`, de
+  cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF).
+  Na mesma leva sai o Simulado PMSC da tela.
 
 ## A conferir na Etapa 5
 - Os estudos sobre metodo (Dunlosky 2013, Roediger e Karpicke 2006, Cepeda
