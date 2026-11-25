@@ -90,15 +90,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "b",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "A b reproduz o art. 33, § 2º, b, do CP: o condenado não reincidente com pena superior a 4 anos e que não exceda a 8 pode começar a cumpri-la em regime semiaberto. A errada mais tentadora é a d, porque colônia agrícola, industrial ou estabelecimento similar é o regime semiaberto; o aberto se cumpre em casa de albergado ou estabelecimento adequado (art. 33, § 1º, b e c). A a e a c erram porque a reclusão admite os três regimes, e a detenção se cumpre no semiaberto ou no aberto, salvo necessidade de transferência ao fechado (art. 33, caput).",
-    "fonte": "art. 33, § 2º, b, do Código Penal",
-    "impressao": "0489e7cdc24e412a9f7c73353ed1c244",
-    "materia": "Direito Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "A D é a Súmula 723 do STF: no crime continuado, não cabe suspensão condicional do processo se a pena mínima da infração mais grave, somada ao aumento mínimo de um sexto, passar de um ano (no mesmo sentido, a Súmula 243 do STJ). A errada mais tentadora é a B: desde o CPC de 2015, os embargos de declaração no Juizado interrompem, e não suspendem, o prazo para os outros recursos (art. 83, § 2º, da Lei 9.099/1995). A A erra porque o menor potencial ofensivo vai até a pena máxima de 2 anos (art. 61); a C contraria a Súmula Vinculante 35 (a homologação da transação não faz coisa julgada material e, descumprida, o Ministério Público pode denunciar); e a E troca o termo, porque expirado o prazo sem revogação se declara extinta a punibilidade (art. 89, § 5º).",
@@ -122,15 +113,6 @@
     "explicacao": "Joana submeteu José, que estava sob sua guarda, com emprego de violência, a intenso sofrimento físico como forma de aplicar castigo pessoal: é o art. 1º, II, da Lei 9.455/1997, que a doutrina chama de tortura-castigo ou tortura-punitiva. A errada mais tentadora é a b: a tortura-crime é a do art. 1º, I, b, praticada para provocar ação ou omissão de natureza criminosa. A tortura-confissão (ou tortura-prova) é a do inciso I, a, para obter informação, declaração ou confissão; a tortura-preconceito (ou discriminatória) é a do inciso I, c, por discriminação racial ou religiosa; e a tortura imprópria é a omissão de quem tinha o dever de evitar ou apurar a tortura (§ 2º). Como José é pessoa idosa, a pena ainda aumenta de um sexto até um terço se ele tiver mais de 60 anos (§ 4º, II).",
     "fonte": "art. 1º, II, da Lei 9.455/1997",
     "impressao": "05a24c6b535b9ce11a72ad07df36ebf1",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "É a letra do art. 7º, IV, da Lei 11.340/2006: a violência patrimonial é qualquer conduta que configure retenção, subtração, destruição parcial ou total de objetos, instrumentos de trabalho, documentos pessoais, bens, valores e direitos ou recursos econômicos da mulher. A errada mais tentadora é a e, 'usurpação', que soa como palavra de lei, mas não está no inciso. A desapropriação é instituto do direito administrativo, a usucapião, do direito civil, e o estelionato é crime do art. 171 do CP, e nenhum deles está no texto. Para lembrar: os três verbos da violência patrimonial são reter, subtrair e destruir.",
-    "fonte": "art. 7º, IV, da Lei 11.340/2006",
-    "impressao": "064407bb8aa5935143df7f070d5e2983",
     "materia": "Legislação Especial",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
@@ -214,24 +196,6 @@
     "impressao": "09adb163192a433f6e9b3edbb358c49b",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "Cabe ao Conselho Nacional de Política Criminal e Penitenciária estimular e promover a pesquisa criminológica (art. 64, IV, da LEP). A pegadinha é o Conselho Penitenciário (c), que é órgão consultivo e fiscalizador da execução (parecer sobre indulto, inspeção de estabelecimentos, art. 70), e não de pesquisa. O nome parecido dos dois conselhos é o que confunde.",
-    "fonte": "art. 64, IV, da Lei 7.210/1984",
-    "impressao": "0a5b7fd80e02f0bc3cdf522f9e7984d5",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "Sobrar 5 nas contagens de 6, 8, 10 e 12 significa que N − 5 é múltiplo do MMC(6, 8, 10, 12) = 120. Os candidatos abaixo de 700 são 125, 245, 365, 485 e 605, e só 605 = 11 × 55 é divisível por 11. Logo Carlos tem 605 laranjas, entre 600 e 615. A armadilha é usar o produto ou um múltiplo comum errado (como 240) em vez do MMC.",
-    "fonte": "Mínimo múltiplo comum e divisão euclidiana (N = 120k + 5)",
-    "impressao": "0c6119ca1e99478d75013bc9b8817300",
-    "materia": "Raciocínio Lógico",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
     "correta": "b",
@@ -369,15 +333,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "Universalidade e indivisibilidade estão escritas: a Declaração de Viena, que reafirma a DUDH, diz que todos os direitos humanos são universais, indivisíveis, interdependentes e inter-relacionados. A efetividade também conta, e é aí que está a pegadinha da D (só 1 e 3): o art. 28 da DUDH garante a toda pessoa uma ordem social e internacional em que os direitos da Declaração possam ser plenamente realizados, e a doutrina inclui a efetividade entre as características dos direitos humanos. Por isso as três afirmativas estão corretas.",
-    "fonte": "Declaração e Programa de Ação de Viena, 1993, parte I, § 5; art. 28 da Declaração Universal dos Direitos Humanos",
-    "impressao": "13a4528736518000ed608414c4556a2d",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "Está certa a a: o mandado de segurança protege direito líquido e certo, não amparado por habeas corpus ou habeas data, 'quando o responsável pela ilegalidade ou abuso de poder for autoridade pública ou agente de pessoa jurídica no exercício de atribuições do poder público' (art. 5º, LXIX, da CF). A errada mais tentadora é a e: o mandado de injunção não cabe para 'qualquer direito', e sim quando a falta de norma regulamentadora torna inviável o exercício dos direitos e liberdades constitucionais e das prerrogativas inerentes à nacionalidade, à soberania e à cidadania (art. 5º, LXXI). A b erra porque basta a ameaça de violência ou coação na liberdade de locomoção (LXVIII); a c distorce o habeas data de retificação, que cabe 'quando não se prefira' fazê-la por processo sigiloso, judicial ou administrativo (LXXII, b); e a d omite que o habeas data também é gratuito (LXXVII).",
@@ -394,15 +349,6 @@
     "impressao": "142e27bbde360b1209aa6f6a0a968a41",
     "materia": "Legislação Especial",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "Os direitos humanos são os direitos que protegem a dignidade de todo ser humano: a DUDH afirma, no art. 1º, que todos nascem livres e iguais em dignidade e direitos. A A e a B erram as características: pela Declaração de Viena, os direitos humanos são universais, indivisíveis, interdependentes e inter-relacionados, e o preâmbulo da DUDH os chama de inalienáveis. A errada mais tentadora é a D, que reduz os direitos humanos às obrigações do Estado com os cidadãos, quando eles pertencem a todo ser humano, cidadão ou não.",
-    "fonte": "art. 1º da Declaração Universal dos Direitos Humanos; Declaração e Programa de Ação de Viena, 1993, parte I, § 5",
-    "impressao": "14cb42f729a8c2642d3bde1e11eda26b",
-    "materia": "Conhecimentos Específicos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
     "correta": "b",
@@ -540,15 +486,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 09/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "As quatro estão no art. 41 da LEP: audiência especial com o diretor (XIII), chamamento nominal (XI), atribuição de trabalho e sua remuneração (II) com proporcionalidade do tempo para trabalho, descanso e recreação (V), e representação e petição a qualquer autoridade em defesa de direito (XIV). A pegadinha é a 3, que junta dois incisos numa frase só e parece inventada, mas está toda na lei. Atenção ao texto vigente: depois da Lei 14.994/2024, o juiz pode suspender ou restringir por ato motivado os incisos V, X e XV (§ 1º), o que não muda o gabarito.",
-    "fonte": "art. 41, II, V, XI, XIII e XIV, da Lei 7.210/1984",
-    "impressao": "1caa127a7bb47bdfaedb84899576d42f",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "A d é a incorreta: o STJ entende que a condenação anterior pelo porte de droga para consumo próprio (art. 28 da Lei 11.343/2006) não gera reincidência, porque seria desproporcional, já que nem a contravenção penal, punida com prisão simples, gera reincidência para quem depois comete crime (art. 63 do CP). A pegadinha é a primeira parte da frase ('natureza jurídica de crime, ainda que despenalizado'), que lembra o que o STF dizia do art. 28 e torna a conclusão plausível. As outras são jurisprudência consolidada: a a é a tese do STF sobre o confisco (Tema 647), a b é o aumento do art. 40, III, que não exige que o traficante vise aos frequentadores do presídio, a c é o entendimento do STJ de que o art. 34 não alcança o instrumento destinado ao consumo próprio, e a e é a Súmula 587 do STJ. Depois da prova, o STF (RE 635.659, Tema 506, junho de 2024) tirou do campo penal o porte de maconha para consumo pessoal, o que deixa a d ainda mais longe da resposta nesse caso.",
@@ -556,15 +493,6 @@
     "impressao": "1cd1034b6d3f75ff7d8bc126c94ae7c0",
     "materia": "Legislação Especial",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Só a 1ª é verdadeira: é o art. 13-B do CPP, pelo qual, no tráfico de pessoas, o Ministério Público ou o delegado requisitam o sinal às operadoras mediante autorização judicial. A 2ª erra o prazo: o sinal é fornecido por até 30 dias, renováveis uma vez, e não 15 (§ 2º, II). A 3ª e a 4ª também trocam números: o inquérito deve ser instaurado em até 72 horas do registro da ocorrência, não 48 (§ 3º), e a autoridade requisita direto se o juiz não se manifestar em 12 horas, não 24 (§ 4º). A pegadinha é que as quatro frases copiam o texto da lei e só os prazos mudam.",
-    "fonte": "art. 13-B, caput e §§ 2º, II, 3º e 4º, do CPP",
-    "impressao": "1e43e4a94927422ffa5a7e0f0dc1e469",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "d",
@@ -756,15 +684,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "d",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "O Protocolo Adicional à Convenção Americana em matéria de direitos econômicos, sociais e culturais, de 1988, é o Protocolo de San Salvador, e o art. 11 dele garante o direito a um meio ambiente sadio e manda os Estados promoverem a proteção, preservação e melhoramento do meio ambiente. A pegadinha é a E: San José da Costa Rica é o nome da própria Convenção Americana (Pacto de San José, 1969), não do protocolo adicional. A Rio+20 foi uma conferência da ONU, e Assunção e Cruz Alta não nomeiam esse protocolo.",
-    "fonte": "art. 11 do Protocolo de San Salvador (Protocolo Adicional à Convenção Americana sobre Direitos Humanos, Decreto 3.321/1999)",
-    "impressao": "27e25d2d097c7d0a2045b45fa4414ad0",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "Pelo art. 5º, XI, da CF, a casa pode ser invadida sem ordem judicial em caso de flagrante delito, e no crime permanente (como o tráfico na modalidade ter em depósito) o flagrante dura enquanto dura o crime, então a A está certa como regra. A errada mais tentadora é a E, que copia a tese do STF no RE 603.616 (Tema 280) trocando uma palavra: a entrada forçada sem mandado, amparada em fundadas razões justificadas depois, é lícita mesmo em período noturno, e não 'exceto' nele. A C erra porque o que se encontra depois não legitima a entrada, já que as fundadas razões têm de existir antes; a B, porque nenhuma ordem de comandante substitui a do juiz; e a D, porque a restrição ao período do dia só vale para a ordem judicial. Por isso o simples entra e sai de pessoas, sozinho, não seria fundada razão para entrar na casa do caso narrado.",
@@ -864,24 +783,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "d",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "A Declaração e Programa de Ação de Viena foi adotada pela Conferência Mundial de Direitos Humanos em 25 de junho de 1993 e, no preâmbulo e no § 1 da parte I, reafirma o compromisso com a Carta da ONU e com a Declaração Universal de 1948. As outras erram data e natureza: não é tratado do ano 2000 sobre o Oriente Médio (A), não está em elaboração (B), não é acordo comercial (C) e não tem ligação com uma ratificação africana de 1970 (E). A D é a única com a data certa, 1993, e o vínculo com a DUDH.",
-    "fonte": "Declaração e Programa de Ação de Viena, 1993, preâmbulo e parte I, §§ 1 e 5",
-    "impressao": "2b690ebd0b275dc0220e493f12cbe062",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T18:32:37.726595+00:00",
-    "explicacao": "A c é a Súmula 691 do STF: o Supremo não conhece de habeas corpus contra a decisão do relator que, em HC impetrado num tribunal superior, só indeferiu a liminar, para não pular a instância que ainda vai julgar o mérito (o STF afasta a súmula só diante de ilegalidade flagrante). A errada mais tentadora é a e: o HC contra decisão de turma recursal dos Juizados Criminais vai ao Tribunal de Justiça ou ao TRF, e não ao STJ; a antiga Súmula 690, que dava essa competência ao próprio STF, foi superada pelo Supremo. A b contraria a Súmula 648 do STJ (a sentença condenatória superveniente prejudica o pedido de trancamento por falta de justa causa), a d contraria a Súmula 695 do STF (não cabe HC quando já extinta a pena privativa de liberdade), e a a deforma o art. 651 do CPP, segundo o qual a concessão do HC não obstará o processo, salvo conflito com os fundamentos dela.",
-    "fonte": "Súmula 691 do STF",
-    "impressao": "2c5e556e6ae0d07e914ea050ec188076",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "Lázaro e Arnaldo constrangeram Xisto com violência, causando-lhe sofrimento físico, para obter informação: é a tortura do art. 1º, I, a, da Lei 9.455/1997 (a tortura-prova), que qualquer pessoa pode cometer, e não só o agente público. A errada mais tentadora é a a: a extorsão mediante sequestro (art. 159 do CP) exige o fim de obter vantagem como condição ou preço do resgate, e aqui o que se queria era informação. A c é a tortura-crime (inciso I, b), cujo fim é provocar ação ou omissão de natureza criminosa, e a e exige pessoa presa ou sujeita a medida de segurança (§ 1º), o que Xisto, capturado por particulares, não era. A d erra porque a lesão é o meio da tortura, que é o crime específico e mais grave.",
@@ -910,15 +811,6 @@
   },
   {
     "correta": "c",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A c é a letra do art. 4º, § 2º, do Estatuto do Desarmamento: a aquisição de munição só pode ser feita no calibre correspondente à arma registrada e na quantidade estabelecida no regulamento. A errada mais tentadora é a e, que inverte o art. 10: o porte de arma de uso permitido em todo o território nacional é de competência da Polícia Federal e só é concedido depois da autorização do Sinarm, e não o contrário. A a erra o ministério (o Sinarm foi instituído no Ministério da Justiça, art. 1º), a b troca o Sinarm pela Polícia Militar na autorização de compra (art. 4º, § 1º) e a d dá ao Exército o cadastro dos armeiros, que é do Sinarm (art. 2º). Depois da prova, no julgamento dos decretos de armas (ADIs 6.119, 6.139 e 6.466), o STF deu interpretação conforme a esse § 2º: a compra de munição deve corresponder só ao necessário à segurança dos cidadãos; a letra da lei não mudou.",
-    "fonte": "art. 4º, § 2º, da Lei 10.826/2003 (e arts. 1º, 2º, 4º, § 1º, e 10)",
-    "impressao": "2ee0600189913533bddc7dc5bc4f6777",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
     "criado_em": "2026-10-05T21:56:25.538774+00:00",
     "explicacao": "A casa é asilo inviolável, e só se entra nela sem consentimento do morador em flagrante delito, desastre ou para prestar socorro (a qualquer hora) ou, durante o dia, por determinação judicial - então só a 3 é correta. A pegadinha é a 2: com ordem judicial a polícia só pode entrar durante o dia, nunca à noite sem consentimento. A 1 é falsa porque a regra é a inviolabilidade; não há ingresso 'a qualquer momento' por vontade da autoridade policial.",
     "fonte": "art. 5º, XI, da Constituição Federal",
@@ -936,30 +828,12 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "d",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "É a classificação do art. 110 do CPM: as medidas de segurança são pessoais ou patrimoniais, e as pessoais se subdividem em detentivas e não detentivas. A prova é de 2022, e a Lei 14.688/2023 reescreveu o artigo, levando a subdivisão para o § 1º, mas a classificação ficou a mesma e o gabarito continua certo. A errada mais tentadora é a b: a falta disciplinar do militar só pesa no sursis se for considerada grave, e não 'de qualquer natureza', e hoje ela é causa de revogação facultativa (art. 86, § 1º), pois a mesma lei revogou o inciso III, que a fazia obrigatória. A a erra o prazo da reincidência, que é de cinco anos (art. 71, § 1º), e a c, porque o livramento condicional não se aplica a crime cometido em tempo de guerra (art. 96). A e inverte o art. 120, parágrafo único: a imposição da medida de segurança não impede a expulsão do estrangeiro.",
-    "fonte": "art. 110, caput e § 1º, do CPM (redação da Lei 14.688/2023) (e arts. 71, § 1º, 86, § 1º, 96 e 120, parágrafo único)",
-    "impressao": "304155383173ea9b18f6efe04c4f819b",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "O mandado de injunção é a ação do cidadão quando a falta de norma regulamentadora torna inviável o exercício de direitos e liberdades constitucionais e das prerrogativas inerentes à nacionalidade, à soberania e à cidadania (art. 5º, LXXI, da CF). A errada mais tentadora é a ADO: ela também trata de omissão, mas é controle abstrato, que só os legitimados do art. 103 da CF podem propor, e não protege o direito de uma pessoa. Mandado de segurança protege direito líquido e certo contra ato de autoridade, ação popular anula ato lesivo ao patrimônio público, e habeas data dá acesso a informações pessoais.",
     "fonte": "art. 5º, LXXI, da CF/1988 (e art. 103)",
     "impressao": "307e480c17b44ceb1d0f08d2c9330ef8",
     "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T13:48:55.470454+00:00",
-    "explicacao": "A III está certa: o texto é de divulgação científica, centrado em informar estudos, dados e datas, o que caracteriza a função referencial. A IV está errada, e é a pegadinha: o trecho sobre o estudo de Nitin Gogtay é puramente informativo, sem as emoções do autor que marcariam a função emotiva. A II também está errada, pois o texto não trabalha a forma da mensagem (ritmo, sonoridade), que define a função poética. Na I, o 'você' é genérico, um recurso de aproximação, sem o apelo ao leitor da função conativa; e, mesmo para quem o leia como apelo, a única alternativa com a I traz também a IV, então a resposta continua sendo a C.",
-    "fonte": "funções da linguagem - Roman Jakobson, Linguística e Comunicação",
-    "impressao": "3177a98a6a919645f68d0786a245d25e",
-    "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -1086,24 +960,6 @@
     "fonte": "art. 1º do CP e art. 5º, XXXIX, da CF (e art. 218-B, § 2º, I, do CP)",
     "impressao": "379f589d4baf4024848ff6731a7abe53",
     "materia": "Direito Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "A C é a incorreta: a primeira parte é o art. 53 do CPM, mas o art. 54 diz o contrário do final: o ajuste, a determinação ou instigação e o auxílio, salvo disposição em contrário, não são puníveis se o crime não chega, pelo menos, a ser tentado. A pegadinha é a B, que soa estranha por citar o 'impedimento', mas ele é pena principal do art. 55 (a Lei 14.688/2023 revogou a suspensão do exercício e a reforma, e manteve morte, reclusão, detenção, prisão e impedimento), e a parte da fixação da pena copia o art. 69. A A junta os arts. 12 e 13 (o art. 12, na redação da Lei 14.688/2023, diz 'militar da ativa', com o mesmo sentido de 'em situação de atividade'), a D é o art. 48 e a E é o art. 2º, § 1º. Pelo texto de hoje, as outras quatro continuam certas e a C continua a única errada.",
-    "fonte": "arts. 53 e 54 do CPM (Decreto-Lei 1.001/1969); arts. 2º, § 1º, 12, 13, 48, 55 e 69 do CPM, com a Lei 14.688/2023",
-    "impressao": "37acb6958d5fd7418389d07cbd63c318",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T13:48:55.470454+00:00",
-    "explicacao": "'Palavras-chave' junta duas palavras que mantêm a forma e o acento (palavra + chave), ligadas por hífen: é composição por justaposição. A errada mais tentadora é a D: 'cibercondríaco' cruza 'ciber-' com um pedaço de 'hipocondríaco', com perda de som, então não é justaposição de palavras inteiras. 'Superestimar', 'despretensiosa' e 'irracionais' são formadas por prefixo (super-, des-, in-) mais palavra, ou seja, derivação prefixal.",
-    "fonte": "formação de palavras: composição por justaposição e por aglutinação; derivação prefixal - Cunha & Cintra, Nova Gramática do Português Contemporâneo",
-    "impressao": "38cb273d88c87b775d7ac6e07fd6bd77",
-    "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -1252,15 +1108,6 @@
   },
   {
     "correta": "e",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "As quatro estão no art. 39 da LEP: submissão à sanção disciplinar imposta (VI), indenização à vítima ou aos seus sucessores (VII), higiene pessoal e asseio da cela ou alojamento (IX) e conservação dos objetos de uso pessoal (X). A pegadinha é a 4: indenizar a vítima parece assunto civil, fora da execução, mas é dever expresso do condenado na lei.",
-    "fonte": "art. 39, VI, VII, IX e X, da Lei 7.210/1984",
-    "impressao": "42c41a2c6fd9b93a1e0e18ede43f2e9e",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
-    "correta": "e",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "Em E a concordância nominal está toda certa: “anexa” e “objetiva” (adjetivos) concordam com “observação”, e “primeiro” (numeral ordinal) concorda com “equívoco”. A errada mais tentadora é a C, que erra justamente a concordância: o sujeito é “as provas”, e o certo seria “Vão inclusas as provas”. D também erra (“restaram apenas duas cadeiras”), A não tem numeral e B não tem adjetivo. Ponto discutível: para enxergar em E um pronome adjetivo é preciso tratar “uma” como pronome indefinido, classificação que varia entre gramáticos (muitos o chamam de artigo indefinido).",
     "fonte": "Concordância nominal: adjetivos, numerais e pronomes adjetivos concordam em gênero e número com o substantivo; anexo e incluso são adjetivos e concordam com o termo a que se referem",
@@ -1348,15 +1195,6 @@
     "impressao": "49d9dbb87c0eea166503c8ec265f5c8a",
     "materia": "Informática",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "Carlos preenche o art. 44 do CP: pena não superior a quatro anos, crime sem violência ou grave ameaça, réu não reincidente em crime doloso e circunstâncias favoráveis; como a pena passa de um ano, o § 2º permite substituí-la por uma restritiva de direitos e multa ou por duas restritivas de direitos, como diz a C. A pegadinha é a E: o sursis comum só cabe para pena não superior a dois anos (art. 77), e dois anos e dois meses passa do limite; além disso, ele só cabe quando não for indicada ou cabível a substituição do art. 44 (art. 77, III). A A e a D erram o regime: o não reincidente com pena igual ou inferior a quatro anos pode começar no aberto (art. 33, § 2º, c), e não no fechado nem obrigatoriamente no semiaberto, que é o da colônia agrícola, industrial ou similar (art. 33, § 1º, b). A B erra porque o CP não prevê trocar a multa por prestação de serviços à comunidade.",
-    "fonte": "art. 44, I a III e § 2º, do CP; arts. 33, §§ 1º e 2º, e 77 do CP",
-    "impressao": "49f04634b47a716900cb7b52f666d4c5",
-    "materia": "Direito Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "b",
@@ -1478,15 +1316,6 @@
   {
     "correta": "a",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A a é a Súmula 600 do STJ: para configurar a violência doméstica e familiar do art. 5º da Lei 11.340/2006, não se exige a coabitação entre autor e vítima, o que o próprio inciso III já diz ('independentemente de coabitação'). A errada mais tentadora é a b, que começa certa (Súmula 542: a lesão corporal na violência doméstica é de ação pública incondicionada), mas inventa a exceção da desistência da vítima, que não existe. A c erra porque a Súmula 536 afasta tanto a suspensão condicional do processo quanto a transação penal, e a d, porque a Súmula 589 nega a insignificância nos crimes e também nas contravenções contra a mulher no âmbito doméstico. A e inverte a Súmula 588: crime ou contravenção com violência ou grave ameaça contra a mulher no ambiente doméstico impossibilita a substituição por pena restritiva de direitos.",
-    "fonte": "art. 5º, III, da Lei 11.340/2006 (Súmula 600 do STJ)",
-    "impressao": "50abeaf2acd1974f9d7650aac0933dc0",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "Intranet é uma rede privada da organização, que usa os mesmos protocolos da internet (TCP/IP), mas com acesso restrito aos seus membros, normalmente com autenticação. A errada mais tentadora é a E: é verdade que a intranet usa os protocolos da internet, mas roda na infraestrutura privada da instituição, e usar TCP/IP não a torna, por si, exposta a ataques externos. B e C erram ao abrir a rede ao público e ao acesso externo sem restrição (o acesso de fora, quando existe, é controlado, por exemplo por VPN), e D erra porque a autenticação continua necessária.",
     "fonte": "Intranet: rede privada que usa os protocolos da internet (TCP/IP), com acesso restrito aos usuários da organização",
     "impressao": "512cf633728fe7c58e764760b10a71e3",
@@ -1602,15 +1431,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "Só a primeira é verdadeira: a lei protege a mulher da violência baseada no gênero que lhe cause morte, lesão, sofrimento físico, sexual ou psicológico e dano moral ou patrimonial, no âmbito da unidade doméstica, da família ou de qualquer relação íntima de afeto (art. 5º, I a III, da Lei 11.340/2006). A segunda é falsa porque a relação íntima de afeto é aquela em que o agressor 'conviva ou tenha convivido' com a ofendida (art. 5º, III): a agressão do ex-namorado em decorrência do relacionamento atrai a lei, como entende o STJ. A terceira é falsa pelo mesmo inciso ('independentemente de coabitação') e pela Súmula 600 do STJ. A errada mais tentadora é a quarta: calúnia, difamação e injúria são a violência moral (art. 7º, V), e não a psicológica (art. 7º, II), que é a conduta que causa dano emocional ou controla a mulher por ameaça, humilhação, isolamento e outros meios.",
-    "fonte": "art. 5º e art. 7º, II e V, da Lei 11.340/2006",
-    "impressao": "54b19e9cd86e44b5c4e3cd9a0a8cfe0a",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
     "correta": "c",
     "criado_em": "2026-10-24T17:12:01.969914+00:00",
     "explicacao": "Só a primeira afirmação está certa: ela copia o caput do art. 13-B do CPP, que permite ao Ministério Público ou ao delegado requisitar, mediante autorização judicial, os sinais que localizem a vítima ou os suspeitos do tráfico de pessoas. A segunda erra o prazo, porque o sinal é fornecido por período não superior a 30 dias, renovável uma vez por igual período, e não 15 (art. 13-B, § 2º, II). A terceira também erra: o inquérito deve ser instaurado no prazo máximo de 72 horas do registro da ocorrência, e não 48 (§ 3º). A quarta erra o prazo da falta de manifestação judicial, que é de 12 horas, e não 24 (§ 4º), e por isso a sequência é V, F, F, F.",
@@ -1671,15 +1491,6 @@
     "fonte": "art. 86, § 1º, II, da CF",
     "impressao": "57a10ee4ea9f41ce2c000fef516e4007",
     "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T17:11:38.434612+00:00",
-    "explicacao": "“Egocêntrico” e “egoísta” têm o mesmo radical, o latim ego (“eu”): o egocêntrico põe o eu no centro de tudo, e o egoísta só pensa em si. A errada mais tentadora é a b: o sufixo “-íssimo” intensifica “especial” (superlativo absoluto sintético), mas a palavra continua adjetivo, ou seja, não muda de classe. Na a, o “-eiro” de “verdadeiro” forma adjetivo de qualidade (que tem verdade), e não indica origem, como em “brasileiro” e “mineiro”; na c, “im-” é prefixo de negação, mas “duradouras” se forma pelo sufixo “-douro” (durar + -douro), e “dura-” não é prefixo.",
-    "fonte": "formação de palavras (radical, prefixo e sufixo) e grau do adjetivo - Bechara, Moderna Gramática Portuguesa",
-    "impressao": "583e245a0b1b46b5a3e994e927a7d1d0",
-    "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -1845,33 +1656,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "b",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "É a letra do art. 3º, parágrafo único, do Estatuto do Desarmamento: as armas de fogo de uso restrito são registradas no Comando do Exército, na forma do regulamento. A errada mais tentadora é a d, porque o registro das armas de uso permitido é expedido pela Polícia Federal, com autorização do Sinarm, que foi instituído no Ministério da Justiça (arts. 1º e 5º, § 1º); mas a arma de uso restrito vai para o Exército. Polícia Civil e Secretaria de Segurança Pública não aparecem na lei como órgãos de registro.",
-    "fonte": "art. 3º, parágrafo único, da Lei 10.826/2003",
-    "impressao": "5e54591619601148643d1ff3499bc26d",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A alternativa a lista os requisitos do concurso de pessoas que a doutrina tira do art. 29 do CP: pluralidade de agentes e de condutas, relevância causal de cada conduta, liame subjetivo entre os agentes e identidade de infração penal. A errada mais tentadora é a b: o concurso formal exige uma só ação ou omissão e pluralidade de crimes (art. 70), mas essa conduta única pode ser fracionada em vários atos, e a pegadinha está no 'não havendo possibilidade'. A c erra porque o CP adota, como regra, a teoria monista (unitária): quem concorre para o crime incide nas penas a ele cominadas (art. 29), e a pluralista fica para as exceções. A d erra porque o cúmulo material vale no concurso material (art. 69) e no formal impróprio; no formal próprio e no crime continuado o sistema é o da exasperação (arts. 70 e 71).",
-    "fonte": "art. 29 do Código Penal (e arts. 69 a 71)",
-    "impressao": "5e8f7ec9ff26a5cbd414bb19791f3ab0",
-    "materia": "Direito Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "Pelo art. 132 do CPM, no crime de deserção a prescrição, mesmo já decorrida, só extingue a punibilidade quando o desertor atinge 45 anos, e, se oficial, 60 anos. A errada mais tentadora é a d, porque os sessenta anos valem para o oficial, e a questão fala de praça. Os trinta anos (a) são de outro artigo: é a idade em que começa a correr a prescrição da insubmissão (art. 131). O art. 132 não mudou com a Lei 14.688/2023.",
-    "fonte": "art. 132 do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "5eef5adac22323a8589bd9f81286be83",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "'A medalha' começa a frase e só tem artigo; 'entregue à atleta' tem crase porque entregar pede 'a' e a atleta (feminino) leva artigo. 'À custa de' é locução prepositiva feminina, com crase; 'dedicação à modalidade' e 'à qual se dedica' juntam a preposição pedida por 'dedicação' e 'dedicar-se' ao artigo 'a'. A pegadinha é a última lacuna: 'desde' já é preposição e não admite outro 'a', então fica 'desde a infância', sem crase.",
@@ -1888,15 +1672,6 @@
     "impressao": "5f61092edfca0194802672cd5d47a5c6",
     "materia": "Direito Penal",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "O art. 75 da LEP exige diploma de nível superior de Direito, Psicologia, Ciências Sociais, Pedagogia ou Serviços Sociais (I), experiência administrativa na área (II) e idoneidade moral e reconhecida aptidão (III). Só a 3 reproduz a lei: a 1 é a pegadinha, porque fala em qualquer diploma superior, quando a lei restringe a cinco cursos, e a 2 troca 'experiência administrativa na área' por 'gestão de administração pública'. A idade mínima de trinta e cinco anos (4) não existe na lei.",
-    "fonte": "art. 75, I, II e III, da Lei 7.210/1984",
-    "impressao": "5fabe1fd8bb303e6da0ae6c2cab0f815",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "d",
@@ -1996,15 +1771,6 @@
     "impressao": "63f0c96763fa1da1ef08593a4f277925",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A b é a letra do art. 19, § 6º, da Lei 11.340/2006 (incluído pela Lei 14.550/2023): as medidas protetivas de urgência vigoram enquanto persistir risco à integridade física, psicológica, sexual, patrimonial ou moral da ofendida ou de seus dependentes. A errada mais tentadora é a a, que inverte o § 5º do mesmo artigo: as medidas são concedidas independentemente da tipificação penal da violência, do ajuizamento de ação, da existência de inquérito ou do registro de boletim de ocorrência. A d inverte o § 1º, que permite concedê-las de imediato, independentemente de audiência das partes e de manifestação do Ministério Público, e a c contraria o art. 20, que admite a prisão preventiva em qualquer fase do inquérito, inclusive mediante representação da autoridade policial. A e erra porque o art. 23, VI (incluído pela Lei 14.674/2023), prevê o auxílio-aluguel como medida protetiva.",
-    "fonte": "art. 19, § 6º, da Lei 11.340/2006 (e §§ 1º e 5º, e arts. 20 e 23, VI)",
-    "impressao": "643522b361bf40a08b79e168ccdea858",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
     "correta": "b",
@@ -2130,15 +1896,6 @@
     "fonte": "regência: chegar a, assistir a (ver), devido a - Celso Luft, Dicionário Prático de Regência Verbal; preposição antes do pronome relativo - Bechara, Moderna Gramática Portuguesa",
     "impressao": "6a2a206b80b6d251ff2220f28661a091",
     "materia": "Língua Portuguesa",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Auxiliar a subtrair-se à ação da autoridade o autor de crime militar punido com morte ou reclusão é o favorecimento pessoal do art. 350 do CPM (se o crime é punido com detenção ou impedimento, a pena é menor, § 1º). A errada mais tentadora é o favorecimento real (art. 351), que é o auxílio para tornar seguro o proveito do crime, e não para livrar a pessoa do criminoso. Desobediência a decisão judicial, recusa de obediência e insubmissão são crimes de outra natureza, sem relação com esconder o autor de um crime.",
-    "fonte": "art. 350 do CPM (e art. 351)",
-    "impressao": "6a6e6ad3bcc7d939607889ec941675b5",
-    "materia": "Direito Penal Militar",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -2268,15 +2025,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "a",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "A conduta descrita é a do art. 150 do CPM, cujo nome jurídico é 'organização de grupo para a prática de violência': dois ou mais militares, com armamento ou material bélico de propriedade militar, praticando violência à pessoa ou à coisa, pública ou particular. A pegadinha é a B: o motim (art. 149) tem a mesma pena, reclusão de quatro a oito anos, mas é a reunião de militares contra a ordem de superior ou em detrimento da disciplina, sem exigir armamento de propriedade militar. A revolta (art. 149, parágrafo único) é o motim com os agentes armados, com pena de oito a vinte anos; a conspiração (art. 152) é o acerto entre militares para praticar o motim; e o incitamento (art. 155) é incitar à desobediência, à indisciplina ou à prática de crime militar. A Lei 14.688/2023, posterior à prova, tirou 'ou assemelhados' do art. 150, mas o nome jurídico e a pena não mudaram, e o gabarito continua certo.",
-    "fonte": "art. 150 do CPM (Decreto-Lei 1.001/1969), com a redação da Lei 14.688/2023; arts. 149, 152 e 155 do CPM",
-    "impressao": "709d219476b9c20a7fa74115e4288fb0",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-10-24T17:12:01.969914+00:00",
     "explicacao": "A ação popular é a ação do cidadão, isto é, do eleitor, para anular ato lesivo ao patrimônio público, à moralidade administrativa, ao meio ambiente e ao patrimônio histórico e cultural (art. 5º, LXXIII, da CF), que é o caso do aterro feito sem estudo de impacto ambiental. A pegadinha é a c, porque a ação civil pública também protege o meio ambiente, mas é função do Ministério Público e de outros legitimados (art. 129, III e § 1º), e não do eleitor sozinho. O mandado de injunção (a) supre a falta de norma regulamentadora (art. 5º, LXXI), e o mandado de segurança coletivo (d) é impetrado por partido político, sindicato, entidade de classe ou associação (art. 5º, LXX), nunca por um cidadão.",
@@ -2349,15 +2097,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "A lei nova que deixa de considerar o fato crime (abolitio criminis) é, pelo CPM, causa de extinção da punibilidade: 'pela retroatividade de lei que não mais considera o fato como criminoso' (art. 123, III). Ela retroage em favor do réu, mesmo já condenado, e faz cessar a execução e os efeitos penais da sentença condenatória (art. 2º do CPM, na redação da Lei 14.688/2023). A errada mais tentadora é a a: a conduta deixa de ser típica dali em diante, mas o fato era típico quando praticado, e a lei castrense põe a abolição do crime, com todas as letras, entre as causas que extinguem a punibilidade. Ilicitude e culpabilidade (b e c) tratam de excludentes como a legítima defesa e a inimputabilidade, e não há 'diminuição de pena' (d) quando o crime deixa de existir.",
-    "fonte": "art. 123, III, do CPM (e art. 2º do CPM, redação da Lei 14.688/2023)",
-    "impressao": "763c2c77644c4dfc860f48192a1d8ca2",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-05T21:56:25.538774+00:00",
     "explicacao": "A alternativa d reproduz a Súmula Vinculante 11 do STF: só é lícito o uso de algemas em caso de resistência, fundado receio de fuga ou perigo à integridade física, justificada a excepcionalidade por escrito, sob pena de responsabilidade do agente e de nulidade da prisão ou do ato. A pegadinha está em c e e, que copiam o texto da súmula mas trocam 'só é lícito' por 'é desautorizado', invertendo a regra. A e b erram por proibir de forma absoluta: a algema é exceção, não vedação total (no júri, o art. 474, § 3º, do CPP também a admite em caso de absoluta necessidade).",
@@ -2391,15 +2130,6 @@
     "fonte": "Bechara, Moderna Gramática Portuguesa, e Cunha & Cintra, Nova Gramática do Português Contemporâneo: substantivos sobrecomuns x comuns de dois gêneros; substantivo no plural com dois ou mais adjetivos",
     "impressao": "76762f7eaf66b60ae429e3be07c2dbcc",
     "materia": "Língua Portuguesa",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "O crime doloso contra a vida de civil cometido por militar das Forças Armadas é da competência da Justiça Militar da União quando praticado no contexto de operação de garantia da lei e da ordem (art. 9º, § 2º, III, do CPM). A pegadinha é a c: o Tribunal do Júri é a regra geral do § 1º (por exemplo, o policial militar que mata civil), e o § 2º abre a exceção para as Forças Armadas. A Justiça Militar Estadual (e) julga os militares dos Estados, e não os das Forças Armadas. Depois da prova, a Lei 14.688/2023 reescreveu o caput do § 2º, mas manteve a garantia da lei e da ordem no inciso III, e a resposta continua a d.",
-    "fonte": "art. 9º, § 2º, III, do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "76bc2b6d9781c88f410fbaf5b17d160c",
-    "materia": "Direito Penal Militar",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -2437,33 +2167,6 @@
     "impressao": "7852be6c9a21bdfacb6acadf1bf6c860",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "A premissa é p → (q ∧ r), com p = \"João é pobre\", q = \"Bruno é alto\" e r = \"Joana é magra\". Como Joana não é magra, a conjunção q ∧ r é falsa, e pelo modus tollens p também é falsa: João não é pobre. A armadilha é a alternativa e, que afirma também que Bruno não é alto: a falsidade da conjunção vem de r, e sobre Bruno nada se pode concluir.",
-    "fonte": "Modus tollens: de p → q e ~q conclui-se ~p; a conjunção q ∧ r é falsa se um dos termos for falso",
-    "impressao": "78a16591fce9d67a33b4bb6dad6bfc27",
-    "materia": "Raciocínio Lógico",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A e é a letra do art. 24-A, § 2º, da Lei 11.340/2006: na prisão em flagrante pelo descumprimento de medida protetiva de urgência, apenas a autoridade judicial pode conceder fiança. A errada mais tentadora é a c, que copia o art. 16 com uma palavra trocada: a renúncia à representação é admitida antes do recebimento da denúncia, e não antes do oferecimento. A a erra porque a lei alcança a violência do neto contra a avó (âmbito da família, art. 5º, II), a b, porque o agressor pode ser mulher (art. 5º, parágrafo único), e a d, porque a Súmula 536 do STJ afasta a suspensão condicional do processo. Depois da prova, a Lei 14.994/2024 passou a pena do art. 24-A para reclusão de 2 a 5 anos e multa, e a Lei 15.380/2026 deu ao art. 16 um parágrafo único (a audiência só confirma a retratação, pedida pela vítima antes do recebimento da denúncia); a regra da fiança e o gabarito seguem iguais.",
-    "fonte": "art. 24-A, § 2º, da Lei 11.340/2006",
-    "impressao": "78cce8379848d75cf2d6df6542327aa3",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Pelo art. 110 do CPM, as medidas de segurança são pessoais ou patrimoniais, e as patrimoniais são a interdição de estabelecimento ou sede de sociedade ou associação e o confisco (§ 2º, na redação da Lei 14.688/2023, que manteve essa divisão). A errada mais tentadora é a 'não detentiva': essa é uma subespécie das medidas pessoais, ao lado das detentivas, e abrange o tratamento ambulatorial, a interdição de licença para dirigir, o exílio local e a proibição de frequentar determinados lugares (§ 1º). Assecuratória não é espécie de medida de segurança no CPM.",
-    "fonte": "art. 110, §§ 1º e 2º, do CPM (redação da Lei 14.688/2023)",
-    "impressao": "7911770d637391f56afb167fc20a5bb6",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "a",
@@ -2527,15 +2230,6 @@
     "impressao": "7b9177b02c50643c5ea019ec09983756",
     "materia": "Informática",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-24T18:32:37.726595+00:00",
-    "explicacao": "A e reproduz a Súmula Vinculante 45 do STF: a competência do Júri, que vem da Constituição (art. 5º, XXXVIII, d), prevalece sobre o foro especial criado só pela constituição estadual. A errada mais tentadora é a a, que é súmula do STF, mas comum (Súmula 711) e de direito penal (lei mais grave no crime continuado ou permanente), e não vinculante nem processual. A b também é súmula comum (Súmula 703 do STF); a d é a antiga Súmula 608 do STF, sem efeito vinculante e superada pela Lei 13.718/2018, que tornou pública incondicionada a ação nos crimes contra a liberdade sexual e contra vulnerável (art. 225 do CP); e a c não é súmula nenhuma.",
-    "fonte": "Súmula Vinculante 45 do STF (art. 5º, XXXVIII, d, da CF)",
-    "impressao": "7bbc288a4500c96dabc404977cfa6dc3",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "b",
@@ -2727,15 +2421,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "A Lei 9.296/1996 não admite a interceptação quando o fato investigado é punido, no máximo, com detenção: ela só cabe para crime punido com reclusão (art. 2º, III). A errada mais tentadora é a d, porque o juiz decide o pedido no prazo máximo de vinte e quatro horas, e não de quarenta e oito (art. 4º, § 2º). A b troca o prazo: a interceptação não pode exceder quinze dias, renováveis por igual tempo uma vez comprovada a indispensabilidade (art. 5º), e não noventa. A a contraria o art. 2º, II (não cabe se a prova puder ser feita por outros meios), e a c, o art. 1º, que só a admite para prova em investigação criminal e instrução processual penal.",
-    "fonte": "art. 2º, III, da Lei 9.296/1996",
-    "impressao": "83a9f18e47ccfa2ba73253d10420324e",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "c",
     "criado_em": "2026-10-24T17:11:38.434612+00:00",
     "explicacao": "No exemplo, “mesmo” é palavra de realce, com valor de “de fato”, “de verdade” (felicidade de verdade é estar perto de quem amamos), e em c “amigo mesmo” tem esse valor: amigo de verdade. A errada mais tentadora é a b: ali “mesmo” vem antes do termo e equivale a “até”, “inclusive”, ou seja, indica inclusão (até os bizarros têm direito). Na a e na d, “o mesmo critério” e “da mesma forma” são demonstrativos de identidade, com sentido de “idêntico”, “igual”, e por isso concordam com o substantivo.",
@@ -2770,15 +2455,6 @@
     "impressao": "84992de38a61aabe2c39864d08eb2fa8",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "Em 1993, a Conferência Mundial sobre Direitos Humanos aprovou em Viena a Declaração e Programa de Ação, cujo preâmbulo reafirma o compromisso com a Carta da ONU e com a Declaração Universal de 1948, tratada como fonte de inspiração dos demais instrumentos. Foi lá também que se afirmou que todos os direitos humanos são universais, indivisíveis, interdependentes e inter-relacionados. As outras alternativas são documentos inventados com nomes de cidades (Roma, Bruxelas, Ohio, Havana) - a pegadinha é só reconhecer o nome e a data de Viena.",
-    "fonte": "preâmbulo e § 5 da Declaração e Programa de Ação de Viena (1993)",
-    "impressao": "84e1faf35b321204574866db441ca174",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "c",
@@ -2869,15 +2545,6 @@
     "impressao": "883baa355d6b5b153efd3761e42855ac",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A c é a Súmula 536 do STJ: a suspensão condicional do processo e a transação penal não se aplicam aos delitos sujeitos ao rito da Lei Maria da Penha, porque o art. 41 da Lei 11.340/2006 afasta a Lei 9.099/1995. A errada mais tentadora é a d: a audiência de renúncia à representação é antes do recebimento da denúncia (art. 16), e não depois; e, depois da prova, a Lei 15.380/2026 deu ao art. 16 um parágrafo único dizendo que ela só confirma a retratação e só é marcada se a vítima manifestar esse desejo antes do recebimento da denúncia. A a erra porque a violência do ex-namorado em decorrência da relação atrai a lei (art. 5º, III: 'conviva ou tenha convivido'), e a b, porque a lesão corporal na violência doméstica é de ação pública incondicionada (Súmula 542). A e erra porque o STJ não vê bis in idem em aplicar a agravante do art. 61, II, f, do CP junto com a Lei Maria da Penha (e a alínea f é a da violência contra a mulher na forma da lei específica; a da criança, do idoso, do enfermo e da grávida é a h).",
-    "fonte": "art. 41 da Lei 11.340/2006 (Súmula 536 do STJ)",
-    "impressao": "88910a2b2e374ec6512657602d2ff7ad",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
     "correta": "c",
@@ -3024,15 +2691,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "c",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "Está certa a c: é a letra do art. 8º-A da Lei 9.296/1996, incluído pelo Pacote Anticrime (Lei 13.964/2019) — a captação ambiental serve “para investigação ou instrução criminal” e exige infrações cujas penas máximas sejam superiores a 4 anos (ou infrações penais conexas), além de a prova não poder ser feita por outros meios disponíveis e igualmente eficazes. A pegadinha é a e: a primeira lacuna está certa, mas o critério é a pena máxima, e não a mínima. As demais trocam a fase: a lei fala em investigação ou instrução, a mesma dupla da interceptação telefônica (art. 1º: investigação criminal e instrução processual penal), e não em “audiência”, “denúncia” ou “condenação”.",
-    "fonte": "art. 8º-A, caput e incisos I e II, da Lei 9.296/1996 (incluído pela Lei 13.964/2019)",
-    "impressao": "93739b80f77a46c3599364d8f28e0b6a",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "e",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "O art. 144, § 4º, da CF diz que às polícias civis, dirigidas por delegados de carreira, incumbem, ressalvada a competência da União, as funções de polícia judiciária e a apuração de infrações penais, exceto as militares. A errada mais tentadora é a polícia penal, que cuida da segurança dos estabelecimentos penais (§ 5º-A). A polícia militar faz a polícia ostensiva e a preservação da ordem pública (§ 5º), a polícia rodoviária federal faz o patrulhamento ostensivo das rodovias federais (§ 2º), e as guardas municipais protegem bens, serviços e instalações do Município (§ 8º).",
@@ -3066,33 +2724,6 @@
     "fonte": "art. 60, I a III, da CF",
     "impressao": "94a04d11fb1c74cee82721b5b590596a",
     "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "A decisão que desclassifica o crime na primeira fase do júri (art. 419 do CPP) reconhece que o júri não é competente, e contra a decisão que conclui pela incompetência do juízo cabe recurso em sentido estrito (art. 581, II, do CPP). A errada mais tentadora é a apelação: no fim da primeira fase, ela só cabe contra a impronúncia e a absolvição sumária (art. 416 do CPP). Mandado de segurança, recurso ordinário e carta testemunhável não são o recurso previsto para essa decisão.",
-    "fonte": "art. 581, II, c/c art. 419 do CPP (e art. 416)",
-    "impressao": "94c68452fbbf8d1cf6dd445a607b4599",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "Só a interdependência é característica dos direitos humanos: a Declaração de Viena afirma que todos são universais, indivisíveis, interdependentes e inter-relacionados. A pegadinha está no prefixo: as características verdadeiras são a INdisponibilidade e a IRrenunciabilidade - o titular não pode dispor nem abrir mão deles -, e a questão trouxe as duas pelo avesso ('disponibilidade' e 'renunciabilidade').",
-    "fonte": "§ 5 da Declaração e Programa de Ação de Viena (1993)",
-    "impressao": "957cee90f9ef58e9f0b61178df34d76e",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Militares que se reúnem agindo contra a ordem recebida de superior cometem motim (art. 149, I, do CPM), e, se estão armados, o crime passa a ser a revolta (parágrafo único), punida com reclusão de 8 a 20 anos. A errada mais tentadora é o motim: ele é a mesma conduta sem armas, e o fato de o grupo estar armado é exatamente o que muda o crime. Desobediência e insubmissão são outros crimes, e a traição é crime de tempo de guerra. Depois da prova, a Lei 14.688/2023 tirou 'ou assemelhados' do caput do art. 149, sem mudar a resposta.",
-    "fonte": "art. 149, I e parágrafo único, do CPM",
-    "impressao": "9581ab92db57f1c9f4fc650a671cda3c",
-    "materia": "Direito Penal Militar",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -3132,15 +2763,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "c",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "CONT.SES conta as linhas que atendem a todos os critérios ao mesmo tempo, cada um num par intervalo/critério: OPERAÇÃO = 'Entrada', SITUAÇÃO = 'Negada' e OBSERVAÇÃO diferente de vazio ('<>'). A errada mais tentadora é a SOMASES, que aceita os mesmos critérios múltiplos, mas soma os valores de uma coluna numérica, em vez de contar ocorrências. PROCV e CORRESP são funções de busca: devolvem um valor ou a posição de um item, e não um total.",
-    "fonte": "função CONT.SES do Excel 365 em português (contagem com vários critérios; existe com o mesmo nome no LibreOffice Calc)",
-    "impressao": "96dd410c98f4ab6b0cb19f2826b54890",
-    "materia": "Informática",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "A b é a moeda falsa do art. 289 do CP, que está no Título X, dos crimes contra a fé pública, e não no Título XI, dos crimes contra a administração pública: por isso é a exceção. As demais estão no Título XI: a alternativa a é a modificação ou alteração não autorizada de sistema de informações (art. 313-B), a c é a letra do art. 326 (violação do sigilo de proposta de concorrência), a d é a contratação direta ilegal (art. 337-E) e a e é o peculato mediante erro de outrem (art. 313). A errada mais tentadora é a d, porque parece crime da lei de licitações, mas desde a Lei 14.133/2021 os crimes em licitações estão no próprio CP, no Título XI (arts. 337-E a 337-P).",
@@ -3157,15 +2779,6 @@
     "impressao": "97910abf19ab79c6d280a7e27d4c7325",
     "materia": "Direito Penal",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "Pelo art. 26 da LEP, egresso é só o liberado definitivo, pelo prazo de um ano a contar da saída do estabelecimento (I), e o liberado condicional, durante o período de prova (II). A pegadinha é a 1: o preso em regime aberto ainda cumpre pena, não é egresso. A 4 também não está na lei: quem teve a prisão ilegal relaxada nunca foi condenado.",
-    "fonte": "art. 26, I e II, da Lei 7.210/1984",
-    "impressao": "97c396dc273e56728692e8dd2f1b914f",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "b",
@@ -3204,15 +2817,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "a",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Pelo art. 80 da CF, no impedimento do Presidente e do Vice são chamados, sucessivamente, o Presidente da Câmara dos Deputados, o do Senado Federal e o do STF. A errada mais tentadora é o Presidente do Senado, lembrado por presidir o Congresso Nacional, mas que vem em segundo lugar. O Presidente do TCU e o Ministro da Defesa não estão na linha de substituição.",
-    "fonte": "art. 80 da CF/1988",
-    "impressao": "999740ce8a52ca3c7b59a3d7b2b081f4",
-    "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "A D reproduz o art. 5º, XLV, da CF: a pena não passa da pessoa do condenado, mas a obrigação de reparar o dano e o perdimento de bens podem ser estendidos aos sucessores, até o limite do patrimônio transferido. A errada mais tentadora é a B: a prisão e o local onde a pessoa se encontra devem ser comunicados imediatamente, e não em 24 horas, ao juiz e à família ou à pessoa indicada (art. 5º, LXII). A A erra porque ninguém fica preso quando a lei admite liberdade provisória, com ou sem fiança (LXVI), e a C, porque a idade também é critério de separação dos estabelecimentos (XLVIII).",
@@ -3247,15 +2851,6 @@
     "impressao": "9cca39c6dda327e25adaba4fff4fa29c",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "O art. 42 do CPM diz que não há crime quando o agente pratica o fato em estado de necessidade, em legítima defesa, em estrito cumprimento do dever legal ou em exercício regular de direito: são as excludentes do crime, como na D. A pegadinha é a E: a coação irresistível não atenua a pena, ela afasta a culpabilidade ('Não é culpado quem comete o crime sob coação irresistível', art. 38, a), e a frase 'a pena pode ser atenuada ou substituída por outra menos grave' é a do erro de direito (art. 35). A A descreve a desistência voluntária e o arrependimento eficaz (art. 31, em que o agente só responde pelos atos já praticados), e não a tentativa, que é a execução interrompida por circunstâncias alheias à vontade do agente (art. 30, II). A B copia a definição de crime culposo (art. 33, II), e não a de dolo eventual, que é assumir o risco de produzir o resultado (art. 33, I). A C contraria o crime impossível: com meio absolutamente ineficaz ou objeto absolutamente impróprio, nenhuma pena é aplicável (art. 32).",
-    "fonte": "art. 42 do CPM (Decreto-Lei 1.001/1969); arts. 30, 31, 32, 33, 35 e 38 do CPM",
-    "impressao": "9da2b3ccde84892fa0124fdc88b429b6",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "b",
@@ -3337,15 +2932,6 @@
     "impressao": "a05a14ce55631f40e1e54697fe4f87bb",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "A alternativa a é a letra do art. 24, § 2º, da LEP: nenhum preso ou internado poderá ser obrigado a participar de atividade religiosa. A pegadinha é b: o local para cultos não fica a critério do gestor, pois o § 1º diz que no estabelecimento HAVERÁ local apropriado. D erra porque o caput permite a posse de livros de instrução religiosa, sem restringir ao local de culto, e c e e erram por tornar a religião critério de progressão ou atividade obrigatória.",
-    "fonte": "art. 24, caput, §§ 1º e 2º, da Lei 7.210/1984",
-    "impressao": "a0dc14e30c89c102f7a236e41fe1297a",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "b",
@@ -3555,24 +3141,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "c",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "Pelo art. 187 do CPM, a deserção se caracteriza quando o militar se ausenta, sem licença, da unidade em que serve ou do lugar em que deve permanecer por mais de oito dias. Até o oitavo dia há só ausência, e o crime se consuma quando esse prazo é ultrapassado. Nenhuma outra alternativa tem base no código, e o mesmo prazo de oito dias se repete nos casos assimilados (art. 188, I) e na deserção por evasão ou fuga (art. 192), o que ajuda a fixar o número. O art. 187 não mudou com a Lei 14.688/2023, posterior à prova, e a resposta continua a c.",
-    "fonte": "art. 187 do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "aa73a876cdcf10eda6c875ad572921c7",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-24T13:48:55.470454+00:00",
-    "explicacao": "'Segurança' é formada pelo radical de 'seguro' mais o sufixo '-ança' (o mesmo de 'mudança' e 'esperança'), que forma substantivos: derivação sufixal. A errada mais tentadora é a A: em 'papelão', o '-ão' não indica papel grande, pois a palavra nomeia outro material, o cartão grosso de que se fazem as caixas. Na C, os sufixos são diferentes: 'diretamente' é 'direta' + '-mente' (advérbio), e 'diferentes' vem de 'diferir' com o sufixo '-ente' (adjetivo).",
-    "fonte": "derivação sufixal (sufixos -ança, -mente e -ente) - Cunha & Cintra, Nova Gramática do Português Contemporâneo",
-    "impressao": "aae672cde8fecdf2f22007a0dda16f02",
-    "materia": "Língua Portuguesa",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-24T13:48:55.470454+00:00",
     "explicacao": "Em 'extremamente pobre', o advérbio de intensidade 'extremamente' modifica o adjetivo 'pobre' (diz o grau da pobreza do conteúdo). A errada mais tentadora é a B: 'demais' também é intensidade, mas incide sobre o verbo 'confiando' (confiar demais). 'Definitivamente' e 'Provavelmente', no início das frases, comentam a oração inteira, e não um adjetivo.",
@@ -3589,24 +3157,6 @@
     "impressao": "ac54b57d75a4bcecaf6bb23662dea1b7",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "No texto do CPM da época da prova, as medidas de segurança pessoais não detentivas eram a cassação de licença para direção de veículos motorizados, o exílio local e a proibição de frequentar determinados lugares, e só a e junta duas delas. A pegadinha está na d e na a: a interdição de estabelecimento ou sede de sociedade ou associação e o confisco são medidas patrimoniais, e a internação em manicômio judiciário (b) é detentiva. A Lei 14.688/2023, posterior à prova, reescreveu o art. 110: hoje as não detentivas são o tratamento ambulatorial, a interdição (não mais cassação) de licença para direção, o exílio local e a proibição de frequentar determinados lugares, e a detentiva é a internação em estabelecimento de custódia e tratamento. A resposta continua a e, lida com o nome novo da medida de trânsito.",
-    "fonte": "art. 110, § 1º, II, do Código Penal Militar (Decreto-Lei 1.001/1969, redação da Lei 14.688/2023)",
-    "impressao": "affbfaf518a1e420397553294e27d665",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-24T18:32:37.726595+00:00",
-    "explicacao": "A decisão do juiz que resolve o pedido de restituição de coisa apreendida encerra o incidente e tem força de definitiva, e o art. 581 do CPP não a põe entre os casos de recurso em sentido estrito; por isso cabe apelação, pelo art. 593, II, do CPP: letra b. A errada mais tentadora é a a, porque o RESE é o recurso de várias decisões interlocutórias, mas só cabe nas hipóteses listadas no art. 581, e a restituição não está lá. O mandado de segurança só serviria se não houvesse recurso próprio, o habeas corpus protege a liberdade de locomoção, e não a posse de um celular, e o 'recurso inominado' não é recurso do CPP (é o nome do recurso do art. 41 da Lei 9.099/1995, nos Juizados Cíveis).",
-    "fonte": "art. 593, II, do CPP (e art. 581 do CPP)",
-    "impressao": "affde0bbfeebc2f53f662298851dea1c",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "c",
@@ -3924,15 +3474,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "b",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "A regra 2.2 manda que as administrações prisionais levem em conta as necessidades INDIVIDUAIS dos presos, particularmente dos que estão em situação de maior vulnerabilidade; a alternativa b troca por 'necessidades coletivas', e esse é o erro. A pegadinha é d, que parece rígida demais, mas está certa: as celas de descanso noturno não devem ser ocupadas por mais de um preso e, na exceção, não é recomendável alojar dois numa mesma cela (regra 12.1). As demais reproduzem as regras 3, 4.1 e 19.3.",
-    "fonte": "Regras de Mandela, regra 2.2; Regras de Mandela, regra 12.1",
-    "impressao": "bb3000300f5b08c04a3fcd90780d9d1b",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
     "correta": "c",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "O menor valor ser maior que 4 exige que os dois lançamentos deem 5 ou 6. São 2 × 2 = 4 casos favoráveis em 6 × 6 = 36, ou seja, 4 / 36 ≈ 11,1%, entre 11% e 12%. A armadilha é ler \"maior que 4\" como \"maior ou igual a 4\" (9 / 36 = 25%) ou exigir só um dos dados acima de 4.",
@@ -3969,48 +3510,12 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "O art. 88, II, do CPM proíbe o sursis, em tempo de paz, para a deserção e o desrespeito a superior (alínea a) e para os crimes dos arts. 160, 161, 162, 235 e 291 (alínea b), entre eles o despojamento desprezível (art. 162) e a receita ilegal (art. 291). O ingresso clandestino (art. 302) não está em nenhuma das duas listas, e por isso admite a suspensão condicional da pena. A pegadinha está no despojamento desprezível e na receita ilegal, crimes pouco lembrados que ficam escondidos na alínea b só pelos números dos artigos.",
-    "fonte": "art. 88, II, a e b, do CPM (e art. 302)",
-    "impressao": "bd8dc7b6f0c3c40a6fe64b3cd33ac1ed",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "No peculato culposo do CPM, a reparação do dano extingue a punibilidade se vier antes da sentença irrecorrível, e reduz de metade a pena imposta se vier depois (art. 303, § 4º): como aqui ela ocorre após o trânsito em julgado, é causa especial de diminuição de pena. A errada mais tentadora é a C, extinção da punibilidade, que só vale para a reparação feita antes da sentença irrecorrível. Não é atenuante genérica nem exclui a tipicidade: o crime já está consumado e julgado, e a própria lei fixa a fração (metade).",
-    "fonte": "art. 303, §§ 3º e 4º, do CPM (Decreto-Lei 1.001/1969)",
-    "impressao": "be00ee640ba2893480b8d475b04d22c4",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-24T21:56:13.639093+00:00",
     "explicacao": "'Assim como' é locução conjuntiva comparativa: põe lado a lado o que acontece conosco (precisamos treinar o molejo) e o que acontece com as abelhas (não nascem pés de valsa), dizendo que os dois casos se parecem. A errada mais tentadora é a c: o período começa com 'Porém', e o contraste puxa para a concessão, mas o 'Porém' liga a frase à anterior, e não às duas orações unidas por 'assim como'. Concessão seria 'embora' ou 'ainda que', causa seria 'porque' ou 'já que', condição seria 'se' ou 'caso', e conclusão seria 'portanto' ou 'logo', e nenhuma delas entra no lugar de 'assim como' sem mudar o sentido.",
     "fonte": "conjunções subordinativas comparativas (como, assim como, tal qual) x concessivas, causais, condicionais e conclusivas - Cunha & Cintra, Nova Gramática do Português Contemporâneo",
     "impressao": "be1bdd586b6d065f7ad21e32860239cf",
     "materia": "Língua Portuguesa",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A e é a incorreta: a ofendida pode propor no Juizado de Violência Doméstica e Familiar a ação de divórcio ou de dissolução de união estável (art. 14-A da Lei 11.340/2006), mas o § 1º do mesmo artigo exclui da competência dos Juizados a pretensão relacionada à partilha de bens; por isso não cabe 'cumulada com a partilha'. A pegadinha é que a primeira metade da frase é a letra do caput, e o erro está só no fim. As demais estão na lei: a a é o art. 9º, § 1º, a b é o art. 9º, § 7º, a c é o art. 14 e a d é o art. 17.",
-    "fonte": "art. 14-A, § 1º, da Lei 11.340/2006",
-    "impressao": "be5b060411943df539c5cde50daaad1b",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "Distribuir distintivos e ornamentos com a cruz suástica para divulgar o nazismo é o crime do art. 20, § 1º, da Lei 7.716/1989, punido com reclusão de dois a cinco anos e multa. A errada mais tentadora é a C, reclusão de um a três anos e multa, que é a pena do caput do art. 20 (praticar, induzir ou incitar a discriminação ou o preconceito). O § 1º é mais grave justamente pelo fim de propagar o nazismo com os símbolos.",
-    "fonte": "art. 20, § 1º, da Lei 7.716/1989",
-    "impressao": "bed29f48813828bedb82c3b26f0d80e6",
-    "materia": "Legislação Especial",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -4050,30 +3555,12 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "A E é a incorreta: o CPP não fixa prazo para impetrar habeas corpus, que pode ser pedido enquanto durar a ameaça ou a coação ilegal à liberdade de locomoção. A frase da E copia a regra do mandado de segurança, trocando os 120 dias por 30 (art. 23 da Lei 12.016/2009: o direito de requerer mandado de segurança extingue-se em 120 dias da ciência do ato impugnado). A pegadinha é a A, que parece restringir demais o remédio, mas é a letra do art. 647: o habeas corpus cabe contra violência ou coação ilegal na liberdade de ir e vir, salvo nos casos de punição disciplinar. A B é o art. 654 (qualquer pessoa, em seu favor ou de outrem, e o Ministério Público), a C é o art. 655 (multa a quem embaraçar ou procrastinar a ordem) e a D é o art. 660, § 4º (salvo-conduto no habeas corpus preventivo).",
-    "fonte": "arts. 647, 654, 655 e 660, § 4º, do CPP (Decreto-Lei 3.689/1941); art. 23 da Lei 12.016/2009",
-    "impressao": "c1be17efebc7ba33f29d877cf4b97f0c",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "c",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "Calígula usou faca na grave ameaça, e desde a Lei 13.964/2019 o emprego de arma branca é majorante do roubo (art. 157, § 2º, VII, do CP); e o roubo se consumou com a inversão da posse, ainda que por breve tempo e com perseguição e recuperação da coisa (Súmula 582 do STJ). A errada mais tentadora é a B, roubo majorado tentado: a captura dois quarteirões depois não impede a consumação, porque não se exige posse mansa e pacífica. Roubo qualificado é o do § 3º, com resultado lesão grave ou morte, que não houve. Depois da prova, a Lei 15.397/2026 aumentou a pena do roubo e criou majorante para a subtração de celular, o que não muda a resposta.",
     "fonte": "art. 157, § 2º, VII, do CP; Súmula 582 do STJ",
     "impressao": "c2680f798684d9a89616ede6d1737f1d",
     "materia": "Direito Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "'Desconfiança' forma-se por derivação prefixal, des- + confiança, e o prefixo des- dá ideia de negação, de ação contrária (desconfiar é não confiar). A errada mais tentadora é a a: 'inter-' não é palavra, é prefixo (posição intermediária, reciprocidade), então 'interpessoais' é derivação prefixal de 'pessoal', e não composição por justaposição de duas palavras. A e cai no mesmo engano: em 'diferente', '-ente' é sufixo (derivação sufixal de 'diferir'), e não uma palavra que se aglutinou a outra. A d inverte as partes, já que 'cuidadoso' é cuidado + o sufixo -oso (derivação sufixal), e a c inventa um sufixo '-ciente' em 'pacientes'.",
-    "fonte": "formação de palavras: derivação prefixal (des-, inter-) e sufixal (-oso, -ente) x composição por justaposição e por aglutinação - Cunha & Cintra, Nova Gramática do Português Contemporâneo",
-    "impressao": "c39654262f07ae11fd4a1e1dd88c6e69",
-    "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -4203,15 +3690,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
-    "correta": "a",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "Está certa a a: no Assistente de Funções do Calc, MÍNIMO (que devolve o menor valor de uma lista) está na categoria Estatística, ao lado de MÁXIMO e MÉDIA. A pegadinha é a d: SEERRO parece uma função de informação ou de cálculo, mas o Calc a coloca na categoria Lógica, junto com FALSO, NÃO e VERDADEIRO (as alternativas b, c e e).",
-    "fonte": "Ajuda do LibreOffice Calc, categorias do Assistente de Funções: MÍNIMO em Estatística; SEERRO, FALSO, NÃO e VERDADEIRO em Lógica",
-    "impressao": "cc49789264baadde37296d8a5dcf845c",
-    "materia": "Informática",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "Em B, o sentido do original se mantém, só com os regionalismos explicados: 'soldo' vira 'remuneração', 'morocha' vira 'moça morena', 'gambitos' viram 'pernas finas' e as 'canelas' viram 'membros inferiores'. A errada mais tentadora é a E, que parece fiel mas troca a comparação ('rama de taleira' por 'manivas de aipim') e a 'morocha' por 'mulata', mudando o texto. A troca pernas por 'braços' e canelas por 'melenas'; C e D trocam a moça por animais ('potranca', 'égua').",
@@ -4311,15 +3789,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-24T21:56:13.639093+00:00",
-    "explicacao": "O art. 162, parágrafo único, do CPM manda aumentar da metade a pena do despojamento desprezível se o fato é praticado diante da tropa, ou em público, como diz a E. A pegadinha é a B: os crimes militares dolosos contra a vida cometidos por militares contra civil são da competência do Tribunal do Júri (art. 9º, § 1º); a Justiça Militar da União só fica com eles quando o autor é das Forças Armadas, nos contextos do § 2º. A A troca a regra do tempo do crime: o CPM considera o crime praticado no momento da ação ou omissão, ainda que outro seja o do resultado (art. 5º). A C inverte o art. 40: nos crimes com violação do dever militar, a coação irresistível só pode ser invocada justamente quando é física ou material. A D erra porque o estrito cumprimento do dever legal e o exercício regular de direito excluem o crime (art. 42, III e IV), e não a culpabilidade.",
-    "fonte": "art. 162, parágrafo único, do CPM (Decreto-Lei 1.001/1969); arts. 5º, 9º, §§ 1º e 2º, 40 e 42 do CPM",
-    "impressao": "d087689bc00d7ab582fed05370ae71b8",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-10-24T13:48:55.470454+00:00",
     "explicacao": "'Ao' + infinitivo forma oração reduzida temporal: 'ao buscar os sintomas pela internet' equivale a 'quando buscamos os sintomas pela internet', o momento em que o medo é potencializado. A errada mais tentadora é a D: a explicação aparece logo depois, em 'já que essas enfermidades rendem um maior número de discussões', e não na relação entre os dois trechos pedidos. Não há soma, oposição nem comparação entre eles.",
@@ -4410,33 +3879,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "a",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "A I é a letra do art. 49 do CPM (a embriaguez completa por caso fortuito ou força maior exclui a imputabilidade), e a II, a do seu parágrafo único (a embriaguez incompleta pela mesma causa reduz a pena de um a dois terços). A errada mais tentadora é a IV: a proibição de frequentar determinados lugares priva o condenado desse acesso por um ano, pelo menos, e não seis meses (art. 117). A III erra porque a embriaguez em serviço (art. 202) não tem modalidade culposa no CPM.",
-    "fonte": "art. 49 e parágrafo único do CPM (e arts. 117 e 202)",
-    "impressao": "d4c06d949ea932dc800a0ee3771418dc",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "O CPM adotou a teoria diferenciadora: o estado de necessidade exclui o crime (a ilicitude) quando o mal causado é consideravelmente inferior ao evitado (art. 43) e exclui a culpabilidade quando o agente sacrifica direito alheio, ainda que superior ao protegido, para salvar direito próprio ou de pessoa próxima, se não lhe era exigível outra conduta (art. 39). A pegadinha é a b, a teoria unitária, em que o estado de necessidade é só excludente de ilicitude, como no Código Penal comum (arts. 23, I, e 24). A e erra porque nenhum dos dois artigos trata o estado de necessidade como excludente de tipicidade. Os arts. 39 e 43 não mudaram com a Lei 14.688/2023.",
-    "fonte": "arts. 39 e 43 do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "d4d5451cca4f420f89fdf54e383f5c7e",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "A d é a incorreta: pelo art. 12-C da Lei 11.340/2006, o afastamento imediato do agressor do lar pode ser determinado pelo juiz, pelo delegado quando o município não for sede de comarca e pelo policial quando o município não for sede de comarca e não houver delegado disponível no momento da denúncia (inciso III). Ou seja, o policial militar pode, sim, afastar o agressor, e a e, que parece exagerada, é exatamente o inciso III. A a lembra o crime de violência institucional (art. 15-A da Lei 13.869/2019), a b, a não revitimização que a Lei Maria da Penha manda observar no atendimento (art. 10-A, § 1º, III), e a c, a comunicação ao Conselho Tutelar quando há criança em risco (art. 13 do ECA). Depois da prova, a Lei 15.411/2026 ampliou o caput do art. 12-C (o risco atual ou iminente também à integridade sexual, moral ou patrimonial), mas os incisos sobre quem afasta não mudaram, e o gabarito segue o mesmo.",
-    "fonte": "art. 12-C, I a III, da Lei 11.340/2006",
-    "impressao": "d65f0fb21035a0e69814bb429382846e",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
     "correta": "d",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "Ninguém será privado da liberdade ou de seus bens sem o devido processo legal (art. 5º, LIV, da CF), letra da alternativa D. A errada mais tentadora é a A: o inciso LXVII veda a prisão civil por dívida, salvo a do devedor de alimentos e a do depositário infiel, então a vedação não é absoluta. A E troca o sujeito: o direito de ficar com os filhos durante a amamentação é das presidiárias (art. 5º, L), e a B e a C contrariam a proibição de tribunal de exceção (XXXVII) e a retroatividade só em benefício do réu (XL).",
@@ -4444,15 +3886,6 @@
     "impressao": "d6ab85d4d6d252088a0865c1d2441518",
     "materia": "Direito Constitucional",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "A E é a letra do art. 36 do CPM (erro de fato) com o § 2º: é isento de pena quem, por erro plenamente escusável, supõe a inexistência de circunstância de fato que constitui o crime ou uma situação de fato que tornaria a ação legítima, e, se o erro foi provocado por terceiro, este responde por dolo ou culpa. A errada mais tentadora é a A: o erro de direito do art. 35 não isenta de pena, só permite atenuá-la ou substituí-la por outra menos grave. A B erra porque, no erro sobre a pessoa, contam as condições da vítima que o agente queria atingir, não as da atingida (art. 37); a C, porque dá ao erro de fato a consequência do erro de direito; e a D, porque, atingido bem jurídico diverso, o agente responde por culpa, se houver crime culposo (art. 37, § 1º).",
-    "fonte": "art. 36, caput e § 2º, do CPM (e arts. 35 e 37)",
-    "impressao": "d6e945b225bd18878ba8e1732b69bf4a",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "a",
@@ -4500,15 +3933,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "d",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "A regra 78.1 diz que, NA MEDIDA DO POSSÍVEL, a equipe deve incluir número suficiente de especialistas (psiquiatras, psicólogos, assistentes sociais, professores e instrutores técnicos); a alternativa d troca isso por 'sempre', e por isso é a incorreta. A pegadinha é que o resto do texto está igual ao da regra, só o advérbio mudou. As demais reproduzem as regras 74.1, 74.2, 75.3 e 77.",
-    "fonte": "Regras de Mandela, regra 78.1",
-    "impressao": "d9195a4b6daff3a0e583b6e0150017ec",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-11-07T00:42:01.462210+00:00",
     "explicacao": "A a é a incorreta: entrar em local isolado ou remover vestígio antes da liberação pelo perito responsável é tipificado como fraude processual (art. 158-C, § 2º, do CPP), e não como sonegação de papel ou objeto de valor probatório, que é outro crime (art. 356 do Código Penal). A pegadinha é trocar só o nome do crime no fim de uma frase copiada da lei. As outras estão certas: a b cita duas etapas do art. 158-B (reconhecimento e isolamento, incisos I e II); a c é o art. 158-D, § 1º; a d, a coleta (art. 158-B, IV); e a e, o registro de quem acessa o vestígio armazenado (art. 158-E).",
@@ -4536,15 +3960,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "O texto fala do nazismo e do pós-guerra: a internacionalização dos direitos humanos nasce com a Carta da ONU, de 1945, que põe entre os propósitos da organização promover o respeito aos direitos humanos, e com a DUDH, de 1948, cujo preâmbulo lembra os atos bárbaros que ultrajaram a consciência da humanidade. A errada mais tentadora é a D: depois da Primeira Guerra houve precedentes, como a Liga das Nações e a OIT, mas a reconstrução dos direitos humanos como paradigma ético, em resposta às atrocidades do nazismo, é do fim da Segunda Guerra Mundial.",
-    "fonte": "art. 1º, 3, da Carta das Nações Unidas (1945); preâmbulo da Declaração Universal dos Direitos Humanos (1948)",
-    "impressao": "d9f28922135c00eed77c4e079327a410",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-10-24T14:08:46.261881+00:00",
     "explicacao": "São hediondos o tráfico internacional de arma de fogo (art. 1º, parágrafo único, IV, da Lei 8.072/1990) e o furto qualificado por explosivo ou artefato análogo (art. 1º, IX), os dois incluídos pela Lei 13.964/2019. A errada mais tentadora é a associação para o tráfico (5): o tráfico é equiparado a hediondo, mas o STJ entende que a associação do art. 35 da Lei 11.343/2006 não é. Também ficam fora a injúria racial (2), o infanticídio (4) e o tráfico privilegiado (6), que, pelo STF e pelo art. 112, § 5º, da LEP, não é hediondo nem equiparado. Depois da prova, a Lei 14.532/2023 tirou a injúria racial do art. 140, § 3º, do CP e a pôs no art. 2º-A da Lei 7.716/1989, mas ela continua fora da Lei 8.072/1990.",
@@ -4563,15 +3978,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "d",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "Reter documentos pessoais, subtrair o cartão bancário e destruir o instrumento de trabalho são, palavra por palavra, as condutas do art. 7º, IV, da Lei 11.340/2006: violência patrimonial é qualquer conduta que configure retenção, subtração, destruição parcial ou total de objetos, instrumentos de trabalho, documentos pessoais, bens, valores e direitos ou recursos econômicos. A errada mais tentadora é a b, porque tirar o acesso aos recursos também controla a vítima, mas a violência psicológica (art. 7º, II) é a conduta que causa dano emocional ou controla a mulher por ameaça, constrangimento, humilhação ou isolamento, e não a que recai sobre bens e recursos. A física (inciso I) ofende a integridade ou a saúde corporal, e a moral (inciso V) é a calúnia, a difamação ou a injúria.",
-    "fonte": "art. 7º, IV, da Lei 11.340/2006",
-    "impressao": "da400de561ef537c312fd6f87968db32",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-10-09T15:56:00.377350+00:00",
     "explicacao": "A B está certa: o sujeito de 'demonstra' é 'O discurso', singular, e o verbo concorda com ele. A A acerta o plural, mas erra o motivo: 'maioria' é singular, e o plural vem da concordância com o complemento ('a maioria dos presos repetem'), que a norma aceita ao lado do singular. A E erra ao dizer que a concordância é opcional: com o pronome 'quem' como sujeito, o verbo fica na 3ª pessoa do singular ('quem está'), e 'quem estão' é erro.",
@@ -4588,24 +3994,6 @@
     "impressao": "dbdc5c71e08dbd49f99ceca134e92a22",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "b",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "Está certa a b: a monitoração eletrônica é medida cautelar diversa da prisão (art. 319, IX, do CPP). A pegadinha é misturar penas com cautelares: a prestação pecuniária e a prestação de serviço à comunidade são penas restritivas de direitos (art. 43 do Código Penal), a multa é pena (art. 32, III, do CP), e a detenção é uma espécie de pena privativa de liberdade (art. 33 do CP). Nenhuma delas está no rol do art. 319, que traz, entre outras, o comparecimento periódico em juízo, a proibição de acesso a determinados lugares, o recolhimento domiciliar noturno e a fiança.",
-    "fonte": "art. 319, IX, do Código de Processo Penal",
-    "impressao": "dce169b866502592252930949696a2fe",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "a",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "O art. 119 da LEP diz que a legislação LOCAL poderá estabelecer normas complementares para o cumprimento da pena em regime aberto. A pegadinha é b ou c, que soam mais 'oficiais': a LEP, que já é a lei federal, deixa esse complemento para o ente local, que é quem mantém a casa do albergado.",
-    "fonte": "art. 119 da Lei 7.210/1984",
-    "impressao": "dd187bad3bf4639a3f2c8dfd13831b00",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "c",
@@ -4635,15 +4023,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "c",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "Estão certas a II e a IV: a empresa que vende arma de fogo é obrigada a comunicar a venda à autoridade competente (art. 4º, § 3º, da Lei 10.826/2003), e o certificado de registro é expedido pela Polícia Federal, precedido de autorização do Sinarm (art. 5º, § 1º). A errada mais tentadora é a III, que muda o fim do § 4º do art. 4º: as armas, acessórios e munições ficam registrados como propriedade da empresa enquanto não forem vendidos, e não 'mesmo após a venda'. A I erra o ministério: o Sinarm foi instituído no Ministério da Justiça, no âmbito da Polícia Federal (art. 1º), e não no Ministério da Defesa.",
-    "fonte": "art. 4º, §§ 3º e 4º, e art. 5º, § 1º, da Lei 10.826/2003",
-    "impressao": "de42a71e2aa5f934f107d755117ad616",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
     "correta": "b",
     "criado_em": "2026-10-24T18:32:37.726595+00:00",
     "explicacao": "A esteticista não quis o resultado: feriu a cliente por imperícia, então é lesão corporal culposa (art. 129, § 6º, do CP), punida com detenção de dois meses a um ano. Com pena máxima não superior a 2 anos, é infração de menor potencial ofensivo, do Juizado Especial Criminal (art. 61 da Lei 9.099/1995), e a ação depende de representação da ofendida (art. 88): letra b. A errada mais tentadora é a c, porque as queimaduras de segundo grau parecem lesão grave, mas a classificação em grave e gravíssima (§§ 1º e 2º) é da lesão dolosa; na culposa, a gravidade pesa só na pena. Mesmo com o aumento de um terço por inobservância de regra técnica de profissão (art. 129, § 7º, com o art. 121, § 4º), a pena máxima não passa de 2 anos, e a vara de violência doméstica (a) não tem relação com o caso de uma esteticista e sua cliente.",
@@ -4659,15 +4038,6 @@
     "fonte": "pronome demonstrativo “esse” em função anafórica (retoma o que já foi dito) - Cunha & Cintra, Nova Gramática do Português Contemporâneo; vozes verbais e futuro do subjuntivo nas orações condicionais - Bechara, Moderna Gramática Portuguesa",
     "impressao": "de8dcaa1aa3f20e404e9842c5dbd1e03",
     "materia": "Língua Portuguesa",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
-    "correta": "e",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "A e é a incorreta: o art. 88, I, do CPM diz que a suspensão condicional da pena não se aplica ao condenado por crime cometido em tempo de guerra, então ela não vale em tempo de paz e de guerra. As outras estão no código: a retroatividade da lei mais benigna (art. 2º, § 1º), o ajuste, a instigação e o auxílio impuníveis se o crime não chega a ser tentado (art. 54) e a embriaguez completa por caso fortuito ou força maior (art. 49). A que mais confunde hoje é a b, porque a Lei 14.688/2023, posterior à prova, reescreveu o caput do art. 2º: a lei que deixa de considerar o fato crime faz cessar \"a execução e os efeitos penais da sentença condenatória\". O sentido é o mesmo (os efeitos civis continuam), e a resposta continua a e.",
-    "fonte": "art. 88, I, do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "def9560675d003f5e9cedaef427e8617",
-    "materia": "Direito Penal Militar",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
@@ -4722,15 +4092,6 @@
     "fonte": "princípio da inclusão-exclusão: n(A ou B) = n(A) + n(B) - n(A e B) - Carvalho e Campos, Raciocínio Lógico Simplificado",
     "impressao": "e2e3321c04df09af7f0c10196da73c46",
     "materia": "Raciocínio Lógico",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
-  },
-  {
-    "correta": "d",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "O art. 126, caput, permite remir por trabalho ou estudo no regime fechado e no semiaberto, e o § 6º estende a remição pelo estudo (frequência a curso de ensino regular ou de educação profissional) a quem está no regime aberto e no livramento condicional; daí 1, 2 e 3. A pegadinha é b (só 2 e 3), de quem lê apenas o caput: no regime aberto também se pode remir, mas só pelo estudo, não pelo trabalho. Pena restritiva de direitos não está prevista na LEP para remição. A mudança de 2026 (§ 9º, Lei 15.402/2026: o regime domiciliar não impede a remição) não altera o gabarito.",
-    "fonte": "art. 126, caput e § 6º, da Lei 7.210/1984",
-    "impressao": "e30d026c5a17eb3079fb7e564a11065f",
-    "materia": "Lei de Execução Penal",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
@@ -4986,15 +4347,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
   },
   {
-    "correta": "e",
-    "criado_em": "2026-10-06T03:58:16.946173+00:00",
-    "explicacao": "O trecho parte de casos particulares observados (os cachorros que eu conheci) e generaliza para todos os cachorros: isso é raciocínio indutivo. A conclusão é provável, não necessária, porque basta um cachorro manso para derrubá-la. A tentação é a dedução, mas ela faz o caminho inverso: parte de uma premissa geral para chegar a um caso particular, com conclusão garantida pelas premissas.",
-    "fonte": "Indução: generalização a partir de casos particulares (a dedução vai do geral ao particular)",
-    "impressao": "ef45c52afcaa8873dd628b0abed36ab2",
-    "materia": "Raciocínio Lógico",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-10-06T03:58:16.946173+00:00",
     "explicacao": "Em A, com o pronome 'quem' o verbo pode ficar na 3ª pessoa do singular, concordando com 'quem' ('Sou eu quem fala'); 'quem falo' também é aceito. A errada mais tentadora é a C: 'mais de um' leva o verbo ao singular, mas com ideia de reciprocidade vai ao plural ('se abraçaram'). Em B, 'bater' com horas concorda com o número de horas ('Bateram sete horas'). Em D, o aposto resumidor 'nada' manda no verbo ('nada nos separa'), e em E o nome próprio plural com artigo pede plural ('Os Estados Unidos foram').",
@@ -5020,15 +4372,6 @@
     "impressao": "f011de8f8ed50bb65f3d8bf6a8b10535",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-24T14:08:46.261881+00:00",
-    "explicacao": "O art. 187 do CPM define a deserção como ausentar-se o militar, sem licença, da unidade em que serve ou do lugar em que deve permanecer, por mais de oito dias. As outras alternativas (três, cinco, quinze e trinta dias) não estão na lei e servem só para confundir o número. Para fixar, o oito se repete nos casos assimilados do art. 188, como o de não se apresentar dentro de oito dias, findo o prazo de trânsito ou de férias.",
-    "fonte": "art. 187 do CPM (e art. 188)",
-    "impressao": "f0ae6f796e6394adb93a0b49c0b507dc",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
     "correta": "b",
@@ -5139,15 +4482,6 @@
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
   },
   {
-    "correta": "b",
-    "criado_em": "2026-10-24T17:12:01.969914+00:00",
-    "explicacao": "Conspiração é o ajuste prévio: concertarem-se militares para a prática do crime do art. 149, que é o motim e, se os agentes estão armados, a revolta (art. 152 do CPM). A pegadinha é a d, que descreve o próprio motim (art. 149, I: reunirem-se agindo contra a ordem recebida de superior), crime já em execução, e não o acordo para praticá-lo. As outras são crimes vizinhos: a lembra a aliciação (art. 154), a c é o incitamento (art. 155) e a e é a reunião ilícita (art. 165). Depois da prova, a Lei 14.688/2023 tirou o \"ou assemelhados\" dos arts. 149 e 152, mas a resposta continua a b.",
-    "fonte": "art. 152 do Código Penal Militar (Decreto-Lei 1.001/1969)",
-    "impressao": "f778a37c312bf39404a84430fb602d1c",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026"
-  },
-  {
     "correta": "a",
     "criado_em": "2026-10-05T21:56:25.538774+00:00",
     "explicacao": "A Constituição diz que constitui crime inafiançável e imprescritível a ação de grupos armados, civis ou militares, contra a ordem constitucional e o Estado Democrático. A pegadinha é misturar com o inciso anterior: insuscetíveis de graça ou anistia (e inafiançáveis) são a tortura, o tráfico, o terrorismo e os hediondos, que NÃO são imprescritíveis. Imprescritíveis na Constituição são só dois: o racismo e a ação de grupos armados.",
@@ -5182,15 +4516,6 @@
     "impressao": "f9bb18d7bae1f88c6302fa95fb638120",
     "materia": "Língua Portuguesa",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/10/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-10-05T21:56:25.538774+00:00",
-    "explicacao": "O Protocolo Adicional à Convenção Americana sobre Direitos Humanos em matéria de direitos econômicos, sociais e culturais (Protocolo de San Salvador, 1988) garante o direito a um meio ambiente sadio e diz que os Estados Partes promoverão a proteção, a preservação e o melhoramento do meio ambiente. A pegadinha é a b: o Pacto de San José (1969) trata sobretudo de direitos civis e políticos e não tem dispositivo sobre meio ambiente - foi preciso o protocolo adicional para isso. Rio+20 é conferência da ONU, e os 'protocolos' de Cruz Alta e de Assunção sobre direitos humanos são distratores.",
-    "fonte": "art. 11 do Protocolo de San Salvador (Decreto 3.321/1999)",
-    "impressao": "fa45d2b5625fc39076085ffe178a1e8f",
-    "materia": "Direitos Humanos",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 05/10/2026"
   },
   {
     "correta": "e",
@@ -5262,15 +4587,6 @@
     "fonte": "art. 5º, § 4º, da Constituição Federal",
     "impressao": "fd19149d1225de3470475c0368da012c",
     "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
-  },
-  {
-    "correta": "c",
-    "criado_em": "2026-11-07T00:42:01.462210+00:00",
-    "explicacao": "É o art. 12-C, III, da Lei 11.340/2006: com risco atual ou iminente à integridade da mulher, o agressor é afastado imediatamente do lar pelo policial quando o município não é sede de comarca e não há delegado disponível no momento da denúncia; o juiz é comunicado em até 24 horas e decide, em igual prazo, se mantém ou revoga a medida (§ 1º). A errada mais tentadora é a b: o delegado só afasta quando o município não é sede de comarca (inciso II), e a lei não manda buscar o da comarca vizinha; sem delegado disponível, quem age é o policial que atendeu. O chefe de cartório e o promotor não estão entre os que podem afastar (juiz, delegado e policial). Depois da prova, a Lei 15.411/2026 ampliou o caput do art. 12-C (o risco também à integridade sexual, moral ou patrimonial), mas os incisos sobre quem afasta não mudaram, e o gabarito segue o mesmo.",
-    "fonte": "art. 12-C, III, e § 1º, da Lei 11.340/2006",
-    "impressao": "fe69f38ab52f34d2cc6f8f45a502dfd5",
-    "materia": "Legislação Especial",
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026"
   },
   {

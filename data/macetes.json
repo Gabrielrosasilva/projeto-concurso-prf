@@ -4,7 +4,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "arts. 4º e 5º, I, do Decreto-Lei 200/1967",
     "impressao": "529e076df80eb07d0322169325533c52",
-    "materia": "Administração Pública",
+    "materia": "Direito Administrativo",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Trocar desconcentração por descentralização quando o enunciado diz 'dentro de uma mesma entidade ou da mesma pessoa jurídica'.",
     "questoes": [
@@ -30,7 +30,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "art. 37, caput e § 4º, da Constituição Federal",
     "impressao": "ee6ebf1813d83d61d186f7e057cdff71",
-    "materia": "Administração Pública",
+    "materia": "Direito Administrativo",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Incluir 'cassação' dos direitos políticos ou 'perda' dos bens: a Constituição diz suspensão e indisponibilidade.",
     "questoes": [
@@ -43,25 +43,6 @@
       }
     ],
     "regra": "Os princípios expressos do art. 37 são LIMPE: legalidade, impessoalidade, moralidade, publicidade e eficiência. Improbidade gera, na forma e gradação da lei: suspensão dos direitos políticos, perda da função pública, indisponibilidade dos bens e ressarcimento ao erário, sem prejuízo da ação penal."
-  },
-  {
-    "assunto": "Improbidade administrativa (Lei 8.429/1992)",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 17-B e 23 da Lei 8.429/1992, com a redação da Lei 14.230/2021",
-    "impressao": "b082381b398ce4ced0101556cc2f2a6e",
-    "materia": "Administração Pública",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Responder pela lei antiga: vedação de acordo e prazo contado do fim do mandato.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q46",
-        "impressao": "1d85b31308bb03c61a8f8c2e6d75f1d2",
-        "numero": 46,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "A Lei 14.230/2021 mudou o que a prova de 2019 cobrou: hoje cabe acordo de não persecução civil (a vedação de acordo foi revogada) e a ação prescreve em 8 anos contados do fato. A afirmativa 1 da questão de 2019 (é vedada a transação) ficou desatualizada."
   },
   {
     "assunto": "Administração direta e indireta",
@@ -244,39 +225,6 @@
       }
     ],
     "regra": "No art. 12 a AOCP copia o texto e troca uma palavra. Português equiparado: só com residência PERMANENTE e reciprocidade (§1º). Naturalização de quem vem de país de língua portuguesa: UM ano ininterrupto + idoneidade moral; de qualquer estrangeiro: MAIS DE 15 anos ininterruptos + sem condenação penal + requerimento. Privativos de nato: Presidente e Vice, Presidentes da Câmara e do Senado, Ministro do STF, carreira diplomática, oficial das Forças Armadas e Ministro da Defesa (Deputado e Ministro da Justiça não). Perda, pela EC 131/2023: naturalização cancelada por SENTENÇA JUDICIAL ou pedido expresso, RESSALVADA a apatridia."
-  },
-  {
-    "assunto": "Militares dos Estados",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "art. 142, §§ 2º e 3º, c/c art. 42, §§ 1º e 3º, e art. 144, § 9º, da Constituição Federal de 1988",
-    "impressao": "aed109b3efb0d81a8bd8fca84c4a1543",
-    "materia": "Direito Constitucional",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "'cabe habeas corpus', 'com mais de dez anos deverá afastar-se', 'vedada a acumulação com professor', 'assegurada a sindicalização' e remuneração pelo 'regime de vencimentos'.",
-    "questoes": [
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGO-q26",
-        "impressao": "6f8c9eef8ddb32dd4790f52035627069",
-        "numero": 26,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPE-q43",
-        "impressao": "172050e21d207379680cb0bc537ca4bd",
-        "numero": 43,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPE-q45",
-        "impressao": "6ddf8d9784992ae9af610e1303a8826b",
-        "numero": 45,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023"
-      }
-    ],
-    "regra": "Ao PM se aplicam o art. 142, §§2º e 3º, e o art. 14, §8º (art. 42, §1º): não cabe habeas corpus contra punição disciplinar (é a letra que a AOCP cobra; o STF só admite HC para a legalidade, não para o mérito); sindicalização e greve são PROIBIDAS; na ativa não pode ser filiado a partido; é elegível, mas com MENOS de 10 anos de serviço afasta-se da atividade e com MAIS de 10 é agregado. Pode acumular com cargo de professor, com prevalência da atividade militar (art. 42, §3º, EC 101/2019). A remuneração dos policiais do art. 144 é por SUBSÍDIO (§9º)."
   },
   {
     "assunto": "Poder Executivo: eleição, posse e substituição",
@@ -510,105 +458,6 @@
     "regra": "LUTA: Lugar = Ubiquidade, ou mista (onde houve a ação ou omissão e onde se produziu ou deveria produzir-se o resultado, art. 6º); Tempo = Atividade (art. 4º). Concurso de pessoas: teoria MONISTA ou unitária, todos no mesmo crime, na medida da culpabilidade (art. 29), com exceções pluralistas na Parte Especial. Tentativa: teoria OBJETIVA ou realística, pena do consumado menos 1/3 a 2/3 (art. 14, par. único). Crime impossível: OBJETIVA TEMPERADA, só a ineficácia ABSOLUTA do meio ou a impropriedade ABSOLUTA do objeto (art. 17)."
   },
   {
-    "assunto": "Aplicação da lei penal militar",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "arts. 5º, 6º, 7º, 8º, 14 e 15 do Código Penal Militar",
-    "impressao": "b3facb0fced3e2894dfac083eb64ef82",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "A banca troca uma palavra: 'ubiquidade' para o tempo, 'idênticas' por 'diversas', 'salvo' por 'ainda que', e tira dos navios e aeronaves privados sob comando militar a extensão do território.",
-    "questoes": [
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q38",
-        "impressao": "abdf201abba9dc39dbc62f29b8586be6",
-        "numero": 38,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGO-q38",
-        "impressao": "fe67c5ab5b885fec36a972c39a5e460a",
-        "numero": 38,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPETEN-q64",
-        "impressao": "5ae4b759ac7d4b59a7f4aa74cc46cc47",
-        "numero": 64,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023"
-      }
-    ],
-    "regra": "No CPM, tempo do crime = ATIVIDADE (art. 5º); lugar = UBIQUIDADE, e no omissivo o lugar onde deveria realizar-se a ação omitida (art. 6º). Pena cumprida no estrangeiro ATENUA quando DIVERSAS e é COMPUTADA quando IDÊNTICAS (art. 8º). Navio e aeronave brasileiros sob comando militar ou militarmente utilizados são território por extensão, AINDA QUE privados (art. 7º, §1º). O defeito do ato de incorporação ou de matrícula não afasta a lei penal militar, SALVO se alegado ou conhecido antes do crime (art. 14, Lei 14.688/2023). Tempo de guerra: da declaração ou reconhecimento até ordenada a cessação das hostilidades (art. 15)."
-  },
-  {
-    "assunto": "Deserção e suspensão condicional da pena",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "arts. 187, 132 e 88 do Código Penal Militar",
-    "impressao": "814ce997ff05b626f1b33b29be0b8d36",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "Trocar o prazo de oito dias por três, cinco, quinze ou trinta; e dar como 'cabe sursis' um crime que está na lista do art. 88.",
-    "questoes": [
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q41",
-        "impressao": "f0ae6f796e6394adb93a0b49c0b507dc",
-        "numero": 41,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGO-q40",
-        "impressao": "0ffd32eaa82804a203af0eee2367285e",
-        "numero": 40,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q40",
-        "impressao": "bd8dc7b6f0c3c40a6fe64b3cd33ac1ed",
-        "numero": 40,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      }
-    ],
-    "regra": "Deserção: ausentar-se sem licença da unidade ou do lugar onde deve permanecer por MAIS DE OITO dias (art. 187). Na deserção, a prescrição só extingue a punibilidade quando o desertor completa 45 anos, ou 60 se oficial (art. 132). Em tempo de paz não cabe sursis para deserção, desrespeito a superior (art. 160), despojamento desprezível (art. 162), receita ilegal (art. 291) e os demais da lista do art. 88, II; o ingresso clandestino (art. 302) não está na lista e admite o benefício."
-  },
-  {
-    "assunto": "Penas, efeitos da condenação e medidas de segurança",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "arts. 55, 56, 98, 109 e 110 do Código Penal Militar (redação da Lei 14.688/2023)",
-    "impressao": "514d250258f9006134af1994b61a4567",
-    "materia": "Direito Penal Militar",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "Misturar na mesma lista penas principais, acessórias e efeitos da condenação; 'fuzilamento ou eletrocussão'; e chamar o confisco de medida pessoal ou detentiva.",
-    "questoes": [
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGO-q40",
-        "impressao": "0ffd32eaa82804a203af0eee2367285e",
-        "numero": 40,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPETEN-q63",
-        "impressao": "7911770d637391f56afb167fc20a5bb6",
-        "numero": 63,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPETEN-q64",
-        "impressao": "5ae4b759ac7d4b59a7f4aa74cc46cc47",
-        "numero": 64,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023"
-      }
-    ],
-    "regra": "Penas PRINCIPAIS hoje: morte (por fuzilamento, art. 56), reclusão, detenção, prisão e impedimento (art. 55); a suspensão do exercício do posto e a reforma foram revogadas pela Lei 14.688/2023, e questão antiga que as trate como pena está desatualizada. Perda de posto e patente, exclusão e inabilitação para função pública são ACESSÓRIAS (art. 98). Reparar o dano é EFEITO da condenação (art. 109, I). O confisco é medida de segurança PATRIMONIAL (art. 110, §2º); as pessoais são detentivas ou não detentivas (§1º)."
-  },
-  {
     "assunto": "Inquérito policial",
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "arts. 3º-B, § 2º, 5º, 10 e 17 do Código de Processo Penal",
@@ -711,86 +560,6 @@
       }
     ],
     "regra": "A ação penal pública é privativa do Ministério Público, também nas contravenções. O art. 26 do CPP (ação iniciada por auto de flagrante ou portaria do juiz ou do delegado) não foi recepcionado pela Constituição: o delegado não dá início à ação penal."
-  },
-  {
-    "assunto": "Recursos: RESE ou apelação",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "arts. 581, I, II e IV, 416 e 640 do Código de Processo Penal; art. 82 da Lei 9.099/1995",
-    "impressao": "c147e9d7143ad67e843473296ee43350",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "Levar o RESE de 5 dias para o Juizado, dar apelação contra a rejeição da denúncia no rito comum, dar RESE contra impronúncia ou absolvição sumária, e 'cinco dias' para a carta testemunhável.",
-    "questoes": [
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q31",
-        "impressao": "97dd7a99345e87580a411dacb4bd847e",
-        "numero": 31,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGO-q30",
-        "impressao": "1360bab72aad4794ef72f0df776679f1",
-        "numero": 30,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-soldado-de-2-classe-qppm-combatente"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPETEN-q48",
-        "impressao": "94c68452fbbf8d1cf6dd445a607b4599",
-        "numero": 48,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q29",
-        "impressao": "6449bafe098e48702d6f75bcdfac6c52",
-        "numero": 29,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      }
-    ],
-    "regra": "Não recebeu a denúncia ou queixa: RESE em 5 dias (arts. 581, I, e 586) - mas no Juizado Especial Criminal é APELAÇÃO em 10 dias (art. 82 da Lei 9.099/1995). No júri: pronúncia e decisão que conclui pela incompetência, como a desclassificação na 1ª fase, dão RESE (art. 581, IV e II); impronúncia e absolvição sumária dão APELAÇÃO (art. 416). Carta testemunhável: em 48 horas (art. 640)."
-  },
-  {
-    "assunto": "Acordo de não persecução penal",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "art. 28-A do Código de Processo Penal",
-    "impressao": "ac6da232196a50aa994b81a951495f3d",
-    "materia": "Direito Processual Penal",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "Confundir com a transação (pena MÁXIMA até 2 anos, art. 61 da Lei 9.099) ou com o sursis processual (pena mínima até 1 ano, art. 89); dar ANPP ao reincidente porque não houve violência; pôr o Juizado para celebrar o acordo.",
-    "questoes": [
-      {
-        "ano": 2021,
-        "codigo": "AOCP-2021-PCPA-q49",
-        "impressao": "eb0dd107217bfef1bf252c179e5c8be0",
-        "numero": 49,
-        "prova_url": "https://www.institutoaocp.org.br/concursos/302"
-      },
-      {
-        "ano": 2021,
-        "codigo": "AOCP-2021-PCPA-q54",
-        "impressao": "fb41beb98ae162763e29241e7eb84fb9",
-        "numero": 54,
-        "prova_url": "https://www.institutoaocp.org.br/concursos/302"
-      },
-      {
-        "ano": 2021,
-        "codigo": "AOCP-2021-PCPA-q50",
-        "impressao": "22444e6018ffb2b4e68a2e80f64388ae",
-        "numero": 50,
-        "prova_url": "https://www.institutoaocp.org.br/concursos/302"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPETEN-q49",
-        "impressao": "002af7f0a7f767f4791a57a541b0dac8",
-        "numero": 49,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/2-tenente-da-policia-militar-pm-pe-aocp-2023"
-      }
-    ],
-    "regra": "ANPP: confissão formal e circunstanciada + infração SEM violência ou grave ameaça + pena MÍNIMA INFERIOR a 4 anos, com aumentos e diminuições do caso (art. 28-A, caput e §1º). Não cabe se couber transação penal (ela vem primeiro), se o investigado for reincidente ou criminoso habitual, se teve ANPP, transação ou sursis processual nos 5 anos anteriores, nem na violência doméstica ou contra a mulher (§2º). O MP propõe e o juiz homologa. Furto qualificado (mínima de 2) e receptação simples (hoje 2 a 6 anos, Lei 15.397/2026) cabem."
   },
   {
     "assunto": "Fiança",
@@ -1045,32 +814,6 @@
     "regra": "Contar as linhas que atendem a VÁRIOS critérios ao mesmo tempo é CONT.SES(intervalo1;critério1;intervalo2;critério2;...). CONT.SE conta com um critério só; SOMASES soma, não conta; PROCV busca um valor e devolve outro da mesma linha; CORRESP devolve a posição. Nos itens de recursos, a banca deu como verdadeiros macro em VBA, coautoria pelo OneDrive/SharePoint e tabela dinâmica no Excel 2019, e importar e exportar CSV, XLSX e ODS no Calc; os falsos foram 'aprendizado de máquina integrado' no Excel e 'Python e Java diretamente na planilha' no Calc."
   },
   {
-    "assunto": "Lei Maria da Penha",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 7º, 18, 22, § 3º, e 23, IV, da Lei 11.340/2006",
-    "impressao": "610aaf70a61ea92fea65157d774eb5e8",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Rótulo trocado (descrição da patrimonial chamada de física), forma inventada ('psicofísica') e prazo de 5 dias.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q56",
-        "impressao": "0d3face1a4595b4028ef8b117a428804",
-        "numero": 56,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q62",
-        "impressao": "f7339e2a7496ab04d435f9f6198ed055",
-        "numero": 62,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "As formas de violência têm definição própria: física ofende o corpo; patrimonial é reter, subtrair ou destruir objetos, documentos e bens; moral é calúnia, difamação ou injúria (e desde 2026 há também a vicária). O juiz decide as medidas protetivas em 48 horas, pode requisitar a força policial a qualquer momento e pode determinar a separação de corpos."
-  },
-  {
     "assunto": "Estatuto do Desarmamento",
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "arts. 2º, 4º, 12 e 14 da Lei 10.826/2003",
@@ -1121,39 +864,6 @@
       }
     ],
     "regra": "Tortura com lesão grave ou gravíssima: reclusão de 4 a 10 anos; com morte: 8 a 16. Aumenta de 1/6 a 1/3 se o autor é agente público, se a vítima é criança, gestante, pessoa com deficiência, adolescente ou maior de 60, ou se há sequestro. É inafiançável e insuscetível de graça ou anistia, e o regime inicial é o fechado (salvo o omisso do § 2º)."
-  },
-  {
-    "assunto": "Lei Maria da Penha",
-    "criado_em": "2026-10-24T12:57:28.242460+00:00",
-    "fonte": "arts. 14-A, 16, 19, 24-A e 41 da Lei 11.340/2006",
-    "impressao": "d7a6081ca5703bf88745c5e096ad48c4",
-    "materia": "Legislação Especial",
-    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
-    "pegadinha": "Trocar 'recebimento' por 'oferecimento' da denúncia, deixar a ofendida pedir divórcio E partilha no Juizado, admitir sursis processual, e exigir BO, inquérito ou audiência das partes para a medida protetiva.",
-    "questoes": [
-      {
-        "ano": 2021,
-        "codigo": "AOCP-2021-PCPA-q58",
-        "impressao": "f580e6777abf75e9a9182a771bb4874c",
-        "numero": 58,
-        "prova_url": "https://www.institutoaocp.org.br/concursos/302"
-      },
-      {
-        "ano": 2022,
-        "codigo": "AOCP-2022-PMGOCAD-q30",
-        "impressao": "78cce8379848d75cf2d6df6542327aa3",
-        "numero": 30,
-        "prova_url": "https://www.qconcursos.com/questoes-militares/provas/instituto-aocp-2022-pm-go-aspirante-da-policia-militar"
-      },
-      {
-        "ano": 2023,
-        "codigo": "AOCP-2023-PMPE-q55",
-        "impressao": "643522b361bf40a08b79e168ccdea858",
-        "numero": 55,
-        "prova_url": "https://www.pciconcursos.com.br/provas/download/soldado-da-policia-militar-pm-pe-aocp-2023"
-      }
-    ],
-    "regra": "A renúncia à representação só vale perante o juiz, em audiência designada para isso, antes do RECEBIMENTO da denúncia, ouvido o MP (art. 16); desde a Lei 15.380/2026, a audiência só é marcada se a vítima disser que quer se retratar. A Lei 9.099 não se aplica, seja qual for a pena (art. 41): sem transação nem sursis processual (Súmula 536 do STJ). Flagrante por descumprir medida protetiva: só o JUIZ concede fiança (art. 24-A, §2º). No Juizado de Violência Doméstica, divórcio sim, partilha de bens não (art. 14-A, §1º). A medida protetiva independe de BO, inquérito ou processo e vale enquanto durar o risco (art. 19, §§5º e 6º)."
   },
   {
     "assunto": "Lei de Drogas: tráfico privilegiado e majorantes",
@@ -1222,126 +932,6 @@
     "regra": "Hediondo é só o que está escrito no art. 1º da Lei 8.072 (rol taxativo). Armas: posse ou porte de uso PROIBIDO (art. 16), comércio ilegal (art. 17) e tráfico internacional (art. 18) são; de uso RESTRITO deixou de ser com o Pacote Anticrime. Furto com explosivo (art. 155, §4º-A) é. Fora do rol: injúria racial, infanticídio, associação para o tráfico e tráfico privilegiado (art. 112, §5º, da LEP). Tráfico de pessoas em geral não é, mas contra criança ou adolescente passou a ser (inciso XII, Lei 14.811/2024); a questão de 2023 olhava o tráfico de pessoas sem esse detalhe. O rol cresce sempre: estude pelo texto vigente."
   },
   {
-    "assunto": "Trabalho do preso no Regimento Interno",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 24, § 3º, 52 e 53, parágrafo único, da LC estadual 529/2011",
-    "impressao": "56758f5715a32b2b8622f10636afc631",
-    "materia": "Legislação Estadual",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Trabalho do preso com vínculo de CLT, e o piso de 2/3 ou do mínimo regional.",
-    "questoes": [
-      {
-        "ano": 2013,
-        "codigo": "2013-q64",
-        "impressao": "3db7d8f1105fb82e2ebf7b88bd18596a",
-        "numero": 64,
-        "prova_url": "http://secjustica.fepese.org.br/?go=download&path=2&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2013,
-        "codigo": "2013-q65",
-        "impressao": "fd2da2843411eec8ba9e12e4786ea393",
-        "numero": 65,
-        "prova_url": "http://secjustica.fepese.org.br/?go=download&path=2&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q72",
-        "impressao": "871ff31c8a8a60d9f17cb450e85e6d10",
-        "numero": 72,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "Para o condenado, o trabalho é obrigatório e remunerado, dentro ou fora do estabelecimento; para o preso provisório não é obrigatório e só pode ser no interior (logo, nada de trabalho externo). O piso hoje é 3/4 do salário mínimo NACIONAL (LC 809/2022): a alternativa 'salário-mínimo regional' da prova de 2013 ficou desatualizada."
-  },
-  {
-    "assunto": "Regimento Interno: classificação, ensino, saúde e disciplina",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 2º, 3º, 35, 48 e 109, III, da LC estadual 529/2011",
-    "impressao": "e22228c365452c9c000dd5cc070d2475",
-    "materia": "Legislação Estadual",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Ensino 'facultativo em todos os níveis', e preso provisório 'regido por regulamento próprio'.",
-    "questoes": [
-      {
-        "ano": 2013,
-        "codigo": "2013-q69",
-        "impressao": "ee8892e8e389688c66084e167072e998",
-        "numero": 69,
-        "prova_url": "http://secjustica.fepese.org.br/?go=download&path=2&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q73",
-        "impressao": "cc35a416478d61d2d70e84e26c0d6aca",
-        "numero": 73,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q74",
-        "impressao": "028947bd74e431dd6d6592396ddc5bef",
-        "numero": 74,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q80",
-        "impressao": "4b5caf57a5fe568ebed3dac69d2b8916",
-        "numero": 80,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "A Comissão Técnica de Classificação propõe progressões, regressões e conversões. O Ensino Fundamental é obrigatório; ao ingressar, o preso faz exame de saúde obrigatório. A ordem e a disciplina são mantidas com firmeza, sem restrições além das necessárias, e a lei vale, no que couber, também para o preso provisório."
-  },
-  {
-    "assunto": "Carreira: o que mudou depois das provas",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 13, 31, 42, 45, VII, e 66, I, da LC estadual 774/2021",
-    "impressao": "4f81fbed1dcf7b935c2ace74949a3a06",
-    "materia": "Legislação Estadual",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Responder pela lei revogada: adicional de 10% em delegacia, gratificação por hora extra e progressão de 4 em 4 anos.",
-    "questoes": [
-      {
-        "ano": 2013,
-        "codigo": "2013-q61",
-        "impressao": "b5a234363c9996cb3ca35cd9325cb3c1",
-        "numero": 61,
-        "prova_url": "http://secjustica.fepese.org.br/?go=download&path=2&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2013,
-        "codigo": "2013-q66",
-        "impressao": "fbee370f6d14954b3a18ec91c8d05d3b",
-        "numero": 66,
-        "prova_url": "http://secjustica.fepese.org.br/?go=download&path=2&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q71",
-        "impressao": "5dd5790769df249f2ff1f3f41b980e0f",
-        "numero": 71,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q75",
-        "impressao": "af77ee0fa837b7fd31f9c4eee3ad2788",
-        "numero": 75,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q79",
-        "impressao": "b6a3d337619b6b80a41e83cd62ce0bb4",
-        "numero": 79,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "As leis de carreira cobradas (LC 472/2009 e LC 675/2016) foram revogadas: hoje vale o Estatuto da Polícia Penal. O concurso tem prova objetiva, capacidade física, aptidão psicológica, exame toxicológico e investigação social; a remuneração é subsídio em parcela única (sem adicional de local de exercício nem hora extra); a progressão é a cada 3 anos; o porte de arma é em serviço e fora dele."
-  },
-  {
     "assunto": "Crimes de trânsito: entregar a direção",
     "criado_em": "2026-10-24T12:57:28.242460+00:00",
     "fonte": "arts. 309 e 310 da Lei 9.503/1997 (CTB); Súmula 575 do STJ",
@@ -1397,98 +987,6 @@
       }
     ],
     "regra": "Nos crimes do CTB, a Lei 9.099 se aplica 'no que couber' (art. 291); na lesão corporal culposa valem a composição civil, a transação e a representação, salvo embriaguez, racha ou velocidade 50 km/h acima da máxima (§1º). Quem diz 'não se aplica a Lei 9.099, independentemente da pena' é a Lei Maria da Penha (art. 41 da Lei 11.340/2006), não o CTB. A fuga do local do sinistro (art. 305, que diz 'sinistro' desde a Lei 14.599/2023) é constitucional (STF, RE 971.959, Tema 907)."
-  },
-  {
-    "assunto": "Remição",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "art. 126, caput, §§ 1º, 6º, 7º e 9º, da Lei 7.210/1984",
-    "impressao": "b2dcc7c598bae4d1be3b3d37dd851b02",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Incluir as penas restritivas de direitos, ou dar remição por trabalho no regime aberto.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q82",
-        "impressao": "e30d026c5a17eb3079fb7e564a11065f",
-        "numero": 82,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "Por trabalho OU estudo, no fechado e no semiaberto: 1 dia de pena a cada 3 de trabalho, ou a cada 12 horas de estudo divididas em no mínimo 3 dias. No aberto e no livramento condicional, só por estudo. Vale na prisão cautelar e, desde 2026, também no regime domiciliar."
-  },
-  {
-    "assunto": "Deveres, direitos e egresso",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 26, 39 e 41 da Lei 7.210/1984",
-    "impressao": "67ad0f5fedf52879c9b8f7a0556c4f5f",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Chamar de egresso o preso do regime aberto, ou tirar a indenização à vítima da lista de deveres.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q81",
-        "impressao": "42c41a2c6fd9b93a1e0e18ede43f2e9e",
-        "numero": 81,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q86",
-        "impressao": "97c396dc273e56728692e8dd2f1b914f",
-        "numero": 86,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q87",
-        "impressao": "1caa127a7bb47bdfaedb84899576d42f",
-        "numero": 87,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "Deveres do condenado incluem submeter-se à sanção, conservar seus objetos, higiene e asseio da cela e indenizar a vítima e o Estado. Direitos do preso incluem trabalho remunerado, chamamento nominal, audiência especial com o diretor e representação e petição a qualquer autoridade. Egresso é só o liberado definitivo (por 1 ano da saída) e o condicional (no período de prova)."
-  },
-  {
-    "assunto": "Diretor, assistência religiosa e órgãos",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 24, § 2º, 64, IV, 75 e 119 da Lei 7.210/1984",
-    "impressao": "d52c1b90820bc664e281cf3ae1d09629",
-    "materia": "Lei de Execução Penal",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Diploma superior 'em qualquer área', 'experiência em gestão pública' e 'mais de 35 anos' para diretor.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q83",
-        "impressao": "a0dc14e30c89c102f7a236e41fe1297a",
-        "numero": 83,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q84",
-        "impressao": "0a5b7fd80e02f0bc3cdf522f9e7984d5",
-        "numero": 84,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q88",
-        "impressao": "5fabe1fd8bb303e6da0ae6c2cab0f815",
-        "numero": 88,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q90",
-        "impressao": "dd187bad3bf4639a3f2c8dfd13831b00",
-        "numero": 90,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "O diretor precisa de diploma superior em Direito, Psicologia, Ciências Sociais, Pedagogia ou Serviços Sociais, experiência administrativa na área e idoneidade moral. Ninguém é obrigado a atividade religiosa. Estimular e promover a pesquisa criminológica é do CNPCP. Normas complementares do regime aberto vêm da legislação local."
   },
   {
     "assunto": "Concordância verbal e voz passiva",
@@ -1805,7 +1303,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "atalhos de teclado documentados do Firefox (suporte da Mozilla)",
     "impressao": "ea45a51cfee77548539a4211953d153a",
-    "materia": "Noções de Informática",
+    "materia": "Informática",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Trocar Ctrl+N (janela) por Ctrl+T (aba).",
     "questoes": [
@@ -1824,7 +1322,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "Página Inicial > grupo Número > Aumentar Casas Decimais (Microsoft Excel)",
     "impressao": "de2535ad3559aacf57232718bd9843d4",
-    "materia": "Noções de Informática",
+    "materia": "Informática",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Formatar como texto ou 'número real': muda o tipo, não as casas exibidas.",
     "questoes": [
@@ -1850,7 +1348,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "Layout da Página > Marca D'Água (Microsoft Word 2010)",
     "impressao": "734ffe7340bc20b0fe530eced0af2520",
-    "materia": "Noções de Informática",
+    "materia": "Informática",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Procurar a marca d'água na guia Exibição.",
     "questoes": [
@@ -1869,7 +1367,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "regra do produto e do evento complementar (probabilidade)",
     "impressao": "5193d435aa1a8755aa8e0776d925ea1e",
-    "materia": "Raciocínio Lógico",
+    "materia": "Raciocínio Lógico-Matemático",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Somar as probabilidades (0,7 + 0,6) ou esquecer de tirar o primeiro sorteado do total.",
     "questoes": [
@@ -1895,7 +1393,7 @@
     "criado_em": "2026-10-04T17:22:41.386045+00:00",
     "fonte": "princípio da inclusão-exclusão (teoria dos conjuntos)",
     "impressao": "a7bc0f1cf71dcd4524756e6f7be0664e",
-    "materia": "Raciocínio Lógico",
+    "materia": "Raciocínio Lógico-Matemático",
     "modelo": "Claude Code, importado manualmente, em 04/10/2026",
     "pegadinha": "Esquecer de descontar a interseção e contar duas vezes quem está nos dois grupos.",
     "questoes": [
@@ -1922,102 +1420,5 @@
       }
     ],
     "regra": "União = A + B - interseção, e 'nem A nem B' = total - união. Ex.: 200 - (80 + 46 - 22) = 96. Com subgrupos (só homens), faça a conta do grupo inteiro menos a das mulheres antes de usar a fórmula."
-  },
-  {
-    "assunto": "Equivalências lógicas",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "contrapositiva e leis de De Morgan (lógica proposicional)",
-    "impressao": "b3940e1c67f1f78bfa25b08adcf30201",
-    "materia": "Raciocínio Lógico",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Negar o 'ou' mantendo 'ou', ou inverter a condicional sem negar os dois lados.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q23",
-        "impressao": "d21511113f89404d4f6bf6572f32c453",
-        "numero": 23,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "'Se P então Q' equivale a 'se não Q então não P' (contrapositiva). Para negar, use De Morgan: não (A e B) = não A ou não B; não (A ou B) = não A e não B."
-  },
-  {
-    "assunto": "Autores e obras",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "FOUCAULT, Vigiar e punir (1975); GOFFMAN, Manicômios, prisões e conventos (1961)",
-    "impressao": "03fe8ded8186ff88ecefe79d13396bad",
-    "materia": "Sociologia Aplicada",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Atribuir as instituições totais a Foucault, ou dar a Foucault outro título (Microfísica do poder).",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q94",
-        "impressao": "81474e4e54a13f06929278458d845665",
-        "numero": 94,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q96",
-        "impressao": "e39f1f7d6710869e279d9d410a64bea7",
-        "numero": 96,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "Michel Foucault escreveu Vigiar e punir: nascimento da prisão (1975), sobre vigilância e disciplina em prisões, hospitais e escolas. Erving Goffman escreveu Manicômios, prisões e conventos e cunhou as instituições TOTAIS, fechadas ao mundo externo."
-  },
-  {
-    "assunto": "História da prisão",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "gabarito oficial das questões 91 a 93 da prova FEPESE 2019",
-    "impressao": "98187d1e9a0a46d24681ede76068c5e5",
-    "materia": "Sociologia Aplicada",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Dizer que nas colônias do século XV o encarceramento já era a principal pena.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q91",
-        "impressao": "1cd3bcf563fb464741e2dba613c70db6",
-        "numero": 91,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q92",
-        "impressao": "84e88bb6c00f848c60961ed5b88b42c5",
-        "numero": 92,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      },
-      {
-        "ano": 2019,
-        "codigo": "2019-q93",
-        "impressao": "70cfaab02b2694d5c24d2e2b236f25fd",
-        "numero": 93,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "Por muito tempo a prisão foi só CUSTÓDIA: guardava o réu até a pena (morte, açoites, mutilações). Virou pena privativa de liberdade aproveitando a mão de obra dos presos, numa fase chamada utilitarista. No Oriente Antigo a punição tinha caráter religioso, e na Idade Média as penas eram corporais."
-  },
-  {
-    "assunto": "Objetivos da execução e assistência",
-    "criado_em": "2026-10-04T17:22:41.386045+00:00",
-    "fonte": "arts. 1º, 10, 17 e 22 da Lei 7.210/1984",
-    "impressao": "434b1ed2562c459340d823a295f4a9e5",
-    "materia": "Sociologia Aplicada",
-    "modelo": "Claude Code, importado manualmente, em 04/10/2026",
-    "pegadinha": "Trocar a finalidade de uma assistência pela de outra.",
-    "questoes": [
-      {
-        "ano": 2019,
-        "codigo": "2019-q99",
-        "impressao": "65585e83111be1e993ad1bf87fdaf4d1",
-        "numero": 99,
-        "prova_url": "https://sap.fepese.org.br/?go=download&path=2&inline=1&arquivo=AP.pdf"
-      }
-    ],
-    "regra": "A execução penal efetiva a sentença e proporciona a harmônica integração social do condenado. A assistência ao preso é dever do Estado, para prevenir o crime e orientar o retorno à sociedade; a educacional compreende instrução escolar e formação profissional; a social ampara o preso e o prepara para a liberdade."
   }
 ]

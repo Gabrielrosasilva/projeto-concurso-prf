@@ -782,7 +782,9 @@ def test_o_json_real_das_geradas_nao_esta_vazio():
 def test_toda_variacao_do_registro_tem_a_base_pela_chave_menos_as_3_de_27_09():
     """As 30 variacoes do estoque de 03/10 que tinham ficado sem a questao de
     base (decisao 77) foram religadas pelo historico da conversa, que imprimiu
-    a base de cada pedido. So as 3 de 27/09 seguem sem: delas nao ha registro."""
+    a base de cada pedido. So as 3 de 27/09 seguem sem: delas nao ha registro.
+    Na Etapa 3 da PRF (PRF-21) sai a gerada de no fora do programa da PRF, e
+    as 3 podem ter saido: o teste e que nenhuma OUTRA fica sem base."""
     from pathlib import Path
 
     arquivo = (Path(__file__).resolve().parent.parent / "data"
@@ -791,7 +793,7 @@ def test_toda_variacao_do_registro_tem_a_base_pela_chave_menos_as_3_de_27_09():
     sem_base = [linha for linha in linhas
                 if linha.get("modo") == "variacao" and not linha.get("origem_chave")]
 
-    assert len(sem_base) == 3
+    assert len(sem_base) <= 3
     assert all("27/09/2026" in (linha.get("modelo") or "") for linha in sem_base)
 
 

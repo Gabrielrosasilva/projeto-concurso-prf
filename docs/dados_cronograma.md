@@ -10,7 +10,8 @@ cronograma so se monta na Etapa 5, na ordem do pedido (sem pular a 3 e a 4).
 - Sabado: **simulado e redacao**, de manha ou a tarde. Sugestao do Claude: a
   tarde, porque a prova de 2021 foi a tarde, objetiva e discursiva juntas em
   4h30 (edital 8.2).
-- Domingo: a confirmar.
+- Domingo: **folga** ate o edital sair; com o edital em maos, o Gabriel quer
+  aumentar tudo (domingo entra).
 - Sem data de prova: **ciclo** (a sequencia de materias se repete e nao
   depende de data). Quando o edital novo sair, o Gabriel manda as datas e o
   ciclo vira reta final, mais intenso.
@@ -25,17 +26,17 @@ cronograma so se monta na Etapa 5, na ordem do pedido (sem pular a 3 e a 4).
 ## De onde ele parte
 - Informatica: foi bem na PMSC e na PP; rever o jeito do Cebraspe.
 - Constitucional e Penal: ja estudou um pouco; rever e ver como a banca cobra.
-- Materias da PRF que nao estavam no edital da PMSC: do zero. **Falta o
-  comparativo PMSC x PRF materia a materia** (cabe na Etapa 3, que ja separa o
-  que e de cada edital; base: `fontes/config_pmsc/`).
+- Materias da PRF que nao estavam no edital da PMSC: do zero. O comparativo
+  materia a materia e assunto a assunto esta em `docs/comparativo_pmsc_prf.md`
+  (Etapa 3).
 - Diagnostico sugerido: a prova de 2019 na primeira semana; a de 2021 fica
   guardada para um simulado mais adiante.
 
 ## Lingua estrangeira
 - Escolhida na inscricao, Ingles ou Espanhol; da para trocar enquanto a
   inscricao estiver aberta (edital 7.4.1 e 7.4.1.2). 8 itens em 2021.
-- A decidir: o Gabriel faz os 8 itens das duas provas e escolhe. O caderno de
-  espanhol de 2021 nao esta no acervo.
+- **Escolhida: Espanhol** (25/11/2026). O caderno de espanhol de 2021 nao esta
+  no acervo: falta achar questao de espanhol do Cebraspe para treinar.
 
 ## Teoria
 - Como na PP e na PMSC: as fichas do radar, mais videoaula gratuita para
