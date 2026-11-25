@@ -1,6 +1,6 @@
 # Estado - 25/11/2026
 
-Etapas 0 a 4, a classificacao do Cebraspe e as 6 provas do levantamento (PRF-26) feitas; tudo espera o aval do Gabriel. A Etapa 5 nao comecou.
+Etapas 0 a 4, a classificacao do Cebraspe, as 6 provas do levantamento (PRF-26) e o levantamento 2 (PRF-30, so baixado) feitos; tudo espera o aval do Gabriel. A Etapa 5 nao comecou.
 
 ## O que roda
 - `radar subir` na 8002, com "MODO PRF". Config em `PRF/config/` (pelo `.env`), sem Telegram.
@@ -16,10 +16,10 @@ Etapas 0 a 4, a classificacao do Cebraspe e as 6 provas do levantamento (PRF-26)
 - `data/classificacoes.json` (versionado, repositorio publico) guarda o `trecho` de cada questao: trecho curto de prova de terceiros (regra 5).
 
 ## Falta
-- As 363 de multipla escolha do complementar e 1.128 herdadas ficam sem no (so a materia): podem passar pelo mesmo processo da PRF-23.
-- Redacao Cebraspe e Simulado PMSC: pendencia em `docs/dados_cronograma.md`.
-- 6 cadernos antigos de Certo/Errado sem recuo podem ter o texto-base grudado no item (PRF-26): reler com o leitor novo, com o seu aval. Agora eles treinam e medem.
-- A multipla escolha do Cebraspe (761) segue fora do treino que mede (so o C/E entrou, PRF-28).
+- Levantamento 2 (PRF-30, so baixado): os 15 cadernos C/E que o leitor le entrarem (faixas so do programa, classificacao como na PRF-26); consertar o leitor para os 4 com ingles e espanhol na mesma grade e o DEPEN 2020 (tres gabaritos). Os 14 de multipla escolha esperam.
+- A explicacao depois da resposta e a Revisao do simulado (PRF-31). Pendentes: a explicacao na multipla escolha; a IA gerar questao para assunto com menos de 50 (depois da Etapa 5).
+- Sem no (so a materia): 363 de multipla escolha do complementar e 1.128 herdadas (processo da PRF-23). A multipla escolha do Cebraspe (761) segue fora do treino que mede (PRF-28).
+- 6 cadernos antigos de C/E sem recuo (PRF-26): reler com o leitor novo, com o seu aval. Redacao Cebraspe e Simulado PMSC: `docs/dados_cronograma.md`.
 
 ## Quebrado ate existir `PRF/config/cronograma.yml`: erro 500 em Meu foco (`/`), Fichas, Gerar questoes, Analises > Conferencia e > Desempenho.
 
