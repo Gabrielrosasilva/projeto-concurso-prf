@@ -5501,29 +5501,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/GAB_DEFINITIVO_813_AGER_MT_CB2_01.PDF"
   },
   {
-    "arquivo": "485073D7F59D349652F25FE845252BA37D3C7DF38D42125873FEA48210E81573.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_ansa_2026_enfase_16_logistica_de_transporte_gabarito_definitivo_485073d7f59d349652f25fe845252ba37d3c7df38d421_7851dac8.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/EAFB48A278527AD4255A0A2E5F97191E2FC0249B5E460BF2B5498D6954B32B71.pdf",
-    "orgao": "CESPE / CEBRASPE - 2026 - ANSA - Ênfase 16: Logística de Transporte",
-    "sha256": "6ee99a836ded333555c98bf8eed0b9e9a4ddb16e655701df60303169e18122e7",
-    "tamanho": 302738,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/485073D7F59D349652F25FE845252BA37D3C7DF38D42125873FEA48210E81573.pdf"
-  },
-  {
-    "arquivo": "EAFB48A278527AD4255A0A2E5F97191E2FC0249B5E460BF2B5498D6954B32B71.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_ansa_2026_enfase_16_logistica_de_transporte_prova_eafb48a278527ad4255a0a2e5f97191e2fc0249b5e460_c7d04094.pdf",
-    "cargo": "Ênfase 16: Logística de Transporte",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/EAFB48A278527AD4255A0A2E5F97191E2FC0249B5E460BF2B5498D6954B32B71.pdf",
-    "orgao": "CESPE / CEBRASPE - 2026 - ANSA - Ênfase 16: Logística de Transporte",
-    "sha256": "3a4fd9496b412d9b08c85b968637855db19f88fbee1920c7ac62b3b6b06e33bc",
-    "tamanho": 503351,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/EAFB48A278527AD4255A0A2E5F97191E2FC0249B5E460BF2B5498D6954B32B71.pdf"
-  },
-  {
     "arquivo": "FA0BD745976857A98487E1EC9827BD55F9407ABF6B3F2E8B4458015371152D6C.pdf",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_ansa_2026_enfase_16_logistica_de_transporte_prova_fa0bd745976857a98487e1ec9827bd55f9407abf6b3f2_e3b06bd3.pdf",
@@ -5987,52 +5964,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/DP_DF_19_DEFENSOR/arquivos/GAB_DEFINITIVO_459_DPDF_001_MATRIZ_VF.PDF"
   },
   {
-    "arquivo": "997_FNDEANALISTA_001_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_fnde_2024_analista_de_prestacao_de_contas_prova_997_fndeanalista_001_01_1f7e8ef2.pdf",
-    "cargo": "Analista de Prestação de Contas",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_001_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - FNDE - Analista de Prestação de Contas",
-    "sha256": "0cc780caac56b59e7230708fa36deeacc74ca170e671344dfbb32e2f56b692ad",
-    "tamanho": 66133,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_001_01.PDF"
-  },
-  {
-    "arquivo": "997_FNDEANALISTA_CB1_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_fnde_2024_analista_de_prestacao_de_contas_prova_997_fndeanalista_cb1_01_fc398a4d.pdf",
-    "cargo": "Analista de Prestação de Contas",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_CB1_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - FNDE - Analista de Prestação de Contas",
-    "sha256": "6cce5381f83b6442f4ea15fe6f57bb831292692b5917f4f0d7bd86b4dc1c70a8",
-    "tamanho": 66538,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_CB1_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_997_FNDEANALISTA_001_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_fnde_2024_analista_de_prestacao_de_contas_gabarito_definitivo_gab_definitivo_997_fndeanalista_001_01_781c4f9a.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_001_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - FNDE - Analista de Prestação de Contas",
-    "sha256": "af5a5698c99ccdfb08f9ca1064a05723d1668e0a23d196465ee63a6603e9f734",
-    "tamanho": 36645,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/GAB_DEFINITIVO_997_FNDEANALISTA_001_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_997_FNDEANALISTA_CB1_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_fnde_2024_analista_de_prestacao_de_contas_gabarito_definitivo_gab_definitivo_997_fndeanalista_cb1_01_a40c6b83.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/997_FNDEANALISTA_CB1_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - FNDE - Analista de Prestação de Contas",
-    "sha256": "2a418bab925f988c70f7bd98ee701ab7511b0b9801145d2f63d90674a1c5280a",
-    "tamanho": 36753,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/FNDE_24_PSS_ANALISTA/arquivos/GAB_DEFINITIVO_997_FNDEANALISTA_CB1_01.PDF"
-  },
-  {
     "arquivo": "924_ITAIPU_031_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_itaipu_binacional_2024_profissional_de_nivel_tecnico_i_funcao_agente_prova_924_itaipu_031_01_16314abc.pdf",
@@ -6433,18 +6364,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/732_PCRO_002_01.PDF"
   },
   {
-    "arquivo": "732_PCRO_CG2_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pc_ro_2022_delegado_de_policia_prova_732_pcro_cg2_01_153991c3.pdf",
-    "cargo": "Delegado de Polícia",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/732_PCRO_CG2_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2022 - PC-RO - Delegado de Polícia",
-    "sha256": "981349bada6149e2601a6056da247e177274964fa42a207803ce1156b72ef290",
-    "tamanho": 115728,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/732_PCRO_CG2_01.PDF"
-  },
-  {
     "ano": 2022,
     "arquivo": "733_PCROAGENTE_001_01.PDF",
     "banca": "CEBRASPE",
@@ -6506,17 +6425,6 @@
     "tamanho": 57874,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_732_PCRO_002_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_732_PCRO_CG2_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pc_ro_2022_delegado_de_policia_gabarito_definitivo_gab_definitivo_732_pcro_cg2_01_910e8adf.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/732_PCRO_CG2_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2022 - PC-RO - Delegado de Polícia",
-    "sha256": "c0853bfa80c3012b6379f5f4a4ecef11a57844b6e09f6c0a1c687f1f58b4b009",
-    "tamanho": 57654,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_732_PCRO_CG2_01.PDF"
   },
   {
     "ano": 2022,
@@ -6711,18 +6619,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/GAB_DEFINITIVO_605_PCSE_CG1_01.PDF"
   },
   {
-    "arquivo": "822_PETROBRAS_23_003_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_petrobras_2023_enfase_3_logiistica_de_transportes_controle_prova_822_petrobras_23_003_01_810a2289.pdf",
-    "cargo": "Ênfase 3: Logíistica de Transportes - Controle",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_003_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2023 - Petrobras - Ênfase 3: Logíistica de Transportes - Controle",
-    "sha256": "4d60ee7282d4ecc9b6709cf89b81e884a4716cdee60a81c559fc820a838c4d3d",
-    "tamanho": 53142,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_003_01.PDF"
-  },
-  {
     "arquivo": "822_PETROBRAS_23_011_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_petrobras_2023_enfase_11_seguranca_do_trabalho_prova_822_petrobras_23_011_01_3abe2a73.pdf",
@@ -6745,17 +6641,6 @@
     "tamanho": 147829,
     "tipo": "prova",
     "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_CB1_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_822_PETROBRAS_23_003_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_petrobras_2023_enfase_3_logiistica_de_transportes_controle_gabarito_definitivo_gab_definitivo_822_petrobras_23_003_01_cce46cf5.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_003_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2023 - Petrobras - Ênfase 3: Logíistica de Transportes - Controle",
-    "sha256": "2bb90ec419260d014bf5cf428c4a21db5e969b40fab1767d03fe4a83dd6e59b1",
-    "tamanho": 35529,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/GAB_DEFINITIVO_822_PETROBRAS_23_003_01.PDF"
   },
   {
     "arquivo": "GAB_DEFINITIVO_822_PETROBRAS_23_011_01.PDF",
@@ -6792,18 +6677,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_003_01.PDF"
   },
   {
-    "arquivo": "950_PETROBRAS_23_015_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_petrobras_2024_tecnico_junior_enfase_seguranca_do_trabalho_prova_950_petrobras_23_015_01_ff0f6d8f.pdf",
-    "cargo": "Técnico Júnior - Ênfase: Segurança do Trabalho",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_015_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - Petrobras - Técnico Júnior - Ênfase: Segurança do Trabalho",
-    "sha256": "b779669db20e1072b4b399b75b8b4c18182b19b6f9030be8d3f38310d2565135",
-    "tamanho": 66455,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_015_01.PDF"
-  },
-  {
     "arquivo": "950_PETROBRAS_23_CB1_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_prova_950_petrobras_23_cb1_01_b2a90317.pdf",
@@ -6827,17 +6700,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/GAB_DEFINITIVO_950_PETROBRAS_23_003_01.PDF"
   },
   {
-    "arquivo": "GAB_DEFINITIVO_950_PETROBRAS_23_015_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_petrobras_2024_tecnico_junior_enfase_seguranca_do_trabalho_gabarito_definitivo_gab_definitivo_950_petrobras_23_015_01_3990ca6e.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_015_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2024 - Petrobras - Técnico Júnior - Ênfase: Segurança do Trabalho",
-    "sha256": "b55d41ccfad670785e5a94a76896254cf529ec702ff3bcd93be32ce432708621",
-    "tamanho": 47960,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/GAB_DEFINITIVO_950_PETROBRAS_23_015_01.PDF"
-  },
-  {
     "arquivo": "GAB_DEFINITIVO_950_PETROBRAS_23_CB1_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_gabarito_definitivo_gab_definitivo_950_petrobras_23_cb1_01_cb62743a.pdf",
@@ -6847,17 +6709,6 @@
     "tamanho": 47838,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/GAB_DEFINITIVO_950_PETROBRAS_23_CB1_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_408_DGPPF010__PAG_3.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_policia_federal_2018_perito_criminal_federal_area_12_gabarito_definitivo_gab_definitivo_408_dgppf010_pag_3_d578fa8e.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF010__PAG_3.PDF",
-    "orgao": "CESPE - 2018 - Polícia Federal - Perito Criminal Federal - Área 12",
-    "sha256": "97093601040d3c2c63075f9cb874475ac7eeddbb932b86ef65a0c48d08e70540",
-    "tamanho": 107619,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPF010__PAG_3.PDF"
   },
   {
     "ano": 2018,
@@ -6905,18 +6756,6 @@
     "tamanho": 107464,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPFCB1__PAG_4.PDF"
-  },
-  {
-    "arquivo": "MATRIZ_408_DGPPF010__PAG_3.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_policia_federal_2018_perito_criminal_federal_area_12_prova_matriz_408_dgppf010_pag_3_66854653.pdf",
-    "cargo": "Perito Criminal Federal - Área 12",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF010__PAG_3.PDF",
-    "orgao": "CESPE - 2018 - Polícia Federal - Perito Criminal Federal - Área 12",
-    "sha256": "14ce7411792862935d61c863aaea74e2dd8e27b502a312845fe7ac7776c13254",
-    "tamanho": 54970,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF010__PAG_3.PDF"
   },
   {
     "ano": 2018,
@@ -7043,81 +6882,6 @@
     "tamanho": 46206,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/GAB_DEFINITIVO_MATRIZ_577_PF_004_00.PDF"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "106_PF_015_01.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_escrivao_prova.pdf",
-    "cargo": "Escrivão de Polícia Federal",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_015_01.pdf",
-    "orgao": "PF",
-    "sha256": "128c7fe23f87fb3111d2e48b22268dbea164790109fc63dff9f2b1602b954d37",
-    "tamanho": 45880,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_015_01.pdf"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "106_PF_016_01.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_agente_prova.pdf",
-    "cargo": "Agente de Polícia Federal",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_016_01.pdf",
-    "orgao": "PF",
-    "sha256": "8f5962ae0dde2d3cf2652c3eff3e3c263c12486952f45ab4761b7dc0d1550f06",
-    "tamanho": 68886,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_016_01.pdf"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "106_PF_017_01.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_papiloscopista_prova.pdf",
-    "cargo": "Papiloscopista Policial Federal",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_017_01.pdf",
-    "orgao": "PF",
-    "sha256": "2801bf8d85ebd35aad40fda33cf87633b0bd4e8b8e68382cacdf19275f8a70af",
-    "tamanho": 114019,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_017_01.pdf"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "448F54940D877880045A494008870FC0B25C57C9D7233ECD0CDC29B942A683AD.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_papiloscopista_gabarito_definitivo.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_017_01.pdf",
-    "orgao": "PF",
-    "sha256": "41fd7c64f73b48d8873bd8a60549c03f666314e295b810ab6c3fab78ce96de5f",
-    "tamanho": 208721,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/448F54940D877880045A494008870FC0B25C57C9D7233ECD0CDC29B942A683AD.pdf"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "570C8865F7DDA1651ED10E330A6297A95466A2393EEEC633290FE754912D6143.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_escrivao_gabarito_definitivo.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_015_01.pdf",
-    "orgao": "PF",
-    "sha256": "bac095506af9df1f2a10d76d4f355854bccf6163d227d7fa567a702811acb884",
-    "tamanho": 209095,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/570C8865F7DDA1651ED10E330A6297A95466A2393EEEC633290FE754912D6143.pdf"
-  },
-  {
-    "ano": 2025,
-    "arquivo": "CDC24D454696C9FE260E6C50FE758707F322649AEE24B6FB664FDDA10E307BCF.pdf",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_pf_2025_agente_gabarito_definitivo.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/106_PF_016_01.pdf",
-    "orgao": "PF",
-    "sha256": "629456cbe67ffb38507dd1744719baa260e77dbea8eaca3172190894c29cd2f2",
-    "tamanho": 208179,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/PF_25/arquivos/CDC24D454696C9FE260E6C50FE758707F322649AEE24B6FB664FDDA10E307BCF.pdf"
   },
   {
     "ano": 2021,
@@ -7681,19 +7445,6 @@
   },
   {
     "ano": 2021,
-    "arquivo": "597_SERIS_CB1_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_serisal_2021_policial_penal_conhecimentos_basicos_prova.pdf",
-    "cargo": "Policial Penal/Agente Penitenciário",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/597_SERIS_CB1_01.PDF",
-    "orgao": "Polícia Penal AL",
-    "sha256": "87ffb2da8f0c552943c27426e07a394c4271c292f04c4ff54cb9ded4ff699c5c",
-    "tamanho": 109195,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/597_SERIS_CB1_01.PDF"
-  },
-  {
-    "ano": 2021,
     "arquivo": "597_SERIS_CG1_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_serisal_2021_policial_penal_conhecimentos_gerais_prova.pdf",
@@ -7719,18 +7470,6 @@
   },
   {
     "ano": 2021,
-    "arquivo": "GAB_DEFINITIVO_597_SERIS_CB1_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_serisal_2021_policial_penal_conhecimentos_basicos_gabarito_definitivo.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/597_SERIS_CB1_01.PDF",
-    "orgao": "Polícia Penal AL",
-    "sha256": "dfa5eccb0dc233afa57dde1f13d54dccf2c5e3ef850044f48c01eda94ad3c4a4",
-    "tamanho": 47158,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/GAB_DEFINITIVO_597_SERIS_CB1_01.PDF"
-  },
-  {
-    "ano": 2021,
     "arquivo": "GAB_DEFINITIVO_597_SERIS_CG1_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_serisal_2021_policial_penal_conhecimentos_gerais_gabarito_definitivo.pdf",
@@ -7740,18 +7479,6 @@
     "tamanho": 47180,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/GAB_DEFINITIVO_597_SERIS_CG1_01.PDF"
-  },
-  {
-    "arquivo": "603_SESAU_042_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_sesau_al_2021_al_medico_especialidade_pediatria_prova_603_sesau_042_01_ef278ff5.pdf",
-    "cargo": "AL - Médico - Especialidade: Pediatria",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/603_SESAU_042_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2021 - SESAU - AL - Médico - Especialidade: Pediatria",
-    "sha256": "43e9678de61e91bcd32e91daf9d6b76b62a6b4c7d3f48dc3b6f2e89c30c8c94e",
-    "tamanho": 71182,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/603_SESAU_042_01.PDF"
   },
   {
     "arquivo": "603_SESAU_CG1_01.PDF",
@@ -7766,17 +7493,6 @@
     "url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/603_SESAU_CG1_01.PDF"
   },
   {
-    "arquivo": "GAB_DEFINITIVO_603_SESAU_042_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_sesau_al_2021_al_medico_especialidade_pediatria_gabarito_definitivo_gab_definitivo_603_sesau_042_01_bc20cabe.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/603_SESAU_042_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2021 - SESAU - AL - Médico - Especialidade: Pediatria",
-    "sha256": "3d501420482e8f8b250c15263d291d3bfb77b0521116c46874ae9b2deccff9bf",
-    "tamanho": 46850,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/GAB_DEFINITIVO_603_SESAU_042_01.PDF"
-  },
-  {
     "arquivo": "GAB_DEFINITIVO_603_SESAU_CG1_01.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_sesau_al_2021_al_medico_especialidade_pediatria_gabarito_definitivo_gab_definitivo_603_sesau_cg1_01_f9d0b232.pdf",
@@ -7786,29 +7502,6 @@
     "tamanho": 46896,
     "tipo": "gabarito",
     "url": "https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/GAB_DEFINITIVO_603_SESAU_CG1_01.PDF"
-  },
-  {
-    "arquivo": "888_TBG_019_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_tbg_2023_tecnico_junior_enfase_gasoduto_construcao_e_m_prova_888_tbg_019_01_dc17a991.pdf",
-    "cargo": "Técnico Júnior – Ênfase: Gasoduto, Construção e Montagem",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/TBG_23/arquivos/888_TBG_019_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2023 - TBG - Técnico Júnior – Ênfase: Gasoduto, Construção e Montagem",
-    "sha256": "ff13fb949d16969fb9b5cff2802a04e00a7673425d61be5efb5252c4a7b64c6a",
-    "tamanho": 294336,
-    "tipo": "prova",
-    "url": "https://cdn.cebraspe.org.br/concursos/TBG_23/arquivos/888_TBG_019_01.PDF"
-  },
-  {
-    "arquivo": "GAB_DEFINITIVO_888_TBG_019_01.PDF",
-    "banca": "CEBRASPE",
-    "caminho": "provas/manual/cebraspe_tbg_2023_tecnico_junior_enfase_gasoduto_construcao_e_m_gabarito_definitivo_gab_definitivo_888_tbg_019_01_becba4ba.pdf",
-    "concurso_url": "https://cdn.cebraspe.org.br/concursos/TBG_23/arquivos/888_TBG_019_01.PDF",
-    "orgao": "CESPE / CEBRASPE - 2023 - TBG - Técnico Júnior – Ênfase: Gasoduto, Construção e Montagem",
-    "sha256": "7ec433277a8229d31c145b09fcefa3dacbc53c49bfcff4617e9782623241d45e",
-    "tamanho": 47436,
-    "tipo": "gabarito",
-    "url": "https://cdn.cebraspe.org.br/concursos/TBG_23/arquivos/GAB_DEFINITIVO_888_TBG_019_01.PDF"
   },
   {
     "arquivo": "355_TRF1_008_01.pdf",

@@ -64,3 +64,23 @@ Ficaram de fora:
   caderno); PCDF 2020 básicos, sem o gabarito dele; PF 2025 blocos I e II e
   DETRAN-AL 2026 básicos (várias grades num PDF só); PC-PB 2021 agente e
   Polícia Penal PE 2021 (o gabarito não casou com 100 questões).
+
+## A matéria de cada caderno (decisão PRF-16)
+
+Os 86 cadernos que não são da PRF entraram sem matéria. Agentes do Claude
+Code (claude-opus-5-5, 24/11/2026) leram o comando de cada grupo de itens (na
+múltipla escolha, o começo de cada questão) contra o programa da PRF com os
+subitens, e deram as faixas (`materias` na lista). Só entra o item das
+faixas: 5.594 questões viraram 1.693. O `# fora:` de cada entrada diz o que
+ficou de fora (lógica proposicional, Office e Linux, inferência estatística,
+lei estadual, grupo misto...).
+
+Saíram da lista e do manifesto os 13 cadernos sem nada do programa (o PDF
+continua em `data/provas/manual/`): ANSA 2026 Logística de Transporte;
+FNDE 2024 Analista de Prestação de Contas (os dois cadernos); PC-RO 2022
+Delegado, conhecimentos regionais; Petrobras 2023 Logística e 2024 Segurança
+do Trabalho; PF 2018 Perito Área 12 (medicina); PF 2025 Escrivão, Agente e
+Papiloscopista, os cadernos dos itens 97 a 120 (contabilidade, arquivologia,
+biologia, química);
+Polícia Penal AL 2021 (LEP e lei estadual); SESAU-AL 2021 Pediatria; TBG 2023
+Gasoduto.

@@ -117,6 +117,80 @@ def test_a_situacao_e_o_comando_que_vem_depois_do_item():
     assert itens[6].afirmacao == "" and itens[6].texto_base is None
 
 
+def test_a_numeracao_da_margem_nao_vira_item():
+    # Os numeros de linha do segundo texto (1, 4, 7, 10), soltos pelo pypdf,
+    # caem logo depois do item 3: o "4" deles era tomado pelo item 4.
+    caderno = ("Considerando o texto do farol, julgue os itens a seguir.\n"
+               "1 O farol acende de manhã.\n2 Os barcos voltam cedo.\n3 A ilha não tem porto.\n"
+               "\\t/1\n\n4\n\n7\n\n10\n"
+               "  O porto da ilha recebe barcos de pesca todos os dias.\n"
+               "Julgue os itens seguintes, a respeito do texto do porto.\n"
+               "4 O porto recebe barcos de pesca.\n5 Os barcos chegam só aos domingos.\n")
+    itens = {item.numero: item for item in ce.itens_do_caderno(caderno, PALAVRAS)}
+    assert sorted(itens) == [1, 2, 3, 4, 5]
+    assert itens[3].afirmacao == "A ilha não tem porto."
+    assert itens[4].afirmacao == "O porto recebe barcos de pesca."
+    assert itens[4].comando == "Julgue os itens seguintes, a respeito do texto do porto."
+    assert itens[4].texto_base == "O porto da ilha recebe barcos de pesca todos os dias."
+
+
+def test_o_item_de_figura_seguido_nao_e_numeracao_da_margem():
+    # Tres itens de figura seguidos crescem de um em um: ficam.
+    caderno = ("A partir da figura precedente, julgue os itens a seguir.\n"
+               "1\n2\n3\n4 O mapa mostra o porto.\n")
+    assert [i.numero for i in ce.itens_do_caderno(caderno, PALAVRAS)] == [1, 2, 3, 4]
+
+
+def test_as_instrucoes_numeradas_da_capa_nao_viram_itens():
+    caderno = ("1 Ao receber este caderno de provas, confira os seus dados.\n"
+               "2 Durante a realização das provas, não se comunique com ninguém.\n"
+               "3 Não serão fornecidas folhas suplementares para rascunho.\n"
+               "Considerando o texto do farol, julgue os itens a seguir.\n"
+               "1 O farol acende de manhã.\n2 Os barcos voltam cedo.\n3 A ilha não tem porto.\n")
+    itens = ce.itens_do_caderno(caderno, PALAVRAS)
+    assert [i.afirmacao for i in itens] == ["O farol acende de manhã.", "Os barcos voltam cedo.",
+                                            "A ilha não tem porto."]
+    assert itens[0].comando == "Considerando o texto do farol, julgue os itens a seguir."
+
+
+def test_o_comando_que_o_item_completa_nao_precisa_de_julgue():
+    # Sem "julgue" no comando, a ultima frase com "julgue" era a instrucao do
+    # caderno ("caso julgue o item CERTO").
+    caderno = ("Nas questões a seguir, marque C caso julgue o item CERTO.\n"
+               "  O farol da ilha acende quando a tarde cai.\n"
+               "A correção gramatical do texto seria mantida se\n"
+               "1 o termo “quando” fosse substituído por assim que.\n"
+               "2 a vírgula fosse posta depois de “farol”.\n")
+    itens = ce.itens_do_caderno(caderno, PALAVRAS)
+    assert [i.comando for i in itens] == ["A correção gramatical do texto seria mantida se"] * 2
+    assert itens[0].afirmacao == "o termo “quando” fosse substituído por assim que."
+    assert itens[0].texto_base == "O farol da ilha acende quando a tarde cai."
+
+
+def test_o_cabecalho_da_pagina_entre_dois_itens_nao_vira_comando():
+    # Na PM-AL 2021 o cabecalho vem com dois espacos, como paragrafo de texto,
+    # e sem ponto no fim: nao e comando, e o grupo continua o mesmo.
+    caderno = ("Considerando o texto do farol, julgue os itens a seguir.\n"
+               "1 O farol acende de manhã.\n"
+               "  CEBRASPE | TESTE – Aplicação: 2021\n"
+               "2 Os barcos voltam cedo.\n")
+    itens = ce.itens_do_caderno(caderno, PALAVRAS)
+    assert [i.comando for i in itens] == [
+        "Considerando o texto do farol, julgue os itens a seguir."] * 2
+
+
+def test_o_rotulo_texto_sem_codigo_abre_o_texto_e_fecha_o_item():
+    caderno = ("Considerando o texto, julgue os itens a seguir.\n"
+               "1 O farol acende de manhã.\n"
+               " Texto\n"
+               "  O porto da ilha recebe barcos de pesca.\n"
+               "Com relação ao texto precedente, julgue os itens que se seguem.\n"
+               "2 O porto recebe barcos de pesca.\n")
+    itens = ce.itens_do_caderno(caderno, PALAVRAS)
+    assert itens[0].afirmacao == "O farol acende de manhã."
+    assert itens[1].texto_base == "O porto da ilha recebe barcos de pesca."
+
+
 def test_o_comando_em_ingles_tambem_vale():
     caderno = ("  A deep freeze hit Texas this week.\n"
                "About ideas stated in the text above, judge the following items.\n"
@@ -167,3 +241,34 @@ def test_a_lista_de_outras_bancas_manda_o_certo_errado_para_este_leitor(monkeypa
     prova = {"formato": "certo_errado", "materias": {"1-3": "Língua Portuguesa"}}
     assert provas._ler_cebraspe(tmp_path / "c.pdf", prova, tmp_path / "g.pdf") == ["ok"]
     assert chamadas == [{"ler": None, "materias": [(1, 3, "Língua Portuguesa")]}]
+
+
+def _multipla_escolha_lida(monkeypatch):
+    """O leitor de multipla escolha do Cebraspe trocado por quatro questoes
+    fixas: o teste e da faixa, nao do PDF."""
+    from radar import questoes_cebraspe
+    from radar.questoes import Questao
+
+    lidas = [Questao(numero=n, enunciado=f"Questão {n}") for n in (1, 2, 3, 4)]
+    monkeypatch.setattr(questoes_cebraspe, "ler_prova",
+                        lambda caminho, gabarito, **opcoes: lidas)
+
+
+def test_na_multipla_escolha_com_faixas_a_materia_vem_da_faixa_e_o_resto_sai(
+        monkeypatch, tmp_path):
+    from radar.servico import provas
+
+    _multipla_escolha_lida(monkeypatch)
+    prova = {"materias": {"1-2": "Língua Portuguesa", "4": "Informática"}}
+    questoes = provas._ler_cebraspe(tmp_path / "c.pdf", prova, tmp_path / "g.pdf")
+    assert [(q.numero, q.materia) for q in questoes] == [
+        (1, "Língua Portuguesa"), (2, "Língua Portuguesa"), (4, "Informática")]
+
+
+def test_na_multipla_escolha_sem_faixas_as_questoes_ficam_como_vieram(monkeypatch, tmp_path):
+    from radar.servico import provas
+
+    _multipla_escolha_lida(monkeypatch)
+    questoes = provas._ler_cebraspe(tmp_path / "c.pdf", {}, tmp_path / "g.pdf")
+    assert [(q.numero, q.materia) for q in questoes] == [(1, None), (2, None), (3, None),
+                                                         (4, None)]

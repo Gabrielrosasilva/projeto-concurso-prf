@@ -320,24 +320,35 @@ def _ler_idecan(caminho: Path, prova: dict, gabarito: Path | None) -> list:
 
 
 def _ler_cebraspe(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    faixas = questoes_selecon.faixas_do_config(prova.get("materias"))
     if prova.get("formato") == "certo_errado":
         # O caderno de Certo/Errado do Cebraspe, lido direto do PDF, com o
         # gabarito definitivo a parte (Etapa 2 da PRF). A materia vem das
         # faixas da lista; sem faixa, a questao entra sem materia.
         try:
             return questoes_certo_errado.ler_caderno(
-                caminho, gabarito, ler=prova.get("ler"),
-                materias=questoes_selecon.faixas_do_config(prova.get("materias")))
+                caminho, gabarito, ler=prova.get("ler"), materias=faixas)
         except ValueError as erro:
             log.warning("%s: %s", caminho.name, erro)
             return []
     # So as questoes de lei (`ler`); a resposta do gabarito definitivo, ou da
     # justificativa quando o definitivo e de outra versao do caderno.
-    return questoes_cebraspe.ler_prova(
+    lidas = questoes_cebraspe.ler_prova(
         caminho, gabarito, ler=prova.get("ler"),
         letras="ABCD" if prova.get("alternativas") == 4 else "ABCDE",
         resposta_das_justificativas=prova.get("resposta") == "justificativas",
         anuladas=prova.get("anuladas"))
+    if not faixas:
+        return lidas
+    # Com `materias` na lista (as provas da pasta PRF/, decisao PRF-16), a
+    # materia vem da faixa, como no Certo/Errado, e a questao fora das faixas
+    # nao entra: e de materia que o edital da PRF nao cobra.
+    com_materia = []
+    for questao in lidas:
+        questao.materia = questoes_selecon.materia_da_faixa(questao.numero, faixas)
+        if questao.materia:
+            com_materia.append(questao)
+    return com_materia
 
 
 def _ler_aocp(caminho: Path, prova: dict, gabarito: Path | None) -> list:

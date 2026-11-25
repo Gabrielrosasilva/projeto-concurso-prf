@@ -132,7 +132,21 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
 MOBILIA_DO_CADERNO = re.compile(
     r"^\s*(?:(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
 ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
-ROTULO_DO_TEXTO = re.compile(r"^\s*Texto\s+([0-9A-Z]+(?:-[IVX]+)?)\s*$")
+# O rotulo do texto, com o codigo ("Texto 1A18-I") ou sem ("Texto", na Policia
+# Civil de Sergipe de 2018): sem o codigo, o texto so nao se cita pelo nome.
+ROTULO_DO_TEXTO = re.compile(r"^\s*Texto(?:\s+([0-9A-Z]+(?:-[IVX]+)?))?\s*$")
+# A numeracao de linha na margem do texto (1, 4, 7, 10...): o pypdf a solta
+# numero por numero, uma linha cada, as vezes com um lixo antes do 1 ("\t/1").
+# Na prova da PRF de 2019 o "10" dela virou o item 10, e o item 10 de verdade
+# foi parar no comando do grupo seguinte.
+NUMERO_DA_MARGEM = re.compile(r"^\s*(?:\\t/)?(\d{1,3})\s*$")
+# As instrucoes numeradas da capa (1 a 7). Nos cadernos da Policia Federal de
+# 2021 elas vem antes do item 1 e viraram os itens 1 a 7. A frase de abertura
+# de cada uma e a da capa do Cebraspe, e item nenhum comeca assim.
+INSTRUCAO_DA_CAPA = re.compile(
+    r"^\d{1,2}\s+(?:Ao receber este caderno|Durante a realização das provas|"
+    r"Não serão fornecidas folhas|Na duração das provas|Ao terminar as provas|"
+    r"Nenhuma folha deste caderno|A desobediência a qualquer)")
 # A legenda da figura ("Figura 1A9-I"): como o rotulo do texto, abre o
 # cabecalho do grupo - e nao e frase do comando.
 ROTULO_DA_FIGURA = re.compile(r"^\s*Figura\s+[0-9A-Z]+(?:-[IVX]+)?\s*$")
@@ -233,6 +247,49 @@ def _comeco_do_comando(linhas: list[str]) -> int | None:
     return None
 
 
+def _comeco_da_ultima_frase(linhas: list[str]) -> int | None:
+    """A linha em que comeca a ultima frase: maiuscula depois de linha que
+    fecha frase (ou de rotulo)."""
+    for indice in range(len(linhas) - 1, -1, -1):
+        anterior = linhas[indice - 1] if indice else ""
+        fecha = (indice == 0 or FIM_DE_FRASE.search(anterior) or ROTULO_DO_TEXTO.match(anterior)
+                 or ROTULO_DA_FIGURA.match(anterior))
+        if linhas[indice].strip()[:1].isupper() and fecha:
+            return indice
+    return None
+
+
+def _sem_numeracao_da_margem(linhas: list[str]) -> list[str]:
+    """Tira a numeracao de linha da margem: tres ou mais linhas seguidas so com
+    numero, crescendo sempre do mesmo passo, maior que um (1, 4, 7...). O item
+    de figura - o numero sozinho - cresce de um em um, e fica."""
+    saida: list[str] = []
+    indice = 0
+    while indice < len(linhas):
+        numeros = []
+        while indice + len(numeros) < len(linhas):
+            achado = NUMERO_DA_MARGEM.match(linhas[indice + len(numeros)])
+            if not achado:
+                break
+            numeros.append(int(achado.group(1)))
+        if not numeros:
+            saida.append(linhas[indice])
+            indice += 1
+            continue
+        # Dentro da sequencia de numeros, a progressao mais longa que comeca no
+        # primeiro sai; o que sobra (um item de figura logo depois) fica.
+        passo = numeros[1] - numeros[0] if len(numeros) > 1 else 0
+        tamanho = 1
+        while tamanho < len(numeros) and numeros[tamanho] - numeros[tamanho - 1] == passo:
+            tamanho += 1
+        if passo >= 2 and tamanho >= 3:
+            indice += tamanho
+        else:
+            saida.append(linhas[indice])
+            indice += 1
+    return saida
+
+
 def _fim_do_item(linhas: list[str]) -> int:
     """Quantas linhas do trecho sao do item; o resto e o cabecalho do grupo
     seguinte. O item acaba no paragrafo de dois espacos (texto ou situacao),
@@ -252,6 +309,14 @@ def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
     de fora); o texto com rotulo e guardado em `textos`, para o grupo que so o
     cita ("Considerando ... o texto 1A18-I, julgue")."""
     inicio_do_comando = _comeco_do_comando(linhas)
+    if inicio_do_comando is not None and not FIM_DE_FRASE.search(linhas[-1]):
+        # O comando que o item completa nao tem "julgue" ("A correcao do texto
+        # seria preservada se" / "1 o trecho ... fosse reescrito"): e a ultima
+        # frase, aberta ate o item. Sem isto, o comando era a instrucao da capa
+        # ("caso julgue o item CERTO"), a ultima frase com "julgue". Sem
+        # "julgue" nenhum no trecho (o cabecalho da pagina entre dois itens do
+        # mesmo grupo), nao ha comando novo: o grupo continua.
+        inicio_do_comando = _comeco_da_ultima_frase(linhas)
     if inicio_do_comando is None:
         return None, None
     comando = religar(_juntar_linhas(linhas[inicio_do_comando:], palavras), palavras)
@@ -283,12 +348,12 @@ def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1) -> list[
     pagina, e no meio do caminho escondia que a linha de cima fechava frase."""
     linhas = [ESPACO_LIVRE.sub(" ", linha).rstrip() for linha in texto.splitlines()
               if not MOBILIA_DO_CADERNO.match(linha)]
-    linhas = [linha for linha in linhas if linha.strip()]
+    linhas = _sem_numeracao_da_margem([linha for linha in linhas if linha.strip()])
     inicios = []
     esperado = primeiro
     for indice, linha in enumerate(linhas):
         achado = NUMERO_DO_ITEM.match(linha)
-        if achado and int(achado.group(1)) == esperado:
+        if achado and int(achado.group(1)) == esperado and not INSTRUCAO_DA_CAPA.match(linha):
             inicios.append(indice)
             esperado += 1
     if not inicios:
