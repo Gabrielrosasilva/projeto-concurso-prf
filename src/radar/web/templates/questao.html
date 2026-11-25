@@ -27,6 +27,7 @@
     .bolinhas li.certa{background:var(--cor-verde);border-color:var(--cor-verde)}
     .bolinhas li.errada{background:var(--cor-vermelho);border-color:var(--cor-vermelho)}
     .bolinhas li.feita{background:var(--cor-texto-suave);border-color:var(--cor-texto-suave)}
+    .bolinhas li.branco{border-style:dashed;border-color:var(--cor-texto-suave)}
     .bolinhas li.agora{border-color:var(--cor-acao);box-shadow:0 0 0 2px var(--cor-acao-fundo)}
     .origem{font-size:var(--tam-xs);color:var(--cor-texto-suave);margin:0 0 var(--esp-4)}
 
@@ -68,6 +69,10 @@
     .veredito b{font-size:1.5rem;line-height:1.2}
     .veredito.acertou{background:var(--cor-verde-fundo);color:var(--cor-verde)}
     .veredito.errou{background:var(--cor-vermelho-fundo);color:var(--cor-vermelho)}
+    .veredito.branco{background:var(--cor-superficie-2);color:var(--cor-texto);border:1px dashed var(--cor-borda)}
+    .alternativas button.em-branco{grid-template-columns:1fr auto;color:var(--cor-texto-suave);
+      border-style:dashed}
+    .alternativas button.em-branco .letra{color:var(--cor-texto-suave)}
     .veredito .nota-chute{font-size:var(--tam-sm);color:var(--cor-texto)}
     .depois{display:grid;gap:var(--esp-3);margin-top:var(--esp-4)}
     .depois p{margin:var(--esp-1) 0}
@@ -111,7 +116,7 @@
     {% for marca in andamento.marcas %}
       {% set classe = (marca if na_hora else 'feita') if marca else '' %}
       <li class="{{ classe }}{{ ' agora' if loop.index == resposta.ordem }}"
-          title="Questão {{ loop.index }}{% if marca and na_hora %}: {{ 'acertei' if marca == 'certa' else 'errei' }}{% elif marca %}: respondida{% endif %}"></li>
+          title="Questão {{ loop.index }}{% if marca and na_hora %}: {{ 'acertei' if marca == 'certa' else ('em branco' if marca == 'branco' else 'errei') }}{% elif marca %}: respondida{% endif %}"></li>
     {% endfor %}
   </ol>
 
@@ -203,12 +208,22 @@
 
     {% if corrigida %}
       {% set certa = resposta.acertou %}
+      {% if deixou_em_branco %}
+        {# O item em branco (PRF-28): vale 0, nem acerto nem erro. #}
+        <div class="veredito branco" role="status">
+          <b>Em branco: o gabarito é {{ questao.alternativas[questao.resposta] if questao.resposta in questao.alternativas else questao.resposta | upper }}</b>
+          <span class="nota-chute">Vale 0 na nota: nem acerto, nem erro. Volta no Simulado da semana.</span>
+        </div>
+      {% else %}
       <div class="veredito {{ 'acertou' if certa else 'errou' }}" role="status">
         <b>{% if certa %}✓ Acertou!{% else %}✗ Errou: a certa é {{ questao.resposta | upper }}){% endif %}</b>
         {% if resposta.chutou %}
-          <span class="nota-chute">{% if certa %}Foi no chute: o acerto conta, mas vale rever o porquê.{% else %}Foi no chute.{% endif %}</span>
+          {# O chute fica fora do desempenho por assunto e, errado, do caderno
+             de erros (PRF-28); na nota da rodada ele conta, como na prova. #}
+          <span class="nota-chute">{% if certa %}Foi no chute: conta na nota da rodada, mas fica fora do desempenho por assunto.{% else %}Foi no chute: tira o ponto na nota, como na prova, mas fica fora do caderno de erros e do desempenho por assunto. Volta no Simulado da semana.{% endif %}</span>
         {% endif %}
       </div>
+      {% endif %}
     {% endif %}
 
     {# A questao de interpretacao cita o texto do caderno; sem ele nao se
@@ -269,8 +284,9 @@
         {% endfor %}
       </div>
 
-      {# O "por que errei" (decisao 174): so na errada, logo depois do erro. #}
-      {% if not resposta.acertou %}
+      {# O "por que errei" (decisao 174): so na errada, logo depois do erro -
+         e nao no em branco nem no chute errado, que ficam fora do caderno (PRF-28). #}
+      {% if erro_para_o_caderno %}
         {{ botoes_do_motivo(simulado.id, questao.id, motivo_do_erro,
                             '/simulado/' ~ simulado.id ~ '?ver=' ~ questao.id) }}
       {% endif %}
@@ -279,7 +295,7 @@
         <a class="ds-botao proxima" href="/simulado/{{ simulado.id }}" autofocus>
           {% if ainda_falta %}Próxima &rarr;{% else %}Ver o resultado &rarr;{% endif %}
         </a>
-        {% if not resposta.acertou %}
+        {% if erro_para_o_caderno %}
           <a class="secundario" href="{{ anotar_erro }}">Anotar no caderno de erros</a>
         {% endif %}
       </div>
@@ -293,6 +309,11 @@
         {% for letra, texto in questao.alternativas.items() %}
           <button type="submit" name="letra" value="{{ letra }}"><span class="letra">{{ letra }})</span><span>{{ texto | destacado(questao, letra) }}</span><span></span></button>
         {% endfor %}
+        {# No Certo/Errado do Cebraspe a errada tira um ponto e a em branco
+           vale 0 (PRF-28): deixar em branco e uma resposta. #}
+        {% if de_certo_errado %}
+          <button type="submit" name="letra" value="{{ em_branco }}" class="em-branco"><span class="letra">Deixar em branco</span><span class="convite">vale 0; a errada tira 1</span></button>
+        {% endif %}
       </form>
     {% endif %}
 

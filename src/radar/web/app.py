@@ -34,6 +34,7 @@ from radar import onde_estudar
 from radar import origem
 from radar import qconcursos
 from radar import questoes as leitor_de_questoes
+from radar.questoes_certo_errado import EM_BRANCO, e_certo_errado
 from radar import regioes
 from radar import servico
 from radar.util import (
@@ -915,6 +916,9 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
             "lacunas_perdidas": _lacunas_perdidas(resposta, questao),
             # As 5 horas do Simulado PMSC, com a redacao dentro (PMSC-9).
             "tempo_da_prova": servico.simulado_pmsc.tempo_que_falta(simulado),
+            # O item de Certo/Errado ganha o "Deixar em branco" (PRF-28).
+            "de_certo_errado": e_certo_errado(questao.alternativas),
+            "em_branco": EM_BRANCO,
         },
     )
 
@@ -975,6 +979,10 @@ def _questao_corrigida(request: Request, simulado, resumo: dict, de_ia: bool,
             # Os botoes do "por que errei" (decisao 174): o marcado e o meu,
             # ou "Chutei" pelo "vou no chute".
             "motivo_do_erro": servico.erros.motivo_do_erro(resposta),
+            # O em branco nao e erro, e o chute errado fica fora do caderno de
+            # erros (PRF-28): a tela nao oferece o motivo nem o "Anotar".
+            "deixou_em_branco": resposta.escolhida == EM_BRANCO,
+            "erro_para_o_caderno": resposta.acertou is False and not resposta.chutou,
         },
     )
 
@@ -2179,6 +2187,26 @@ def analises_desempenho(request: Request, materia: str = "", recorte: str = ""):
             # O "como foi" de cada faixa, por tema (decisao 142): a lista que
             # o Ciclo 2 le. Os que eu ainda nao entendi vem primeiro.
             "notas_por_tema": servico.notas_da_faixa.por_tema(),
+        },
+    )
+
+
+@app.get("/analises/certo-errado", response_class=HTMLResponse)
+def analises_certo_errado(request: Request):
+    """O Certo/Errado do Cebraspe (Etapa 4 da PRF, PRF-28): a pontuacao do
+    edital, a minha nota liquida, a regra do chute e se a banca da mais Certo
+    ou mais Errado, contado nas provas do radar. A conta e do servico."""
+    gabarito = servico.certo_errado.gabarito_do_cebraspe()
+    chutes = servico.certo_errado.meus_chutes()
+    return templates.TemplateResponse(
+        request=request, name="certo_errado_regra.html",
+        context={
+            "nota": servico.metricas.nota_liquida_acumulada(),
+            "gabarito": gabarito,
+            "chutes": chutes,
+            "regra": servico.certo_errado.regra_do_chute(
+                gabarito[-1] if gabarito else None, chutes),
+            "numero": servico.certo_errado.numero,
         },
     )
 

@@ -75,15 +75,17 @@ def test_o_motivo_grava_na_resposta_e_troca(cliente):
     assert "✓ Confundi" in depois and "motivo=confundi" in depois
 
 
-def test_o_chutei_vem_marcado_sem_gravar_nada(cliente):
+def test_o_chute_errado_fica_fora_do_caderno_sem_gravar_nada(cliente):
+    # PRF-28 (escolha do Gabriel, 25/11/2026): o chute errado fica fora do
+    # caderno de erros - a tela nao oferece o motivo nem o "Anotar". O motivo
+    # dele continua sendo "chutei", sem gravar nada.
     rodada = _rodada(_questao(1), _questao(2, impressao="i2"))
     primeira, _ = _ids(rodada)
     _errar(cliente, rodada, primeira, chutei=True)
 
     tela = cliente.get(f"/simulado/{rodada}?ver={primeira}").text
-    assert "✓ Chutei" in tela
-    # O caderno abre com o motivo e com a resposta de onde o erro veio.
-    assert "motivo=chutei" in tela and f"simulado={rodada}" in tela
+    assert "Por que errei?" not in tela and "motivo=chutei" not in tela
+    assert "fica fora do caderno de erros" in tela
     resposta = _resposta(rodada, primeira)
     assert resposta.motivo is None and erros.motivo_do_erro(resposta) == "chutei"
 
@@ -302,7 +304,8 @@ def test_a_conta_conta_cada_erro_uma_vez_por_origem(banco_temporario, plano):
 
     assert (conta["fepese"].erros, conta["fepese"].por_motivo) == (1, {"li_errado": 1})
     assert (conta["outras_bancas"].erros, conta["outras_bancas"].sem_motivo) == (1, 1)
-    assert (conta["geradas"].erros, conta["geradas"].por_motivo) == (1, {"chutei": 1})
+    # O chute errado fica fora da conta dos erros (PRF-28).
+    assert (conta["geradas"].erros, conta["geradas"].por_motivo) == (0, {})
     fora = conta["fora_do_radar"]
     assert (fora.erros, fora.por_motivo) == (4, {"nao_sabia": 3, "confundi": 1})
     assert (conta["fepese"].bobos, fora.bobos, fora.sem_motivo) == (1, 1, 0)

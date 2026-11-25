@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Certo/Errado &middot; Radar de Concursos</title>
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .tabela{width:100%;border-collapse:collapse;font-size:var(--tam-sm)}
+    .tabela th,.tabela td{text-align:left;padding:var(--esp-1) var(--esp-2);
+      border-bottom:1px solid var(--cor-borda);vertical-align:top}
+    .tabela th{font-size:var(--tam-xs);color:var(--cor-texto-suave);font-weight:var(--peso-normal)}
+    .tabela td.n,.tabela th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .tabela tr.soma td{font-weight:var(--peso-forte)}
+    .rolagem{overflow-x:auto}
+    .passos{margin:0;padding-left:var(--esp-5)}
+    .passos li{margin:0 0 var(--esp-2);line-height:1.55}
+    .grade{display:grid;gap:var(--esp-4)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra, abas_de_analises with context %}
+{% from "_componentes.html" import selo with context %}
+{{ barra('analises') }}
+
+{# A tela do Certo/Errado do Cebraspe (Etapa 4 da PRF, PRF-28). Toda conta vem
+   do servico (servico/certo_errado.py e metricas.NotaLiquida); aqui so se
+   desenha. #}
+<main class="ds-pagina">
+  {{ abas_de_analises('certo_errado') }}
+
+  <header class="ds-cabeca">
+    <h1>Certo/Errado: a nota e o chute</h1>
+    <p>
+      O formato principal da prova da PRF. A conta é a do edital, a regra do
+      chute sai dela, e o "a banca dá mais Certo ou mais Errado?" é contado
+      nas provas que o radar tem, item a item, pelo gabarito definitivo.
+    </p>
+  </header>
+
+  <div class="grade">
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">A pontuação</h2>
+      {{ selo('oficial', 'Edital PRF 2021') }}
+    </div>
+    <p>Cada item: <b>+1</b> se concorda com o gabarito definitivo, <b>−1</b> se discorda, <b>0</b> em branco ou com marcação dupla (item 9.12.2). Uma errada anula uma certa.</p>
+    <p class="ds-pequeno" style="margin-bottom:0">Eliminado com menos de 15 pontos no Bloco I, 10 no Bloco II, 10 no Bloco III ou 50 no total (item 9.12.4). Vale até sair o edital novo.</p>
+  </section>
+
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Minha nota líquida no radar</h2>
+      {{ selo(nota.origem) }}
+    </div>
+    <p>{{ nota.frase() }}.</p>
+    {% if nota.frase_dos_chutes() %}<p>{{ nota.frase_dos_chutes() }}: em branco, esses itens teriam dado 0.</p>{% endif %}
+    <p class="ds-pequeno" style="margin-bottom:0">Todas as respostas a itens reais de Certo/Errado, cada uma contando (o histórico). Nas rodadas o chute conta na nota, como na prova; no desempenho por assunto ele fica de fora, e o chute errado fica fora do caderno de erros.</p>
+  </section>
+
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">A regra do chute</h2>
+      {{ selo('automatico') }}
+    </div>
+    <p>Chutar rende, em média, <b>2p − 1</b> ponto por item, com p a chance de acertar: só vale a pena com p acima de 50%.</p>
+    <ol class="passos">
+      {% for passo in regra %}<li>{{ passo }}</li>{% endfor %}
+    </ol>
+    <p class="ds-pequeno" style="margin-bottom:0">Nos treinos e simulados, marque "Vou no chute" <b>antes</b> de responder sempre que for chute: é assim que o radar mede os seus. {{ chutes.total }} até agora{% if chutes.total %}: {{ chutes.certos }} certos e {{ chutes.errados }} errados{% endif %}; a regra pessoal começa com {{ chutes.minimo }} (<code>config/amostra.yml</code>).</p>
+  </section>
+
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">O Cebraspe dá mais Certo ou mais Errado?</h2>
+      {{ selo('automatico') }}
+    </div>
+    <p class="ds-cartao__meta">Uma vez por item (o mesmo item em dois cadernos conta uma vez), pelo gabarito definitivo; anulado à parte. A margem é a de 95%: enquanto ela cobre os 50%, a diferença pode ser sorteio.</p>
+    <div class="rolagem">
+    <table class="tabela">
+      <tr><th>Recorte</th><th class="n">Certo</th><th class="n">Errado</th><th class="n">Anulados</th><th class="n">Cadernos</th><th class="n">% Errado</th><th class="n">Margem</th><th>Leitura</th></tr>
+      {% for g in gabarito %}
+        <tr class="{{ 'soma' if loop.last }}">
+          <td>{{ g.nome }}</td>
+          <td class="n">{{ g.certo }}</td>
+          <td class="n">{{ g.errado }}</td>
+          <td class="n">{{ g.anulados }}</td>
+          <td class="n">{{ g.cadernos }}</td>
+          <td class="n">{{ numero(g.porcentagem_errado) }}%</td>
+          <td class="n">±{{ numero(g.margem) }}</td>
+          <td>{% if g.veredito == 'amostra_pequena' %}poucos itens{% elif g.veredito == 'equilibrado' %}equilibrado{% else %}mais {{ g.veredito | capitalize }}{% endif %}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="8">Nenhum item de Certo/Errado do Cebraspe no radar.</td></tr>
+      {% endfor %}
+    </table>
+    </div>
+    <p class="ds-pequeno" style="margin-bottom:0">O acervo complementar só tem os itens das matérias do programa da PRF, e não os cadernos inteiros. Os gabaritos inteiros dos cadernos da lista (todo item) saem no terminal: <code>radar chute --gabaritos</code>.</p>
+  </section>
+  </div>
+</main>
+</body>
+</html>

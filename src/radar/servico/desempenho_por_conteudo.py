@@ -82,6 +82,9 @@ class Metade:
     #: Das `respostas`, quantas sao de outra banca (decisao 166): medem como
     #: as da FEPESE, e a tela diz a origem ao lado.
     de_outras_bancas: int = 0
+    #: As questoes cuja ultima resposta foi no "vou no chute" (PRF-28): fora
+    #: do acerto e do estado, certas ou erradas, e contadas ao lado.
+    chutes: int = 0
 
     @property
     def porcentagem(self) -> int | None:
@@ -93,7 +96,7 @@ class Metade:
     @property
     def volume(self) -> int:
         """Tudo o que eu fiz ali, inclusive o que nao vale para o estado."""
-        return self.respostas + self.com_consulta + self.sem_resultado
+        return self.respostas + self.com_consulta + self.sem_resultado + self.chutes
 
     @property
     def vazio(self) -> bool:
@@ -172,15 +175,18 @@ class Desempenho:
         esconderia de onde o numero veio.
         """
         def lado(nome: str, metade: Metade) -> str:
+            # O chute ao lado, fora da conta (PRF-28).
+            chutes = (f" ({metade.chutes} no chute, fora da conta)"
+                      if metade.chutes else "")
             if metade.porcentagem is None:
-                return f"{nome} —"
+                return f"{nome} —{chutes}"
             frase = f"{nome} {metade.porcentagem}% em {metade.respostas}"
             if metade.de_outras_bancas:
                 # A origem ao lado (decisao 166): a outra banca mede, e a tela
                 # nunca esconde quanto do numero veio dela.
                 frase += " " + metricas.frase_da_origem(metade.respostas,
                                                         metade.de_outras_bancas)
-            return frase
+            return frase + chutes
 
         return f"{lado('radar', self.radar)} · {lado('anotado', self.anotado)}"
 
@@ -227,7 +233,8 @@ def _janela(recorte: str, plano=None, hoje: date | None = None):
 
 
 def _questoes_respondidas(inicio: date | None, fim: date, todas: bool = False,
-                          com_evidencia: bool = False):
+                          com_evidencia: bool = False, no_chute: bool = False,
+                          so_do_acerto: bool = True):
     """As ultimas respostas reais, com a chave da questao e o dia.
 
     [(chave, acertou, dia)]. Questao de IA fica fora; rodada nao terminada
@@ -236,6 +243,13 @@ def _questoes_respondidas(inicio: date | None, fim: date, todas: bool = False,
     resposta, e nao so a ultima de cada questao (decisao 85). Com
     `com_evidencia`, a evidencia da questao vem no fim da tupla: e ela que diz
     se a resposta e de outra banca (decisao 166).
+
+    A resposta no chute e a em branco ficam FORA (`metricas.conta_no_acerto`,
+    PRF-28): a questao cuja ultima resposta foi no chute nao conta no acerto
+    do no, nem pela resposta firme de antes - o que eu sei HOJE dela e que
+    precisei chutar. Com `no_chute`, a lista e a dessas respostas no chute,
+    que a tela conta ao lado. Com `so_do_acerto=False`, entram todas: o
+    "praticado" da revisao (`servico/estudo.py`) - chutar tambem e praticar.
     """
     criar_tabelas()
     with sessao() as s:
@@ -264,6 +278,11 @@ def _questoes_respondidas(inicio: date | None, fim: date, todas: bool = False,
         if inicio is not None and dia < inicio:
             continue
         if dia > fim:
+            continue
+        if no_chute:
+            if not resposta.chutou:
+                continue
+        elif so_do_acerto and not metricas.conta_no_acerto(resposta):
             continue
         linha = (chave_de(questao), bool(resposta.acertou), dia)
         saida.append(linha + (questao.evidencia,) if com_evidencia else linha)
@@ -297,6 +316,8 @@ class Entrada:
     sem_resultado: int = 0
     #: Das `respostas`, quantas sao de questao de outra banca (decisao 166).
     de_outras_bancas: int = 0
+    #: A questao cuja ultima resposta foi no chute (PRF-28): fora do acerto.
+    chutes: int = 0
 
 
 def materias_da_arvore() -> dict[str, str]:
@@ -337,6 +358,11 @@ def entradas(recorte: str = CICLO, plano=None,
         saida.append(Entrada(caminho, NO_RADAR, dia, respostas=1,
                              acertos=1 if acertou else 0,
                              de_outras_bancas=1 if de_onde == evidencia.FORA else 0))
+    # O chute fica fora do acerto e vem contado ao lado (PRF-28).
+    for chave, _acertou, dia in _questoes_respondidas(inicio, fim, no_chute=True):
+        caminho = de_quem.get(chave)
+        if caminho is not None:
+            saida.append(Entrada(caminho, NO_RADAR, dia, chutes=1))
 
     # --- anotado (faixas e estudo extra) ----------------------------------
     materias = materias_da_arvore()
@@ -364,6 +390,7 @@ def _somar(destino: Desempenho, entrada: Entrada) -> None:
     metade.com_consulta += entrada.com_consulta
     metade.sem_resultado += entrada.sem_resultado
     metade.de_outras_bancas += entrada.de_outras_bancas
+    metade.chutes += entrada.chutes
 
 
 def por_no(recorte: str = CICLO, plano=None,

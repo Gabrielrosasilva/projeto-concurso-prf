@@ -60,12 +60,14 @@ So abra o arquivo que a tarefa pede.
   **Mudanca de estrutura do banco vira passo novo em `migracoes.py`.**
 - `servico/` (um arquivo por assunto; escreva `servico.funcao(...)`):
   - `metricas.py`: **toda contagem de questao, acerto e erro passa por aqui**;
-    tela nenhuma refaz conta, template nenhum soma.
+    tela nenhuma refaz conta, template nenhum soma. A nota liquida
+    (`NotaLiquida`) e o chute fora do acerto acumulado (`conta_no_acerto`).
   - `evidencia.py`: alvo, complementar e fora (uma regra, nunca somados).
   - `composicao.py`: o que vai numa rodada que mede (so questao real).
   - `simulado.py`, `simulado_da_semana.py`, `estudo.py` (a fila de revisao,
     uma so), `erros.py` (o motivo do erro), `cronograma.py` (a tela Hoje),
-    `fichas.py`, `certo_errado.py`, `desempenho_por_conteudo.py`.
+    `fichas.py`, `certo_errado.py` (a regra do chute, o Certo x Errado),
+    `desempenho_por_conteudo.py`.
 - `amostra.py` + `config/amostra.yml`: **todo minimo de amostra sai dali**.
 - `origem.py`: os selos (🟢 oficial, 🔵 acervo, 🟡 automatico, 🟣 IA); o
   servico grava a origem, o template so desenha.

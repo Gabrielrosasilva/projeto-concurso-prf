@@ -57,8 +57,10 @@
 
 {# Os numeros vem prontos do servico.metricas: o template so mostra. #}
 {% set porcento = resumo.porcentagem %}
-{% set erros = revisao | rejectattr('acertou') | list %}
+{# O em branco (PRF-28) nao e erro nem acerto: tem a lista dele. #}
+{% set erros = revisao | selectattr('errou') | list %}
 {% set acertos = revisao | selectattr('acertou') | list %}
+{% set brancos = revisao | selectattr('em_branco') | list %}
 
 <main class="ds-pagina">
   <header class="ds-cabeca">
@@ -114,6 +116,20 @@
         <span>{{ selo(g.origem, curto=True) }} <b>Geradas:</b> {{ g.acertos }} de {{ g.respondidas }}{% if g.respondidas %} ({{ '%.0f'|format(g.porcentagem) }}%){% endif %}</span>
       </div>
       <p class="ds-pequeno" style="margin-bottom:0">Entraram geradas onde o radar não tem questão real: o acerto delas é treino e fica separado do das reais.</p>
+    {% elif resumo.nota %}
+      {# O Certo/Errado do Cebraspe (PRF-28): a nota liquida no lugar do
+         acerto, e o acerto bruto ao lado, nunca no lugar. A conta e do
+         servico (metricas.NotaLiquida); aqui so se desenha. #}
+      {% set n = resumo.nota %}
+      <div class="nota">
+        <span class="valor {{ 'bom' if n.porcentagem >= 50 else 'ruim' }}">{{ n.nota }}</span>
+        <span>de {{ n.itens }} na nota líquida ({{ n.porcentagem }}%): {{ n.certos }} certos − {{ n.errados }} errados, {{ n.em_branco }} em branco · acerto bruto {{ n.bruto }}%</span>
+      </div>
+      <p class="ds-pequeno" style="margin-bottom:0">Como no Cebraspe: a certa vale +1, a errada −1 e a em branco 0 (edital PRF 2021, item 9.12.2).{% if n.frase_dos_chutes() %} {{ n.frase_dos_chutes() }}: em branco, esses itens teriam dado 0.{% endif %}</p>
+      {% if resumo.multipla_escolha %}
+        {% set me = resumo.multipla_escolha %}
+        <p class="ds-pequeno" style="margin-bottom:0"><b>Múltipla escolha</b>, à parte e nunca somada à nota: {{ me.acertos }} de {{ me.respondidas }}{% if me.respondidas %} ({{ '%.0f'|format(me.porcentagem) }}%){% endif %}. Treina o conteúdo, mas não mede o padrão do Cebraspe.</p>
+      {% endif %}
     {% else %}
     <div class="nota">
       <span class="valor {{ 'bom' if porcento >= 60 else 'ruim' }}">{{ '%.0f'|format(porcento) }}%</span>
@@ -132,7 +148,7 @@
       {% set chutes_certos = resumo.acertos_no_chute %}
       {% set chutes_errados = resumo.chutes_errados %}
       {% set sem_chute = resumo.acertos_sem_chute %}
-      <p class="ds-pequeno" style="margin-bottom:0">🎲 Você marcou {{ resumo.chutes }} no chute: {{ chutes_certos }} {{ 'deu' if chutes_certos == 1 else 'deram' }} certo e {{ chutes_errados }} {{ 'errou' if chutes_errados == 1 else 'erraram' }}. {{ 'Do 1 acerto' if resumo.acertos == 1 else 'Dos ' ~ resumo.acertos ~ ' acertos' }}, {{ sem_chute }} {{ 'foi' if sem_chute == 1 else 'foram' }} sem chute - acerto no chute não é saber: vale rever.</p>
+      <p class="ds-pequeno" style="margin-bottom:0">🎲 Você marcou {{ resumo.chutes }} no chute: {{ chutes_certos }} {{ 'deu' if chutes_certos == 1 else 'deram' }} certo e {{ chutes_errados }} {{ 'errou' if chutes_errados == 1 else 'erraram' }}. {{ 'Do 1 acerto' if resumo.acertos == 1 else 'Dos ' ~ resumo.acertos ~ ' acertos' }}, {{ sem_chute }} {{ 'foi' if sem_chute == 1 else 'foram' }} sem chute - acerto no chute não é saber: fica fora do desempenho por assunto, e o chute errado fica fora do caderno de erros.</p>
     {% endif %}
     <p class="ds-suave ds-pequeno" style="margin-bottom:0">
       Sem nota de corte: ela só aparece quando houver resultado oficial
@@ -262,6 +278,11 @@
          R+7 dos diagnosticos a faixa nao tem materia, e cada erro e de uma. #}
       {# O "por que errei" (decisao 174): na rodada que corrige no fim, e so
          aqui, depois da ultima; na de treino, da para trocar aqui tambem. #}
+      {# O chute errado fica fora do caderno de erros (PRF-28): sem motivo
+         nem "Anotar"; volta pelo Simulado da semana. #}
+      {% if not item.vai_ao_caderno %}
+        <p class="ds-pequeno ds-suave" style="margin-top:var(--esp-3)">🎲 Foi no chute: fica fora do caderno de erros e do desempenho por assunto. Volta no Simulado da semana.</p>
+      {% else %}
       {% if item.questao_id %}
         {{ botoes_do_motivo(simulado.id, item.questao_id, item.motivo,
                             '/simulado/' ~ simulado.id ~ '#erro-' ~ loop.index) }}
@@ -270,10 +291,23 @@
         <a href="{{ link_de_anotar_erro_da_questao(simulado.id, item.materia, item.assunto, item.referencia, item.motivo, item.conteudo, item.questao_id) }}">📓 Anotar erro</a>
         <span class="ds-suave">· {{ item.conteudo or 'questão sem nó na árvore: escolha no formulário' }}</span>
       </p>
+      {% endif %}
     </article>
   {% else %}
     <p class="ds-nota">Nenhum erro nesta rodada.</p>
   {% endfor %}
+
+  {% if brancos %}
+    {# O em branco (PRF-28): vale 0, e a lista mostra o gabarito de cada um. #}
+    <details class="acertos ds-cartao" style="margin-top:var(--esp-4)">
+      <summary>{{ brancos | length }} em branco</summary>
+      <ul>
+        {% for item in brancos %}
+          <li>{{ item.materia or 'sem matéria' }} - {{ item.enunciado[:120] }}{% if item.enunciado | length > 120 %}...{% endif %} <b>Gabarito: {{ item.texto_correto or item.correta }}</b></li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
 
   {% if acertos %}
     <details class="acertos ds-cartao" style="margin-top:var(--esp-4)">

@@ -162,7 +162,7 @@ def _achados_das_anuladas(data: date) -> list[Achado]:
         Achado(
             ANULADA,
             gravado=(f"simulado #{r.simulado_id}: questão {q.numero} de {q.ano}, "
-                     f"{'certa' if r.acertou else 'errada'}"),
+                     f"{'em branco' if r.acertou is None else 'certa' if r.acertou else 'errada'}"),
             regra="a banca anulou a questão; a resposta conta no acerto",
             proposta="nada automático: decidir se a resposta sai do acerto",
         )

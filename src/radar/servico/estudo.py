@@ -301,7 +301,9 @@ def situacoes(recorte: str = por_conteudo.SEMPRE, plano=None,
     # --- as respostas do radar --------------------------------------------
     # TODA resposta, e nao so a ultima de cada questao: a questao refeita nao
     # pode empurrar o primeiro contato, que e a ancora do 1-7-30 (decisao 85).
-    for chave, _, dia in por_conteudo._questoes_respondidas(None, hoje, todas=True):
+    # O chute e o em branco tambem sao pratica (PRF-28): so ficam fora do acerto.
+    for chave, _, dia in por_conteudo._questoes_respondidas(None, hoje, todas=True,
+                                                             so_do_acerto=False):
         caminho_da_questao = de_quem.get(chave)
         if caminho_da_questao is None:
             continue

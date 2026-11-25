@@ -247,13 +247,35 @@ def aplicar(hoje: date | None = None,
     return registros, mudanca
 
 
+def cadernos_de_certo_errado() -> set[str]:
+    """Os cadernos de Certo/Errado do Cebraspe da lista de provas
+    (`provas_de_outras_bancas.yml`, `formato: certo_errado`), que treinam e
+    medem como complementar (PRF-28, escolha do Gabriel em 25/11/2026).
+
+    Eles nao passam pelo arquivo de status, feito para a multipla escolha da
+    FEPESE: a validacao deles e a da leitura - o `ler_caderno` recusa o caderno
+    sem o gabarito DEFINITIVO e o que nao bate item a item com ele (PRF-12).
+    O Certo/Errado de outra banca (a AOCP da PMSC) continua de fora, e a prova
+    do proprio cargo tambem: ela e alvo, e nao complementar."""
+    # Import aqui: o servico.provas le este modulo.
+    from radar.servico.provas import carregar_provas_de_outras_bancas
+
+    return {p["caderno"] for p in carregar_provas_de_outras_bancas()
+            if p.get("formato") == "certo_errado"
+            and (p.get("banca") or "").upper() == "CEBRASPE"
+            and evidencia.da_prova(p.get("cargo"), p.get("banca"), p.get("uf"))
+            == evidencia.COMPLEMENTAR}
+
+
 def provas_aceitas() -> set[str]:
-    """Os cadernos que o arquivo de status aceita, e as questoes da banca do
-    alvo que o script do Gabriel tirou do Qconcursos (PMSC-26). Sem arquivo e
-    sem script, conjunto vazio: nenhuma prova complementar entra em
-    estatistica por acidente."""
+    """Os cadernos que o arquivo de status aceita, as questoes da banca do
+    alvo que o script do Gabriel tirou do Qconcursos (PMSC-26) e os cadernos
+    de Certo/Errado do Cebraspe (PRF-28). Sem arquivo, sem script e sem
+    lista, conjunto vazio: nenhuma prova complementar entra em estatistica
+    por acidente."""
     return ({url for url, r in carregar_registro().items() if r.get("aceita")}
-            | questoes_do_qconcursos.provas_aceitas())
+            | questoes_do_qconcursos.provas_aceitas()
+            | cadernos_de_certo_errado())
 
 
 def provas_dos_padroes() -> set[str]:
@@ -261,10 +283,12 @@ def provas_dos_padroes() -> set[str]:
     DEFINITIVO (`entra_nos_padroes`). O provisorio serve para classificar, mas
     muda depois dos recursos, e o padrao se mede sobre a letra certa. As do
     Qconcursos entram: o gabarito e o que o site mostra, o de depois dos
-    recursos."""
+    recursos. O Certo/Errado do Cebraspe tambem: so entra lido com o
+    definitivo."""
     return ({url for url, r in carregar_registro().items()
              if r.get("aceita") and r.get("entra_nos_padroes")}
-            | questoes_do_qconcursos.provas_aceitas())
+            | questoes_do_qconcursos.provas_aceitas()
+            | cadernos_de_certo_errado())
 
 
 # --- o relatorio ------------------------------------------------------------

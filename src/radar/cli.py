@@ -1504,6 +1504,56 @@ def repetidas(
         console.print(f"[bold green]{vezes}x[/] {enunciado[:100]}")
 
 
+def _tabela_do_gabarito(titulo: str, linhas) -> Table:
+    """Certo x Errado de cada recorte, com a margem de 95% (PRF-28)."""
+    from radar.servico.certo_errado import numero
+
+    tabela = Table(title=titulo)
+    for coluna in ("Recorte", "Certo", "Errado", "Anulados", "Cadernos", "% Errado",
+                   "Margem 95%", "Chute cego/item"):
+        tabela.add_column(coluna, justify="left" if coluna == "Recorte" else "right")
+    for g in linhas:
+        tabela.add_row(g.nome, str(g.certo), str(g.errado), str(g.anulados), str(g.cadernos),
+                       numero(g.porcentagem_errado), "±" + numero(g.margem),
+                       numero(g.chute_cego, 3, sinal=True))
+    return tabela
+
+
+@app.command()
+def chute(
+    gabaritos: bool = typer.Option(
+        False, "--gabaritos",
+        help="Conta tambem os gabaritos definitivos INTEIROS dos cadernos da lista (le os PDFs)"),
+) -> None:
+    """O Certo/Errado do Cebraspe: a nota liquida, a regra do chute e se a banca
+    da mais Certo ou mais Errado, contado nas provas que o radar tem (PRF-28)."""
+    certo_errado = servico.certo_errado
+
+    console.print("[bold]A pontuação[/] (edital PRF 2021, item 9.12.2): certa +1, "
+                  "errada −1, em branco 0.\n")
+    nota = servico.metricas.nota_liquida_acumulada()
+    console.print(nota.frase() + ".")
+    if nota.frase_dos_chutes():
+        console.print(nota.frase_dos_chutes() + ".")
+
+    do_radar = certo_errado.gabarito_do_cebraspe()
+    console.print()
+    console.print(_tabela_do_gabarito(
+        "Certo x Errado nos itens do Cebraspe do radar (uma vez por item, gabarito definitivo)",
+        do_radar))
+    if gabaritos:
+        inteiros, falhas = certo_errado.gabaritos_inteiros()
+        console.print(_tabela_do_gabarito(
+            "Certo x Errado nos gabaritos definitivos inteiros dos cadernos da lista", inteiros))
+        for falha in falhas:
+            console.print(f"[yellow]não lido:[/] {escape(falha)}")
+
+    console.print("\n[bold]A regra do chute[/]")
+    tudo = do_radar[-1] if do_radar else None
+    for passo in certo_errado.regra_do_chute(tudo, certo_errado.meus_chutes()):
+        console.print(f"  • {escape(passo)}")
+
+
 @app.command()
 def favoritar(
     concurso_id: int = typer.Argument(..., help="O id que aparece em `radar listar`"),

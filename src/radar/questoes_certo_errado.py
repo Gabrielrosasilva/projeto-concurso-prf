@@ -11,10 +11,10 @@ texto e de terceiros (decisao 132) -, e e dele que este leitor parte:
      "enunciado": "...", "gabarito": "C" | "E" | "X"}]}
 
 O item vira uma questao de duas alternativas, "c" (Certo) e "e" (Errado), e o
-X e a anulada. Certo/Errado nunca mede nem treina como a multipla escolha
-(decisao 166): a prova fica recusada no acervo complementar, pelo
-`complementar.validar`, e a tela so a mostra para conferir, sem gravar
-resposta.
+X e a anulada. Na PMSC o Certo/Errado da AOCP ficava recusado no acervo
+complementar (`complementar.validar`), so para conferir. Na PRF o Certo/Errado
+do Cebraspe e o formato principal (Etapa 4, PRF-28): o caderno da lista com
+`formato: certo_errado` treina e mede, e o item pode ficar EM BRANCO.
 
 O caderno escaneado tambem nao tem o traco do sublinhado que o
 `radar/destaques.py` le - ele achava letra solta. O termo destacado vem da
@@ -32,6 +32,12 @@ from radar.questoes_selecon import materia_da_faixa
 #: As duas alternativas de todo item de Certo/Errado.
 ALTERNATIVAS = {"c": "Certo", "e": "Errado"}
 LETRAS = tuple(sorted(ALTERNATIVAS))
+
+#: A marca do item deixado EM BRANCO, na `escolhida` da resposta (PRF-28).
+#: Nao e letra de alternativa nenhuma: a resposta em branco esta dada (a
+#: rodada anda) e nao tem acerto (`acertou` fica nulo). No Cebraspe ela vale
+#: 0, a certa +1 e a errada -1 (edital PRF 2021, item 9.12.2).
+EM_BRANCO = "-"
 
 
 def e_certo_errado(alternativas: dict | None) -> bool:

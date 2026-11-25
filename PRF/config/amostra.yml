@@ -80,6 +80,13 @@ desempenho:
   # variacao e sorteio; abaixo, a tela convida a responder.
   evolucao: 20
 
+  # A regra do chute no Certo/Errado (PRF-28): quantas respostas minhas
+  # marcadas "vou no chute" o radar precisa para dizer se chutar compensa
+  # para mim. Com 30, a margem de 95% da porcentagem de acerto no chute ainda
+  # e de uns 18 pontos; abaixo disso, a tela so conta os chutes e manda deixar
+  # em branco na duvida.
+  chutes: 30
+
   # O estado mais alto ("Bom desempenho com amostra suficiente") pede mais que
   # estar na meta: o dobro do minimo, respondido em dois dias diferentes ou
   # mais. Uma tarde boa num assunto fresco na cabeca nao e dominio.

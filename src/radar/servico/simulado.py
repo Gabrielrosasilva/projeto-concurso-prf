@@ -31,6 +31,7 @@ from radar.models import (
     agora,
 )
 from radar.origem import IA, OFICIAL, PROVA
+from radar.questoes_certo_errado import EM_BRANCO, e_certo_errado
 from radar.servico.comum import cargo_parecido as _cargo_parecido
 # A conta do acerto mora no `servico.metricas`, a fonte unica (Etapa 1C).
 # Os nomes continuam aqui porque a fachada `servico` e a home os leem daqui.
@@ -388,7 +389,11 @@ def responder(simulado_id: int, questao_id: int, letra: str,
     duas vezes.
 
     `chutou` e o "vou no chute" marcado antes da letra (decisao 142): fica ao
-    lado do acerto, e o acerto continua o mesmo."""
+    lado do acerto, e o acerto continua o mesmo.
+
+    No item de Certo/Errado a letra pode ser o EM_BRANCO (PRF-28): a resposta
+    fica dada, sem acerto (`acertou` nulo, devolvido como None) e sem chute -
+    deixar em branco e justamente nao chutar."""
     criar_tabelas()
     letra = (letra or "").strip().lower()[:1]
 
@@ -402,13 +407,16 @@ def responder(simulado_id: int, questao_id: int, letra: str,
             return None
 
         questao = s.get(_tabela_da_resposta(resposta), questao_id)
-        if questao is None or letra not in (questao.alternativas or {}):
+        if questao is None:
+            return None
+        em_branco = letra == EM_BRANCO and e_certo_errado(questao.alternativas)
+        if not em_branco and letra not in (questao.alternativas or {}):
             return None
 
         resposta.escolhida = letra
-        resposta.acertou = letra == questao.resposta
+        resposta.acertou = None if em_branco else letra == questao.resposta
         resposta.respondida_em = agora()
-        resposta.chutou = bool(chutou)
+        resposta.chutou = False if em_branco else bool(chutou)
 
         # acabou? marca o fim da rodada
         faltam = s.scalar(
@@ -613,6 +621,20 @@ class ItemDeRevisao:
     #: pagina dele (decisao PMSC-27): o relatorio diz "verificar a questao".
     gabarito_a_conferir: str | None = None
     gabarito_link: str | None = None
+    #: O item de Certo/Errado deixado em branco (PRF-28): nem acerto nem erro.
+    em_branco: bool = False
+
+    @property
+    def errou(self) -> bool:
+        """Errou de verdade: respondeu e nao acertou. O em branco nao e erro."""
+        return not self.acertou and not self.em_branco
+
+    @property
+    def vai_ao_caderno(self) -> bool:
+        """O erro que o caderno de erros recebe: o chute errado fica fora
+        (PRF-28, escolha do Gabriel em 25/11/2026) - e volta pelo Simulado da
+        semana, que traz primeiro o que eu errei ou chutei."""
+        return self.errou and not self.chutou
 
     @property
     def referencia(self) -> str:
@@ -705,9 +727,11 @@ def revisao(simulado_id: int) -> list[ItemDeRevisao]:
             assunto=questao.assunto,
             questao_id=resposta.questao_id,
             motivo=motivo_do_erro(resposta),
+            em_branco=resposta.escolhida == EM_BRANCO,
         ))
-    # errado primeiro: e o que eu preciso rever
-    itens.sort(key=lambda i: i.acertou)
+    # errado primeiro: e o que eu preciso rever; depois o em branco (eu nao
+    # sabia, e disse), e o certo no fim
+    itens.sort(key=lambda i: 0 if i.errou else (1 if i.em_branco else 2))
     return itens
 
 
@@ -722,17 +746,22 @@ def questoes_erradas(do_dia: date | None = None) -> list[int]:
 
     `do_dia` fica so com as que eu errei naquele dia (o "Refazer os erros de
     hoje" do fechamento, decisao 189) - e que continuam erradas.
+
+    O chute errado nao entra (PRF-28): fica fora do caderno de erros, e volta
+    pelo Simulado da semana. O em branco tambem nao: nao e erro.
     """
     criar_tabelas()
     with sessao() as s:
         ultimas = _ultimas_respostas_reais(s)
-        erradas = [qid for qid, r in ultimas.items() if r.acertou is False]
+        erradas = [qid for qid, r in ultimas.items()
+                   if r.acertou is False and not r.chutou]
         if do_dia is not None and erradas:
             comeco, termino = janela_do_dia(do_dia)
             do_dia_ids = set(s.scalars(
                 select(RespostaDeSimulado.questao_id)
                 .where(RespostaDeSimulado.gerada.is_(False))
                 .where(RespostaDeSimulado.acertou.is_(False))
+                .where(RespostaDeSimulado.chutou.is_not(True))
                 .where(RespostaDeSimulado.respondida_em >= comeco)
                 .where(RespostaDeSimulado.respondida_em < termino)))
             erradas = [qid for qid in erradas if qid in do_dia_ids]

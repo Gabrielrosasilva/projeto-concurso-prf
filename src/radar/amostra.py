@@ -83,6 +83,10 @@ class Minimos:
     #: comparacao dos ultimos 30 dias (secao `desempenho`).
     evolucao: int = 20
 
+    #: As respostas no "vou no chute" que a regra do chute do Certo/Errado
+    #: precisa para dizer se chutar compensa para mim (PRF-28).
+    chutes: int = 30
+
     #: Estes dois falam da BANCA, e nao de mim (secao `acervo`): questoes com
     #: gabarito para falar de tendencia de letra nos Macetes, e provas abaixo
     #: das quais o que sai delas leva o aviso "base pequena".
@@ -156,6 +160,7 @@ def _ler(arquivo) -> Minimos:
         dias_distintos=int(bom.get("dias_distintos", PADRAO.dias_distintos)),
         meta_padrao=int(secao.get("meta_padrao", PADRAO.meta_padrao)),
         evolucao=int(secao.get("evolucao", PADRAO.evolucao)),
+        chutes=int(secao.get("chutes", PADRAO.chutes)),
         tendencia_de_gabarito=int(
             acervo.get("tendencia_de_gabarito", PADRAO.tendencia_de_gabarito)),
         provas_para_tendencia=int(

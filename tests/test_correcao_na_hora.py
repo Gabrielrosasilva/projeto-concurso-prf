@@ -167,7 +167,8 @@ def test_a_correcao_e_o_relatorio_dizem_que_foi_no_chute(cliente):
     assert "Do 1 acerto, 0 foram sem chute" in relatorio
 
 
-def test_errar_no_chute_abre_o_caderno_com_o_motivo_chutei(cliente):
+def test_errar_no_chute_nao_oferece_o_caderno(cliente):
+    # PRF-28: o chute errado fica fora do caderno de erros.
     rodada = _rodada(_questao(1))
     (primeira,) = _ids(rodada)
 
@@ -175,7 +176,7 @@ def test_errar_no_chute_abre_o_caderno_com_o_motivo_chutei(cliente):
                  data={"questao_id": primeira, "letra": "a", "chutei": "1"})
     tela = cliente.get(f"/simulado/{rodada}?ver={primeira}").text
 
-    assert "motivo=chutei" in tela
+    assert "motivo=chutei" not in tela and "Anotar no caderno de erros" not in tela
 
 
 def test_o_chute_vai_e_volta_no_backup(banco_temporario, tmp_path):

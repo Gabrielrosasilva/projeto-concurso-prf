@@ -7,16 +7,24 @@ acertos, 8 erros" - uma linha que nao fecha e nao dizia por que.
 
 A regra, valendo para qualquer recorte e qualquer periodo:
 
-    questoes = acertos + erros + sem acerto anotado + treino de IA
+    questoes = acertos + erros + sem acerto anotado + em branco + treino de IA
 
 - **acerto e erro** saem de questao real: a resposta conferida pelo radar
   contra o gabarito, ou o "fiz N, acertei M" que eu anotei numa faixa ou num
   estudo extra (que vem do Qconcursos);
 - **sem acerto anotado** e "fiz 15 e nao anotei quantas acertei": conta no
   volume, e nunca vira zero acerto;
+- **em branco** e o item de Certo/Errado que eu deixei sem resposta (PRF-28):
+  conta no volume e nao e acerto nem erro - no Cebraspe ele vale 0;
 - **treino de IA** e resposta a questao gerada: conta no volume, porque o
   tempo foi gasto, e o acerto dela e um SEGUNDO numero, nunca somado ao das
   reais (CLAUDE.md: questao gerada treina, nao mede).
+
+O Certo/Errado do Cebraspe se mede pela NOTA LIQUIDA (`NotaLiquida`: a certa
++1, a errada -1, a em branco 0), com o acerto bruto ao lado. E o chute
+("vou no chute", decisao 142) fica FORA do acerto acumulado - desempenho por
+assunto, Minhas materias, evolucao - e do caderno de erros (`conta_no_acerto`,
+PRF-28); na nota da rodada ele conta, como na prova.
 
 Os recortes tem nome fixo, e cada tela escreve o que mostra (decisao 4 da
 Etapa 0): *medido no radar*, *anotado*, *treino de IA* e *total*.
@@ -53,6 +61,7 @@ from radar.models import (
     agora,
 )
 from radar.questoes import chave_da_questao
+from radar.questoes_certo_errado import EM_BRANCO, e_certo_errado
 from radar.servico import cronograma as diario
 from radar.servico import evidencia
 from radar.origem import AUTOMATICO, IA
@@ -109,6 +118,9 @@ class Numeros:
     ia: int = 0
     #: O acerto nessas de IA - o segundo numero, que nunca entra no primeiro.
     ia_acertos: int = 0
+    #: Itens de Certo/Errado deixados em branco no radar (PRF-28): volume
+    #: sim, acerto e erro nao.
+    em_branco: int = 0
     minutos: int = 0
     #: Respostas do radar marcadas "vou no chute" (decisao 142): ao lado das
     #: outras contas, nunca dentro - nao mudam acerto, erro nem total.
@@ -120,7 +132,7 @@ class Numeros:
 
     @property
     def questoes(self) -> int:
-        return self.acertos + self.erros + self.sem_resultado + self.ia
+        return self.acertos + self.erros + self.sem_resultado + self.em_branco + self.ia
 
     @property
     def medidas(self) -> int:
@@ -146,6 +158,7 @@ class Numeros:
             sem_resultado=self.sem_resultado + outro.sem_resultado,
             ia=self.ia + outro.ia,
             ia_acertos=self.ia_acertos + outro.ia_acertos,
+            em_branco=self.em_branco + outro.em_branco,
             minutos=self.minutos + outro.minutos,
             chutes=self.chutes + outro.chutes,
             de_outras_bancas=self.de_outras_bancas + outro.de_outras_bancas,
@@ -172,8 +185,13 @@ class Numeros:
         self.erros += questoes - acertos
 
     def responder(self, acertou: bool, gerada: bool = False,
-                  chutou: bool = False, outra_banca: bool = False) -> None:
+                  chutou: bool = False, outra_banca: bool = False,
+                  em_branco: bool = False) -> None:
         """Soma uma resposta dada dentro do radar."""
+        if em_branco:
+            # O item em branco (PRF-28) e volume, sem acerto nem erro.
+            self.em_branco += 1
+            return
         self.chutes += 1 if chutou else 0
         if gerada:
             self.ia += 1
@@ -208,6 +226,8 @@ def frase_da_conta(numeros: Numeros) -> str:
               _contado(numeros.erros, "erro", "erros")]
     if numeros.sem_resultado:
         partes.append(f"{numeros.sem_resultado} sem acerto anotado")
+    if numeros.em_branco:
+        partes.append(f"{numeros.em_branco} em branco")
     if numeros.ia:
         partes.append(f"{numeros.ia} de treino de IA")
     return _contado(numeros.questoes, "questão", "questões") + " = " + " + ".join(partes)
@@ -293,6 +313,8 @@ class Lancamento:
     #: A resposta do radar a questao real de outra banca (evidencia `fora`,
     #: decisao 166). Nao muda conta nenhuma: e a origem ao lado.
     de_outra_banca: bool = False
+    #: O item de Certo/Errado que eu deixei em branco no radar (PRF-28).
+    em_branco: bool = False
 
 
 def rodada_que_revisa(filtros: dict | None) -> bool:
@@ -416,6 +438,7 @@ def lancamentos(inicio: date, fim: date, plano=None) -> list[Lancamento]:
             chave=(chave_da_questao(questao.enunciado, questao.alternativas)
                    if real else None),
             de_outra_banca=real and questao.evidencia == evidencia.FORA,
+            em_branco=resposta.escolhida == EM_BRANCO,
         ))
     return linhas
 
@@ -445,8 +468,10 @@ class Conta:
             if linha.gerada:
                 self.treino_ia.responder(acertou, gerada=True)
                 return
-            self.radar.responder(acertou, outra_banca=linha.de_outra_banca)
-            self.sem_consulta.responder(acertou, outra_banca=linha.de_outra_banca)
+            self.radar.responder(acertou, outra_banca=linha.de_outra_banca,
+                                 em_branco=linha.em_branco)
+            self.sem_consulta.responder(acertou, outra_banca=linha.de_outra_banca,
+                                        em_branco=linha.em_branco)
             return
         destino = self.faixas if linha.origem == FAIXA else self.extra
         destino.anotar(linha.questoes, linha.acertos, linha.minutos, linha.descricao)
@@ -519,7 +544,8 @@ def no_radar_por_faixa(data: date) -> dict[tuple[str, int, str], Numeros]:
         for resposta in respostas:
             numeros = por_faixa.setdefault(rodadas[resposta.simulado_id], Numeros())
             numeros.responder(bool(resposta.acertou), gerada=bool(resposta.gerada),
-                              chutou=bool(resposta.chutou))
+                              chutou=bool(resposta.chutou),
+                              em_branco=resposta.escolhida == EM_BRANCO)
     return por_faixa
 
 
@@ -553,9 +579,22 @@ class DesempenhoDaMateria:
 
 
 def placar(respostas) -> tuple[int, int]:
-    """(respondidas, acertos) de uma lista de respostas. Nao respondida fica fora."""
-    dadas = [r for r in respostas if r.escolhida is not None]
+    """(respondidas, acertos) de uma lista de respostas. Nao respondida fica
+    fora, e o item em branco tambem (PRF-28): ele nao e acerto nem erro."""
+    dadas = [r for r in respostas if r.escolhida not in (None, EM_BRANCO)]
     return len(dadas), sum(1 for r in dadas if r.acertou)
+
+
+def conta_no_acerto(resposta) -> bool:
+    """A resposta entra no acerto ACUMULADO - desempenho por assunto, Minhas
+    materias, evolucao, o 1-7-30 da revisao? (PRF-28, escolha do Gabriel em
+    25/11/2026.)
+
+    Nao entra a em branco (nao e acerto nem erro) nem a do "vou no chute",
+    certa ou errada: o chute certo nao e saber, e tirar so o errado deixaria
+    o acerto maior do que eu sei. O chute aparece ao lado, contado. Na nota da
+    rodada ele conta, como na prova (`NotaLiquida`)."""
+    return resposta.escolhida not in (None, EM_BRANCO) and not resposta.chutou
 
 
 def so_treina(questao) -> bool:
@@ -628,7 +667,15 @@ def acumulado_por(chaves_da_questao, materias: list[str] | None = None) -> dict:
     for questao in questoes:
         resposta = ultimas[questao.id]
         for chave in chaves_da_questao(questao):
-            conta.setdefault(chave, Numeros()).responder(bool(resposta.acertou))
+            numeros = conta.setdefault(chave, Numeros())
+            if conta_no_acerto(resposta):
+                numeros.responder(bool(resposta.acertou))
+            elif resposta.chutou:
+                # A ultima foi no chute (PRF-28): o acerto fica sem ela, e o
+                # chute fica ao lado.
+                numeros.chutes += 1
+            else:
+                numeros.em_branco += 1
     return conta
 
 
@@ -765,8 +812,9 @@ def erros_das_rodadas(simulado_ids: list[int]) -> list[RespostaDeSimulado]:
     """As respostas ERRADAS a questao real nestas rodadas, rodada por rodada
     na ordem da lista e, dentro dela, na ordem das questoes.
 
-    Nao respondida nao e erro - a mesma regra do `placar`. E o que o R+7 dos
-    diagnosticos refaz (servico/sabado.py).
+    Nao respondida nao e erro - a mesma regra do `placar`; o em branco
+    tambem nao, e o chute errado fica fora do caderno de erros (PRF-28). E o
+    que o R+7 dos diagnosticos refaz (servico/sabado.py).
     """
     if not simulado_ids:
         return []
@@ -777,7 +825,8 @@ def erros_das_rodadas(simulado_ids: list[int]) -> list[RespostaDeSimulado]:
             .where(RespostaDeSimulado.simulado_id.in_(list(simulado_ids)))
             .where(RespostaDeSimulado.gerada.is_(False))
             .where(RespostaDeSimulado.escolhida.is_not(None))
-            .where(RespostaDeSimulado.acertou.is_(False))))
+            .where(RespostaDeSimulado.acertou.is_(False))
+            .where(RespostaDeSimulado.chutou.is_not(True))))
     posicao = {simulado_id: i for i, simulado_id in enumerate(simulado_ids)}
     return sorted(respostas, key=lambda r: (posicao[r.simulado_id], r.ordem))
 
@@ -1156,15 +1205,131 @@ def revisao_da_rodada(simulado_id: int) -> tuple[int, int]:
     return sum(1 for r in refeitas if r.acertou), len(refeitas)
 
 
+# --- a nota liquida do Certo/Errado (PRF-28) ----------------------------------
+
+@dataclass(frozen=True)
+class NotaLiquida:
+    """A nota do Certo/Errado do Cebraspe, como na prova: a certa vale +1, a
+    errada -1 e a em branco 0 (edital PRF 2021, item 9.12.2). O acerto bruto
+    fica ao lado, nunca no lugar (CLAUDE.md).
+
+    O chute conta aqui como na prova - errar no chute custa o ponto -, e o
+    saldo dos chutes vem ao lado: e ele que diz se chutar compensou.
+    """
+    origem = AUTOMATICO
+
+    certos: int = 0
+    errados: int = 0
+    em_branco: int = 0
+    #: Dos certos e dos errados, os que foram no "vou no chute".
+    chutes_certos: int = 0
+    chutes_errados: int = 0
+
+    @property
+    def itens(self) -> int:
+        return self.certos + self.errados + self.em_branco
+
+    @property
+    def nota(self) -> int:
+        """Certos menos errados: pode ser negativa, como na prova."""
+        return self.certos - self.errados
+
+    @property
+    def porcentagem(self) -> int | None:
+        """A nota sobre o maximo (todos os itens certos). Negativa quando os
+        errados passam dos certos. None sem item."""
+        return round(100 * self.nota / self.itens) if self.itens else None
+
+    @property
+    def bruto(self) -> int | None:
+        """O acerto bruto: os certos sobre todos os itens, com o em branco."""
+        return round(100 * self.certos / self.itens) if self.itens else None
+
+    @property
+    def chutes(self) -> int:
+        return self.chutes_certos + self.chutes_errados
+
+    @property
+    def saldo_dos_chutes(self) -> int:
+        """O que os chutes somaram na nota: cada certo +1, cada errado -1. Em
+        branco, eles teriam dado 0."""
+        return self.chutes_certos - self.chutes_errados
+
+    def frase(self) -> str:
+        """"Nota líquida: 6 em 10 itens (60%) = 8 certos − 2 errados, 0 em
+        branco · acerto bruto 80%". Uma funcao para a tela e o terminal."""
+        if not self.itens:
+            return "Nota líquida: nenhum item de Certo/Errado respondido"
+        return (f"Nota líquida: {self.nota} em {_contado(self.itens, 'item', 'itens')} "
+                f"({self.porcentagem}%) = {_contado(self.certos, 'certo', 'certos')} − "
+                f"{_contado(self.errados, 'errado', 'errados')}, {self.em_branco} em branco"
+                f" · acerto bruto {self.bruto}%")
+
+    def frase_dos_chutes(self) -> str | None:
+        """"No chute: 3 certos e 2 errados, saldo +1 na nota". None sem chute."""
+        if not self.chutes:
+            return None
+        return (f"No chute: {_contado(self.chutes_certos, 'certo', 'certos')} e "
+                f"{_contado(self.chutes_errados, 'errado', 'errados')}, "
+                f"saldo {self.saldo_dos_chutes:+d} na nota")
+
+
+def nota_liquida(respostas) -> NotaLiquida:
+    """A nota liquida das respostas DADAS (a que falta responder fica fora).
+    Quem chama passa so resposta a item de Certo/Errado."""
+    dadas = [r for r in respostas if r.escolhida is not None]
+    julgadas = [r for r in dadas if r.escolhida != EM_BRANCO]
+    return NotaLiquida(
+        certos=sum(1 for r in julgadas if r.acertou),
+        errados=sum(1 for r in julgadas if not r.acertou),
+        em_branco=len(dadas) - len(julgadas),
+        chutes_certos=sum(1 for r in julgadas if r.chutou and r.acertou),
+        chutes_errados=sum(1 for r in julgadas if r.chutou and not r.acertou),
+    )
+
+
+def ids_de_certo_errado(s, questao_ids) -> set[int]:
+    """Das questoes reais destes ids, as de Certo/Errado e nao anuladas."""
+    if not questao_ids:
+        return set()
+    return {q.id for q in s.scalars(
+        select(QuestaoDeProva).where(QuestaoDeProva.id.in_(list(questao_ids))))
+        if e_certo_errado(q.alternativas) and not q.anulada}
+
+
+def respostas_de_certo_errado(s) -> list[RespostaDeSimulado]:
+    """Toda resposta DADA a item real de Certo/Errado que mede (`so_treina`
+    fora), na ordem em que dei: o historico inteiro, como a evolucao."""
+    respostas = respostas_reais(s, so_as_que_medem=True)
+    de_ce = ids_de_certo_errado(s, {r.questao_id for r in respostas})
+    return [r for r in respostas if r.questao_id in de_ce]
+
+
+def nota_liquida_acumulada() -> NotaLiquida:
+    """A nota liquida de todas as respostas a Certo/Errado no radar: cada
+    resposta conta, como na evolucao (o historico, e nao a ultima de cada
+    item). E dela que sai o saldo dos meus chutes (`servico.certo_errado`)."""
+    criar_tabelas()
+    with sessao() as s:
+        return nota_liquida(respostas_de_certo_errado(s))
+
+
 def resumo_do_simulado(simulado_id: int) -> dict:
-    """Quantas questoes a rodada tem, quantas respondi e quantas acertei."""
+    """Quantas questoes a rodada tem, quantas respondi e quantas acertei.
+
+    Com item de Certo/Errado, a rodada tem a NOTA LIQUIDA deles (`nota`,
+    PRF-28) e, ao lado e nunca somado, o acerto das reais de multipla escolha
+    (`multipla_escolha`): elas nao medem o padrao do Cebraspe (CLAUDE.md)."""
     criar_tabelas()
     with sessao() as s:
         respostas = list(s.scalars(
             select(RespostaDeSimulado).where(RespostaDeSimulado.simulado_id == simulado_id)
         ))
+        de_ce = ids_de_certo_errado(s, {r.questao_id for r in respostas if not r.gerada})
     respondidas, acertos = placar(respostas)
     no_chute = [r for r in respostas if r.escolhida is not None and r.chutou]
+    do_ce = [r for r in respostas if not r.gerada and r.questao_id in de_ce]
+    de_multipla = [r for r in respostas if not r.gerada and r.questao_id not in de_ce]
     return {
         # O resultado da rodada de questao gerada leva o selo da IA.
         "origem": IA if any(r.gerada for r in respostas) else AUTOMATICO,
@@ -1174,7 +1339,8 @@ def resumo_do_simulado(simulado_id: int) -> dict:
         "erros": respondidas - acertos,
         # Sobre o total da rodada: a que nao respondi conta como nao acertada.
         "porcentagem": acertos / len(respostas) * 100 if respostas else 0.0,
-        "terminou": bool(respostas) and respondidas == len(respostas),
+        # Toda questao com resposta: o em branco tambem e resposta dada.
+        "terminou": bool(respostas) and all(r.escolhida is not None for r in respostas),
         # O "vou no chute" (decisao 142): ao lado do acerto, nunca dentro dele.
         "chutes": len(no_chute),
         "acertos_no_chute": sum(1 for r in no_chute if r.acertou),
@@ -1182,6 +1348,11 @@ def resumo_do_simulado(simulado_id: int) -> dict:
         # template (template nenhum soma).
         "chutes_errados": sum(1 for r in no_chute if not r.acertou),
         "acertos_sem_chute": acertos - sum(1 for r in no_chute if r.acertou),
+        # O item de Certo/Errado deixado em branco (PRF-28): nem acerto nem erro.
+        "em_branco": sum(1 for r in respostas if r.escolhida == EM_BRANCO),
+        "nota": nota_liquida(do_ce) if do_ce else None,
+        "multipla_escolha": (DesempenhoDaMateria("Múltipla escolha", *placar(de_multipla))
+                             if do_ce and de_multipla else None),
     }
 
 
@@ -1199,10 +1370,13 @@ def andamento_da_rodada(simulado_id: int) -> dict:
             .where(RespostaDeSimulado.simulado_id == simulado_id)
             .order_by(RespostaDeSimulado.ordem)
         ))
-    marcas = [None if r.escolhida is None else ("certa" if r.acertou else "errada")
+    marcas = [None if r.escolhida is None
+              else "branco" if r.escolhida == EM_BRANCO
+              else ("certa" if r.acertou else "errada")
               for r in respostas]
     seguidas = 0
-    for marca in reversed([m for m in marcas if m is not None]):
+    # O em branco nao quebra a sequencia nem a aumenta: nao e acerto nem erro.
+    for marca in reversed([m for m in marcas if m not in (None, "branco")]):
         if marca != "certa":
             break
         seguidas += 1
@@ -1255,7 +1429,9 @@ def evolucao() -> Evolucao:
     """
     criar_tabelas()
     with sessao() as s:
-        respostas = respostas_reais(s, so_as_que_medem=True)
+        # Sem o chute e sem o em branco (PRF-28): a evolucao e acerto acumulado.
+        respostas = [r for r in respostas_reais(s, so_as_que_medem=True)
+                     if conta_no_acerto(r)]
 
     respondidas, acertos = placar(respostas)
     minimo = regua.carregar().evolucao
@@ -1324,8 +1500,8 @@ def motivos_dos_erros(desde: date | None = None,
     """Os erros por motivo, cada um contado UMA vez, por origem (decisao 174).
 
     - **no radar**, cada resposta errada e um erro, como no volume: errar de
-      novo a mesma questao e outro erro, com o seu motivo. O motivo e o do
-      `erros.motivo_do_erro` (o "vou no chute" vale "chutei");
+      novo a mesma questao e outro erro, com o seu motivo. O chute errado
+      fica fora (PRF-28: fora do caderno de erros);
     - **o caderno com fonte "radar" nunca conta**: o erro ja conta pela
       resposta, e o caderno aberto pelo radar leva o motivo a ela;
     - **fora do radar, por faixa e dia**: a nota com motivos e o total da faixa
@@ -1349,7 +1525,8 @@ def motivos_dos_erros(desde: date | None = None,
         erradas = list(s.scalars(
             select(RespostaDeSimulado)
             .where(RespostaDeSimulado.escolhida.is_not(None))
-            .where(RespostaDeSimulado.acertou.is_(False))))
+            .where(RespostaDeSimulado.acertou.is_(False))
+            .where(RespostaDeSimulado.chutou.is_not(True))))
         de_outra_banca = set(s.scalars(
             select(QuestaoDeProva.id).where(QuestaoDeProva.evidencia == evidencia.FORA)))
         estados = list(s.scalars(select(EstadoDoDia)))
