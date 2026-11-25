@@ -138,9 +138,13 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
 # Nos cadernos de outros concursos (FUB e SEE/DF de 2016, SEE/PE de 2022) o
 # cabecalho comeca pelo codigo de barras do caderno ("||281FUB_012_01N369409||
 # CESPE | CEBRASPE – FUB" e "714005_01N167818 CEBRASPE – SEE/PE"): sem
-# reconhece-lo, o cabecalho grudava no item do fim da pagina.
+# reconhece-lo, o cabecalho grudava no item do fim da pagina. Nos de 2022 e
+# 2023 (Policia Cientifica e PC de AL, Petrobras) o codigo tem 14 caracteres
+# ("701CB201597439 CEBRASPE – POLC/AL"), e o comando do grupo seguinte grudava
+# junto: os itens dele ficavam com o comando do grupo de antes (PRF-32).
 MOBILIA_DO_CADERNO = re.compile(
-    r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+)?(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]"
+    r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+|\d{3}[A-Z\d]{2}\d{9}\s+)?"
+    r"(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]"
     r"|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
 ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
 # O rotulo do texto, com o codigo ("Texto 1A18-I") ou sem ("Texto", na Policia
@@ -450,18 +454,81 @@ def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1,
     return itens
 
 
-def ler_gabarito_do_cebraspe(texto: str) -> dict[int, str]:
+def _pares_do_gabarito(texto: str) -> list[tuple[int, str]]:
+    """Os pares (item, letra) da grade, na ordem do texto do pdfminer.
+
+    O asterisco colado na letra ("120 *C") marca o item cujo gabarito
+    preliminar foi alterado; a letra e a definitiva. Sem tirar o asterisco,
+    o item sumia: o 120 da PM/AL 2017 e o 1 do caderno de basicos (PRF-32).
+    """
+    pedacos = texto.split()
+    return [(int(numero), letra.lstrip("*")) for numero, letra in zip(pedacos, pedacos[1:])
+            if numero.isdigit() and letra.lstrip("*") in RESPOSTA_DA_LETRA]
+
+
+def itens_em_duas_grades(texto: str) -> set[int]:
+    """Os itens que o gabarito traz duas vezes.
+
+    No caderno com espanhol e ingles (CBM/AL 2017, ABIN 2017) cada lingua tem
+    a sua grade, e os itens de lingua estrangeira (1 a 5, ou 1 a 10) aparecem
+    nas duas, as vezes com letras diferentes. Pelo texto nao se sabe qual
+    grade e de qual lingua, e o leitor do caderno so le os itens da primeira.
+    """
+    vezes: dict[int, int] = {}
+    for item, _ in _pares_do_gabarito(texto):
+        vezes[item] = vezes.get(item, 0) + 1
+    return {item for item, quantas in vezes.items() if quantas > 1}
+
+
+# As palavras que dizem a lingua de uma frase. So para o caderno com espanhol e
+# ingles (`duas_linguas`): o texto da segunda lingua gruda no texto-base do
+# primeiro grupo em portugues, e e la que ele e cortado.
+PALAVRAS_DO_PORTUGUES = {"não", "são", "uma", "dos", "das", "ao", "à", "é", "com", "para",
+                         "em", "do", "da", "os", "as", "que", "se", "no", "na", "pelo", "pela"}
+PALAVRAS_DE_FORA = {"the", "of", "and", "to", "is", "that", "in", "are", "for", "with",
+                    "el", "los", "las", "del", "y", "es", "una", "por", "con", "lo", "su"}
+FIM_DA_FRASE = re.compile(r"(?<=[.!?”\"])\s+")
+
+
+def sem_a_outra_lingua(texto: str) -> str:
+    """O texto-base sem as frases em ingles ou espanhol do COMECO: corta ate a
+    primeira frase em que o portugues ganha, mas devolve as frases neutras
+    logo antes dela (o titulo "O açúcar arrasou o Nordeste." nao tem palavra
+    de lingua nenhuma). Sem frase em portugues, devolve o texto como veio."""
+    frases = FIM_DA_FRASE.split(texto)
+
+    def lingua(frase: str) -> int:
+        """+1 portugues, -1 ingles ou espanhol, 0 sem sinal."""
+        # O endereco da fonte ("<www.nytimes.com>") nao conta: o "com" dele
+        # parecia portugues.
+        sem_endereco = re.sub(r"<[^>]*>|\S*www\.\S*", " ", frase)
+        palavras = re.findall(r"[^\W\d_]+", sem_endereco.lower())
+        portugues = sum(p in PALAVRAS_DO_PORTUGUES for p in palavras)
+        de_fora = sum(p in PALAVRAS_DE_FORA for p in palavras)
+        return (portugues > de_fora) - (de_fora > portugues)
+
+    sinais = [lingua(frase) for frase in frases]
+    if 1 not in sinais:
+        return texto
+    comeco = sinais.index(1)
+    while comeco > 0 and sinais[comeco - 1] == 0:
+        comeco -= 1
+    if -1 not in sinais[:comeco]:
+        return texto
+    return " ".join(frases[comeco:])
+
+
+def ler_gabarito_do_cebraspe(texto: str, fora: set[int] | None = None) -> dict[int, str]:
     """{item: "C", "E" ou "X"} do gabarito definitivo de Certo/Errado.
 
     No texto do pdfminer a grade sai em pares, numero e letra ("9 C 29 E 49 E
     69 X"). ValueError quando o mesmo item tem duas letras, quando nao ha item
     nenhum ou quando falta item no meio: gabarito pela metade nunca entra.
+    `fora`: os itens que nao entram (os de lingua das duas grades).
     """
-    pedacos = texto.split()
     gabarito: dict[int, str] = {}
-    for numero, letra in zip(pedacos, pedacos[1:]):
-        if numero.isdigit() and letra in RESPOSTA_DA_LETRA:
-            item = int(numero)
+    for item, letra in _pares_do_gabarito(texto):
+        if item not in (fora or set()):
             if gabarito.get(item, letra) != letra:
                 raise ValueError(f"item {item} com duas letras no gabarito")
             gabarito[item] = letra
@@ -473,10 +540,12 @@ def ler_gabarito_do_cebraspe(texto: str) -> dict[int, str]:
     return gabarito
 
 
-def ler_caderno(caminho: Path, caminho_do_gabarito: Path | None, ler: list[str] | None = None,
+def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
+                ler: list[str] | None = None,
                 materias: list[tuple[int, int, str]] | None = None,
                 texto: str | None = None, texto_do_gabarito: str | None = None,
-                palavras: set[str] | None = None) -> list[Questao]:
+                palavras: set[str] | None = None,
+                duas_linguas: bool = False) -> list[Questao]:
     """Os itens do caderno de Certo/Errado do Cebraspe, como questoes, com a
     resposta do gabarito DEFINITIVO.
 
@@ -484,14 +553,26 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | None, ler: list[str] 
     ele nao se responde. ValueError quando os itens lidos nao sao os do
     gabarito. `texto`, `texto_do_gabarito` e `palavras` sao para o teste, que
     nao le PDF.
+
+    `caminho_do_gabarito` pode ser uma lista: o DEPEN 2020 tem um caderno so
+    e um gabarito por parte (basicos, especificos e complementares), e as
+    grades se juntam. `duas_linguas`: o caderno traz espanhol e ingles com os
+    mesmos numeros, e os itens de lingua ficam de fora (`itens_em_duas_grades`).
     """
     from radar.questoes import extrair_texto
 
     if texto_do_gabarito is None:
-        if caminho_do_gabarito is None:
+        if not caminho_do_gabarito:
             raise ValueError("falta o gabarito definitivo")
-        texto_do_gabarito = _texto_do_pdfminer(caminho_do_gabarito)
-    gabarito = ler_gabarito_do_cebraspe(texto_do_gabarito)
+        caminhos = (caminho_do_gabarito if isinstance(caminho_do_gabarito, list)
+                    else [caminho_do_gabarito])
+        texto_do_gabarito = "\n".join(_texto_do_pdfminer(c) for c in caminhos)
+    fora: set[int] = set()
+    if duas_linguas:
+        fora = itens_em_duas_grades(texto_do_gabarito)
+        if not fora:
+            raise ValueError("o gabarito nao tem as duas grades de lingua")
+    gabarito = ler_gabarito_do_cebraspe(texto_do_gabarito, fora=fora)
     if texto is None:
         texto = extrair_texto(caminho)
     paragrafos = None
@@ -504,7 +585,17 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | None, ler: list[str] 
         if not any(linha.startswith("  ") for linha in texto.splitlines()):
             paragrafos = inicios_de_paragrafo(texto_do_pdfminer)
 
-    itens = itens_do_caderno(texto, palavras, primeiro=min(gabarito), paragrafos=paragrafos)
+    itens = itens_do_caderno(texto, palavras, primeiro=min(set(gabarito) | fora),
+                             paragrafos=paragrafos)
+    # O item de lingua sai inteiro: o leitor so le a primeira lingua, e o
+    # texto da segunda gruda no ultimo item dela.
+    itens = [item for item in itens if item.numero not in fora]
+    if duas_linguas:
+        # O texto da segunda lingua grudou no texto-base do primeiro grupo em
+        # portugues: sai, e fica so o texto do grupo.
+        for item in itens:
+            if item.texto_base:
+                item.texto_base = sem_a_outra_lingua(item.texto_base)
     lidos = [item.numero for item in itens]
     if set(lidos) != set(gabarito):
         raise ValueError(f"o caderno tem os itens {lidos[:1]}..{lidos[-1:]} ({len(lidos)}) "

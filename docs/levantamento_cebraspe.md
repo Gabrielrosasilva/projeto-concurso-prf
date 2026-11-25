@@ -102,3 +102,29 @@ o que o Gabriel baixar à mão (PRF-27) ou questão gerada (que treina, não med
 
 Só entra o item do programa da PRF: quantos, sai da leitura item a item,
 como na PRF-26 (lá foram 97 de 380).
+
+## Feito (25/11/2026, PRF-32)
+
+Entraram 21 cadernos de Certo/Errado em `PRF/config/provas_de_outras_bancas.yml`
+(seção do fim, "Levantamento 2"): os 15 que o leitor já lia, os 4 de duas
+línguas, a PM/AL 2017 específicos e o DEPEN 2020. As faixas, item a item, são de
+agentes do Claude Code (claude-opus-5-5); o `# fora:` de cada entrada diz o que
+ficou de fora e por quê. 758 itens viraram complementares (645 únicos; o resto
+é a mesma questão em outro caderno). Os 14 de múltipla escolha continuam só
+baixados.
+
+O leitor ganhou, com teste:
+- a letra com asterisco ("*C", gabarito preliminar alterado), que sumia;
+- `duas_linguas: true`: espanhol e inglês com os mesmos números e uma grade por
+  língua. Os itens de língua ficam de fora (não se sabe qual grade é de qual
+  língua), e o texto da outra língua sai do texto-base do grupo seguinte;
+- `outros_gabaritos`: um caderno com um gabarito por parte (o DEPEN 2020);
+- o cabeçalho com o código de 14 caracteres ("701CB201597439 CEBRASPE –"), que
+  levava o comando do grupo seguinte para o item de antes.
+
+Defeitos que ficaram (pendência no `docs/estado.md`): o comando sem "julgue"
+("Em cada um dos itens... é apresentada uma situação hipotética") e o título de
+seção ("Matemática", "-- CONHECIMENTOS ESPECÍFICOS --") grudam no fim do item
+de antes (PM/AL 2018 q89, DEPEN q30, q76 e q80, CBM/AL 2021 q25 e q50); a PM/AL
+2017 específicos q100-105 ficou de fora por isso. O texto-base do primeiro grupo
+do CBM/AL 2021 e do MJSP traz o lixo da capa.

@@ -98,3 +98,22 @@ def test_o_gabarito_transcrito_em_txt_entra_sem_ser_pdf(banco_temporario, monkey
     registros = {r["url"]: r for r in provas.carregar_manifesto()}
     assert registros["https://cdn.exemplo.org/gabarito.pdf"]["caminho"] == (
         "provas/manual/gabarito transcrito.txt")
+
+
+def test_o_caderno_com_um_gabarito_por_parte_registra_todos(banco_temporario, monkeypatch):
+    """O DEPEN 2020 tem um caderno e tres gabaritos definitivos (basicos,
+    especificos e complementares): os dois a mais vem em `outros_gabaritos`
+    e entram no manifesto como o primeiro, cada um com o seu link (PRF-32)."""
+    por_parte = {**PROVA, "outros_gabaritos": [
+        {"gabarito": "https://cdn.exemplo.org/gabarito-2.pdf",
+         "arquivo_do_gabarito": "gabarito 2.pdf"}]}
+    monkeypatch.setattr(servico.provas, "Buscador", SemInternet)
+    monkeypatch.setattr(servico.provas, "carregar_provas_de_outras_bancas", lambda: [por_parte])
+    for nome in ("caderno da guarda.pdf", "gabarito da guarda.pdf", "gabarito 2.pdf"):
+        _salvar(nome)
+
+    resultado = servico.montar_acervo_de_outras_bancas()
+
+    assert (resultado.provas, resultado.gabaritos, resultado.falhas) == (1, 2, 0)
+    caminhos = servico.provas._outros_gabaritos(por_parte)
+    assert [c.name for c in caminhos] == ["gabarito 2.pdf"]

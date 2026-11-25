@@ -1,25 +1,25 @@
 # Estado - 25/11/2026
 
-Etapas 0 a 4, a classificacao do Cebraspe, as 6 provas do levantamento (PRF-26) e o levantamento 2 (PRF-30, so baixado) feitos; tudo espera o aval do Gabriel. A Etapa 5 nao comecou.
+Etapas 0 a 4, a classificacao do Cebraspe, os levantamentos 1 e 2 do Cebraspe (PRF-26, PRF-30, PRF-32) feitos; tudo espera o aval do Gabriel. A Etapa 5 nao comecou.
 
 ## O que roda
 - `radar subir` na 8002, com "MODO PRF". Config em `PRF/config/` (pelo `.env`), sem Telegram.
-- Diario zerado (PRF-4). Arvore do edital de 2021 + os 22 capitulos do CTB + 237 nos da classificacao: 532 (PRF-6, PRF-17).
-- Questoes: 9.501. Da PRF/: 245 do alvo (com as 8 de espanhol, PRF-24) e 1.693 complementares (PRF-16, PRF-19); do levantamento do Cebraspe, 97 complementares de Fisica, Geopolitica e Espanhol (PRF-26). Herdadas da PMSC: ficaram 7.466 de 16.317 (PRF-21, PRF-23): 476 do Cebraspe (complementar) e 6.990 de outras bancas (fora: treinam, nao medem).
+- Diario zerado (PRF-4). Arvore do edital de 2021 + os 22 capitulos do CTB + os nos da classificacao: 638 (PRF-6, PRF-17, PRF-32).
+- Questoes: 10.259. Da PRF/: 245 do alvo (com as 8 de espanhol, PRF-24) e 1.693 complementares (PRF-16, PRF-19); dos levantamentos do Cebraspe, 97 (PRF-26) e 758 (PRF-32, provas de policia) complementares. Herdadas da PMSC: ficaram 7.466 de 16.317 (PRF-21, PRF-23): 476 do Cebraspe (complementar) e 6.990 de outras bancas (fora: treinam, nao medem).
 - Geradas por IA: 1.404 (as da PMSC num no da PRF). Fichas 103, macetes 45, explicacoes 512, glossario 462 (PRF-22).
-- Certo/Errado (PRF-28, `docs/certo_errado.md`): em branco, nota liquida na rodada, chute fora do desempenho por assunto e (errado) do caderno de erros; Analises > Certo/Errado e `radar chute`. Os 58 cadernos C/E do Cebraspe treinam e medem: estoque de 1.180 complementares + 210 do alvo.
+- Certo/Errado (PRF-28, `docs/certo_errado.md`): em branco, nota liquida na rodada, chute fora do desempenho por assunto e (errado) do caderno de erros; Analises > Certo/Errado e `radar chute`. Os 79 cadernos C/E do Cebraspe treinam e medem: 2.018 itens unicos (alvo + complementar).
 - Documentos: `docs/edital.md`, `docs/prioridade.md`, `docs/script_prf.md`, `docs/certo_errado.md`, `docs/dados_cronograma.md` e `docs/comparativo_pmsc_prf.md` (os dois para a Etapa 5).
 
 ## Para o Gabriel conferir
-- As pendentes (Analises > Conferencia, quando o cronograma existir): 14 do alvo, 111 do complementar (6 da PRF-26: 3 da curva com atrito e 3 fora do treino pelo gabarito) e ~400 herdadas que ja eram pendentes na PMSC (so a materia). As 1.000 do mapa foram resolvidas (PRF-23).
+- As pendentes (Analises > Conferencia, quando o cronograma existir): 14 do alvo, 124 do complementar (6 da PRF-26; 13 da PRF-32: 10 divergencias, o CPP art. 61 e 2 de lei mudada) e ~400 herdadas que ja eram pendentes na PMSC (so a materia). As 1.000 do mapa foram resolvidas (PRF-23).
 - Dois gabaritos suspeitos (complementar, Direito Penal, do Qconcursos herdado; continuam no banco): 2023-q2215611 e 2023-q2048199. Nada foi trocado.
 - `data/classificacoes.json` (versionado, repositorio publico) guarda o `trecho` de cada questao: trecho curto de prova de terceiros (regra 5).
 
 ## Falta
-- Levantamento 2 (PRF-30, so baixado): os 15 cadernos C/E que o leitor le entrarem (faixas so do programa, classificacao como na PRF-26); consertar o leitor para os 4 com ingles e espanhol na mesma grade e o DEPEN 2020 (tres gabaritos). Os 14 de multipla escolha esperam.
+- Leitor de C/E (PRF-32), para reler com o seu aval: o comando sem "julgue" e o titulo de secao grudam no item de antes (6 itens novos; a PM/AL 2017 q100-105 ficou fora); lixo da capa no texto-base (CBM/AL 2021, MJSP, e antigos: PC/AL e PM/AL 2021, SERIS, SESAU); os itens de lingua dos 4 cadernos de duas linguas (25) ficaram fora; a Petrobras 2023 (cabecalho de 14 caracteres). Os 14 de multipla escolha do levantamento 2 so baixados.
 - A explicacao depois da resposta e a Revisao do simulado (PRF-31). Pendentes: a explicacao na multipla escolha; a IA gerar questao para assunto com menos de 50 (depois da Etapa 5).
 - Sem no (so a materia): 363 de multipla escolha do complementar e 1.128 herdadas (processo da PRF-23). A multipla escolha do Cebraspe (761) segue fora do treino que mede (PRF-28).
-- 6 cadernos antigos de C/E sem recuo (PRF-26): reler com o leitor novo, com o seu aval. Redacao Cebraspe e Simulado PMSC: `docs/dados_cronograma.md`.
+- 6 cadernos antigos de C/E sem recuo (PRF-26): reler, com o seu aval; o leitor de hoje piora a PF 2018 (PRF-32). Transito segue com 137 C/E e capitulos do CTB zerados. Redacao Cebraspe e Simulado PMSC: `docs/dados_cronograma.md`.
 
 ## Quebrado ate existir `PRF/config/cronograma.yml`: erro 500 em Meu foco (`/`), Fichas, Gerar questoes, Analises > Conferencia e > Desempenho.
 

@@ -182,6 +182,19 @@
     "referencia": null
   },
   {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal > Concordância do verbo com o núcleo do sujeito",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal",
+    "nivel": "elemento",
+    "nome": "Concordância do verbo com o núcleo do sujeito",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "concordância",
+    "referencia": "gramática normativa (norma-padrão): concordância verbal, regra geral"
+  },
+  {
     "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Regência verbal e nominal",
     "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período",
     "nivel": "subassunto",
@@ -206,6 +219,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase > Crase: preposição exigida pelo termo regente + artigo feminino",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase",
+    "nivel": "elemento",
+    "nome": "Crase: preposição exigida pelo termo regente + artigo feminino",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "crase",
+    "referencia": "gramática normativa (norma-padrão): crase (fusão da preposição a com o artigo a)"
   },
   {
     "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Colocação dos pronomes átonos",
@@ -310,6 +336,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República) > Aspectos gerais da redação oficial > Impessoalidade",
+    "pai": "Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República) > Aspectos gerais da redação oficial",
+    "nivel": "elemento",
+    "nome": "Impessoalidade",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "princípio",
+    "referencia": "Manual de Redação da Presidência da República, 3.ª ed. (2018), atributos da redação oficial"
   },
   {
     "caminho": "Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República) > Finalidade dos expedientes oficiais",
@@ -767,6 +806,19 @@
     "referencia": null
   },
   {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Ferramentas e aplicativos comerciais de navegação, de correio eletrônico, de grupos de discussão, de busca, de pesquisa, de redes sociais e ferramentas colaborativas > Limpar dados de navegação (Google Chrome)",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Ferramentas e aplicativos comerciais de navegação, de correio eletrônico, de grupos de discussão, de busca, de pesquisa, de redes sociais e ferramentas colaborativas",
+    "nivel": "elemento",
+    "nome": "Limpar dados de navegação (Google Chrome)",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "recurso",
+    "referencia": "Central de Ajuda do Google Chrome"
+  },
+  {
     "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
     "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet",
     "nivel": "subassunto",
@@ -778,6 +830,110 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Boot (inicialização do sistema)",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Boot (inicialização do sistema)",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Nomes de arquivos no Windows",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Nomes de arquivos no Windows",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Lixeira e recuperação de arquivos excluídos",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Lixeira e recuperação de arquivos excluídos",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "recurso",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Gerenciador de Tarefas",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Gerenciador de Tarefas",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "ferramenta",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Bibliotecas do Windows",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Bibliotecas do Windows",
+    "ordem": 8,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "recurso",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Desfragmentar e Otimizar Unidades",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Desfragmentar e Otimizar Unidades",
+    "ordem": 9,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "ferramenta",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Menu Iniciar",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Menu Iniciar",
+    "ordem": 10,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "recurso",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
+    "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows) > Sincronizar configurações (conta Microsoft)",
+    "pai": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Noções de sistema operacional (ambiente Windows)",
+    "nivel": "elemento",
+    "nome": "Sincronizar configurações (conta Microsoft)",
+    "ordem": 15,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "configuração",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
   },
   {
     "caminho": "Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Acesso a distância a computadores, transferência de informação e arquivos, aplicativos de áudio, vídeo e multimídia",
@@ -871,6 +1027,97 @@
     "referencia": null
   },
   {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Backdoor",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Backdoor",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Ransomware",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Ransomware",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Bot e botnet",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Bot e botnet",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Cavalo de Troia (trojan)",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Cavalo de Troia (trojan)",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Spyware",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Spyware",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > RAT (Remote Access Trojan)",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "RAT (Remote Access Trojan)",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Códigos maliciosos"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Phishing",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Phishing",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Golpes na Internet"
+  },
+  {
     "caminho": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.)",
     "pai": "Informática > Conceitos de proteção e segurança",
     "nivel": "subassunto",
@@ -884,6 +1131,45 @@
     "referencia": null
   },
   {
+    "caminho": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.) > Firewall",
+    "pai": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.)",
+    "nivel": "elemento",
+    "nome": "Firewall",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "ferramenta",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Mecanismos de segurança, firewall pessoal"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.) > Antivírus",
+    "pai": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.)",
+    "nivel": "elemento",
+    "nome": "Antivírus",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "ferramenta",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): Mecanismos de segurança, antimalware"
+  },
+  {
+    "caminho": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.) > Windows Defender SmartScreen",
+    "pai": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.)",
+    "nivel": "elemento",
+    "nome": "Windows Defender SmartScreen",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "ferramenta",
+    "referencia": "Suporte da Microsoft (ajuda do Windows)"
+  },
+  {
     "caminho": "Informática > Computação na nuvem (cloud computing)",
     "pai": "Informática",
     "nivel": "assunto",
@@ -893,6 +1179,32 @@
     "texto_do_edital": "5 Computação na nuvem (cloud computing).",
     "fora_do_edital": false,
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Informática > Computação na nuvem (cloud computing) > Armazenamento em nuvem",
+    "pai": "Informática > Computação na nuvem (cloud computing)",
+    "nivel": "subassunto",
+    "nome": "Armazenamento em nuvem",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Informática > Computação na nuvem (cloud computing) > Modelos de serviço (IaaS, PaaS e SaaS)",
+    "pai": "Informática > Computação na nuvem (cloud computing)",
+    "nivel": "subassunto",
+    "nome": "Modelos de serviço (IaaS, PaaS e SaaS)",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
   },
@@ -919,6 +1231,19 @@
     "texto_do_edital": "1 Cinemática escalar, cinemática vetorial.",
     "fora_do_edital": false,
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Física > Cinemática escalar, cinemática vetorial > Movimento uniforme",
+    "pai": "Física > Cinemática escalar, cinemática vetorial",
+    "nivel": "subassunto",
+    "nome": "Movimento uniforme",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
   },
@@ -1300,6 +1625,45 @@
     "referencia": null
   },
   {
+    "caminho": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012) > Lei 12.527/2011, art. 31",
+    "pai": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012)",
+    "nivel": "elemento",
+    "nome": "Lei 12.527/2011, art. 31",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 12.527/2011, art. 31, § 1º, I"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012) > Lei 12.527/2011, art. 27",
+    "pai": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012)",
+    "nivel": "elemento",
+    "nome": "Lei 12.527/2011, art. 27",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 12.527/2011, art. 27, II e § 1º"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012) > Lei 12.527/2011, art. 30",
+    "pai": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Promoção da transparência ativa e do acesso à informação (Lei nº 12.527/2011 e Decreto nº 7.724/2012)",
+    "nivel": "elemento",
+    "nome": "Lei 12.527/2011, art. 30",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 12.527/2011, art. 30, II e § 1º"
+  },
+  {
     "caminho": "Ética e Cidadania > Ética e democracia: exercício da cidadania > Tratamento de conflitos de interesses e nepotismo (Lei nº 12.813/2013 e Decreto nº 7.203/2010)",
     "pai": "Ética e Cidadania > Ética e democracia: exercício da cidadania",
     "nivel": "subassunto",
@@ -1339,6 +1703,19 @@
     "referencia": null
   },
   {
+    "caminho": "Geopolítica > O Brasil político: nação e território > Soberania e defesa da Amazônia",
+    "pai": "Geopolítica > O Brasil político: nação e território",
+    "nivel": "subassunto",
+    "nome": "Soberania e defesa da Amazônia",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
     "caminho": "Geopolítica > Organização do Estado Brasileiro",
     "pai": "Geopolítica",
     "nivel": "assunto",
@@ -1348,6 +1725,19 @@
     "texto_do_edital": "2 Organização do Estado Brasileiro.",
     "fora_do_edital": false,
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Geopolítica > Organização do Estado Brasileiro > Federação e autonomia dos entes federativos",
+    "pai": "Geopolítica > Organização do Estado Brasileiro",
+    "nivel": "subassunto",
+    "nome": "Federação e autonomia dos entes federativos",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
   },
@@ -1374,6 +1764,32 @@
     "texto_do_edital": "4 A estrutura urbana brasileira e as grandes metrópoles.",
     "fora_do_edital": false,
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Problemas urbanos e segregação socioespacial",
+    "pai": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles",
+    "nivel": "subassunto",
+    "nome": "Problemas urbanos e segregação socioespacial",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles > Mobilidade urbana",
+    "pai": "Geopolítica > A estrutura urbana brasileira e as grandes metrópoles",
+    "nivel": "subassunto",
+    "nome": "Mobilidade urbana",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
   },
@@ -1430,6 +1846,32 @@
     "referencia": null
   },
   {
+    "caminho": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Abertura econômica e privatizações",
+    "pai": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "nivel": "subassunto",
+    "nome": "Abertura econômica e privatizações",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia > Globalização: características e efeitos",
+    "pai": "Geopolítica > A integração do Brasil ao processo de internacionalização da economia",
+    "nivel": "subassunto",
+    "nome": "Globalização: características e efeitos",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
     "caminho": "Geopolítica > Geografia e gestão ambiental",
     "pai": "Geopolítica",
     "nivel": "assunto",
@@ -1439,6 +1881,19 @@
     "texto_do_edital": "9 Geografia e gestão ambiental.",
     "fora_do_edital": false,
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Geopolítica > Geografia e gestão ambiental > Matriz energética e fontes renováveis",
+    "pai": "Geopolítica > Geografia e gestão ambiental",
+    "nivel": "subassunto",
+    "nome": "Matriz energética e fontes renováveis",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
   },
@@ -1545,6 +2000,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Advérbios de dúvida",
+    "pai": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "nivel": "elemento",
+    "nome": "Advérbios de dúvida",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "texto CB1A6BBB, l. 24"
   },
   {
     "caminho": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos > Estilo direto x estilo indireto",
@@ -3367,6 +3835,19 @@
     "referencia": null
   },
   {
+    "caminho": "Direito Administrativo > Noções de organização administrativa > Administração direta e indireta > Decreto-Lei 200/1967, art. 4º",
+    "pai": "Direito Administrativo > Noções de organização administrativa > Administração direta e indireta",
+    "nivel": "elemento",
+    "nome": "Decreto-Lei 200/1967, art. 4º",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto-Lei 200/1967, art. 4º, II"
+  },
+  {
     "caminho": "Direito Administrativo > Noções de organização administrativa > Autarquias, fundações, empresas públicas e sociedades de economia mista",
     "pai": "Direito Administrativo > Noções de organização administrativa",
     "nivel": "subassunto",
@@ -3417,6 +3898,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direito Administrativo > Ato administrativo > Conceito, requisitos, atributos, classificação e espécies > Lei 9.784/1999, art. 50",
+    "pai": "Direito Administrativo > Ato administrativo > Conceito, requisitos, atributos, classificação e espécies",
+    "nivel": "elemento",
+    "nome": "Lei 9.784/1999, art. 50",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 9.784/1999, art. 50, IV"
   },
   {
     "caminho": "Direito Administrativo > Ato administrativo > Extinção do ato administrativo",
@@ -3549,6 +4043,58 @@
     "referencia": "Lei 8.112/1990, art. 87"
   },
   {
+    "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > CF, art. 40",
+    "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
+    "nivel": "elemento",
+    "nome": "CF, art. 40",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 40, § 1º, II"
+  },
+  {
+    "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > Lei 8.112/1990, art. 20",
+    "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
+    "nivel": "elemento",
+    "nome": "Lei 8.112/1990, art. 20",
+    "ordem": 8,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 8.112/1990, art. 20"
+  },
+  {
+    "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > Lei 8.112/1990, art. 35",
+    "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
+    "nivel": "elemento",
+    "nome": "Lei 8.112/1990, art. 35",
+    "ordem": 11,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 8.112/1990, art. 35, I"
+  },
+  {
+    "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > CF, art. 38",
+    "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
+    "nivel": "elemento",
+    "nome": "CF, art. 38",
+    "ordem": 12,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 38, I"
+  },
+  {
     "caminho": "Direito Administrativo > Agentes públicos > Disposições doutrinárias",
     "pai": "Direito Administrativo > Agentes públicos",
     "nivel": "subassunto",
@@ -3679,6 +4225,19 @@
     "referencia": "Lei 14.133/2021, art. 74"
   },
   {
+    "caminho": "Direito Administrativo > Licitação > Contratação direta: dispensa e inexigibilidade > Lei 14.133/2021, art. 72",
+    "pai": "Direito Administrativo > Licitação > Contratação direta: dispensa e inexigibilidade",
+    "nivel": "elemento",
+    "nome": "Lei 14.133/2021, art. 72",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 14.133/2021, art. 72"
+  },
+  {
     "caminho": "Direito Administrativo > Licitação > Contratação direta: dispensa e inexigibilidade > Lei 14.133/2021, art. 75",
     "pai": "Direito Administrativo > Licitação > Contratação direta: dispensa e inexigibilidade",
     "nivel": "elemento",
@@ -3742,6 +4301,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direito Administrativo > Licitação > Procedimento > Lei 14.133/2021, art. 25",
+    "pai": "Direito Administrativo > Licitação > Procedimento",
+    "nivel": "elemento",
+    "nome": "Lei 14.133/2021, art. 25",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 14.133/2021, art. 25, § 9º, II"
   },
   {
     "caminho": "Direito Administrativo > Controle da Administração Pública",
@@ -3924,6 +4496,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direito Administrativo > Regime jurídico-administrativo > Princípios expressos e implícitos da Administração Pública > CF, art. 37",
+    "pai": "Direito Administrativo > Regime jurídico-administrativo > Princípios expressos e implícitos da Administração Pública",
+    "nivel": "elemento",
+    "nome": "CF, art. 37",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 37, caput"
   },
   {
     "caminho": "Direito Constitucional",
@@ -4225,6 +4810,45 @@
     "referencia": "CF, art. 5º"
   },
   {
+    "caminho": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais > CF, art. 142",
+    "pai": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais",
+    "nivel": "elemento",
+    "nome": "CF, art. 142",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 142, § 2º"
+  },
+  {
+    "caminho": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais > CPP, art. 654",
+    "pai": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais",
+    "nivel": "elemento",
+    "nome": "CPP, art. 654",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 654, caput"
+  },
+  {
+    "caminho": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais > Súmula 693 do STF",
+    "pai": "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Remédios constitucionais",
+    "nivel": "elemento",
+    "nome": "Súmula 693 do STF",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "súmula",
+    "referencia": "STF, Súmula 693"
+  },
+  {
     "caminho": "Direito Constitucional > Poder Executivo",
     "pai": "Direito Constitucional",
     "nivel": "assunto",
@@ -4264,6 +4888,19 @@
     "referencia": null
   },
   {
+    "caminho": "Direito Constitucional > Poder Executivo > Chefia de Estado e chefia de governo > CF, art. 84",
+    "pai": "Direito Constitucional > Poder Executivo > Chefia de Estado e chefia de governo",
+    "nivel": "elemento",
+    "nome": "CF, art. 84",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 84, I e VII"
+  },
+  {
     "caminho": "Direito Constitucional > Poder Executivo > Atribuições e responsabilidades do presidente da República",
     "pai": "Direito Constitucional > Poder Executivo",
     "nivel": "subassunto",
@@ -4288,6 +4925,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CF, art. 84"
+  },
+  {
+    "caminho": "Direito Constitucional > Poder Executivo > Atribuições e responsabilidades do presidente da República > CF, art. 86",
+    "pai": "Direito Constitucional > Poder Executivo > Atribuições e responsabilidades do presidente da República",
+    "nivel": "elemento",
+    "nome": "CF, art. 86",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 86"
   },
   {
     "caminho": "Direito Constitucional > Poder Executivo > Da União: bens e competências (arts. 20 a 24 da CF)",
@@ -4732,6 +5382,19 @@
     "referencia": "CF, art. 62"
   },
   {
+    "caminho": "Direito Penal > Princípios básicos > Princípio da insignificância",
+    "pai": "Direito Penal > Princípios básicos",
+    "nivel": "subassunto",
+    "nome": "Princípio da insignificância",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
     "caminho": "Direito Penal > Aplicação da lei penal",
     "pai": "Direito Penal",
     "nivel": "assunto",
@@ -4795,6 +5458,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CP, art. 4º"
+  },
+  {
+    "caminho": "Direito Penal > Aplicação da lei penal > Lei penal no tempo > STF, Súmula 711",
+    "pai": "Direito Penal > Aplicação da lei penal > Lei penal no tempo",
+    "nivel": "elemento",
+    "nome": "STF, Súmula 711",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "súmula",
+    "referencia": "Súmula 711 do STF"
   },
   {
     "caminho": "Direito Penal > Aplicação da lei penal > Lei penal no espaço",
@@ -5122,6 +5798,19 @@
     "referencia": "CP, art. 25"
   },
   {
+    "caminho": "Direito Penal > Ilicitude > Causas de exclusão da ilicitude > CP, art. 24",
+    "pai": "Direito Penal > Ilicitude > Causas de exclusão da ilicitude",
+    "nivel": "elemento",
+    "nome": "CP, art. 24",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 24"
+  },
+  {
     "caminho": "Direito Penal > Ilicitude > Excesso punível",
     "pai": "Direito Penal > Ilicitude",
     "nivel": "subassunto",
@@ -5198,6 +5887,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CP, art. 27"
+  },
+  {
+    "caminho": "Direito Penal > Culpabilidade > Imputabilidade > CP, art. 28",
+    "pai": "Direito Penal > Culpabilidade > Imputabilidade",
+    "nivel": "elemento",
+    "nome": "CP, art. 28",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 28"
   },
   {
     "caminho": "Direito Penal > Culpabilidade > Erro de proibição",
@@ -5564,6 +6266,19 @@
     "referencia": "CP, art. 307"
   },
   {
+    "caminho": "Direito Penal > Crimes > Crimes contra a fé pública > CP, art. 299",
+    "pai": "Direito Penal > Crimes > Crimes contra a fé pública",
+    "nivel": "elemento",
+    "nome": "CP, art. 299",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 299"
+  },
+  {
     "caminho": "Direito Penal > Crimes > Crimes contra a Administração Pública",
     "pai": "Direito Penal > Crimes",
     "nivel": "subassunto",
@@ -5694,6 +6409,19 @@
     "referencia": "CP, art. 319"
   },
   {
+    "caminho": "Direito Penal > Crimes > Crimes contra a Administração Pública > CP, art. 352",
+    "pai": "Direito Penal > Crimes > Crimes contra a Administração Pública",
+    "nivel": "elemento",
+    "nome": "CP, art. 352",
+    "ordem": 10,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 352"
+  },
+  {
     "caminho": "Direito Penal > Crimes > Crimes contra a Administração Pública > CP, art. 312",
     "pai": "Direito Penal > Crimes > Crimes contra a Administração Pública",
     "nivel": "elemento",
@@ -5705,6 +6433,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CP, art. 312"
+  },
+  {
+    "caminho": "Direito Penal > Crimes > Crimes contra a Administração Pública > CP, art. 329",
+    "pai": "Direito Penal > Crimes > Crimes contra a Administração Pública",
+    "nivel": "elemento",
+    "nome": "CP, art. 329",
+    "ordem": 11,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 329"
   },
   {
     "caminho": "Direito Processual Penal",
@@ -5759,6 +6500,19 @@
     "referencia": null
   },
   {
+    "caminho": "Direito Processual Penal > Ação penal > Características > CPP, art. 42",
+    "pai": "Direito Processual Penal > Ação penal > Características",
+    "nivel": "elemento",
+    "nome": "CPP, art. 42",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 42"
+  },
+  {
     "caminho": "Direito Processual Penal > Ação penal > Espécies",
     "pai": "Direito Processual Penal > Ação penal",
     "nivel": "subassunto",
@@ -5796,6 +6550,45 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CF, art. 129"
+  },
+  {
+    "caminho": "Direito Processual Penal > Ação penal > Espécies > CPP, art. 29",
+    "pai": "Direito Processual Penal > Ação penal > Espécies",
+    "nivel": "elemento",
+    "nome": "CPP, art. 29",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 29"
+  },
+  {
+    "caminho": "Direito Processual Penal > Ação penal > Espécies > CPP, art. 38",
+    "pai": "Direito Processual Penal > Ação penal > Espécies",
+    "nivel": "elemento",
+    "nome": "CPP, art. 38",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "prazo",
+    "referencia": "CPP, art. 38; CP, art. 103"
+  },
+  {
+    "caminho": "Direito Processual Penal > Ação penal > Espécies > CPP, art. 25",
+    "pai": "Direito Processual Penal > Ação penal > Espécies",
+    "nivel": "elemento",
+    "nome": "CPP, art. 25",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 25"
   },
   {
     "caminho": "Direito Processual Penal > Ação penal > Condições",
@@ -5887,6 +6680,58 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Preservação de local de crime > CPP, art. 158-A",
+    "pai": "Direito Processual Penal > Prova > Preservação de local de crime",
+    "nivel": "elemento",
+    "nome": "CPP, art. 158-A",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 158-A, § 1º"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Preservação de local de crime > CPP, art. 158-B",
+    "pai": "Direito Processual Penal > Prova > Preservação de local de crime",
+    "nivel": "elemento",
+    "nome": "CPP, art. 158-B",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 158-B"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Preservação de local de crime > CPP, art. 158-F",
+    "pai": "Direito Processual Penal > Prova > Preservação de local de crime",
+    "nivel": "elemento",
+    "nome": "CPP, art. 158-F",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 158-F"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Preservação de local de crime > CPP, art. 158-C",
+    "pai": "Direito Processual Penal > Prova > Preservação de local de crime",
+    "nivel": "elemento",
+    "nome": "CPP, art. 158-C",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 158-C, caput"
   },
   {
     "caminho": "Direito Processual Penal > Prova > Requisitos e ônus da prova",
@@ -6019,6 +6864,58 @@
     "referencia": "CPP, art. 239"
   },
   {
+    "caminho": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios > CPP, art. 201",
+    "pai": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios",
+    "nivel": "elemento",
+    "nome": "CPP, art. 201",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 201"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios > CPP, art. 171",
+    "pai": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios",
+    "nivel": "elemento",
+    "nome": "CPP, art. 171",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 171"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios > CPP, art. 172",
+    "pai": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios",
+    "nivel": "elemento",
+    "nome": "CPP, art. 172",
+    "ordem": 8,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 172, parágrafo único"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios > CPP, art. 175",
+    "pai": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios",
+    "nivel": "elemento",
+    "nome": "CPP, art. 175",
+    "ordem": 9,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 175"
+  },
+  {
     "caminho": "Direito Processual Penal > Prova > Busca e apreensão: pessoal, domiciliar, requisitos, restrições, horários",
     "pai": "Direito Processual Penal > Prova",
     "nivel": "subassunto",
@@ -6149,6 +7046,19 @@
     "referencia": "CPP, art. 312"
   },
   {
+    "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > CPP, art. 295",
+    "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
+    "nivel": "elemento",
+    "nome": "CPP, art. 295",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 295, § 4º"
+  },
+  {
     "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > CPP, art. 313",
     "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
     "nivel": "elemento",
@@ -6160,6 +7070,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CPP, art. 313"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > CPP, art. 311",
+    "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
+    "nivel": "elemento",
+    "nome": "CPP, art. 311",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 311"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > CPP, art. 283",
+    "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
+    "nivel": "elemento",
+    "nome": "CPP, art. 283",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 283"
   },
   {
     "caminho": "Direito Processual Penal > Prisão > Prisão em flagrante",
@@ -6238,6 +7174,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CPP, art. 305"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prisão > Prisão em flagrante > CPP, art. 310",
+    "pai": "Direito Processual Penal > Prisão > Prisão em flagrante",
+    "nivel": "elemento",
+    "nome": "CPP, art. 310",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 310"
   },
   {
     "caminho": "Direito Processual Penal > Prisão > Prisão em flagrante > CPP, art. 322",
@@ -6799,6 +7748,32 @@
     "referencia": null
   },
   {
+    "caminho": "Legislação Especial > Lei nº 12.850/2013 e suas alterações > Infiltração de agentes",
+    "pai": "Legislação Especial > Lei nº 12.850/2013 e suas alterações",
+    "nivel": "subassunto",
+    "nome": "Infiltração de agentes",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Legislação Especial > Lei nº 12.850/2013 e suas alterações > Infiltração de agentes > Lei 12.850/2013, art. 10-B",
+    "pai": "Legislação Especial > Lei nº 12.850/2013 e suas alterações > Infiltração de agentes",
+    "nivel": "elemento",
+    "nome": "Lei 12.850/2013, art. 10-B",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 12.850/2013, art. 10-B, parágrafo único"
+  },
+  {
     "caminho": "Legislação Especial > Lei nº 13.675/2018",
     "pai": "Legislação Especial",
     "nivel": "assunto",
@@ -6810,6 +7785,32 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Legislação Especial > Lei nº 13.675/2018 > Integrantes do Susp",
+    "pai": "Legislação Especial > Lei nº 13.675/2018",
+    "nivel": "subassunto",
+    "nome": "Integrantes do Susp",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Legislação Especial > Lei nº 13.675/2018 > Integrantes do Susp > Lei 13.675/2018, art. 9º",
+    "pai": "Legislação Especial > Lei nº 13.675/2018 > Integrantes do Susp",
+    "nivel": "elemento",
+    "nome": "Lei 13.675/2018, art. 9º",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 13.675/2018, art. 9º, § 2º"
   },
   {
     "caminho": "Legislação Especial > Lei nº 13.869/2019",
@@ -7020,6 +8021,19 @@
     "referencia": "CF, art. 4º"
   },
   {
+    "caminho": "Direitos Humanos > Direitos humanos na Constituição Federal > Princípios fundamentais > CF, art. 3º",
+    "pai": "Direitos Humanos > Direitos humanos na Constituição Federal > Princípios fundamentais",
+    "nivel": "elemento",
+    "nome": "CF, art. 3º",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CF, art. 3º, I, II e IV"
+  },
+  {
     "caminho": "Direitos Humanos > Direitos humanos na Constituição Federal > Gerações dos direitos fundamentais",
     "pai": "Direitos Humanos > Direitos humanos na Constituição Federal",
     "nivel": "subassunto",
@@ -7070,6 +8084,201 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Liberdade de pensamento e de expressão",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Liberdade de pensamento e de expressão",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Liberdade de pensamento e de expressão > CADH, art. 13",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Liberdade de pensamento e de expressão",
+    "nivel": "elemento",
+    "nome": "CADH, art. 13",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 13, 5"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Suspensão de garantias",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Suspensão de garantias",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Suspensão de garantias > CADH, art. 27",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Suspensão de garantias",
+    "nivel": "elemento",
+    "nome": "CADH, art. 27",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 27, 1"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Direito à liberdade pessoal",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Direito à liberdade pessoal",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Direito à liberdade pessoal > CADH, art. 7",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Direito à liberdade pessoal",
+    "nivel": "elemento",
+    "nome": "CADH, art. 7",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 7, 7"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Comissão Interamericana de Direitos Humanos",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos > CADH, art. 44",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos",
+    "nivel": "elemento",
+    "nome": "CADH, art. 44",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), arts. 44 e 61, 1"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos > CADH, art. 47",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos",
+    "nivel": "elemento",
+    "nome": "CADH, art. 47",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 47, d"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos > CADH, art. 48",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos",
+    "nivel": "elemento",
+    "nome": "CADH, art. 48",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 48, 1"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos > CADH, art. 37",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Comissão Interamericana de Direitos Humanos",
+    "nivel": "elemento",
+    "nome": "CADH, art. 37",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), arts. 35, 37, 2, e 41"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Proteção da honra e da dignidade",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Proteção da honra e da dignidade",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Proteção da honra e da dignidade > CADH, art. 11",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Proteção da honra e da dignidade",
+    "nivel": "elemento",
+    "nome": "CADH, art. 11",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 11, 2 e 3"
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Obrigação de respeitar os direitos",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)",
+    "nivel": "subassunto",
+    "nome": "Obrigação de respeitar os direitos",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": null,
+    "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Obrigação de respeitar os direitos > CADH, art. 1",
+    "pai": "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992) > Obrigação de respeitar os direitos",
+    "nivel": "elemento",
+    "nome": "CADH, art. 1",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Decreto 678/1992 (CADH), art. 1, 1"
   },
   {
     "caminho": "História da PRF",

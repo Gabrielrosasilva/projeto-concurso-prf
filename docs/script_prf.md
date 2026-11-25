@@ -61,7 +61,7 @@ Ficaram de fora:
   formato que o radar ainda não lê - múltipla escolha antiga, ou caderno que
   mistura os dois formatos (CESPE 2017–2023: juiz, promotor, defensor,
   delegado e prefeituras); DEPEN 2020 (três gabaritos para um
-  caderno); PCDF 2020 básicos, sem o gabarito dele; PF 2025 blocos I e II e
+  caderno: entrou na PRF-32, com `outros_gabaritos`); PCDF 2020 básicos, sem o gabarito dele; PF 2025 blocos I e II e
   DETRAN-AL 2026 básicos (várias grades num PDF só); PC-PB 2021 agente e
   Polícia Penal PE 2021 (o gabarito não casou com 100 questões).
 

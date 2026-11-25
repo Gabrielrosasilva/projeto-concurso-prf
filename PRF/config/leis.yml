@@ -1612,6 +1612,49 @@ mudancas:
     procedencia: Claude Code (claude-opus-5-5), 24/10/2026, pelo portal do STF
     conferida: false
 
+  # Levantamento 2 do Cebraspe (PRF-32). Polícia Científica/AL 2022, papiloscopista
+  # q74 e perito criminal (básicos) q59: o mesmo item. Sai do treino (o feminicídio
+  # não é mais qualificadora do homicídio).
+  - tema: "Feminicídio: de qualificadora a crime autônomo (CP, art. 121-A)"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "o inciso VI do § 2º do art. 121 do CP (feminicídio) foi revogado, e o feminicídio virou crime autônomo, o art. 121-A, com pena de reclusão de 20 a 40 anos"
+    anos: [2023]
+    marcas: ["qualificadoras de motivo torpe e de feminicídio"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_001_01.PDF
+      - https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB1_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+  # Levantamento 2 do Cebraspe (PRF-32). PM/AL 2017 específicos q94 e q96, DEPEN 2020
+  # q38 e CBM/AL 2021 aspirante q108: o gabarito continua valendo pela Lei 14.133. O
+  # DEPEN q44 (dispensa para reforma de estabelecimento penal) sai do treino: a
+  # hipótese não está na Lei 14.133.
+  - tema: "Licitações e contratos: da Lei 8.666 para a Lei 14.133"
+    lei: "Lei 14.133/2021 (a Lei 8.666/1993 deixou de valer em 30/12/2023)"
+    o_que_mudou: "a Lei 8.666/1993 foi revogada; as modalidades estão hoje no art. 28 da Lei 14.133/2021 (pregão, concorrência, concurso, leilão e diálogo competitivo: a tomada de preços e o convite acabaram), a contratação direta nos arts. 72 a 75 e a reserva de mão de obra de egressos do sistema prisional no art. 25, § 9º; a dispensa para obra em estabelecimento penal não está na lei nova"
+    anos: [2017, 2021]
+    marcas: ["músico consagrado", "Concorrência é a modalidade de licitação entre interessados devidamente cadastrados", "mão de obra seja proveniente do sistema prisional", "reforma de estabelecimentos penais", "procedimento interno de justificação"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/343_PMAL_001_01.pdf
+      - https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/MATRIZ_541_DEPEN_008_00.PDF
+      - https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_001_MATRIZ.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2021/lei-14133-1-abril-2021-791222-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+  # Levantamento 2 do Cebraspe (PRF-32). CBM/AL 2021 aspirante q112: o gabarito
+  # (Errado) continua valendo; o texto do art. 12, § 4º, e que mudou.
+  - tema: "Perda da nacionalidade brasileira (CF, art. 12, § 4º)"
+    lei: "Emenda Constitucional 131/2023"
+    o_que_mudou: "a EC 131/2023 reescreveu o art. 12, § 4º: o cancelamento da naturalização continua exigindo sentença judicial, agora por fraude no processo de naturalização ou por atentado contra a ordem constitucional e o Estado Democrático"
+    anos: [2021]
+    marcas: ["cancelamento da naturalização por meio de ato administrativo"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_001_MATRIZ.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+
 # --- O que mudou num ponto que nenhuma questao cobra ---------------------------
 #
 # Os "casos de fronteira" do docs/leis_alteradas.md: o artigo mudou depois da

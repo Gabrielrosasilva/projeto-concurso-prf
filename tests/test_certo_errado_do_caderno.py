@@ -73,6 +73,60 @@ def test_gabarito_pela_metade_nao_entra(texto, motivo):
         ce.ler_gabarito_do_cebraspe(texto)
 
 
+def test_a_letra_com_asterisco_e_a_do_gabarito_alterado():
+    """"*C" e o item cujo preliminar foi alterado: a letra vale (PRF-32). Sem
+    isso o item sumia - o 120 da PM/AL 2017 - ou faltava no meio."""
+    assert ce.ler_gabarito_do_cebraspe("1 *E 2 C 3 *X 4 E") == {1: "E", 2: "C", 3: "X", 4: "E"}
+
+
+# O gabarito do caderno com espanhol e ingles: uma grade por lingua, e os
+# itens de lingua (aqui o 1 e o 2) nas duas, as vezes com letras diferentes.
+DUAS_GRADES = GABARITO + "Língua Inglesa\n1\nC\n2\nC\n"
+
+
+def test_os_itens_das_duas_grades_sao_os_de_lingua():
+    assert ce.itens_em_duas_grades(DUAS_GRADES) == {1, 2}
+    assert ce.itens_em_duas_grades(GABARITO) == set()
+
+
+def test_com_duas_linguas_os_itens_de_lingua_ficam_de_fora():
+    questoes = _questoes_de(texto_do_gabarito=DUAS_GRADES, duas_linguas=True)
+    assert sorted(questoes) == [3, 4, 5, 7, 8]
+    assert questoes[4].resposta == "e"
+
+
+def test_duas_linguas_sem_as_duas_grades_e_recusado():
+    with pytest.raises(ValueError, match="duas grades"):
+        _questoes_de(texto_do_gabarito=GABARITO, duas_linguas=True)
+
+
+def test_o_texto_da_outra_lingua_sai_do_comeco_do_texto_base():
+    """No CBM/AL 2017 o texto em ingles grudava no texto-base do primeiro grupo
+    em portugues (PRF-32): sai o que vem antes da primeira frase em portugues."""
+    texto = ("Learning a second language is difficult. The findings provide more evidence. "
+             "Internet: <www.exemplo.com> (with adaptations). "
+             "O açúcar arrasou o Nordeste. A faixa úmida do litoral tinha um solo fértil.")
+    assert ce.sem_a_outra_lingua(texto) == ("O açúcar arrasou o Nordeste. A faixa úmida do "
+                                            "litoral tinha um solo fértil.")
+    so_portugues = "O farol acende quando a tarde cai. Os barcos voltam."
+    assert ce.sem_a_outra_lingua(so_portugues) == so_portugues
+    assert ce.sem_a_outra_lingua("The end of the text.") == "The end of the text."
+
+
+def test_os_gabaritos_por_parte_se_juntam(monkeypatch, tmp_path):
+    """O DEPEN 2020: um caderno, um gabarito para cada parte."""
+    partes = {"basicos.pdf": "1 E 2 C 3 X 4 E", "especificos.pdf": "5 C 6 C 7 E 8 C"}
+    monkeypatch.setattr(ce, "_texto_do_pdfminer", lambda caminho: partes[caminho.name])
+    questoes = ce.ler_caderno(None, [tmp_path / "basicos.pdf", tmp_path / "especificos.pdf"],
+                              texto=CADERNO, palavras=PALAVRAS)
+    assert [q.numero for q in questoes] == [1, 2, 3, 4, 5, 7, 8]
+
+
+def _questoes_de(**opcoes):
+    return {q.numero: q for q in ce.ler_caderno(None, None, texto=CADERNO,
+                                                 palavras=PALAVRAS, **opcoes)}
+
+
 # --- a palavra partida ------------------------------------------------------------
 
 def test_a_palavra_partida_volta_inteira_so_quando_existe():
@@ -280,6 +334,34 @@ def test_o_cabecalho_com_o_codigo_de_barras_nao_gruda_no_item():
     assert ce.MOBILIA_DO_CADERNO.match("714005_01N167818 CEBRASPE – SEE/PE – Edital: 2022")
 
 
+# O caderno de 2022 (Policia Cientifica de AL): o codigo de 14 caracteres antes
+# do CEBRASPE, e o comando do grupo seguinte logo depois do cabecalho.
+CADERNO_DE_2022 = """Julgue os itens que se seguem com base em aspectos linguísticos do texto.
+9 A vírgula poderia ser retirada.
+10 Haveria prejuízo da correção gramatical do texto.
+
+ 701CB201597439 CEBRASPE – POLC/AL – Edital: 2022
+
+
+NOÇÕES DE INFORMÁTICA
+No que se refere a sistemas operacionais, julgue os itens que se
+seguem.
+11 O Linux tem o diretório /etc.
+"""
+
+
+def test_o_codigo_de_14_caracteres_nao_leva_o_comando_novo_para_o_item_de_antes():
+    """Sem reconhecer o "701CB201597439", o comando de Informatica grudava no
+    item 10, e o 11 ficava com o comando de Portugues (PRF-32)."""
+    itens = {i.numero: i for i in ce.itens_do_caderno(CADERNO_DE_2022, set(), primeiro=9)}
+    assert itens[10].afirmacao == "Haveria prejuízo da correção gramatical do texto."
+    assert itens[11].comando.startswith("No que se refere a sistemas operacionais")
+    for cabecalho in ("701CB201597439 CEBRASPE – POLC/AL – Edital: 2022",
+                      "705CG101604107 CEBRASPE – PC/AL – Edital: 2022",
+                      "70100101732652 CEBRASPE – POLC/AL – Edital: 2022"):
+        assert ce.MOBILIA_DO_CADERNO.match(cabecalho)
+
+
 def test_inicios_de_paragrafo_pula_a_continuacao_do_item_e_o_numero_da_margem():
     inicios = ce.inicios_de_paragrafo(PDFMINER_SEM_RECUO)
     # A continuacao do item 52 comeca com minuscula; a do 51 vem logo depois
@@ -331,7 +413,25 @@ def test_a_lista_de_outras_bancas_manda_o_certo_errado_para_este_leitor(monkeypa
                         lambda caminho, gabarito, **opcoes: chamadas.append(opcoes) or ["ok"])
     prova = {"formato": "certo_errado", "materias": {"1-3": "Língua Portuguesa"}}
     assert provas._ler_cebraspe(tmp_path / "c.pdf", prova, tmp_path / "g.pdf") == ["ok"]
-    assert chamadas == [{"ler": None, "materias": [(1, 3, "Língua Portuguesa")]}]
+    assert chamadas == [{"ler": None, "materias": [(1, 3, "Língua Portuguesa")],
+                         "duas_linguas": False}]
+
+
+def test_a_lista_manda_os_gabaritos_por_parte_e_as_duas_linguas(monkeypatch, tmp_path):
+    """O DEPEN 2020 (um gabarito por parte) e o CBM/AL 2017 (espanhol e
+    ingles na mesma grade) pela lista (PRF-32)."""
+    from radar.servico import provas
+
+    chamadas = []
+    monkeypatch.setattr(ce, "ler_caderno",
+                        lambda caminho, gabarito, **opcoes: chamadas.append((gabarito, opcoes)) or [])
+    monkeypatch.setattr(provas, "_outros_gabaritos", lambda prova: [tmp_path / "g2.pdf"])
+    prova = {"formato": "certo_errado", "duas_linguas": True,
+             "outros_gabaritos": [{"gabarito": "https://exemplo/g2.pdf"}]}
+    provas._ler_cebraspe(tmp_path / "c.pdf", prova, tmp_path / "g.pdf")
+    gabarito, opcoes = chamadas[0]
+    assert gabarito == [tmp_path / "g.pdf", tmp_path / "g2.pdf"]
+    assert opcoes["duas_linguas"] is True
 
 
 def _multipla_escolha_lida(monkeypatch):

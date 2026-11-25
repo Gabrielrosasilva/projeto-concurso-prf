@@ -2566,3 +2566,762 @@ provas:
     74-83: Língua Estrangeira (Inglês ou Espanhol)
     85-87: Língua Estrangeira (Inglês ou Espanhol)
     89-91: Língua Estrangeira (Inglês ou Espanhol)
+
+# --- Levantamento 2 do Cebraspe: provas de policia (PRF-32) -------------------
+# docs/levantamento_cebraspe.md. As faixas sao de agentes do Claude Code
+# (claude-opus-5-5, 25/11/2026), item a item contra o programa da PRF.
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Oficial Combatente - Conhecimentos Específicos
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_001_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_001_01.PDF
+  arquivo: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_especificos_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_especificos_gabarito_definitivo.pdf
+  # fora: 51-60 Estatuto, Regulamento Disciplinar e promocoes da PM/AL (lei
+  # estadual); 62 forca no sistema de roldanas depende da figura; 63
+  # hidrostatica (empuxo, fora do programa de Fisica); 64-65 circuito eletrico
+  # (eletricidade fora do programa, e depende da figura); 66 calorimetria com
+  # grafico que nao veio; 67-72 quimica; 73-75 biologia celular; 76-78 fauna e
+  # flora de Alagoas (estadual); 79-88 historia do Brasil; 89-92 nova ordem
+  # mundial, globalizacao, migracoes internacionais e xenofobia (fora dos
+  # topicos do Brasil); 93 depende do mapa de Tordesilhas, que nao veio; 97-98
+  # geografia de Alagoas (estadual); 99-100 regime constitucional dos
+  # militares (acumulacao de proventos de militar inativo, e o art. 42 com
+  # hierarquia e disciplina da PM e do CBM); 112-114 militares dos estados
+  # (art. 42: patente, posse em cargo civil, greve e sindicalizacao)
+  materias:
+    61: Física
+    94-96: Geopolítica
+    101-109: Direito Administrativo
+    110-111: Direito Constitucional
+    115-120: Direito Constitucional
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Soldado Combatente - Conhecimentos Específicos
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_002_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_002_01.PDF
+  arquivo: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_especificos_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_especificos_gabarito_definitivo.pdf
+  # fora: 51-54 e 64-66 Estatuto dos Policiais Militares de AL e leis
+  # estaduais de acesso na hierarquia (lei estadual); 55-58 Regulamento
+  # Disciplinar da PM/AL (lei estadual); 59-63 promoção na hierarquia militar
+  # (lei estadual); 68 depende da figura do sistema de roldanas; 69-71
+  # circuito elétrico (eletricidade, fora do programa; com figura); 72-73
+  # hidrostática (fora do programa; com figura); 74-76 calorimetria (fora do
+  # programa; tabela); 77-78 dilatação térmica (fora do programa; com figura);
+  # 80-84 eletrostática, corrente elétrica, efeito Joule e campo magnético
+  # (fora do programa; 84 com figura); 85-102 química; 103-120 biologia
+  # (células, coração com figura, doenças tropicais, mandacaru, ciclos
+  # biogeoquímicos, ecologia)
+  materias:
+    67: Física
+    79: Física
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2021
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Aspirante-a-Oficial Bombeiro Militar
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_21
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_001_MATRIZ.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_595_CBMAL_001_PAG_8.PDF
+  arquivo: cebraspe_cbm_al_2021_aspirante_a_oficial_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2021_aspirante_a_oficial_gabarito_definitivo.pdf
+  # fora: 21 Linux (fora do programa); 22-23 Office (Word e Excel; o 23
+  # depende ainda de figura que não veio); 31-36 dependem do gráfico
+  # cartesiano do trajeto, que não veio (e cobram geometria analítica: elipse,
+  # circunferência, reta); 41-45 lógica proposicional (fora do programa);
+  # 46-50 atualidades internacionais (Israel x Hamas), fora da Geopolítica do
+  # Brasil; 52 saúde/SUS na covid (fora); 53 violência e segurança como
+  # atualidade social (fora dos tópicos de Geopolítica); 54 analfabetismo
+  # funcional e mercado de trabalho (educação, fora dos tópicos); 55 dúvida,
+  # ver duvidas; 56 teoria moralista da fundamentação dos direitos humanos
+  # (fora dos subassuntos de Direitos Humanos); 59 dúvida, ver duvidas; 61-65
+  # legislação do CBMAL (estadual); 66-68 cinemática e energia, mas dependem
+  # da figura e do gráfico de S1(t)/S2(t), que não vieram; 69-75 física fora
+  # do programa (hidrostática, condução de calor, efeito fotoelétrico,
+  # decaimento radioativo) e com figura/gráfico que não veio; 76-85 química;
+  # 86-90 biologia; 91-95 história do Brasil; 96-100 geografia
+  # geral/geopolítica mundial (globalização e divisão internacional do
+  # trabalho sem o Brasil); 118 dúvida, ver duvidas
+  materias:
+    1-15: Língua Portuguesa
+    16-20: Língua Estrangeira (Inglês ou Espanhol)
+    24-25: Informática
+    26-30: Raciocínio Lógico-Matemático
+    37-40: Raciocínio Lógico-Matemático
+    51: Geopolítica
+    57-58: Direitos Humanos
+    60: Ética e Cidadania
+    101-110: Direito Administrativo
+    111-117: Direito Constitucional
+    119-120: Direito Constitucional
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2021
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Soldado Bombeiro Militar
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_21
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_002_MATRIZ.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_595_CBMAL_002_PAG_7.PDF
+  arquivo: cebraspe_cbm_al_2021_soldado_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2021_soldado_gabarito_definitivo.pdf
+  # fora: 43 Linux (fora do programa); 47-48 Office (Word e Excel; o 48 tambem
+  # depende de tabela que nao veio); 51-53 e 57 geometria analitica (retas,
+  # circunferencia e parabola no plano cartesiano), fora do programa, e o
+  # grafico da trajetoria nao veio; 56 depende do grafico da trajetoria
+  # (quando o barco passa por (1,1)); 59 deducao de associacao, nao e contagem
+  # nem probabilidade (ver duvidas); 62-63 os dados da situacao (caminhao,
+  # bomba, aviao) nao vieram no texto; 66 e 68-71 geometria plana (angulo
+  # interno, diagonais, triangulos: Pitagoras, altura, baricentro), fora do
+  # programa; 73 depende de figura (corda no cilindro); 75-77 geometria plana
+  # (retas, segmentos, angulos), fora do programa; 81 depende de figura
+  # (tabuleiro); 82-83 problema de jogo/raciocinio logico, fora dos
+  # subassuntos (ver duvidas); 84-88 logica proposicional e argumentacao;
+  # 89-90 logica proposicional (tabela-verdade) e a tabela nao veio; 91-95
+  # migracao internacional (atualidades): o programa so tem movimentos
+  # migratorios internos; 98 potencial hidreletrico e usinas na Amazonia
+  # (energia nao esta nos subassuntos de Geopolitica; ver duvidas); 104
+  # responsabilidade internacional do Estado por violacao de direitos humanos,
+  # fora dos subassuntos de Direitos Humanos (ver duvidas); 111-120 legislacao
+  # do CBMAL (circulos hierarquicos, precedencia, licencas, demissao,
+  # disciplina, promocoes).
+  materias:
+    1-30: Língua Portuguesa
+    31-40: Língua Estrangeira (Inglês ou Espanhol)
+    41-42: Informática
+    44-46: Informática
+    49-50: Informática
+    54-55: Raciocínio Lógico-Matemático
+    58: Raciocínio Lógico-Matemático
+    60-61: Raciocínio Lógico-Matemático
+    64-65: Raciocínio Lógico-Matemático
+    67: Raciocínio Lógico-Matemático
+    72: Raciocínio Lógico-Matemático
+    74: Raciocínio Lógico-Matemático
+    78-80: Raciocínio Lógico-Matemático
+    96-97: Geopolítica
+    99-100: Geopolítica
+    101-103: Direitos Humanos
+    105: Direitos Humanos
+    106-108: Ética e Cidadania
+    109: Direitos Humanos
+    110: Ética e Cidadania
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2023
+  orgao: Polícia Científica de Alagoas
+  uf: AL
+  cargo: Papiloscopista
+  pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
+  caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_001_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_001_01_(CARGO_1).PDF
+  arquivo: cebraspe_polc_al_2022_papiloscopista_prova.pdf
+  arquivo_do_gabarito: cebraspe_polc_al_2022_papiloscopista_gabarito_definitivo.pdf
+  # fora: 12 Linux (o programa só tem Windows); 13 Word/Office; 16-18 lógica
+  # de associação (fora do programa de Raciocínio Lógico) e situação-problema
+  # truncada no texto; 19-20 lógica proposicional (20 também depende da
+  # tabela-verdade, que não veio); 21-22 saneamento básico (saúde pública e
+  # marco legal do saneamento, fora do programa); 24 duração dos mandatos
+  # eletivos (dúvida); 25 depende do gráfico da matriz elétrica; 46-54
+  # medicina legal (documentos médico-legais, identificação médico-legal); 55
+  # dever do perito de aceitar o encargo (dúvida); 58-65 medicina legal
+  # (traumatologia e tanatologia); 72 comunicabilidade das circunstâncias
+  # (concurso de pessoas, fora do programa); 77 arquivamento do inquérito
+  # policial (fora); 79 competência (fora); 80-81 sujeitos processuais
+  # (assistente do MP, suspeição do juiz); 86 processo administrativo da Lei
+  # 9.784/1999 (fora); 88 credenciamento na Lei 14.133 (dúvida); 92 eficácia
+  # das normas constitucionais (fora); 94 Ministério Público/CNMP (fora); 95
+  # processo legislativo (fora); 96 função com fórmula ilegível (glifos
+  # /gNNNN); 98 trigonometria (fora) e fórmula ilegível; 100 geometria
+  # analítica (fora) e fórmula ilegível; 101-110 biologia (110 também depende
+  # de figura); 111-120 química
+  materias:
+    1-10: Língua Portuguesa
+    11: Informática
+    14-15: Informática
+    23: Direito Constitucional
+    26-45: Direito Processual Penal
+    56-57: Direito Processual Penal
+    66-71: Direito Penal
+    73-74: Direito Penal
+    75: Direito Constitucional
+    76: Direito Processual Penal
+    78: Direito Processual Penal
+    82-84: Direito Processual Penal
+    85: Direito Constitucional
+    87: Direito Administrativo
+    89-90: Direito Administrativo
+    91: Direito Constitucional
+    93: Direito Constitucional
+    97: Raciocínio Lógico-Matemático
+    99: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2023
+  orgao: Polícia Científica de Alagoas
+  uf: AL
+  cargo: Perito Criminal (cargos 2 a 13) - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
+  caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB1_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB1_01_(CB1).PDF
+  arquivo: cebraspe_polc_al_2022_perito_criminal_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_polc_al_2022_perito_criminal_conhecimentos_basicos_gabarito_definitivo.pdf
+  # fora: 11-12 Linux e Word (Office e Linux fora do programa); 16-18 logica
+  # de associacao com a situacao cortada (premissas nao vieram) e fora do
+  # programa; 19-20 logica proposicional (o 19 depende tambem da tabela-
+  # verdade que nao veio); 21-22 saneamento basico (saude publica e lei do
+  # saneamento, fora dos topicos de Geopolitica); 24 periodicidade das
+  # eleicoes e duracao dos mandatos (organizacao dos Poderes, fora); 25
+  # depende do grafico da matriz eletrica, que nao veio; 41-42 medicina legal
+  # (identificacao); 43 dever do perito de aceitar o encargo (art. 277 do CPP,
+  # auxiliares da justica, fora de Prova); 45-50 medicina legal (lesoes e
+  # tanatologia); 57 comunicabilidade das circunstancias (concurso de pessoas,
+  # fora); 62 arquivamento do inquerito (inquerito fora, PRF-23); 64
+  # competencia; 65-66 sujeitos processuais (assistente, suspeicao); 71
+  # processo administrativo (Lei 9.784/1999, fora); 73 procedimentos
+  # auxiliares da Lei 14.133 (credenciamento x pre-qualificacao); 77 eficacia
+  # das normas constitucionais; 79 Ministerio Publico (CNMP); 80 processo
+  # legislativo (iniciativa)
+  materias:
+    1-10: Língua Portuguesa
+    13-15: Informática
+    23: Direito Constitucional
+    26-40: Direito Processual Penal
+    44: Direito Processual Penal
+    51-56: Direito Penal
+    58-59: Direito Penal
+    60: Direito Constitucional
+    61: Direito Processual Penal
+    63: Direito Processual Penal
+    67-69: Direito Processual Penal
+    70: Direito Constitucional
+    72: Direito Administrativo
+    74-75: Direito Administrativo
+    76: Direito Constitucional
+    78: Direito Constitucional
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2023
+  orgao: Polícia Científica de Alagoas
+  uf: AL
+  cargo: Perito Médico-Legista e Perito Odontolegista - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
+  caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB2_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB2_01_(CB2).PDF
+  arquivo: cebraspe_polc_al_2022_perito_legista_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_polc_al_2022_perito_legista_conhecimentos_basicos_gabarito_definitivo.pdf
+  # fora: 11 Linux; 12 Word 365 (Office); 16-18 associação lógica com
+  # enunciado truncado (as premissas não vieram) e fora do programa de
+  # Raciocínio Lógico-Matemático; 19-20 lógica proposicional (fora do
+  # programa; 19 depende da tabela-verdade que não veio); 21-22 atualidades
+  # (saneamento básico); 24 mandatos eletivos (o erro está no mandato de
+  # senador: Poder Legislativo, fora do programa); 25 depende do gráfico da
+  # matriz elétrica; 47 arquivamento de inquérito policial; 49 sujeitos
+  # processuais (corréu como assistente do MP); 51 processo administrativo
+  # (Lei 9.784/1999); 54
+  # credenciamento (procedimento auxiliar da Lei 14.133/2021); 57 eficácia das
+  # normas constitucionais; 59 Ministério Público (CNMP); 60 processo
+  # legislativo (iniciativa)
+  materias:
+    1-10: Língua Portuguesa
+    13-15: Informática
+    23: Direito Constitucional
+    26-40: Direito Processual Penal
+    41-44: Direito Penal
+    45: Direito Constitucional
+    46: Direito Processual Penal
+    48: Direito Processual Penal
+    50: Direito Processual Penal
+    # 53 (PAD) entra como nos outros dois cadernos (Lei 8.112, PRF-32)
+    52-53: Direito Administrativo
+    55: Direito Administrativo
+    56: Direito Constitucional
+    58: Direito Constitucional
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2023
+  orgao: Polícia Científica de Alagoas
+  uf: AL
+  cargo: Auxiliar de Perícia e Técnico Forense - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
+  caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB3_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB3_01_(CB3).PDF
+  arquivo: cebraspe_polc_al_2022_auxiliar_e_tecnico_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_polc_al_2022_auxiliar_e_tecnico_conhecimentos_basicos_gabarito_definitivo.pdf
+  # fora: 11 Linux (fora); 12 Excel/Office e depende da planilha, que não
+  # veio; 17 fórmula ilegível (glifos /gNNNN); 19-20 lógica proposicional (20
+  # também depende da tabela-verdade); 21-23 dependem da tabela do Censo
+  # Agropecuário, que não veio; 24 atualidade de 2022, guerra Rússia-Ucrânia
+  # (dúvida); 26-32 criminalística (princípios e classificação de vestígios,
+  # fora); 36-50 medicina legal (divisões, documentos médico-legais,
+  # antropologia forense, peritos e perícias médico-legais, traumatologia,
+  # tanatologia); 56 interpretação extensiva e analogia na lei processual
+  # penal (CPP art. 3º, fora); 57 discricionariedade do delegado nas
+  # diligências do inquérito (dúvida); 67 Poder Legislativo (legislatura); 68
+  # funções essenciais à justiça (AGU e MP); 69 Poder Judiciário (STF e CNJ)
+  materias:
+    1-10: Língua Portuguesa
+    13-15: Informática
+    16: Raciocínio Lógico-Matemático
+    18: Raciocínio Lógico-Matemático
+    25: Geopolítica
+    33-35: Direito Processual Penal
+    51-55: Direito Penal
+    58: Direito Constitucional
+    59-60: Direito Processual Penal
+    61-65: Direito Administrativo
+    66: Direitos Humanos
+    70: Direito Constitucional
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Polícia Militar de Alagoas (PM/AL)
+  uf: AL
+  cargo: Soldado Combatente - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/PM_AL_17_SOLDADO
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/343_PMAL_CB1_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/Gab_Definitivo_343_PMAL_CB1_01.PDF
+  arquivo: cebraspe_pm_al_2017_soldado_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_pm_al_2017_soldado_conhecimentos_basicos_gabarito_definitivo.pdf
+  # fora: 15-19 e 23-24 dependem da tirinha da Mafalda, que nao veio no texto
+  # (so a referencia); 32 seca, fome e miseria no semiarido x investimento no
+  # campo, sem encaixe claro nos subassuntos de Geopolitica (ver duvidas);
+  # 34-37 saude publica (dengue, obesidade, desnutricao, HIV), fora do
+  # programa; 38-39 conjuntura economica e politica externa de 2017 (demanda
+  # chinesa, saida do BRICS) (ver duvidas); 40-41 Excel 2013 (Office); 43-44
+  # Linux.
+  materias:
+    1-14: Língua Portuguesa
+    20-22: Língua Portuguesa
+    25-29: Língua Portuguesa
+    30-31: Geopolítica
+    33: Geopolítica
+    42: Informática
+    45-50: Informática
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2018
+  orgao: Polícia Militar de Alagoas (PM/AL)
+  uf: AL
+  cargo: Soldado Combatente
+  pagina: https://www.cebraspe.org.br/concursos/PM_AL_18_SOLDADO
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_18_SOLDADO/arquivos/MATRIZ_410_PMAL001__PAG_7.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_18_SOLDADO/arquivos/GAB_DEFINITIVO_410_PMAL001__PAG_7.PDF
+  arquivo: cebraspe_pm_al_2018_soldado_prova.pdf
+  arquivo_do_gabarito: cebraspe_pm_al_2018_soldado_gabarito_definitivo.pdf
+  # fora: 23-24 Linux; 25-26 PowerPoint (Office); 27 redes cliente/servidor
+  # (fora do programa de Informática); 30 tipo de licença de software
+  # (shareware), fora dos subassuntos; 33-41 história (descobrimentos,
+  # industrialização e política no Brasil); 43-45 demografia (natalidade,
+  # fecundidade, peso demográfico), fora do subassunto 'distribuição espacial
+  # da população e migrações internas'; 49-52 geografia regional de Alagoas
+  # (APA Costa dos Corais, com figura); 53-62 atualidades (violência,
+  # migrações internacionais, resgate na Tailândia, Copa); 64 serviços
+  # públicos e 69 bens públicos, fora do programa de Direito Administrativo;
+  # 78 partidos políticos (art. 17 da CF); 79 intervenção estadual nos
+  # municípios; 80 improbidade administrativa; 83-86 inquérito policial (do
+  # inquérito o programa só traz as diligências dos arts. 6º e 13 do CPP); 90
+  # arquivamento de inquérito policial; 93-94 teoria geral dos direitos
+  # humanos (finalidade e soberania); 103-110 Estatuto e Regulamento
+  # Disciplinar da PM/AL (lei estadual); 112 arrependimento posterior x eficaz
+  # (arts. 15 e 16 do CP); 114 depende da figura (caminhos na planta do
+  # condomínio); 117 números complexos; 118 depende do gráfico que não veio;
+  # 120 função trigonométrica (cos)
+  materias:
+    1-22: Língua Portuguesa
+    28-29: Informática
+    31-32: Informática
+    42: Geopolítica
+    46-48: Geopolítica
+    63: Direito Administrativo
+    65-68: Direito Administrativo
+    70-72: Direito Administrativo
+    73-77: Direito Constitucional
+    81-82: Direito Constitucional
+    87-89: Direito Processual Penal
+    91-92: Direito Processual Penal
+    95-102: Direitos Humanos
+    111: Direito Penal
+    113: Direito Penal
+    115-116: Raciocínio Lógico-Matemático
+    119: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Polícia Militar do Maranhão (PM/MA)
+  uf: MA
+  cargo: Soldado do Quadro de Praças - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/PM_MA_17
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/359_PMMA_CG2_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/Gab_Definitivo_359_PMMA_CG2_01.pdf
+  arquivo: cebraspe_pm_ma_2017_soldado_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_pm_ma_2017_soldado_conhecimentos_gerais_gabarito_definitivo.pdf
+  # fora: 5-8 o texto CG2A1BBB (o convite 'ENTRE NESTA LUTA!', provavelmente
+  # imagem) nao veio; 15-34 historia do Brasil republicano e do Maranhao
+  # colonial e regencial; 43 envelhecimento da populacao e previdencia
+  # (estrutura etaria, fora de 'distribuicao espacial da populacao'); 45-48
+  # relevo e geologia do Maranhao (geografia estadual); 50-54 Mata de Cocais e
+  # babacu, ALUMAR, dunas, Floresta dos Guaras e Lencois Maranhenses
+  # (geografia e economia do Maranhao); 59-60 dependem da figura que nao veio
+  # (trigonometria no 59, Pitagoras no 60)
+  materias:
+    1-4: Língua Portuguesa
+    9-14: Língua Portuguesa
+    35-42: Geopolítica
+    44: Geopolítica
+    49: Geopolítica
+    55-58: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Polícia Militar do Maranhão (PM/MA)
+  uf: MA
+  cargo: Soldado do Quadro de Praças - Conhecimentos Específicos
+  pagina: https://www.cebraspe.org.br/concursos/PM_MA_17
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/359_PMMA_005_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/Gab_Definitivo_359_PMMA_005_01.pdf
+  arquivo: cebraspe_pm_ma_2017_soldado_conhecimentos_especificos_prova.pdf
+  arquivo_do_gabarito: cebraspe_pm_ma_2017_soldado_conhecimentos_especificos_gabarito_definitivo.pdf
+  # fora: 61-85 Estatuto dos Policiais Militares da PM/MA (lei estadual);
+  # 89-97 Office (Word, Excel e PowerPoint 2007); 104-107 software livre e
+  # licenças GPL (fora dos subassuntos); 108-112 hardware (BIOS, processador,
+  # dual-channel) e dependem da figura, que não veio; 114-115 procedimentos
+  # gerais de becape (fora dos subassuntos)
+  materias:
+    86-88: Informática
+    98-103: Informática
+    113: Informática
+    116-120: Informática
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2018
+  orgao: Agência Brasileira de Inteligência (ABIN)
+  uf: DF
+  cargo: Oficial de Inteligência - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/ABIN_17
+  caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB1_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB1_01.PDF
+  arquivo: cebraspe_abin_2017_oficial_de_inteligencia_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_abin_2017_oficial_de_inteligencia_conhecimentos_gerais_gabarito_definitivo.pdf
+  # fora: 22-23 e 26 fontes do direito administrativo (fora do programa);
+  # 27-29 Lei 12.846/2013, acordo de leniência (fora); 33 teto de gastos da EC
+  # 95/2016 (fora); 38 policiamento naval (dúvida); 39 Poder Legislativo:
+  # parlamentar incorporado às Forças Armadas (fora); 41-43 ciência,
+  # tecnologia e inovação na CF (a ordem social do programa não inclui); 44-47
+  # Política e Estratégia Nacional de Inteligência; 48-50 SISBIN e estrutura
+  # regimental da ABIN; 51-52 carreira da ABIN; 55-56 sequência com fórmula
+  # corrompida ('!' no lugar de '−' e '$' no lugar de '≥'), ilegível; 59-60
+  # lógica proposicional (60 também com símbolo corrompido)
+  materias:
+    1-11: Língua Portuguesa
+    12-21: Língua Estrangeira (Inglês ou Espanhol)
+    24-25: Direito Administrativo
+    30-32: Direito Administrativo
+    34: Direito Administrativo
+    35: Direito Constitucional
+    36: Direito Administrativo
+    37: Direito Constitucional
+    40: Direito Constitucional
+    53-54: Ética e Cidadania
+    57-58: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2022
+  orgao: Ministério da Justiça e Segurança Pública (MJSP)
+  uf: DF
+  cargo: Processo Seletivo Simplificado - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/MJSP_21_PSS
+  caderno: https://cdn.cebraspe.org.br/concursos/MJSP_21_PSS/arquivos/642_MJSP_CG1_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/MJSP_21_PSS/arquivos/GAB_DEFINITIVO_642_MJSP_CG1_01.PDF
+  arquivo: cebraspe_mjsp_2021_pss_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_mjsp_2021_pss_conhecimentos_gerais_gabarito_definitivo.pdf
+  # fora: 26-31 ferramentas do Microsoft Office 365 (Office fica fora; ver
+  # duvidas); 32-35 MS Word; 47-50 logica proposicional (tabela-verdade,
+  # inferencia, equivalencia, negacao).
+  materias:
+    1-20: Língua Portuguesa
+    21-25: Informática
+    36-46: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2023
+  orgao: Polícia Civil de Alagoas (PC/AL)
+  uf: AL
+  cargo: Delegado de Polícia - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/PC_AL_22_DELEGADO
+  caderno: https://cdn.cebraspe.org.br/concursos/PC_AL_22_DELEGADO/arquivos/705_DELEGADO_PC_AL_CG1_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/PC_AL_22_DELEGADO/arquivos/GAB_DEFINITIVO_705_DELEGADO_PC_AL_CG1_01.PDF
+  arquivo: cebraspe_pc_al_2022_delegado_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_pc_al_2022_delegado_conhecimentos_gerais_gabarito_definitivo.pdf
+  # fora: 26 Word 365, referência cruzada (Office fora do programa); 28
+  # memória buffer/cache do processador (hardware, fora do programa); 30 Excel
+  # 365 e depende da planilha, que não veio (Office + tabela)
+  materias:
+    1-20: Língua Portuguesa
+    21-25: Informática
+    27: Informática
+    29: Informática
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Oficial Combatente - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_CB1_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_CB1_01.PDF
+  arquivo: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
+  # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
+  # lingua ficam fora (PRF-32)
+  duas_linguas: true
+  # fora: 22 ética do militar fora de serviço e na inatividade (ética militar
+  # do estatuto, dúvida); 28-31 atualidades internacionais de 2017 (Estado
+  # Islâmico, Rússia x EUA, refugiados na Europa, Trump e o Acordo de Paris),
+  # fora da Geopolítica do Brasil; 32-33 saúde pública (zika e microcefalia,
+  # vacinação), fora do programa; 35 parques eólicos em Alagoas (geografia
+  # estadual, e energia fora dos subassuntos); 39-40 editores de texto
+  # (BrOffice Writer, Word), Office fora; 41-44 dependem da figura do
+  # retângulo (o texto põe F 'sobre o lado BD', que pelas coordenadas do item
+  # 43 é diagonal) e 41, 43 e 44 são geometria plana/analítica, fora do
+  # programa; 46 depende do gráfico de barras, que não veio, e da tabela, que
+  # veio quebrada; 48-50 lógica proposicional (50 também com símbolos
+  # corrompidos 'Qw(Q6P)')
+  materias:
+    6-19: Língua Portuguesa
+    20-21: Ética e Cidadania
+    23-27: Direitos Humanos
+    34: Geopolítica
+    36-38: Informática
+    45: Raciocínio Lógico-Matemático
+    47: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Corpo de Bombeiros Militar de Alagoas (CBM/AL)
+  uf: AL
+  cargo: Soldado Combatente - Conhecimentos Básicos
+  pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
+  caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_CB2_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_CB2_01.PDF
+  arquivo: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_prova.pdf
+  arquivo_do_gabarito: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
+  # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
+  # lingua ficam fora (PRF-32)
+  duas_linguas: true
+  # fora: 20 historia dos direitos humanos (Hammurabi, Magna Carta, Declaracao
+  # Inglesa de 1689), fora dos subassuntos; 22 conceito e fundamentacao dos
+  # direitos humanos ('direito a ter direitos'), teoria geral fora dos
+  # subassuntos; 24 e 27 disciplina e decoro policial militar (Estatuto da
+  # PM/AL, lei estadual); 26 etica policial militar em situacao hipotetica
+  # (ver duvidas); 28-29 saude (teste rapido de HIV, redes sociais e
+  # ansiedade/depressao), atualidades fora do programa; 30 lampadas de LED e
+  # impacto ambiental (eficiencia energetica, ver duvidas); 31 estrutura da
+  # economia brasileira e ranking do PIB (conjuntura, ver duvidas); 32
+  # pioneirismo em biocombustiveis e carro flex (energia nao esta nos
+  # subassuntos de Geopolitica, ver duvidas); 33-35 a mulher na sociedade
+  # brasileira (artes, politica, Lei Maria da Penha), atualidades fora do
+  # programa; 40 BrOffice Impress (Office fora do programa); 43-45 dependem da
+  # figura do terreno, as coordenadas dos vertices vieram corrompidas (todas
+  # '(-10, -10)'), falta a constante aproximada por 4,44 e cobram geometria
+  # analitica (reta e circunferencia), fora do programa; 46-47 dependem do
+  # grafico de setores, que nao veio; 48-50 logica proposicional (condicional,
+  # valor-verdade e contrapositiva)
+  materias:
+    6-19: Língua Portuguesa
+    21: Direitos Humanos
+    23: Direitos Humanos
+    25: Ética e Cidadania
+    36-39: Informática
+    41-42: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2017
+  orgao: Polícia Militar de Alagoas (PM/AL)
+  uf: AL
+  cargo: Soldado Combatente - Conhecimentos Específicos
+  pagina: https://www.cebraspe.org.br/concursos/PM_AL_17_SOLDADO
+  caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/343_PMAL_001_01.pdf
+  gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/Gab_Definitivo_343_PMAL_001_01.PDF
+  arquivo: cebraspe_pm_al_2017_soldado_conhecimentos_especificos_prova.pdf
+  arquivo_do_gabarito: cebraspe_pm_al_2017_soldado_conhecimentos_especificos_gabarito_definitivo.pdf
+  # fora: 51-53 desercao e demissao no Estatuto da PM/AL (lei estadual); 54-55
+  # Regulamento Disciplinar da PM/AL (decreto estadual); 61 Codigo de
+  # Hammurabi (historia dos direitos humanos, fora dos subassuntos); 62
+  # historicidade dos direitos humanos (teoria geral, ver duvidas); 64
+  # participacao do Brasil em organismos internacionais no regime militar
+  # (historia); 68-69 sistema global de protecao (ONU) e eficacia do sistema
+  # interamericano: sistema internacional de protecao, fora dos subassuntos;
+  # 71 crime militar e policia judiciaria (ver duvidas); 72-73 e 75 inquerito
+  # policial (do inquerito o programa so traz as diligencias dos arts. 6o e 13
+  # do CPP); 84 PM e CBM organizadas com base na hierarquia e na disciplina
+  # (art. 42, militares dos estados, fora como no CBM_AL_17_001 item 100); 92
+  # servico publico (fora do programa); 95 contratos administrativos (fora do
+  # programa); 97 bens publicos (fora do programa); 107-109 historia do Brasil
+  # colonial; 110-113 historia do Brasil republicano; 114 globalizacao
+  # cultural em escala mundial (sem o Brasil); 117-118 demografia
+  # (mortalidade, expectativa de vida, transicao demografica), fora de
+  # 'distribuicao espacial da populacao e migracoes internas'; 119-120
+  # geografia de Alagoas (estadual); 100-105 leitura com defeito (Claude
+  # Code): o comando de matematica, sem 'julgue', grudou no fim do 100, o
+  # 101-103 ficaram com o comando de Direito Administrativo e o texto do 103 e
+  # dos tanques do 104-105 se perderam
+  materias:
+    56-60: Direito Penal
+    63: Direitos Humanos
+    65-67: Direitos Humanos
+    70: Direitos Humanos
+    74: Direito Processual Penal
+    76-80: Direito Processual Penal
+    81-83: Direito Constitucional
+    85: Geopolítica
+    86-90: Direito Constitucional
+    91: Direito Administrativo
+    93-94: Direito Administrativo
+    96: Direito Administrativo
+    98-99: Direito Administrativo
+    106: Raciocínio Lógico-Matemático
+    115-116: Geopolítica
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2018
+  orgao: Agência Brasileira de Inteligência (ABIN)
+  uf: DF
+  cargo: Oficial Técnico de Inteligência - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/ABIN_17
+  caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB2_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB2_01.PDF
+  arquivo: cebraspe_abin_2017_oficial_tecnico_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_abin_2017_oficial_tecnico_conhecimentos_gerais_gabarito_definitivo.pdf
+  # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
+  # lingua ficam fora (PRF-32)
+  duas_linguas: true
+  # fora: 22-23 e 26 fontes do direito administrativo (fora do programa);
+  # 27-29 Lei 12.846/2013, acordo de leniencia (fora); 36 teto de gastos da EC
+  # 95/2016 (fora, e o regime ainda foi trocado pela LC 200/2023); 37
+  # policiamento naval (ver duvidas); 38 Poder Legislativo: parlamentar
+  # incorporado as Forcas Armadas (fora); 41-43 ciencia, tecnologia e inovacao
+  # na CF (a ordem social do programa nao inclui); 44-47 Politica e Estrategia
+  # Nacional de Inteligencia; 48-50 SISBIN e estrutura regimental da ABIN;
+  # 51-52 carreira da ABIN; 55-56 sequencia com formula corrompida ('!' no
+  # lugar de '-' e '$' no lugar de '>='), ilegivel; 59-60 logica proposicional
+  # (representacao simbolica)
+  materias:
+    11-21: Língua Portuguesa
+    24-25: Direito Administrativo
+    30-33: Direito Administrativo
+    34: Direito Constitucional
+    35: Direito Administrativo
+    39-40: Direito Constitucional
+    53-54: Ética e Cidadania
+    57-58: Raciocínio Lógico-Matemático
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2018
+  orgao: Agência Brasileira de Inteligência (ABIN)
+  uf: DF
+  cargo: Agente de Inteligência - Conhecimentos Gerais
+  pagina: https://www.cebraspe.org.br/concursos/ABIN_17
+  caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB3_01.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB3_01.PDF
+  arquivo: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_prova.pdf
+  arquivo_do_gabarito: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_gabarito_definitivo.pdf
+  # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
+  # lingua ficam fora (PRF-32)
+  duas_linguas: true
+  # fora: 18 instrumentos de transparencia da gestao fiscal da LRF (LC
+  # 101/2000, fora do programa, ver duvidas); 19 improbidade administrativa
+  # (Lei 8.429/1992, fora do programa); 21-22 processo administrativo da Lei
+  # 9.784/1999 (prazo do recurso e principios do processo, ver duvidas); 32-33
+  # Politica Nacional de Inteligencia; 34-37 Estrategia Nacional de
+  # Inteligencia; 38-40 SISBIN e estrutura regimental da ABIN; 41-42 carreira
+  # da ABIN; 45-47 dependem das tres figuras com os simbolos, que nao vieram;
+  # 48 logica de argumentacao (validade); 49-50 logica proposicional (tabela-
+  # verdade)
+  materias:
+    6-15: Língua Portuguesa
+    16-17: Direito Administrativo
+    20: Direito Administrativo
+    23: Direito Administrativo
+    24-31: Direito Constitucional
+    43-44: Ética e Cidadania
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2021
+  orgao: Departamento Penitenciário Nacional (DEPEN)
+  uf: DF
+  cargo: Agente Federal de Execução Penal
+  pagina: https://www.cebraspe.org.br/concursos/DEPEN_20
+  caderno: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/MATRIZ_541_DEPEN_008_00.PDF
+  gabarito: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/GAB_DEFINITIVO_MATRIZ_541_DEPEN_CB2_00.PDF
+  arquivo: cebraspe_depen_2020_agente_prova.pdf
+  arquivo_do_gabarito: cebraspe_depen_2020_agente_conhecimentos_basicos_gabarito_definitivo.pdf
+  # um caderno e um gabarito definitivo por parte: basicos (1-30),
+  # especificos (31-80) e complementares (81-120) (PRF-32)
+  outros_gabaritos:
+  - gabarito: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/GAB_DEFINITIVO_MATRIZ_541_DEPEN_008_00.PDF
+    arquivo_do_gabarito: cebraspe_depen_2020_agente_conhecimentos_especificos_gabarito_definitivo.pdf
+  - gabarito: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/GAB_DEFINITIVO_MATRIZ_541_DEPEN_CG2_00.PDF
+    arquivo_do_gabarito: cebraspe_depen_2020_agente_conhecimentos_complementares_gabarito_definitivo.pdf
+  # fora: 14-15 Lei 12.846/2013, anticorrupção (fora, como na etapa 4); 20-21
+  # lógica proposicional; 22 tabuleiro com fichas de 1 a 20 (raciocínio de
+  # distribuição, dúvida); 25-27 Microsoft Office (25-26 dependem também do
+  # ícone do botão, que não veio, e o 25 traz glifos /c167 /c83); 29 Power BI
+  # (fora dos subassuntos de Informática, dúvida); 50 conflito aparente de
+  # normas (subsidiariedade x consunção), fora dos subassuntos de Direito
+  # Penal; 56 instauração de inquérito na ação privada (inquérito fora); 58
+  # procedimento dos crimes de responsabilidade de funcionário público
+  # (procedimentos especiais do CPP, fora); 59 acordo de não persecução penal
+  # (dúvida); 60 lei processual nova que cria recurso (lei processual no tempo
+  # e recursos, fora); 65 colegiado interministerial criado por portaria
+  # (participação social, fora); 66-67 Programa Nacional de Direitos Humanos
+  # (fora); 68-70 CNPCP, conselhos penitenciários e conselhos da comunidade
+  # (LEP, fora); 71-72 Regras Mínimas da ONU para o tratamento de presos (o
+  # programa só tem a DUDH e a Convenção Americana); 74 destino das armas
+  # apreendidas (Lei 10.826 fora do Cap. IV); 79 porte de arma de agentes e
+  # guardas prisionais (Lei 10.826, capítulo do porte, fora do Cap. IV); 81-82
+  # Plano Nacional de Política Criminal e Penitenciária; 83-85 faltas graves,
+  # sanções e RDD na LEP; 86-87 portarias do MJ/DEPEN (força-tarefa de
+  # intervenção penitenciária, visita em parlatório), embora o comando cite a
+  # Lei 13.675; 90-93 execução penal (jurisdicionalização, execução
+  # provisória, progressão do preso provisório); 94 detração (CP art. 42,
+  # aplicação da pena, fora do programa de Direito Penal); 95-98 visitas
+  # sociais em presídios federais (normas do sistema penitenciário); 100
+  # composição do Conselho Nacional de Segurança Pública (dúvida); 101-102
+  # disciplina na LEP (RDD de ofício, faltas leves e médias); 103-113 DEPEN e
+  # Regulamento Penitenciário Federal (faltas, sanções, estrutura,
+  # atribuições, progressão funcional, gravação de visitas, saúde, assistência
+  # ao egresso); 114 carreira de agente federal de execução penal; 115 Força
+  # Nacional de Segurança Pública (convênio e voluntariado, fora); 116-118
+  # transferência e permanência em presídio federal; 119-120 Manual de
+  # Assistências do Sistema Penitenciário Federal (portaria)
+  materias:
+    1-13: Língua Portuguesa
+    16-17: Ética e Cidadania
+    18-19: Direito Administrativo
+    23-24: Raciocínio Lógico-Matemático
+    28: Informática
+    30: Informática
+    31-36: Direito Constitucional
+    37-44: Direito Administrativo
+    45-49: Direito Penal
+    51-54: Direito Penal
+    55: Direito Constitucional
+    57: Direito Processual Penal
+    61-62: Direito Processual Penal
+    63-64: Direitos Humanos
+    73: Legislação Especial
+    75-78: Legislação Especial
+    80: Legislação Especial
+    88-89: Legislação Especial
+    99: Legislação Especial

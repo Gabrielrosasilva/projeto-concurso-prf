@@ -325,9 +325,12 @@ def _ler_cebraspe(caminho: Path, prova: dict, gabarito: Path | None) -> list:
         # O caderno de Certo/Errado do Cebraspe, lido direto do PDF, com o
         # gabarito definitivo a parte (Etapa 2 da PRF). A materia vem das
         # faixas da lista; sem faixa, a questao entra sem materia.
+        if prova.get("outros_gabaritos"):
+            gabarito = [gabarito] + _outros_gabaritos(prova)
         try:
             return questoes_certo_errado.ler_caderno(
-                caminho, gabarito, ler=prova.get("ler"), materias=faixas)
+                caminho, gabarito, ler=prova.get("ler"), materias=faixas,
+                duas_linguas=bool(prova.get("duas_linguas")))
         except ValueError as erro:
             log.warning("%s: %s", caminho.name, erro)
             return []
@@ -405,6 +408,18 @@ def _ler_de_outra_banca(registro: dict, caminho: Path, leitor) -> list:
                             if r.get("url") == url_do_gabarito(prova)), None)
         gabarito = _caminho(do_gabarito)
     return leitor(caminho, prova, gabarito)
+
+
+def _outros_gabaritos(prova: dict) -> list[Path]:
+    """Os gabaritos a mais do caderno que tem um por parte (o DEPEN 2020),
+    pelo manifesto. O que falta vira None, e o leitor recusa o caderno: as
+    grades nao fecham com os itens."""
+    manifesto = arquivos_de_prova.carregar_manifesto()
+    caminhos = []
+    for outro in prova.get("outros_gabaritos") or []:
+        registro = next((r for r in manifesto if r.get("url") == outro.get("gabarito")), None)
+        caminhos.append(_caminho(registro))
+    return caminhos
 
 
 def url_do_gabarito(prova: dict) -> str | None:
@@ -496,6 +511,9 @@ def montar_acervo_de_outras_bancas() -> ResultadoAcervo:
         if url_do_gabarito(prova):
             documentos.append((arquivos_de_prova.GABARITO, url_do_gabarito(prova),
                                prova.get("arquivo_do_gabarito")))
+        for outro in prova.get("outros_gabaritos") or []:
+            documentos.append((arquivos_de_prova.GABARITO, outro["gabarito"],
+                               outro.get("arquivo_do_gabarito")))
         for tipo, url, a_mao in documentos:
             if url in conhecidos:
                 continue
