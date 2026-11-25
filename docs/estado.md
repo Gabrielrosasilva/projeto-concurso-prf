@@ -18,7 +18,7 @@ depois da 2); tudo espera o aval do Gabriel. A Etapa 4 nao comecou.
 ## Falta
 - As 363 de multipla escolha do complementar e 1.128 herdadas ficam sem no (so a materia): podem passar pelo mesmo processo da PRF-23.
 - O Certo/Errado como formato principal, com nota liquida e chute: a Etapa 4.
-- Espanhol (a lingua escolhida): so os 8 itens de 2021. Redacao Cebraspe e Simulado PMSC: pendencia em `docs/dados_cronograma.md`.
+- Espanhol, Fisica e Geopolitica com pouca questao: 6 provas do Cebraspe em Certo/Errado achadas e baixadas, falta importar (`docs/levantamento_cebraspe.md`). Redacao Cebraspe e Simulado PMSC: pendencia em `docs/dados_cronograma.md`.
 
 ## Quebrado ate existir `PRF/config/cronograma.yml`
 - Erro 500 em Meu foco (`/`), Fichas, Gerar questoes, Analises > Conferencia e > Desempenho.
