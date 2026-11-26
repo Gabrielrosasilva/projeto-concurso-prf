@@ -109,6 +109,7 @@ from radar.servico.simulado import (    # noqa: F401 - a fachada
     responder,
     resumo_do_simulado,
     revisao,
+    revisao_do_simulado,
     simulados_recentes,
 )
 # As questoes escritas pela IA entram como MODULO, e nao funcao a funcao:
@@ -157,6 +158,8 @@ from radar.servico import espacada      # noqa: F401 - usado pela web e CLI
 from radar.servico import cronograma    # noqa: F401 - usado pela CLI
 # O caderno de erros. `servico.erros.anotar(...)`. NAO mede nada: e diario.
 from radar.servico import erros         # noqa: F401 - usado pela web
+# O painel da explicacao depois da resposta e a Revisao do simulado (PRF-31).
+from radar.servico import explicacoes   # noqa: F401 - usado pela web
 # O estudo extra, fora das faixas do plano. Tambem diario, tambem nao mede.
 from radar.servico import extra         # noqa: F401 - usado pela web
 # Como eu fui em cada semana, por ciclo. `servico.semanas.montar()`.

@@ -54,14 +54,29 @@ def test_a_questao_sem_a_barra_tem_a_faixa_prf(cliente):
 
 # --- o relatorio ------------------------------------------------------------
 
-def test_o_relatorio_tem_resultado_materia_e_erros(cliente):
-    texto = cliente.get(f"/simulado/{_rodada_com_um_erro()}").text
+def test_o_relatorio_tem_resultado_materia_e_a_revisao(cliente):
+    rodada = _rodada_com_um_erro()
+    texto = cliente.get(f"/simulado/{rodada}").text
 
     assert "Resultado geral" in texto
     assert "2 de 3 questões desta rodada" in texto
     assert "Por matéria" in texto
-    assert "1 erro(s) para entender" in texto
-    assert "Você marcou b)" in texto
+    # A Revisao do simulado (PRF-31): o placar por grupo e a trilha.
+    assert "Revisão do simulado" in texto
+    assert "✗ Errei: 1" in texto and "✓ Acertei: 2" in texto
+    assert f'href="/simulado/{rodada}/revisao"' in texto
+
+
+def _revisao(cliente, rodada, q=1):
+    """A tela da Revisao do simulado, na questao q (PRF-31)."""
+    return cliente.get(f"/simulado/{rodada}/revisao?q={q}").text
+
+
+def test_a_revisao_comeca_pelo_erro_com_a_marcada_e_o_gabarito(cliente):
+    texto = _revisao(cliente, _rodada_com_um_erro())
+
+    assert "Questão 1 de 3" in texto
+    assert "✗ Você marcou b)" in texto
     assert "Gabarito definitivo a)" in texto
 
 
@@ -75,7 +90,7 @@ def test_os_selos_do_erro_saem_do_item(cliente, monkeypatch):
     monkeypatch.setattr(simulado.ItemDeRevisao, "origem_da_resposta",
                         property(lambda self: "automatico"))
 
-    texto = cliente.get(f"/simulado/{rodada}").text
+    texto = _revisao(cliente, rodada)
 
     assert '<span aria-hidden="true">🔵</span> Estatística do acervo</span>' in texto
     assert '<span aria-hidden="true">🟡</span> Gabarito definitivo a)</span>' in texto
@@ -89,7 +104,7 @@ def test_nao_ha_nota_de_corte(cliente):
 
 
 def test_sem_explicacao_o_erro_convida_a_pedir(cliente):
-    texto = cliente.get(f"/simulado/{_rodada_com_um_erro()}").text
+    texto = _revisao(cliente, _rodada_com_um_erro())
     assert "radar gerar --pedido --explicacoes" in texto
 
 
@@ -111,9 +126,9 @@ def test_explicacao_importada_aparece_com_selo_e_fonte(cliente, tmp_path):
     rodada = _rodada_com_um_erro()
     assert _explicacao_importada(tmp_path)["gravadas"] == 1
 
-    texto = cliente.get(f"/simulado/{rodada}").text
+    texto = _revisao(cliente, rodada)
 
-    assert "Explicação (IA)" in texto and "ds-bloco--ia" in texto
+    assert "Explicação (IA)" in texto and "ds-selo--ia" in texto
     assert "Fonte citada: art. 121 do Codigo Penal" in texto
     assert "importado manualmente" in texto
 
@@ -155,7 +170,7 @@ def test_macete_que_cita_a_questao_aparece_no_erro(cliente):
         "criado_em": "2026-09-25T10:00:00+00:00",
     }]), encoding="utf-8")
 
-    texto = cliente.get(f"/simulado/{rodada}").text
+    texto = _revisao(cliente, rodada)
 
     assert "Macete relacionado" in texto
     assert "Uma regra pratica de teste" in texto

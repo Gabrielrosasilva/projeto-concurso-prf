@@ -67456,18 +67456,18 @@
   },
   {
     "chave": "99f1e9e030a573d33ad883684812a183",
-    "classificada_em": "2026-11-25T00:20:36.370460+00:00",
-    "conferida_em": "2026-11-25T03:02:20.130041+00:00",
-    "conferida_por": "Claude Code, reanálise às cegas",
-    "conteudo": "Direito Penal > Crimes > Crimes contra a fé pública > CP, art. 311",
+    "classificada_em": "2026-11-26T00:16:33.077099+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Direito Penal",
     "dispositivo": "art. 311 do CP e art. 114, § 2º, do CTB",
     "item_do_edital": "Crimes contra a fé pública",
     "pegadinha": "Mexer no chassi lembra logo o crime do art. 311. O gabarito E indica que a remarcação com o mesmo número original não foi tratada como crime contra a fé pública: sem mudar o número, a identificação continua verdadeira (a regravação com a mesma identificação está prevista no CTB, art. 114, § 2º, com autorização do órgão de trânsito). Atenção: a Lei 14.562/2023 reescreveu o caput do art. 311 ('remarcar ... sem autorização do órgão competente'); conferir se a resposta se mantém hoje.",
     "principal": true,
-    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "procedencia": "Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara",
+    "status": "pendente",
     "tipo_de_questao": "caso prático",
-    "trecho": "A remarcação do chassi com o mesmo número original do veículo caracteriza crime contra a fé pública e infração administrativa de trânsito."
+    "trecho": "fora do treino (decisão 171): a lei mudou: desde a Lei 14.562/2023, o art. 311 do CP pune remarcar o chassi sem autorização do órgão competente, e o item (gabarito Errado) pode inverter"
   },
   {
     "chave": "99fb3efaab87e78ca8aed48e59ad30ed",
@@ -70006,7 +70006,7 @@
   },
   {
     "chave": "9fb0c6ab9f33c4109036531c4e80e3b8",
-    "classificada_em": "2026-11-25T03:08:02.845163+00:00",
+    "classificada_em": "2026-11-26T00:16:33.132136+00:00",
     "conferida_em": null,
     "conferida_por": null,
     "conteudo": "Legislação de Trânsito",
@@ -70014,10 +70014,10 @@
     "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "pegadinha": "Em 2019 a PRF aplicava só advertência e multa, e a suspensão do direito de dirigir ficava com o órgão executivo de trânsito do Estado (art. 22, II); por isso o gabarito foi Errado. Atenção: a Lei 14.071/2020 mudou essa regra (ver lei_mudou).",
     "principal": true,
-    "procedencia": "Claude Code (claude-opus-5-5), passo 2 da regra da 171, em 25/11/2026",
+    "procedencia": "Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara",
     "status": "pendente",
     "tipo_de_questao": "caso prático",
-    "trecho": "fora do treino (decisão 171): a lei mudou: CTB art. 20, XII, e art. 261, § 10: redação da Lei 14.071/2020, vigente desde 12/4/2021. A PRF passou a aplicar a suspensão do direito de dirigir quando ela é prevista de forma específica para a infração (o art. 165, álcool, prevê suspensão por 12 meses), em processo instaurado junto com o da multa e de competência do órgão que aplica a multa. O item, Errado em 2019, hoje seria Certo. (conferido no texto da Câmara, fontes/leis/ctb-lei-9503-1997-camara.html)"
+    "trecho": "fora do treino (decisão 171): a lei mudou: CTB art. 20, XII, e art. 261, § 10: redação da Lei 14.071/2020, vigente desde 12/4/2021. A PRF passou a aplicar a suspensão do direito de dirigir quando ela é prevista de forma específica para a infração (o art. 165, álcool, prevê suspensão por 12 meses), em processo instaurado junto com o da multa e de competência do órgão que aplica a multa. O item, Errado em 2019, hoje seria Certo. (conferido no texto da Câmara, fontes/leis/ctb-lei-9503-1997-camara.html) | a lei mudou: a Lei 14.071/2020 incluiu o inciso XII no art. 20 do CTB (a PRF aplica a suspensão do direito de dirigir quando prevista de forma específica); pelo texto vigente o item estaria certo, e o gabarito é Errado"
   },
   {
     "chave": "9fcb76c94e762dd1fff052320b00d9c8",
@@ -82246,18 +82246,18 @@
   },
   {
     "chave": "bc6123331f597e2032de554e35ed7579",
-    "classificada_em": "2026-11-25T03:02:19.478732+00:00",
-    "conferida_em": "2026-11-25T03:02:19.469492+00:00",
-    "conferida_por": "Claude Code, reanálise às cegas: o nó em comum",
-    "conteudo": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações",
+    "classificada_em": "2026-11-26T00:16:33.172960+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
     "dispositivo": "art. 99, § 2º, do CTB",
     "item_do_edital": "Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações",
     "pegadinha": "12,5% soa preciso, mas não era a tolerância por eixo vigente na data da prova (a banca deu Errado). A tolerância é fixada fora do CTB (art. 99, § 2º: na forma estabelecida pelo CONTRAN) e pode ter mudado depois de 2021: conferir o percentual vigente antes de treinar.",
     "principal": true,
-    "procedencia": "Claude Code (claude-opus-5-5), reanálise às cegas, em 25/11/2026",
-    "status": "parcial",
+    "procedencia": "Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara",
+    "status": "pendente",
     "tipo_de_questao": "literalidade da lei",
-    "trecho": "o nó em comum das duas leituras (decisão 171): primeira Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações; segunda, às cegas, Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 803/2020"
+    "trecho": "fora do treino (decisão 171): a lei pode ter mudado: a tolerância de peso por eixo foi alterada depois da prova (MP 1.050/2021, convertida na Lei 14.229/2021, segundo a explicação da IA; a norma não está no projeto); confira o texto vigente antes de voltar ao treino"
   },
   {
     "chave": "bc653a2a888fefae960cd37c2be3bf8c",

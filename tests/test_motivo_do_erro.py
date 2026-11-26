@@ -130,14 +130,18 @@ def test_nada_durante_a_rodada_que_corrige_no_fim(cliente):
     assert recusa.status_code == 400 and "no fim" in recusa.text
 
     _errar(cliente, rodada, segunda)
-    relatorio = cliente.get(f"/simulado/{rodada}").text
-    assert relatorio.count("Por que errei?") == 2
+    # No fim, o "por que errei" de cada erro fica na Revisao do simulado
+    # (PRF-31), uma questao por vez, e a volta e a propria questao da revisao.
+    for q in (1, 2):
+        revisao = cliente.get(f"/simulado/{rodada}/revisao?q={q}").text
+        assert revisao.count("Por que errei?") == 1
+        assert f'name="volta" value="/simulado/{rodada}/revisao?q={q}"' in revisao
 
     ida = cliente.post(f"/simulado/{rodada}/motivo",
                        data={"questao_id": primeira, "motivo": "pegadinha",
-                             "volta": f"/simulado/{rodada}#erro-1"},
+                             "volta": f"/simulado/{rodada}/revisao?q=1"},
                        follow_redirects=False)
-    assert ida.headers["location"] == f"/simulado/{rodada}#erro-1"
+    assert ida.headers["location"] == f"/simulado/{rodada}/revisao?q=1"
     assert _resposta(rodada, primeira).motivo == "pegadinha"
 
 

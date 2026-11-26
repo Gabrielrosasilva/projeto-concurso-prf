@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Revisão {{ posicao }} de {{ total }} &middot; Radar de Concursos</title>
+  {# A Revisao do simulado (PRF-31): depois da ultima questao, uma por vez,
+     na ordem do servico (errei, chutei, em branco, acertei), com o painel da
+     explicacao aberto. A ordem e as contagens vem prontas do
+     servico.revisao_do_simulado; aqui so se desenha. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .texto-base{margin:var(--esp-2) 0;font-size:var(--tam-sm)}
+    .texto-base summary{cursor:pointer;font-weight:var(--peso-medio)}
+    .texto-base p{white-space:pre-line}
+    .motivo-do-erro{display:flex;flex-wrap:wrap;gap:var(--esp-1);align-items:center;
+      margin-top:var(--esp-4)}
+    .motivo-do-erro form{display:inline}
+    .motivo-do-erro__rotulo{font-weight:var(--peso-forte);margin-right:var(--esp-1)}
+    .convite{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+{% from "_topo.html" import barra with context %}
+{% from "_componentes.html" import selo, bloco, aviso_gabarito %}
+{% from "_explicacao.html" import painel_da_explicacao %}
+{% from "_motivo.html" import botoes_do_motivo %}
+{{ barra('estudar') }}
+
+<main class="ds-pagina">
+  <header class="ds-cabeca">
+    <h1>Revisão do simulado</h1>
+    <p>Questão {{ posicao }} de {{ total }}. Primeiro o que você errou, depois o que chutou, o que deixou em branco e o que acertou: acertar também fixa.</p>
+    <div class="ds-revisao__placar">
+      {% for g, (nome, sinal) in grupos.items() %}{% if revisao.contagem[g] %}
+        <span class="ds-revisao__grupo ds-revisao__grupo--{{ g }}">{{ sinal }} {{ nome }}: {{ revisao.contagem[g] }}</span>
+      {% endif %}{% endfor %}
+    </div>
+    <ol class="ds-revisao__trilha" aria-label="As questões da revisão">
+      {% for i in revisao.itens %}
+        <li><a class="ds-revisao__ponto ds-revisao__ponto--{{ i.grupo }}" href="/simulado/{{ simulado.id }}/revisao?q={{ loop.index }}"{% if loop.index == posicao %} aria-current="true"{% endif %} title="{{ grupos[i.grupo][0] }} · {{ i.materia or 'sem matéria' }}">{{ loop.index }}</a></li>
+      {% endfor %}
+    </ol>
+  </header>
+
+  <article class="ds-cartao ds-revisao__questao">
+    <div class="ds-cartao__cabeca">
+      <span class="ds-revisao__grupo ds-revisao__grupo--{{ item.grupo }}">{{ grupos[item.grupo][1] }} {{ grupos[item.grupo][0] }}</span>
+      <span class="ds-pequeno ds-suave">{{ item.materia or 'sem matéria' }}{% if not item.gerada and item.numero %} · questão {{ item.numero }}, {{ item.banca }} {{ item.ano }}{% endif %}</span>
+      {{ selo(item.origem, 'criada por IA' if item.gerada else None) }}
+    </div>
+    {# A regra 5: onde a questao escrita pela IA aparece, a frase aparece junto. #}
+    {% if item.gerada %}<p class="ds-nota"><b>{{ FRASE_DA_QUESTAO_DE_IA }}</b> Questão escrita por IA é treino, e não medida do que a banca cobra.</p>{% endif %}
+
+    {% if item.texto_base %}
+      <details class="texto-base"><summary>Texto-base (do caderno da prova)</summary>
+        <p>{{ item.texto_base | destacado(item, 'texto_base') }}</p></details>
+    {% endif %}
+    <p class="enunciado">{{ item.enunciado | destacado(item, 'enunciado') }}</p>
+
+    <div class="ds-revisao__respostas">
+      {% if item.em_branco %}
+        <span class="ds-revisao__resposta">Você deixou em branco</span>
+      {% elif de_certo_errado %}
+        <span class="ds-revisao__resposta ds-revisao__resposta--{{ 'certa' if item.acertou else 'errada' }}">{{ '✓' if item.acertou else '✗' }} Você marcou {{ item.texto_escolhido }}{% if item.chutou %} · 🎲 no chute{% endif %}</span>
+      {% else %}
+        <span class="ds-revisao__resposta ds-revisao__resposta--{{ 'certa' if item.acertou else 'errada' }}">{{ '✓' if item.acertou else '✗' }} Você marcou {{ item.escolhida }}) {{ item.texto_escolhido | destacado(item, item.escolhida or '') }}{% if item.chutou %} · 🎲 no chute{% endif %}</span>
+      {% endif %}
+      {# No Certo/Errado com o painel, o gabarito ja esta no topo dele. #}
+      {% if not item.acertou and not (painel and de_certo_errado) %}
+        <span class="ds-revisao__resposta ds-revisao__resposta--certa">{{ selo(item.origem_da_resposta, ('Resposta da IA ' if item.gerada else ('Gabarito a verificar ' if item.gabarito_a_conferir else 'Gabarito definitivo ')) ~ (item.texto_correto if de_certo_errado else item.correta ~ ')')) }}{% if not de_certo_errado %} {{ item.texto_correto | destacado(item, item.correta or '') }}{% endif %}</span>
+      {% endif %}
+    </div>
+    {% if not item.gerada %}{{ aviso_gabarito(item, depois=true) }}{% endif %}
+
+    {% if painel %}
+      {{ painel_da_explicacao(painel, none if item.em_branco or item.chutou else item.acertou) }}
+    {% elif item.gerada and item.artigo %}
+      <p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ item.artigo }}.</p>
+    {% endif %}
+
+    {% for m in macetes %}
+      {% call bloco(m.origem, 'Macete relacionado') %}
+        <p>{{ m.regra }}</p>
+        {% if m.pegadinha %}<p><b>⚠ Pegadinha:</b> {{ m.pegadinha }}</p>{% endif %}
+        <p class="convite">Fonte citada: {{ m.fonte }} · <a href="/macetes/{{ m.impressao }}/questoes">ver as questões reais</a></p>
+      {% endcall %}
+    {% endfor %}
+
+    {# O "por que errei" e o caderno (decisao 174): so no erro de verdade.
+       O chute errado fica fora do caderno de erros (PRF-28). #}
+    {% if item.vai_ao_caderno and item.questao_id %}
+      {{ botoes_do_motivo(simulado.id, item.questao_id, item.motivo, volta) }}
+      <p class="ds-pequeno" style="margin-top:var(--esp-3)">
+        <a href="{{ link_de_anotar_erro_da_questao(simulado.id, item.materia, item.assunto, item.referencia, item.motivo, item.conteudo, item.questao_id) }}">📓 Anotar erro</a>
+        <span class="ds-suave">· {{ item.conteudo or 'questão sem nó na árvore: escolha no formulário' }}</span>
+      </p>
+    {% elif item.errou %}
+      <p class="ds-pequeno ds-suave" style="margin-top:var(--esp-3)">🎲 Foi no chute: fica fora do caderno de erros e do desempenho por assunto. Volta no Simulado da semana.</p>
+    {% endif %}
+  </article>
+
+  <nav class="ds-revisao__navegar" aria-label="Andar na revisão">
+    {% if posicao > 1 %}
+      <a class="ds-botao ds-botao--secundario" href="/simulado/{{ simulado.id }}/revisao?q={{ posicao - 1 }}">&larr; Anterior</a>
+    {% else %}<span></span>{% endif %}
+    <a class="ds-link-acao" href="/simulado/{{ simulado.id }}">Voltar ao resultado</a>
+    {% if posicao < total %}
+      <a class="ds-botao" href="/simulado/{{ simulado.id }}/revisao?q={{ posicao + 1 }}" autofocus>Próxima &rarr;</a>
+    {% else %}
+      <a class="ds-botao" href="/simulado/{{ simulado.id }}">Terminar a revisão</a>
+    {% endif %}
+  </nav>
+</main>
+</body>
+</html>

@@ -623,6 +623,21 @@ class ItemDeRevisao:
     gabarito_link: str | None = None
     #: O item de Certo/Errado deixado em branco (PRF-28): nem acerto nem erro.
     em_branco: bool = False
+    #: O texto que a questao cita e as alternativas: a Revisao do simulado
+    #: (PRF-31) mostra a questao inteira, como na hora de responder.
+    texto_base: str | None = None
+    alternativas: dict | None = None
+
+    @property
+    def grupo(self) -> str:
+        """Onde o item cai na Revisao do simulado (PRF-31): "errei", "chutei"
+        (certo ou errado: acertar no chute nao e saber), "branco" ou
+        "acertei"."""
+        if self.em_branco:
+            return "branco"
+        if self.chutou:
+            return "chutei"
+        return "errei" if self.errou else "acertei"
 
     @property
     def errou(self) -> bool:
@@ -728,11 +743,40 @@ def revisao(simulado_id: int) -> list[ItemDeRevisao]:
             questao_id=resposta.questao_id,
             motivo=motivo_do_erro(resposta),
             em_branco=resposta.escolhida == EM_BRANCO,
+            texto_base=getattr(questao, "texto_base", None),
+            alternativas=alternativas or None,
         ))
     # errado primeiro: e o que eu preciso rever; depois o em branco (eu nao
     # sabia, e disse), e o certo no fim
     itens.sort(key=lambda i: 0 if i.errou else (1 if i.em_branco else 2))
     return itens
+
+
+#: A ordem da Revisao do simulado (PRF-31): o que eu errei, o que chutei, o
+#: em branco e o que acertei - acertar tambem fixa, e por isso entra.
+ORDEM_DA_REVISAO = ("errei", "chutei", "branco", "acertei")
+
+
+@dataclass
+class RevisaoDoSimulado:
+    """Os itens da rodada na ordem da revisao, e quantos em cada grupo. As
+    contas sao daqui; a tela so desenha."""
+
+    itens: list
+    contagem: dict
+
+    def posicao(self, numero: int | None) -> int:
+        """O numero da questao pedida (1..N), dentro dos limites."""
+        if not self.itens:
+            return 0
+        return min(max(numero or 1, 1), len(self.itens))
+
+
+def revisao_do_simulado(simulado_id: int) -> RevisaoDoSimulado:
+    """A rodada inteira para rever, uma questao por vez (PRF-31)."""
+    itens = sorted(revisao(simulado_id), key=lambda i: ORDEM_DA_REVISAO.index(i.grupo))
+    contagem = {grupo: sum(1 for i in itens if i.grupo == grupo) for grupo in ORDEM_DA_REVISAO}
+    return RevisaoDoSimulado(itens=itens, contagem=contagem)
 
 
 # --- os meus erros, e a minha evolucao (home, 25/09/2026) -------------------

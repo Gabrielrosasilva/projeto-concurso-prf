@@ -96,7 +96,8 @@ def telas(banco_temporario, com_quadro_do_edital, monkeypatch):  # noqa: F811
     cliente = TestClient(app)
     paginas = {}
     for endereco in TELAS + [f"/simulado/{real}", f"/simulado/{respondida}",
-                             f"/simulado/{aberta}"]:
+                             f"/simulado/{aberta}", f"/simulado/{real}/revisao",
+                             f"/simulado/{respondida}/revisao"]:
         resposta = cliente.get(endereco)
         assert resposta.status_code == 200, endereco
         paginas[endereco] = resposta.text
@@ -119,7 +120,7 @@ def test_nenhuma_tela_fala_em_previsao(telas):
 
 def test_questao_de_ia_nunca_aparece_sem_o_selo_e_a_frase(telas):
     """Onde o enunciado escrito pela IA aparece, o 🟣 e a frase da regra 5
-    aparecem junto. A rodada de IA aberta e o relatorio dela, pelo menos."""
+    aparecem junto. A rodada de IA aberta e a Revisao dela, pelo menos."""
     com_questao_de_ia = [e for e, html in telas.items() if ENUNCIADO_DE_IA in html]
     assert len(com_questao_de_ia) >= 2, com_questao_de_ia
     for endereco in com_questao_de_ia:

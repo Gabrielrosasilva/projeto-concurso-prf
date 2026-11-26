@@ -679,9 +679,12 @@ def test_o_relatorio_da_rodada_de_ia_diz_que_nao_e_questao_oficial(cliente):
 
     assert "Gerada por IA: não é questão oficial de nenhuma banca." in pagina
     assert '<span aria-hidden="true">🟣</span> Treino com IA' in pagina
-    assert '<span aria-hidden="true">🟣</span> criada por IA' in pagina
-    assert '<span aria-hidden="true">🟣</span> Resposta da IA c)' in pagina
-    assert "Gabarito definitivo" not in pagina
+    # Cada questao, com o selo e a resposta da IA, na Revisao (PRF-31).
+    revisao = cliente.get(f"/simulado/{rodada.id}/revisao").text
+    assert "Gerada por IA: não é questão oficial de nenhuma banca." in revisao
+    assert '<span aria-hidden="true">🟣</span> criada por IA' in revisao
+    assert '<span aria-hidden="true">🟣</span> Resposta da IA c)' in revisao
+    assert "Gabarito definitivo" not in revisao
 
 
 def test_a_questao_real_da_rodada_nao_leva_o_aviso_de_ia(cliente):
@@ -787,7 +790,7 @@ def test_o_resultado_da_rodada_gerada_nao_vem_vazio(cliente):
     pagina = cliente.get(f"/simulado/{rodada.id}").text
 
     assert "Lei de Execução Penal" in pagina
-    assert "criada por IA" in pagina
+    assert "criada por IA" in cliente.get(f"/simulado/{rodada.id}/revisao").text
 
 
 # --- o modo simulado e o peso do edital (item 4 da secao F, 03/10/2026) ---------

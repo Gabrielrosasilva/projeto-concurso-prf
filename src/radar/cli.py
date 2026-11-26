@@ -978,6 +978,11 @@ def gerar(
         False, "--explicacoes",
         help="Com --pedido: pede a explicação das questões que eu errei",
     ),
+    quais: str = typer.Option(
+        "erradas", "--quais",
+        help="Com --pedido --explicacoes: erradas (as que eu errei), alvo (a prova "
+             "da PRF) ou todas (alvo e complementar); --materia restringe",
+    ),
     classificar_nivel: bool = typer.Option(
         False, "--classificar-nivel",
         help="Com --pedido e --materia: pede o nível das geradas que ainda não "
@@ -1027,7 +1032,7 @@ def gerar(
     escopo = _escopo_do_pedido(materia, assunto, subassunto, elemento)
     if pedido:
         _salvar_pedido_da_ia(materia, quantas, macetes, explicacoes,
-                             escopo=escopo, modo=modo, nivel=nivel)
+                             escopo=escopo, modo=modo, nivel=nivel, quais=quais)
         return
 
     limite = gerador.TETO_PADRAO if teto is None else teto
@@ -1220,15 +1225,20 @@ def _escopo_do_pedido(materia, assunto, subassunto, elemento):
 
 def _salvar_pedido_da_ia(materia: str | None, quantas: int, macetes: bool,
                          explicacoes: bool = False, escopo=None,
-                         modo: str | None = None, nivel: str = "misturada") -> None:
+                         modo: str | None = None, nivel: str = "misturada",
+                         quais: str = "erradas") -> None:
     """O `--pedido`: todos os pedidos num arquivo, sem chamar a API."""
     if explicacoes:
-        lote = servico.manual.pedido_de_explicacoes()
+        try:
+            lote = servico.manual.pedido_de_explicacoes(quais, materia)
+        except ValueError as erro:
+            console.print(f"[red]{escape(str(erro))}[/]")
+            raise typer.Exit(code=1) from erro
         if not lote["pedidos"]:
-            console.print(
-                "[yellow]Nenhuma questão errada sem explicação.[/] Elas saem "
-                "das questões reais que eu errei na última vez que respondi."
-            )
+            onde = {"erradas": "das questões reais que eu errei na última vez que respondi",
+                    "alvo": "da prova da PRF", "todas": "do alvo e do complementar"}[quais]
+            console.print(f"[yellow]Nenhuma questão sem explicação[/] {onde}"
+                          f"{' em ' + escape(materia) if materia else ''}.")
             return
     elif macetes:
         lote = servico.manual.pedido_de_macetes(materia)
@@ -1252,7 +1262,7 @@ def _salvar_pedido_da_ia(materia: str | None, quantas: int, macetes: bool,
         raise typer.Exit(code=1)
 
     destino = servico.manual.salvar_pedido(lote)
-    o_que = ("explicações, uma por questão errada" if explicacoes
+    o_que = ((f"explicações, uma por questão ({quais})") if explicacoes
              else "macetes, um por matéria" if macetes else "questões")
     console.print(
         f"[green]{len(lote['pedidos'])} pedido(s) de {o_que}[/] em {destino}"
@@ -1355,6 +1365,12 @@ def _importar_resposta_da_ia(arquivo: Path) -> None:
         console.print(f"[yellow]{len(resultado['recusas'])} recusada(s):[/]")
         for motivo in resultado["recusas"]:
             console.print(f"  - {motivo}")
+    # A explicacao que entrou com uma parte a menos (PRF-31): o trecho da lei
+    # que nao estava no texto oficial, ou o "como ficaria certo" do item Certo.
+    if resultado.get("avisos"):
+        console.print(f"[dim]{len(resultado['avisos'])} entraram com uma parte a menos:[/]")
+        for aviso in resultado["avisos"]:
+            console.print(f"  [dim]- {aviso}[/]")
     if resultado["tipo"] == "niveis":
         from radar import niveis
 
@@ -1393,7 +1409,7 @@ def _importar_resposta_da_ia(arquivo: Path) -> None:
         console.print("[dim]Em data/macetes.json (versionado).[/]")
     elif resultado["tipo"] == "explicacoes":
         console.print("[dim]Em data/explicacoes.json (versionado). Aparecem no "
-                      "relatório do simulado, ao lado de cada erro.[/]")
+                      "painel depois da resposta e na Revisão do simulado (PRF-31).[/]")
     elif resultado["gravadas"]:
         console.print(
             "Responda em [bold]radar web[/], na aba Estudar - com o selo de "

@@ -121,6 +121,37 @@ Responda SOMENTE um JSON, no formato:
 {"correta": "c", "explicacao": "...", "fonte": "art. 112 da Lei 7.210/1984"}"""
 
 
+# A explicacao do item de Certo/Errado do Cebraspe (PRF-31): em partes, para
+# o painel depois da resposta. O trecho da lei e copiado do texto oficial e o
+# radar confere palavra por palavra antes de mostrar (servico.explicacoes).
+INSTRUCAO_EXPLICACAO_CE = """Voce recebe UM item real de Certo/Errado do Cebraspe, com o gabarito oficial (c = Certo, e = Errado). Eu estudo para Policial Rodoviario Federal (PRF), e esta explicacao aparece logo depois que eu respondo o item, acertando ou errando.
+
+Explique o item em partes curtas, para eu fixar.
+
+Regras:
+- o gabarito oficial manda: repita a letra dele em "correta". Se voce
+  discordar do gabarito, NAO responda este pedido;
+- "veredito": uma ou duas frases, comecando por "O item esta certo" ou "O
+  item esta errado", e o porque;
+- "o_que_cobra": o conceito ou a regra que o item testa, em ate 3 frases;
+- "dispositivo": o artigo da lei, assim: "CTB, art. 67-E, § 4º"; fora de
+  Direito, a regra gramatical ou logica. Sem fonte segura, nao responda;
+- "trecho_da_lei": o pedaco do artigo que decide o item, COPIADO do texto
+  oficial vigente (a compilacao da Camara), sem trocar uma palavra. O radar
+  confere palavra por palavra e descarta o que nao achar. Fora de Direito,
+  ou sem o texto a mao, deixe "";
+- "pegadinha": onde o Cebraspe tenta pegar quem le rapido (a palavra trocada,
+  o "somente", o prazo, a excecao), em 1 ou 2 frases;
+- "como_ficaria_certo": SO se o gabarito for Errado: o item reescrito para
+  ficar certo, mudando o minimo. Se o gabarito for Certo, deixe "";
+- "fonte": de onde vem a regra, como em "dispositivo";
+- a lei pode ter mudado depois da prova: se o texto vigente mudou o
+  gabarito, diga isso no veredito.
+
+Responda SOMENTE um JSON, no formato:
+{"correta": "e", "veredito": "O item esta errado: ...", "o_que_cobra": "...", "dispositivo": "CTB, art. 280", "trecho_da_lei": "...", "pegadinha": "...", "como_ficaria_certo": "...", "fonte": "art. 280 do CTB"}"""
+
+
 # A explicacao da questao real que e EXEMPLO de um tema do cronograma (R2): o
 # "onde estava a pegadinha" do exemplo da ficha. Eu nao errei estas.
 INSTRUCAO_EXPLICACAO_DO_TEMA = """Voce recebe UMA questao real da prova do meu cargo (Policia Penal / Agente Penitenciario de SC, banca FEPESE), com o gabarito oficial ja conferido. Ela e exemplo de um tema do meu cronograma.
@@ -464,7 +495,10 @@ def _como_responder(tipo: str, nivel: str | None = None) -> str:
             "cada pedido com o objeto `explicacao` dele. Salve como "
             "data/resposta_ia.json e rode `radar gerar --importar "
             "data/resposta_ia.json`. Explicacao cuja `correta` nao for a letra "
-            "do gabarito oficial, ou sem `fonte`, sera RECUSADA."
+            "do gabarito oficial, ou sem `fonte`, sera RECUSADA. No Certo/Errado "
+            "(`formato: certo_errado`) a explicacao vem em partes, como a "
+            "`instrucao` do pedido diz, e o `trecho_da_lei` que nao estiver no "
+            "texto oficial do projeto e descartado."
         )
     campo = "questoes" if tipo == "questoes" else "macetes"
     comando = f"radar gerar --pedido --nivel {nivel}" if nivel else "radar gerar --pedido"
@@ -561,8 +595,13 @@ def _formato_das_respostas(tipo: str) -> dict:
     if tipo == "explicacoes":
         item = {"correta": "c", "explicacao": "...",
                 "fonte": "art. 112 da Lei 7.210/1984"}
-        return {"lote": "<o lote deste arquivo>",
-                "respostas": [{"id": "e1", "explicacao": item}]}
+        item_ce = {"correta": "e", "veredito": "O item esta errado: ...",
+                   "o_que_cobra": "...", "dispositivo": "CTB, art. 280",
+                   "trecho_da_lei": "...", "pegadinha": "...",
+                   "como_ficaria_certo": "...", "fonte": "art. 280 do CTB"}
+        return {"lote": "<o lote deste arquivo>", "modelo": "<o modelo que escreveu>",
+                "respostas": [{"id": "e1", "explicacao": item},
+                              {"id": "e2", "explicacao": item_ce}]}
     if tipo == "questoes":
         # `conteudo` so e exigido no pedido com escopo (Etapa 5), e esta no
         # formato sempre: mostrar o campo e o que faz a resposta vir com ele.
@@ -970,37 +1009,67 @@ def _codigo_unico(codigo: str, usados) -> str:
     return f"{codigo}-{n}"
 
 
-def pedido_de_explicacoes() -> dict:
-    """Um pedido por questao real que eu errei na ultima vez que respondi.
+#: De quais questoes o `radar gerar --pedido --explicacoes --quais` pede
+#: (PRF-31): as que eu errei (o padrao, a mesma lista do [Revisar agora]),
+#: as do alvo (a prova da PRF) ou todas as que treinam e medem.
+QUAIS_EXPLICAR = ("erradas", "alvo", "todas")
 
-    A lista e a mesma do [Revisar agora] - uma regra so para "errei" - e a
-    questao que ja tem explicacao fica de fora: pedir duas vezes a mesma
-    explicacao nao ensina nada novo.
+
+def pedido_de_explicacoes(quais: str = "erradas", materia: str | None = None,
+                          limite: int | None = None) -> dict:
+    """Um pedido por questao real, sem a explicacao que ja existe.
+
+    Por padrao, as que eu errei na ultima vez que respondi. `alvo` pede as da
+    prova da PRF e `todas` as do alvo e do complementar (as que treinam e
+    medem); `materia` restringe. A anulada fica de fora (nao ha o que
+    explicar), e a questao que ja tem explicacao - pela chave, ou pela
+    impressao nas antigas - tambem: pedir duas vezes nao ensina nada novo.
+    O item de Certo/Errado vai com a instrucao em partes (PRF-31).
     """
-    from radar.models import QuestaoDeProva
-    from radar.servico import simulado as treino
+    from sqlalchemy import select
 
-    ja_explicadas = set(carregar_explicacoes())
+    from radar.models import QuestaoDeProva
+    from radar.questoes_certo_errado import e_certo_errado
+    from radar.servico import simulado as treino
+    from radar.servico.classificacoes import chave_de
+    from radar.servico.explicacoes import carregar
+
+    if quais not in QUAIS_EXPLICAR:
+        raise ValueError(f"--quais {quais!r} nao existe: use {', '.join(QUAIS_EXPLICAR)}")
+    por_chave, por_impressao = carregar()
     criar_tabelas()
     with sessao() as s:
+        if quais == "erradas":
+            questoes = [s.get(QuestaoDeProva, qid) for qid in treino.questoes_erradas()]
+        else:
+            evidencias = ("alvo",) if quais == "alvo" else ("alvo", "complementar")
+            questoes = list(s.scalars(select(QuestaoDeProva)
+                                      .where(QuestaoDeProva.evidencia.in_(evidencias))))
         questoes = [
-            q for q in (s.get(QuestaoDeProva, qid) for qid in treino.questoes_erradas())
-            if q is not None and q.resposta and q.impressao not in ja_explicadas
+            q for q in questoes
+            if q is not None and q.resposta and not q.anulada
+            and (materia is None or q.materia == materia)
+            and chave_de(q) not in por_chave and q.impressao not in por_impressao
         ]
         pedidos = []
-        vistos = set()
-        for q in sorted(questoes, key=lambda q: (q.ano or 0, q.numero)):
-            if q.impressao in vistos:
+        vistas = set()
+        for q in sorted(questoes, key=lambda q: (q.materia or "", q.ano or 0, q.numero)):
+            chave = chave_de(q)
+            if chave in vistas:
                 continue
-            vistos.add(q.impressao)
+            vistas.add(chave)
+            ce = e_certo_errado(q.alternativas)
             pedidos.append({
                 "id": f"e{len(pedidos) + 1}", "materia": q.materia,
-                "impressao": q.impressao, "gabarito": q.resposta,
-                "instrucao": INSTRUCAO_EXPLICACAO,
+                "impressao": q.impressao, "chave": chave, "gabarito": q.resposta,
+                "formato": "certo_errado" if ce else "multipla_escolha",
+                "instrucao": INSTRUCAO_EXPLICACAO_CE if ce else INSTRUCAO_EXPLICACAO,
                 "pedido": (f"MATERIA: {q.materia or 'nao informada'}\n\n"
                            f"QUESTAO ({q.banca or 'FEPESE'} {q.ano or ''})\n\n"
                            f"{gerador._questao_por_extenso(q, inteira=True)}"),
             })
+            if limite and len(pedidos) >= limite:
+                break
     return _novo_lote("explicacoes", pedidos)
 
 
@@ -2084,15 +2153,41 @@ def carregar_explicacoes(caminho: Path | None = None) -> dict[str, dict]:
     }
 
 
+def _uma_linha(valor) -> str:
+    return " ".join(str(valor or "").split())
+
+
+def _partes_do_certo_errado(item: dict, gabarito: str) -> tuple[dict, list[str]]:
+    """As partes da explicacao do Certo/Errado (PRF-31), e o que foi
+    descartado. O trecho da lei so fica se estiver no texto oficial do
+    projeto, palavra por palavra; o "como ficaria certo" so no item Errado."""
+    from radar.servico.explicacoes import trecho_na_lei
+
+    partes = {campo: _uma_linha(item.get(campo)) or None
+              for campo in ("o_que_cobra", "dispositivo", "pegadinha", "como_ficaria_certo")}
+    avisos = []
+    if gabarito != "e" and partes["como_ficaria_certo"]:
+        partes["como_ficaria_certo"] = None
+        avisos.append("o 'como ficaria certo' de item Certo foi descartado")
+    trecho = _uma_linha(item.get("trecho_da_lei"))
+    lei = trecho_na_lei(trecho) if trecho else None
+    if trecho and lei is None:
+        avisos.append("o trecho da lei nao esta no texto oficial do projeto: descartado")
+    partes["trecho_da_lei"] = trecho if lei else None
+    partes["lei_do_trecho"] = lei
+    return partes, avisos
+
+
 def _importar_explicacoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
     por_id = {p["id"]: p for p in lote["pedidos"]}
     destino = caminho_das_explicacoes()
     existentes = (json.loads(destino.read_text(encoding="utf-8")) or []
                   if destino.exists() else [])
-    ja = {e.get("impressao") for e in existentes}
+    # A explicacao nova se acha pela chave; a antiga, pela impressao.
+    ja = {e.get("chave") or e.get("impressao") for e in existentes}
     quando = agora().isoformat()
     gravadas = repetidas = 0
-    recusas = []
+    recusas, avisos_do_lote = [], []
 
     for resposta in respostas:
         pedido = por_id.get(resposta.get("id"))
@@ -2101,12 +2196,15 @@ def _importar_explicacoes(lote: dict, respostas: list[dict], modelo: str) -> dic
             continue
         item = resposta.get("explicacao") or {}
         onde = f"{pedido['id']} ({pedido.get('materia')})"
-        texto = " ".join(str(item.get("explicacao") or "").split())
-        fonte = " ".join(str(item.get("fonte") or "").split())
+        certo_errado = pedido.get("formato") == "certo_errado"
+        texto = _uma_linha(item.get("veredito") if certo_errado and item.get("veredito")
+                           else item.get("explicacao"))
+        fonte = _uma_linha(item.get("fonte"))
         correta = str(item.get("correta") or "").strip().lower()[:1]
+        gabarito = (pedido.get("gabarito") or "").lower()
         # O gabarito oficial manda. Explicacao que defende outra letra
         # ensinaria o erro com cara de certeza.
-        if correta != (pedido.get("gabarito") or "").lower():
+        if correta != gabarito:
             recusas.append(f"{onde}: explica a letra {correta or '?'}, e o "
                            f"gabarito oficial e {pedido.get('gabarito')}")
             continue
@@ -2116,25 +2214,35 @@ def _importar_explicacoes(lote: dict, respostas: list[dict], modelo: str) -> dic
         if not fonte_serve(fonte, pedido.get("materia")):
             recusas.append(f"{onde}: sem a fonte (o artigo da lei)")
             continue
-        if pedido["impressao"] in ja:
+        identidade = pedido.get("chave") or pedido["impressao"]
+        if identidade in ja:
             repetidas += 1
             continue
-        ja.add(pedido["impressao"])
-        existentes.append({
+        ja.add(identidade)
+        linha = {
             "impressao": pedido["impressao"], "materia": pedido.get("materia"),
             "correta": correta, "explicacao": texto, "fonte": fonte,
             "modelo": modelo, "criado_em": quando,
-        })
+        }
+        if pedido.get("chave"):
+            linha["chave"] = pedido["chave"]
+        if certo_errado:
+            partes, avisos = _partes_do_certo_errado(item, gabarito)
+            linha.update({k: v for k, v in partes.items() if v})
+            linha["veredito"] = texto
+            avisos_do_lote += [f"{onde}: {aviso}" for aviso in avisos]
+        existentes.append(linha)
         gravadas += 1
 
     if gravadas:
-        existentes.sort(key=lambda e: e["impressao"])
+        existentes.sort(key=lambda e: (e.get("impressao") or "", e.get("chave") or ""))
         destino.parent.mkdir(parents=True, exist_ok=True)
         destino.write_text(
             json.dumps(existentes, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
-    return {"gravadas": gravadas, "repetidas": repetidas, "recusas": recusas}
+    return {"gravadas": gravadas, "repetidas": repetidas, "recusas": recusas,
+            "avisos": avisos_do_lote}
 
 
 def importar(resposta: Path, pedido: Path | None = None,

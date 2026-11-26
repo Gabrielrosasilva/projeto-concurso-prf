@@ -87,14 +87,17 @@ def test_cada_erro_do_relatorio_leva_a_materia_e_o_no_da_questao(arvore):
     rodada = _rodada_que_mede(_questao(51), _questao(52))
     _classificar(51, arvore[0])
 
-    tela = TestClient(app).get(f"/simulado/{rodada}").text
+    # O "Anotar erro" de cada erro mora na Revisao do simulado (PRF-31), uma
+    # questao por vez, na ordem da rodada dentro do grupo "errei".
+    cliente = TestClient(app)
+    telas = [cliente.get(f"/simulado/{rodada}/revisao?q={q}").text for q in (1, 2)]
 
-    links = _links_de_anotar(tela)
+    links = [link for tela in telas for link in _links_de_anotar(tela)]
     assert len(links) == 2
     assert all(link["materia"] == [PENAL] and link["fonte"] == ["radar"] for link in links)
     assert [link.get("no") for link in links] == [[arvore[0]], None]
     # A q52 nao tem classificacao: vai sem no, e a tela diz.
-    assert "questão sem nó na árvore" in tela
+    assert "questão sem nó na árvore" in telas[1]
 
 
 def test_o_item_da_revisao_traz_o_no_e_a_referencia(arvore):

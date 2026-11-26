@@ -853,7 +853,7 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
             servico.desempenho_das_geradas(simulado_id) if de_ia
             else servico.desempenho(simulado_id)
         )
-        revisao = servico.revisao(simulado_id)
+        revisao = servico.revisao_do_simulado(simulado_id)
         return templates.TemplateResponse(
             request=request,
             name="relatorio.html",
@@ -862,7 +862,10 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
                 "resumo": resumo,
                 "de_ia": de_ia,
                 "desempenho_da_rodada": da_rodada,
+                # A Revisao do simulado (PRF-31): o placar por grupo e a
+                # trilha; cada questao, com o painel, na tela da revisao.
                 "revisao": revisao,
+                "grupos": GRUPOS_DA_REVISAO,
                 # Quanto do estoque de geradas dos nos eu ja fiz, e o pedido
                 # de mais quando esta acabando (decisao 142).
                 "estoque": servico.geradas.estoque_da_rodada(simulado) if de_ia else [],
@@ -874,13 +877,6 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
                 # As que eu ja tinha feito antes: revisao, ao lado do nivel.
                 "revisao_da_rodada": (servico.metricas.revisao_da_rodada(simulado_id)
                                       if de_ia else (0, 0)),
-                # O 🟣 de cada erro: a explicacao importada pelo caminho sem
-                # API, e o macete que cita aquela questao.
-                "explicacoes": servico.manual.carregar_explicacoes(),
-                "macetes_da_questao": _macetes_por_questao(),
-                "leis_das_materias": {
-                    item.materia: leis.da_materia(item.materia) for item in revisao
-                },
                 # O Simulado PMSC: cada materia contra a meta, as reais e as
                 # geradas separadas (decisao PMSC-9).
                 "resultado_pmsc": servico.simulado_pmsc.resultado(simulado),
@@ -923,6 +919,54 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
     )
 
 
+#: Os grupos da Revisao do simulado (PRF-31), na ordem do servico: o nome e
+#: o sinal de cada um na tela.
+GRUPOS_DA_REVISAO = {
+    "errei": ("Errei", "✗"), "chutei": ("Chutei", "🎲"),
+    "branco": ("Em branco", "○"), "acertei": ("Acertei", "✓"),
+}
+
+
+@app.get("/simulado/{simulado_id}/revisao", response_class=HTMLResponse)
+def revisao_do_simulado(request: Request, simulado_id: int, q: int | None = None):
+    """A Revisao do simulado (PRF-31): depois da ultima questao, uma por vez,
+    na ordem errei, chutei, em branco, acertei - cada uma com o painel da
+    explicacao aberto, e a errada com o "por que errei" e o caderno.
+
+    So com a rodada acabada: na que mede, ver a correcao no meio entregaria o
+    gabarito das que faltam."""
+    simulado = servico.buscar_simulado(simulado_id)
+    if simulado is None:
+        return RedirectResponse("/simulado", status_code=303)
+    revisao = servico.revisao_do_simulado(simulado_id)
+    if servico.questao_atual(simulado_id) is not None or not revisao.itens:
+        return RedirectResponse(f"/simulado/{simulado_id}", status_code=303)
+
+    posicao = revisao.posicao(q)
+    item = revisao.itens[posicao - 1]
+    respondida = servico.questao_respondida(simulado_id, item.questao_id)
+    questao = respondida[1] if respondida else None
+    painel = (None if item.gerada or questao is None
+              else servico.explicacoes.painel(questao))
+    chave = f"{item.prova_url}#{item.numero}"
+    return templates.TemplateResponse(
+        request=request,
+        name="revisao.html",
+        context={
+            "simulado": simulado,
+            "revisao": revisao,
+            "item": item,
+            "posicao": posicao,
+            "total": len(revisao.itens),
+            "painel": painel,
+            "macetes": [] if item.gerada else _macetes_por_questao().get(chave, []),
+            "grupos": GRUPOS_DA_REVISAO,
+            "volta": f"/simulado/{simulado_id}/revisao?q={posicao}",
+            "de_certo_errado": e_certo_errado(item.alternativas),
+        },
+    )
+
+
 def _lacunas_perdidas(resposta, questao) -> int:
     """Quantas lacunas a leitura do caderno nao mostra (decisao 165). A gerada
     nao vem de caderno: o texto dela e o que a IA escreveu."""
@@ -959,8 +1003,8 @@ def _questao_corrigida(request: Request, simulado, resumo: dict, de_ia: bool,
             "origem": servico.geradas.origem_de(questao) if gerada else None,
             "lei": (leis.do_assunto(questao.materia, questao.assunto) if gerada
                     else leis.da_materia(questao.materia)),
-            "explicacao": (None if gerada else
-                           servico.manual.carregar_explicacoes().get(questao.impressao)),
+            # O painel depois da resposta (PRF-31), aberto no acerto e no erro.
+            "painel": None if gerada else servico.explicacoes.painel(questao),
             "macetes": [] if gerada else _macetes_por_questao().get(chave, []),
             # A lei que mudou depois da prova (decisao 171): so depois da
             # resposta, como o gabarito (decisao 148). A questao de outra banca

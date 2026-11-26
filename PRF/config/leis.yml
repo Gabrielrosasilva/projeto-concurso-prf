@@ -41,6 +41,16 @@ sem_lei:
   # e o macete de Writer, Calc e Windows eram recusados por nao citar artigo.
   - Informatica
   - Sociologia Aplicada
+  # As materias da PRF que nao se apoiam em lei (PRF-33): sem elas aqui, a
+  # explicacao de fisica, de ingles ou de logica teria de inventar um artigo
+  # para entrar. Etica e Cidadania mistura lei (LAI, Codigo de Etica) com
+  # filosofia (etica e moral): a fonte pode citar artigo, mas nao precisa.
+  - Raciocinio Logico-Matematico
+  - Fisica
+  - Lingua Estrangeira (Ingles ou Espanhol)
+  - Geopolitica
+  - Etica e Cidadania
+  - Historia da PRF
 
 materias:
 
@@ -1653,6 +1663,43 @@ mudancas:
       - https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_001_MATRIZ.PDF
     fonte: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
     procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+
+  # As explicacoes do alvo (PRF-33) acharam tres itens da prova da PRF que a lei
+  # mudou depois: saem do treino ate a sua conferencia (classificacao pendente).
+  # PRF 2021, q101.
+  - tema: "Adulteração de sinal identificador de veículo (CP, art. 311)"
+    lei: "Lei 14.562/2023, 26/04/2023"
+    o_que_mudou: "o art. 311 do CP passou a punir quem adultera, remarca ou suprime o número do chassi ou outro sinal identificador sem autorização do órgão competente; remarcar com o próprio número original, sem autorização, pode hoje ser o crime"
+    anos: [2021]
+    marcas: ["remarcação do chassi com o mesmo número original"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_001_01.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+  # PRF 2019, q90.
+  - tema: "A PRF aplica a suspensão do direito de dirigir (CTB, art. 20, XII)"
+    lei: "Lei 14.071/2020, 13/10/2020"
+    o_que_mudou: "a Lei 14.071/2020 incluiu o inciso XII no art. 20 do CTB: a PRF aplica a penalidade de suspensão do direito de dirigir quando ela é prevista de forma específica para a infração (como a do art. 165) e comunica ao órgão máximo executivo de trânsito da União"
+    anos: [2019]
+    marcas: ["a própria PRF aplicará ao condutor infrator a penalidade de suspensão do direito de dirigir"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/440_PRF_001_00_PAG_9.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
+    conferida: false
+  # PRF 2021, q82. A norma nova nao esta no projeto: so a explicacao da IA a cita.
+  - tema: "Tolerância de peso por eixo na balança rodoviária"
+    lei: "MP 1.050/2021, convertida na Lei 14.229/2021 (citadas pela IA, não conferidas no texto oficial)"
+    o_que_mudou: "depois da prova, a tolerância sobre o peso por eixo foi alterada; o gabarito (Errado, para 12,5% por eixo) pode não valer mais - confira o texto vigente"
+    anos: [2021]
+    marcas: ["tolerância de 12,5 % sobre os limites de peso regulamentares por eixo"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_001_01.PDF
+    # Sem `fonte`: o endereco oficial da Lei 14.229/2021 nao foi conferido, e
+    # endereco inventado e pior que nenhum (regra 2).
+    procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela explicação do item (não conferida)
     conferida: false
 
 # --- O que mudou num ponto que nenhuma questao cobra ---------------------------

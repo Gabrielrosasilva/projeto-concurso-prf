@@ -1,0 +1,74 @@
+{# O painel depois da resposta (PRF-31): aberto no acerto e no erro. Cada
+   parte com a origem dela - o gabarito e da banca (🟢); o no, da
+   classificacao (🟡); a explicacao e a pegadinha, de IA (🟣); o link, da lei.
+   Quem junta tudo e o servico.explicacoes.painel; aqui so se desenha.
+
+   `acertou` pinta a borda: True verde, False vermelho, None neutro (o em
+   branco e o chute). #}
+{% from "_componentes.html" import selo, aviso_lei %}
+
+{% macro painel_da_explicacao(p, acertou=none) %}
+{% set e = p.explicacao %}
+<section class="ds-explica{{ ' ds-explica--certo' if acertou is true else (' ds-explica--errado' if acertou is false else '') }}" aria-label="Explicação da questão">
+  <header class="ds-explica__veredito">
+    {% if p.certo_errado and p.gabarito %}
+      <span class="ds-explica__gabarito ds-explica__gabarito--{{ 'certo' if p.gabarito == 'CERTO' else 'errado' }}">O item está {{ p.gabarito }}</span>
+    {% elif p.gabarito %}
+      <span class="ds-explica__gabarito">Gabarito: {{ p.gabarito }})</span>
+    {% endif %}
+    {{ selo(p.origem_do_gabarito, 'Gabarito definitivo' if p.origem_do_gabarito == 'oficial' else 'Gabarito a verificar') }}
+  </header>
+
+  {% if e %}<p class="ds-explica__texto">{{ e.veredito }}</p>{% endif %}
+
+  {% if p.no or (e and e.o_que_cobra) %}
+  <div class="ds-explica__parte">
+    <h3>📚 O que essa questão cobra {% if p.no %}{{ selo('classificacao', 'Classificação') }}{% endif %}</h3>
+    {% if p.no %}
+      <p class="ds-explica__no" title="{{ p.no }}">{{ p.caminho_curto | join(' › ') or p.no }}{% if p.no_pendente %} <span class="ds-suave">(classificação pendente: confira na Conferência)</span>{% endif %}</p>
+    {% endif %}
+    {% if e and e.o_que_cobra %}<p>{{ e.o_que_cobra }}</p>
+    {% elif p.item_do_edital %}<p class="ds-suave">No edital: {{ p.item_do_edital }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  {% set dispositivo = p.dispositivo_a_mostrar %}
+  {% if dispositivo or (e and e.trecho_da_lei) or p.lei %}
+  <div class="ds-explica__parte">
+    <h3>📜 O que a lei diz</h3>
+    {% if dispositivo %}<p><b>{{ dispositivo }}</b></p>{% endif %}
+    {% if e and e.trecho_da_lei %}
+      <blockquote class="ds-explica__lei">“{{ e.trecho_da_lei }}”</blockquote>
+      <p class="ds-pequeno ds-suave">Conferido palavra por palavra no texto da lei guardado no projeto ({{ e.lei_do_trecho }}).</p>
+    {% endif %}
+    {% if p.lei %}<p class="ds-pequeno"><a href="{{ p.lei.url }}" target="_blank" rel="noopener">ler {{ p.lei.titulo }}</a> {{ selo(p.lei.origem) }}{% if p.lei.nota %} <span class="ds-suave">{{ p.lei.nota }}</span>{% endif %}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  {% set pegadinha = p.pegadinha_a_mostrar %}
+  {% if pegadinha %}
+  <div class="ds-explica__parte">
+    <h3>🎯 A pegadinha</h3>
+    <p>{{ pegadinha }}</p>
+  </div>
+  {% endif %}
+
+  {% if e and e.como_ficaria_certo %}
+  <div class="ds-explica__parte ds-explica__parte--certo">
+    <h3>✏️ Como ficaria certo</h3>
+    <p>{{ e.como_ficaria_certo }}</p>
+  </div>
+  {% endif %}
+
+  {% for m in p.mudancas %}<div class="ds-explica__parte">{{ aviso_lei(m) }}</div>{% endfor %}
+
+  <footer class="ds-explica__rodape">
+    {{ selo('ia', 'Explicação (IA)' if e else 'Classificação (IA)') }}
+    {% if e %}
+      <span>{{ e.procedencia }} · Fonte citada: {{ e.fonte }} · confira na fonte antes de confiar</span>
+    {% else %}
+      <span>Explicação ainda não pedida. O nó e a pegadinha vêm da classificação. Para a explicação: <code>radar gerar --pedido --explicacoes</code>.</span>
+    {% endif %}
+  </footer>
+</section>
+{% endmacro %}

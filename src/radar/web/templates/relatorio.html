@@ -28,39 +28,24 @@
     .trilha span{display:block;height:100%;background:var(--cor-verde)}
     tr.abaixo .trilha span{background:var(--cor-vermelho)}
 
-    .erro .enunciado{margin:var(--esp-2) 0 var(--esp-3);font-size:var(--tam-sm);
-      white-space:pre-line}
-    .par{display:grid;gap:var(--esp-2)}
-    .linha-resp{display:grid;grid-template-columns:auto 1fr;gap:var(--esp-2);
-      align-items:start;font-size:var(--tam-sm)}
-    .linha-resp.marquei .texto{text-decoration:line-through;text-decoration-color:var(--cor-vermelho)}
     .convite{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
     .acoes{display:flex;gap:var(--esp-2);flex-wrap:wrap;margin-top:var(--esp-5)}
     .acoes a.secundario{padding:var(--esp-2) var(--esp-4);border:1px solid var(--cor-borda);
       border-radius:var(--raio-sm);text-decoration:none;font-size:var(--tam-sm);
       color:var(--cor-texto)}
-    details.acertos summary{cursor:pointer;font-size:var(--tam-sm);font-weight:var(--peso-medio)}
-    details.acertos li{font-size:var(--tam-xs);margin:var(--esp-1) 0}
-    .motivo-do-erro{display:flex;flex-wrap:wrap;gap:var(--esp-1);align-items:center;
-      margin-top:var(--esp-3)}
-    .motivo-do-erro form{display:inline}
-    .motivo-do-erro__rotulo{font-weight:var(--peso-forte);margin-right:var(--esp-1)}
   </style>
   {% include "_topo_estilo.html" %}
 </head>
 <body class="ds">
 {% from "_topo.html" import barra with context %}
-{% from "_componentes.html" import selo, bloco, aviso_gabarito %}
+{% from "_componentes.html" import selo %}
 {% from "_falta_de_geradas.html" import falta_de_geradas %}
-{% from "_motivo.html" import botoes_do_motivo %}
 {{ barra('estudar') }}
 
 {# Os numeros vem prontos do servico.metricas: o template so mostra. #}
 {% set porcento = resumo.porcentagem %}
 {# O em branco (PRF-28) nao e erro nem acerto: tem a lista dele. #}
-{% set erros = revisao | selectattr('errou') | list %}
-{% set acertos = revisao | selectattr('acertou') | list %}
-{% set brancos = revisao | selectattr('em_branco') | list %}
+{% set erros = revisao.itens | selectattr('errou') | list %}
 
 <main class="ds-pagina">
   <header class="ds-cabeca">
@@ -211,113 +196,28 @@
   <p class="ds-pequeno" style="margin-top:var(--esp-4)">{{ selo('ia', curto=True) }} Revisão: {{ revisao_da_rodada[0] }} de {{ revisao_da_rodada[1] }} em questões que você já tinha feito.</p>
   {% endif %}
 
-  {# ------------------------------------------------------ os erros ----- #}
-  <section class="ds-secao">
-    <h2>{{ resumo.erros }} erro(s) para entender</h2>
-    <p>Cada parte com o seu selo: a alternativa sai da prova, a correta do gabarito, a explicação e o macete da IA.</p>
-  </section>
-  {# O "como pedir explicacao" aparece uma vez, e nao repetido em cada erro. #}
-  {% set sem_explicacao = erros | rejectattr('gerada') | selectattr('impressao', 'in', explicacoes.keys()) | list %}
-  {% if erros | rejectattr('gerada') | list | length > sem_explicacao | length %}
-    <p class="ds-nota">
-      {{ selo('ia', 'Explicação') }} a dos erros sem explicação vem sem API:
-      <code>radar gerar --pedido --explicacoes</code>, responda no Claude Code e
-      <code>radar gerar --importar data/resposta_ia.json</code>.
-    </p>
-  {% endif %}
-
-  {% for item in erros %}
-    {% set explicacao = explicacoes.get(item.impressao) if not item.gerada else none %}
-    {% set relacionados = macetes_da_questao.get((item.prova_url ~ '#' ~ item.numero)) or [] %}
-    {% set lei = leis_das_materias.get(item.materia) %}
-    <article class="ds-cartao erro" id="erro-{{ loop.index }}" style="margin-top:var(--esp-3)">
-      <div class="ds-cartao__cabeca">
-        <span class="ds-pequeno ds-suave">
-          {{ item.materia or 'sem matéria' }}{% if not item.gerada and item.numero %} · questão {{ item.numero }}, {{ item.banca }} {{ item.ano }}{% endif %}{% if item.chutou %} · 🎲 no chute{% endif %}
-        </span>
-        {{ selo(item.origem, 'criada por IA' if item.gerada else None) }}
-      </div>
-      <p class="enunciado">{{ item.enunciado | destacado(item, 'enunciado') }}</p>
-
-      <div class="par">
-        <div class="linha-resp marquei">
-          <span class="ds-selo" style="color:var(--cor-vermelho);background:var(--cor-vermelho-fundo)">Você marcou {{ item.escolhida }})</span>
-          <span class="texto">{{ item.texto_escolhido | destacado(item, item.escolhida or '') }}</span>
-        </div>
-        <div class="linha-resp">
-          {{ selo(item.origem_da_resposta, ('Resposta da IA ' if item.gerada else ('Gabarito a verificar ' if item.gabarito_a_conferir else 'Gabarito definitivo ')) ~ item.correta ~ ')') }}
-          <span>{{ item.texto_correto | destacado(item, item.correta or '') }}</span>
-        </div>
-      </div>
-      {% if not item.gerada %}{{ aviso_gabarito(item, depois=true) }}{% endif %}
-
-      {% if item.gerada %}
-        {% if item.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ item.artigo }}.</p>{% endif %}
-      {% elif explicacao %}
-        {% call bloco(explicacao.origem, 'Explicação (IA)') %}
-          <p>{{ explicacao.explicacao }}</p>
-          <p class="ds-suave">Fonte citada: {{ explicacao.fonte }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a>{% endif %}</p>
-          <p class="convite">{{ explicacao.modelo }} · confira na fonte antes de confiar</p>
-        {% endcall %}
-      {% else %}
-        <p class="convite" style="margin-top:var(--esp-3)">
-          Explicação ainda não pedida.
-          {% if lei %}Enquanto isso: <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a> {{ selo(lei.origem) }}{% endif %}
-        </p>
-      {% endif %}
-
-      {% for m in relacionados %}
-        {% call bloco(m.origem, 'Macete relacionado') %}
-          <p>{{ m.regra }}</p>
-          {% if m.pegadinha %}<p><b>⚠ Pegadinha:</b> {{ m.pegadinha }}</p>{% endif %}
-          <p class="convite">Fonte citada: {{ m.fonte }} · <a href="/macetes/{{ m.impressao }}/questoes">ver as questões reais</a></p>
-        {% endcall %}
+  {# ------------------------------------------- a Revisao do simulado --- #}
+  {# PRF-31: cada questao com a explicacao aberta, uma por vez, na tela da
+     revisao. Aqui o placar por grupo e a trilha; a ordem e as contagens sao
+     do servico.revisao_do_simulado. #}
+  {% if revisao.itens %}
+  <section class="ds-cartao" style="margin-top:var(--esp-4)">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Revisão do simulado</h2>
+    </div>
+    <p>Passe por cada questão com a explicação aberta: primeiro o que você errou, depois o que chutou, o que deixou em branco e, para fixar, o que acertou.</p>
+    <div class="ds-revisao__placar">
+      {% for g, (nome, sinal) in grupos.items() %}{% if revisao.contagem[g] %}
+        <span class="ds-revisao__grupo ds-revisao__grupo--{{ g }}">{{ sinal }} {{ nome }}: {{ revisao.contagem[g] }}</span>
+      {% endif %}{% endfor %}
+    </div>
+    <ol class="ds-revisao__trilha" aria-label="As questões da revisão">
+      {% for i in revisao.itens %}
+        <li><a class="ds-revisao__ponto ds-revisao__ponto--{{ i.grupo }}" href="/simulado/{{ simulado.id }}/revisao?q={{ loop.index }}" title="{{ grupos[i.grupo][0] }} · {{ i.materia or 'sem matéria' }}">{{ loop.index }}</a></li>
       {% endfor %}
-
-      {# Cada erro vai ao caderno com a materia e o no DA QUESTAO (U21): no
-         R+7 dos diagnosticos a faixa nao tem materia, e cada erro e de uma. #}
-      {# O "por que errei" (decisao 174): na rodada que corrige no fim, e so
-         aqui, depois da ultima; na de treino, da para trocar aqui tambem. #}
-      {# O chute errado fica fora do caderno de erros (PRF-28): sem motivo
-         nem "Anotar"; volta pelo Simulado da semana. #}
-      {% if not item.vai_ao_caderno %}
-        <p class="ds-pequeno ds-suave" style="margin-top:var(--esp-3)">🎲 Foi no chute: fica fora do caderno de erros e do desempenho por assunto. Volta no Simulado da semana.</p>
-      {% else %}
-      {% if item.questao_id %}
-        {{ botoes_do_motivo(simulado.id, item.questao_id, item.motivo,
-                            '/simulado/' ~ simulado.id ~ '#erro-' ~ loop.index) }}
-      {% endif %}
-      <p class="ds-pequeno" style="margin-top:var(--esp-3)">
-        <a href="{{ link_de_anotar_erro_da_questao(simulado.id, item.materia, item.assunto, item.referencia, item.motivo, item.conteudo, item.questao_id) }}">📓 Anotar erro</a>
-        <span class="ds-suave">· {{ item.conteudo or 'questão sem nó na árvore: escolha no formulário' }}</span>
-      </p>
-      {% endif %}
-    </article>
-  {% else %}
-    <p class="ds-nota">Nenhum erro nesta rodada.</p>
-  {% endfor %}
-
-  {% if brancos %}
-    {# O em branco (PRF-28): vale 0, e a lista mostra o gabarito de cada um. #}
-    <details class="acertos ds-cartao" style="margin-top:var(--esp-4)">
-      <summary>{{ brancos | length }} em branco</summary>
-      <ul>
-        {% for item in brancos %}
-          <li>{{ item.materia or 'sem matéria' }} - {{ item.enunciado[:120] }}{% if item.enunciado | length > 120 %}...{% endif %} <b>Gabarito: {{ item.texto_correto or item.correta }}</b></li>
-        {% endfor %}
-      </ul>
-    </details>
-  {% endif %}
-
-  {% if acertos %}
-    <details class="acertos ds-cartao" style="margin-top:var(--esp-4)">
-      <summary>{{ resumo.acertos }} acerto(s)</summary>
-      <ul>
-        {% for item in acertos %}
-          <li>{% if item.gerada %}{{ selo(item.origem, 'criada por IA') }} {% endif %}{% if item.chutou %}🎲 no chute · {% endif %}{{ item.materia }} - {{ item.enunciado[:120] }}{% if item.enunciado | length > 120 %}...{% endif %}</li>
-        {% endfor %}
-      </ul>
-    </details>
+    </ol>
+    <a class="ds-botao" href="/simulado/{{ simulado.id }}/revisao">Começar a revisão &rarr;</a>
+  </section>
   {% endif %}
 
   {# O estoque de geradas dos nos desta rodada (decisao 142): o sorteio poe

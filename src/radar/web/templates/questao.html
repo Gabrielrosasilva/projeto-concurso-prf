@@ -99,6 +99,7 @@
 {% from "_topo.html" import faixa_prf %}
 {{ faixa_prf() }}
 {% from "_componentes.html" import selo, bloco, aviso_lei, aviso_gabarito %}
+{% from "_explicacao.html" import painel_da_explicacao %}
 {% from "_falta_de_geradas.html" import falta_de_geradas %}
 {% from "_motivo.html" import botoes_do_motivo %}
 
@@ -258,21 +259,14 @@
       <div class="depois">
         {# A lei que mudou depois desta prova (decisao 171): so depois da
            resposta, como o gabarito. A conta e do `leis`; aqui so se desenha. #}
-        {% for mud in mudancas or [] %}{{ aviso_lei(mud) }}{% endfor %}
+        {# Na questao real o aviso mora no painel (PRF-31). #}
+        {% if not painel %}{% for mud in mudancas or [] %}{{ aviso_lei(mud) }}{% endfor %}{% endif %}
         {% if not resposta.gerada %}{{ aviso_gabarito(questao, depois=true) }}{% endif %}
         {% if resposta.gerada %}
           {% if questao.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ questao.artigo }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}.</p>{% endif %}
-        {% elif explicacao %}
-          {% call bloco(explicacao.origem, 'Explicação (IA)') %}
-            <p>{{ explicacao.explicacao }}</p>
-            <p class="ds-suave">Fonte citada: {{ explicacao.fonte }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a>{% endif %}</p>
-            <p class="convite">{{ explicacao.modelo }} · confira na fonte antes de confiar</p>
-          {% endcall %}
-        {% else %}
-          <p class="convite">
-            Explicação ainda não pedida.
-            {% if lei %}Enquanto isso: <a href="{{ lei.url }}" target="_blank" rel="noopener">ler {{ lei.titulo }}</a> {{ selo(lei.origem) }}{% endif %}
-          </p>
+        {% elif painel %}
+          {# O painel depois da resposta (PRF-31): aberto no acerto e no erro. #}
+          {{ painel_da_explicacao(painel, none if deixou_em_branco or resposta.chutou else resposta.acertou) }}
         {% endif %}
 
         {% for m in macetes %}

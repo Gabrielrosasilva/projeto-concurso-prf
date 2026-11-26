@@ -598,3 +598,93 @@ u.sublinhado {
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
 }
+
+/* --- a explicacao depois da resposta (PRF-31) ---
+   O painel abre no acerto e no erro: o veredito em cima, e cada parte num
+   bloco com o titulo dela. A cor da borda diz se acertei (verde) ou errei
+   (vermelho); o em branco e o chute ficam neutros. So tokens: vale no claro
+   e no escuro. */
+.ds-explica {
+  margin-top: var(--esp-4);
+  border: 1px solid var(--cor-borda);
+  border-left: 4px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+.ds-explica--certo  { border-left-color: var(--cor-verde); }
+.ds-explica--errado { border-left-color: var(--cor-vermelho); }
+.ds-explica__veredito {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-2);
+  padding: var(--esp-3) var(--esp-4);
+  background: var(--cor-superficie-2);
+  border-bottom: 1px solid var(--cor-borda);
+}
+.ds-explica__gabarito {
+  font-weight: var(--peso-forte); font-size: var(--tam-md);
+  padding: var(--esp-1) var(--esp-3); border-radius: var(--raio-pill);
+}
+.ds-explica__gabarito--certo  { color: var(--cor-verde);    background: var(--cor-verde-fundo); }
+.ds-explica__gabarito--errado { color: var(--cor-vermelho); background: var(--cor-vermelho-fundo); }
+.ds-explica__texto { margin: 0; padding: var(--esp-3) var(--esp-4) 0; font-size: var(--tam-base); }
+.ds-explica__parte { padding: var(--esp-3) var(--esp-4); }
+.ds-explica__parte + .ds-explica__parte { border-top: 1px dashed var(--cor-borda); }
+.ds-explica__parte h3 {
+  margin: 0 0 var(--esp-1); font-size: var(--tam-sm); font-weight: var(--peso-forte);
+  display: flex; align-items: center; gap: var(--esp-2); flex-wrap: wrap;
+}
+.ds-explica__parte p { margin: var(--esp-1) 0; font-size: var(--tam-sm); line-height: var(--linha); }
+.ds-explica__parte--certo { background: var(--cor-verde-fundo); }
+.ds-explica__no { font-weight: var(--peso-medio); }
+.ds-explica__lei {
+  margin: var(--esp-2) 0; padding: var(--esp-2) var(--esp-3);
+  border-left: 3px solid var(--selo-oficial);
+  background: var(--selo-oficial-fundo);
+  border-radius: var(--raio-sm);
+  font-size: var(--tam-sm); font-style: italic;
+}
+.ds-explica__rodape {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-2);
+  padding: var(--esp-2) var(--esp-4);
+  border-top: 1px solid var(--cor-borda);
+  font-size: var(--tam-xs); color: var(--cor-texto-suave);
+}
+
+/* --- a Revisao do simulado (PRF-31) ---
+   Uma questao por vez, na ordem: errei, chutei, em branco, acertei. A trilha
+   de bolinhas leva a qualquer questao; a cor e a do grupo. */
+.ds-revisao__placar { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin: var(--esp-3) 0; }
+.ds-revisao__grupo {
+  display: inline-flex; align-items: center; gap: var(--esp-1);
+  padding: var(--esp-1) var(--esp-3); border-radius: var(--raio-pill);
+  font-size: var(--tam-sm); font-weight: var(--peso-medio);
+  border: 1px solid var(--cor-borda); background: var(--cor-superficie-2);
+}
+.ds-revisao__grupo--errei   { color: var(--cor-vermelho); background: var(--cor-vermelho-fundo); border-color: transparent; }
+.ds-revisao__grupo--chutei  { color: var(--cor-ambar);    background: var(--cor-ambar-fundo);    border-color: transparent; }
+.ds-revisao__grupo--acertei { color: var(--cor-verde);    background: var(--cor-verde-fundo);    border-color: transparent; }
+.ds-revisao__trilha { display: flex; flex-wrap: wrap; gap: 6px; margin: var(--esp-3) 0; padding: 0; list-style: none; }
+.ds-revisao__ponto {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  font-size: var(--tam-xs); font-weight: var(--peso-medio); text-decoration: none;
+  color: var(--cor-texto-suave); background: var(--cor-superficie-2);
+  border: 2px solid var(--cor-borda);
+}
+.ds-revisao__ponto--errei   { color: var(--cor-vermelho); background: var(--cor-vermelho-fundo); border-color: var(--cor-vermelho); }
+.ds-revisao__ponto--chutei  { color: var(--cor-ambar);    background: var(--cor-ambar-fundo);    border-color: var(--cor-ambar); }
+.ds-revisao__ponto--acertei { color: var(--cor-verde);    background: var(--cor-verde-fundo);    border-color: var(--cor-verde); }
+.ds-revisao__ponto[aria-current="true"] { outline: 3px solid var(--cor-acao); outline-offset: 2px; }
+.ds-revisao__questao .enunciado { white-space: pre-line; font-size: var(--tam-base); margin: var(--esp-3) 0; }
+.ds-revisao__respostas { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin: var(--esp-2) 0; }
+.ds-revisao__resposta {
+  padding: var(--esp-2) var(--esp-3); border-radius: var(--raio-sm);
+  font-size: var(--tam-sm); border: 1px solid var(--cor-borda); background: var(--cor-superficie-2);
+}
+.ds-revisao__resposta--errada { color: var(--cor-vermelho); background: var(--cor-vermelho-fundo); border-color: transparent; }
+.ds-revisao__resposta--certa  { color: var(--cor-verde);    background: var(--cor-verde-fundo);    border-color: transparent; }
+.ds-revisao__navegar {
+  display: flex; justify-content: space-between; align-items: center; gap: var(--esp-2);
+  margin-top: var(--esp-5); flex-wrap: wrap;
+}
