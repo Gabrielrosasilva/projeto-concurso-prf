@@ -32,6 +32,19 @@ mandam estudar pelo texto vigente.
 \* Pela lista oficial, a 92 é de 04/05/1999 e a 210 é de 13/11/2006; o edital de 2021 (e o
 nome dos nós da árvore) traz o ano errado.
 
+## Mais duas, conferidas em 26/11/2026 (PRF-39)
+
+O cronograma de dois ciclos (PRF-38) deu aula também às duas resoluções do edital que caíram
+uma vez em outra prova do Cebraspe. Mesma lista oficial (salva em 25/11/2026), coluna "Situação":
+
+| Edital 2021 | Assunto | Hoje | Texto vigente |
+|---|---|---|---|
+| 292/2008 | Modificações de veículos (CTB, arts. 98 e 106) | Revogada | [916/2022](https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9162022.pdf/@@display-file/file), alterada pela 958/2022 e, no Anexo IV, pela 1.021/2026 |
+| 809/2020 | CRV, CLA e transferência em meio digital | Revogada | [1.027/2026](https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao10272026.pdf/@@display-file/file) (registro, licenciamento e transferência de veículos) |
+
+As outras 23 resoluções da lista do edital de 2021 nunca caíram em prova do acervo e ficam sem
+aula até o edital novo (`docs/metodo.md`).
+
 ## O que mudou e pesa em questão antiga
 
 - **Película (254 → 960/989):** o piso de 28% fora das áreas de dirigibilidade saiu com a

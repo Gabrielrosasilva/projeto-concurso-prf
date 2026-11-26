@@ -5034,13 +5034,14 @@ dias:
 - data: '2027-02-25'
   semana: 8
   reduzida: A manhã inteira e a Aprendizagem da noite.
-  minima: Só a teoria e a fixação de Resoluções do CONTRAN 292/2008 e 809/2020.
+  minima: 'Só a teoria e a fixação de Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008
+    e 809/2020).'
   manha:
   - tipo: teoria
     duracao: 50
     materia: Legislação de Trânsito
     conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
-    titulo: Resoluções do CONTRAN 292/2008 e 809/2020
+    titulo: 'Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008 e 809/2020)'
     detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
       curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
       Leia o texto vigente de cada resolução: várias foram revogadas e trocadas por outra (docs/resolucoes_contran.md
@@ -5054,7 +5055,7 @@ dias:
     questoes: 15
     materia: Legislação de Trânsito
     conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
-    titulo: 'Fixação: Resoluções do CONTRAN 292/2008 e 809/2020'
+    titulo: 'Fixação: Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008 e 809/2020)'
     detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
       de cada item, no acerto e no erro.'
     consulta: true
@@ -5124,7 +5125,7 @@ dias:
     rampa: aprendizagem
     materia: Legislação de Trânsito
     conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
-    titulo: 'Aprendizagem: Resoluções do CONTRAN 292/2008 e 809/2020'
+    titulo: 'Aprendizagem: Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008 e 809/2020)'
     detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
       do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
     consulta: false
@@ -5815,7 +5816,7 @@ dias:
     questoes: 10
     materia: Legislação de Trânsito
     conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
-    titulo: 'R+7: Resoluções do CONTRAN 292/2008 e 809/2020'
+    titulo: 'R+7: Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008 e 809/2020)'
     detalhe: 'Revisão espaçada: 10 itens do tema estudado em 25/02, sem consulta e sem reler antes - o teste é a
       revisão (docs/metodo.md).'
     onde: radar
@@ -7930,7 +7931,7 @@ dias:
     questoes: 10
     materia: Legislação de Trânsito
     conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
-    titulo: 'R+30: Resoluções do CONTRAN 292/2008 e 809/2020'
+    titulo: 'R+30: Resoluções do CONTRAN: modificação de veículos e documentos digitais (292/2008 e 809/2020)'
     detalhe: 'Revisão espaçada: 10 itens do tema estudado em 25/02, sem consulta e sem reler antes - o teste é a
       revisão (docs/metodo.md).'
     onde: radar

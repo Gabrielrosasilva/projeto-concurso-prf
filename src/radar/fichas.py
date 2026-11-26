@@ -376,9 +376,14 @@ SEM_QUESTAO_REAL = "sem questão real"
 #: Na PMSC o codigo do complementar leva tambem a sigla da prova
 #: ("AOCP-2023-PMDF-q46"): com 10 provas da AOCP, o mesmo ano e numero era de
 #: ate tres provas, e a citacao ficava ambigua.
-CODIGO_DA_QUESTAO = re.compile(r"(?<![\w-])((?:[A-Z]{2,12}-)?20\d\d(?:-[A-Z0-9]{2,12})?-q\d+)\b")
+#: A prova sem ano no acervo tem "s/a" no lugar do ano ("CEBRASPE-s/a-q97",
+#: servico.fichas._codigo_da_prova): sem aceitar isso aqui, o gabarito dela
+#: nao era conferido na importacao nem escondido na tela (PRF-39).
+_ANO_DO_CODIGO = r"(?:20\d\d|s/a)"
+CODIGO_DA_QUESTAO = re.compile(
+    rf"(?<![\w-])((?:[A-Z]{{2,12}}-)?{_ANO_DO_CODIGO}(?:-[A-Z0-9]{{2,12}})?-q\d+)\b")
 GABARITO_CITADO = re.compile(
-    r"(?<![\w-])((?:[A-Z]{2,12}-)?20\d\d(?:-[A-Z0-9]{2,12})?-q\d+)\s*\(gabarito\s+([A-Ea-e])\)")
+    rf"(?<![\w-])((?:[A-Z]{{2,12}}-)?{_ANO_DO_CODIGO}(?:-[A-Z0-9]{{2,12}})?-q\d+)\s*\(gabarito\s+([A-Ea-e])\)")
 
 
 def prefixo_do_complementar() -> str:

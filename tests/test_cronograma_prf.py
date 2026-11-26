@@ -146,6 +146,19 @@ def test_o_sabado_mede_na_semana_1_e_na_16_e_treina_no_meio(plano):
     assert all(len(r.materias_da_rodada) == 14 for r in rodadas[SEMANAS_DO_CICLO:])
 
 
+def test_toda_aula_do_ciclo_1_tem_ficha_com_resumo(plano):
+    # PRF-39: a ficha e o resumo (o que mais caiu, como o Cebraspe cobra, as
+    # pegadinhas) de cada aula do Ciclo 1. Le o data/fichas.json versionado. A Lei
+    # 10.826/2003 espera a copia do texto vigente (a Camara nao tem a compilacao).
+    import json
+    from radar import fichas
+    reais = json.loads((config.RAIZ / "data" / "fichas.json").read_text(encoding="utf-8"))
+    com_resumo = {(fichas.chave_do_tema(f["tema"]), f["materia"]) for f in reais if f.get("resumo")}
+    faltam = [f.titulo for f in _teorias(_uteis(plano, 1))
+              if (fichas.chave_do_tema(f.titulo), f.materia) not in com_resumo]
+    assert faltam == ["Lei nº 10.826/2003 e suas alterações: Capítulo IV"]
+
+
 def test_todo_sabado_tem_redacao_com_um_tema_do_redacao_yml(plano):
     temas = {t["tema"] for t in yaml.safe_load(REDACAO.read_text(encoding="utf-8"))["temas"]}
     for sabado in _sabados(plano):

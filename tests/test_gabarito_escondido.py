@@ -54,6 +54,26 @@ def test_esconder_gabarito_so_troca_a_letra_da_que_nao_respondi():
     assert fichas.esconder_gabarito("", set()) == ""
 
 
+def test_a_prova_sem_ano_tambem_tem_o_gabarito_escondido():
+    # PRF-39: a prova sem ano no acervo vira "s/a" no codigo; antes a letra dela
+    # aparecia no resumo antes de eu responder.
+    texto = "Outro concurso: CEBRASPE-s/a-q97 (gabarito E)."
+    assert fichas.esconder_gabarito(texto, set()) == f"Outro concurso: CEBRASPE-s/a-q97 ({ESCONDIDO})."
+    assert fichas.esconder_gabarito(texto, {"CEBRASPE-s/a-q97"}) == texto
+
+
+def test_a_importacao_confere_o_gabarito_da_prova_sem_ano():
+    import pytest
+    frase = lambda texto: [{"texto": texto, "fontes": ["CTB, art. 1º"]}]
+    resumo = {"dominar": frase("O que dominar no tema."), "artigos": frase("O artigo-chave do tema."),
+              "como_cobra": frase("Um item de outro concurso: CEBRASPE-s/a-q97 (gabarito E)."),
+              "pegadinhas": frase("A troca do prazo: CEBRASPE-s/a-q97 (gabarito E).")}
+    codigos = {"CEBRASPE-s/a-q97": "e"}
+    fichas.conferir_resumo(resumo, codigos=codigos, caiu=True, exige_artigo=True)
+    with pytest.raises(fichas.FichaRecusada, match="CEBRASPE-s/a-q97 não é E"):
+        fichas.conferir_resumo(resumo, codigos={"CEBRASPE-s/a-q97": "c"}, caiu=True, exige_artigo=True)
+
+
 def test_os_codigos_respondidos_separam_alvo_e_complementar(banco_temporario):
     _responder(2019, 53)
     _responder(2024, 8, evidencia="complementar")
