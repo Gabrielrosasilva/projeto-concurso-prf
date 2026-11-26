@@ -1,0 +1,162 @@
+{
+ "procedencia": "Claude Code (claude-opus-5-5), 25/11/2026: contado nos editais de resultado do Cebraspe, so as notas (sem nome nem inscricao)",
+ "como_contei": "Passou = discursiva corrigida e com 10 ou mais (edital 2021, 10.6.4). A lista geral de 2021 (1.1 do Edital 11) e a da ampla concorrencia; o menor valor dela e o corte da ampla para ter a discursiva corrigida. As 1.500 sao as 1.500 maiores notas de objetiva + discursiva entre as que passaram: aproximacao, sem os titulos e sem as listas de cotas. Em 2019 as listas sao por UF e nao separei a ampla.",
+ "blocos": {
+  "I": [
+   "Língua Portuguesa",
+   "Raciocínio Lógico-Matemático",
+   "Informática",
+   "Física",
+   "Ética e Cidadania",
+   "Geopolítica",
+   "Língua Estrangeira (Inglês ou Espanhol)"
+  ],
+  "II": [
+   "Legislação de Trânsito"
+  ],
+  "III": [
+   "Direito Administrativo",
+   "Direito Constitucional",
+   "Direito Penal",
+   "Direito Processual Penal",
+   "Legislação Especial",
+   "Direitos Humanos"
+  ]
+ },
+ "2021": {
+  "fontes": [
+   "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/ED_11_PRF_2021_FINAL_OBJETIVA_PROV_DISCURSIVA.PDF",
+   "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/ED_12_PRF_2021_FINAL_DISCURSIVA_CONV_TAF_FIP_MATRCULA.PDF",
+   "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF"
+  ],
+  "vagas": 1500,
+  "corrigidas": 5886,
+  "cairam_na_discursiva": 488,
+  "passaram": 5398,
+  "corte_da_ampla": 73.0,
+  "lista_geral": {
+   "n": 5096,
+   "objetiva": {
+    "min": 73.0,
+    "q1": 74.0,
+    "mediana": 77.0,
+    "q3": 81.0
+   },
+   "discursiva": {
+    "q1": 12.89,
+    "mediana": 15.33,
+    "q3": 17.26
+   },
+   "bloco_I": {
+    "itens": 55,
+    "min": 15.0,
+    "q1": 25.0,
+    "mediana": 28.0,
+    "q3": 31.0
+   },
+   "bloco_II": {
+    "itens": 30,
+    "min": 10.0,
+    "q1": 24.0,
+    "mediana": 26.0,
+    "q3": 28.0
+   },
+   "bloco_III": {
+    "itens": 35,
+    "min": 14.0,
+    "q1": 23.0,
+    "mediana": 25.0,
+    "q3": 27.0
+   }
+  },
+  "as_1500": {
+   "n": 1500,
+   "objetiva": {
+    "min": 76.0,
+    "q1": 81.0,
+    "mediana": 83.0,
+    "q3": 86.0
+   },
+   "discursiva": {
+    "q1": 15.56,
+    "mediana": 17.09,
+    "q3": 18.34
+   },
+   "bloco_I": {
+    "itens": 55,
+    "min": 19.0,
+    "q1": 28.0,
+    "mediana": 31.0,
+    "q3": 34.0
+   },
+   "bloco_II": {
+    "itens": 30,
+    "min": 11.0,
+    "q1": 25.0,
+    "mediana": 27.0,
+    "q3": 28.0
+   },
+   "bloco_III": {
+    "itens": 35,
+    "min": 15.0,
+    "q1": 24.0,
+    "mediana": 26.0,
+    "q3": 28.0
+   }
+  }
+ },
+ "2019": {
+  "fontes": [
+   "https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/ED_7_PRF_2018_RETOMADA_E_RES_FINAL_OBJET_PROV_DISC.PDF",
+   "https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/ED_8_PRF_2018_RES_FINAL_DISC_CONV_EXAMES_FIP.PDF",
+   "https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/PRF_18___PADRO_DE_RESPOSTAS_DEFINITIVO.PDF"
+  ],
+  "corrigidas": 2479,
+  "cairam_na_discursiva": 190,
+  "passaram": 2283,
+  "passaram_todas_as_listas": {
+   "n": 2283,
+   "objetiva": {
+    "min": 50.0,
+    "q1": 84.0,
+    "mediana": 88.0,
+    "q3": 92.0
+   },
+   "discursiva": {
+    "q1": 13.19,
+    "mediana": 15.24,
+    "q3": 17.46
+   },
+   "bloco_I": {
+    "itens": 50,
+    "min": 10.0,
+    "q1": 28.0,
+    "mediana": 32.0,
+    "q3": 36.0,
+    "certos": 37,
+    "errados": 4.0,
+    "em_branco": 8.0
+   },
+   "bloco_II": {
+    "itens": 40,
+    "min": 12.0,
+    "q1": 30.0,
+    "mediana": 33.0,
+    "q3": 36.0,
+    "certos": 36,
+    "errados": 2.0,
+    "em_branco": 1.0
+   },
+   "bloco_III": {
+    "itens": 30,
+    "min": 8.0,
+    "q1": 21.0,
+    "mediana": 23.0,
+    "q3": 26.0,
+    "certos": 26,
+    "errados": 3.0,
+    "em_branco": 1.0
+   }
+  }
+ }
+}

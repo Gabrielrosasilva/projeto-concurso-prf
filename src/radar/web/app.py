@@ -2246,6 +2246,8 @@ def analises_certo_errado(request: Request):
         request=request, name="certo_errado_regra.html",
         context={
             "nota": servico.metricas.nota_liquida_acumulada(),
+            # A distancia dos aprovados de 2021, bloco a bloco (PRF-34).
+            "distancia": servico.aprovados.distancia(),
             "gabarito": gabarito,
             "chutes": chutes,
             "regra": servico.certo_errado.regra_do_chute(

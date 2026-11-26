@@ -61,6 +61,36 @@
     <p class="ds-pequeno" style="margin-bottom:0">Todas as respostas a itens reais de Certo/Errado, cada uma contando (o histórico). Nas rodadas o chute conta na nota, como na prova; no desempenho por assunto ele fica de fora, e o chute errado fica fora do caderno de erros.</p>
   </section>
 
+  {# A distancia dos aprovados (PRF-34): a minha nota liquida por bloco ao lado
+     da dos aprovados de 2021. Os numeros sao do servico.aprovados; os dos
+     aprovados vem do data/aprovados_prf.json (docs/aprovados_prf.md). #}
+  {% if distancia %}
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">A distância dos aprovados (PRF 2021)</h2>
+      {{ selo(distancia.origem, 'Contado nos editais do Cebraspe') }}
+    </div>
+    <p>A sua nota líquida em cada bloco, ao lado da dos aprovados na objetiva e na discursiva de 2021. A meta é a mediana das 1.500 maiores notas: o aprovado típico, e não o último.</p>
+    <div class="rolagem">
+    <table class="tabela">
+      <tr><th>Bloco</th><th class="n">Itens</th><th class="n">Você</th><th class="n">Lista geral</th><th class="n">As 1.500</th><th class="n">Falta</th></tr>
+      {% for l in distancia.linhas %}
+        <tr>
+          <td>Bloco {{ l.bloco }}</td>
+          <td class="n">{{ l.itens }}</td>
+          <td class="n">{% if l.minha.porcentagem is not none %}{{ l.minha.porcentagem }}%{% if l.pouca_amostra %} <span class="ds-suave">({{ l.minha.itens }} itens: pouco)</span>{% endif %}{% else %}&mdash;{% endif %}</td>
+          <td class="n">{{ l.mediana_geral }}%</td>
+          <td class="n"><b>{{ l.mediana_das_1500 }}%</b></td>
+          <td class="n">{% if l.falta is none %}&mdash;{% elif l.falta > 0 %}{{ l.falta }} pontos{% else %}chegou{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    </div>
+    <p class="ds-pequeno">Nota líquida em % do bloco (certos − errados, sobre os itens). {{ distancia.frase() }}</p>
+    <p class="ds-pequeno ds-suave" style="margin-bottom:0">As 1.500 são as maiores notas de objetiva + discursiva, sem os títulos e sem as listas de cotas: uma aproximação. Como contei: <code>docs/aprovados_prf.md</code>.</p>
+  </section>
+  {% endif %}
+
   <section class="ds-cartao">
     <div class="ds-cartao__cabeca">
       <h2 class="ds-cartao__titulo">A regra do chute</h2>

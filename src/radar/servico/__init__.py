@@ -160,6 +160,8 @@ from radar.servico import cronograma    # noqa: F401 - usado pela CLI
 from radar.servico import erros         # noqa: F401 - usado pela web
 # O painel da explicacao depois da resposta e a Revisao do simulado (PRF-31).
 from radar.servico import explicacoes   # noqa: F401 - usado pela web
+# A distancia dos aprovados da PRF 2021, bloco a bloco (PRF-34).
+from radar.servico import aprovados     # noqa: F401 - usado pela web
 # O estudo extra, fora das faixas do plano. Tambem diario, tambem nao mede.
 from radar.servico import extra         # noqa: F401 - usado pela web
 # Como eu fui em cada semana, por ciclo. `servico.semanas.montar()`.
