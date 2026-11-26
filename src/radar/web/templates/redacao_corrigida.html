@@ -49,7 +49,11 @@
   </header>
 
   {% set n = r.nota %}
-  {% set minimo = (regras.regras_do_edital or {}).linhas_minimo or 20 %}
+  {% set e = regras.regras_do_edital or {} %}
+  {% set minimo = e.linhas_minimo or 20 %}
+  {% set minima = e.nota_minima or 10 %}
+  {# O fator gravado na correcao (PRF-37); a correcao antiga, sem ele, era 1. #}
+  {% set fator = (n.fator or 1)|float %}
   <section class="ds-cartao">
     <h2 class="ds-cartao__titulo">Nota final</h2>
     <p class="nota-final">{{ '%.2f'|format(n.final)|replace('.', ',') }}</p>
@@ -57,26 +61,28 @@
       <p class="ds-alerta">Nota zero: {{ r.motivo_zero }}. Sem o zero, a conta daria
         {{ '%.2f'|format([n.bruta - n.desconto, 0]|max)|replace('.', ',') }}.</p>
     {% elif n.aprovada %}
-      <p>Acima do mínimo de 10.</p>
+      <p>Acima do mínimo de {{ minima }}.</p>
     {% else %}
-      <p class="ds-alerta">Abaixo do mínimo de 10: na prova, eliminaria.</p>
+      <p class="ds-alerta">Abaixo do mínimo de {{ minima }}: na prova, eliminaria.</p>
     {% endif %}
-    <p class="conta">NC {{ '%g'|format(n.nc) }} − NE {{ n.ne }} ÷ TL {{ n.tl }} = {{ '%.2f'|format(n.bruta) }}
+    <p class="conta">NC {{ '%g'|format(n.nc) }} − {% if fator != 1 %}{{ fator|int }} × {% endif %}NE {{ n.ne }} ÷ TL {{ n.tl }} = {{ '%.2f'|format(n.bruta) }}
       {% if n.desconto %}− {{ n.linhas_faltando }} linha(s) abaixo de {{ minimo }} × 0,20 = {{ '%.2f'|format(n.desconto) }}{% endif %}
       → <b>{{ '%.2f'|format(n.final) }}</b></p>
-    {% if n.acima_do_maximo %}<p class="dica">Passou do limite de linhas: o que vem depois da 30ª não conta (edital, 11.7).</p>{% endif %}
+    {% if n.acima_do_maximo %}<p class="dica">Passou do limite de linhas: o que vem depois da {{ e.linhas_maximo or 30 }}ª não conta.</p>{% endif %}
     {% if r.legibilidade and r.legibilidade.avaliacao %}
       <p><b>Letra:</b> {{ r.legibilidade.avaliacao }}{% if r.legibilidade.observacao %} — {{ r.legibilidade.observacao }}{% endif %}
-        <span class="dica">(letra ilegível é nota zero: edital, 11.13)</span></p>
+        {% if e.ilegivel %}<span class="dica">({{ e.ilegivel }})</span>{% endif %}</p>
     {% endif %}
-    <p class="dica">A conta é do radar, pelo item 11.5 do edital. O NC e a lista de erros são da correção {{ selo('ia', curto=True) }}.
+    <p class="dica">A conta é do radar, pela fórmula do edital{% if e.item_da_formula %} ({{ e.item_da_formula }}){% endif %}.
+      {% if r.por_conceitos %}Os conceitos e a lista de erros são da correção {{ selo('ia', curto=True) }}; a NC, conta do radar, é uma estimativa.
+      {% else %}O NC e a lista de erros são da correção {{ selo('ia', curto=True) }}.{% endif %}
       {% if r.nota_final_da_ia is not none and ('%.2f'|format(r.nota_final_da_ia)) != ('%.2f'|format(n.final)) %}
         A IA tinha calculado {{ '%.2f'|format(r.nota_final_da_ia)|replace('.', ',') }}: vale a do radar.{% endif %}</p>
   </section>
 
   <section class="ds-cartao">
     <h2 class="ds-cartao__titulo">O resumo do corretor {{ selo('ia') }}</h2>
-    <p class="dica">{{ r.procedencia }}. Correção escrita por IA no critério da AOCP (edital, 11.5): confira cada erro pela regra.</p>
+    <p class="dica">{{ r.procedencia }}. Correção escrita por IA {{ e.criterio_da_correcao or 'pelo critério do edital' }}: confira cada erro pela regra.</p>
     {% if r.pontos_positivos %}
       <h3>O que está bom</h3>
       <ul class="bom">{% for p in r.pontos_positivos %}<li>{{ p }}</li>{% endfor %}</ul>
@@ -88,20 +94,28 @@
   </section>
 
   <section class="ds-cartao">
-    <h2 class="ds-cartao__titulo">Por critério</h2>
+    <h2 class="ds-cartao__titulo">{% if r.por_conceitos %}Por quesito{% else %}Por critério{% endif %}</h2>
     <table class="ds-tabela">
-      <thead><tr><th>Critério</th><th>Nota</th><th>O que está bom</th><th>O que melhorar</th></tr></thead>
+      <thead><tr><th>{% if r.por_conceitos %}Quesito{% else %}Critério{% endif %}</th><th>{% if r.por_conceitos %}Conceito{% else %}Nota{% endif %}</th><th>O que está bom</th><th>O que melhorar</th></tr></thead>
       <tbody>{% for c in r.criterios %}
         <tr>
           <td>{{ c.criterio }}</td>
-          <td>{{ '%g'|format(c.nota) }}</td>
+          <td>{{ '%g'|format(c.nota) }}{% if r.por_conceitos %} de {{ e.conceito_maximo or 3 }}{% endif %}</td>
           <td>{% if c.positivos %}<ul class="bom">{% for p in c.positivos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</td>
           <td>{% if c.negativos %}<ul class="ruim">{% for p in c.negativos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
             {% if c.comentario %}<p class="dica">{{ c.comentario }}</p>{% endif %}</td>
         </tr>
       {% endfor %}</tbody>
     </table>
-    <p class="dica">Nota de conteúdo (NC): {{ '%g'|format(r.nota_conteudo) }} de 20.</p>
+    <p class="dica">Nota de conteúdo (NC): {{ '%g'|format(r.nota_conteudo) }} de {{ e.nota_maxima or 20 }}.
+      {% if r.por_conceitos %}Estimada pelo radar: a média dos conceitos levada aos {{ e.nota_maxima or 20 }} pontos. O padrão
+        de resposta dá a escala de cada quesito, mas não quanto ele vale, e a apresentação também entra na NC sem peso
+        publicado: aqui ela vem comentada, sem nota.{% endif %}</p>
+    {% if r.apresentacao and (r.apresentacao.comentario or r.apresentacao.problemas) %}
+      <h3>Apresentação e estrutura textual</h3>
+      {% if r.apresentacao.comentario %}<p>{{ r.apresentacao.comentario }}</p>{% endif %}
+      {% if r.apresentacao.problemas %}<ul class="ruim">{% for p in r.apresentacao.problemas %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
+    {% endif %}
   </section>
 
   <section class="ds-cartao" id="texto">
@@ -109,7 +123,7 @@
     {% if anotado %}
       <p class="anotado">{% for pedaco, numero in anotado %}{% if numero %}<mark>{{ pedaco }}<sup>{{ numero }}</sup></mark>{% else %}{{ pedaco }}{% endif %}{% endfor %}</p>
     {% endif %}
-    <p class="dica">Cada erro divide pelas linhas escritas: são eles que formam o NE da conta.</p>
+    <p class="dica">Cada erro vale {% if fator != 1 %}{{ fator|int }} ÷ {% endif %}as linhas escritas: são eles que formam o NE da conta.</p>
     {% if r.erros %}
       <ol class="erros">{% for e in r.erros %}
         <li>{% if e.tipo %}<span class="tipo">{{ e.tipo }}</span><br>{% endif %}
@@ -168,8 +182,8 @@
   <section class="ds-cartao" id="modelo">
     <details>
       <summary><b>A redação-modelo deste tema</b> {{ selo('ia') }}</summary>
-      <p class="dica">Compare com a sua: onde está a tese, o que cada desenvolvimento prova e a proposta com
-        agente, ação, meio e finalidade. Não decore: na prova o tema e os textos serão outros.</p>
+      <p class="dica">{{ regras.como_ler_o_modelo or 'Compare com a sua: onde está a tese, o que cada desenvolvimento prova e a proposta com agente, ação, meio e finalidade.' }}
+        Não decore: na prova o tema e os textos serão outros.</p>
       <div class="modelo">{% for p in modelo.paragrafos %}<p>{{ p }}</p>{% endfor %}</div>
       {% if modelo.pontos %}
         <h3>Por que funciona</h3>

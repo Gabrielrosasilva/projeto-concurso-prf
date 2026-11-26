@@ -163,7 +163,8 @@ def _instrucao(tipo: str) -> str:
 
 
 def _formato(tipo: str) -> dict:
-    return {TIPO_CORRECAO: regras_da_redacao.FORMATO_DA_CORRECAO,
+    regras = regras_da_redacao.carregar().get("regras_do_edital") or {}
+    return {TIPO_CORRECAO: regras_da_redacao.formato_da_correcao(regras),
             TIPO_IDEIAS: regras_da_redacao.FORMATO_DAS_IDEIAS,
             TIPO_REESCRITA: regras_da_redacao.FORMATO_DA_REESCRITA}[tipo]
 
@@ -194,6 +195,11 @@ def _pedido(tipo: str, tema: str, data: date, texto: str | None = None,
                        "origem": origem if origem in ORIGENS else "digitado",
                        "comando": comando_do_tema(tema),
                        "textos_motivadores": textos_do_tema(tema)})
+        # No Cebraspe, um conceito por aspecto da proposta (PRF-37).
+        quesitos = regras_da_redacao.quesitos_do_tema(
+            tema, regras_da_redacao.carregar().get("temas") or [])
+        if quesitos:
+            pedido["quesitos"] = quesitos
     return pedido
 
 
@@ -288,6 +294,8 @@ def _registro_da_correcao(pedido: dict, correcao: regras_da_redacao.Correcao,
         "texto": pedido.get("texto") or "",
         "nota_conteudo": correcao.nota_conteudo,
         "criterios": correcao.criterios,
+        "por_conceitos": correcao.por_conceitos,
+        "apresentacao": correcao.apresentacao,
         "erros": correcao.erros,
         "tres_pontos": correcao.tres_pontos,
         "paragrafo_mais_fraco": correcao.paragrafo_mais_fraco,
@@ -304,7 +312,7 @@ def _registro_da_correcao(pedido: dict, correcao: regras_da_redacao.Correcao,
         "reescritas": [],
         "nota": {"nc": conta.nc, "ne": conta.ne, "tl": conta.tl, "bruta": conta.bruta,
                  "linhas_faltando": conta.linhas_faltando, "desconto": conta.desconto,
-                 "final": conta.final, "aprovada": conta.aprovada,
+                 "final": conta.final, "aprovada": conta.aprovada, "fator": conta.fator,
                  "acima_do_maximo": conta.acima_do_maximo},
         "procedencia": procedencia,
         "criado_em": momento.isoformat(),

@@ -226,24 +226,30 @@ CORRECAO = {"tipo": "correcao", "duracao": 25, "titulo": "Correção",
 
 PADRAO_2019 = "https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/PRF_18___PADRO_DE_RESPOSTAS_DEFINITIVO.PDF"
 PADRAO_2021 = "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF"
+# Os temas da redacao de sabado: o titulo e IGUAL ao `tema` do PRF/config/redacao.yml
+# (a aba acha o tema, os textos motivadores e os quesitos por ele; PRF-37).
 TEMAS = {
-    1: ("o da PRF 2019: as infrações nas rodovias - o que a PRF, a sociedade e o indivíduo podem fazer", PADRAO_2019),
-    2: ("O uso do celular ao volante e a segurança nas rodovias federais (tema proposto pelo Claude)", None),
-    3: ("A fiscalização eletrônica de velocidade e a redução de acidentes (tema proposto pelo Claude)", None),
-    4: ("O transporte de cargas e a segurança viária nas rodovias (tema proposto pelo Claude)", None),
-    5: ("A educação para o trânsito como política pública (tema proposto pelo Claude)", None),
-    6: ("o da PRF 2021: os crimes de trânsito no CTB, a Lei Seca e os acidentes", PADRAO_2021),
+    1: ("As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo",
+        "o tema da discursiva da PRF de 2019, com outras palavras", PADRAO_2019),
+    2: ("O uso do celular ao volante e a segurança nas rodovias federais", "tema proposto pelo Claude", None),
+    3: ("A fiscalização eletrônica de velocidade e a redução dos sinistros de trânsito", "tema proposto pelo Claude",
+        None),
+    4: ("O transporte rodoviário de cargas e a segurança viária", "tema proposto pelo Claude", None),
+    5: ("A educação para o trânsito como política pública", "tema proposto pelo Claude", None),
+    6: ("Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias",
+        "o tema da discursiva da PRF de 2021, com outras palavras", PADRAO_2021),
 }
 
 
 def faixa_redacao(semana):
-    tema, padrao = TEMAS[semana]
+    tema, origem, padrao = TEMAS[semana]
     f = {"tipo": "portugues", "duracao": 60, "cronometrado": True, "materia": "Redação",
          "titulo": f"Redação da semana: {tema}",
-         "detalhe": ("10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 "
-                     "linhas, 10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com \"corrige "
-                     "a redação pelos critérios do Cebraspe\" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 "
-                     "elimina). A aba Redação ainda é a da AOCP e vira a do Cebraspe na próxima etapa."
+         "detalhe": (f"É {origem}: a proposta, os textos motivadores e os três aspectos estão na aba Redação. "
+                     "10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo à mão até 30 linhas, "
+                     "10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com \"corrige "
+                     "a redação\" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 "
+                     "elimina)."
                      + (" Depois, compare com o padrão de resposta definitivo (o link)." if padrao else ""))}
     if padrao:
         f["link"] = padrao

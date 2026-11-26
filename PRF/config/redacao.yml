@@ -1,0 +1,258 @@
+# A redacao da PRF: o que o Cebraspe cobra, o metodo, os temas e o pedido de correcao
+# para a IA. Lido pela aba Redacao do radar (o formato e o da copia PMSC, decisao
+# PMSC-5). E DADO: pode editar a mao.
+#
+# PROCEDENCIA: escrito pelo Claude Code (claude-opus-5-5) em 25/11/2026 (PRF-37), a
+# partir do item 10 do Edital PRF nº 1, de 18/1/2021 (`docs/edital.md`) e dos padroes
+# de resposta definitivos das discursivas de 2019 e 2021 (links em `temas_anteriores`).
+# Os textos motivadores e o repertorio sao trechos LITERAIS da lei vigente, da
+# compilacao da Camara (copias em fontes/leis/), com "[...]" onde se cortou, conferidos
+# palavra por palavra em 25/11/2026. Texto de lei nao tem direito autoral (Lei
+# 9.610/1998, art. 8º, IV). O texto das provas (comando e textos motivadores) e de
+# terceiros e NAO esta aqui: os temas de 2019 e 2021 vao com outras palavras.
+#
+# A NOTA (PRF-37): NPD = NC - 4 x (NE / TL), edital 10.6.4. O padrao de resposta da
+# a escala de cada quesito (conceito 0 a 3), mas nao quanto ele vale nos 20 pontos, e
+# o edital poe na NC tambem a apresentacao e a estrutura textual, sem dizer o peso.
+# Por isso a NC do radar e uma ESTIMATIVA: os quesitos valem igual (20 x soma dos
+# conceitos / (3 x quantos quesitos)), e a apresentacao vem comentada, sem nota.
+
+regras_do_edital:
+  cabecalho: "Policial Rodoviário Federal · Cebraspe · texto dissertativo de até 30 linhas · 20 pontos · eliminado abaixo de 10"
+  tema: "Temas relacionados aos objetos de avaliação (10.1). Em 2019 e em 2021, os dois foram de trânsito nas rodovias, com três aspectos para abordar."
+  tipo: dissertativo
+  # Sem minimo de linhas no edital do Cebraspe: so o maximo (10.1). Com 0, nao ha
+  # desconto por linha que falta.
+  linhas_minimo: 0
+  linhas_maximo: 30
+  nota_maxima: 20
+  nota_minima: 10
+  # NPD = NC - 4 x (NE / TL) (10.6.4, d).
+  fator_dos_erros: 4
+  # A escala de cada quesito nos padroes de resposta de 2019 e 2021.
+  conceito_maximo: 3
+  corrigida_ate_a_posicao: "6.000"
+  formula: "NPD = NC − 4 × (NE ÷ TL) (10.6.4): NC é a nota de conteúdo (apresentação, estrutura textual e desenvolvimento do tema, até 20), NE os erros de grafia, morfossintaxe e propriedade vocabular, e TL as linhas efetivamente escritas. NPD negativa vira zero; abaixo de 10, eliminado."
+  item_da_formula: "edital 2021, 10.6.4"
+  criterio_da_correcao: "pelo critério do Cebraspe (edital 2021, 10.6.4, e os padrões de resposta da PRF de 2019 e 2021)"
+  criterios_de_conteudo:
+    - "Apresentação e estrutura textual (10.6.4, a)"
+    - "Desenvolvimento do tema: um quesito por aspecto da proposta, cada um com conceito de 0 a 3 (padrões de resposta de 2019 e 2021)"
+  zero:
+    - "Fuga ao tema (10.6.4, g)"
+    - "Não haver texto (10.6.4, g)"
+    - "NPD abaixo de zero vira zero (10.6.4, e)"
+    - "Anulada: folha com marca que identifique o candidato fora do lugar próprio (10.4) ou não devolvida (10.6.5)"
+  caneta: "caneta esferográfica de tinta preta, de material transparente (10.3)"
+  ilegivel: "o edital pede letra legível (10.3)"
+  sem_textos: "Os temas de 2019 e 2021 foram de trânsito nas rodovias, com três aspectos para abordar."
+  fonte: "Edital Concurso PRF nº 1, de 18 de janeiro de 2021, item 10 (docs/edital.md)."
+
+esqueleto:
+  - parte: Introdução
+    linhas: "3 a 5"
+    o_que_escrever: "O contexto (a lei ou o fato) + o tema + anuncie os três aspectos que o texto vai tratar."
+    modelo: "O Código de Trânsito Brasileiro estabelece que o trânsito seguro é direito de todos e dever do Estado. Nesse contexto, [o tema] envolve [aspecto 1], [aspecto 2] e [aspecto 3]."
+  - parte: Aspecto 1
+    linhas: "6 a 8"
+    o_que_escrever: "Responda ao primeiro aspecto: explique (não só cite), dê a causa ou o exemplo e ligue ao tema. É o quesito 2.1."
+    modelo: "Em primeiro lugar, [aspecto 1]. Isso ocorre porque [explicação]. Um exemplo é [exemplo]. Dessa forma, [ligação com o tema]."
+  - parte: Aspecto 2
+    linhas: "6 a 8"
+    o_que_escrever: "O mesmo desenho, com o segundo aspecto, e uma ponte com o primeiro. É o quesito 2.2."
+    modelo: "Além disso, [aspecto 2], o que se relaciona com [aspecto 1] porque [ponte]. [Explicação]. [Exemplo]."
+  - parte: Aspecto 3
+    linhas: "6 a 8"
+    o_que_escrever: "O terceiro aspecto, com exemplos concretos. Quando o aspecto pede ações, diga quem faz, o que faz e para quê. É o quesito 2.3."
+    modelo: "Por fim, [aspecto 3]: cabe a [quem] [ação], por meio de [como], a fim de [para quê]."
+  - parte: Conclusão
+    linhas: "3 a 4"
+    o_que_escrever: "Retome o tema articulando os três aspectos, sem ideia nova."
+    modelo: "Portanto, [tema] depende de [aspecto 1], [aspecto 2] e [aspecto 3], que se complementam: [síntese]."
+
+roteiro_de_ideias:
+  minutos: 10
+  passos:
+    - "Leia o comando e numere os aspectos: cada aspecto é um quesito, e cada quesito vira um parágrafo."
+    - "Para cada aspecto, responda em uma linha: O QUE é, POR QUE acontece (a causa) e UM EXEMPLO concreto."
+    - "Ache a ligação entre os aspectos (o conceito 3 exige articular com o tema e com os outros aspectos)."
+    - "Escreva a frase da introdução que anuncia os três aspectos. Só então comece o texto."
+
+conectivos:
+  abrir: [Em primeiro lugar, Inicialmente, Além disso, Ademais, Por fim]
+  explicar: [Isso ocorre porque, Visto que, Uma vez que, Em razão de]
+  exemplificar: [Um exemplo disso é, É o caso de, Como se vê em]
+  contrastar: [Entretanto, Contudo, No entanto]
+  fechar: [Dessa forma, Assim, Portanto, Diante disso]
+
+erros_que_mais_tiram_ponto:
+  - "Citar o aspecto sem explicar: no padrão, mencionar sem desenvolver é conceito 1."
+  - "Desenvolver um aspecto solto, sem ligar ao tema e aos outros: é conceito 2."
+  - "Esquecer um aspecto: conceito 0 naquele quesito."
+  - "Passar de 30 linhas: o que passa é desconsiderado (10.6.4, c)."
+  - "Vírgula entre sujeito e verbo."
+  - "Crase antes de palavra masculina ou de verbo."
+  - "\"Haviam problemas\" (o certo é \"havia\": haver no sentido de existir não vai ao plural)."
+  - "\"Onde\" para o que não é lugar (use \"em que\", \"no qual\")."
+  - "mas x mais; a x há; mal x mau; porque x por que."
+  - "Acento: \"têm\" no plural, \"veem\" sem acento."
+  - "Cada erro tira 4 ÷ TL: em 30 linhas, 6 erros tiram 0,80 ponto."
+
+# So o que e certo, conferido no texto da lei. Numero inventado vira erro de
+# conteudo: a IA nunca deve sugerir estatistica que nao esteja aqui.
+repertorio:
+  - "CF, art. 144, caput: a segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio; a polícia rodoviária federal é um dos órgãos (inciso II)."
+  - "CF, art. 144, § 2º: a polícia rodoviária federal destina-se, na forma da lei, ao patrulhamento ostensivo das rodovias federais."
+  - "CTB, art. 1º, § 2º: o trânsito, em condições seguras, é um direito de todos e dever dos órgãos e entidades do Sistema Nacional de Trânsito."
+  - "CTB, art. 1º, § 5º: os órgãos de trânsito darão prioridade em suas ações à defesa da vida."
+  - "CTB, art. 74: a educação para o trânsito é direito de todos e dever prioritário do Sistema Nacional de Trânsito; art. 76: ela será promovida da pré-escola ao ensino superior."
+  - "CTB, art. 165: dirigir sob a influência de álcool é infração gravíssima, com multa (dez vezes) e suspensão do direito de dirigir por 12 meses; a redação do caput é da Lei nº 11.705/2008, a chamada Lei Seca."
+  - "CTB, art. 306: conduzir veículo com a capacidade psicomotora alterada pelo álcool ou por outra substância psicoativa é crime, com detenção de seis meses a três anos."
+  - "CTB, art. 252, parágrafo único: dirigir segurando ou manuseando telefone celular é infração gravíssima."
+  - "CTB, art. 280, § 2º: a infração pode ser comprovada por aparelho eletrônico ou equipamento audiovisual regulamentado pelo CONTRAN."
+  - "CTB, art. 67-C: é vedado ao motorista profissional dirigir por mais de 5 horas e meia ininterruptas veículo de transporte de cargas ou coletivo de passageiros."
+  - "CTB, arts. 99 e 102: só transita o veículo com peso e dimensões nos limites do CONTRAN, e o veículo de carga deve estar equipado para evitar o derramamento da carga."
+  - "Desde a Lei nº 14.599/2023, o CTB fala em \"sinistro de trânsito\" (art. 20, IV, por exemplo)."
+
+temas:
+  # Os temas do Ciclo 1 (PRF/config/cronograma.yml): um por sabado. O `tema` e
+  # IGUAL ao titulo da faixa depois de "Redação da semana: ". Os `quesitos` sao os
+  # aspectos do comando, um conceito de 0 a 3 cada na correcao.
+  - data: "2027-01-09"
+    tema: "As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo"
+    origem: "o tema da discursiva da PRF de 2019, com outras palavras"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca das infrações de trânsito nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 medidas que a Polícia Rodoviária Federal adota ou pode adotar para combater as infrações; 2 ações da sociedade que auxiliem na diminuição das infrações; 3 atitudes individuais para a diminuição das infrações."
+    quesitos:
+      - "2.1 Medidas da PRF no combate às infrações"
+      - "2.2 Ações da sociedade para diminuir as infrações"
+      - "2.3 Atitudes individuais para diminuir as infrações"
+    textos:
+      - texto: "A segurança pública, dever do Estado, direito e responsabilidade de todos, é exercida para a preservação da ordem pública e da incolumidade das pessoas e do patrimônio, através dos seguintes órgãos: [...] II - polícia rodoviária federal; [...] § 2º A polícia rodoviária federal, órgão permanente, organizado e mantido pela União e estruturado em carreira, destina-se, na forma da lei, ao patrulhamento ostensivo das rodovias federais."
+        lei: "CF, art. 144, caput, II, e § 2º"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "O trânsito, em condições seguras, é um direito de todos e dever dos órgãos e entidades componentes do Sistema Nacional de Trânsito, a estes cabendo, no âmbito das respectivas competências, adotar as medidas destinadas a assegurar esse direito."
+        lei: "Código de Trânsito Brasileiro, art. 1º, § 2º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+  - data: "2027-01-16"
+    tema: "O uso do celular ao volante e a segurança nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do uso do celular ao volante e da segurança nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que o uso do celular ao volante aumenta o risco de sinistros; 2 o que o Código de Trânsito Brasileiro prevê para essa conduta e o papel da fiscalização; 3 ações de educação e de tecnologia que podem reduzir esse comportamento."
+    quesitos:
+      - "2.1 Por que o celular ao volante aumenta o risco de sinistros"
+      - "2.2 O que o CTB prevê e o papel da fiscalização"
+      - "2.3 Ações de educação e de tecnologia para reduzir o comportamento"
+    textos:
+      - texto: "Dirigir o veículo: [...] V - com apenas uma das mãos, exceto quando deva fazer sinais regulamentares de braço, mudar a marcha do veículo, ou acionar equipamentos e acessórios do veículo; VI - utilizando-se de fones nos ouvidos conectados a aparelhagem sonora ou de telefone celular; Infração - média; [...] Parágrafo único. A hipótese prevista no inciso V caracterizar-se-á como infração gravíssima no caso de o condutor estar segurando ou manuseando telefone celular."
+        lei: "Código de Trânsito Brasileiro, art. 252, V, VI e parágrafo único"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "Os órgãos e entidades de trânsito pertencentes no Sistema Nacional de Trânsito darão prioridade em suas ações à defesa da vida, nela incluída a preservação da saúde e do meio-ambiente."
+        lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+  - data: "2027-01-23"
+    tema: "A fiscalização eletrônica de velocidade e a redução dos sinistros de trânsito"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da fiscalização eletrônica de velocidade e da redução dos sinistros de trânsito. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a relação entre o excesso de velocidade e a gravidade dos sinistros; 2 a fiscalização eletrônica como instrumento de segurança viária, considerando a crítica de que ela serviria apenas para arrecadar; 3 medidas que complementam a fiscalização na redução dos sinistros."
+    quesitos:
+      - "2.1 Excesso de velocidade e gravidade dos sinistros"
+      - "2.2 A fiscalização eletrônica como instrumento de segurança, e a crítica da arrecadação"
+      - "2.3 Medidas que complementam a fiscalização"
+    textos:
+      - texto: "A velocidade máxima permitida para a via será indicada por meio de sinalização, obedecidas suas características técnicas e as condições de trânsito."
+        lei: "Código de Trânsito Brasileiro, art. 61, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "A infração deverá ser comprovada por declaração da autoridade ou do agente da autoridade de trânsito, por aparelho eletrônico ou por equipamento audiovisual, reações químicas ou qualquer outro meio tecnologicamente disponível, previamente regulamentado pelo CONTRAN."
+        lei: "Código de Trânsito Brasileiro, art. 280, § 2º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+  - data: "2027-01-30"
+    tema: "O transporte rodoviário de cargas e a segurança viária"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do transporte rodoviário de cargas e da segurança viária. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que o transporte de cargas traz para a segurança nas rodovias; 2 o papel da fiscalização da Polícia Rodoviária Federal nesse transporte; 3 as responsabilidades das empresas e dos motoristas."
+    quesitos:
+      - "2.1 Os riscos do transporte de cargas para a segurança nas rodovias"
+      - "2.2 O papel da fiscalização da PRF"
+      - "2.3 As responsabilidades das empresas e dos motoristas"
+    textos:
+      - texto: "Somente poderá transitar pelas vias terrestres o veículo cujo peso e dimensões atenderem aos limites estabelecidos pelo CONTRAN. [...] O veículo de carga deverá estar devidamente equipado quando transitar, de modo a evitar o derramamento da carga sobre a via."
+        lei: "Código de Trânsito Brasileiro, art. 99, caput, e art. 102, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "É vedado ao motorista profissional dirigir por mais de 5 (cinco) horas e meia ininterruptas veículos de transporte rodoviário coletivo de passageiros ou de transporte rodoviário de cargas."
+        lei: "Código de Trânsito Brasileiro, art. 67-C, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+  - data: "2027-02-06"
+    tema: "A educação para o trânsito como política pública"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da educação para o trânsito como política pública. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a educação para o trânsito como dever do Estado; 2 ações de educação nas escolas e campanhas; 3 os limites da educação sem fiscalização."
+    quesitos:
+      - "2.1 A educação para o trânsito como dever do Estado"
+      - "2.2 Ações de educação nas escolas e campanhas"
+      - "2.3 Os limites da educação sem fiscalização"
+    textos:
+      - texto: "A educação para o trânsito é direito de todos e constitui dever prioritário para os componentes do Sistema Nacional de Trânsito."
+        lei: "Código de Trânsito Brasileiro, art. 74, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "A educação para o trânsito será promovida na pré-escola e nas escolas de 1º, 2º e 3º graus, por meio de planejamento e ações coordenadas entre os órgãos e entidades do Sistema Nacional de Trânsito e de Educação, da União, dos Estados, do Distrito Federal e dos Municípios, nas respectivas áreas de atuação."
+        lei: "Código de Trânsito Brasileiro, art. 76, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+  - data: "2027-02-13"
+    tema: "Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias"
+    origem: "o tema da discursiva da PRF de 2021, com outras palavras"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos efeitos da previsão de crimes de trânsito e da Lei Seca sobre os sinistros nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da previsão dos crimes de trânsito no Código de Trânsito Brasileiro sobre os sinistros, e as possíveis causas desse resultado; 2 o impacto da Lei Seca sobre os sinistros, e as possíveis causas desse resultado; 3 ações para reduzir os sinistros de trânsito."
+    quesitos:
+      - "2.1 O impacto dos crimes de trânsito no CTB sobre os sinistros, e as causas"
+      - "2.2 O impacto da Lei Seca sobre os sinistros, e as causas"
+      - "2.3 Ações para reduzir os sinistros"
+    textos:
+      - texto: "Dirigir sob a influência de álcool ou de qualquer outra substância psicoativa que determine dependência: Infração - gravíssima; Penalidade - multa (dez vezes) e suspensão do direito de dirigir por 12 (doze) meses."
+        lei: "Código de Trânsito Brasileiro, art. 165, caput (redação da Lei nº 11.705/2008, a Lei Seca)"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+      - texto: "Conduzir veículo automotor com capacidade psicomotora alterada em razão da influência de álcool ou de outra substância psicoativa que determine dependência: Penas - detenção, de seis meses a três anos, multa e suspensão ou proibição de se obter a permissão ou a habilitação para dirigir veículo automotor."
+        lei: "Código de Trânsito Brasileiro, art. 306, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 25 nov. 2026
+
+# As discursivas que a propria PRF ja deu, com o padrao de resposta definitivo
+# (os links sao os de docs/aprovados_prf.md, abertos em 25/11/2026).
+temas_anteriores_titulo: "As discursivas da PRF (Cebraspe), com o padrão de resposta definitivo"
+temas_anteriores:
+  - {prova: "PRF 2019", tema: "As infrações nas rodovias: medidas da PRF, ações da sociedade e atitudes individuais", linhas: "até 30", link: "https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/PRF_18___PADRO_DE_RESPOSTAS_DEFINITIVO.PDF", link_texto: "padrão de resposta"}
+  - {prova: "PRF 2021", tema: "Os crimes de trânsito no CTB, a Lei Seca e as ações para reduzir os acidentes", linhas: "até 30", link: "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF", link_texto: "padrão de resposta"}
+
+como_ler_o_modelo: "Compare com a sua: a introdução anuncia os aspectos, cada parágrafo responde a um quesito explicando, com causa e exemplo, e a conclusão amarra os três."
+
+# O pedido que vai para a IA na correcao. A resposta volta em JSON, com
+# procedencia (modelo e data), e e gravada em data/redacoes.json.
+pedido_de_correcao: |
+  Você é um examinador do Cebraspe. Corrija a redação abaixo para o concurso de Policial Rodoviário Federal, pelos critérios do edital de 2021 (item 10.6.4) e do jeito dos padrões de resposta da PRF de 2019 e 2021.
+  QUESITOS: o pedido traz os `quesitos`, um por aspecto da proposta. Para CADA um, um item em `criterios`, com o número e o aspecto em `criterio` (ex.: "2.1 Medidas da PRF") e, em `nota`, o CONCEITO inteiro de 0 a 3, pela escala dos padrões: 0 – não abordou o aspecto; 1 – mencionou, mas não desenvolveu; 2 – desenvolveu de forma inconsistente ou desconectada do texto como um todo; 3 – explicou consistentemente, articulando com o tema e com os demais aspectos, com causas ou exemplos. Em `comentario`, por que esse conceito; em positivos e negativos, o que está bom e o que falta para o próximo conceito. NÃO dê nota de conteúdo: a NC é conta do radar.
+  APRESENTAÇÃO E ESTRUTURA TEXTUAL (10.6.4, a): em `apresentacao`, um comentário e a lista de problemas (parágrafos, introdução, conclusão, progressão, coesão entre os parágrafos), sem nota.
+  ERROS (o NE, 10.6.4, b): grafia, morfossintaxe e propriedade vocabular, um por ocorrência, com o trecho EXATAMENTE como está no texto (o radar o marca no lugar), a correção, a regra, o tipo (ortografia, acentuação, crase, concordância, regência, pontuação, morfossintaxe ou outro) e uma explicação simples, para quem não estuda gramática há anos. Pontuação entra quando quebra a estrutura da frase (vírgula entre sujeito e verbo, por exemplo); a de estilo vai para MELHORIAS. Na dúvida se algo é erro, ponha em MELHORIAS: erro a mais tira 4 ÷ TL do candidato.
+  MELHORIAS: o "você escreveu, como fica, por quê" do que não é erro de português, mas tira conceito: aspecto só citado, causa ou exemplo que faltou, parágrafo desligado dos outros, conectivo fraco, repetição, frase longa demais.
+  Dê também: de 2 a 4 PONTOS POSITIVOS gerais; os 3 PONTOS que mais tiraram nota; 3 FOCOS para a próxima redação; e o PARÁGRAFO MAIS FRACO reescrito como o examinador o escreveria.
+  Quando o texto vier da foto da folha (origem "foto"), avalie a LEGIBILIDADE da letra: "legível", "com trechos difíceis" ou "ilegível", e o que observar (o edital pede letra legível, 10.3).
+  Os TEXTOS MOTIVADORES vão no pedido: trecho copiado deles não é argumento do candidato.
+  MOTIVO DE ZERO, se houver (10.6.4, g): fuga ao tema ou não haver texto.
+  Regras do edital: até 30 linhas (o que passar é desconsiderado, 10.6.4, c); NPD = NC − 4 × NE ÷ TL; abaixo de 10, eliminado. A conta é do radar: a sua nota_final serve só para comparar (calcule com NC = 20 × soma dos conceitos ÷ (3 × número de quesitos)).
+  Seja rigoroso e realista como um examinador: não dê conceito maior para agradar e não elogie à toa, mas diga o que está bom. Nunca invente estatística, número ou lei: repertório, só o da lista "repertorio" enviada junto ou o dos textos motivadores.
+
+pedido_de_reescrita: |
+  Você é o mesmo examinador do Cebraspe. O candidato recebeu a correção da redação e reescreveu à mão o parágrafo mais fraco (campo "reescrita"). Compare com o parágrafo original (na "redacao"), com o que a correção apontou ("o_que_a_correcao_disse") e com o modelo do examinador ("paragrafo_reescrito_pelo_corretor").
+  Diga se melhorou ("sim", "em parte" ou "não"); num comentário direto, o que ficou melhor e o que não ficou (o aspecto agora está explicado, com causa e exemplo, e ligado ao tema?); o que ainda falta; e os erros de português da reescrita (trecho, correção, regra). Não reescreva de novo: o objetivo é ele aprender a fazer. Se ele só copiou o modelo do examinador, diga isso.
+
+pedido_de_ideias: |
+  Para o tema abaixo, no formato das discursivas da PRF (três aspectos para abordar), dê: em "teses", uma por aspecto do comando, a frase-tópico do parágrafo; para cada uma, 2 argumentos com uma frase de fundamentação (a causa, o porquê) e 1 exemplo concreto do trânsito nas rodovias (sem números inventados); e, em "proposta", uma ação com agente, ação, meio e finalidade, que sirva ao aspecto que pede ações. Use só o repertório enviado junto. Devolva em JSON.

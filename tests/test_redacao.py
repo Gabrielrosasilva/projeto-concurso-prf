@@ -308,12 +308,17 @@ def test_a_redacao_corrigida_mostra_a_conta(cliente):
     assert f'/redacao/{salvo["id"]}' in aba
 
 
-def test_a_faixa_de_redacao_da_hoje_leva_a_aba(banco_temporario, monkeypatch):
-    """Com o cronograma da copia PMSC: a quarta 28/10 tem a redacao da semana."""
-    monkeypatch.setenv("RADAR_CONFIG_DIR", str(config.RAIZ / "pmsc" / "config"))
-    texto = TestClient(app).get("/hoje?data=2026-10-28").text
+def test_a_faixa_de_redacao_da_hoje_leva_a_aba(banco_temporario, tmp_path, monkeypatch):
+    """Com o cronograma da PRF (PRF-37): o sabado 09/01/2027 tem a redacao da
+    semana. Os dados sao uma copia do data/ real: o cronograma aponta para a
+    arvore da PRF, e o espelho dos testes tem a antiga (PRF-9)."""
+    for arquivo in (config.RAIZ / "data").glob("*.json"):
+        shutil.copy2(arquivo, tmp_path / arquivo.name)
+    monkeypatch.setenv("RADAR_DATA_DIR", str(tmp_path))
+    monkeypatch.setenv("RADAR_CONFIG_DIR", str(config.RAIZ / "PRF" / "config"))
+    texto = TestClient(app).get("/hoje?data=2027-01-09").text
     assert "Abrir na aba Redação" in texto
-    assert 'href="/redacao?data=2026-10-28"' in texto
+    assert 'href="/redacao?data=2027-01-09"' in texto
 
 
 # --- a CLI e o sincronizar --------------------------------------------------
@@ -535,19 +540,21 @@ def test_numero_sem_fonte_e_achado():
 
 
 def test_os_modelos_reais_cobrem_os_temas_e_nao_inventam_numero():
-    """Le o data/redacoes_modelo.json e o pmsc/config/redacao.yml reais."""
+    """Le o data/redacoes_modelo.json e o PRF/config/redacao.yml reais (PRF-37):
+    um modelo por tema, introducao + um paragrafo por aspecto + conclusao, e
+    nenhum numero que nao esteja no tema, no comando, nos textos ou no repertorio."""
     dados = json.loads((RAIZ / "data" / "redacoes_modelo.json").read_text(encoding="utf-8"))
     import yaml
-    config_pmsc = yaml.safe_load((RAIZ / "pmsc" / "config" / "redacao.yml").read_text(encoding="utf-8"))
-    temas = {t["tema"]: t for t in config_pmsc["temas"]}
+    config_prf = yaml.safe_load((RAIZ / "PRF" / "config" / "redacao.yml").read_text(encoding="utf-8"))
+    temas = {t["tema"]: t for t in config_prf["temas"]}
     assert "claude-opus-5-5" in dados["procedencia"]
     assert {m["tema"] for m in dados["modelos"]} == set(temas)
     for modelo in dados["modelos"]:
         paragrafos = [p for p in modelo["texto"].split("\n\n") if p.strip()]
         palavras = len(modelo["texto"].split())
-        assert len(paragrafos) == 4, modelo["tema"]
-        # 20 a 30 linhas a mao: umas 220 a 330 palavras.
+        assert len(paragrafos) == len(temas[modelo["tema"]]["quesitos"]) + 2, modelo["tema"]
+        # Ate 30 linhas a mao: umas 220 a 330 palavras.
         assert 220 <= palavras <= 330, (modelo["tema"], palavras)
         assert len(modelo["pontos"]) >= 3, modelo["tema"]
-        fontes = regras.fontes_do_tema(temas[modelo["tema"]], config_pmsc["repertorio"])
+        fontes = regras.fontes_do_tema(temas[modelo["tema"]], config_prf["repertorio"])
         assert regras.numeros_sem_fonte(modelo["texto"], fontes) == [], modelo["tema"]
