@@ -159,6 +159,18 @@ def test_toda_aula_do_ciclo_1_tem_ficha_com_resumo(plano):
     assert faltam == ["Lei nº 10.826/2003 e suas alterações: Capítulo IV"]
 
 
+def test_toda_aula_do_ciclo_2_tem_ficha_com_resumo(plano):
+    # PRF-42: as 57 fichas novas (56 aulas do Ciclo 2 e a Interpretacao de texto
+    # 3, que estava sem ficha) e os resumos delas e das 21 antigas sem resumo.
+    import json
+    from radar import fichas
+    reais = json.loads((config.RAIZ / "data" / "fichas.json").read_text(encoding="utf-8"))
+    com_resumo = {(fichas.chave_do_tema(f["tema"]), f["materia"]) for f in reais if f.get("resumo")}
+    faltam = [f.titulo for f in _teorias(_uteis(plano, 2))
+              if (fichas.chave_do_tema(f.titulo), f.materia) not in com_resumo]
+    assert faltam == []
+
+
 def test_todo_sabado_tem_redacao_com_um_tema_do_redacao_yml(plano):
     temas = {t["tema"] for t in yaml.safe_load(REDACAO.read_text(encoding="utf-8"))["temas"]}
     for sabado in _sabados(plano):
