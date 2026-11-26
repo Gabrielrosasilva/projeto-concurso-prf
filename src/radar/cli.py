@@ -992,6 +992,20 @@ def gerar(
         None, "--importar",
         help="Lê a resposta de um --pedido, confere e grava o que presta",
     ),
+    certo_errado: bool = typer.Option(
+        False, "--certo-errado",
+        help="Com --pedido e --materia: itens de Certo/Errado do Cebraspe, um "
+             "pedido por aula do cronograma que tem menos de --ate itens de treino",
+    ),
+    ate: int = typer.Option(
+        35, "--ate",
+        help="Com --certo-errado: completa cada aula até este número (reais de "
+             "treino + geradas). 35 = os 15 da Fixação e os 20 da Aprendizagem",
+    ),
+    tema: list[str] = typer.Option(
+        None, "--tema",
+        help="Com --certo-errado: só a aula deste título. Repetível",
+    ),
 ) -> None:
     """Escreve questoes novas com a IA, para TREINAR.
 
@@ -1027,6 +1041,10 @@ def gerar(
 
     if pedido and classificar_nivel:
         _salvar_pedido_de_niveis(materia)
+        return
+
+    if pedido and certo_errado:
+        _salvar_pedido_de_certo_errado(materia, ate, tema or None)
         return
 
     escopo = _escopo_do_pedido(materia, assunto, subassunto, elemento)
@@ -1293,6 +1311,37 @@ def _salvar_pedido_da_ia(materia: str | None, quantas: int, macetes: bool,
     )
 
 
+def _salvar_pedido_de_certo_errado(materia: str | None, ate: int,
+                                   temas: list[str] | None) -> None:
+    """O `--pedido --certo-errado` (PRF-40): um pedido por aula da materia."""
+    if not materia:
+        console.print("[red]Diga a matéria[/] (--materia): um lote por matéria, "
+                      "na ordem das aulas do cronograma.")
+        raise typer.Exit(code=1)
+    lote = servico.manual.pedido_de_certo_errado(materia, ate, temas)
+    for titulo in lote["sem_ficha"]:
+        console.print(f"[yellow]Sem ficha, fica de fora:[/] {escape(titulo)}")
+    if not lote["pedidos"]:
+        console.print(f"[green]Toda aula de {escape(materia)} já tem {ate} itens "
+                      "de treino.[/] Nada a pedir.")
+        return
+    destino = servico.manual.salvar_pedido(lote)
+    total = sum(p["quantas"] for p in lote["pedidos"])
+    console.print(f"[green]{len(lote['pedidos'])} aula(s), {total} item(ns) de "
+                  f"Certo/Errado a escrever[/] em {destino}")
+    for p in lote["pedidos"]:
+        console.print(f"  [dim]{p['data_da_aula']}[/]  {p['quantas']:3d}  "
+                      f"[dim](reais {p['reais_de_treino']}, geradas {p['geradas_que_ja_tem']})[/]"
+                      f"  {escape(p['tema'])}")
+    console.print(f"[dim]Lote {lote['lote']}. Nada foi gasto.[/]")
+    console.print(
+        "Responda pelo Claude Code: peça para ele ler o arquivo e seguir o "
+        "campo [bold]como_responder[/]. Depois:\n"
+        "  [bold]radar gerar --importar data/resposta_ia.json[/]",
+        soft_wrap=True,
+    )
+
+
 def _salvar_pedido_de_niveis(materia: str | None) -> None:
     """O `--pedido --classificar-nivel` (decisao 151): uma materia por lote."""
     faltam = servico.manual.materias_sem_nivel()
@@ -1343,6 +1392,10 @@ def _importar_resposta_da_ia(arquivo: Path) -> None:
                                                                "questão(ões)")
     console.print(f"[green]{resultado['gravadas']} {o_que} gravado(s)[/]")
     console.print(f"[dim]Procedência: {resultado['modelo']}[/]")
+    if "certos" in resultado:
+        # O Certo/Errado gerado (PRF-40): a divisao que a instrucao pede.
+        console.print(f"Aceitos: {resultado['certos']} certo(s) e "
+                      f"{resultado['errados']} errado(s).")
     if resultado["repetidas"]:
         console.print(f"[dim]{resultado['repetidas']} repetida(s), ignorada(s).[/]")
     if resultado.get("substituidas"):

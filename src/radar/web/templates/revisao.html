@@ -77,8 +77,9 @@
 
     {% if painel %}
       {{ painel_da_explicacao(painel, none if item.em_branco or item.chutou else item.acertou) }}
-    {% elif item.gerada and item.artigo %}
-      <p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ item.artigo }}.</p>
+    {% elif item.gerada %}
+      {% if item.explicacao_da_ia %}<p><b>Por quê, segundo a IA:</b> {{ item.explicacao_da_ia }}</p>{% endif %}
+      {% if item.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ item.artigo }}.</p>{% endif %}
     {% endif %}
 
     {% for m in macetes %}

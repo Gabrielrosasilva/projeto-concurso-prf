@@ -596,6 +596,8 @@ class ItemDeRevisao:
     gerada: bool = False
     #: O artigo em que a questao gerada se apoia, para eu conferir na lei.
     artigo: str | None = None
+    #: O porque do item de Certo/Errado gerado (PRF-40).
+    explicacao_da_ia: str | None = None
     #: O que identifica a questao fora deste banco: e por aqui que o
     #: relatorio acha a explicacao importada (pela impressao) e o macete que
     #: cita esta questao (pelo caderno e numero).
@@ -729,6 +731,8 @@ def revisao(simulado_id: int) -> list[ItemDeRevisao]:
             materia=questao.materia,
             gerada=bool(resposta.gerada),
             artigo=getattr(questao, "artigo", None),
+            explicacao_da_ia=(getattr(questao, "explicacao", None)
+                              if resposta.gerada else None),
             impressao=questao.impressao,
             prova_url=getattr(questao, "prova_url", None),
             numero=getattr(questao, "numero", None),

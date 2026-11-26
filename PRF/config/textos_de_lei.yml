@@ -1,25 +1,110 @@
-# O texto oficial de cada no, que vai no pedido de geracao (decisao PMSC-8).
+# O texto oficial de cada no, que vai no pedido de geracao (decisao PMSC-8; na
+# PRF, PRF-40).
 #
-# O pedido de gerar questoes (`radar gerar --pedido`) de um no desta lista leva
-# o texto da lei - so os artigos do no, quando o nome dele tem o intervalo
-# ("arts. 1º a 28") -, para a IA escrever pelo texto vigente e citar o artigo
-# dele. `conteudo` e o caminho do no; vale o item mais especifico. `arquivo` e a copia local, relativa a
-# pasta do projeto (pmsc/leis/ nao vai para o git: decisao PMSC-4); `url` e o
-# endereco oficial, o mesmo da conferencia da Etapa 1
-# (docs/pmsc_conferencia_do_cronograma.md).
+# O pedido de gerar questoes (`radar gerar --pedido`, e o `--certo-errado` por
+# aula) de um no desta lista leva o texto da lei - so os artigos do no, quando
+# o nome dele tem o intervalo ("arts. 161 a 190") -, para a IA escrever pelo
+# texto vigente e citar o artigo dele. `conteudo` e o caminho do no; vale o item
+# mais especifico. `arquivo` e a copia local, relativa a pasta do projeto
+# (leis/ nao vai para o git); `url` e o endereco oficial.
+#
+# Resolucoes do CONTRAN: o edital de 2021 cita resolucoes que hoje estao
+# revogadas. O no aponta para o texto VIGENTE que as substituiu, junto com as
+# que o alteraram (docs/resolucoes_contran.md), num .txt so em leis/contran/
+# (o PDF do gov.br passado pelo pdftotext; os links em leis/contran/manifesto.json).
 
 textos:
-  - conteudo: Direito Penal Militar
-    fonte: Código Penal Militar (Decreto-Lei 1.001/1969)
-    url: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-1001-21-outubro-1969-376258-normaatualizada-pe.html
-    arquivo: pmsc/leis/cpm-dl-1001-1969-camara.html
-
-  - conteudo: Legislação de Trânsito
-    fonte: Código de Trânsito Brasileiro (Lei 9.503/1997)
+  - conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020
+    fonte: Código de Trânsito Brasileiro (Lei 9.503/1997), compilação da Câmara baixada em 26/11/2026
     url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-    arquivo: pmsc/leis/ctb-lei-9503-1997-camara.html
+    arquivo: leis/ctb-lei-9503-1997-camara.html
 
-  - conteudo: Legislação Institucional > Lei 14.751/2023 - Lei Orgânica Nacional das PMs e CBMs
-    fonte: Lei 14.751/2023 - Lei Orgânica Nacional das Polícias Militares e dos Corpos de Bombeiros Militares
-    url: https://www2.camara.leg.br/legin/fed/lei/2023/lei-14751-12-dezembro-2023-795052-normaatualizada-pl.html
-    arquivo: pmsc/leis/lei-14751-2023-camara.html
+  - conteudo: Legislação de Trânsito > Lei nº 5.970/1973
+    fonte: Lei 5.970/1973 (texto original da Câmara; sem alteração conhecida)
+    url: https://www2.camara.leg.br/legin/fed/lei/1970-1979/lei-5970-11-dezembro-1973-357387-publicacaooriginal-1-pl.html
+    arquivo: leis/lei-5970-1973-camara.html
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015, exceto os anexos
+    fonte: "Resolução CONTRAN 945/2022 (substituiu a 552/2015)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9452022.pdf/@@display-file/file
+    arquivo: leis/contran/res-945-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    fonte: "Resolução CONTRAN 955/2022 (substituiu a 349/2010)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9552022.pdf/@@display-file/file
+    arquivo: leis/contran/res-955-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+    fonte: "Resolução CONTRAN 508/2014 (vigente)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao5082014.pdf/@@display-file/file
+    arquivo: leis/contran/res-508-2014.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998, exceto os anexos
+    fonte: "Resolução CONTRAN 938/2022 (substituiu a 92/1998)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9382022.pdf/@@display-file/file
+    arquivo: leis/contran/res-938-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    fonte: "Resolução CONTRAN 525/2015 (vigente; o descanso fracionado do art. 3º, V, caiu com a ADI 5.322 no CTB, art. 67-C, § 3º: vale o CTB)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao5252015c.pdf/@@display-file/file
+    arquivo: leis/contran/res-525-2015.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+    fonte: "Resolução CONTRAN 940/2022 (substituiu a 453/2013)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9402022.pdf/@@display-file/file
+    arquivo: leis/contran/res-940-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    fonte: "Resolução CONTRAN 960/2022, alterada pela 989/2022 (substituiu a 216/2006 e a 254/2007)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9602022.pdf/@@display-file/file
+    arquivo: leis/contran/res-960-2022-com-989-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+    fonte: "Resolução CONTRAN 960/2022, alterada pela 989/2022 (substituiu a 216/2006 e a 254/2007)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9602022.pdf/@@display-file/file
+    arquivo: leis/contran/res-960-2022-com-989-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    fonte: "Resolução CONTRAN 798/2020 (vigente), alterada pela 804/2020"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao7982020.pdf/@@display-file/file
+    arquivo: leis/contran/res-798-2020-com-804-2020.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    fonte: "Resolução CONTRAN 909/2022 (substituiu a 471/2013)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9092022.pdf/@@display-file/file
+    arquivo: leis/contran/res-909-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    fonte: "Resolução CONTRAN 882/2021 (substituiu a 210/2011), alterada pelas 899/2022, 994/2023, 1.005/2024 e 1.015/2024"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao8822021.pdf/@@display-file/file
+    arquivo: leis/contran/res-882-2021-com-alteracoes.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    fonte: "Resolução CONTRAN 918/2022, texto compilado do gov.br (substituiu a 619/2016); alterada pela 991/2023"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/resolucoes2/Resoluo918.compilada.pdf/@@display-file/file
+    arquivo: leis/contran/res-918-2022-compilada.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    fonte: "Resolução CONTRAN 723/2018 (vigente), alterada pela 844/2021"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao7232018.pdf/@@display-file/file
+    arquivo: leis/contran/res-723-2018-com-844-2021.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015, exceto as fichas
+    fonte: "MBFT/2022, Parte Geral (anexo da Resolução CONTRAN 985/2022, que hoje faz o papel da 561/2015), alterada pelas 1.003/2023, 1.009/2024, 1.012/2024 e 1.013/2024; e a 1.031/2026 (fiscalização do álcool)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9852022.pdf/@@display-file/file
+    arquivo: leis/contran/mbft-2022-parte-geral.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    fonte: "Resolução CONTRAN 969/2022 (substituiu a 780/2019), com os anexos"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao9692022.pdf/@@display-file/file
+    arquivo: leis/contran/res-969-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 292/2008
+    fonte: "Resolução CONTRAN 916/2022 (substituiu a 292/2008). SEM as alterações da 958/2022 e da 1.021/2026 (Anexo IV), que não foram baixadas"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9162022.pdf/@@display-file/file
+    arquivo: leis/contran/res-916-2022.txt
+
+  - conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 809/2020
+    fonte: "Resolução CONTRAN 1.027/2026 (substituiu a 809/2020)"
+    url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao10272026.pdf/@@display-file/file
+    arquivo: leis/contran/res-1027-2026.txt

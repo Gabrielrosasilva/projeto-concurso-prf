@@ -31,14 +31,14 @@ from radar import alvo, config, gerador, leis, niveis, questoes_certo_errado
 from radar.db import criar_tabelas, sessao
 from radar.models import agora
 from radar.origem import FRASE_SEM_EVIDENCIA, IA
-from radar.questoes import chave_da_questao
+from radar.questoes import chave_da_questao, impressao_de
 from radar.regioes import normalizar
 from radar.servico import geradas
 from radar.util import fuso_local
 
 TIPOS = ("questoes", "macetes", "explicacoes", "classificacao", "fichas", "associados",
          "resumos", "novidades", "traducoes", "redacao_correcao", "redacao_ideias",
-         "redacao_reescrita")
+         "redacao_reescrita", "certo_errado")
 
 # Quantos macetes por materia. Tres cabe numa resposta so e obriga a IA a
 # escolher o que mais cai, em vez de listar tudo.
@@ -500,6 +500,20 @@ def _como_responder(tipo: str, nivel: str | None = None) -> str:
             "`instrucao` do pedido diz, e o `trecho_da_lei` que nao estiver no "
             "texto oficial do projeto e descartado."
         )
+    if tipo == "certo_errado":
+        return (
+            "Este arquivo foi gerado por `radar gerar --pedido --certo-errado`. "
+            "Para cada item de `pedidos`, siga a `instrucao` usando o texto de "
+            "`pedido`, os `exemplos` (so o estilo: nao copie) e os textos de "
+            "`textos_da_lei` cujos ids estao em `textos_da_lei_do_pedido`. "
+            "Responda TODOS num unico arquivo JSON, no formato de "
+            "`formato_da_resposta`: o mesmo `lote`, o `modelo` que escreveu (ex.: "
+            "\"claude-opus-5-5\") e o `id` de cada pedido com a lista `questoes` "
+            "dele, no maximo `quantas`. Salve como data/resposta_ia.json e rode "
+            "`radar gerar --importar data/resposta_ia.json`. Item sem `artigo`, "
+            "sem `explicacao`, com `resposta` que nao e c ou e, com `conteudo` "
+            "fora dos nos do pedido, ou igual a um exemplo sera RECUSADO."
+        )
     campo = "questoes" if tipo == "questoes" else "macetes"
     comando = f"radar gerar --pedido --nivel {nivel}" if nivel else "radar gerar --pedido"
     texto = (
@@ -602,6 +616,13 @@ def _formato_das_respostas(tipo: str) -> dict:
         return {"lote": "<o lote deste arquivo>", "modelo": "<o modelo que escreveu>",
                 "respostas": [{"id": "e1", "explicacao": item},
                               {"id": "e2", "explicacao": item_ce}]}
+    if tipo == "certo_errado":
+        item = {"enunciado": "...", "resposta": "e",
+                "artigo": "CTB, art. 165, caput",
+                "conteudo": "<um dos NOS do pedido, copiado igual>",
+                "explicacao": "Errado: ... (CTB, art. 165)."}
+        return {"lote": "<o lote deste arquivo>",
+                "respostas": [{"id": "ce1", "questoes": [item]}]}
     if tipo == "questoes":
         # `conteudo` so e exigido no pedido com escopo (Etapa 5), e esta no
         # formato sempre: mostrar o campo e o que faz a resposta vir com ele.
@@ -822,6 +843,146 @@ def _com_a_banca_do_alvo(instrucao: str) -> str:
     if not bancas or bancas[0].upper() == "FEPESE":
         return instrucao
     return instrucao.replace("da banca FEPESE", f"da banca {bancas[0]}")
+
+
+# --- o Certo/Errado do Cebraspe, por aula do cronograma (PRF-40) ---------------------
+#
+# O `pedido_de_questoes` e o da multipla escolha: varia uma questao real com
+# cinco alternativas. O Certo/Errado vai por AULA: a unidade do cronograma e o
+# tema da teoria, e e pelos nos da ficha dele que a faixa sorteia as geradas
+# (decisao 71). Cada pedido leva o texto vigente da lei desses nos e os itens
+# reais do Cebraspe do tema como exemplo de estilo.
+
+#: Quantos itens de Certo/Errado cada aula pede de uma vez: os 15 da Fixacao e
+#: os 20 da Aprendizagem do mesmo dia, sem repetir item. As revisoes R+7 e R+30
+#: repetem, as erradas primeiro (decisao 142). O pedido completa ate aqui,
+#: contando os reais de treino e as geradas que o tema ja tem.
+ITENS_POR_AULA = 35
+
+#: Quantos itens reais vao de exemplo em cada pedido: o bastante para mostrar o
+#: estilo do tema, e pouco para nao virar molde.
+EXEMPLOS_POR_AULA = 12
+
+
+def _aulas(materia: str, temas: list[str] | None = None):
+    """[(data, faixa de teoria)] das aulas da materia no cronograma, uma por
+    tema, na ordem do plano. Com `temas`, so as daqueles titulos."""
+    from radar import cronograma as plano_de_estudo
+
+    vistas, aulas = set(), []
+    for dia in plano_de_estudo.carregar().dias:
+        for faixa in dia.manha:
+            if (faixa.tipo == "teoria" and faixa.materia == materia
+                    and faixa.titulo not in vistas
+                    and (not temas or faixa.titulo in temas)):
+                vistas.add(faixa.titulo)
+                aulas.append((dia.data, faixa))
+    return aulas
+
+
+def _geradas_de_certo_errado(nos: list[str]) -> int:
+    """Quantas geradas de Certo/Errado ja valem dentro dos nos (nao rejeitada,
+    com resposta): sao as que a faixa ja tem para sortear."""
+    from sqlalchemy import select
+
+    from radar.conteudos import SEPARADOR
+    from radar.models import QuestaoGerada
+
+    criar_tabelas()
+    with sessao() as s:
+        linhas = s.execute(
+            select(QuestaoGerada.conteudo, QuestaoGerada.alternativas)
+            .where(QuestaoGerada.rejeitada.is_(False))
+            .where(QuestaoGerada.resposta.is_not(None))
+            .where(QuestaoGerada.conteudo.is_not(None))).all()
+    return sum(1 for conteudo, alternativas in linhas
+               if questoes_certo_errado.e_certo_errado(alternativas)
+               and any(conteudo == n or conteudo.startswith(n + SEPARADOR) for n in nos))
+
+
+def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
+                           temas: list[str] | None = None) -> dict:
+    """Um pedido por aula da materia que tem menos de `ate` itens de treino.
+
+    Os itens de treino sao os reais de Certo/Errado do complementar dentro dos
+    nos da ficha (`certo_errado.do_tema`, os mesmos do botao da faixa) e as
+    geradas de Certo/Errado que ja estao la. Aula sem ficha fica de fora: sem
+    os nos dela, nao ha como fechar o escopo. A prova da PRF (o alvo) nao vai
+    de exemplo: e ela que mede, e item variado dela treinaria a resposta.
+    """
+    from radar import fichas as fichas_puras
+    from radar import textos_de_lei
+    from radar.servico import certo_errado
+    from radar.servico import fichas as servico_fichas
+
+    escritas = servico_fichas.carregar()
+    textos: dict[str, dict] = {}
+    pedidos, sem_ficha = [], []
+    for data, faixa in _aulas(materia, temas):
+        escrita = fichas_puras.da_faixa(faixa, escritas)
+        if escrita is None or not escrita.nos:
+            sem_ficha.append(faixa.titulo)
+            continue
+        nos = list(escrita.nos)
+        reais = certo_errado.do_tema(nos)
+        ja = _geradas_de_certo_errado(nos)
+        quantas = ate - len(reais) - ja
+        if quantas <= 0:
+            continue
+
+        ids = []
+        for no in nos:
+            achado = textos_de_lei.do_no(no)
+            if achado is None:
+                continue
+            id_ = next((chave for chave, t in textos.items()
+                        if t["arquivo"] == achado.arquivo and t["artigos"] == achado.artigos),
+                       None)
+            if id_ is None:
+                id_ = f"t{len(textos) + 1}"
+                textos[id_] = {"fonte": achado.fonte, "url": achado.url,
+                               "arquivo": achado.arquivo, "artigos": achado.artigos,
+                               "texto": achado.texto}
+            if id_ not in ids:
+                ids.append(id_)
+
+        # A impressao e a mesma da questao gerada: e por ela que a importacao
+        # recusa o item que so copiou um exemplo.
+        exemplos = [{"enunciado": i.enunciado, "gabarito": i.gabarito,
+                     "impressao": impressao_de(i.enunciado)}
+                    for i in reais[:EXEMPLOS_POR_AULA]]
+        corpo = "\n".join([
+            f"AULA: {faixa.titulo} ({data:%d/%m/%Y})",
+            f"MATERIA: {materia}",
+            "NOS (o `conteudo` de cada item e um destes, copiado igual):",
+            *[f"  {n}" for n in nos],
+            f"ONDE LER: {escrita.ler_exatamente}" if escrita.ler_exatamente else "",
+            f"QUANTOS: {quantas}",
+        ]).strip()
+        pedidos.append({
+            "id": f"ce{len(pedidos) + 1}", "formato": "certo_errado",
+            "modo": "do_zero", "quantas": quantas, "materia": materia,
+            "assunto": None, "origem_impressao": None, "origem_chave": None,
+            "tema": faixa.titulo, "data_da_aula": data.isoformat(),
+            "modo_do_pedido": "treino",
+            # O escopo e o assunto da teoria; os nos da ficha sao os
+            # dispositivos: e contra eles que a importacao confere o item.
+            "conteudo": faixa.conteudo, "escopo": faixa.conteudo,
+            "escopo_dispositivos": nos,
+            "base": "fonte_oficial" if ids else "item_do_edital",
+            "evidencia_da_base": "nenhuma",
+            "niveis": None,
+            "reais_de_treino": len(reais), "geradas_que_ja_tem": ja,
+            "textos_da_lei_do_pedido": ids,
+            "exemplos": exemplos,
+            "instrucao": gerador.INSTRUCAO_CERTO_ERRADO, "pedido": corpo,
+        })
+    lote = _novo_lote("certo_errado", pedidos)
+    lote["ate"] = ate
+    lote["sem_ficha"] = sem_ficha
+    if textos:
+        lote["textos_da_lei"] = textos
+    return lote
 
 
 #: Quantas questoes vao num pedido da classificacao de nivel: o bastante para
@@ -1849,7 +2010,10 @@ def salvar_pedido(lote: dict, caminho: Path | None = None) -> Path:
 # "§ 5" sozinho tambem cita: a Declaracao de Viena (1993) e numerada por
 # paragrafo, e nao por artigo - chamar o § 5 de "art. 5º" para passar aqui
 # seria citar errado (R2, a mesma ideia da "regra 12" de Mandela, decisao 76).
-CITA_ARTIGO = re.compile(r"(?i)\bart(?:igo)?s?\.?\s*\d|\bs[uú]mula\b|\bregras?\s+\d|§\s*\d")
+# "item 7.2" tambem cita (PRF-40): a Parte Geral do MBFT (Res. CONTRAN 985/2022)
+# e os anexos das resolucoes do CONTRAN sao numerados por item, e nao por artigo.
+CITA_ARTIGO = re.compile(
+    r"(?i)\bart(?:igo)?s?\.?\s*\d|\bs[uú]mula\b|\bregras?\s+\d|§\s*\d|\bite(?:m|ns)\s+\d")
 
 
 def fonte_serve(fonte: str | None, materia: str | None) -> bool:
@@ -1979,17 +2143,30 @@ def _importar_questoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
             recusas.append(f"{resposta.get('id')}: nao existe esse pedido no lote")
             continue
         itens = [i for i in resposta.get("questoes") or [] if isinstance(i, dict)]
+        # O Certo/Errado do Cebraspe (PRF-40): outra forma, e a explicacao
+        # obrigatoria - o item "Errado" sozinho nao diz o que foi trocado.
+        certo_errado = pedido.get("formato") == "certo_errado"
+        dos_exemplos = {e.get("impressao") for e in pedido.get("exemplos") or []}
         for posicao, item in enumerate(itens, start=1):
             onde = f"{pedido['id']}, questao {posicao}"
             if posicao > pedido["quantas"]:
                 recusas.append(f"{onde}: o pedido era de {pedido['quantas']}")
                 continue
-            conferida = gerador._conferir(item)
+            conferida = (gerador.conferir_certo_errado(item) if certo_errado
+                         else gerador._conferir(item))
             if conferida is None:
-                recusas.append(f"{onde}: sem as 5 alternativas ou sem gabarito valido")
+                recusas.append(f"{onde}: sem resposta c ou e" if certo_errado
+                               else f"{onde}: sem as 5 alternativas ou sem gabarito valido")
                 continue
             if not fonte_serve(conferida["artigo"], pedido.get("materia")):
                 recusas.append(f"{onde}: sem o artigo da lei em que se apoia")
+                continue
+            explicacao = " ".join(str(item.get("explicacao") or "").split()) or None
+            if certo_errado and not explicacao:
+                recusas.append(f"{onde}: sem a explicacao do certo ou do errado")
+                continue
+            if impressao_de(conferida["enunciado"]) in dos_exemplos:
+                recusas.append(f"{onde}: e a copia de um item real de exemplo")
                 continue
 
             # As recusas de ESCOPO (Etapa 5). A garantia da §8 e esta: a IA
@@ -2023,6 +2200,7 @@ def _importar_questoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
                 escopo=pedido.get("escopo"),
                 base=pedido.get("base"),
                 evidencia_da_base=pedido.get("evidencia_da_base"),
+                explicacao=explicacao if certo_errado else None,
                 **conferida,
                 **do_nivel,
             ))
@@ -2035,6 +2213,11 @@ def _importar_questoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
 
         acervo.exportar_geradas()
     resultado = {"gravadas": gravadas, "repetidas": repetidas, "recusas": recusas}
+    if lote.get("tipo") == "certo_errado":
+        # Quantos certos e quantos errados entraram: a instrucao pede metade
+        # de cada, e o Cebraspe chega perto disso (PRF-28).
+        resultado["certos"] = sum(1 for q in aceitas if q.resposta == "c")
+        resultado["errados"] = sum(1 for q in aceitas if q.resposta == "e")
     if any(p.get("niveis") for p in lote["pedidos"]):
         # A mistura e conferida e contada, nunca completada (decisao 151):
         # "pedi 3/4/3, veio 5/3/2". Conta as que passaram nas recusas.

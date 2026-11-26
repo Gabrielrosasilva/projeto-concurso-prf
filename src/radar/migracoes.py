@@ -238,6 +238,17 @@ def _passo_11() -> None:
     """
 
 
+def _passo_12() -> None:
+    """PRF-40 (26/11/2026): a explicacao da questao gerada de Certo/Errado.
+
+    Uma coluna nova, `questoes_geradas.explicacao`, que vem do modelo. As
+    1.404 geradas de antes (todas de multipla escolha) ficam nulas: ninguem
+    escreveu explicacao para elas. O passo leva a coluna para o arquivo
+    versionado, de onde o banco e reconstruido.
+    """
+    _exportar_sem_perder("geradas")
+
+
 #: versao -> (o que muda, a funcao). A ordem e a dos numeros; passo aplicado
 #: nao se edita nunca mais: mudanca nova e passo novo.
 PASSOS = {
@@ -256,6 +267,7 @@ PASSOS = {
     10: ("O sublinhado e o negrito do caderno em cada questão", _passo_10),
     11: ("O gabarito buscado pelo Claude Code, a conferir (\"verificar a questão\")",
          _passo_11),
+    12: ("A explicação de cada questão gerada de Certo/Errado", _passo_12),
 }
 VERSAO_ATUAL = max(PASSOS)
 

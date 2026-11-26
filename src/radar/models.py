@@ -546,6 +546,12 @@ class QuestaoGerada(Base):
     #: e LISTADA para eu conferir: nada e rejeitado por ela.
     suspeita: Mapped[str | None] = mapped_column(Text, nullable=True)
 
+    #: Por que o item esta certo ou errado, com o artigo (PRF-40). O item de
+    #: Certo/Errado nao tem alternativa que mostre o erro: sem esta linha, o
+    #: "Errado" nao diz o que foi trocado. Nula na de multipla escolha, que
+    #: nasceu sem ela.
+    explicacao: Mapped[str | None] = mapped_column(Text, nullable=True)
+
     #: Hash do enunciado, igual ao das questoes reais. E a chave do arquivo
     #: versionado, e e o que impede pagar duas vezes pela mesma questao e
     #: gerar a mesma pergunta de novo.

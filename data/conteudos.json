@@ -2249,6 +2249,32 @@
     "referencia": "CTB, art. 23"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A) > CTB, arts. 5º a 19",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 5º a 19",
+    "ordem": 7,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 5º a 19"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A) > CTB, arts. 20 a 25-A",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 20 a 25-A",
+    "ordem": 8,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 20 a 25-A"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -2351,6 +2377,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 29"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67) > CTB, arts. 26 a 45",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 26 a 45",
+    "ordem": 7,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 26 a 45"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67) > CTB, arts. 46 a 67",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 46 a 67",
+    "ordem": 8,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 46 a 67"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E)",
@@ -2847,6 +2899,19 @@
     "referencia": "CTB, art. 203"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, arts. 161 a 190",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 161 a 190",
+    "ordem": 10,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 161 a 190"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 168",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
     "nivel": "elemento",
@@ -2860,6 +2925,19 @@
     "referencia": "CTB, art. 168"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, arts. 191 a 220",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 191 a 220",
+    "ordem": 11,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 191 a 220"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 219",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
     "nivel": "elemento",
@@ -2871,6 +2949,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 219"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, arts. 221 a 255",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 221 a 255",
+    "ordem": 12,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 221 a 255"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)",
@@ -3196,6 +3287,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 301"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B) > CTB, arts. 291 a 301",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 291 a 301",
+    "ordem": 9,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 291 a 301"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B) > CTB, arts. 302 a 312-B",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)",
+    "nivel": "elemento",
+    "nome": "CTB, arts. 302 a 312-B",
+    "ordem": 10,
+    "origem": "manual",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "PRF-40 (26/11/2026): a parte do capítulo que é uma aula do cronograma (PRF-38); os artigos pelo texto do CTB da Câmara",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, arts. 302 a 312-B"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XX - Disposições finais e transitórias (arts. 313 a 341)",

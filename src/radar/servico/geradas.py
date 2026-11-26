@@ -619,6 +619,8 @@ def gravar(questoes: list) -> int:
                 nivel=getattr(nova, "nivel", None),
                 por_que_o_nivel=getattr(nova, "por_que_o_nivel", None),
                 nivel_procedencia=getattr(nova, "nivel_procedencia", None),
+                # O porque do item de Certo/Errado (PRF-40).
+                explicacao=getattr(nova, "explicacao", None),
                 artigo=nova.artigo,
                 enunciado=nova.enunciado,
                 alternativas=nova.alternativas,

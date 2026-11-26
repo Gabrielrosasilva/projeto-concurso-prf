@@ -263,6 +263,9 @@
         {% if not painel %}{% for mud in mudancas or [] %}{{ aviso_lei(mud) }}{% endfor %}{% endif %}
         {% if not resposta.gerada %}{{ aviso_gabarito(questao, depois=true) }}{% endif %}
         {% if resposta.gerada %}
+          {# O porque do item de Certo/Errado gerado (PRF-40): so depois da
+             resposta, como o gabarito. #}
+          {% if questao.explicacao %}<p class="explicacao-ia"><b>Por quê, segundo a IA:</b> {{ questao.explicacao }}</p>{% endif %}
           {% if questao.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ questao.artigo }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}.</p>{% endif %}
         {% elif painel %}
           {# O painel depois da resposta (PRF-31): aberto no acerto e no erro. #}

@@ -188,6 +188,9 @@ class QuestaoNova:
     #: Quem declarou o nivel. Na questao gerada ja com nivel, o mesmo `modelo`.
     nivel_procedencia: str | None = None
 
+    #: Por que o item de Certo/Errado esta certo ou errado (PRF-40).
+    explicacao: str | None = None
+
     @property
     def impressao(self) -> str:
         return impressao_de(self.enunciado)
@@ -354,6 +357,64 @@ def _conferir(item: dict) -> dict | None:
     return {
         "enunciado": enunciado,
         "alternativas": alternativas,
+        "resposta": resposta,
+        "artigo": artigo,
+    }
+
+
+# --- o Certo/Errado do Cebraspe (PRF-40) -------------------------------------------
+
+#: A instrucao do item de Certo/Errado. Vai por aula do cronograma, com o texto
+#: vigente da lei e os itens reais do Cebraspe do tema como exemplo de estilo.
+INSTRUCAO_CERTO_ERRADO = """Voce escreve itens INEDITOS de Certo/Errado no estilo do Cebraspe, para eu treinar para Policial Rodoviario Federal (PRF). Cada item e uma afirmacao que se julga CERTA ou ERRADA; na prova, um item errado anula um certo.
+
+Regras:
+- so o conteudo da aula, pelos NOS do pedido. Fora dele, nao escreva;
+- so pelo texto VIGENTE da norma (o de `textos_da_lei`, quando o pedido tem, ou o
+  arquivo de `onde_ler`). Nada de redacao antiga nem de memoria: se o texto nao
+  confirma, nao escreva o item;
+- o jeito do Cebraspe: a letra da lei com UM detalhe trocado (o prazo, o
+  numero, a natureza da infracao, a penalidade, quem e competente, o "salvo",
+  o "exceto"); a situacao hipotetica ("Fulano, condutor de ..., foi flagrado
+  ... Nessa situacao, ..."); a generalizacao ("sempre", "em qualquer caso");
+  a troca de dois institutos parecidos. Uma afirmacao por item, que se julga
+  sozinha, sem "julgue os itens a seguir";
+- metade certos, metade errados, mais ou menos. O item ERRADO tem de estar
+  errado por um motivo so, que a lei mostra; o CERTO tem de estar certo
+  inteiro, sem ambiguidade;
+- NAO copie nem reescreva os itens de exemplo: eles mostram o estilo, e alguns
+  ainda vou fazer como questao real;
+- em cada item:
+    "enunciado":  o item inteiro (com a situacao, se houver);
+    "resposta":   "c" (certo) ou "e" (errado);
+    "artigo":     o dispositivo em que ele se apoia ("CTB, art. 165, caput");
+    "conteudo":   o NO do pedido de que ele e (copiado igual);
+    "explicacao": uma ou duas frases: por que esta certo ou errado, com o
+                  artigo e, no errado, o que foi trocado ("Errado: o prazo e de
+                  30 dias, e nao de 15 (CTB, art. 282, § 6º).").
+
+Responda SOMENTE um JSON, no formato:
+{"questoes": [{"enunciado": "...", "resposta": "e", "artigo": "CTB, art. 165, caput", "conteudo": "...", "explicacao": "Errado: ..."}]}"""
+
+
+def conferir_certo_errado(item: dict) -> dict | None:
+    """O item de Certo/Errado com a FORMA certa, ou None.
+
+    As alternativas sao sempre as do Cebraspe (`questoes_certo_errado.
+    ALTERNATIVAS`): a tela e a nota liquida reconhecem o item por elas. O
+    resto e o mesmo do `_conferir`: forma, e nao conteudo."""
+    from radar.questoes_certo_errado import ALTERNATIVAS
+
+    enunciado = " ".join(str(item.get("enunciado") or "").split())
+    if len(enunciado) < 20:
+        return None
+    resposta = str(item.get("resposta") or "").strip().lower()[:1]
+    if resposta not in ALTERNATIVAS:
+        return None
+    artigo = " ".join(str(item.get("artigo") or "").split())[:200] or None
+    return {
+        "enunciado": enunciado,
+        "alternativas": dict(ALTERNATIVAS),
         "resposta": resposta,
         "artigo": artigo,
     }

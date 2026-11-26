@@ -95,3 +95,34 @@ itens chutados. Na prova de 120 itens, isso é nada perto do risco de errar.
   (`complementar.cadernos_de_certo_errado`): 1.180 itens únicos e classificados
   no estoque das rodadas, além dos 210 do alvo. A múltipla escolha do Cebraspe
   (761 itens) continua fora, como antes.
+
+## O Certo/Errado escrito pela IA (PRF-40, 26/11/2026)
+
+A maior parte das aulas do Ciclo 1 tem poucos itens reais (o CTB tem capítulo
+com zero). A IA escreve o que falta, **por aula do cronograma**, e o item
+**treina, nunca mede** (regra 1): mora em `questoes_geradas`, não entra na
+nota líquida, na incidência nem no simulado que mede.
+
+- **Quanto:** cada aula completa **35** itens de treino (os 15 da Fixação e os
+  20 da Aprendizagem do mesmo dia, sem repetir), contando os reais de
+  Certo/Errado do complementar e as geradas que já tem. As revisões R+7 e
+  R+30 repetem, as erradas primeiro.
+- **De onde:** `radar gerar --pedido --certo-errado --materia "<matéria>"`
+  monta um pedido por aula, com os nós da ficha (os mesmos que a faixa usa),
+  o texto vigente da lei (`PRF/config/textos_de_lei.yml`: o CTB da Câmara e,
+  nas resoluções do CONTRAN, a que substituiu a do edital, em
+  `leis/contran/`) e os itens reais do tema só como exemplo de estilo. A
+  prova da PRF não vai de exemplo: é ela que mede.
+- **O que a importação recusa:** item sem `artigo`, sem `explicacao`, com
+  resposta que não é c ou e, com nó fora da aula, ou cópia de um exemplo.
+- **A conferência:** quem escreve confere item por item no texto da lei; depois
+  outro agente julga cada item às cegas (sem o gabarito), e o que diverge é
+  decidido pelo texto antes de importar.
+- **Na tela:** o botão "IA · N" da faixa; depois de responder, o "Por quê,
+  segundo a IA" (a coluna `explicacao`, passo 12 da migração) e o artigo. O
+  item tem o "Deixar em branco", como o real. "Essa questão está errada" tira
+  o item do sorteio para sempre.
+- **As partes de capítulo:** as aulas que dividem um capítulo do CTB
+  (infrações 1, 2 e 3, por exemplo) ganharam um nó próprio ("CTB, arts. 161 a
+  190") na árvore e na ficha: sem ele, a faixa da parte 1 sortearia item das
+  partes 2 e 3.

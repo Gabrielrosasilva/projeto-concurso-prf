@@ -156,6 +156,11 @@ def _ler_html(caminho: Path) -> str:
 
 
 def texto_do_arquivo(caminho: Path) -> str:
+    # O .txt ja e texto (as resolucoes do CONTRAN, do PDF pelo pdftotext, PRF-40):
+    # vai como esta. Pelo leitor de HTML, as linhas dele virariam uma so.
+    if caminho.suffix.lower() == ".txt":
+        return cache.do_arquivo(caminho, lambda: _ler_html(caminho).strip(),
+                                nome="textos_de_lei.txt")
     return cache.do_arquivo(caminho, lambda: texto_plano(_ler_html(caminho)),
                             nome="textos_de_lei.texto")
 
