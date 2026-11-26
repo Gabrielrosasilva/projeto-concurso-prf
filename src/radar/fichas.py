@@ -576,6 +576,11 @@ class BlocoDoArtigo:
     def rotulo(self) -> str:
         return self.artigo.rotulo
 
+    @property
+    def rotulo_curto(self) -> str:
+        """ "art. 4º", sem a norma: dentro do grupo dela (PRF-47)."""
+        return self.artigo.rotulo.removeprefix(f"{self.artigo.lei}, ")
+
 
 @dataclass
 class LinhaNaoConfunda:
@@ -606,10 +611,28 @@ class ResumoEnxuto:
     #: A procedencia da traducao (a do resumo mora no proprio resumo).
     traducao_procedencia: str = ""
     traducao_conferida: str | None = None
+    #: O "Comece por aqui" da traducao (PRF-47): [FraseNaTela], no topo.
+    comece: list = field(default_factory=list)
+    #: {"Res. CONTRAN 945/2022": "amarração de cargas"}, da traducao.
+    titulos_das_normas: dict = field(default_factory=dict)
 
     @property
     def traduzido(self) -> bool:
-        return any(b.traducao for b in self.blocos) or bool(self.nao_confunda)
+        return (any(b.traducao for b in self.blocos) or bool(self.nao_confunda)
+                or bool(self.comece))
+
+    @property
+    def por_norma(self) -> list[tuple[str, list]]:
+        """Os blocos agrupados por norma, na ordem em que vem (PRF-47):
+        [("Res. CONTRAN 945/2022: amarração de cargas", [BlocoDoArtigo])]. A
+        tela so desenha o titulo do grupo quando ha mais de uma norma."""
+        grupos: list[tuple[str, list]] = []
+        for bloco in self.blocos:
+            if not grupos or grupos[-1][1][0].artigo.lei != bloco.artigo.lei:
+                grupos.append((bloco.artigo.lei, []))
+            grupos[-1][1].append(bloco)
+        return [(f"{lei}: {self.titulos_das_normas[lei]}" if lei in self.titulos_das_normas
+                 else lei, blocos) for lei, blocos in grupos]
 
     @property
     def sem_letra(self) -> list[str]:
@@ -722,6 +745,9 @@ def resumo_enxuto(partes: dict | None, materia: str | None, traducao: dict | Non
         nao_confunda=nao_confunda,
         traducao_procedencia=traducao.get("modelo") or "",
         traducao_conferida=traducao.get("conferido_em"),
+        comece=_secao(traducao.get("comece_por_aqui") or [] if de_lei else [], termos),
+        titulos_das_normas={n["norma"]: n["do_que_trata"]
+                            for n in (traducao.get("normas") or [] if de_lei else [])},
     )
 
 

@@ -365,14 +365,16 @@ INSTRUCAO_RESUMO = INSTRUCAO_RESUMO.replace("{frase_sem_evidencia}", FRASE_SEM_E
 # perfil (o jeito, as tres linhas, o tom) vem do config/linguagem.yml e entra
 # no lugar de {perfil}; a regra de nao dizer o que o artigo nao diz e do
 # radar, e fica aqui.
-INSTRUCAO_TRADUCAO = """Voce recebe UM tema do meu cronograma de estudo para a Policia Penal SC (banca FEPESE): os artigos que o tema cobre, as frases do resumo de cada artigo (o texto que eu ja tenho, e que NAO muda), como a banca cobrou o tema e as pegadinhas, os codigos das questoes reais do tema e os termos que ja estao no meu glossario.
+INSTRUCAO_TRADUCAO = """Voce recebe UM tema do meu cronograma de estudo para Policial Rodoviario Federal (PRF, banca Cebraspe, itens de Certo/Errado): os artigos que o tema cobre, as frases do resumo de cada artigo (o texto que eu ja tenho, e que NAO muda), como a banca cobrou o tema e as pegadinhas, os codigos das questoes reais do tema e os termos que ja estao no meu glossario.
 
 Eu estudei esses artigos e nao entendi a linguagem. Escreva a TRADUCAO de cada artigo, do meu jeito:
 
 {perfil}
 
 Partes:
-- `itens`: um por artigo. Traduza CADA artigo da lista "AS FRASES DO RESUMO, POR ARTIGO"; outro artigo do tema (da lista "OS ARTIGOS QUE O TEMA COBRE") so se a ficha manda ler e ele ajuda a entender o tema. Cada item tem `artigo` (o dispositivo, do jeito "CP, art. 15"; "Regras de Mandela, regra 12"; "Declaracao de Viena (1993), § 5") e as TRES linhas, sempre as tres:
+- `comece_por_aqui`: de 3 a 5 linhas, o mapa da aula para quem nunca viu o tema: que problema cada norma resolve, na vida real, e a ordem de leitura. Sem numero solto; a fonte de cada linha e o artigo do tema que ela resume (ou o art. 1º da norma, que diz o objeto dela);
+- `normas`: so quando o tema tem MAIS DE UMA norma (ex.: o CTB e tres resolucoes do CONTRAN): uma linha por norma, `norma` escrita como no artigo ("Res. CONTRAN 945/2022", "CTB") e `do_que_trata` em ate 8 palavras ("amarração de cargas"). Os artigos da tela saem agrupados por norma, com este titulo. Com uma norma so, responda "normas": [];
+- `itens`: um por artigo. Traduza CADA artigo da lista "AS FRASES DO RESUMO, POR ARTIGO"; outro artigo do tema (da lista "OS ARTIGOS QUE O TEMA COBRE") so se a ficha manda ler e ele ajuda a entender o tema. Cada item tem `artigo` (o dispositivo, do jeito "CP, art. 15"; "Res. CONTRAN 945/2022, art. 4º"; "Regras de Mandela, regra 12"; "Declaracao de Viena (1993), § 5") e as TRES linhas, sempre as tres:
   - `na_real`: o artigo em uma frase do dia a dia;
   - `exemplo`: uma cena concreta;
   - `na_prova`: o numero ou a palavra que a banca troca para derrubar.
@@ -385,10 +387,10 @@ Regras - a traducao nunca diz o que o artigo nao diz:
 - o `na_prova` (e o `nao_confunda`) pode citar outro artigo DO TEMA, sumula, ou questao real da lista "QUESTOES QUE O NA PROVA PODE CITAR"; ao citar o gabarito, escreva "2019-q55 (gabarito E)" com a letra oficial da lista. Artigo de fora do tema, questao de fora da lista ou gabarito trocado serao RECUSADOS;
 - so artigos do tema; um item por artigo;
 - escreva pelo texto VIGENTE da lei; sem seguranca sobre um artigo, um numero ou um prazo, nao escreva a linha - um prazo errado ensina errado;
-- sem palavrao (a lista do perfil e conferida) e sem previsao ("vai cair", "certamente", "a FEPESE sempre..."): sera RECUSADO.
+- sem palavrao (a lista do perfil e conferida) e sem previsao ("vai cair", "certamente", "o Cebraspe sempre..."): sera RECUSADO.
 
 Responda SOMENTE um JSON, no formato:
-{"traducao": {"itens": [{"artigo": "CP, art. 15", "na_real": {"texto": "...", "fontes": ["CP, art. 15"]}, "exemplo": {"texto": "...", "fontes": ["CP, art. 15"]}, "na_prova": {"texto": "...", "fontes": ["CP, art. 15", "CP, art. 14, II"]}}], "nao_confunda": [{"situacao": "...", "o_que_e": "...", "o_que_acontece": "...", "fontes": ["..."]}], "glossario": [{"termo": "...", "variantes": [], "significado": "...", "fontes": ["..."]}]}}"""
+{"traducao": {"comece_por_aqui": [{"texto": "...", "fontes": ["..."]}], "normas": [{"norma": "...", "do_que_trata": "..."}], "itens": [{"artigo": "CP, art. 15", "na_real": {"texto": "...", "fontes": ["CP, art. 15"]}, "exemplo": {"texto": "...", "fontes": ["CP, art. 15"]}, "na_prova": {"texto": "...", "fontes": ["CP, art. 15", "CP, art. 14, II"]}}], "nao_confunda": [{"situacao": "...", "o_que_e": "...", "o_que_acontece": "...", "fontes": ["..."]}], "glossario": [{"termo": "...", "variantes": [], "significado": "...", "fontes": ["..."]}]}}"""
 
 
 def texto_do_perfil(perfil: dict) -> str:

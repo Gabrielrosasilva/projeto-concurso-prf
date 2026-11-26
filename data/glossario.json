@@ -1,5 +1,17 @@
 [
   {
+    "termo": "a título precário",
+    "variantes": [
+      "título precário"
+    ],
+    "significado": "Provisório: uma permissão de exceção, que não vira direito permanente.",
+    "fontes": [
+      "CTB, art. 108"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
     "termo": "abolitio criminis",
     "variantes": [],
     "significado": "Quando uma lei nova deixa de considerar o fato crime.",
@@ -119,6 +131,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "AET",
+    "variantes": [
+      "Autorização Especial de Trânsito"
+    ],
+    "significado": "Autorização Especial de Trânsito: a licença do órgão da via para veículo ou carga fora dos limites de peso e dimensão.",
+    "fontes": [
+      "Res. CONTRAN 955/2022, art. 4º, §§ 2º e 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
     "termo": "agregado",
@@ -461,6 +485,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "balanço traseiro",
+    "variantes": [],
+    "significado": "O pedaço do veículo, ou da carga, que fica para trás do eixo traseiro.",
+    "fontes": [
+      "Res. CONTRAN 955/2022, art. 7º, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
     "termo": "bando ou quadrilha",
     "variantes": [],
     "significado": "Nome antigo do grupo montado para cometer crimes, hoje chamado de associação criminosa.",
@@ -603,6 +637,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "carga indivisível",
+    "variantes": [
+      "cargas indivisíveis"
+    ],
+    "significado": "Carga que vai inteira, numa peça só, e não dá para repartir em cargas menores (uma escada comprida, uma viga).",
+    "fontes": [
+      "Res. CONTRAN 955/2022, art. 7º",
+      "Res. CONTRAN 955/2022, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
     "termo": "cargo em comissão",
@@ -1173,6 +1220,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "CSV",
+    "variantes": [
+      "Certificado de Segurança Veicular"
+    ],
+    "significado": "Certificado de Segurança Veicular: o documento que atesta que o veículo modificado ou adaptado está seguro, expedido por uma ITL.",
+    "fontes": [
+      "Res. CONTRAN 508/2014, art. 3º, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
     "termo": "culpa consciente",
@@ -2093,6 +2152,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "guardas laterais",
+    "variantes": [
+      "guardas laterais rebatíveis"
+    ],
+    "significado": "As grades ou tábuas dos lados da carroceria aberta, que abaixam para carregar e descarregar.",
+    "fontes": [
+      "Res. CONTRAN 945/2022, art. 6º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
     "termo": "guardas municipais",
     "variantes": [
       "guarda municipal"
@@ -2704,6 +2775,18 @@
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
   },
   {
+    "termo": "ITL",
+    "variantes": [
+      "Instituição Técnica Licenciada"
+    ],
+    "significado": "Instituição Técnica Licenciada: a empresa credenciada que inspeciona o veículo e expede o CSV.",
+    "fontes": [
+      "Res. CONTRAN 508/2014, art. 3º, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
     "termo": "juiz natural",
     "variantes": [],
     "significado": "O juiz que a lei já define antes do fato; ninguém escolhe juiz nem cria tribunal para um caso.",
@@ -3238,6 +3321,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "municípios limítrofes",
+    "variantes": [],
+    "significado": "Cidades vizinhas, que fazem divisa uma com a outra.",
+    "fontes": [
+      "Res. CONTRAN 508/2014, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
     "termo": "mutatio libelli",

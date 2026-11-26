@@ -52701,67 +52701,159 @@
       "partes": {
         "dominar": [
           {
-            "texto": "Amarração de cargas: a 552/2015 foi revogada pela Res. 945/2022, em vigor desde 1º/4/2022. Dispositivo de amarração com fator de segurança de no mínimo 2 vezes o peso da carga; corda só para a lona; sem pontos adequados ou suficientes, fixa-se no próprio chassi.",
+            "texto": "Três normas, três situações: carga de caminhão amarrada (Res. 945/2022, que substituiu a 552/2015); carga e bicicleta por fora de carro e caminhonete (Res. 955/2022, que substituiu a 349/2010); e passageiro na carroceria só como exceção autorizada (Res. 508/2014, em vigor, com o CTB, art. 108).",
             "fontes": [
-              "Res. CONTRAN 945/2022, art. 4º, §§ 3º e 5º",
-              "Res. CONTRAN 945/2022, art. 13, I"
+              "Res. CONTRAN 945/2022, arts. 1º e 13, I",
+              "Res. CONTRAN 955/2022, arts. 1º e 13, I",
+              "Res. CONTRAN 508/2014, arts. 1º e 2º",
+              "CTB, art. 108"
             ]
           },
           {
-            "texto": "Carroceria aberta com guardas laterais rebatíveis: a amarração passa por dentro das guardas; por fora, só quando a carga ocupa todo o espaço interno. Baú lonado exige pontos de amarração; carroceria inteiramente fechada os tem opcionais.",
+            "texto": "Amarração: cinta, corrente ou cabo de aço (corda nunca), fator de segurança de no mínimo 2 vezes o peso da carga, e a amarração por dentro da guarda lateral quando sobra espaço.",
             "fontes": [
-              "Res. CONTRAN 945/2022, art. 6º, §§ 1º e 2º",
-              "Res. CONTRAN 945/2022, arts. 9º e 10"
+              "Res. CONTRAN 945/2022, arts. 4º e 6º"
             ]
           },
           {
-            "texto": "Carga e bicicleta nas partes externas de automóvel, caminhonete, camioneta e utilitário: a 349/2010 foi revogada pela Res. 955/2022. A bicicleta é carga indivisível, a quantidade no suporte segue o fabricante do dispositivo e nada passa das dimensões da resolução de pesos e dimensões.",
+            "texto": "Carga e bicicleta por fora: só em automóvel, caminhonete, camioneta e utilitário, sem passar da largura, sem se projetar para a frente e sem AET; a bicicleta é carga indivisível.",
             "fontes": [
-              "Res. CONTRAN 955/2022, arts. 4º, 9º, III, e 10",
-              "Res. CONTRAN 955/2022, art. 13, I"
+              "Res. CONTRAN 955/2022, arts. 1º, 3º, 4º e 10"
             ]
           },
           {
-            "texto": "Passageiro no compartimento de carga (Res. 508/2014, em vigor): exceção a título precário, autorizada pela autoridade com circunscrição sobre a via onde não há linha regular de ônibus, por no máximo 12 meses; vedados o passageiro com menos de 10 anos e o passageiro em pé.",
+            "texto": "Passageiro na carroceria: autorização da autoridade com circunscrição sobre a via, por no máximo 12 meses, só onde não há linha regular de ônibus, com o veículo adaptado e as vedações da Res. 508 (menor de 10 anos, em pé, carga junto).",
             "fontes": [
-              "CTB, art. 108 e parágrafo único",
-              "Res. CONTRAN 508/2014, arts. 1º, 2º e 5º, I e II"
+              "CTB, art. 108, parágrafo único",
+              "Res. CONTRAN 508/2014, arts. 2º, 3º e 5º"
             ]
           }
         ],
         "artigos": [
           {
-            "texto": "Res. 945/2022, art. 4º: cintas têxteis, correntes ou cabos de aço com fator de segurança de no mínimo 2 vezes o peso da carga; § 3º: corda é proibida para amarrar carga e só serve para fixar a lona; § 5º: sem pontos de amarração adequados ou em número suficiente, pode-se fixar no próprio chassi.",
+            "texto": "Toda carga transportada deve estar amarrada, ancorada e acondicionada para não se mexer durante a viagem: manobras bruscas, solavancos, curvas, frenagens ou desacelerações repentinas.",
             "fontes": [
-              "Res. CONTRAN 945/2022, art. 4º, §§ 3º e 5º"
+              "Res. CONTRAN 945/2022, art. 3º"
             ]
           },
           {
-            "texto": "Res. 945/2022, art. 6º: havendo espaço entre a carga e as guardas laterais rebatíveis, os dispositivos passam pelo lado interno (§ 1º proíbe o externo), salvo a carga que ocupa todo o espaço interno (§ 2º). Art. 9º: no baú lonado a lona não é contenção e são exigidos pontos de amarração; art. 10: na carroceria inteiramente fechada (furgão, isotérmico, frigorífico) as paredes são contenção e os pontos internos são opcionais.",
+            "texto": "Dispositivos de amarração (cintas têxteis, correntes ou cabos de aço) com fator de segurança de no mínimo 2 vezes o peso da carga, e pontos de amarração adequados e em número suficiente. O condutor confere a tensão no caminho e reaperta (§ 2º); corda é proibida para amarrar carga e só serve para a lona (§ 3º); sem pontos adequados ou suficientes, pode fixar no próprio chassi (§ 5º).",
             "fontes": [
-              "Res. CONTRAN 945/2022, art. 6º, §§ 1º e 2º",
-              "Res. CONTRAN 945/2022, arts. 9º e 10"
+              "Res. CONTRAN 945/2022, art. 4º"
             ]
           },
           {
-            "texto": "Res. 955/2022, art. 7º: na caminhonete e no utilitário, carga indivisível além da caçamba com balanço traseiro de até 60% da distância entre os eixos (III); caçamba aberta admitida só com carga indivisível maior que ela (parágrafo único). Art. 10: a bicicleta é carga indivisível. Art. 9º, III: o fabricante do suporte informa a quantidade máxima de bicicletas.",
+            "texto": "Prancha ou carroceria aberta com carga fracionada (equipamento, máquina, veículo): cada unidade amarrada em pelo menos 4 terminais de amarração, ancorados na estrutura metálica da carroceria ou no chassi.",
             "fontes": [
-              "Res. CONTRAN 955/2022, art. 7º, III e parágrafo único",
-              "Res. CONTRAN 955/2022, arts. 9º, III, e 10"
+              "Res. CONTRAN 945/2022, art. 5º"
             ]
           },
           {
-            "texto": "Res. 955/2022, art. 4º: proibido ultrapassar as dimensões da resolução de pesos e dimensões, cuja altura máxima é 4,40 m; sem AET, e vedada AET para essas espécies (§§ 2º e 3º). Carga no teto até 50 cm (art. 6º, § 2º), regra que não vale para a bicicleta no teto (art. 8º, § 2º).",
+            "texto": "Carroceria aberta com guardas laterais rebatíveis e espaço entre a carga e as guardas: a amarração é tensionada pelo lado INTERNO das guardas; pelo lado externo é proibido (§ 1º), salvo quando a carga ocupa todo o espaço interno e impede a passagem por dentro (§ 2º). Os pontos de amarração ficam na parte metálica ou no chassi, nunca só no piso de madeira (§ 3º).",
             "fontes": [
-              "Res. CONTRAN 955/2022, art. 4º, §§ 2º e 3º",
-              "Res. CONTRAN 882/2021, art. 4º, II",
-              "Res. CONTRAN 955/2022, art. 6º, § 2º, e art. 8º, § 2º"
+              "Res. CONTRAN 945/2022, art. 6º"
             ]
           },
           {
-            "texto": "Res. 508/2014, art. 5º: vedado transportar passageiro com menos de 10 anos, em pé, com carga no mesmo ambiente, em basculante ou boiadeiro, em combinação de veículos ou nas partes externas. Art. 2º: só no mesmo município ou entre municípios limítrofes, sem linha regular de ônibus.",
+            "texto": "Baú lonado (tipo sider): a lona lateral não conta como estrutura de contenção da carga, e são exigidos pontos de amarração em número suficiente.",
             "fontes": [
-              "Res. CONTRAN 508/2014, arts. 2º e 5º"
+              "Res. CONTRAN 945/2022, art. 9º"
+            ]
+          },
+          {
+            "texto": "Carroceria inteiramente fechada (furgão, baú isotérmico, baú frigorífico): as paredes contam como estrutura de contenção, e os pontos de amarração internos são opcionais.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 10"
+            ]
+          },
+          {
+            "texto": "A carga ou a bicicleta por fora vai acondicionada, amarrada e ancorada de modo a não atrapalhar a visão à frente do condutor, não esconder as luzes (só a lanterna de freio elevada pode ficar coberta), não passar da largura máxima do veículo e não se projetar para a frente.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 3º"
+            ]
+          },
+          {
+            "texto": "Não pode ultrapassar as dimensões da resolução de pesos e dimensões. Na caçamba de caminhonete e utilitário, a altura da carga vai até 2 vezes a largura do veículo (§ 1º). Não precisa de AET (§ 2º), e a AET é vedada em qualquer hipótese para automóvel, caminhonete, camioneta e utilitário (§ 3º).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 4º"
+            ]
+          },
+          {
+            "texto": "Se a carga indivisível ou a bicicleta encobrir a sinalização ou a placa traseira: régua de sinalização (de no mínimo 1 m até a largura do veículo) e segunda placa (caput e § 1º); o veículo com extensor de caçamba dispensa a régua (§ 5º).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 5º"
+            ]
+          },
+          {
+            "texto": "Carga no teto, em bagageiro ou suporte: até 50 cm de altura, já contada a altura do bagageiro, sem passar do comprimento da carroçaria nem da largura da parte de cima dela (§ 2º).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 6º"
+            ]
+          },
+          {
+            "texto": "Caminhonete e utilitário podem levar carga indivisível além da caçamba: a parte sobre o teto até 50 cm; o que sobra para trás bem sinalizado (à noite, luz vermelha e refletor vermelho); balanço traseiro até 60% da distância entre os dois eixos. Caçamba aberta só com carga indivisível maior que ela (parágrafo único).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 7º"
+            ]
+          },
+          {
+            "texto": "A bicicleta vai na traseira ou no teto, em dispositivo apropriado; na caçamba de caminhonete segue as regras de carga (§ 1º); no teto não vale o limite de 50 cm (§ 2º).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 8º"
+            ]
+          },
+          {
+            "texto": "O suporte de bicicleta vem com as instruções do fabricante: instalação, fixação, quantidade máxima de bicicletas e cuidados de segurança; ele é só para bicicleta, vedada outra carga (parágrafo único).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 9º"
+            ]
+          },
+          {
+            "texto": "Para esta resolução, a bicicleta é considerada carga indivisível.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 10"
+            ]
+          },
+          {
+            "texto": "Onde não houver linha regular de ônibus, a autoridade com circunscrição sobre a via pode autorizar, a título precário, o transporte de passageiros em veículo de carga ou misto; a autorização não passa de 12 meses (parágrafo único).",
+            "fontes": [
+              "CTB, art. 108"
+            ]
+          },
+          {
+            "texto": "A autorização é eventual e a título precário, expedida pelo órgão com circunscrição sobre a via, no prazo máximo do CTB (§ 1º); trajeto por vias de autoridades diferentes: cada uma autoriza o seu trecho (§ 2º).",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 1º"
+            ]
+          },
+          {
+            "texto": "Só entre origem e destino no mesmo município ou em municípios limítrofes, quando não houver linha regular de ônibus.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 2º"
+            ]
+          },
+          {
+            "texto": "Veículo adaptado: bancos com encosto e cinto de segurança, cobertura, barra de apoio, proteção lateral rígida com 2,10 m de altura livre, escada com corrimão, ventilação e comunicação com o motorista; só circula depois do CSV (expedido por ITL) e da vistoria da autoridade (parágrafo único).",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 3º"
+            ]
+          },
+          {
+            "texto": "A autorização traz o veículo, o proprietário, a lotação, a origem e o destino, o itinerário e o prazo; uma pessoa a cada 35 dm² de carroceria, contado o cobrador (§ 1º); a autorização é de porte obrigatório (§ 2º).",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 4º"
+            ]
+          },
+          {
+            "texto": "É vedado: passageiro com menos de 10 anos, passageiro em pé, carga no mesmo ambiente dos passageiros, veículo basculante ou boiadeiro, combinação de veículos e passageiro nas partes externas.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 5º"
+            ]
+          },
+          {
+            "texto": "Habilitação: B (PBT até 3.500 kg e até 8 lugares, fora o condutor), C (PBT acima de 3.500 kg), D com curso especializado (mais de 8 lugares, fora o condutor); a lotação conta o compartimento de carga adaptado (parágrafo único).",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 6º"
             ]
           }
         ],
@@ -52873,8 +52965,862 @@
         ]
       },
       "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
-      "criado_em": "2026-11-26T06:06:47.816286+00:00",
+      "criado_em": "2026-11-26T21:15:09.855687+00:00",
       "conferido_em": null
+    },
+    "traducao": {
+      "itens": [
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 3º",
+          "na_real": {
+            "texto": "Carga solta é bola dividida: na primeira freada, ela vai para a frente. A regra é amarrar, ancorar e arrumar para nada se mexer na viagem.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 3º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhão com engradados faz uma curva fechada na serra. Se os engradados escorregam e batem na lateral, a carga não estava presa como a resolução manda.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 3º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A lista é de situações da viagem: MANOBRAS BRUSCAS, SOLAVANCOS, CURVAS, FRENAGENS ou DESACELERAÇÕES repentinas. Fica fora a carga com regra própria ou o veículo dedicado com contenção específica.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 3º",
+              "Res. CONTRAN 945/2022, art. 2º, parágrafo único"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 4º",
+          "na_real": {
+            "texto": "A amarração tem de aguentar no mínimo o DOBRO do peso da carga. Corda não serve para carga, só para a lona. E o motorista confere a tensão no caminho e reaperta.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 4º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Faltou ponto de amarração na carroceria? O motorista pode prender a cinta direto no chassi. Já amarrar a carga com corda: proibido, mesmo que pareça firme.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 4º"
+            ]
+          },
+          "na_prova": {
+            "texto": "O fator é 2 VEZES o peso, e não 1,5: na 2021-q85 (gabarito E), o item trocou o número. Fixar no CHASSI quando faltam pontos é permitido: 2021-q84 (gabarito C).",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 4º",
+              "2021-q85 (gabarito E)",
+              "2021-q84 (gabarito C)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 5º",
+          "na_real": {
+            "texto": "Prancha ou carroceria aberta levando máquina, veículo ou outra carga em unidades: cada unidade presa em pelo menos 4 pontos. Como uma mesa: com 4 pés, não balança.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 5º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Uma prancha leva dois tratores. Cada trator vai com corrente em pelo menos 4 terminais de amarração, presos na estrutura metálica da carroceria ou no chassi.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 5º"
+            ]
+          },
+          "na_prova": {
+            "texto": "PELO MENOS 4 terminais por UNIDADE de carga, e não 4 para a carga inteira.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 5º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 6º",
+          "na_real": {
+            "texto": "Sobrou espaço entre a carga e a grade lateral? A cinta passa por DENTRO da grade. Por fora, só quando a carga encosta na grade e não tem como passar por dentro.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 6º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Sacos de cimento ocupando metade da largura da carroceria: cinta por dentro das guardas. Madeira enchendo a carroceria e encostada nos fueiros: aí a cinta pode ir por fora.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 6º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A pegadinha é o \"INDEPENDENTEMENTE do espaço\": na 2019-q82 (gabarito E), o item mandou passar por fora sempre. Regra: DENTRO. Exceção: carga ocupando TODO o espaço interno. E ponto de amarração só no piso de MADEIRA é vedado.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 6º",
+              "2019-q82 (gabarito E)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 9º",
+          "na_real": {
+            "texto": "No baú lonado (sider), a lona é só cortina: não segura carga nenhuma. Por isso precisa de pontos de amarração suficientes lá dentro.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 9º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhão sider carregado de paletes: sem amarração por dentro, na curva os paletes vão para cima da lona, que não segura nada.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 9º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Lonado: pontos de amarração EXIGIDOS. Fechado (furgão, frigorífico): OPCIONAIS. Na 2019-q84 (gabarito E), o item deu a mesma regra (opcional) aos dois.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 9º",
+              "Res. CONTRAN 945/2022, art. 10",
+              "2019-q84 (gabarito E)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 945/2022, art. 10",
+          "na_real": {
+            "texto": "Baú todo fechado (furgão, isotérmico, frigorífico) tem parede de verdade: a própria parede segura a carga. Ponto de amarração lá dentro vira opcional.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 10"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhão frigorífico com caixas de carne: as paredes do baú contam como contenção, e ele pode rodar sem pontos de amarração internos.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 10"
+            ]
+          },
+          "na_prova": {
+            "texto": "A palavra é INTEIRAMENTE fechada. Lona não é parede: o baú lonado não tem essa folga.",
+            "fontes": [
+              "Res. CONTRAN 945/2022, art. 10",
+              "Res. CONTRAN 945/2022, art. 9º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 3º",
+          "na_real": {
+            "texto": "Levar coisa por fora do carro pode, mas bem presa e sem atrapalhar ninguém: não tapa a visão do motorista, não esconde as luzes, não passa da largura do carro e não sobra para a frente.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 3º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Prancha de surfe no rack: não pode passar da frente do carro nem da largura dele. Se cobrir só a luz de freio elevada (aquela lá de cima), pode.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 3º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A única luz que pode ficar escondida é a LANTERNA DE FREIO ELEVADA. Para a frente, NADA pode sobrar. Na CEBRASPE-2021-PRFCFP2-q40 (gabarito C), de outro concurso, o item juntou essas condições e estava certo.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 3º",
+              "CEBRASPE-2021-PRFCFP2-q40 (gabarito C)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 4º",
+          "na_real": {
+            "texto": "Carro e caminhonete com carga por fora não pedem AET, e nem adianta pedir: é proibido dar AET para eles. Na caçamba, a carga sobe no máximo até 2 vezes a largura do veículo.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 4º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhonete com 1,9 m de largura: a carga na caçamba pode ir até 3,8 m de altura, medida a partir do plano de apoio das rodas (2 x 1,9 m).",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 4º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Duas trocas derrubam: \"precisa de AET\" (NÃO precisa) e \"pode ter AET\" (VEDADA em qualquer hipótese). E o limite da caçamba é 2 vezes a LARGURA, não o comprimento.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 4º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 5º",
+          "na_real": {
+            "texto": "Se a carga ou a bike tapar a placa ou as luzes de trás, o carro ganha uma segunda traseira: a régua de sinalização, com luzes, e a segunda placa.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 5º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Suporte com três bikes na traseira cobre a placa e as lanternas: precisa da régua, com no mínimo 1 m e no máximo a largura do carro, e da segunda placa presa nela ou no veículo.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 5º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Quem tem EXTENSOR DE CAÇAMBA dispensa a régua. A régua vai de 1 m até a LARGURA do veículo, sem contar os retrovisores.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 5º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 6º",
+          "na_real": {
+            "texto": "No teto do carro, a carga vai até 50 cm de altura, já contando o bagageiro, e não passa do tamanho do teto.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 6º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Família indo para a praia com malas no bagageiro: bagageiro e malas, juntos, até 50 cm, sem sobrar para os lados, para a frente ou para trás da carroçaria.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 6º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Os 50 cm JÁ CONTAM o bagageiro. E a bicicleta no teto não segue os 50 cm.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 6º",
+              "Res. CONTRAN 955/2022, art. 8º, § 2º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 7º",
+          "na_real": {
+            "texto": "Caminhonete e utilitário podem levar carga comprida que não cabe na caçamba, se for indivisível: até 50 cm sobre o teto, bem sinalizada atrás e com o balanço traseiro até 60% da distância entre os eixos.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 7º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhonete levando uma escada que passa da caçamba: pode rodar de tampa aberta, porque a carga é maior que a caçamba; à noite, a ponta da escada leva luz vermelha e refletor vermelho.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 7º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Os 60% são do BALANÇO TRASEIRO, comparado à distância ENTRE OS EIXOS. Caçamba aberta só com carga indivisível maior que ela; a bicicleta é indivisível, e na 2019-q76 (gabarito E) o item proibia a bicicleta na caçamba aberta.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 7º",
+              "Res. CONTRAN 955/2022, art. 10",
+              "2019-q76 (gabarito E)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 8º",
+          "na_real": {
+            "texto": "A bike vai atrás ou no teto, num suporte próprio. Na caçamba da caminhonete, ela vira carga e segue as regras de carga.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 8º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Bikes no teto de um carro: não vale o limite de 50 cm das cargas no teto, porque a regra da bicicleta é outra.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 8º"
+            ]
+          },
+          "na_prova": {
+            "texto": "No TETO, a bicicleta não segue os 50 cm, mas respeita as dimensões máximas dos veículos: na 2019-q78 (gabarito C), 4,4 m de altura do conjunto estava conforme.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 8º",
+              "Res. CONTRAN 955/2022, art. 4º",
+              "2019-q78 (gabarito C)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 9º",
+          "na_real": {
+            "texto": "Quem manda no suporte de bike é o fabricante dele: o manual diz como instala, como prende e quantas bicicletas cabem. E o suporte é só para bike.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 9º"
+            ]
+          },
+          "exemplo": {
+            "texto": "O manual do suporte de engate diz \"até 3 bicicletas\": são 3, e ponto. Pendurar uma mochila ou um isopor nele é proibido.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 9º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A quantidade de bicicletas vem das INSTRUÇÕES DO FABRICANTE. Na 2019-q77 (gabarito E), o item disse \"independentemente de instruções do fabricante\" e usou os 60% do balanço, que são da carga indivisível.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 9º",
+              "Res. CONTRAN 955/2022, art. 7º, III",
+              "2019-q77 (gabarito E)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 955/2022, art. 10",
+          "na_real": {
+            "texto": "Para esta resolução, a bicicleta conta como carga indivisível, uma peça só. Por isso ela ganha as regras da carga indivisível.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 10"
+            ]
+          },
+          "exemplo": {
+            "texto": "Bike que passa do comprimento da caçamba: como é carga indivisível, a caminhonete pode rodar com a caçamba aberta, seguindo as regras da carga indivisível.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 10"
+            ]
+          },
+          "na_prova": {
+            "texto": "A palavra-chave é INDIVISÍVEL: é ela que libera a caçamba aberta para a bicicleta.",
+            "fontes": [
+              "Res. CONTRAN 955/2022, art. 10",
+              "Res. CONTRAN 955/2022, art. 7º, parágrafo único"
+            ]
+          }
+        },
+        {
+          "artigo": "CTB, art. 108",
+          "na_real": {
+            "texto": "Gente na carroceria é exceção: só onde não há linha regular de ônibus, com autorização da autoridade da via, por no máximo 12 meses. Nesse prazo, o poder público tem de pôr o transporte coletivo regular.",
+            "fontes": [
+              "CTB, art. 108"
+            ]
+          },
+          "exemplo": {
+            "texto": "Trabalhadores de uma comunidade rural sem ônibus vão para a lavoura num caminhão adaptado, com autorização a título precário. A autorização dura no máximo 12 meses.",
+            "fontes": [
+              "CTB, art. 108"
+            ]
+          },
+          "na_prova": {
+            "texto": "Prazo: 12 MESES, no máximo. Condição: NÃO HAVER linha regular de ônibus. Quem autoriza: a autoridade com CIRCUNSCRIÇÃO SOBRE A VIA.",
+            "fontes": [
+              "CTB, art. 108"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 1º",
+          "na_real": {
+            "texto": "A autorização é eventual e a título precário. Cada trecho de via tem o seu órgão, e cada órgão autoriza o seu pedaço.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 1º"
+            ]
+          },
+          "exemplo": {
+            "texto": "O caminhão passa por uma estrada municipal e depois por uma rodovia estadual: precisa da autorização do município para o trecho dele e do órgão estadual para o trecho da rodovia.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 1º"
+            ]
+          },
+          "na_prova": {
+            "texto": "O prazo é o do CTB (12 meses). Trajeto com mais de uma autoridade: CADA UMA autoriza o seu trecho, e não uma só pelo trajeto todo.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 1º",
+              "CTB, art. 108"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 2º",
+          "na_real": {
+            "texto": "Só para viagem curta: dentro do mesmo município ou entre municípios vizinhos, e só se não houver ônibus regular.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 2º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Da zona rural para o centro da mesma cidade, sem linha de ônibus: pode ser autorizado. Até uma cidade que não faz divisa com a de origem: não pode.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 2º"
+            ]
+          },
+          "na_prova": {
+            "texto": "MESMO município ou municípios LIMÍTROFES, e SEM linha regular de ônibus: as duas condições juntas.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 2º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 3º",
+          "na_real": {
+            "texto": "Não é só pôr o pessoal na carroceria: o caminhão tem de ser adaptado, com banco com encosto e cinto, cobertura, proteção lateral alta, escada com corrimão e ventilação. Depois, CSV e vistoria.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 3º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Antes de levar os trabalhadores, o dono adapta o caminhão, tira o CSV numa ITL e passa pela vistoria da autoridade. Só então ele começa a circular.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 3º"
+            ]
+          },
+          "na_prova": {
+            "texto": "Proteção lateral RÍGIDA com 2,10 m de altura livre. O CSV é expedido por ITL, e ainda há a vistoria da autoridade.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 3º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 4º",
+          "na_real": {
+            "texto": "A autorização é a escalação do transporte: o veículo, o dono, quantos passageiros, de onde para onde, o caminho e até quando vale. E ela vai junto, no veículo.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 4º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Carroceria adaptada com 7 m² de espaço útil: cabem até 20 pessoas, contado o cobrador (7 m² são 700 dm², e 700 dividido por 35 dá 20).",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 4º"
+            ]
+          },
+          "na_prova": {
+            "texto": "35 dm² por pessoa, INCLUÍDO o encarregado da cobrança. A autorização é de PORTE OBRIGATÓRIO.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 4º"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 5º",
+          "na_real": {
+            "texto": "A lista do que não pode: criança com menos de 10 anos, gente em pé, carga junto com as pessoas, caminhão basculante ou boiadeiro, combinação de veículos e passageiro do lado de fora.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 5º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Caminhão boiadeiro adaptado com bancos para levar trabalhadores: proibido. Boiadeiro e basculante estão fora dessa exceção.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 5º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A idade é MENOS DE 10 ANOS, e não 18: na 2021-q68 (gabarito E), o item trocou a idade. Em pé também é vedado.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 5º",
+              "2021-q68 (gabarito E)"
+            ]
+          }
+        },
+        {
+          "artigo": "Res. CONTRAN 508/2014, art. 6º",
+          "na_real": {
+            "texto": "A categoria da CNH depende do peso e de quantos vão: B para o leve com até 8 lugares, C para o que passa de 3.500 kg, D com curso para mais de 8 lugares.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 6º"
+            ]
+          },
+          "exemplo": {
+            "texto": "Utilitário de 3.000 kg adaptado com 10 lugares, fora o condutor: passa de 8 lugares, então o condutor precisa da categoria D e do curso especializado de transporte coletivo.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 6º"
+            ]
+          },
+          "na_prova": {
+            "texto": "A lotação conta TAMBÉM o compartimento de carga adaptado, e não só a cabine. Os números: 3.500 kg de PBT e 8 lugares, fora o condutor.",
+            "fontes": [
+              "Res. CONTRAN 508/2014, art. 6º"
+            ]
+          }
+        }
+      ],
+      "nao_confunda": [
+        {
+          "situacao": "Baú lonado (sider)",
+          "o_que_e": "A lona não é contenção (Res. 945/2022, art. 9º)",
+          "o_que_acontece": "Pontos de amarração exigidos, em número suficiente",
+          "fontes": [
+            "Res. CONTRAN 945/2022, art. 9º"
+          ]
+        },
+        {
+          "situacao": "Baú inteiramente fechado (furgão, isotérmico, frigorífico)",
+          "o_que_e": "A parede é contenção (Res. 945/2022, art. 10)",
+          "o_que_acontece": "Pontos de amarração internos opcionais",
+          "fontes": [
+            "Res. CONTRAN 945/2022, art. 10",
+            "2019-q84 (gabarito E)"
+          ]
+        },
+        {
+          "situacao": "Carga no teto do carro",
+          "o_que_e": "Bagageiro ou suporte (Res. 955/2022, art. 6º)",
+          "o_que_acontece": "Até 50 cm de altura, já contado o bagageiro",
+          "fontes": [
+            "Res. CONTRAN 955/2022, art. 6º, § 2º"
+          ]
+        },
+        {
+          "situacao": "Bicicleta no teto do carro",
+          "o_que_e": "Dispositivo próprio (Res. 955/2022, art. 8º, § 2º)",
+          "o_que_acontece": "Não segue os 50 cm; respeita as dimensões máximas dos veículos",
+          "fontes": [
+            "Res. CONTRAN 955/2022, art. 8º, § 2º",
+            "Res. CONTRAN 955/2022, art. 4º",
+            "2019-q78 (gabarito C)"
+          ]
+        },
+        {
+          "situacao": "Balanço traseiro de até 60% da distância entre os eixos",
+          "o_que_e": "Carga indivisível em caminhonete e utilitário (Res. 955/2022, art. 7º, III)",
+          "o_que_acontece": "Não decide quantas bicicletas vão no suporte: isso vem do fabricante (art. 9º, III)",
+          "fontes": [
+            "Res. CONTRAN 955/2022, art. 7º, III",
+            "Res. CONTRAN 955/2022, art. 9º, III",
+            "2019-q77 (gabarito E)"
+          ]
+        }
+      ],
+      "comece_por_aqui": [
+        {
+          "texto": "Res. 945/2022, a amarração: carga de caminhão não pode se mexer na viagem. Ela diz com o que amarrar, quanto a amarração aguenta e por onde passa a cinta. Comece por ela: foram 4 dos 8 itens das provas da PRF.",
+          "fontes": [
+            "Res. CONTRAN 945/2022, art. 1º",
+            "Res. CONTRAN 945/2022, art. 3º",
+            "2019-q82",
+            "2019-q84",
+            "2021-q84",
+            "2021-q85"
+          ]
+        },
+        {
+          "texto": "Res. 955/2022, carga e bicicleta por fora: carro, caminhonete, camioneta e utilitário levando coisa no teto, na traseira ou passando da caçamba. A bicicleta entra aqui e conta como carga indivisível.",
+          "fontes": [
+            "Res. CONTRAN 955/2022, art. 2º",
+            "Res. CONTRAN 955/2022, art. 10"
+          ]
+        },
+        {
+          "texto": "CTB, art. 108, e Res. 508/2014, passageiro na carroceria: é exceção. Só com autorização, onde não há ônibus regular, com o veículo adaptado e por no máximo 12 meses.",
+          "fontes": [
+            "CTB, art. 108",
+            "Res. CONTRAN 508/2014, art. 1º"
+          ]
+        },
+        {
+          "texto": "Como estudar: uma norma por vez, nesta ordem. Leia a letra de cada artigo, abra o \"Traduz pra mim\" e, no fim, a tabela \"Não confunda\", que junta o que a banca troca.",
+          "fontes": [
+            "Res. CONTRAN 945/2022, art. 1º",
+            "Res. CONTRAN 955/2022, art. 2º",
+            "Res. CONTRAN 508/2014, art. 1º"
+          ]
+        }
+      ],
+      "normas": [
+        {
+          "norma": "Res. CONTRAN 945/2022",
+          "do_que_trata": "amarração de cargas"
+        },
+        {
+          "norma": "Res. CONTRAN 955/2022",
+          "do_que_trata": "carga e bicicleta por fora do carro"
+        },
+        {
+          "norma": "CTB",
+          "do_que_trata": "a base do passageiro em veículo de carga"
+        },
+        {
+          "norma": "Res. CONTRAN 508/2014",
+          "do_que_trata": "passageiro no compartimento de carga"
+        }
+      ],
+      "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+      "criado_em": "2026-11-26T21:18:28.184775+00:00",
+      "conferido_em": null,
+      "artigos_do_resumo": [
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            1,
+            ""
+          ],
+          "fim": [
+            1,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            13,
+            ""
+          ],
+          "fim": [
+            13,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            1,
+            ""
+          ],
+          "fim": [
+            1,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            13,
+            ""
+          ],
+          "fim": [
+            13,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            1,
+            ""
+          ],
+          "fim": [
+            1,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            2,
+            ""
+          ],
+          "fim": [
+            2,
+            ""
+          ]
+        },
+        {
+          "lei": "CTB",
+          "inicio": [
+            108,
+            ""
+          ],
+          "fim": [
+            108,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            4,
+            ""
+          ],
+          "fim": [
+            4,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            6,
+            ""
+          ],
+          "fim": [
+            6,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            3,
+            ""
+          ],
+          "fim": [
+            3,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            4,
+            ""
+          ],
+          "fim": [
+            4,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            10,
+            ""
+          ],
+          "fim": [
+            10,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            3,
+            ""
+          ],
+          "fim": [
+            3,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            5,
+            ""
+          ],
+          "fim": [
+            5,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            3,
+            ""
+          ],
+          "fim": [
+            3,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            5,
+            ""
+          ],
+          "fim": [
+            5,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            9,
+            ""
+          ],
+          "fim": [
+            9,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 945/2022",
+          "inicio": [
+            10,
+            ""
+          ],
+          "fim": [
+            10,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            5,
+            ""
+          ],
+          "fim": [
+            5,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            6,
+            ""
+          ],
+          "fim": [
+            6,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            7,
+            ""
+          ],
+          "fim": [
+            7,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            8,
+            ""
+          ],
+          "fim": [
+            8,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 955/2022",
+          "inicio": [
+            9,
+            ""
+          ],
+          "fim": [
+            9,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            4,
+            ""
+          ],
+          "fim": [
+            4,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 508/2014",
+          "inicio": [
+            6,
+            ""
+          ],
+          "fim": [
+            6,
+            ""
+          ]
+        },
+        {
+          "lei": "Res. CONTRAN 882/2021",
+          "inicio": [
+            4,
+            ""
+          ],
+          "fim": [
+            4,
+            ""
+          ]
+        }
+      ]
     }
   },
   {

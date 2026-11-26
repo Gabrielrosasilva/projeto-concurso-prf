@@ -532,6 +532,13 @@ a:focus-visible { outline: 2px solid var(--cor-acao); outline-offset: 2px; }
 .ds-resumo__fonte { display: block; font-size: var(--tam-xs); color: var(--cor-texto-suave); }
 .ds-resumo__bloco { padding: var(--esp-2) 0; border-top: 1px solid var(--cor-borda); }
 .ds-resumo__bloco:first-of-type { border-top: 0; }
+/* O titulo de cada norma, quando a aula tem mais de uma (PRF-47). */
+.ds-resumo h4.ds-resumo__norma {
+  margin: var(--esp-3) 0 var(--esp-1); padding: var(--esp-1) var(--esp-2);
+  font-size: var(--tam-md); background: var(--cor-superficie-2);
+  border-left: 3px solid var(--cor-acao);
+}
+.ds-resumo__norma + .ds-resumo__bloco { border-top: 0; }
 .ds-resumo__dobra {
   margin: var(--esp-3) 0 0;
   padding: var(--esp-2) var(--esp-3);

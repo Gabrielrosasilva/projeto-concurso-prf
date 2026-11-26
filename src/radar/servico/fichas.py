@@ -608,7 +608,9 @@ def verificar_resumos(ctx: fichas.Contexto | None = None) -> list[tuple[str, str
                                             f"que cite só ele)"))
         try:
             traducao.conferir_traducao(
-                {"itens": visiveis, "nao_confunda": escrita.traducao.get("nao_confunda")},
+                {"itens": visiveis, "nao_confunda": escrita.traducao.get("nao_confunda"),
+                 "comece_por_aqui": escrita.traducao.get("comece_por_aqui"),
+                 "normas": escrita.traducao.get("normas")},
                 tema=tema, codigos=exige["codigos"], lista_de_palavroes=traducao.palavroes())
         except fichas.FichaRecusada as erro:
             problemas.append((escrita.tema, f"tradução: {erro}"))

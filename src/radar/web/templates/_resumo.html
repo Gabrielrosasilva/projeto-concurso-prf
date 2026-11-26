@@ -44,12 +44,23 @@
    que tem a ancora dentro. #}
 {% macro corpo(e, respondidos, prefixo) %}
   <div class="ds-resumo">
+    {# O mapa da aula (PRF-47): o que cada norma resolve e a ordem de leitura. #}
+    {% if e.comece %}
+      <section id="{{ prefixo }}-comece">
+        <h3>🧭 Comece por aqui {{ selo('ia', curto=True) }}</h3>
+        {{ lista(e.comece, respondidos) }}
+      </section>
+    {% endif %}
     {% if e.blocos %}
       <section id="{{ prefixo }}-artigos">
         <h3>📜 Os artigos {{ selo('ia', curto=True) }}</h3>
-        {% for b in e.blocos %}
+        {% set grupos = e.por_norma %}
+        {% for titulo, blocos in grupos %}
+        {# Um titulo por norma so quando a aula tem mais de uma (PRF-47). #}
+        {% if grupos | length > 1 %}<h4 class="ds-resumo__norma">{{ titulo }}</h4>{% endif %}
+        {% for b in blocos %}
           <div class="ds-resumo__bloco">
-            <h4>{{ b.rotulo }}</h4>
+            <h4>{{ b.rotulo_curto if grupos | length > 1 else b.rotulo }}</h4>
             {% if b.frases %}{{ lista(b.frases, respondidos) }}{% endif %}
             {% if b.traducao %}
               <details class="ds-resumo__traduz">
@@ -63,6 +74,7 @@
               </details>
             {% endif %}
           </div>
+        {% endfor %}
         {% endfor %}
       </section>
       {% if e.nao_confunda %}

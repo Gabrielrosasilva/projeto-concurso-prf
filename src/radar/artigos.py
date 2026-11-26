@@ -91,6 +91,23 @@ LEIS = (
 )
 _POR_SIGLA = {lei.sigla: lei for lei in LEIS}
 
+#: A resolucao do CONTRAN (PRF-47). Sao dezenas, e o numero ja e o nome, entao
+#: ela nao entra em `LEIS` uma a uma: "Res. CONTRAN 945/2022", "Res.
+#: 955/2022" e "Resolução CONTRAN nº 508/2014" viram a mesma sigla. Sem isto,
+#: a ficha das resolucoes ficava com o bloco "Os artigos" vazio (so o CTB) e
+#: todo o resto caia em "O que eu preciso dominar". Outro orgao no meio ("Res.
+#: CNJ 213/2015") nao casa: so a do CONTRAN, ou a sem orgao.
+_RESOLUCAO = re.compile(
+    r"\b(?:res\.|resolucao)\s*(?:do\s+)?(?:contran\s+)?(?:n[o.]*\s*)?(\d{1,4})/(\d{4})\b")
+
+
+def sigla_da_resolucao(numero: str | int, ano: str | int) -> str:
+    return f"Res. CONTRAN {int(numero)}/{ano}"
+
+
+def _conhecida(sigla: str | None) -> bool:
+    return sigla in _POR_SIGLA or (sigla or "").startswith("Res. CONTRAN ")
+
 
 @dataclass(frozen=True)
 class Artigo:
@@ -173,10 +190,16 @@ def _unidade(token: str) -> tuple[str, bool]:
 
 def _leis_nomeadas(texto: str) -> list[tuple[int, int, str]]:
     """[(inicio, fim, sigla)] de cada lei nomeada no texto normalizado."""
-    achadas = []
+    resolucoes = [(m.start(), m.end(), sigla_da_resolucao(m.group(1), m.group(2)))
+                  for m in _RESOLUCAO.finditer(texto)]
+    achadas = list(resolucoes)
     for lei in LEIS:
         for nome in lei.nomes:
             for m in palavra_inteira(nome).finditer(texto):
+                # O numero de dentro da resolucao nao e outra lei: "Res.
+                # CONTRAN 801/2022" nao e a LC 801/2022 de SC.
+                if any(i <= m.start() and m.end() <= f for i, f, _ in resolucoes):
+                    continue
                 achadas.append((m.start(), m.end(), lei.sigla))
     return sorted(achadas)
 
@@ -232,7 +255,7 @@ def citados(texto: str | None, lei_padrao: str | None = None) -> list[Faixa]:
         if lei is None:
             antes = [s for i, f, s in nomeadas if f <= m.start()]
             lei = antes[-1] if antes else lei_padrao
-        if lei not in _POR_SIGLA or _POR_SIGLA[lei].unidade != unidade:
+        if not _conhecida(lei) or _unidade_da(lei) != unidade:
             continue
         for faixa in numeros:
             saida.append(Faixa(lei, faixa[0], faixa[-1]))

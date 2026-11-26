@@ -4,7 +4,9 @@ O texto do artigo, como esta no resumo, nao muda: a traducao e a mais, por
 artigo, em tres linhas - "na real" (o artigo numa frase do dia a dia),
 "exemplo" (uma cena concreta) e "na prova" (o numero ou a palavra que a banca
 troca para derrubar) -, mais o "nao confunda" do tema e os termos dificeis do
-glossario. Mora na ficha, numa chave propria (`traducao`), porque tem
+glossario. Desde a PRF-47, tambem o "comece por aqui" (o mapa da aula, no
+topo) e o titulo de cada norma (os blocos agrupados por norma). Mora na
+ficha, numa chave propria (`traducao`), porque tem
 procedencia e data proprias.
 
 A regra que nao muda: a traducao nunca diz o que o artigo nao diz.
@@ -40,6 +42,9 @@ COLUNAS_DO_NAO_CONFUNDA = ("situacao", "o_que_e", "o_que_acontece")
 #: Um campo curto do "nao confunda" ("Desistência voluntária") e mais curto
 #: que uma frase; menos que isto e campo vazio.
 TEXTO_MINIMO_DA_COLUNA = 3
+
+#: O "Comece por aqui" e o mapa da aula, nao outro resumo: poucas linhas.
+LINHAS_DO_COMECE = 5
 
 
 @cache
@@ -205,6 +210,40 @@ def conferir_traducao(bruto, *, tema: list, codigos: dict,
         textos_para_conferir.append((onde, " ".join(juntas)))
         nao_confunda.append(linha)
 
+    # O "Comece por aqui" (PRF-47): de 3 a 5 linhas no topo do resumo, o mapa
+    # da aula em portugues simples - o que cada norma resolve e a ordem de
+    # leitura. A fonte e a mesma do "na prova": artigo do tema (ou questao).
+    comece = []
+    for numero, bruta in enumerate(bruto.get("comece_por_aqui") or [], start=1):
+        onde = f"comece por aqui, linha {numero}"
+        linha = _linha(bruta, onde)
+        for fonte in linha["fontes"]:
+            _fonte_do_tema(fonte, tema, codigos, onde)
+        _conferir_codigos([linha["texto"]] + linha["fontes"], codigos, onde)
+        textos_para_conferir.append((onde, " ".join([linha["texto"]] + linha["fontes"])))
+        comece.append(linha)
+    if len(comece) > LINHAS_DO_COMECE:
+        raise FichaRecusada(f"comece por aqui: no máximo {LINHAS_DO_COMECE} linhas "
+                            f"(vieram {len(comece)})")
+
+    # O titulo de cada norma (PRF-47): na aula de mais de uma norma, os blocos
+    # de artigo saem agrupados, um grupo por norma, e o titulo diz do que ela
+    # trata ("Res. CONTRAN 945/2022: amarração de cargas").
+    normas_do_tema = {f.lei for f in tema}
+    normas = []
+    for numero, bruta in enumerate(bruto.get("normas") or [], start=1):
+        onde = f"normas, linha {numero}"
+        if not isinstance(bruta, dict):
+            raise FichaRecusada(f"{onde}: tem de ser um objeto com norma e do_que_trata")
+        norma, assunto = _texto(bruta.get("norma")), _texto(bruta.get("do_que_trata"))
+        if norma not in normas_do_tema:
+            raise FichaRecusada(f"{onde}: {norma!r} não é norma do tema (escreva como o "
+                                f"artigo: \"Res. CONTRAN 945/2022\", \"CTB\")")
+        if len(assunto) < TEXTO_MINIMO_DA_COLUNA:
+            raise FichaRecusada(f"{onde} ({norma}): sem o do_que_trata")
+        textos_para_conferir.append((onde, assunto))
+        normas.append({"norma": norma, "do_que_trata": assunto})
+
     termos = []
     for numero, bruto_termo in enumerate(bruto.get("glossario") or [], start=1):
         onde = f"glossário, termo {numero}"
@@ -221,7 +260,8 @@ def conferir_traducao(bruto, *, tema: list, codigos: dict,
         achado = PREVISAO.search(texto)
         if achado:
             raise FichaRecusada(f"{onde}: texto com cara de previsão ({achado.group(0)!r})")
-    return {"itens": itens, "nao_confunda": nao_confunda}, termos
+    return {"itens": itens, "nao_confunda": nao_confunda, "comece_por_aqui": comece,
+            "normas": normas}, termos
 
 
 def _termo(bruto, onde: str) -> dict:
