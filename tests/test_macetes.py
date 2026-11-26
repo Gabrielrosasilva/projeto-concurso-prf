@@ -117,6 +117,19 @@ def test_o_padrao_ignora_acento_e_caixa():
 
 # --- sobre o chute ----------------------------------------------------------
 
+def test_o_certo_errado_fica_fora_das_letras_e_tem_a_conta_dele():
+    """PRF-44: no Certo/Errado a resposta "c" e Certo, e nao a letra C."""
+    ce = {"c": "Certo", "e": "Errado"}
+    questoes = [_questao(i, resposta="c" if i < 3 else "e", alternativas=ce, impressao=f"ce{i}")
+                for i in range(5)]
+    questoes += [_questao(10 + i, resposta="a", impressao=f"me{i}") for i in range(2)]
+
+    letras, _ = macetes.distribuicao_do_gabarito(questoes)
+    assert [letra for letra, _, _ in letras] == ["a"]
+    assert macetes.certos_e_errados(questoes) == (3, 2)
+    assert macetes.certos_e_errados(questoes[5:]) is None
+
+
 def test_gabarito_equilibrado_desmente_o_chute_na_c():
     """Com as cinco letras perto de 20%, nao existe letra mais provavel."""
     questoes = []

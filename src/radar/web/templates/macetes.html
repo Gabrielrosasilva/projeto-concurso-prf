@@ -437,7 +437,7 @@
     {% if analise.gabarito %}
       <article class="ds-cartao">
         <div class="ds-cartao__cabeca">
-          <h3 class="ds-cartao__titulo">Sobre o chute</h3>
+          <h3 class="ds-cartao__titulo">Sobre o chute (múltipla escolha)</h3>
           {{ selo(analise.origens.gabarito) }}
         </div>
         <p class="ds-cartao__meta">Contando uma vez por enunciado diferente</p>
@@ -463,6 +463,26 @@
             Poucos enunciados diferentes para afirmar qualquer coisa sobre a
             letra. Abaixo de 50, o que parece tendência é sorteio.
           {% endif %}
+        </p>
+      </article>
+    {% endif %}
+
+    {% if analise.certo_errado %}
+      {# PRF-44: o Certo/Errado do Cebraspe a parte das letras. As contas sao
+         do macetes.certos_e_errados; aqui so se desenha. #}
+      {% set certos, errados = analise.certo_errado %}
+      <article class="ds-cartao">
+        <div class="ds-cartao__cabeca">
+          <h3 class="ds-cartao__titulo">Sobre o chute (Certo/Errado)</h3>
+          {{ selo(analise.origens.gabarito) }}
+        </div>
+        <p class="ds-cartao__meta">Contando uma vez por enunciado diferente</p>
+        <p>Neste recorte, <b>{{ certos }}</b> itens com gabarito Certo e
+          <b>{{ errados }}</b> com gabarito Errado.</p>
+        <p class="ds-nota" style="margin:var(--esp-3) 0 0">
+          No Certo/Errado do Cebraspe, um item errado anula um certo: chutar
+          custa, e deixar em branco não. A sua nota líquida e o seu chute estão
+          em <a href="/analises/certo-errado">Análises &gt; Certo/Errado</a>.
         </p>
       </article>
     {% endif %}

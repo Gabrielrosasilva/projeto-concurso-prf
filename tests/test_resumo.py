@@ -411,6 +411,25 @@ def test_a_faixa_que_mede_sem_consulta_nao_tem_resumo(banco_temporario):
     assert ("noite", 2) in r.por_faixa                   # a correcao continua com o seu
 
 
+def test_toda_prova_do_cebraspe_da_lista_da_prf_tem_sigla_unica():
+    """PRF-44: 545 dos 927 codigos do complementar do Cebraspe eram ambiguos
+    ("CEBRASPE-2021-q2" em tres provas). Toda prova do Cebraspe da lista da PRF
+    tem `sigla`, e cadernos diferentes do mesmo ano nunca repetem a sigla."""
+    import yaml
+    from radar import config
+    lista = yaml.safe_load((config.RAIZ / "PRF" / "config" / "provas_de_outras_bancas.yml")
+                           .read_text(encoding="utf-8"))["provas"]
+    cebraspe = [p for p in lista if "CEBRASPE" in (p.get("banca") or "").upper()]
+    assert cebraspe and all(p.get("sigla") for p in cebraspe)
+    assert all(fichas.CODIGO_DA_QUESTAO.fullmatch(f"CEBRASPE-2021-{p['sigla']}-q1")
+               for p in cebraspe)
+    caderno_do_codigo = {}
+    for p in lista:
+        if p.get("sigla"):
+            chave = (p.get("ano"), p["sigla"])
+            assert caderno_do_codigo.setdefault(chave, p["caderno"]) == p["caderno"], chave
+
+
 def test_o_codigo_do_complementar_leva_a_sigla_da_prova(tmp_path, monkeypatch):
     """Com 10 provas da AOCP, o mesmo ano e numero era de ate tres provas (PMSC,
     24/10): a lista de outras bancas da a `sigla`, e o codigo citavel a leva.

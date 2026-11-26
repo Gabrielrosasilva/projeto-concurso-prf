@@ -133,6 +133,8 @@ class Analise:
     repetidas: list[Repetida] = field(default_factory=list)
     gabarito: list[tuple[str, int, float]] = field(default_factory=list)
     gabarito_veredito: str = "amostra_pequena"
+    # Os itens de Certo/Errado, a parte (PRF-44): (certos, errados), ou None.
+    certo_errado: tuple[int, int] | None = None
 
     # Preenchidos so quando o tema procurado aponta para uma materia so.
     materia_dominante: str | None = None
@@ -164,6 +166,18 @@ def contar_comandos(questoes: list) -> list[Comando]:
     return achados
 
 
+def _e_certo_errado(questao) -> bool:
+    return getattr(questao, "alternativas", None) == {"c": "Certo", "e": "Errado"}
+
+
+def certos_e_errados(questoes: list) -> tuple[int, int] | None:
+    """Quantos itens de Certo/Errado tem gabarito Certo e quantos Errado."""
+    respostas = [q.resposta for q in questoes if _e_certo_errado(q) and q.resposta]
+    if not respostas:
+        return None
+    return respostas.count("c"), respostas.count("e")
+
+
 def distribuicao_do_gabarito(questoes: list) -> tuple[list[tuple[str, int, float]], str]:
     """Quantas vezes cada letra e a correta, e se vale chutar em alguma.
 
@@ -171,7 +185,9 @@ def distribuicao_do_gabarito(questoes: list) -> tuple[list[tuple[str, int, float
     O resultado costuma ser o contrario do que dizem por ai - quando as cinco
     letras ficam perto de 20%, o "chute na C" nao existe nesta banca.
     """
-    letras = Counter(q.resposta for q in questoes if q.resposta)
+    # So a multipla escolha (PRF-44): no Certo/Errado a resposta "c" e Certo,
+    # e contaria junto com a letra C. O C/E tem a conta dele (`certos_e_errados`).
+    letras = Counter(q.resposta for q in questoes if q.resposta and not _e_certo_errado(q))
     total = sum(letras.values())
     if not total:
         return [], "amostra_pequena"
@@ -271,6 +287,7 @@ def analisar(questoes: list) -> Analise:
         repetidas=mais_repetidas(questoes),
         gabarito=gabarito,
         gabarito_veredito=veredito,
+        certo_errado=certos_e_errados(distintas),
     )
 
 

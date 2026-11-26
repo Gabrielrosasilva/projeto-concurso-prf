@@ -18,7 +18,11 @@
 #
 # Campos: banca, ano (o da prova), orgao, uf, cargo, pagina (onde a banca
 # lista o concurso; sem ela, o proprio link do caderno), caderno (o PDF) e,
-# quando o gabarito e um PDF a parte, gabarito.
+# quando o gabarito e um PDF a parte, gabarito. `sigla` entra no codigo com que
+# o resumo cita a questao do complementar ("CEBRASPE-2021-PFAGE-q51"): sem ela,
+# o mesmo ano e numero era de ate tres provas (PRF-44: 545 dos 927 codigos do
+# Cebraspe eram ambiguos). A sigla e a pasta do concurso no cdn, sem o ano, e o
+# comeco do cargo quando a pasta tem mais de um caderno.
 
 provas:
 # NC-UFPR: o caderno "definitivo" traz a resposta certa marcada (►) e a
@@ -100,6 +104,7 @@ provas:
   cargo: Policial Penal
   pagina: https://www.cebraspe.org.br/concursos/SERES_PE_21
   caderno: https://cdn.cebraspe.org.br/concursos/SERES_PE_21/arquivos/671_SERESPE_NS_COM_JUSTIFICATIVA.PDF
+  sigla: SERESPE
   # PMSC (24/10): entram tambem 1-8 Portugues; 16-17 Informatica; antes, ["21-60"].
   ler: ["1-8", "16-17", "21-60"]
   # O gabarito definitivo publicado e do tipo 01, e este caderno e outra
@@ -114,6 +119,7 @@ provas:
   cargo: Delegado de Polícia
   pagina: https://www.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/662_PCRJ_001_01.PDF
+  sigla: PCRJDELEG
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RJ_21_DELEGADO/arquivos/GAB_DEFINITIVO_662_PCRJ_001_01.PDF
   ler: ["1-80"]
 - banca: Cebraspe
@@ -123,6 +129,7 @@ provas:
   cargo: Oficial Combatente
   pagina: https://www.cebraspe.org.br/concursos/PM_RO_22
   caderno: https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/731_SESDEC_PM_RO_001_01.PDF
+  sigla: PMRO
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_RO_22/arquivos/GAB_DEFINITIVO_731_SESDEC_PM_RO_001_01.PDF
   # PMSC (24/10): entram tambem 61-69 e 71-76 Penal Militar (70 e 77-85 sao do CPPM); antes, ["1-60"].
   ler: ["1-69", "71-76"]
@@ -141,6 +148,7 @@ provas:
   cargo: Agente de Investigação
   pagina: https://www.cebraspe.org.br/concursos/PC_PB_21
   caderno: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_003_01.PDF
+  sigla: PCPB
   ler: ["21-56"]
 - banca: Cebraspe
   ano: 2022
@@ -149,6 +157,7 @@ provas:
   cargo: Oficial Combatente
   pagina: https://www.cebraspe.org.br/concursos/CBM_RO_22
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/734_CBM_RO_OFICIAL_001_01.PDF
+  sigla: CBMRO
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_RO_22/arquivos/GAB_DEFINITIVO_734_CBM_RO_OFICIAL_001_01.PDF
   # PMSC (24/10): entram tambem 1-15 Penal Militar; 86-90 Portugues; antes, ["26-35", "41-55", "65-74"].
   ler: ["1-15", "26-35", "41-55", "65-74", "86-90"]
@@ -159,6 +168,7 @@ provas:
   cargo: Oficial
   pagina: https://www.cebraspe.org.br/concursos/PM_SC_23_OFICIAL
   caderno: https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/860_PMSC_OFICIAL_OBJ_001_01.PDF
+  sigla: PMSCOFICI
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_SC_23_OFICIAL/arquivos/GAB_DEFINITIVO_860_PMSC_OFICIAL_OBJ_001_01.PDF
   # PMSC (24/10): entram tambem 29-35 Penal Militar; 49-50 Estatuto da PMSC; 56-63 Portugues; 76-80 Informatica; antes, ["1-28"].
   ler: ["1-35", "49-50", "56-63", "76-80"]
@@ -169,6 +179,7 @@ provas:
   cargo: Praça (CFP)
   pagina: https://www.cebraspe.org.br/concursos/PM_PA_23_CFP
   caderno: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFP/arquivos/916_PMPA_CFP_001_01.PDF
+  sigla: PMPACFP
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFP/arquivos/GAB_DEFINITIVO_916_PMPA_CFP_001_01.PDF
   # PMSC (24/10): entram tambem 38-42 e 44 Penal Militar; antes, ["21-37", "48-52", "56-60"].
   ler: ["21-42", "44", "48-52", "56-60"]
@@ -179,6 +190,7 @@ provas:
   cargo: Oficial (CFO)
   pagina: https://www.cebraspe.org.br/concursos/PM_PA_23_CFO
   caderno: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/915_PMPA_CFO_001_01.PDF
+  sigla: PMPACFO
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_PA_23_CFO/arquivos/GAB_DEFINITIVO_915_PMPA_CFO_001_01.PDF
   # PMSC (24/10): entram tambem 44-47 e 49 Penal Militar; antes, ["24-43", "56-60"].
   ler: ["24-47", "49", "56-60"]
@@ -189,6 +201,7 @@ provas:
   cargo: Agente de Polícia
   pagina: https://www.cebraspe.org.br/concursos/PC_PE_23
   caderno: https://cdn.cebraspe.org.br/concursos/PC_PE_23/arquivos/MATRIZ_954PC_PECB1_00_COM_JUSTIFICATIVA.PDF
+  sigla: PCPE
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_PE_23/arquivos/GAB_DEFINITIVO_MATRIZ_954PC_PECB1_00.PDF
   ler: ["1-20"]
 - banca: Cebraspe
@@ -198,6 +211,7 @@ provas:
   cargo: Agente de Criminalística
   pagina: https://www.cebraspe.org.br/concursos/POLITEC_RO_22
   caderno: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/698_POLITEC_AGENTE_001_01.PDF
+  sigla: POLITECRO
   gabarito: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/GAB_DEFINITIVO_698_POLITEC_AGENTE_001_01.PDF
   # PMSC (24/10): entram tambem 1-9 Portugues; antes, ["10-20"].
   ler: ["1-20"]
@@ -208,6 +222,7 @@ provas:
   cargo: Aluno-Soldado (QPPM)
   pagina: https://www.cebraspe.org.br/concursos/PM_TO_20_QPPM
   caderno: https://cdn.cebraspe.org.br/concursos/PM_TO_20_QPPM/arquivos/MATRIZ_573PMTO001.PDF
+  sigla: PMTOQPPM
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_TO_20_QPPM/arquivos/GAB_DEFINITIVO_MATRIZ_573PMTO001.PDF
   # PMSC (24/10): entram tambem 1-20 Portugues; 31-35 Informatica; antes, ["36-45"].
   ler: ["1-20", "31-45"]
@@ -218,6 +233,7 @@ provas:
   cargo: Guarda Municipal
   pagina: https://www.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/823_PREF_SAO_CRISTOVAO_007_01.PDF
+  sigla: PREFSAOCR
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_SAO_CRISTOVAO_SE_23/arquivos/GAB_DEFINITIVO_823_PREF_SAO_CRISTOVAO_007_01.PDF
   alternativas: 4
   # PMSC (24/10): entram tambem 53-62, 93 e 95-97 Transito (94 e 98 sao placa em figura); antes, ["31-42", "50-52", "75-92", "100"].
@@ -229,6 +245,7 @@ provas:
   cargo: Praça (CFP)
   pagina: https://www.cebraspe.org.br/concursos/CBM_PA_23_CFP
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFP/arquivos/928_CBM_PA_CFP_001_01.PDF
+  sigla: CBMPACFP
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFP/arquivos/GAB_DEFINITIVO_928_CBM_PA_CFP_001_01.PDF
   # PMSC (24/10): entram tambem 1-10 Portugues; 58-59 Penal Militar; antes, ["51-57", "60"].
   ler: ["1-10", "51-60"]
@@ -239,6 +256,7 @@ provas:
   cargo: Oficial (CFO)
   pagina: https://www.cebraspe.org.br/concursos/CBM_PA_23_CFO
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/927_CBM_PA_CFO_001_01.PDF
+  sigla: CBMPACFO
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/GAB_DEFINITIVO_927_CBM_PA_CFO_001_01.PDF
   # PMSC (24/10): entram tambem 1-10 Portugues; 55-58 Penal Militar; antes, ["47-54"].
   ler: ["1-10", "47-58"]
@@ -901,6 +919,7 @@ provas:
   orgao: CESPE - 2017 - TRF - 1ª REGIÃO - Técnico Judiciário - Segurança e Transporte
   cargo: Técnico Judiciário - Segurança e Transporte
   caderno: https://cdn.cebraspe.org.br/concursos/TRF1_17_SERVIDOR/arquivos/355_TRF1_008_01.pdf
+  sigla: TRF1SERVITEC
   gabarito: https://cdn.cebraspe.org.br/concursos/TRF1_17_SERVIDOR/arquivos/Gab_Definitivo_355_TRF1_008_01.pdf
   arquivo: cebraspe_trf_1a_regiao_2017_tecnico_judiciario_seguranca_e_transporte_prova_355_trf1_008_01_fac5ed04.pdf
   arquivo_do_gabarito: cebraspe_trf_1a_regiao_2017_tecnico_judiciario_seguranca_e_transporte_gabarito_definitivo_gab_definitivo_355_trf1_008_01_0b68b42e.pdf
@@ -922,6 +941,7 @@ provas:
   orgao: CESPE - 2017 - TRF - 1ª REGIÃO - Técnico Judiciário - Segurança e Transporte
   cargo: Técnico Judiciário - Segurança e Transporte
   caderno: https://cdn.cebraspe.org.br/concursos/TRF1_17_SERVIDOR/arquivos/355_TRF1_CB2_01.pdf
+  sigla: TRF1SERVITE2
   gabarito: https://cdn.cebraspe.org.br/concursos/TRF1_17_SERVIDOR/arquivos/Gab_Definitivo_355_TRF1_CB2_01.pdf
   arquivo: cebraspe_trf_1a_regiao_2017_tecnico_judiciario_seguranca_e_transporte_prova_355_trf1_cb2_01_580f9197.pdf
   arquivo_do_gabarito: cebraspe_trf_1a_regiao_2017_tecnico_judiciario_seguranca_e_transporte_gabarito_definitivo_gab_definitivo_355_trf1_cb2_01_a09ab9cc.pdf
@@ -936,6 +956,7 @@ provas:
   orgao: CESPE - 2018 - PC-SE - Delegado de Polícia
   cargo: Delegado de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/CONHECIMENTOS_ESPECFICOS_MATRIZ.PDF
+  sigla: PCSEDELEGDE2
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/GAB_DEFINITIVO_MATRIZ_414_PCSE_001_00.PDF
   arquivo: cebraspe_pc_se_2018_delegado_de_policia_prova_conhecimentos_especficos_matriz_2ab3b189.pdf
   arquivo_do_gabarito: cebraspe_pc_se_2018_delegado_de_policia_gabarito_definitivo_gab_definitivo_matriz_414_pcse_001_00_bd2d84a6.pdf
@@ -959,6 +980,7 @@ provas:
   orgao: CESPE - 2018 - PC-SE - Delegado de Polícia
   cargo: Delegado de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/CONHECIMENTOS_GERAIS_MATRIZ.PDF
+  sigla: PCSEDELEGDE3
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/GAB_DEFINITIVO_MATRIZ_414_PCSE_CG1.PDF
   arquivo: cebraspe_pc_se_2018_delegado_de_policia_prova_conhecimentos_gerais_matriz_6dad6fe0.pdf
   arquivo_do_gabarito: cebraspe_pc_se_2018_delegado_de_policia_gabarito_definitivo_gab_definitivo_matriz_414_pcse_cg1_474304cc.pdf
@@ -972,6 +994,7 @@ provas:
   orgao: CESPE - 2018 - Polícia Federal - Perito Criminal Federal - Área 12
   cargo: Perito Criminal Federal - Área 12
   caderno: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPFCB1__PAG_4.PDF
+  sigla: PF
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPFCB1__PAG_4.PDF
   arquivo: cebraspe_policia_federal_2018_perito_criminal_federal_area_12_prova_matriz_408_dgppfcb1_pag_4_ab0df537.pdf
   arquivo_do_gabarito: cebraspe_policia_federal_2018_perito_criminal_federal_area_12_gabarito_definitivo_gab_definitivo_408_dgppfcb1_pag_4_cd258770.pdf
@@ -990,6 +1013,7 @@ provas:
   orgao: CESPE - 2019 - DPE-DF - Defensor Público
   cargo: Defensor Público
   caderno: https://cdn.cebraspe.org.br/concursos/DP_DF_19_DEFENSOR/arquivos/459_DPDF_001_00_MATRIZ_C_JUST.PDF
+  sigla: DPDFDEFEN
   gabarito: https://cdn.cebraspe.org.br/concursos/DP_DF_19_DEFENSOR/arquivos/GAB_DEFINITIVO_459_DPDF_001_MATRIZ_VF.PDF
   arquivo: cebraspe_dpe_df_2019_defensor_publico_prova_459_dpdf_001_00_matriz_c_just_dde988dd.pdf
   arquivo_do_gabarito: cebraspe_dpe_df_2019_defensor_publico_gabarito_definitivo_gab_definitivo_459_dpdf_001_matriz_vf_c07d0c45.pdf
@@ -1022,6 +1046,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2020 - PC-SE - Delegado de Polícia - Curso de Instrução
   cargo: Delegado de Polícia - Curso de Instrução
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/523_PCSE_001_01.PDF
+  sigla: PCSEDELEGDEL
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/GAB_DEFINITIVO_523_PCSE_001_01.PDF
   arquivo: cebraspe_pc_se_2020_delegado_de_policia_curso_de_instrucao_prova_523_pcse_001_01_e7c88dbe.pdf
   arquivo_do_gabarito: cebraspe_pc_se_2020_delegado_de_policia_curso_de_instrucao_gabarito_definitivo_gab_definitivo_523_pcse_001_01_3296541a.pdf
@@ -1041,6 +1066,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2021 - MPE-AP - Promotor de Justiça Substituto
   cargo: Promotor de Justiça Substituto
   caderno: https://cdn.cebraspe.org.br/concursos/MP_AP_21_PROMOTOR/arquivos/MATRIZ.PDF
+  sigla: MPAPPROMO
   gabarito: https://cdn.cebraspe.org.br/concursos/MP_AP_21_PROMOTOR/arquivos/GAB_DEFINITIVO_MATRIZ_590_MPAP_PROMOTOR.PDF
   arquivo: cebraspe_mpe_ap_2021_promotor_de_justica_substituto_prova_matriz_eaa9ee38.pdf
   arquivo_do_gabarito: cebraspe_mpe_ap_2021_promotor_de_justica_substituto_gabarito_definitivo_gab_definitivo_matriz_590_mpap_promotor_548b9494.pdf
@@ -1075,6 +1101,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2021 - SESAU - AL - Médico - Especialidade: Pediatria'
   cargo: 'AL - Médico - Especialidade: Pediatria'
   caderno: https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/603_SESAU_CG1_01.PDF
+  sigla: SESAUAL
   gabarito: https://cdn.cebraspe.org.br/concursos/SESAU_AL_21/arquivos/GAB_DEFINITIVO_603_SESAU_CG1_01.PDF
   arquivo: cebraspe_sesau_al_2021_al_medico_especialidade_pediatria_prova_603_sesau_cg1_01_f0354899.pdf
   arquivo_do_gabarito: cebraspe_sesau_al_2021_al_medico_especialidade_pediatria_gabarito_definitivo_gab_definitivo_603_sesau_cg1_01_f9d0b232.pdf
@@ -1088,6 +1115,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2022 - DPE-TO - Defensor Público Substituto
   cargo: Defensor Público Substituto
   caderno: https://cdn.cebraspe.org.br/concursos/DPE_TO_21_DEFENSOR/arquivos/661_DPETO_001_01.PDF
+  sigla: DPETODEFE
   gabarito: https://cdn.cebraspe.org.br/concursos/DPE_TO_21_DEFENSOR/arquivos/GAB_DEFINITIVO_661_DPETO_001_01.PDF
   arquivo: cebraspe_dpe_to_2022_defensor_publico_substituto_prova_661_dpeto_001_01_223de9c9.pdf
   arquivo_do_gabarito: cebraspe_dpe_to_2022_defensor_publico_substituto_gabarito_definitivo_gab_definitivo_661_dpeto_001_01_25c7c827.pdf
@@ -1119,6 +1147,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2022 - PC-RO - Delegado de Polícia
   cargo: Delegado de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/732_PCRO_002_01.PDF
+  sigla: PCRO
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_732_PCRO_002_01.PDF
   arquivo: cebraspe_pc_ro_2022_delegado_de_policia_prova_732_pcro_002_01_0b6be59e.pdf
   arquivo_do_gabarito: cebraspe_pc_ro_2022_delegado_de_policia_gabarito_definitivo_gab_definitivo_732_pcro_002_01_87bebccf.pdf
@@ -1158,6 +1187,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2022 - POLITEC - RO - Perito Criminal - Área 6 (Ciências da Computação/Informática/Análise de Sistemas)
   cargo: RO - Perito Criminal - Área 6 (Ciências da Computação/Informática/Análise de Sistemas)
   caderno: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/697_POLITEC_PERITO_CG2_01.PDF
+  sigla: POLITECRORO2
   gabarito: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/GAB_DEFINITIVO_697_POLITEC_PERITO_CG2_01.PDF
   arquivo: cebraspe_politec_ro_2022_ro_perito_criminal_area_6_ciencias_da_computa_prova_697_politec_perito_cg2_01_7ce76156.pdf
   arquivo_do_gabarito: cebraspe_politec_ro_2022_ro_perito_criminal_area_6_ciencias_da_computa_gabarito_definitivo_gab_definitivo_697_politec_perito_cg2_01_3e8fb6cb.pdf
@@ -1170,6 +1200,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2022 - POLITEC - RO - Perito Criminal - Área 6 (Ciências da Computação/Informática/Análise de Sistemas)
   cargo: RO - Perito Criminal - Área 6 (Ciências da Computação/Informática/Análise de Sistemas)
   caderno: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/697_POLITEC_PERITO_006_01.PDF
+  sigla: POLITECRORO
   gabarito: https://cdn.cebraspe.org.br/concursos/POLITEC_RO_22/arquivos/GAB_DEFINITIVO_697_POLITEC_PERITO_006_01.PDF
   arquivo: cebraspe_politec_ro_2022_ro_perito_criminal_area_6_ciencias_da_computa_prova_697_politec_perito_006_01_fb92aea5.pdf
   arquivo_do_gabarito: cebraspe_politec_ro_2022_ro_perito_criminal_area_6_ciencias_da_computa_gabarito_definitivo_gab_definitivo_697_politec_perito_006_01_865a7fdf.pdf
@@ -1197,6 +1228,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2023 - AGER - Mato Grosso - Analista Regulador - Engenharia Civil
   cargo: Analista Regulador - Engenharia Civil
   caderno: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/813_AGER_MT_008_01.PDF
+  sigla: AGERMTANA
   gabarito: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/GAB_DEFINITIVO_813_AGER_MT_008_01.PDF
   arquivo: cebraspe_ager_mato_grosso_2023_analista_regulador_engenharia_civil_prova_813_ager_mt_008_01_a4a7f0fe.pdf
   arquivo_do_gabarito: cebraspe_ager_mato_grosso_2023_analista_regulador_engenharia_civil_gabarito_definitivo_gab_definitivo_813_ager_mt_008_01_f68dad47.pdf
@@ -1213,6 +1245,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2023 - AGER - Mato Grosso - Inspetor Regulador
   cargo: Inspetor Regulador
   caderno: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/813_AGER_MT_CB2_01.PDF
+  sigla: AGERMTINS2
   gabarito: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/GAB_DEFINITIVO_813_AGER_MT_CB2_01.PDF
   arquivo: cebraspe_ager_mato_grosso_2023_inspetor_regulador_prova_813_ager_mt_cb2_01_62d47530.pdf
   arquivo_do_gabarito: cebraspe_ager_mato_grosso_2023_inspetor_regulador_gabarito_definitivo_gab_definitivo_813_ager_mt_cb2_01_e300814c.pdf
@@ -1230,6 +1263,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2023 - AGER - Mato Grosso - Inspetor Regulador
   cargo: Inspetor Regulador
   caderno: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/813_AGER_MT_012_01.PDF
+  sigla: AGERMTINS
   gabarito: https://cdn.cebraspe.org.br/concursos/AGER_MT_23/arquivos/GAB_DEFINITIVO_813_AGER_MT_012_01.PDF
   arquivo: cebraspe_ager_mato_grosso_2023_inspetor_regulador_prova_813_ager_mt_012_01_7b9eb94a.pdf
   arquivo_do_gabarito: cebraspe_ager_mato_grosso_2023_inspetor_regulador_gabarito_definitivo_gab_definitivo_813_ager_mt_012_01_c39b03d4.pdf
@@ -1243,6 +1277,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2023 - MPE-AM - Promotor de Justiça Substituto
   cargo: Promotor de Justiça Substituto
   caderno: https://cdn.cebraspe.org.br/concursos/MPE_AM_22_PROMOTOR/arquivos/779_MPE_AM_001_01.PDF
+  sigla: MPEAMPROM
   gabarito: https://cdn.cebraspe.org.br/concursos/MPE_AM_22_PROMOTOR/arquivos/GAB_DEFINITIVO_779_MPE_AM_001_01.PDF
   arquivo: cebraspe_mpe_am_2023_promotor_de_justica_substituto_prova_779_mpe_am_001_01_1546ad98.pdf
   arquivo_do_gabarito: cebraspe_mpe_am_2023_promotor_de_justica_substituto_gabarito_definitivo_gab_definitivo_779_mpe_am_001_01_f3f53b96.pdf
@@ -1279,6 +1314,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2023 - MPE-PA - Promotor de Justiça Substituto
   cargo: Promotor de Justiça Substituto
   caderno: https://cdn.cebraspe.org.br/concursos/MP_PA_22_PROMOTOR/arquivos/782_MPPA_PROMOTOR_OBJ_001_01.PDF
+  sigla: MPPAPROMO
   gabarito: https://cdn.cebraspe.org.br/concursos/MP_PA_22_PROMOTOR/arquivos/GAB_DEFINITIVO_782_MPPA_PROMOTOR_OBJ_001_01.PDF
   arquivo: cebraspe_mpe_pa_2023_promotor_de_justica_substituto_prova_782_mppa_promotor_obj_001_01_ae37b02d.pdf
   arquivo_do_gabarito: cebraspe_mpe_pa_2023_promotor_de_justica_substituto_gabarito_definitivo_gab_definitivo_782_mppa_promotor_obj_001_01_d1dbe5f6.pdf
@@ -1312,6 +1348,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2023 - Petrobras - Ênfase 11: Segurança do Trabalho'
   cargo: 'Ênfase 11: Segurança do Trabalho'
   caderno: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_CB1_01.PDF
+  sigla: PETROBRASEN2
   gabarito: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/GAB_DEFINITIVO_822_PETROBRAS_23_CB1_01.PDF
   arquivo: cebraspe_petrobras_2023_enfase_11_seguranca_do_trabalho_prova_822_petrobras_23_cb1_01_7a4c9482.pdf
   arquivo_do_gabarito: cebraspe_petrobras_2023_enfase_11_seguranca_do_trabalho_gabarito_definitivo_gab_definitivo_822_petrobras_23_cb1_01_b054d487.pdf
@@ -1328,6 +1365,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2023 - Petrobras - Ênfase 11: Segurança do Trabalho'
   cargo: 'Ênfase 11: Segurança do Trabalho'
   caderno: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/822_PETROBRAS_23_011_01.PDF
+  sigla: PETROBRASENF
   gabarito: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NM/arquivos/GAB_DEFINITIVO_822_PETROBRAS_23_011_01.PDF
   arquivo: cebraspe_petrobras_2023_enfase_11_seguranca_do_trabalho_prova_822_petrobras_23_011_01_3abe2a73.pdf
   arquivo_do_gabarito: cebraspe_petrobras_2023_enfase_11_seguranca_do_trabalho_gabarito_definitivo_gab_definitivo_822_petrobras_23_011_01_1f4b67de.pdf
@@ -1341,6 +1379,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - ANTT - Especialista em Regulação de Serviços de Transportes Terrestres – Especialidade: Engenharia - Conhecimentos Específicos'
   cargo: 'Especialista em Regulação de Serviços de Transportes Terrestres – Especialidade: Engenharia - Conhecimentos Específicos'
   caderno: https://cdn.cebraspe.org.br/concursos/ANTT_23/arquivos/951_ANTT_004_01.PDF
+  sigla: ANTTESP
   gabarito: https://cdn.cebraspe.org.br/concursos/ANTT_23/arquivos/GAB_DEFINITIVO_951_ANTT_004_01.PDF
   arquivo: cebraspe_antt_2024_especialista_em_regulacao_de_servicos_de_tran_prova_951_antt_004_01_4a578e51.pdf
   arquivo_do_gabarito: cebraspe_antt_2024_especialista_em_regulacao_de_servicos_de_tran_gabarito_definitivo_gab_definitivo_951_antt_004_01_9c9a6fa8.pdf
@@ -1362,6 +1401,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - ANTT - Especialista em Regulação de Serviços de Transportes Terrestres – Especialidade: Engenharia - Conhecimentos Específicos'
   cargo: 'Especialista em Regulação de Serviços de Transportes Terrestres – Especialidade: Engenharia - Conhecimentos Específicos'
   caderno: https://cdn.cebraspe.org.br/concursos/ANTT_23/arquivos/951_ANTT_CB1_01.PDF
+  sigla: ANTTESP2
   gabarito: https://cdn.cebraspe.org.br/concursos/ANTT_23/arquivos/GAB_DEFINITIVO_951_ANTT_CB1_01.PDF
   arquivo: cebraspe_antt_2024_especialista_em_regulacao_de_servicos_de_tran_prova_951_antt_cb1_01_d95746fb.pdf
   arquivo_do_gabarito: cebraspe_antt_2024_especialista_em_regulacao_de_servicos_de_tran_gabarito_definitivo_gab_definitivo_951_antt_cb1_01_03cac1dd.pdf
@@ -1379,6 +1419,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2024 - DPE-AC - Defensor Público
   cargo: Defensor Público
   caderno: https://cdn.cebraspe.org.br/concursos/DPE_AC_24_DEFENSOR/arquivos/965_DPE_AC_001_01.PDF
+  sigla: DPEACDEFE
   gabarito: https://cdn.cebraspe.org.br/concursos/DPE_AC_24_DEFENSOR/arquivos/GAB_DEFINITIVO_965_DPE_AC_001_01.PDF
   arquivo: cebraspe_dpe_ac_2024_defensor_publico_prova_965_dpe_ac_001_01_625d5dca.pdf
   arquivo_do_gabarito: cebraspe_dpe_ac_2024_defensor_publico_gabarito_definitivo_gab_definitivo_965_dpe_ac_001_01_95b740e1.pdf
@@ -1414,6 +1455,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - ITAIPU BINACIONAL - Profissional de Nível Técnico I - Função: Agente de Segurança'
   cargo: 'Profissional de Nível Técnico I - Função: Agente de Segurança'
   caderno: https://cdn.cebraspe.org.br/concursos/ITAIPU_23/arquivos/924_ITAIPU_CB3_01.PDF
+  sigla: ITAIPUPRO2
   gabarito: https://cdn.cebraspe.org.br/concursos/ITAIPU_23/arquivos/GAB_DEFINITIVO_924_ITAIPU_CB3_01.PDF
   arquivo: cebraspe_itaipu_binacional_2024_profissional_de_nivel_tecnico_i_funcao_agente_prova_924_itaipu_cb3_01_ee5fb128.pdf
   arquivo_do_gabarito: cebraspe_itaipu_binacional_2024_profissional_de_nivel_tecnico_i_funcao_agente_gabarito_definitivo_gab_definitivo_924_itaipu_cb3_01_e9b45805.pdf
@@ -1428,6 +1470,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - ITAIPU BINACIONAL - Profissional de Nível Técnico I - Função: Agente de Segurança'
   cargo: 'Profissional de Nível Técnico I - Função: Agente de Segurança'
   caderno: https://cdn.cebraspe.org.br/concursos/ITAIPU_23/arquivos/924_ITAIPU_031_01.PDF
+  sigla: ITAIPUPRO
   gabarito: https://cdn.cebraspe.org.br/concursos/ITAIPU_23/arquivos/GAB_DEFINITIVO_924_ITAIPU_031_01.PDF
   arquivo: cebraspe_itaipu_binacional_2024_profissional_de_nivel_tecnico_i_funcao_agente_prova_924_itaipu_031_01_16314abc.pdf
   arquivo_do_gabarito: cebraspe_itaipu_binacional_2024_profissional_de_nivel_tecnico_i_funcao_agente_gabarito_definitivo_gab_definitivo_924_itaipu_031_01_2e9cba7c.pdf
@@ -1448,6 +1491,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - Petrobras - Técnico Júnior - Ênfase: Logística de Transportes - Controle'
   cargo: 'Técnico Júnior - Ênfase: Logística de Transportes - Controle'
   caderno: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_CB1_01.PDF
+  sigla: PETROBRASTE2
   gabarito: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/GAB_DEFINITIVO_950_PETROBRAS_23_CB1_01.PDF
   arquivo: cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_prova_950_petrobras_23_cb1_01_b2a90317.pdf
   arquivo_do_gabarito: cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_gabarito_definitivo_gab_definitivo_950_petrobras_23_cb1_01_cb62743a.pdf
@@ -1461,6 +1505,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - Petrobras - Técnico Júnior - Ênfase: Logística de Transportes - Controle'
   cargo: 'Técnico Júnior - Ênfase: Logística de Transportes - Controle'
   caderno: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/950_PETROBRAS_23_003_01.PDF
+  sigla: PETROBRASTEC
   gabarito: https://cdn.cebraspe.org.br/concursos/PETROBRAS_23_NTJ/arquivos/GAB_DEFINITIVO_950_PETROBRAS_23_003_01.PDF
   arquivo: cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_prova_950_petrobras_23_003_01_c3ddb6d3.pdf
   arquivo_do_gabarito: cebraspe_petrobras_2024_tecnico_junior_enfase_logistica_de_transporte_gabarito_definitivo_gab_definitivo_950_petrobras_23_003_01_b30aac46.pdf
@@ -1476,6 +1521,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2024 - Prefeitura de Cachoeiro de Itapemirim - ES - Auditor Fiscal de Transportes
   cargo: Auditor Fiscal de Transportes
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_ADM/arquivos/937_PCI_ADMINISTRATIVO_008_01.PDF
+  sigla: PREFCACHOAUD
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_ADM/arquivos/GAB_DEFINITIVO_937_PCI_ADMINISTRATIVO_008_01.PDF
   arquivo: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_auditor_fiscal_de_transportes_prova_937_pci_administrativo_008_01_e1f819ea.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_auditor_fiscal_de_transportes_gabarito_definitivo_gab_definitivo_937_pci_administrativo_008_01_6831e889.pdf
@@ -1489,6 +1535,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2024 - Prefeitura de Cachoeiro de Itapemirim - ES - Engenheiro de Trânsito e Tráfego
   cargo: Engenheiro de Trânsito e Tráfego
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_ADM/arquivos/937_PCI_ADMINISTRATIVO_019_01.PDF
+  sigla: PREFCACHOENG
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_ADM/arquivos/GAB_DEFINITIVO_937_PCI_ADMINISTRATIVO_019_01.PDF
   arquivo: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_engenheiro_de_transito_e_trafego_prova_937_pci_administrativo_019_01_135d36e2.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_engenheiro_de_transito_e_trafego_gabarito_definitivo_gab_definitivo_937_pci_administrativo_019_01_8359c023.pdf
@@ -1503,6 +1550,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2024 - Prefeitura de Cachoeiro de Itapemirim - ES - Guarda Municipal
   cargo: Guarda Municipal
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_GUARDA/arquivos/948_PCI_GCM_CB1_01.PDF
+  sigla: PREFCACHOGU2
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_GUARDA/arquivos/GAB_DEFINITIVO_948_PCI_GCM_CB1_01.PDF
   arquivo: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_guarda_municipal_prova_948_pci_gcm_cb1_01_0e9e7076.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_guarda_municipal_gabarito_definitivo_gab_definitivo_948_pci_gcm_cb1_01_68244466.pdf
@@ -1524,6 +1572,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2024 - Prefeitura de Cachoeiro de Itapemirim - ES - Guarda Municipal
   cargo: Guarda Municipal
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_GUARDA/arquivos/948_PCI_GCM_001_01.PDF
+  sigla: PREFCACHOGUA
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_CACHOEIRO_24_GUARDA/arquivos/GAB_DEFINITIVO_948_PCI_GCM_001_01.PDF
   arquivo: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_guarda_municipal_prova_948_pci_gcm_001_01_c1f0c09c.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_cachoeiro_de_itapemir_2024_guarda_municipal_gabarito_definitivo_gab_definitivo_948_pci_gcm_001_01_930a3f61.pdf
@@ -1541,6 +1590,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - Prefeitura de Mossoró - RN - Auditor Fiscal de Tributos Municipais – Especialidade: Engenharia'
   cargo: 'Auditor Fiscal de Tributos Municipais – Especialidade: Engenharia'
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_MOSSORO_RN_24/arquivos/968_PREF_MOSSORO_ANALISTA_AUDITOR_CB2_01.PDF
+  sigla: PREFMOSSOAU2
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_MOSSORO_RN_24/arquivos/GAB_DEFINITIVO_968_PREF_MOSSORO_ANALISTA_AUDITOR_CB2_01.PDF
   arquivo: cebraspe_prefeitura_de_mossoro_rn_2024_auditor_fiscal_de_tributos_municipais_especia_prova_968_pref_mossoro_analista_auditor_cb2_01_19d84830.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_mossoro_rn_2024_auditor_fiscal_de_tributos_municipais_especia_gabarito_definitivo_gab_definitivo_968_pref_mossoro_analista_audi_be9a59cf.pdf
@@ -1561,6 +1611,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2024 - Prefeitura de Mossoró - RN - Auditor Fiscal de Tributos Municipais – Especialidade: Engenharia'
   cargo: 'Auditor Fiscal de Tributos Municipais – Especialidade: Engenharia'
   caderno: https://cdn.cebraspe.org.br/concursos/PREF_MOSSORO_RN_24/arquivos/968_PREF_MOSSORO_ANALISTA_AUDITOR_006_01.PDF
+  sigla: PREFMOSSOAUD
   gabarito: https://cdn.cebraspe.org.br/concursos/PREF_MOSSORO_RN_24/arquivos/GAB_DEFINITIVO_968_PREF_MOSSORO_ANALISTA_AUDITOR_006_01.PDF
   arquivo: cebraspe_prefeitura_de_mossoro_rn_2024_auditor_fiscal_de_tributos_municipais_especia_prova_968_pref_mossoro_analista_auditor_006_01_f2ffb55c.pdf
   arquivo_do_gabarito: cebraspe_prefeitura_de_mossoro_rn_2024_auditor_fiscal_de_tributos_municipais_especia_gabarito_definitivo_gab_definitivo_968_pref_mossoro_analista_audi_67f3de36.pdf
@@ -1574,6 +1625,7 @@ provas:
   orgao: CESPE / CEBRASPE - 2025 - PC-CE - Delegado de Polícia Civil
   cargo: Delegado de Polícia Civil
   caderno: https://cdn.cebraspe.org.br/concursos/PC_CE_25_DELEGADO/arquivos/084_PC_CE_001_01.pdf
+  sigla: PCCEDELEG
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_CE_25_DELEGADO/arquivos/Gab_Definitivo_084_PC_CE_001_01.pdf
   arquivo: cebraspe_pc_ce_2025_delegado_de_policia_civil_prova_084_pc_ce_001_01_dc2ca273.pdf
   arquivo_do_gabarito: cebraspe_pc_ce_2025_delegado_de_policia_civil_gabarito_definitivo_gab_definitivo_084_pc_ce_001_01_5aa50009.pdf
@@ -1606,6 +1658,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2025 - TRT - 10ª REGIÃO (DF e TO) - Técnico Judiciário – Área: Administrativa - Especialidade: Agente da Polícia Judiciall'
   cargo: 'Técnico Judiciário – Área: Administrativa - Especialidade: Agente da Polícia Judiciall'
   caderno: https://cdn.cebraspe.org.br/concursos/TRT10_24/arquivos/050_TRT10_CB4_01.pdf
+  sigla: TRT10TEC2
   gabarito: https://cdn.cebraspe.org.br/concursos/TRT10_24/arquivos/Gab_Definitivo_050_TRT10_CB4_01.pdf
   arquivo: cebraspe_trt_10a_regiao_df_e_to_2025_tecnico_judiciario_area_administrativa_especi_prova_050_trt10_cb4_01_c6bc2e0f.pdf
   arquivo_do_gabarito: cebraspe_trt_10a_regiao_df_e_to_2025_tecnico_judiciario_area_administrativa_especi_gabarito_definitivo_gab_definitivo_050_trt10_cb4_01_42b6967a.pdf
@@ -1625,6 +1678,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2025 - TRT - 10ª REGIÃO (DF e TO) - Técnico Judiciário – Área: Administrativa - Especialidade: Agente da Polícia Judiciall'
   cargo: 'Técnico Judiciário – Área: Administrativa - Especialidade: Agente da Polícia Judiciall'
   caderno: https://cdn.cebraspe.org.br/concursos/TRT10_24/arquivos/050_TRT10_015_01.pdf
+  sigla: TRT10TEC
   gabarito: https://cdn.cebraspe.org.br/concursos/TRT10_24/arquivos/Gab_Definitivo_050_TRT10_015_01.pdf
   arquivo: cebraspe_trt_10a_regiao_df_e_to_2025_tecnico_judiciario_area_administrativa_especi_prova_050_trt10_015_01_8c0dfdb8.pdf
   arquivo_do_gabarito: cebraspe_trt_10a_regiao_df_e_to_2025_tecnico_judiciario_area_administrativa_especi_gabarito_definitivo_gab_definitivo_050_trt10_015_01_327d9092.pdf
@@ -1644,6 +1698,7 @@ provas:
   orgao: 'CESPE / CEBRASPE - 2026 - ANSA - Ênfase 16: Logística de Transporte'
   cargo: 'Ênfase 16: Logística de Transporte'
   caderno: https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/FA0BD745976857A98487E1EC9827BD55F9407ABF6B3F2E8B4458015371152D6C.pdf
+  sigla: ANSA
   gabarito: https://cdn.cebraspe.org.br/concursos/ANSA_26/arquivos/FF65B1E1DF91A39A7FF13E2A4361ECA1F90CC8883FF376178C7235C86315CC8F.pdf
   arquivo: cebraspe_ansa_2026_enfase_16_logistica_de_transporte_prova_fa0bd745976857a98487e1ec9827bd55f9407abf6b3f2_e3b06bd3.pdf
   arquivo_do_gabarito: cebraspe_ansa_2026_enfase_16_logistica_de_transporte_gabarito_definitivo_ff65b1e1df91a39a7ff13e2a4361eca1f90cc8883ff37_393c32bd.pdf
@@ -1659,6 +1714,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Administração
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/7B386FFC1D4685C8FA00382DC2C450755E30DEC80D56926CE02C3C1A96BFE6BB.pdf
+  sigla: DETRANALANA3
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/2A29538FBD8E94A6A2C3E8DC9358E774AF160928920FEC20BF7EE9AFB2E1A790.pdf
   arquivo: cebraspe_detranal_2026_analista_administracao_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_administracao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1678,6 +1734,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Análise de Sistemas
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/8AE3E8ABD4F6F0163F15CA3612B338B49DEB65B41E3B8FDFECA1AA795D3E4BDF.pdf
+  sigla: DETRANALANA4
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/7C27072143B445F3ABBCD61056CF1BE7E12C152958C03D8D443B7125A0CA1DFB.pdf
   arquivo: cebraspe_detranal_2026_analista_analise_sistemas_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_analise_sistemas_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1695,6 +1752,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Contabilidade
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/D04B75B2B15B14789915F0AF44F81F7560D4BA7443CC35B1B6D164C78901A9A3.pdf
+  sigla: DETRANALANA7
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/775B2630A28D882C77D20BE70AABBBA4EAE1885F5F74AAAF7A8EDD65A923FDD8.pdf
   arquivo: cebraspe_detranal_2026_analista_contabilidade_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_contabilidade_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1710,6 +1768,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Direito
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/5CF4B1CDB453FC59FCB38FA79EC6027F4B8ED066949C4F7940F0D65C33309048.pdf
+  sigla: DETRANALANA2
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/49AEA11A7714FCCFDD2FC69F0BFEE3AFECA0A20FFF1157C43A9750319E19DF66.pdf
   arquivo: cebraspe_detranal_2026_analista_direito_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_direito_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -1728,6 +1787,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Direito
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/CA70534E72810F0DAC1B4F9723C2ACBD6085122D8F3A0BD945DC52BC9AD88B55.pdf
+  sigla: DETRANALANA6
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/5371C4AB7ABC13692B680800E3AC644873427E51F9955711181A633BAF13138B.pdf
   arquivo: cebraspe_detranal_2026_analista_direito_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_direito_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1746,6 +1806,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Engenharia Civil
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/31CE64D9A32F98070705B7D00D80DA7E9D75151DF17784CCB0DE26B5F53B4D73.pdf
+  sigla: DETRANALANA
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/45EF4B83531C48DB29CB59F722525C7F9E193A1A88CE3EF410ADECE59A812180.pdf
   arquivo: cebraspe_detranal_2026_analista_engenharia_civil_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_engenharia_civil_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1763,6 +1824,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Estatística
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/F6CE97F21DBCAA1F653CF30B5D2C42D1C18BF80FC8ACA8DDD045B3B6031EFF50.pdf
+  sigla: DETRANALANA8
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/DD48836525828A0B1E26C38BE2A507A2BFF03A792DFC2DBD4CB8CF46340A9919.pdf
   arquivo: cebraspe_detranal_2026_analista_estatistica_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_estatistica_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1780,6 +1842,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Analista de Trânsito — Pedagogia
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/9DFBED868CBD7B6BEA22D4303ABFC1916CD999DD5D48BAFEAAE38DE822A846A6.pdf
+  sigla: DETRANALANA5
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/B973288BBEE65AEC62184FCE416EE3F4F369F42C7CB3C14995BCE5B8FAAF453D.pdf
   arquivo: cebraspe_detranal_2026_analista_pedagogia_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_analista_pedagogia_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1797,6 +1860,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Assistente de Trânsito
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/5CC93D25E0CCA2345FADFCB746743E99C6EEE53D26560DE5DC6FE2CCCD6DB57B.pdf
+  sigla: DETRANALASS
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/204F97564D3C99DB6D67A9DD25A30CF42F311E64852FBED6547A1033DC8DB43D.pdf
   arquivo: cebraspe_detranal_2026_assistente_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_assistente_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -1814,6 +1878,7 @@ provas:
   orgao: DETRAN-AL
   cargo: Assistente de Trânsito
   caderno: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/961168A38E8CF40CA07F90957473E67A235EBB8D267E0F04DA6C96543312FC45.pdf
+  sigla: DETRANALASS2
   gabarito: https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/C225656F88D9F5A1CCB0A92C4EBC65AC058BC21635ABCAB0C3447DBB8B8F0348.pdf
   arquivo: cebraspe_detranal_2026_assistente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_detranal_2026_assistente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1830,6 +1895,7 @@ provas:
   orgao: PC-AL
   cargo: Agente de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/MATRIZ_600_PCAL_001.PDF
+  sigla: PCALAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_600_PCAL_001_00.PDF
   arquivo: cebraspe_pcal_2021_agente_prova_ANULADA.pdf
   arquivo_do_gabarito: cebraspe_pcal_2021_agente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1848,6 +1914,7 @@ provas:
   orgao: PC-AL
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/MATRIZ_600_PCAL_002.PDF
+  sigla: PCALESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_600_PCAL_002_00.PDF
   arquivo: cebraspe_pcal_2021_escrivao_prova_ANULADA.pdf
   arquivo_do_gabarito: cebraspe_pcal_2021_escrivao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1864,6 +1931,7 @@ provas:
   orgao: PC-PB
   cargo: Agente de Investigação
   caderno: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/629_PC_PB_CG1_01.PDF
+  sigla: PCPBAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/GAB_DEFINITIVO_629_PC_PB_CG1_01_VF.PDF
   arquivo: cebraspe_pcpb_2021_agente_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pcpb_2021_agente_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -1880,6 +1948,7 @@ provas:
   orgao: PC-PB
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/628_PCPB_CG1_01.PDF
+  sigla: PCPBESC2
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/GAB_DEFINITIVO_628_PCPB_CG1_01.PDF
   arquivo: cebraspe_pcpb_2021_escrivao_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pcpb_2021_escrivao_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -1896,6 +1965,7 @@ provas:
   orgao: PC-PB
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/628_PCPB_002_01.PDF
+  sigla: PCPBESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_PB_21/arquivos/GAB_DEFINITIVO_628_PCPB_002_01.PDF
   arquivo: cebraspe_pcpb_2021_escrivao_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcpb_2021_escrivao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1922,6 +1992,7 @@ provas:
   orgao: PC-RO
   cargo: Agente de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/733_PCROAGENTE_CG1_01.PDF
+  sigla: PCROAGE2
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_733_PCROAGENTE_CG1_01.PDF
   arquivo: cebraspe_pcro_2022_agente_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pcro_2022_agente_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -1937,6 +2008,7 @@ provas:
   orgao: PC-RO
   cargo: Agente de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/733_PCROAGENTE_001_01.PDF
+  sigla: PCROAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_733_PCROAGENTE_001_01.PDF
   arquivo: cebraspe_pcro_2022_agente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcro_2022_agente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -1965,6 +2037,7 @@ provas:
   orgao: PC-RO
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/733_PCROAGENTE_CG2_01.PDF
+  sigla: PCROESC2
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_733_PCROAGENTE_CG2_01.PDF
   arquivo: cebraspe_pcro_2022_escrivao_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pcro_2022_escrivao_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -1977,6 +2050,7 @@ provas:
   orgao: PC-RO
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/733_PCROAGENTE_002_01.PDF
+  sigla: PCROESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_RO_22/arquivos/GAB_DEFINITIVO_733_PCROAGENTE_002_01.PDF
   arquivo: cebraspe_pcro_2022_escrivao_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcro_2022_escrivao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2003,6 +2077,7 @@ provas:
   orgao: PC-SE
   cargo: Agente de Polícia Judiciária
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/605_PCSE_001_01.PDF
+  sigla: PCSEAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/GAB_DEFINITIVO_605_PCSE_001_01.PDF
   arquivo: cebraspe_pcse_2021_agente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcse_2021_agente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2022,6 +2097,7 @@ provas:
   orgao: PC-SE
   cargo: Agente e Escrivão
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/605_PCSE_CG1_01.PDF
+  sigla: PCSEAGE2
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/GAB_DEFINITIVO_605_PCSE_CG1_01.PDF
   arquivo: cebraspe_pcse_2021_policial_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pcse_2021_policial_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -2038,6 +2114,7 @@ provas:
   orgao: PC-SE
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/605_PCSE_002_01.PDF
+  sigla: PCSEESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_SE_21/arquivos/GAB_DEFINITIVO_605_PCSE_002_01.PDF
   arquivo: cebraspe_pcse_2021_escrivao_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcse_2021_escrivao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2057,6 +2134,7 @@ provas:
   orgao: PCDF Agente
   cargo: Agente de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_DF_20_AGENTE/arquivos/PCDF_AGENTE_001_COMJUSTIFICATIVA.PDF
+  sigla: PCDFAGENT
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_DF_20_AGENTE/arquivos/GAB_DEFINITIVO_MATRIZ_550_PCDF_AGENTE_001_00.PDF
   arquivo: cebraspe_pcdf_2020_agente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pcdf_2020_agente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2078,6 +2156,7 @@ provas:
   orgao: PCDF Escrivão
   cargo: Escrivão de Polícia
   caderno: https://cdn.cebraspe.org.br/concursos/PC_DF_19_ESCRIVAO/arquivos/MATRIZ_519_PCDF_001_00_BONECA_COMJUSTIFICATIVA.PDF
+  sigla: PCDFESCRI
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_DF_19_ESCRIVAO/arquivos/GAB_DEFINITIVO_MATRIZ_519_PCDF_001_00.PDF
   arquivo: cebraspe_pcdf_2019_escrivao_prova.pdf
   arquivo_do_gabarito: cebraspe_pcdf_2019_escrivao_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2103,6 +2182,7 @@ provas:
   orgao: PF
   cargo: Agente de Polícia Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF012__PAG_9.PDF
+  sigla: PFAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPF012__PAG_9.PDF
   arquivo: cebraspe_pf_2018_agente_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2018_agente_gabarito_definitivo.pdf
@@ -2125,6 +2205,7 @@ provas:
   orgao: PF
   cargo: Escrivão de Polícia Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF013__PAG_8.PDF
+  sigla: PFESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPF013__PAG_8.PDF
   arquivo: cebraspe_pf_2018_escrivao_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2018_escrivao_gabarito_definitivo.pdf
@@ -2149,6 +2230,7 @@ provas:
   orgao: PF
   cargo: Papiloscopista Policial Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/MATRIZ_408_DGPPF014__PAG_9.PDF
+  sigla: PFPAP
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_18/arquivos/GAB_DEFINITIVO_408_DGPPF014__PAG_9.PDF
   arquivo: cebraspe_pf_2018_papiloscopista_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2018_papiloscopista_gabarito_definitivo.pdf
@@ -2172,6 +2254,7 @@ provas:
   orgao: PF
   cargo: Agente de Polícia Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/CARGO_2_AGENTE_DE_POLCIA_FEDERAL.PDF
+  sigla: PFAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/GAB_DEFINITIVO_MATRIZ_577_PF_002_00.PDF
   arquivo: cebraspe_pf_2021_agente_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2021_agente_gabarito_definitivo.pdf
@@ -2197,6 +2280,7 @@ provas:
   orgao: PF
   cargo: Escrivão de Polícia Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/CARGO_3_ESCRIVO_DE_POLCIA_FEDERAL.PDF
+  sigla: PFESC
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/GAB_DEFINITIVO_MATRIZ_577_PF_003_00.PDF
   arquivo: cebraspe_pf_2021_escrivao_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2021_escrivao_gabarito_definitivo.pdf
@@ -2223,6 +2307,7 @@ provas:
   orgao: PF
   cargo: Papiloscopista Policial Federal
   caderno: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/CARGO_4_PAPILOSCOPISTA_POLICIAL_FEDERAL.PDF
+  sigla: PFPAP
   gabarito: https://cdn.cebraspe.org.br/concursos/PF_21/arquivos/GAB_DEFINITIVO_MATRIZ_577_PF_004_00.PDF
   arquivo: cebraspe_pf_2021_papiloscopista_prova.pdf
   arquivo_do_gabarito: cebraspe_pf_2021_papiloscopista_gabarito_definitivo.pdf
@@ -2249,6 +2334,7 @@ provas:
   orgao: PM-AL
   cargo: Soldado Combatente
   caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_21/arquivos/596_PMAL_002_MATRIZ.PDF
+  sigla: PMAL
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_596_PMAL_002_00_PAG_5.PDF
   arquivo: cebraspe_pmal_2021_soldado_prova.pdf
   arquivo_do_gabarito: cebraspe_pmal_2021_soldado_gabarito_definitivo.pdf
@@ -2273,6 +2359,7 @@ provas:
   cargo: Policial Rodoviário Federal
   pagina: http://www.cespe.unb.br/concursos/prf_18
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/440_PRF_001_00_PAG_9.PDF
+  sigla: PRF
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/GAB_DEFINITIVO_MATRIZ_440_PRF_001_00_PAG_9.PDF
   arquivo: cebraspe_prf_2018_policial_prova.pdf
   arquivo_do_gabarito: cebraspe_prf_2018_policial_gabarito_definitivo.pdf
@@ -2300,6 +2387,7 @@ provas:
   cargo: CFP - 18/09/2022
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/746_PRF_21_CFP_2_001_01.PDF
+  sigla: PRFCFP3
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/GAB_DEFINITIVO_746_PRF_21_CFP_2_001_01.PDF
   arquivo: cebraspe_prf_2021_cfp_2022_18_09_prova.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_cfp_2022_18_09_gabarito_definitivo.pdf
@@ -2319,6 +2407,7 @@ provas:
   cargo: CFP - 1ª prova, 3ª turma, 2025
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/085_PRFCF_001_01.pdf
+  sigla: PRFCFP
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/Gab_Definitivo_085_PRFCF_001_01.pdf
   arquivo: cebraspe_prf_2021_cfp_2025_3_turma_1_prova_prova.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_cfp_2025_3_turma_1_prova_gabarito_definitivo.pdf
@@ -2335,6 +2424,7 @@ provas:
   cargo: CFP - 2ª prova, 3ª turma, 2025
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/091_PRFCF2_001_01.pdf
+  sigla: PRFCFP2
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/Gab_Definitivo_091_PRFCF2_001_01.pdf
   arquivo: cebraspe_prf_2021_cfp_2025_3_turma_2_prova_prova.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_cfp_2025_3_turma_2_prova_gabarito_definitivo.pdf
@@ -2358,6 +2448,7 @@ provas:
   cargo: Policial Rodoviário Federal
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_ING_01.PDF
+  sigla: PRFPOL3
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/GAB_DEFINITIVO_578_PRF_ING_01.PDF
   arquivo: cebraspe_prf_2021_policial_prova_lingua_inglesa.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_policial_gabarito_definitivo_lingua_inglesa.pdf
@@ -2373,6 +2464,7 @@ provas:
   cargo: Policial Rodoviário Federal
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_ESP_02.PDF
+  sigla: PRFPOL2
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/GAB_DEFINITIVO_578_PRF_ESP_02.PDF
   arquivo: cebraspe_prf_2021_policial_prova_lingua_espanhola.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_policial_gabarito_definitivo_lingua_espanhola.pdf
@@ -2385,6 +2477,7 @@ provas:
   cargo: Policial Rodoviário Federal
   pagina: http://www.cebraspe.org.br/concursos/prf_21
   caderno: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/578_PRF_001_01.PDF
+  sigla: PRFPOL
   gabarito: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/GAB_DEFINITIVO_578_PRF_001_01.PDF
   arquivo: cebraspe_prf_2021_policial_prova_itens_9_120.pdf
   arquivo_do_gabarito: cebraspe_prf_2021_policial_gabarito_definitivo_itens_9_120.pdf
@@ -2408,6 +2501,7 @@ provas:
   orgao: Polícia Penal AL
   cargo: Policial Penal/Agente Penitenciário
   caderno: https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/597_SERIS_CG1_01.PDF
+  sigla: SERISALPOL2
   gabarito: https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/GAB_DEFINITIVO_597_SERIS_CG1_01.PDF
   arquivo: cebraspe_serisal_2021_policial_penal_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_serisal_2021_policial_penal_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -2423,6 +2517,7 @@ provas:
   orgao: Polícia Penal AL
   cargo: Policial Penal/Agente Penitenciário
   caderno: https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/597_SERIS_001_01.PDF
+  sigla: SERISALPOL
   gabarito: https://cdn.cebraspe.org.br/concursos/SERIS_AL_21/arquivos/GAB_DEFINITIVO_597_SERIS_001_01.PDF
   arquivo: cebraspe_serisal_2021_policial_penal_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_serisal_2021_policial_penal_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2456,6 +2551,7 @@ provas:
   cargo: Técnico de Laboratório - Física
   pagina: https://www.cebraspe.org.br/concursos/FUB_16_1
   caderno: https://cdn.cebraspe.org.br/concursos/FUB_16_1/arquivos/281FUB_012_01.pdf
+  sigla: FUB1
   gabarito: https://cdn.cebraspe.org.br/concursos/FUB_16_1/arquivos/Gab_Definitivo_281FUB_012_01.pdf
   arquivo: cebraspe_fub_2016_tecnico_de_laboratorio_fisica_prova.pdf
   arquivo_do_gabarito: cebraspe_fub_2016_tecnico_de_laboratorio_fisica_gabarito_definitivo.pdf
@@ -2475,6 +2571,7 @@ provas:
   cargo: Professor - Física
   pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
   caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_005_01.PDF
+  sigla: SEEPEEDUCPRO
   gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_005_01.PDF
   arquivo: cebraspe_see_pe_2022_professor_fisica_prova.pdf
   arquivo_do_gabarito: cebraspe_see_pe_2022_professor_fisica_gabarito_definitivo.pdf
@@ -2493,6 +2590,7 @@ provas:
   cargo: Professor de Educação Básica - Geografia
   pagina: https://www.cebraspe.org.br/concursos/SEE_16_DF
   caderno: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/290_SEEDF_014_01.pdf
+  sigla: SEEDFPRO
   gabarito: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/Gab_Definitivo_290_SEEDF_014_01.pdf
   arquivo: cebraspe_see_df_2016_professor_geografia_prova.pdf
   arquivo_do_gabarito: cebraspe_see_df_2016_professor_geografia_gabarito_definitivo.pdf
@@ -2513,6 +2611,7 @@ provas:
   cargo: Professor - Geografia
   pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
   caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_006_01.PDF
+  sigla: SEEPEEDUCPR2
   gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_006_01.PDF
   arquivo: cebraspe_see_pe_2022_professor_geografia_prova.pdf
   arquivo_do_gabarito: cebraspe_see_pe_2022_professor_geografia_gabarito_definitivo.pdf
@@ -2537,6 +2636,7 @@ provas:
   cargo: Professor de Educação Básica - Espanhol
   pagina: https://www.cebraspe.org.br/concursos/SEE_16_DF
   caderno: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/290_SEEDF_017_01.pdf
+  sigla: SEEDFPRO2
   gabarito: https://cdn.cebraspe.org.br/concursos/SEE_16_DF/arquivos/Gab_Definitivo_290_SEEDF_017_01.pdf
   arquivo: cebraspe_see_df_2016_professor_espanhol_prova.pdf
   arquivo_do_gabarito: cebraspe_see_df_2016_professor_espanhol_gabarito_definitivo.pdf
@@ -2553,6 +2653,7 @@ provas:
   cargo: Professor - Língua Espanhola
   pagina: https://www.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA
   caderno: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/714_SEE_PE_008_01.PDF
+  sigla: SEEPEEDUCPR3
   gabarito: https://cdn.cebraspe.org.br/concursos/SEE_PE_22_EDUCACAO_BASICA/arquivos/GAB_DEFINITIVO_714_SEE_PE_008_01.PDF
   arquivo: cebraspe_see_pe_2022_professor_espanhol_prova.pdf
   arquivo_do_gabarito: cebraspe_see_pe_2022_professor_espanhol_gabarito_definitivo.pdf
@@ -2578,6 +2679,7 @@ provas:
   cargo: Oficial Combatente - Conhecimentos Específicos
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_001_01.pdf
+  sigla: CBMALCOMBOFI
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_001_01.PDF
   arquivo: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2607,6 +2709,7 @@ provas:
   cargo: Soldado Combatente - Conhecimentos Específicos
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_002_01.pdf
+  sigla: CBMALCOMBSOL
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_002_01.PDF
   arquivo: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -2632,6 +2735,7 @@ provas:
   cargo: Aspirante-a-Oficial Bombeiro Militar
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_21
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_001_MATRIZ.PDF
+  sigla: CBMALASP
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_595_CBMAL_001_PAG_8.PDF
   arquivo: cebraspe_cbm_al_2021_aspirante_a_oficial_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2021_aspirante_a_oficial_gabarito_definitivo.pdf
@@ -2672,6 +2776,7 @@ provas:
   cargo: Soldado Bombeiro Militar
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_21
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/595_CBMAL_002_MATRIZ.PDF
+  sigla: CBMALSOL
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_21/arquivos/GAB_DEFINITIVO_MATRIZ_595_CBMAL_002_PAG_7.PDF
   arquivo: cebraspe_cbm_al_2021_soldado_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2021_soldado_gabarito_definitivo.pdf
@@ -2724,6 +2829,7 @@ provas:
   cargo: Papiloscopista
   pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
   caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_001_01.PDF
+  sigla: POLCALPAP
   gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_001_01_(CARGO_1).PDF
   arquivo: cebraspe_polc_al_2022_papiloscopista_prova.pdf
   arquivo_do_gabarito: cebraspe_polc_al_2022_papiloscopista_gabarito_definitivo.pdf
@@ -2773,6 +2879,7 @@ provas:
   cargo: Perito Criminal (cargos 2 a 13) - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
   caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB1_01.PDF
+  sigla: POLCALPER
   gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB1_01_(CB1).PDF
   arquivo: cebraspe_polc_al_2022_perito_criminal_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_polc_al_2022_perito_criminal_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -2817,6 +2924,7 @@ provas:
   cargo: Perito Médico-Legista e Perito Odontolegista - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
   caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB2_01.PDF
+  sigla: POLCALPER2
   gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB2_01_(CB2).PDF
   arquivo: cebraspe_polc_al_2022_perito_legista_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_polc_al_2022_perito_legista_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -2855,6 +2963,7 @@ provas:
   cargo: Auxiliar de Perícia e Técnico Forense - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/POLC_AL_22
   caderno: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB3_01.PDF
+  sigla: POLCALAUX
   gabarito: https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/GAB_DEFINITIVO_701_POLC_AL_CB3_01_(CB3).PDF
   arquivo: cebraspe_polc_al_2022_auxiliar_e_tecnico_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_polc_al_2022_auxiliar_e_tecnico_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -2890,6 +2999,7 @@ provas:
   cargo: Soldado Combatente - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/PM_AL_17_SOLDADO
   caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/343_PMAL_CB1_01.pdf
+  sigla: PMALSOLDASO2
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/Gab_Definitivo_343_PMAL_CB1_01.PDF
   arquivo: cebraspe_pm_al_2017_soldado_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_pm_al_2017_soldado_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -2916,6 +3026,7 @@ provas:
   cargo: Soldado Combatente
   pagina: https://www.cebraspe.org.br/concursos/PM_AL_18_SOLDADO
   caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_18_SOLDADO/arquivos/MATRIZ_410_PMAL001__PAG_7.PDF
+  sigla: PMALSOLDA
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_18_SOLDADO/arquivos/GAB_DEFINITIVO_410_PMAL001__PAG_7.PDF
   arquivo: cebraspe_pm_al_2018_soldado_prova.pdf
   arquivo_do_gabarito: cebraspe_pm_al_2018_soldado_gabarito_definitivo.pdf
@@ -2963,6 +3074,7 @@ provas:
   cargo: Soldado do Quadro de Praças - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/PM_MA_17
   caderno: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/359_PMMA_CG2_01.pdf
+  sigla: PMMASOL2
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/Gab_Definitivo_359_PMMA_CG2_01.pdf
   arquivo: cebraspe_pm_ma_2017_soldado_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pm_ma_2017_soldado_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -2989,6 +3101,7 @@ provas:
   cargo: Soldado do Quadro de Praças - Conhecimentos Específicos
   pagina: https://www.cebraspe.org.br/concursos/PM_MA_17
   caderno: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/359_PMMA_005_01.pdf
+  sigla: PMMASOL
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_MA_17/arquivos/Gab_Definitivo_359_PMMA_005_01.pdf
   arquivo: cebraspe_pm_ma_2017_soldado_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pm_ma_2017_soldado_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -3010,6 +3123,7 @@ provas:
   cargo: Oficial de Inteligência - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/ABIN_17
   caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB1_01.PDF
+  sigla: ABINOFI
   gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB1_01.PDF
   arquivo: cebraspe_abin_2017_oficial_de_inteligencia_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_abin_2017_oficial_de_inteligencia_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -3042,6 +3156,7 @@ provas:
   cargo: Processo Seletivo Simplificado - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/MJSP_21_PSS
   caderno: https://cdn.cebraspe.org.br/concursos/MJSP_21_PSS/arquivos/642_MJSP_CG1_01.PDF
+  sigla: MJSPPSS
   gabarito: https://cdn.cebraspe.org.br/concursos/MJSP_21_PSS/arquivos/GAB_DEFINITIVO_642_MJSP_CG1_01.PDF
   arquivo: cebraspe_mjsp_2021_pss_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_mjsp_2021_pss_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -3060,6 +3175,7 @@ provas:
   cargo: Delegado de Polícia - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/PC_AL_22_DELEGADO
   caderno: https://cdn.cebraspe.org.br/concursos/PC_AL_22_DELEGADO/arquivos/705_DELEGADO_PC_AL_CG1_01.PDF
+  sigla: PCALDELEG
   gabarito: https://cdn.cebraspe.org.br/concursos/PC_AL_22_DELEGADO/arquivos/GAB_DEFINITIVO_705_DELEGADO_PC_AL_CG1_01.PDF
   arquivo: cebraspe_pc_al_2022_delegado_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_pc_al_2022_delegado_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -3079,6 +3195,7 @@ provas:
   cargo: Oficial Combatente - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_CB1_01.pdf
+  sigla: CBMALCOMBOF2
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_CB1_01.PDF
   arquivo: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -3113,6 +3230,7 @@ provas:
   cargo: Soldado Combatente - Conhecimentos Básicos
   pagina: https://www.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE
   caderno: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/340_CBMAL_CB2_01.pdf
+  sigla: CBMALCOMBSO2
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_AL_17_COMBATENTE/arquivos/Gab_Definitivo_340_CBMAL_CB2_01.PDF
   arquivo: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
@@ -3152,6 +3270,7 @@ provas:
   cargo: Soldado Combatente - Conhecimentos Específicos
   pagina: https://www.cebraspe.org.br/concursos/PM_AL_17_SOLDADO
   caderno: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/343_PMAL_001_01.pdf
+  sigla: PMALSOLDASOL
   gabarito: https://cdn.cebraspe.org.br/concursos/PM_AL_17_SOLDADO/arquivos/Gab_Definitivo_343_PMAL_001_01.PDF
   arquivo: cebraspe_pm_al_2017_soldado_conhecimentos_especificos_prova.pdf
   arquivo_do_gabarito: cebraspe_pm_al_2017_soldado_conhecimentos_especificos_gabarito_definitivo.pdf
@@ -3200,6 +3319,7 @@ provas:
   cargo: Oficial Técnico de Inteligência - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/ABIN_17
   caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB2_01.PDF
+  sigla: ABINOFI2
   gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB2_01.PDF
   arquivo: cebraspe_abin_2017_oficial_tecnico_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_abin_2017_oficial_tecnico_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -3233,6 +3353,7 @@ provas:
   cargo: Agente de Inteligência - Conhecimentos Gerais
   pagina: https://www.cebraspe.org.br/concursos/ABIN_17
   caderno: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/378_ABIN_CB3_01.PDF
+  sigla: ABINAGE
   gabarito: https://cdn.cebraspe.org.br/concursos/ABIN_17/arquivos/GAB_DEFINITIVO_378_ABIN_CB3_01.PDF
   arquivo: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_gabarito_definitivo.pdf
@@ -3263,6 +3384,7 @@ provas:
   cargo: Agente Federal de Execução Penal
   pagina: https://www.cebraspe.org.br/concursos/DEPEN_20
   caderno: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/MATRIZ_541_DEPEN_008_00.PDF
+  sigla: DEPEN
   gabarito: https://cdn.cebraspe.org.br/concursos/DEPEN_20/arquivos/GAB_DEFINITIVO_MATRIZ_541_DEPEN_CB2_00.PDF
   arquivo: cebraspe_depen_2020_agente_prova.pdf
   arquivo_do_gabarito: cebraspe_depen_2020_agente_conhecimentos_basicos_gabarito_definitivo.pdf

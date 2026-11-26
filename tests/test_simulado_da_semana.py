@@ -422,11 +422,19 @@ def test_o_gerar_simulado_ia_e_outra_rodada_da_faixa(com_partes, plano, monkeypa
     assert (gravado.em_andamento.id, gravado.em_andamento_ia.id) == (principal.id, de_ia.id)
 
 
-def test_a_tela_do_dia_real_nao_manda_ao_qconcursos():
-    """As faixas do Simulado da semana do plano da PMSC sao no radar."""
+def test_a_tela_do_dia_real_nao_manda_ao_qconcursos(tmp_path, monkeypatch):
+    """As faixas do Simulado da semana do plano real sao no radar.
+
+    PRF-44: o plano e o da PRF (PRF/config/cronograma.yml); o teste lia o da
+    PMSC, que nao veio para ca, e falhava desde a copia. O conftest troca a
+    arvore pela antiga (PRF-9): o plano da PRF precisa da arvore da PRF."""
+    import shutil
+
     from radar import config
-    plano_pmsc = cronograma.carregar(config.RAIZ / "pmsc" / "config" / "cronograma.yml")
-    faixas = [f for d in plano_pmsc.dias for f in d.manha + d.noite
+    shutil.copy2(config.RAIZ / "data" / "conteudos.json", tmp_path / "conteudos.json")
+    monkeypatch.setenv("RADAR_DATA_DIR", str(tmp_path))
+    plano = cronograma.carregar(config.RAIZ / "PRF" / "config" / "cronograma.yml")
+    faixas = [f for d in plano.dias for f in d.manha + d.noite
               if simulado_da_semana.aceita(f)]
     assert faixas and all(f.onde == "radar" for f in faixas)
     assert not any(composicao.no_qconcursos(f) for f in faixas)
