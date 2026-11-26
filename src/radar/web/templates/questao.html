@@ -187,7 +187,11 @@
           {% else %}
             <p>Escrita do zero, sem questão real embaixo. Confira com cuidado.</p>
           {% endif %}
-          {% if questao.artigo %}
+          {% if questao.alternativas == {'c': 'Certo', 'e': 'Errado'} %}
+            {# PRF-43: no Certo/Errado o apoio ("Bioma Pampa: so no Rio Grande
+               do Sul") pode entregar o gabarito: ele vem depois da resposta,
+               com o "Por que, segundo a IA". #}
+          {% elif questao.artigo %}
             <p>Diz se apoiar em <b>{{ questao.artigo }}</b>{% if lei %} — <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}</p>
           {% else %}
             <p>A IA não soube dizer em que artigo se apoia.</p>

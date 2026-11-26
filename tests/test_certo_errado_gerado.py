@@ -193,6 +193,25 @@ def test_a_rodada_da_faixa_traz_o_certo_errado_antes_da_multipla_escolha(banco_t
         assert formatos(6, [INFRACOES, CRIMES]) == [False] + [True] * 5
 
 
+def test_o_apoio_do_item_so_aparece_depois_da_resposta(lote, tmp_path):
+    # PRF-43: no C/E sem lei o `artigo` ("Bioma Pampa: so no RS") entrega o
+    # gabarito; ele vem com o "Por que, segundo a IA", depois de responder.
+    from fastapi.testclient import TestClient
+    from radar.web.app import app
+
+    _importar(lote, [_item(artigo="CTB, art. 162, V: CNH vencida há mais de 30 dias")], tmp_path)
+    rodada = geradas.criar_simulado(quantidade=1, conteudo=INFRACOES)
+    with sessao() as s:
+        (qid,) = s.scalars(select(RespostaDeSimulado.questao_id)
+                           .where(RespostaDeSimulado.simulado_id == rodada.id))
+    cliente = TestClient(app)
+    antes = cliente.get(f"/simulado/{rodada.id}").text
+    assert "CNH vencida há mais de 30 dias" not in antes
+    cliente.post(f"/simulado/{rodada.id}/responder", data={"questao_id": qid, "letra": "c"})
+    depois = cliente.get(f"/simulado/{rodada.id}?ver={qid}").text
+    assert "CNH vencida há mais de 30 dias" in depois and "segundo a IA" in depois
+
+
 @pytest.mark.parametrize("fonte, serve", [
     ("MBFT (Res. CONTRAN 985/2022), Parte Geral, item 7.2", True),
     ("Res. CONTRAN 969/2022, Anexo I, itens 2.3 e 2.4", True),

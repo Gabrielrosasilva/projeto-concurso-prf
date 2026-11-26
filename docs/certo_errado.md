@@ -155,3 +155,15 @@ Penal 127, Processo Penal 94, Legislação Especial 255, Direitos Humanos 66).
   múltipla escolha herdada da PMSC (até 92 num tema só), e a rodada de vários
   nós dá primeiro o C/E de todos eles. Sem isso, o botão da aula do art. 5º
   traria quase só múltipla escolha.
+
+## O Ciclo 2 (PRF-43, 26/11/2026)
+
+**1.685 itens** em Raciocínio (375), Física (507), Espanhol (208), Informática
+(88), Geopolítica (287) e Ética (220). Só a Ética tem lei (os nós dela no
+`textos_de_lei.yml`). Nas outras, o item traz todos os dados e a conta foi
+refeita em Python por quem escreveu e por quem julgou; o Espanhol é, como no
+Cebraspe, um item em português sobre um trecho em espanhol, escrito no próprio
+enunciado; Geopolítica sem número do IBGE; Informática sem menu nem versão.
+0 divergência de gabarito na conferência às cegas. Na tela, o "apoio" do item
+de Certo/Errado (o campo `artigo`) só aparece depois da resposta: sem lei, ele
+dizia a regra e entregava o gabarito.
