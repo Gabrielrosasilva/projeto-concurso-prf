@@ -1,6 +1,7 @@
 # O método: o que a pesquisa diz e como entra no cronograma
 
-25/11/2026, Claude Code (claude-opus-5-5), Etapa 5 (PRF-35). Cada número abaixo foi
+25/11/2026, Claude Code (claude-opus-5-5), Etapa 5 (PRF-35); em 26/11/2026 as matérias
+foram divididas em dois ciclos de 8 semanas (PRF-38, pedido do Gabriel). Cada número abaixo foi
 conferido na fonte do link; a coluna "Onde conferi" diz se foi no texto do artigo ou só
 num resumo. O que **não** saiu de estudo nenhum (as durações, os números de itens) está
 separado no fim, como escolha minha.
@@ -27,37 +28,57 @@ o de Rohrer, com matemática; o de Graham, com adolescentes. O cronograma usa a
 |---|---|
 | Testar-se fixa mais que reler (Roediger & Karpicke; Dunlosky) | A teoria tem **teto** (50 e 40 min) e uma fonte só; logo depois vem a **fixação** em itens de Certo/Errado do tema. À noite, a **Aprendizagem** do mesmo tema, sem consulta. A revisão é feita **respondendo**, não relendo. |
 | Reler e grifar rendem pouco (Dunlosky) | Nenhuma faixa de "revisar o resumo". O detalhe da teoria diz: entendeu, feche e vá para as questões. |
-| Espaçar, e o intervalo cresce com a distância da prova (Cepeda) | Revisão **R+7** (da semana 2) e **R+30** (da semana 5; são 4 semanas, para cair no mesmo dia da semana, e o nome é o que o radar conhece) do tema estudado naquele dia. Se a prova vier daqui a 9 a 12 meses (o edital está previsto para 2027), 5–10% do prazo dá de 2 a 5 semanas: o R+30 está dentro. O R+7 é uma checagem mais cedo, escolha minha. |
-| Misturar tipos de problema rende mais uma semana depois, mesmo indo pior no treino (Rohrer & Taylor) | O **Português de todo dia** sai da matéria inteira, misturado. O **simulado de sábado** mistura as matérias, com 20 dos 60 itens de temas de semanas anteriores. Os 60 encontros de teoria são espalhados para nenhuma matéria ficar semanas sem voltar. Errar mais na mistura é esperado. |
-| Ensinar a planejar, revisar e editar melhora a redação (Graham & Perin) | A **redação de sábado** tem 10 min de roteiro, 40 de escrita e 10 de revisão, e é corrigida pelos critérios do Cebraspe (Claude Code, enquanto a aba Redação ainda é a da AOCP). |
+| Espaçar, e o intervalo cresce com a distância da prova (Cepeda) | Revisão **R+7** (da semana 2) e **R+30** (da semana 5; são 4 semanas, para cair no mesmo dia da semana, e o nome é o que o radar conhece) do tema estudado naquele dia. As revisões seguem de um ciclo para o outro: nas semanas 9 a 12 o R+30 ainda é do Ciclo 1. Se a prova vier daqui a 9 a 12 meses (o edital está previsto para 2027), 5–10% do prazo dá de 2 a 5 semanas: o R+30 está dentro. O R+7 é uma checagem mais cedo, escolha minha. No Ciclo 2, a **manutenção** (15 itens de uma matéria do Ciclo 1 no fim de toda manhã) e o simulado de sábado, com metade dos itens de semanas anteriores, seguram o que foi visto. |
+| Misturar tipos de problema rende mais uma semana depois, mesmo indo pior no treino (Rohrer & Taylor) | O **Português de todo dia** sai da matéria inteira, misturado. O **simulado de sábado** mistura as matérias, com itens de temas de semanas anteriores (20 dos 60 no Ciclo 1; 30 no Ciclo 2). Cada manhã tem duas matérias diferentes, e as aulas de cada matéria são espalhadas pelo ciclo. Com 7 ou 8 matérias por ciclo em vez de 14, ainda é mistura: o Trânsito, a Física e o Raciocínio voltam a cada 3 dias úteis, no máximo. Errar mais na mistura é esperado. |
+| Ensinar a planejar, revisar e editar melhora a redação (Graham & Perin) | A **redação de sábado** tem 10 min de roteiro, 40 de escrita e 10 de revisão, e é corrigida pelos critérios do Cebraspe (aba Redação). Nas semanas 7 a 12 ela é a **2ª versão** de um tema já corrigido: reescrever depois do retorno é o "revisar e editar". |
 | Retorno sobre o texto (Kellogg, não conferido) | Só como reforço: a correção já existe pelo motivo acima. |
 
 ## O que é escolha minha, sem estudo por trás
 
-- **O peso das matérias:** os itens de cada uma na prova de 2021 (`docs/prioridade.md`),
-  com um encontro a mais para o que é do zero (Física, Raciocínio) e um a menos onde já
-  houve estudo (`docs/comparativo_pmsc_prf.md`). Dá 60 encontros em 6 semanas:
-  Trânsito 14, Português 8, Espanhol, Física e Raciocínio 4 cada, Direitos Humanos 2, as
-  outras 3 cada.
+- **A divisão em dois ciclos (PRF-38):** o primeiro desenho passava pelas 14 matérias em
+  6 semanas, com 60 aulas: só 52 dos 111 assuntos tinham aula, e os grandes ficavam numa
+  aula só (5 resoluções do CONTRAN em 50 min). Agora são dois ciclos de 8 semanas e 80
+  aulas cada:
+  - **Ciclo 1** (04/01 a 27/02/2027): Trânsito 28, Português 10, Legislação Especial 10
+    (uma lei por aula, ou duas curtas), Constitucional 8, Administrativo 8, Penal 7,
+    Processo Penal 6, Direitos Humanos 3. São 83 dos 120 itens de 2021: a metade que vale
+    mais vai primeiro, para o caso de o edital sair cedo.
+  - **Ciclo 2** (01/03 a 24/04/2027): Raciocínio 18 e Física 16 (do zero), Espanhol 16
+    (compreensão e gramática alternadas), Informática 10, Geopolítica 10, Ética 8 e
+    Português 2.
+- **Assunto grande vira várias aulas:** pelos subassuntos da árvore (Crimes, Prova, Prisão,
+  Direitos fundamentais...) ou, nos capítulos grandes do CTB, por faixa de artigos
+  (infrações em 3 partes; crimes de trânsito, SNT e normas de circulação em 2). Nas partes
+  de um capítulo os itens de questão vêm do capítulo inteiro: o radar não separa por artigo.
+  As resoluções do CONTRAN vão no máximo 3 por aula, agrupadas por assunto.
 - **A ordem dentro da matéria:** a incidência de cada assunto nas provas do radar (as da
-  PRF + 0,25 × as outras do Cebraspe, a regra do `PRF/config/prioridade.yml`).
+  PRF + 0,25 × as outras do Cebraspe, a regra do `PRF/config/prioridade.yml`); Física e
+  Raciocínio, do zero, vão na ordem do conteúdo. A aula A (50 min) fica com o Trânsito e
+  os Direitos no Ciclo 1 e com Física e Raciocínio no Ciclo 2.
 - **As durações e as quantidades:** 50 e 40 min de teoria, 15 e 12 itens de fixação, 15 ou 20 e
-  10 de Aprendizagem (a primeira começa em 15 e sobe para 20 depois de uma semana cumprida: a rampa), 10 de Português, 10 e 8 no R+7, 10 no R+30. Cabem nos horários do
-  `docs/dados_cronograma.md`: manhã de 9h até umas 11h35, noite de 18h até umas 20h50.
+  10 de Aprendizagem (a primeira começa em 15 e sobe para 20 depois de uma semana cumprida: a rampa), 10 de Português, 10 e 8 no R+7, 10 no R+30; no Ciclo 2, 15 de manutenção do Ciclo 1 (Trânsito na segunda, quarta e sexta; um Direito em rodízio na terça e na quinta). Cabem nos horários do
+  `docs/dados_cronograma.md`: manhã de 9h até umas 11h35 (12h05 no Ciclo 2), noite de 18h até umas 20h50.
 - **As metas por matéria:** os itens dela × a mediana de **certos** de quem passou em
   2019, por bloco (37/50, 36/40 e 26/30: o único edital que dá os certos,
   `docs/aprovados_prf.md`). Dá 96 certos de 120. A meta da prova tem também a nota
   líquida (83) e a discursiva (17) das 1.500 maiores notas de 2021.
-- **O diagnóstico e o fechamento:** 120 itens como a prova, 1,75 min por item (3h30; a
-  prova tem 4h30 para a objetiva e a discursiva, edital 8.2). A diferença entre os dois é
-  o que o ciclo deu.
-- **O Carnaval** (8 e 9/02/2027) fica marcado como feriado: nele a meta reduzida já conta
-  como dia cheio.
-- **Os temas de redação das semanas 2 a 5** são propostos por mim, de trânsito, como os
-  das provas de 2019 e 2021 (semanas 1 e 6, com o padrão de resposta definitivo no link).
+- **O diagnóstico e o fechamento:** 120 itens como a prova, de todas as matérias, 1,75 min
+  por item (3h30; a prova tem 4h30 para a objetiva e a discursiva, edital 8.2): o
+  diagnóstico no sábado 09/01 e o fechamento no sábado 24/04. A diferença entre os dois é o
+  que os dois ciclos deram. No fim do Ciclo 1 (27/02) o simulado é de treino: cada rodada
+  que mede reserva as suas questões, e elas saem do treino, que no Trânsito já é curto.
+- **Os feriados** (Carnaval, 8 e 9/02; Sexta-feira Santa, 26/03; Tiradentes, 21/04) ficam
+  marcados: neles a meta reduzida já conta como dia cheio.
+- **Os temas de redação:** os das semanas 1 e 6 são os de 2019 e 2021 com outras palavras
+  (com o padrão de resposta definitivo no link); os das semanas 2 a 5 e 13 a 16 são
+  propostos por mim; nas semanas 7 a 12, a 2ª versão dos temas 1 a 6.
 
-## O que fica para o Ciclo 2
+## O que fica de fora dos dois ciclos
 
-O Ciclo 1 cobre os assuntos de maior incidência de cada matéria. Os outros, e as
-revisões do que foi visto, entram no próximo ciclo, gerado do mesmo jeito quando o
-Ciclo 1 terminar (ou antes, se o edital sair).
+- **23 das 40 resoluções do CONTRAN** que o edital de 2021 lista nunca caíram em nenhuma
+  prova do acervo, nem da PRF nem de outra do Cebraspe. Ficam sem aula até o edital novo,
+  que traz a lista dele. As 17 que caíram têm aula (8 aulas).
+- **Inglês** (a escolha é Espanhol) e **História da PRF** (fora do edital de 2021).
+
+Depois do Ciclo 2 (a partir de 26/04/2027): com o edital, o plano segue o edital; sem
+ele, um Ciclo 3 em cima dos erros e das revisões, gerado pelo mesmo script.

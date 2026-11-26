@@ -115,9 +115,11 @@ repertorio:
   - "Desde a Lei nº 14.599/2023, o CTB fala em \"sinistro de trânsito\" (art. 20, IV, por exemplo)."
 
 temas:
-  # Os temas do Ciclo 1 (PRF/config/cronograma.yml): um por sabado. O `tema` e
-  # IGUAL ao titulo da faixa depois de "Redação da semana: ". Os `quesitos` sao os
-  # aspectos do comando, um conceito de 0 a 3 cada na correcao.
+  # Os temas dos Ciclos 1 e 2 (PRF/config/cronograma.yml): um por sabado nas semanas
+  # 1 a 6 e 13 a 16; nas semanas 7 a 12 a faixa repete os temas 1 a 6 (a 2a versao,
+  # PRF-38), e a `data` aqui e a da 1a vez. O `tema` e IGUAL ao titulo da faixa depois
+  # de "Redação da semana: ". Os `quesitos` sao os aspectos do comando, um conceito de
+  # 0 a 3 cada na correcao.
   - data: "2027-01-09"
     tema: "As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo"
     origem: "o tema da discursiva da PRF de 2019, com outras palavras"
@@ -225,6 +227,81 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 306, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
+
+  # Os temas novos do Ciclo 2 (semanas 13 a 16), escritos em 26/11/2026 (PRF-38) do
+  # mesmo jeito: textos literais da compilacao da Camara (fontes/leis/), conferidos pelo
+  # tests/test_redacao_cebraspe.py.
+  - data: "2027-04-03"
+    tema: "A proteção de crianças e adolescentes nas rodovias federais"
+    origem: "tema proposto pelo Claude"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da proteção de crianças e adolescentes nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos a que crianças e adolescentes estão expostos nas rodovias, no transporte e fora dele; 2 o papel da Polícia Rodoviária Federal na proteção de crianças e adolescentes; 3 a responsabilidade da família e da sociedade nessa proteção."
+    quesitos:
+      - "2.1 Os riscos a que crianças e adolescentes estão expostos nas rodovias"
+      - "2.2 O papel da PRF na proteção de crianças e adolescentes"
+      - "2.3 A responsabilidade da família e da sociedade"
+    textos:
+      - texto: "É dever da família, da sociedade e do Estado assegurar à criança, ao adolescente e ao jovem, com absoluta prioridade, o direito à vida, à saúde, à alimentação, à educação, ao lazer, à profissionalização, à cultura, à dignidade, ao respeito, à liberdade e à convivência familiar e comunitária, além de colocá-los a salvo de toda forma de negligência, discriminação, exploração, violência, crueldade e opressão."
+        lei: "CF, art. 227, caput"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+      - texto: "As crianças com idade inferior a 10 (dez) anos que não tenham atingido 1,45 m (um metro e quarenta e cinco centímetros) de altura devem ser transportadas nos bancos traseiros, em dispositivo de retenção adequado para cada idade, peso e altura, salvo exceções relacionadas a tipos específicos de veículos regulamentadas pelo Contran."
+        lei: "Código de Trânsito Brasileiro, art. 64, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+
+  - data: "2027-04-10"
+    tema: "A preservação do meio ambiente e o transporte nas rodovias federais"
+    origem: "tema proposto pelo Claude"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da preservação do meio ambiente no transporte pelas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os impactos do transporte rodoviário sobre o meio ambiente; 2 a atuação da Polícia Rodoviária Federal no combate aos crimes ambientais e na fiscalização do transporte de produtos perigosos; 3 medidas que conciliem o transporte rodoviário e a preservação ambiental."
+    quesitos:
+      - "2.1 Os impactos do transporte rodoviário sobre o meio ambiente"
+      - "2.2 A atuação da PRF contra os crimes ambientais e no transporte de produtos perigosos"
+      - "2.3 Medidas que conciliem o transporte e a preservação"
+    textos:
+      - texto: "Todos têm direito ao meio ambiente ecologicamente equilibrado, bem de uso comum do povo e essencial à sadia qualidade de vida, impondo-se ao poder público e à coletividade o dever de defendê-lo e preservá-lo para as presentes e futuras gerações."
+        lei: "CF, art. 225, caput"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+      - texto: "Os órgãos e entidades de trânsito [...] darão prioridade em suas ações à defesa da vida, nela incluída a preservação da saúde e do meio-ambiente."
+        lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+
+  - data: "2027-04-17"
+    tema: "Os direitos humanos e a atuação da Polícia Rodoviária Federal"
+    origem: "tema proposto pelo Claude"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos direitos humanos na atuação da Polícia Rodoviária Federal. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância do respeito aos direitos humanos na atividade policial; 2 os limites legais da abordagem e do uso da força pelo policial rodoviário federal; 3 a relação entre o respeito aos direitos e a confiança da sociedade na polícia."
+    quesitos:
+      - "2.1 A importância dos direitos humanos na atividade policial"
+      - "2.2 Os limites legais da abordagem e do uso da força"
+      - "2.3 O respeito aos direitos e a confiança da sociedade na polícia"
+    textos:
+      - texto: "A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado democrático de direito e tem como fundamentos: [...] III - a dignidade da pessoa humana;"
+        lei: "CF, art. 1º, caput e III"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+      - texto: "Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade, nos termos seguintes: [...] III - ninguém será submetido a tortura nem a tratamento desumano ou degradante;"
+        lei: "CF, art. 5º, caput e III"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+
+  - data: "2027-04-24"
+    tema: "Pedestres, ciclistas e motociclistas: os mais vulneráveis nas rodovias"
+    origem: "tema proposto pelo Claude"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da segurança de pedestres, ciclistas e motociclistas nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os motivos que tornam pedestres, ciclistas e motociclistas os usuários mais expostos nas rodovias; 2 a responsabilidade dos condutores de veículos maiores pela segurança dos menores e dos pedestres; 3 ações de fiscalização e de educação para proteger esses usuários."
+    quesitos:
+      - "2.1 Por que pedestres, ciclistas e motociclistas são os mais expostos"
+      - "2.2 A responsabilidade dos veículos maiores pela segurança dos menores"
+      - "2.3 Ações de fiscalização e de educação"
+    textos:
+      - texto: "Respeitadas as normas de circulação e conduta estabelecidas neste artigo, em ordem decrescente, os veículos de maior porte serão sempre responsáveis pela segurança dos menores, os motorizados pelos não motorizados e, juntos, pela incolumidade dos pedestres."
+        lei: "Código de Trânsito Brasileiro, art. 29, § 2º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 26 nov. 2026
+      - texto: "Os condutores de motocicletas, motonetas e ciclomotores só poderão circular nas vias: I - utilizando capacete de segurança, com viseira ou óculos protetores; II - segurando o guidom com as duas mãos; III - usando vestuário de proteção, de acordo com as especificações do CONTRAN."
+        lei: "Código de Trânsito Brasileiro, art. 54"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 26 nov. 2026
 
 # As discursivas que a propria PRF ja deu, com o padrao de resposta definitivo
 # (os links sao os de docs/aprovados_prf.md, abertos em 25/11/2026).
