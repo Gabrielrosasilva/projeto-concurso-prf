@@ -384,6 +384,9 @@ Regras:
   inteiro, sem ambiguidade;
 - NAO copie nem reescreva os itens de exemplo: eles mostram o estilo, e alguns
   ainda vou fazer como questao real;
+- se o pedido tem `ja_escritos`, esses itens JA EXISTEM e eu ja fiz ou vou
+  fazer: NAO repita nenhum, nem com outras palavras. Escreva sobre outro
+  detalhe da mesma norma, ou o mesmo detalhe numa situacao nova;
 - em cada item:
     "enunciado":  o item inteiro (com a situacao, se houver);
     "resposta":   "c" (certo) ou "e" (errado);

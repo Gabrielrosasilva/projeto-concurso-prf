@@ -16,14 +16,14 @@
     {% elif p.gabarito %}
       <span class="ds-explica__gabarito">Gabarito: {{ p.gabarito }})</span>
     {% endif %}
-    {{ selo(p.origem_do_gabarito, 'Gabarito definitivo' if p.origem_do_gabarito == 'oficial' else 'Gabarito a verificar') }}
+    {{ selo(p.origem_do_gabarito, 'Gabarito da IA' if p.gerada else ('Gabarito definitivo' if p.origem_do_gabarito == 'oficial' else 'Gabarito a verificar')) }}
   </header>
 
   {% if e %}<p class="ds-explica__texto">{{ e.veredito }}</p>{% endif %}
 
   {% if p.no or (e and e.o_que_cobra) %}
   <div class="ds-explica__parte">
-    <h3>📚 O que essa questão cobra {% if p.no %}{{ selo('classificacao', 'Classificação') }}{% endif %}</h3>
+    <h3>📚 O que essa questão cobra {% if p.no %}{{ selo('ia', 'Tema da aula') if p.gerada else selo('classificacao', 'Classificação') }}{% endif %}</h3>
     {% if p.no %}
       <p class="ds-explica__no" title="{{ p.no }}">{{ p.caminho_curto | join(' › ') or p.no }}{% if p.no_pendente %} <span class="ds-suave">(classificação pendente: confira na Conferência)</span>{% endif %}</p>
     {% endif %}
@@ -35,7 +35,9 @@
   {% set dispositivo = p.dispositivo_a_mostrar %}
   {% if dispositivo or (e and e.trecho_da_lei) or p.lei %}
   <div class="ds-explica__parte">
-    <h3>📜 O que a lei diz</h3>
+    {# Na gerada, o artigo e o que a IA disse usar: pode ser lei, conceito ou
+       formula, e ninguem conferiu (PRF-48). #}
+    <h3>{{ '📖 Em que a IA se apoia' if p.gerada else '📜 O que a lei diz' }}</h3>
     {% if dispositivo %}<p><b>{{ dispositivo }}</b></p>{% endif %}
     {% if e and e.trecho_da_lei %}
       <blockquote class="ds-explica__lei">“{{ e.trecho_da_lei }}”</blockquote>
@@ -63,9 +65,11 @@
   {% for m in p.mudancas %}<div class="ds-explica__parte">{{ aviso_lei(m) }}</div>{% endfor %}
 
   <footer class="ds-explica__rodape">
-    {{ selo('ia', 'Explicação (IA)' if e else 'Classificação (IA)') }}
+    {{ selo('ia', 'Explicação (IA)' if e else ('Questão de IA' if p.gerada else 'Classificação (IA)')) }}
     {% if e %}
       <span>{{ e.procedencia }} · Fonte citada: {{ e.fonte }} · confira na fonte antes de confiar</span>
+    {% elif p.gerada %}
+      <span>A IA que escreveu esta questão não deixou explicação: só o artigo em que diz se apoiar.</span>
     {% else %}
       <span>Explicação ainda não pedida. O nó e a pegadinha vêm da classificação. Para a explicação: <code>radar gerar --pedido --explicacoes</code>.</span>
     {% endif %}

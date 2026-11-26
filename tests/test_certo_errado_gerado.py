@@ -195,7 +195,8 @@ def test_a_rodada_da_faixa_traz_o_certo_errado_antes_da_multipla_escolha(banco_t
 
 def test_o_apoio_do_item_so_aparece_depois_da_resposta(lote, tmp_path):
     # PRF-43: no C/E sem lei o `artigo` ("Bioma Pampa: so no RS") entrega o
-    # gabarito; ele vem com o "Por que, segundo a IA", depois de responder.
+    # gabarito; ele vem depois de responder, no painel da explicacao - o mesmo
+    # desenho da questao real (PRF-48), com o gabarito e o apoio da IA.
     from fastapi.testclient import TestClient
     from radar.web.app import app
 
@@ -209,7 +210,9 @@ def test_o_apoio_do_item_so_aparece_depois_da_resposta(lote, tmp_path):
     assert "CNH vencida há mais de 30 dias" not in antes
     cliente.post(f"/simulado/{rodada.id}/responder", data={"questao_id": qid, "letra": "c"})
     depois = cliente.get(f"/simulado/{rodada.id}?ver={qid}").text
-    assert "CNH vencida há mais de 30 dias" in depois and "segundo a IA" in depois
+    assert "CNH vencida há mais de 30 dias" in depois
+    assert 'class="ds-explica' in depois and "Em que a IA se apoia" in depois
+    assert "O item está CERTO" in depois and "Gabarito da IA" in depois
 
 
 @pytest.mark.parametrize("fonte, serve", [

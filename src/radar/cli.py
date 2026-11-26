@@ -1006,6 +1006,12 @@ def gerar(
         None, "--tema",
         help="Com --certo-errado: só a aula deste título. Repetível",
     ),
+    novas: int = typer.Option(
+        None, "--novas",
+        help="Com --certo-errado, no lugar de --ate: completa cada aula até este "
+             "número de itens da IA que eu ainda NÃO fiz (o botão IA da faixa "
+             "não repete; 50 é o mínimo). O pedido leva os já escritos, para não repetir",
+    ),
 ) -> None:
     """Escreve questoes novas com a IA, para TREINAR.
 
@@ -1044,7 +1050,7 @@ def gerar(
         return
 
     if pedido and certo_errado:
-        _salvar_pedido_de_certo_errado(materia, ate, tema or None)
+        _salvar_pedido_de_certo_errado(materia, ate, tema or None, novas)
         return
 
     escopo = _escopo_do_pedido(materia, assunto, subassunto, elemento)
@@ -1312,27 +1318,43 @@ def _salvar_pedido_da_ia(materia: str | None, quantas: int, macetes: bool,
 
 
 def _salvar_pedido_de_certo_errado(materia: str | None, ate: int,
-                                   temas: list[str] | None) -> None:
-    """O `--pedido --certo-errado` (PRF-40): um pedido por aula da materia."""
+                                   temas: list[str] | None,
+                                   novas: int | None = None) -> None:
+    """O `--pedido --certo-errado` (PRF-40): um pedido por aula da materia.
+    Com `--novas` (PRF-48), a conta e dos itens da IA que eu ainda nao fiz."""
     if not materia:
         console.print("[red]Diga a matéria[/] (--materia): um lote por matéria, "
                       "na ordem das aulas do cronograma.")
         raise typer.Exit(code=1)
-    lote = servico.manual.pedido_de_certo_errado(materia, ate, temas)
+    if novas is not None and novas < 1:
+        console.print("[red]--novas precisa ser 1 ou mais.[/]")
+        raise typer.Exit(code=1)
+    lote = servico.manual.pedido_de_certo_errado(materia, ate, temas, novas)
+    for titulo in lote["sem_aula"]:
+        console.print(f"[red]Não achei a aula[/] {escape(titulo)!r} em {escape(materia)}: "
+                      "o --tema é o título da aula de teoria no cronograma.")
     for titulo in lote["sem_ficha"]:
         console.print(f"[yellow]Sem ficha, fica de fora:[/] {escape(titulo)}")
     if not lote["pedidos"]:
-        console.print(f"[green]Toda aula de {escape(materia)} já tem {ate} itens "
-                      "de treino.[/] Nada a pedir.")
+        if lote["sem_aula"] and len(lote["sem_aula"]) == len(temas or []):
+            raise typer.Exit(code=1)
+        if novas is not None:
+            console.print(f"[green]Toda aula pedida de {escape(materia)} já tem {novas} "
+                          "itens da IA que você ainda não fez.[/] Nada a pedir.")
+        else:
+            console.print(f"[green]Toda aula de {escape(materia)} já tem {ate} itens "
+                          "de treino.[/] Nada a pedir.")
         return
     destino = servico.manual.salvar_pedido(lote)
     total = sum(p["quantas"] for p in lote["pedidos"])
     console.print(f"[green]{len(lote['pedidos'])} aula(s), {total} item(ns) de "
                   f"Certo/Errado a escrever[/] em {destino}")
     for p in lote["pedidos"]:
+        nao_fiz = (f", que você não fez {p['geradas_que_nao_fiz']}"
+                   if "geradas_que_nao_fiz" in p else "")
         console.print(f"  [dim]{p['data_da_aula']}[/]  {p['quantas']:3d}  "
-                      f"[dim](reais {p['reais_de_treino']}, geradas {p['geradas_que_ja_tem']})[/]"
-                      f"  {escape(p['tema'])}")
+                      f"[dim](reais {p['reais_de_treino']}, geradas {p['geradas_que_ja_tem']}"
+                      f"{nao_fiz})[/]  {escape(p['tema'])}")
     console.print(f"[dim]Lote {lote['lote']}. Nada foi gasto.[/]")
     console.print(
         "Responda pelo Claude Code: peça para ele ler o arquivo e seguir o "

@@ -882,6 +882,37 @@ def _aulas(materia: str, temas: list[str] | None = None):
     return aulas
 
 
+def titulos_das_aulas() -> set[tuple[str, str]]:
+    """{(materia, titulo)} das aulas de teoria do cronograma, pelo mesmo
+    criterio do `_aulas`: e por elas que o pedido de Certo/Errado sai (a faixa
+    so mostra o comando do tema que tem aula, PRF-48)."""
+    from radar import cronograma as plano_de_estudo
+
+    return {(faixa.materia, faixa.titulo)
+            for dia in plano_de_estudo.carregar().dias for faixa in dia.manha
+            if faixa.tipo == "teoria"}
+
+
+def _geradas_de_certo_errado_por_id(nos: list[str]) -> dict[int, str]:
+    """{id: enunciado} das geradas de Certo/Errado valendo dentro dos nos."""
+    from sqlalchemy import select
+
+    from radar.conteudos import SEPARADOR
+    from radar.models import QuestaoGerada
+
+    criar_tabelas()
+    with sessao() as s:
+        linhas = s.execute(
+            select(QuestaoGerada.id, QuestaoGerada.conteudo, QuestaoGerada.alternativas,
+                   QuestaoGerada.enunciado)
+            .where(QuestaoGerada.rejeitada.is_(False))
+            .where(QuestaoGerada.resposta.is_not(None))
+            .where(QuestaoGerada.conteudo.is_not(None))).all()
+    return {i: enunciado for i, conteudo, alternativas, enunciado in linhas
+            if questoes_certo_errado.e_certo_errado(alternativas)
+            and any(conteudo == n or conteudo.startswith(n + SEPARADOR) for n in nos)}
+
+
 def _geradas_de_certo_errado(nos: list[str]) -> int:
     """Quantas geradas de Certo/Errado ja valem dentro dos nos (nao rejeitada,
     com resposta): sao as que a faixa ja tem para sortear."""
@@ -903,7 +934,8 @@ def _geradas_de_certo_errado(nos: list[str]) -> int:
 
 
 def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
-                           temas: list[str] | None = None) -> dict:
+                           temas: list[str] | None = None,
+                           novas: int | None = None) -> dict:
     """Um pedido por aula da materia que tem menos de `ate` itens de treino.
 
     Os itens de treino sao os reais de Certo/Errado do complementar dentro dos
@@ -911,24 +943,37 @@ def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
     geradas de Certo/Errado que ja estao la. Aula sem ficha fica de fora: sem
     os nos dela, nao ha como fechar o escopo. A prova da PRF (o alvo) nao vai
     de exemplo: e ela que mede, e item variado dela treinaria a resposta.
+
+    Com `novas` (PRF-48), a conta e outra: completa a aula ate `novas` geradas
+    que eu NUNCA fiz - e o botao "IA" da faixa, que nao repete. Ai o pedido
+    leva as geradas que ja existem (`ja_escritos`), para a IA nao repetir.
     """
     from radar import fichas as fichas_puras
     from radar import textos_de_lei
     from radar.servico import certo_errado
     from radar.servico import fichas as servico_fichas
+    from radar.servico import metricas
 
     escritas = servico_fichas.carregar()
+    ja_fiz = set(metricas.ultimas_das_geradas()) if novas is not None else set()
     textos: dict[str, dict] = {}
     pedidos, sem_ficha = [], []
-    for data, faixa in _aulas(materia, temas):
+    aulas = _aulas(materia, temas)
+    for data, faixa in aulas:
         escrita = fichas_puras.da_faixa(faixa, escritas)
         if escrita is None or not escrita.nos:
             sem_ficha.append(faixa.titulo)
             continue
         nos = list(escrita.nos)
         reais = certo_errado.do_tema(nos)
-        ja = _geradas_de_certo_errado(nos)
-        quantas = ate - len(reais) - ja
+        ja_escritos = {}
+        if novas is None:
+            ja = _geradas_de_certo_errado(nos)
+            quantas = ate - len(reais) - ja
+        else:
+            ja_escritos = _geradas_de_certo_errado_por_id(nos)
+            ja = sum(1 for i in ja_escritos if i not in ja_fiz)
+            quantas = novas - ja
         if quantas <= 0:
             continue
 
@@ -971,14 +1016,25 @@ def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
             "base": "fonte_oficial" if ids else "item_do_edital",
             "evidencia_da_base": "nenhuma",
             "niveis": None,
-            "reais_de_treino": len(reais), "geradas_que_ja_tem": ja,
+            "reais_de_treino": len(reais),
+            "geradas_que_ja_tem": len(ja_escritos) if novas is not None else ja,
+            **({"geradas_que_nao_fiz": ja} if novas is not None else {}),
             "textos_da_lei_do_pedido": ids,
             "exemplos": exemplos,
+            # Os itens que a IA ja escreveu para a aula: o pedido e de itens
+            # NOVOS, e a instrucao manda nao repetir nenhum (PRF-48).
+            **({"ja_escritos": sorted(ja_escritos.values())} if ja_escritos else {}),
             "instrucao": gerador.INSTRUCAO_CERTO_ERRADO, "pedido": corpo,
         })
     lote = _novo_lote("certo_errado", pedidos)
     lote["ate"] = ate
+    if novas is not None:
+        lote["novas"] = novas
     lote["sem_ficha"] = sem_ficha
+    # O titulo pedido que nao e aula de teoria da materia (a faixa so mostra o
+    # comando do tema que tem aula; o terminal avisa o resto).
+    achadas = {faixa.titulo for _data, faixa in aulas}
+    lote["sem_aula"] = [t for t in (temas or []) if t not in achadas]
     if textos:
         lote["textos_da_lei"] = textos
     return lote

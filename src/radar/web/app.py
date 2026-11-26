@@ -220,6 +220,8 @@ templates.env.globals["codigo_citavel"] = fichas_puras.codigo_citavel
 templates.env.globals["COMANDO_DE_IMPORTAR"] = fichas_puras.COMANDO_DE_IMPORTAR
 templates.env.globals["AVISO_DO_PEDIDO"] = fichas_puras.AVISO_DO_PEDIDO
 templates.env.globals["TROQUE_O_NIVEL"] = fichas_puras.TROQUE_O_NIVEL
+# O minimo de itens novos da IA por tema (PRF-48), na frase do pedido.
+templates.env.globals["MINIMO_DE_CERTO_ERRADO_DA_IA"] = servico.geradas.MINIMO_DE_CERTO_ERRADO_DA_IA
 # As opcoes dos seletores de nivel, na ordem: a misturada primeiro (o padrao).
 templates.env.globals["OPCOES_DE_NIVEL"] = [(c, niveis.rotulo(c)) for c in niveis.OPCOES]
 templates.env.globals["PARTES_DO_RESUMO"] = fichas_puras.PARTES_DO_RESUMO
@@ -869,6 +871,9 @@ def simulado_questao(request: Request, simulado_id: int, ver: int | None = None)
                 # Quanto do estoque de geradas dos nos eu ja fiz, e o pedido
                 # de mais quando esta acabando (decisao 142).
                 "estoque": servico.geradas.estoque_da_rodada(simulado) if de_ia else [],
+                # A rodada do botao "IA" (PRF-48): o Certo/Errado que resta, e
+                # o comando de gerar mais.
+                "ia_certo_errado": servico.geradas.ia_da_rodada(simulado) if de_ia else None,
                 # O "so havia N" e o acerto por nivel (decisao 151): as contas
                 # sao do servico; o template so desenha.
                 "falta": servico.geradas.falta_da_rodada(simulado) if de_ia else None,
@@ -946,7 +951,9 @@ def revisao_do_simulado(request: Request, simulado_id: int, q: int | None = None
     item = revisao.itens[posicao - 1]
     respondida = servico.questao_respondida(simulado_id, item.questao_id)
     questao = respondida[1] if respondida else None
-    painel = (None if item.gerada or questao is None
+    # A gerada tem o mesmo painel, com o que a IA escreveu (PRF-48).
+    painel = (None if questao is None
+              else servico.explicacoes.painel_da_gerada(questao) if item.gerada
               else servico.explicacoes.painel(questao))
     chave = f"{item.prova_url}#{item.numero}"
     return templates.TemplateResponse(
@@ -1003,8 +1010,10 @@ def _questao_corrigida(request: Request, simulado, resumo: dict, de_ia: bool,
             "origem": servico.geradas.origem_de(questao) if gerada else None,
             "lei": (leis.do_assunto(questao.materia, questao.assunto) if gerada
                     else leis.da_materia(questao.materia)),
-            # O painel depois da resposta (PRF-31), aberto no acerto e no erro.
-            "painel": None if gerada else servico.explicacoes.painel(questao),
+            # O painel depois da resposta (PRF-31), aberto no acerto e no erro;
+            # a gerada no mesmo desenho, com o que a IA escreveu (PRF-48).
+            "painel": (servico.explicacoes.painel_da_gerada(questao) if gerada
+                       else servico.explicacoes.painel(questao)),
             "macetes": [] if gerada else _macetes_por_questao().get(chave, []),
             # A lei que mudou depois da prova (decisao 171): so depois da
             # resposta, como o gabarito (decisao 148). A questao de outra banca
@@ -1267,9 +1276,13 @@ def geradas_treinar(
     materia: str = Form(""), conteudo: str = Form(""), quantidade: str = Form("5"),
     data: str = Form(""), bloco: str = Form(""), indice: str = Form(""),
     titulo: str = Form(""), conteudos: list[str] = Form([]),
-    nivel: str = Form(niveis.MISTURADA),
+    nivel: str = Form(niveis.MISTURADA), so_certo_errado: str = Form(""),
 ):
     """Uma rodada com o que ja foi gerado antes. Nao gasta nada.
+
+    `so_certo_errado` e o botao "IA" da faixa (PRF-48): so o Certo/Errado do
+    Cebraspe, e so o que eu nunca fiz. Sem nenhum, volta para a faixa, que ja
+    diz que acabou e da o comando de gerar mais.
 
     `conteudo` e o no da arvore - materia, assunto ou subassunto - e pega
     tudo que esta abaixo dele; `materia` continua valendo para quem ja
@@ -1293,12 +1306,17 @@ def geradas_treinar(
 
     nivel = nivel if nivel in niveis.OPCOES else niveis.MISTURADA
     nos = [c.strip() for c in conteudos if c.strip()]
+    do_botao_ia = bool(so_certo_errado)
     rodada = servico.geradas.criar_simulado(
         quantidade=quantas, materia=materia.strip() or None,
         conteudo=conteudo.strip() or None, da_faixa=da_faixa,
         conteudos=nos or None, nivel=nivel,
+        so_certo_errado=do_botao_ia, sem_repetir=do_botao_ia,
     )
     if rodada is None:
+        if do_botao_ia:
+            return RedirectResponse(f"/hoje?data={dia.isoformat()}" if dia else "/hoje",
+                                    status_code=303)
         if nivel in niveis.NIVEIS:
             # Nenhuma daquele nivel: nunca completa com outro (decisao 151).
             nos = nos or [n for n in (conteudo.strip(), materia.strip()) if n][:1]
@@ -1313,10 +1331,12 @@ def geradas_treinar(
 def fepese_treinar(
     conteudos: list[str] = Form([]), quantidade: str = Form("10"),
     data: str = Form(""), bloco: str = Form(""), indice: str = Form(""),
-    titulo: str = Form(""),
+    titulo: str = Form(""), so_certo_errado: str = Form(""),
 ):
     """O "Gerar questao real" da faixa (decisao 167): as questoes reais da
-    FEPESE do tema, sem as que a rodada que mede ainda vai usar."""
+    FEPESE do tema, sem as que a rodada que mede ainda vai usar e sem as que
+    eu ja fiz (PRF-48). Com `so_certo_errado`, o botao "Certo ou Errado": so
+    os itens de Certo/Errado, para responder (antes, uma lista com o gabarito)."""
     quantas = converter_valor(quantidade)
     quantas = int(quantas) if quantas and 1 <= quantas <= 30 else 10
     try:
@@ -1329,7 +1349,8 @@ def fepese_treinar(
                     "indice": int(indice), "titulo": titulo}
     nos = [c.strip() for c in conteudos if c.strip()]
     rodada = servico.fepese_no_radar.criar_rodada(
-        nos, quantas, dia or servico.cronograma.hoje_local(), da_faixa)
+        nos, quantas, dia or servico.cronograma.hoje_local(), da_faixa,
+        so_certo_errado=bool(so_certo_errado))
     if rodada is None:
         destino = f"/hoje?data={dia.isoformat()}" if dia else "/hoje"
         return RedirectResponse(destino, status_code=303)
@@ -1605,9 +1626,10 @@ def _pagina_de_hoje(request: Request, data: str | None, erro: str | None = None,
             # so a faixa cujo tema tem alguma ganha a linha.
             "outras_bancas_das_faixas": servico.outras_bancas.das_faixas(
                 geradas_das_faixas, pedidas),
-            # Os itens de Certo/Errado dos mesmos nos, so para conferir o
-            # assunto (decisao PMSC-19): um link, nada gravado.
-            "certo_errado_das_faixas": servico.certo_errado.das_faixas(geradas_das_faixas),
+            # O botao "IA" (PRF-48): so o Certo/Errado da IA que eu nunca fiz,
+            # e o pedido de mais quando faltam. O "Certo ou Errado" real vem
+            # no `fepese_das_faixas` (os itens que eu nunca fiz).
+            "ia_das_faixas": servico.geradas.ia_das_faixas(geradas_das_faixas),
             # O que ja foi respondido no radar em rodada aberta pela faixa:
             # conta sozinho no "Fiz hoje", e a faixa avisa para nao anotar de novo.
             "respondidas_no_radar": respondidas_no_radar,

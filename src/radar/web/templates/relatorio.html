@@ -40,6 +40,7 @@
 {% from "_topo.html" import barra with context %}
 {% from "_componentes.html" import selo %}
 {% from "_falta_de_geradas.html" import falta_de_geradas %}
+{% from "_certo_errado_da_ia.html" import certo_errado_da_ia %}
 {{ barra('estudar') }}
 
 {# Os numeros vem prontos do servico.metricas: o template so mostra. #}
@@ -101,16 +102,17 @@
         <span>{{ selo(g.origem, curto=True) }} <b>Geradas:</b> {{ g.acertos }} de {{ g.respondidas }}{% if g.respondidas %} ({{ '%.0f'|format(g.porcentagem) }}%){% endif %}</span>
       </div>
       <p class="ds-pequeno" style="margin-bottom:0">Entraram geradas onde o radar não tem questão real: o acerto delas é treino e fica separado do das reais.</p>
-    {% elif resumo.nota %}
+    {% elif resumo.nota or resumo.nota_ia %}
       {# O Certo/Errado do Cebraspe (PRF-28): a nota liquida no lugar do
          acerto, e o acerto bruto ao lado, nunca no lugar. A conta e do
-         servico (metricas.NotaLiquida); aqui so se desenha. #}
-      {% set n = resumo.nota %}
+         servico (metricas.NotaLiquida); aqui so se desenha. Na rodada so de
+         geradas e a nota delas (PRF-48): treina, e nao soma com a das reais. #}
+      {% set n = resumo.nota or resumo.nota_ia %}
       <div class="nota">
         <span class="valor {{ 'bom' if n.porcentagem >= 50 else 'ruim' }}">{{ n.nota }}</span>
         <span>de {{ n.itens }} na nota líquida ({{ n.porcentagem }}%): {{ n.certos }} certos − {{ n.errados }} errados, {{ n.em_branco }} em branco · acerto bruto {{ n.bruto }}%</span>
       </div>
-      <p class="ds-pequeno" style="margin-bottom:0">Como no Cebraspe: a certa vale +1, a errada −1 e a em branco 0 (edital PRF 2021, item 9.12.2).{% if n.frase_dos_chutes() %} {{ n.frase_dos_chutes() }}: em branco, esses itens teriam dado 0.{% endif %}</p>
+      <p class="ds-pequeno" style="margin-bottom:0">Como no Cebraspe: a certa vale +1, a errada −1 e a em branco 0 (edital PRF 2021, item 9.12.2).{% if n.frase_dos_chutes() %} {{ n.frase_dos_chutes() }}: em branco, esses itens teriam dado 0.{% endif %}{% if not resumo.nota %} Itens escritos por IA: a nota treina, e nunca se soma à das questões reais.{% endif %}</p>
       {% if resumo.multipla_escolha %}
         {% set me = resumo.multipla_escolha %}
         <p class="ds-pequeno" style="margin-bottom:0"><b>Múltipla escolha</b>, à parte e nunca somada à nota: {{ me.acertos }} de {{ me.respondidas }}{% if me.respondidas %} ({{ '%.0f'|format(me.porcentagem) }}%){% endif %}. Treina o conteúdo, mas não mede o padrão do Cebraspe.</p>
@@ -218,6 +220,12 @@
     </ol>
     <a class="ds-botao" href="/simulado/{{ simulado.id }}/revisao">Começar a revisão &rarr;</a>
   </section>
+  {% endif %}
+
+  {# A rodada do botao "IA" (PRF-48): quantos itens novos de Certo/Errado
+     restam no tema e, abaixo do minimo, o comando de gerar mais. #}
+  {% if ia_certo_errado %}
+    <div style="margin-top:var(--esp-4)">{{ certo_errado_da_ia(ia_certo_errado, aberto=not ia_certo_errado.novos) }}</div>
   {% endif %}
 
   {# O estoque de geradas dos nos desta rodada (decisao 142): o sorteio poe

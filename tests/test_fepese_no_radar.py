@@ -121,7 +121,8 @@ def test_o_resumo_conta_as_livres_as_reservadas_e_as_feitas(acervo):
                                       respondidas={tema[1].impressao})
     assert resumo.no_acervo == 4 and resumo.reservadas == 1
     assert resumo.disponiveis == 3 and resumo.feitas == 1 and resumo.novas == 2
-    assert resumo.sugeridas == 3
+    # O treino nao repete (PRF-48): o botao traz so as 2 novas.
+    assert resumo.sugeridas == 2
 
 
 # --- a tela --------------------------------------------------------------------

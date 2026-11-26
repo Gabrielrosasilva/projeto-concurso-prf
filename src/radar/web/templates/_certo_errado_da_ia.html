@@ -1,0 +1,24 @@
+{# O Certo/Errado da IA de um tema (PRF-48): quantos itens novos restam e,
+   abaixo do minimo, os 3 passos para gerar mais. O treino nao repete: sem
+   item novo, o botao "IA" nao traz nada, e e aqui que se diz isso. A frase e
+   o comando vem do servico (servico.geradas.CertoErradoDaIA); aqui so se
+   desenha. `aberto` abre o bloco (quando acabou); senao ele fica dobrado. #}
+{% from "_componentes.html" import selo %}
+{% macro certo_errado_da_ia(ia, aberto=false) %}
+{% if ia and ia.precisa_gerar %}
+<details class="ds-bloco ds-bloco--ia falta-de-geradas"{{ ' open' if aberto }}>
+  <summary>{{ selo('ia', curto=True) }} <b>{{ ia.frase }}</b></summary>
+  {% if ia.comando %}
+    <p class="ds-pequeno">Para a IA escrever mais itens de Certo/Errado deste tema (o pedido completa {{ MINIMO_DE_CERTO_ERRADO_DA_IA }} itens que você ainda não fez, e leva os já escritos para ela não repetir):</p>
+    <ol class="passos-de-gerar">
+      <li>No terminal:<br><code>{{ ia.comando }}</code></li>
+      <li>No Claude Code do VS Code: <code>"{{ PASSO_NO_CLAUDE_CODE }}"</code></li>
+      <li>No terminal: <code>{{ COMANDO_DE_IMPORTAR }}</code></li>
+    </ol>
+    <p class="ds-pequeno">{{ AVISO_DO_PEDIDO }}</p>
+  {% else %}
+    <p class="ds-pequeno">O pedido de Certo/Errado sai por aula de teoria do cronograma, e “{{ ia.tema }}” não é o título de uma aula: não há comando pronto para este tema.</p>
+  {% endif %}
+</details>
+{% endif %}
+{% endmacro %}

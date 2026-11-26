@@ -110,7 +110,12 @@
       {# Os numeros vem prontos do servico.metricas: o template so mostra. #}
       {% if na_hora and andamento.seguidas >= 3 %}<span class="fogo" title="Acertos seguidos">🔥 {{ andamento.seguidas }} seguidas</span> &middot;{% endif %}
       <span class="ds-numero">Questão {{ resposta.ordem }} de {{ resumo.total }}</span>
-      {% if na_hora and resumo.respondidas %}&middot; <span class="ds-numero">{{ resumo.acertos }} acerto{{ 's' if resumo.acertos != 1 }}</span>{% endif %}
+      {# No Certo/Errado, a nota liquida (PRF-48): a errada anula uma certa. #}
+      {% set nota_ce = resumo.nota or resumo.nota_ia %}
+      {% if na_hora and resumo.respondidas %}&middot;
+        {% if nota_ce %}<span class="ds-numero" title="Como no Cebraspe: a certa vale +1, a errada −1 e a em branco 0">nota {{ nota_ce.nota }} ({{ nota_ce.certos }} certo{{ 's' if nota_ce.certos != 1 }} − {{ nota_ce.errados }} errado{{ 's' if nota_ce.errados != 1 }}{% if nota_ce.em_branco %}, {{ nota_ce.em_branco }} em branco{% endif %})</span>
+        {% else %}<span class="ds-numero">{{ resumo.acertos }} acerto{{ 's' if resumo.acertos != 1 }}</span>{% endif %}
+      {% endif %}
     </span>
   </div>
   <ol class="bolinhas" aria-label="Andamento da rodada">
@@ -266,13 +271,10 @@
         {# Na questao real o aviso mora no painel (PRF-31). #}
         {% if not painel %}{% for mud in mudancas or [] %}{{ aviso_lei(mud) }}{% endfor %}{% endif %}
         {% if not resposta.gerada %}{{ aviso_gabarito(questao, depois=true) }}{% endif %}
-        {% if resposta.gerada %}
-          {# O porque do item de Certo/Errado gerado (PRF-40): so depois da
-             resposta, como o gabarito. #}
-          {% if questao.explicacao %}<p class="explicacao-ia"><b>Por quê, segundo a IA:</b> {{ questao.explicacao }}</p>{% endif %}
-          {% if questao.artigo %}<p class="ds-suave ds-pequeno">A IA disse se apoiar em {{ questao.artigo }}{% if lei %} · <a href="{{ lei.url }}" target="_blank" rel="noopener">ler a lei</a>{% endif %}.</p>{% endif %}
-        {% elif painel %}
-          {# O painel depois da resposta (PRF-31): aberto no acerto e no erro. #}
+        {# O painel depois da resposta (PRF-31): aberto no acerto e no erro. A
+           gerada usa o mesmo desenho, com o "por que" que a IA escreveu
+           (PRF-40, PRF-48). #}
+        {% if painel %}
           {{ painel_da_explicacao(painel, none if deixou_em_branco or resposta.chutou else resposta.acertou) }}
         {% endif %}
 

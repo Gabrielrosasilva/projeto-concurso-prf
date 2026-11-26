@@ -11,6 +11,7 @@ uma questao de Merendeira, que nao me serve.
 """
 import logging
 import random
+from dataclasses import dataclass
 
 from sqlalchemy import func, or_, select
 
@@ -956,17 +957,156 @@ def das_faixas(blocos, plano=None) -> dict:
             for chave, faixa, escrita in candidatas}
 
 
-def estoque_da_rodada(simulado) -> list:
-    """[fichas.GeradasDoNo] dos nos de uma rodada de geradas: quantas o no
-    tem, quantas eu ja fiz e, com metade ou todas feitas, o aviso e o pedido
-    para gerar mais (decisao 142). Vazio na rodada sem no (a das novas, a
-    so de materia): ali nao ha estoque a dizer."""
+# --- o botao "IA" da faixa: so o Certo/Errado, sem repetir (PRF-48) -------------
+#
+# O botao traz so os itens de Certo/Errado do Cebraspe que a IA escreveu para
+# os nos do tema, e so os que eu nunca fiz: o treino nao repete (repetir e do
+# simulado). Com menos de MINIMO_DE_CERTO_ERRADO_DA_IA novos, a faixa diz quantos
+# restam e da o pedido de mais - o mesmo `--pedido --certo-errado` da PRF-40,
+# por aula, contando so os que eu ainda nao fiz (`--novas`).
+
+#: Quantos itens novos (que eu nunca fiz) da IA cada tema deve ter: o pedido
+#: do Gabriel em 26/11/2026.
+MINIMO_DE_CERTO_ERRADO_DA_IA = 50
+
+
+def comando_de_gerar_certo_errado(materia: str, tema: str,
+                                  novas: int = MINIMO_DE_CERTO_ERRADO_DA_IA) -> str:
+    """O pedido de Certo/Errado de UMA aula, completando `novas` itens que eu
+    ainda nao fiz. A unica funcao que escreve este comando: a faixa e o
+    relatorio da rodada mostram o mesmo."""
+    from radar import fichas
+
+    return (f'{fichas.RADAR_NO_WINDOWS} gerar --pedido --certo-errado '
+            f'--materia "{materia}" --tema "{tema}" --novas {novas}')
+
+
+@dataclass(frozen=True)
+class CertoErradoDaIA:
+    """O Certo/Errado da IA de um tema: quantos ha nos nos dele, quantos eu
+    nunca fiz e, faltando, o pedido de mais."""
+
+    materia: str
+    tema: str
+    nos: tuple = ()
+    total: int = 0
+    novos: int = 0
+    #: O pedido e por aula de teoria do cronograma: sem aula com este titulo,
+    #: nao ha comando (a faixa diz isso).
+    tem_aula: bool = True
+
+    @property
+    def feitos(self) -> int:
+        return self.total - self.novos
+
+    @property
+    def precisa_gerar(self) -> bool:
+        return self.novos < MINIMO_DE_CERTO_ERRADO_DA_IA
+
+    @property
+    def comando(self) -> str | None:
+        if not (self.precisa_gerar and self.tem_aula):
+            return None
+        return comando_de_gerar_certo_errado(self.materia, self.tema)
+
+    @property
+    def frase(self) -> str:
+        minimo = MINIMO_DE_CERTO_ERRADO_DA_IA
+        if not self.total:
+            return "A IA ainda não escreveu itens de Certo/Errado deste tema."
+        if not self.novos:
+            return (f"Você já fez os {self.total} itens de Certo/Errado da IA deste tema. "
+                    "O treino não repete questão: para ter itens novos, é preciso gerar.")
+        if self.precisa_gerar:
+            return (f"Restam {self.novos} {'item novo' if self.novos == 1 else 'itens novos'} "
+                    f"da IA neste tema (você já fez {self.feitos}); o mínimo é {minimo}.")
+        return f"{self.novos} itens novos da IA neste tema (você já fez {self.feitos})."
+
+
+def _certo_errado_gerados() -> list[tuple[int, str]]:
+    """[(id, no)] de toda gerada de Certo/Errado valendo (nao rejeitada, com
+    resposta e com no)."""
+    criar_tabelas()
+    with sessao() as s:
+        linhas = s.execute(
+            select(QuestaoGerada.id, QuestaoGerada.conteudo, QuestaoGerada.alternativas)
+            .where(QuestaoGerada.rejeitada.is_(False))
+            .where(QuestaoGerada.resposta.is_not(None))
+            .where(QuestaoGerada.conteudo.is_not(None))).all()
+    return [(i, c) for i, c, alternativas in linhas if alternativas == ALTERNATIVAS_CE]
+
+
+def _contar_certo_errado(nos, gerados, ja_fiz) -> tuple[int, int]:
+    """(total, novos) dos gerados dentro dos nos. Um no dentro do outro nao
+    conta o mesmo item duas vezes."""
+    from radar.conteudos import SEPARADOR
+
+    dentro = {i for i, c in gerados
+              if any(c == no or c.startswith(no + SEPARADOR) for no in nos)}
+    return len(dentro), len(dentro - set(ja_fiz))
+
+
+def certo_errado_da_ia(materia: str, tema: str, nos) -> CertoErradoDaIA:
+    """O `CertoErradoDaIA` de um tema (o relatorio da rodada usa este)."""
+    from radar.servico import manual
+
+    nos = tuple(n for n in nos if n)
+    total, novos = _contar_certo_errado(nos, _certo_errado_gerados(),
+                                        metricas.ultimas_das_geradas())
+    return CertoErradoDaIA(materia=materia, tema=tema, nos=nos, total=total, novos=novos,
+                           tem_aula=(materia, tema) in manual.titulos_das_aulas())
+
+
+def ia_das_faixas(geradas_das_faixas: dict) -> dict:
+    """{(bloco, indice): CertoErradoDaIA} das faixas de treino com no. As
+    contas sao uma vez por tela, e nao uma por faixa."""
+    from radar.servico import manual
+
+    com_nos = {chave: gf for chave, gf in (geradas_das_faixas or {}).items()
+               if not gf.sem_no and gf.nos}
+    if not com_nos:
+        return {}
+    gerados = _certo_errado_gerados()
+    ja_fiz = metricas.ultimas_das_geradas()
+    aulas = manual.titulos_das_aulas()
+    saida = {}
+    for chave, gf in com_nos.items():
+        nos = tuple(n.no for n in gf.nos)
+        total, novos = _contar_certo_errado(nos, gerados, ja_fiz)
+        saida[chave] = CertoErradoDaIA(materia=gf.materia, tema=gf.tema, nos=nos,
+                                       total=total, novos=novos,
+                                       tem_aula=(gf.materia, gf.tema) in aulas)
+    return saida
+
+
+def ia_da_rodada(simulado) -> CertoErradoDaIA | None:
+    """O `CertoErradoDaIA` da rodada do botao "IA" (PRF-48), para o relatorio
+    dizer quantos itens novos restam e dar o comando. None nas outras."""
+    from radar import conteudos as arvore
     from radar import fichas
 
     filtros = simulado.filtros or {}
     nos = list(filtros.get("conteudos") or []) or (
         [filtros["conteudo"]] if filtros.get("conteudo") else [])
-    if not nos:
+    if not filtros.get("so_certo_errado") or not nos:
+        return None
+    materia = arvore.partes(nos[0])[0]
+    tema = fichas.tema_da_faixa((filtros.get("da_faixa") or {}).get("titulo"), materia)
+    return certo_errado_da_ia(materia, tema, nos)
+
+
+def estoque_da_rodada(simulado) -> list:
+    """[fichas.GeradasDoNo] dos nos de uma rodada de geradas: quantas o no
+    tem, quantas eu ja fiz e, com metade ou todas feitas, o aviso e o pedido
+    para gerar mais (decisao 142). Vazio na rodada sem no (a das novas, a
+    so de materia): ali nao ha estoque a dizer, e na do botao "IA", que tem o
+    dela (`ia_da_rodada`, PRF-48)."""
+    from radar import fichas
+
+    filtros = simulado.filtros or {}
+    nos = list(filtros.get("conteudos") or []) or (
+        [filtros["conteudo"]] if filtros.get("conteudo") else [])
+    if not nos or filtros.get("so_certo_errado"):
         return []
     return fichas.geradas_por_no(filtros.get("quantidade") or 0, nos,
                                  contagem_por_no(nos), metricas.geradas_feitas_por_no(nos))
@@ -1036,12 +1176,17 @@ def _sortear(
     impressoes: list[str] | None = None,
     conteudo: str | None = None,
     nivel: str | None = None,
+    so_certo_errado: bool = False,
+    sem_repetir: bool = False,
 ) -> list[int]:
     """Ids de questoes geradas que valem para o sorteio.
 
     Com um nivel (decisao 151), so as daquele nivel: a que esta sem nivel nao
     entra, e nada e completado com outro. A misturada (ou nenhum) nao filtra:
     traz todas, de qualquer nivel, inclusive as sem nivel.
+
+    `so_certo_errado` e `sem_repetir` sao o botao "IA" da faixa (PRF-48): so
+    o Certo/Errado do Cebraspe, e so o que eu nunca fiz - o treino nao repete.
     """
     from radar.conteudos import SEPARADOR
 
@@ -1069,6 +1214,11 @@ def _sortear(
 
     with sessao() as s:
         candidatas = list(s.scalars(consulta))
+    if so_certo_errado:
+        candidatas = [q for q in candidatas if q.alternativas == ALTERNATIVAS_CE]
+    if sem_repetir:
+        ja_fiz = metricas.ultimas_das_geradas()
+        candidatas = [q for q in candidatas if q.id not in ja_fiz]
 
     return [q.id for q in _na_ordem_de_treino(candidatas)[:quantidade]]
 
@@ -1100,7 +1250,8 @@ def _na_ordem_de_treino(candidatas: list[QuestaoGerada]) -> list[QuestaoGerada]:
 
 
 def _sortear_misturado(quantidade: int, conteudos: list[str],
-                       nivel: str | None = None) -> list[int]:
+                       nivel: str | None = None, so_certo_errado: bool = False,
+                       sem_repetir: bool = False) -> list[int]:
     """Ids de varios nos, divididos por igual e embaralhados no fim.
 
     O sorteio numa lista so traria quase tudo do no com mais geradas; aqui
@@ -1112,7 +1263,8 @@ def _sortear_misturado(quantidade: int, conteudos: list[str],
     eu nunca fiz; na segunda, o resto, na ordem de treino. Sem isso, o no que
     acabou o C/E daria a multipla escolha herdada enquanto o outro ainda tem.
     """
-    filas = [_sortear(quantidade, conteudo=c, nivel=nivel) for c in conteudos]
+    filas = [_sortear(quantidade, conteudo=c, nivel=nivel, so_certo_errado=so_certo_errado,
+                      sem_repetir=sem_repetir) for c in conteudos]
     primeiro = _certo_errado_nunca_feitas({i for fila in filas for i in fila})
     escolhidas: list[int] = []
     for vale in (lambda i: i in primeiro, lambda i: True):
@@ -1146,8 +1298,14 @@ def criar_simulado(
     da_faixa: dict | None = None,
     conteudos: list[str] | None = None,
     nivel: str = niveis.MISTURADA,
+    so_certo_errado: bool = False,
+    sem_repetir: bool = False,
 ) -> Simulado | None:
     """Uma rodada SO de questoes geradas, na mesma tela do simulado de sempre.
+
+    `so_certo_errado` e `sem_repetir` (PRF-48): o botao "IA" da faixa traz so
+    o Certo/Errado que eu nunca fiz; sem nenhum, nao ha rodada (None) e a
+    faixa diz que acabou, com o comando de gerar mais.
 
     Rodada so de geradas, e nunca misturada com as reais: assim o resultado
     daquela rodada ja e um dos dois numeros que a tela mostra separados, sem
@@ -1171,9 +1329,11 @@ def criar_simulado(
     filtro_do_nivel = None if nivel == niveis.MISTURADA else nivel
 
     if conteudos:
-        ids = _sortear_misturado(quantidade, conteudos, filtro_do_nivel)
+        ids = _sortear_misturado(quantidade, conteudos, filtro_do_nivel,
+                                 so_certo_errado, sem_repetir)
     else:
-        ids = _sortear(quantidade, materia, impressoes, conteudo, filtro_do_nivel)
+        ids = _sortear(quantidade, materia, impressoes, conteudo, filtro_do_nivel,
+                       so_certo_errado, sem_repetir)
         # O sorteio devolve na ordem de prioridade (as nunca feitas na
         # frente); na rodada, a ordem e embaralhada como sempre foi.
         random.shuffle(ids)
@@ -1189,10 +1349,15 @@ def criar_simulado(
             # E esta marca que a tela le para mostrar o selo no topo.
             "geradas": True,
             "nivel": nivel,
+            **({"so_certo_errado": True} if so_certo_errado else {}),
+            **({"sem_repetir": True} if sem_repetir else {}),
             # A rodada da tela "treinar" pede um numero; a das recem-geradas
             # (`impressoes`) leva as que nasceram, e nao falta nada.
+            # O botao "IA" ja pede so o que ha de novo, e o aviso de gerar
+            # mais dele e o da faixa (PRF-48), com o comando de Certo/Errado.
             **({"faltou": {"pedidas": quantidade, "havia": len(ids)}}
-               if len(ids) < quantidade and impressoes is None else {}),
+               if len(ids) < quantidade and impressoes is None and not so_certo_errado
+               else {}),
             **({"da_faixa": da_faixa} if da_faixa else {}),
         })
         s.add(simulado)

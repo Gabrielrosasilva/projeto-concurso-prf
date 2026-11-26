@@ -538,6 +538,7 @@
 
 {% from "_topo.html" import barra, abas_de_hoje with context %}
 {% from "_componentes.html" import selo %}
+{% from "_certo_errado_da_ia.html" import certo_errado_da_ia with context %}
 {% import "_resumo.html" as resumo_ui %}
 {{ barra('hoje') }}
 
@@ -1377,15 +1378,18 @@
                 {# Treinar no radar, num clique (decisao 180): a FEPESE, as outras
                    bancas e a IA lado a lado. O numero do botao e o que o clique
                    traz - o que falta da faixa (decisao 185) -, e quantas o tema
-                   tem fica na dica; escolher outro, e o nivel da IA, fica no "mais". #}
-                {% set ia_no_estoque = geradas_no_estoque(gf) %}
+                   tem fica na dica; escolher outro, e o nivel da IA, fica no "mais".
+                   O treino nao repete questao (PRF-48): cada botao traz so o que
+                   eu nunca fiz, e feitas todas ele fica em zero - repetir e do
+                   simulado. #}
+                {% set ia = ia_das_faixas.get((b.chave, indice_da_faixa_aqui)) if ia_das_faixas else none %}
                 {% set pd = pedidas_das_faixas.get((b.chave, indice_da_faixa_aqui)) if pedidas_das_faixas else none %}
                 {% set so_falta = ' · o que falta da faixa' if pd and pd.so_o_que_falta else '' %}
-                {% set ia_traz = [ia_no_estoque, (pd.quantas if pd else gf.questoes) or ia_no_estoque, 30] | min if gf else 0 %}
+                {% set ia_traz = [ia.novos, (pd.quantas if pd else gf.questoes) or ia.novos, 30] | min if ia else 0 %}
                 {% if fp or ob or gf %}
                   <div class="treinar-rapido">
                     <span class="rotulo">Treinar no radar:</span>
-                    {% if fp and fp.disponiveis %}
+                    {% if fp and fp.sugeridas %}
                       <form method="post" action="/fepese/treinar">
                         {% for no in fp.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
                         <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
@@ -1394,12 +1398,12 @@
                         <input type="hidden" name="titulo" value="{{ f.titulo }}">
                         <input type="hidden" name="quantidade" value="{{ fp.sugeridas }}">
                         <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
-                                title="Traz {{ fp.sugeridas }} questões reais da {{ banca_do_alvo() }}{{ so_falta }} · {{ fp.disponiveis }} deste tema no radar">{{ banca_do_alvo() }} · {{ fp.sugeridas }}</button>
+                                title="Traz {{ fp.sugeridas }} questões reais da {{ banca_do_alvo() }} que você nunca fez{{ so_falta }} · {{ fp.novas }} novas de {{ fp.disponiveis }} deste tema no radar">{{ banca_do_alvo() }} · {{ fp.sugeridas }}</button>
                       </form>
                     {% elif fp %}
-                      <span class="botao-vazio" title="{{ 'Guardadas para a rodada que mede' if fp.reservadas else 'O radar ainda não tem questão da ' ~ banca_do_alvo() ~ ' deste tema' }}">{{ banca_do_alvo() }} · 0</span>
+                      <span class="botao-vazio" title="{{ 'Você já fez as ' ~ fp.disponiveis ~ ' questões reais da ' ~ banca_do_alvo() ~ ' deste tema: o treino não repete (elas voltam no Simulado da semana)' if fp.disponiveis else ('Guardadas para a rodada que mede' if fp.reservadas else 'O radar ainda não tem questão da ' ~ banca_do_alvo() ~ ' deste tema') }}">{{ banca_do_alvo() }} · 0</span>
                     {% endif %}
-                    {% if ob and ob.no_acervo %}
+                    {% if ob and ob.sugeridas %}
                       <form method="post" action="/outras-bancas/treinar">
                         {% for no in ob.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
                         <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
@@ -1408,36 +1412,53 @@
                         <input type="hidden" name="titulo" value="{{ f.titulo }}">
                         <input type="hidden" name="quantidade" value="{{ ob.sugeridas }}">
                         <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
-                                title="Traz {{ ob.sugeridas }} questões reais de outras bancas{{ so_falta }} · {{ ob.no_acervo }} deste tema no radar ({{ ob.bancas | join(', ') }})">Outras bancas · {{ ob.sugeridas }}</button>
+                                title="Traz {{ ob.sugeridas }} questões reais de outras bancas que você nunca fez{{ so_falta }} · {{ ob.novas }} novas de {{ ob.no_acervo }} deste tema no radar ({{ ob.bancas | join(', ') }})">Outras bancas · {{ ob.sugeridas }}</button>
                       </form>
                     {% elif ob %}
-                      <span class="botao-vazio" title="Ainda não há questão de outra banca deste tema no radar">Outras bancas · 0</span>
+                      <span class="botao-vazio" title="{{ 'Você já fez as ' ~ ob.no_acervo ~ ' questões de outras bancas deste tema: o treino não repete' if ob.no_acervo else 'Ainda não há questão de outra banca deste tema no radar' }}">Outras bancas · 0</span>
                     {% endif %}
-                    {% if gf and not gf.sem_no %}
-                      {% if ia_no_estoque %}
+                    {# O botao "IA" (PRF-48): so o Certo/Errado do Cebraspe que a IA
+                       escreveu, e so o que eu nunca fiz. Sem item novo, o zero, e
+                       o aviso com o comando logo abaixo desta linha. #}
+                    {% if ia %}
+                      {% if ia_traz %}
                         <form method="post" action="/geradas/treinar">
-                          {% for n in gf.nos if n.geradas %}<input type="hidden" name="conteudos" value="{{ n.no }}">{% endfor %}
+                          {% for no in ia.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
                           <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
                           <input type="hidden" name="bloco" value="{{ b.chave }}">
                           <input type="hidden" name="indice" value="{{ indice_da_faixa_aqui }}">
                           <input type="hidden" name="titulo" value="{{ f.titulo }}">
                           <input type="hidden" name="quantidade" value="{{ ia_traz }}">
+                          <input type="hidden" name="so_certo_errado" value="1">
                           <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
-                                  title="Traz {{ ia_traz }} questões escritas pela IA{{ so_falta }}: só treinam, nível misturado · {{ ia_no_estoque }} deste tema no estoque">{{ selo('ia', curto=True) }} IA · {{ ia_traz }}</button>
+                                  title="Traz {{ ia_traz }} itens de Certo/Errado escritos pela IA que você nunca fez{{ so_falta }}: só treinam · {{ ia.novos }} novos de {{ ia.total }} deste tema">{{ selo('ia', curto=True) }} IA · {{ ia_traz }}</button>
                         </form>
                       {% else %}
-                        <span class="botao-vazio" title="Não há questão gerada deste tema: os 3 passos para pedir estão no “mais”">{{ selo('ia', curto=True) }} IA · 0</span>
+                        <span class="botao-vazio" title="{{ ia.frase }}">{{ selo('ia', curto=True) }} IA · 0</span>
                       {% endif %}
                     {% endif %}
-                    {# O Certo/Errado so confere o assunto (decisao PMSC-19): um
-                       link, e nao uma rodada - nada e gravado. So com item. #}
-                    {% set ce = certo_errado_das_faixas.get((b.chave, indice_da_faixa_aqui)) if certo_errado_das_faixas else none %}
-                    {% if ce and gf %}
-                      <a class="ds-botao ds-botao--secundario ds-botao--pequeno"
-                         href="/certo-errado?{% for n in gf.nos %}no={{ n.no | urlencode }}&amp;{% endfor %}titulo={{ f.titulo | urlencode }}"
-                         title="{{ ce }} itens reais de Certo/Errado deste tema, só para ver se está sabendo: nada é gravado">Certo ou Errado · {{ ce }}</a>
+                    {# O "Certo ou Errado" (PRF-48): os itens REAIS de Certo/Errado
+                       do Cebraspe deste tema que eu nunca fiz, para responder -
+                       antes era uma lista com o gabarito no clique. #}
+                    {% if fp and fp.certo_errado_sugeridos %}
+                      <form method="post" action="/fepese/treinar">
+                        {% for no in fp.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
+                        <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
+                        <input type="hidden" name="bloco" value="{{ b.chave }}">
+                        <input type="hidden" name="indice" value="{{ indice_da_faixa_aqui }}">
+                        <input type="hidden" name="titulo" value="{{ f.titulo }}">
+                        <input type="hidden" name="quantidade" value="{{ fp.certo_errado_sugeridos }}">
+                        <input type="hidden" name="so_certo_errado" value="1">
+                        <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno"
+                                title="Traz {{ fp.certo_errado_sugeridos }} itens reais de Certo/Errado do Cebraspe que você nunca fez{{ so_falta }} · {{ fp.certo_errado_novos }} novos de {{ fp.certo_errado }} deste tema">Certo ou Errado · {{ fp.certo_errado_sugeridos }}</button>
+                      </form>
+                    {% elif fp and fp.certo_errado %}
+                      <span class="botao-vazio" title="Você já fez os {{ fp.certo_errado }} itens reais de Certo/Errado deste tema: o treino não repete (eles voltam no Simulado da semana)">Certo ou Errado · 0</span>
                     {% endif %}
                   </div>
+                  {# Abaixo da linha: o Certo/Errado da IA acabando, com o comando
+                     de gerar mais (PRF-48). Aberto quando nao ha nenhum novo. #}
+                  {% if ia %}{{ certo_errado_da_ia(ia, aberto=not ia.novos) }}{% endif %}
                 {% endif %}
 
                 {# O sabado (decisao 70): a revisao semanal, o R+7 dos
@@ -1653,15 +1674,19 @@
                   <div class="composicao fepese-no-radar">
                     {% if fp.disponiveis %}
                       <p>{{ selo('prova', curto=True) }} <b>{{ fp.disponiveis }} {{ 'questão real' if fp.disponiveis == 1 else 'questões reais' }} da {{ banca_do_alvo() }}</b> deste tema no radar{% if fp.do_alvo %} ({{ fp.do_alvo }} das provas do cargo){% endif %}{% if fp.feitas %}; você já fez {{ fp.feitas }}{% endif %}.{% if fp.reservadas %} Outras {{ fp.reservadas }} ficam guardadas para a rodada que mede de {{ para_quando }}.{% endif %}</p>
+                      {% if not fp.novas %}
+                        <p class="sub">Você já fez todas: o treino não repete questão (elas voltam no Simulado da semana).</p>
+                      {% else %}
                       <form class="treinar-no-radar real" method="post" action="/fepese/treinar">
                         {% for no in fp.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
                         <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
                         <input type="hidden" name="bloco" value="{{ b.chave }}">
                         <input type="hidden" name="indice" value="{{ indice_da_fepese }}">
                         <input type="hidden" name="titulo" value="{{ f.titulo }}">
-                        <label><input type="number" name="quantidade" min="1" max="30" value="{{ fp.sugeridas }}" aria-label="Quantas questões reais da {{ banca_do_alvo() }}"> questões</label>
+                        <label><input type="number" name="quantidade" min="1" max="{{ [fp.novas, 30] | min }}" value="{{ fp.sugeridas }}" aria-label="Quantas questões reais da {{ banca_do_alvo() }}"> questões</label>
                         <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar questão real</button>
                       </form>
+                      {% endif %}
                     {% elif fp.reservadas %}
                       <p class="sub">{{ selo('prova', curto=True) }} As {{ fp.reservadas }} {{ 'questão' if fp.reservadas == 1 else 'questões' }} da {{ banca_do_alvo() }} deste tema ficam guardadas para a rodada que mede de {{ para_quando }}: o treino não as usa.</p>
                     {% else %}
@@ -1675,15 +1700,19 @@
                   <div class="composicao outras-bancas">
                     {% if ob.no_acervo %}
                       <p>{{ selo('prova', curto=True) }} <b>{{ ob.no_acervo }} {{ 'questão real' if ob.no_acervo == 1 else 'questões reais' }} de outras bancas</b> deste tema no radar ({{ ob.bancas | join(', ') }}){% if ob.feitas %}; você já fez {{ ob.feitas }}{% endif %}.</p>
+                      {% if not ob.novas %}
+                        <p class="sub">Você já fez todas: o treino não repete questão.</p>
+                      {% else %}
                       <form class="treinar-no-radar real" method="post" action="/outras-bancas/treinar">
                         {% for no in ob.nos %}<input type="hidden" name="conteudos" value="{{ no }}">{% endfor %}
                         <input type="hidden" name="data" value="{{ t.data.isoformat() }}">
                         <input type="hidden" name="bloco" value="{{ b.chave }}">
                         <input type="hidden" name="indice" value="{{ indice_de_outras }}">
                         <input type="hidden" name="titulo" value="{{ f.titulo }}">
-                        <label><input type="number" name="quantidade" min="1" max="30" value="{{ ob.sugeridas }}" aria-label="Quantas questões de outras bancas"> questões</label>
+                        <label><input type="number" name="quantidade" min="1" max="{{ [ob.novas, 30] | min }}" value="{{ ob.sugeridas }}" aria-label="Quantas questões de outras bancas"> questões</label>
                         <button type="submit" class="ds-botao ds-botao--secundario ds-botao--pequeno">Gerar questões outras bancas</button>
                       </form>
+                      {% endif %}
                     {% else %}
                       <p class="sub">{{ selo('prova', curto=True) }} Ainda não há questão de outra banca deste tema no radar.</p>
                     {% endif %}

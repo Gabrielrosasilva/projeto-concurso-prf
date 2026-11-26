@@ -202,6 +202,9 @@ class Painel:
     pegadinha: str | None = None
     lei: leis.Lei | None = None
     mudancas: list = field(default_factory=list)
+    #: A questao escrita por IA (PRF-48): o mesmo painel, mas o gabarito, o
+    #: no e o artigo sao os que a IA deu - nada conferido pela banca.
+    gerada: bool = False
 
     @property
     def caminho_do_no(self) -> list[str]:
@@ -260,3 +263,30 @@ def painel(questao, explicacoes=None) -> Painel:
             p.dispositivo = (classificacao["dispositivo"] or "").strip() or None
             p.pegadinha = (classificacao["pegadinha"] or "").strip() or None
     return p
+
+
+def painel_da_gerada(questao) -> Painel:
+    """O painel de uma questao GERADA (PRF-48), no mesmo desenho do da real.
+
+    A gerada nao tem classificacao nem explicacao em partes: o que ela tem e o
+    no em que a IA a escreveu, o artigo em que diz se apoiar e o "por que"
+    que a IA escreveu junto (PRF-40). Tudo leva o selo da IA - o gabarito
+    tambem, porque nenhuma banca o conferiu (regra 1 do CLAUDE.md)."""
+    alternativas = getattr(questao, "alternativas", None) or {}
+    ce = e_certo_errado(alternativas)
+    letra = (questao.resposta or "").lower()
+    texto = (getattr(questao, "explicacao", None) or "").strip()
+    artigo = (getattr(questao, "artigo", None) or "").strip() or None
+    explicacao = None
+    if texto:
+        criada = getattr(questao, "criada_em", None)
+        explicacao = Explicacao(
+            correta=letra, veredito=texto, fonte=artigo or "não citada",
+            modelo=questao.modelo or "modelo não registrado",
+            criado_em=criada.isoformat() if hasattr(criada, "isoformat") else str(criada or ""))
+    return Painel(
+        certo_errado=ce, gabarito=POR_EXTENSO.get(letra) if ce else (letra or None),
+        origem_do_gabarito=IA, explicacao=explicacao,
+        no=getattr(questao, "conteudo", None) or None, dispositivo=artigo,
+        lei=leis.do_assunto(questao.materia, getattr(questao, "assunto", None)),
+        gerada=True)

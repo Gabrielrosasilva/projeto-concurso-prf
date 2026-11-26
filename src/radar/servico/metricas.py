@@ -1297,6 +1297,15 @@ def ids_de_certo_errado(s, questao_ids) -> set[int]:
         if e_certo_errado(q.alternativas) and not q.anulada}
 
 
+def ids_de_certo_errado_gerados(s, questao_ids) -> set[int]:
+    """Das questoes geradas destes ids, as de Certo/Errado (PRF-48)."""
+    if not questao_ids:
+        return set()
+    return {q.id for q in s.scalars(
+        select(QuestaoGerada).where(QuestaoGerada.id.in_(list(questao_ids))))
+        if e_certo_errado(q.alternativas)}
+
+
 def respostas_de_certo_errado(s) -> list[RespostaDeSimulado]:
     """Toda resposta DADA a item real de Certo/Errado que mede (`so_treina`
     fora), na ordem em que dei: o historico inteiro, como a evolucao."""
@@ -1319,17 +1328,26 @@ def resumo_do_simulado(simulado_id: int) -> dict:
 
     Com item de Certo/Errado, a rodada tem a NOTA LIQUIDA deles (`nota`,
     PRF-28) e, ao lado e nunca somado, o acerto das reais de multipla escolha
-    (`multipla_escolha`): elas nao medem o padrao do Cebraspe (CLAUDE.md)."""
+    (`multipla_escolha`): elas nao medem o padrao do Cebraspe (CLAUDE.md).
+
+    O Certo/Errado gerado pela IA tem a nota liquida dele (`nota_ia`, PRF-48):
+    a errada tira um ponto como na prova, mas a conta e so das geradas, e
+    nunca se soma a das reais (regra 1 do CLAUDE.md)."""
     criar_tabelas()
     with sessao() as s:
         respostas = list(s.scalars(
             select(RespostaDeSimulado).where(RespostaDeSimulado.simulado_id == simulado_id)
         ))
         de_ce = ids_de_certo_errado(s, {r.questao_id for r in respostas if not r.gerada})
+        de_ce_ia = ids_de_certo_errado_gerados(s, {r.questao_id for r in respostas if r.gerada})
     respondidas, acertos = placar(respostas)
     no_chute = [r for r in respostas if r.escolhida is not None and r.chutou]
     do_ce = [r for r in respostas if not r.gerada and r.questao_id in de_ce]
+    do_ce_ia = [r for r in respostas if r.gerada and r.questao_id in de_ce_ia]
     de_multipla = [r for r in respostas if not r.gerada and r.questao_id not in de_ce]
+    if respostas and all(r.gerada for r in respostas):
+        # Na rodada so de geradas, a multipla escolha ao lado e a gerada.
+        de_multipla = [r for r in respostas if r.questao_id not in de_ce_ia]
     return {
         # O resultado da rodada de questao gerada leva o selo da IA.
         "origem": IA if any(r.gerada for r in respostas) else AUTOMATICO,
@@ -1351,8 +1369,12 @@ def resumo_do_simulado(simulado_id: int) -> dict:
         # O item de Certo/Errado deixado em branco (PRF-28): nem acerto nem erro.
         "em_branco": sum(1 for r in respostas if r.escolhida == EM_BRANCO),
         "nota": nota_liquida(do_ce) if do_ce else None,
+        # So na rodada so de geradas: na misturada (o Simulado da semana) as
+        # geradas ja tem o numero delas, separado (`placar_separado`).
+        "nota_ia": (nota_liquida(do_ce_ia)
+                    if do_ce_ia and all(r.gerada for r in respostas) else None),
         "multipla_escolha": (DesempenhoDaMateria("Múltipla escolha", *placar(de_multipla))
-                             if do_ce and de_multipla else None),
+                             if (do_ce or do_ce_ia) and de_multipla else None),
     }
 
 
