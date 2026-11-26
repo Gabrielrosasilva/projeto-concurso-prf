@@ -533,3 +533,56 @@ def test_o_titulo_da_parte_fecha_o_item_e_nao_vira_texto():
     assert itens[6].comando == "Acerca dos poderes, julgue os itens a seguir."
     # A instrucao da discursiva nao gruda no ultimo item.
     assert itens[6].afirmacao == "O poder de polícia é delegável."
+
+
+# --- PRF-46: os itens de espanhol do caderno de duas linguas ----------------
+
+def test_a_grade_do_espanhol_sai_da_cor_da_legenda(monkeypatch):
+    """O gabarito pinta cada grade de uma cor, e a legenda diz qual e a do
+    espanhol; a letra e a celula logo abaixo do numero (CBM/AL 2017)."""
+    textos = [(70, 543, "1"), (90, 543, "2"), (193, 543, "1"), (219, 543, "2"),
+              (69, 536, "C"), (90, 536, "E"), (193, 536, "E"), (219, 536, "C"),
+              (119, 472, "Língua Espanhola"), (124, 465, "Língua Inglesa")]
+    pintados = [(64, 535, 182, 549, "vermelho"), (182, 535, 311, 549, "azul"),
+                (79, 471, 105, 479, "vermelho"), (79, 464, 105, 472, "azul")]
+    monkeypatch.setattr(ce, "_celulas_e_cores", lambda caminho: (textos, pintados))
+    assert ce.grade_do_espanhol(None) == {1: "C", 2: "E"}
+    # Sem a cor na legenda (ABIN Oficial Tecnico), nao se adivinha.
+    sem_cor = [p[:4] + ("0.0",) if p[1] < 500 else p for p in pintados]
+    monkeypatch.setattr(ce, "_celulas_e_cores", lambda caminho: (textos, sem_cor))
+    assert ce.grade_do_espanhol(None) == {}
+
+
+CADERNO_COM_ESPANHOL = """Texto 1A1-I
+  El tráfico en la carretera aumentó en las vacaciones, y los conductores
+tuvieron que esperar mucho.
+De acuerdo con el texto, juzgue los siguientes ítems.
+1 El tráfico disminuyó en las vacaciones.
+2 Los conductores tuvieron que esperar.
+Texto 1A2-I
+  O farol da ilha acende quando a tarde cai.
+Com base no texto 1A2-I, julgue o item a seguir.
+3 O farol acende de manhã.
+"""
+GABARITO_COM_ESPANHOL = "1 C 2 E 3 E 1 E 2 C"
+
+
+def _com_espanhol(espanhol):
+    return {q.numero: q for q in ce.ler_caderno(
+        None, None, texto=CADERNO_COM_ESPANHOL, texto_do_gabarito=GABARITO_COM_ESPANHOL,
+        palavras=ce.vocabulario(CADERNO_COM_ESPANHOL), duas_linguas=True, espanhol=espanhol)}
+
+
+def test_com_a_grade_do_espanhol_os_itens_de_espanhol_voltam():
+    questoes = _com_espanhol({1: "E", 2: "C"})
+    assert sorted(questoes) == [1, 2, 3]
+    assert (questoes[1].resposta, questoes[2].resposta) == ("e", "c")
+    assert questoes[1].texto_base.startswith("El tráfico en la carretera")
+    assert _com_espanhol({}).keys() == {3}
+
+
+def test_o_primeiro_bloco_que_nao_e_espanhol_continua_fora():
+    # No caderno de teste de sempre, os itens 1 e 2 sao em portugues.
+    questoes = _questoes_de(texto_do_gabarito=DUAS_GRADES, duas_linguas=True,
+                            espanhol={1: "C", 2: "E"})
+    assert sorted(questoes) == [3, 4, 5, 7, 8]

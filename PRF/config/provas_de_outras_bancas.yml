@@ -3200,7 +3200,8 @@ provas:
   arquivo: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_oficial_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
   # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
-  # lingua ficam fora (PRF-32)
+  # lingua ficavam fora (PRF-32); os de espanhol voltaram, com a grade pela
+  # cor da legenda do gabarito (PRF-46). Os de ingles continuam fora.
   duas_linguas: true
   # fora: 22 ética do militar fora de serviço e na inatividade (ética militar
   # do estatuto, dúvida); 28-31 atualidades internacionais de 2017 (Estado
@@ -3215,6 +3216,7 @@ provas:
   # veio quebrada; 48-50 lógica proposicional (50 também com símbolos
   # corrompidos 'Qw(Q6P)')
   materias:
+    1-5: Língua Estrangeira (Inglês ou Espanhol)
     6-19: Língua Portuguesa
     20-21: Ética e Cidadania
     23-27: Direitos Humanos
@@ -3235,7 +3237,8 @@ provas:
   arquivo: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_prova.pdf
   arquivo_do_gabarito: cebraspe_cbm_al_2017_soldado_combatente_conhecimentos_basicos_gabarito_definitivo.pdf
   # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
-  # lingua ficam fora (PRF-32)
+  # lingua ficavam fora (PRF-32); os de espanhol voltaram, com a grade pela
+  # cor da legenda do gabarito (PRF-46). Os de ingles continuam fora.
   duas_linguas: true
   # fora: 20 historia dos direitos humanos (Hammurabi, Magna Carta, Declaracao
   # Inglesa de 1689), fora dos subassuntos; 22 conceito e fundamentacao dos
@@ -3256,6 +3259,7 @@ provas:
   # grafico de setores, que nao veio; 48-50 logica proposicional (condicional,
   # valor-verdade e contrapositiva)
   materias:
+    1-5: Língua Estrangeira (Inglês ou Espanhol)
     6-19: Língua Portuguesa
     21: Direitos Humanos
     23: Direitos Humanos
@@ -3358,7 +3362,8 @@ provas:
   arquivo: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_prova.pdf
   arquivo_do_gabarito: cebraspe_abin_2017_agente_de_inteligencia_conhecimentos_gerais_gabarito_definitivo.pdf
   # o caderno traz espanhol e ingles com os mesmos numeros: os itens de
-  # lingua ficam fora (PRF-32)
+  # lingua ficavam fora (PRF-32); os de espanhol voltaram, com a grade pela
+  # cor da legenda do gabarito (PRF-46). Os de ingles continuam fora.
   duas_linguas: true
   # fora: 18 instrumentos de transparencia da gestao fiscal da LRF (LC
   # 101/2000, fora do programa, ver duvidas); 19 improbidade administrativa
@@ -3370,6 +3375,7 @@ provas:
   # 48 logica de argumentacao (validade); 49-50 logica proposicional (tabela-
   # verdade)
   materias:
+    1-5: Língua Estrangeira (Inglês ou Espanhol)
     6-15: Língua Portuguesa
     16-17: Direito Administrativo
     20: Direito Administrativo

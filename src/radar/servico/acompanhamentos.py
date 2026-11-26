@@ -701,16 +701,18 @@ ESPECULACAO = re.compile(
     r"rumor|boato|possivel|possibilidade|especula)\b"
 )
 
-INSTRUCAO_DA_PESQUISA = """Voce recebe UMA carreira de concurso publico que eu acompanho, de SANTA CATARINA (o nome do pedido diz a cidade, quando e de uma prefeitura), com o que o meu radar ja sabe dela.
+# PRF-46: sem "de SANTA CATARINA": a carreira da PRF e federal, e a instrucao
+# servia so a copia de SC.
+INSTRUCAO_DA_PESQUISA = """Voce recebe UMA carreira de concurso publico que eu acompanho (o nome do pedido diz qual: o orgao e, quando e de uma prefeitura, a cidade), com o que o meu radar ja sabe dela.
 
 Eu quero saber duas coisas, e so elas:
-1. O PROXIMO concurso desta carreira vai abrir, agora ou no futuro? Traga em `novidades` so os passos dele: previsao ou anuncio (prefeito, governador, secretario, comandante), autorizacao, comissao organizadora, contratacao da banca, edital, inscricoes, data da prova, retificacao.
+1. O PROXIMO concurso desta carreira vai abrir, agora ou no futuro? Traga em `novidades` so os passos dele: previsao ou anuncio (ministro, diretor-geral, prefeito, governador, secretario, comandante), autorizacao, comissao organizadora, contratacao da banca, edital, inscricoes, data da prova, retificacao.
 2. Quando foi o ULTIMO concurso que ja aconteceu? Responda em `ultimo_concurso`: o ano do edital, a banca, a data do edital, a data da prova e o link do edital (ou da noticia do edital). Responda sempre que souber, mesmo sem novidade.
 
 NAO traga - a resposta com isso e recusada ou vira ruido:
 - passos do concurso que ja aconteceu (prova aplicada, gabarito, resultado, convocacao, nomeacao, curso de formacao): eles vao so no `ultimo_concurso`, nunca em `novidades`;
 - lei de salario, plano de cargos, reestruturacao da carreira, reajuste: nao e concurso;
-- concurso de outro estado.
+- concurso de outro orgao, ou de outro estado quando a carreira e estadual ou municipal.
 
 Regras de `novidades` - a que fugir delas e recusada:
 - So com data e link: o ato publicado, a pagina da banca, o diario oficial, a noticia que relata. Nunca invente link: copie a URL que voce abriu.

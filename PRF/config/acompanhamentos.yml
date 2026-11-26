@@ -1,0 +1,32 @@
+# A carreira que eu acompanho na aba Concursos > Acompanhando (decisao 141;
+# na PRF, PRF-46). O formato e o da copia (config/acompanhamentos.yml): um
+# bloco por carreira em `acompanhamentos`, e nenhum nome de carreira no
+# programa. Aqui e uma so: a PRF, o alvo principal do PRF/config/alvo.yml.
+#
+# As fontes da coleta automatica da copia eram de SC (FEPESE, DOE/SC...): na
+# PRF nao ha fonte automatica. A novidade entra pela pesquisa do Claude Code
+# (`radar acompanhar --pedido` e `--importar`), sempre com o link original.
+
+# Quanto tempo o botao "Verificar atualizacoes" espera entre um clique e outro.
+intervalo_minimo_minutos: 30
+
+# O item que diz a SITUACAO e os marcos do cartao: o mais recente nesta janela.
+# O edital de 2021 nao diz nada sobre o proximo: sem item na janela, o cartao
+# diz "aguardando", sem chutar.
+janela_da_edicao_em_dias: 365
+
+# O sino so conta o que aconteceu a partir desta data.
+novidades_desde: '2026-11-26'
+telegram_desde: '2026-11-26'
+
+fontes_oficiais: []
+
+# A novidade so fica "oficial" quando o link e de governo (.gov.br, que inclui
+# o site da PRF, .leg.br, .jus.br, .mp.br) ou da banca dos dois ultimos
+# editais. O resto (site de curso, de noticia) e "noticia".
+dominios_oficiais:
+  - cebraspe.org.br
+
+acompanhamentos:
+  - nome: PRF - Policial Rodoviário Federal
+    cargo: principal

@@ -1,6 +1,35 @@
 {
-  "pesquisas": [],
+  "pesquisas": [
+    {
+      "acompanhamento": "PRF - Policial Rodoviário Federal",
+      "conferida": null,
+      "confirmado": false,
+      "criado_em": "2026-11-26T19:03:03.094322+00:00",
+      "data": "2026-06-02",
+      "descricao": "A PRF confirmou o pedido de concurso com 269 vagas de policial rodoviário federal, enviado ao Ministério da Justiça em abril de 2026; o concurso ainda depende da autorização do MGI.",
+      "fonte": "Qconcursos Folha Dirigida",
+      "id": "4e6fbba0c969",
+      "link": "https://folha.qconcursos.com/n/concurso-prf-2026-pedido-edital",
+      "lote": "novidades-20261126-190204",
+      "marco": "previsao",
+      "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+      "tipo_de_fonte": "noticia",
+      "valor": "269 vagas (pedido)"
+    }
+  ],
   "ultima_verificacao": {},
-  "ultimos_concursos": {},
+  "ultimos_concursos": {
+    "PRF - Policial Rodoviário Federal": {
+      "ano": 2021,
+      "banca": "Cebraspe",
+      "criado_em": "2026-11-26T19:03:03.094322+00:00",
+      "edital": "2021-01-18",
+      "fonte": "Cebraspe",
+      "link": "http://www.cebraspe.org.br/concursos/prf_21",
+      "lote": "novidades-20261126-190204",
+      "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+      "prova": null
+    }
+  },
   "visto": {}
 }

@@ -1,6 +1,6 @@
 # Estado - 26/11/2026
 
-Etapas 0 a 5 feitas, com a classificacao do Cebraspe, os levantamentos 1 e 2 (PRF-26, PRF-30, PRF-32), a explicacao com a Revisao do simulado (PRF-33), a analise dos aprovados (PRF-34), o cronograma em dois ciclos (PRF-38), as fichas e resumos do Ciclo 1 (PRF-39) e o Certo/Errado da IA no Transito (PRF-40) e nas outras materias do Ciclo 1 (PRF-41) as fichas e resumos do Ciclo 2 (PRF-42) o C/E da IA do Ciclo 2 (PRF-43) o que faltou dele com os ajustes tecnicos (PRF-44) e o leitor de C/E consertado (PRF-45); tudo espera o aval do Gabriel.
+Etapas 0 a 5 feitas, com a classificacao do Cebraspe, os levantamentos 1 e 2 (PRF-26, PRF-30, PRF-32), a explicacao com a Revisao do simulado (PRF-33), a analise dos aprovados (PRF-34), o cronograma em dois ciclos (PRF-38), as fichas e resumos do Ciclo 1 (PRF-39) e o Certo/Errado da IA no Transito (PRF-40) e nas outras materias do Ciclo 1 (PRF-41) as fichas e resumos do Ciclo 2 (PRF-42) o C/E da IA do Ciclo 2 (PRF-43) o que faltou dele com os ajustes tecnicos (PRF-44) o leitor de C/E consertado (PRF-45) e o espanhol dos cadernos de duas linguas com o cartao da PRF (PRF-46); tudo espera o aval do Gabriel.
 
 ## O que roda
 - `radar subir` na 8002, com "MODO PRF". Config em `PRF/config/` (pelo `.env`), sem Telegram.
@@ -22,8 +22,8 @@ Etapas 0 a 5 feitas, com a classificacao do Cebraspe, os levantamentos 1 e 2 (PR
 - A Lei 10.826/2003 (aula de 28/01): salvar a pagina do texto compilado (Planalto ou Senado, a mao) em `leis/`, e eu faco a ficha.
 - C/E da IA que falta: Correspondencia oficial (8; o Manual de Redacao da Presidencia, salvo a mao em `leis/`); 1 em Etica e moral e 1 em Geopolitica (tirados por cautela, PRF-44).
 - Duas anotacoes do CONTRAN velhas (pelicula, medidor de velocidade). Resumos herdados da PMSC/PP citam codigos de outras bancas (FEPESE-, AOCP-) que nao estao no acervo (`radar fichas --verificar-resumos`).
-- Leitor de C/E: os itens de lingua dos cadernos de duas linguas (CBM/AL 2017, ABIN 2017) seguem fora (nao se sabe qual grade e de qual lingua); nos cadernos sem recuo da PF 2018, o comeco do grupo seguinte ainda gruda em 2 itens (q40 e q60 do caderno 012). Explicacao: o resto e a da multipla escolha. Sem no: 363 de multipla escolha do complementar e 1.128 herdadas.
-- Ainda da PMSC/PP: o "Simulado PMSC" da tela do simulado e do relatorio (so aparece em rodada daquele tipo). Concursos e Acompanhando vazias (PRF-22).
+- Leitor de C/E: o ingles dos cadernos de duas linguas fica fora (o radar treina espanhol), e a ABIN Oficial Tecnico inteira (a legenda do gabarito nao tem a cor); nos cadernos sem recuo da PF 2018, o comeco do grupo seguinte ainda gruda em 2 itens (q40 e q60 do caderno 012). Explicacao: o resto e a da multipla escolha. Sem no: 363 de multipla escolha do complementar e 1.128 herdadas.
+- Concursos (a coleta automatica) vazia: as fontes eram de SC, e a PRF nao tem fonte automatica; o cartao da PRF em Acompanhando se atualiza pela pesquisa (`radar acompanhar --pedido`). O "Simulado PMSC" nao aparece na PRF (nenhuma faixa com `proporcao_do_edital`).
 
 ## Testes
 - Leem um espelho do `data/` (PRF-9); `tests/test_cronograma_prf.py` le o `PRF/config/cronograma.yml` e o `data/fichas.json`. O teste que procurava `pmsc/config/` le o cronograma da PRF (PRF-44).

@@ -21360,6 +21360,21 @@
     "trecho": null
   },
   {
+    "chave": "2f73126e1d090432ffb718c836fa3971",
+    "classificada_em": "2026-11-26T18:58:27.846130+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "regra: inferência a partir do texto",
+    "item_do_edital": "Compreensão de texto escrito em língua espanhola",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "gracias al testimonio de los viajeros ... pueden evitarse desastres y también conservarse riquezas"
+  },
+  {
     "chave": "2f7df0e5307cf7ae8f1a364e9331cdf5",
     "classificada_em": "2026-11-25T13:36:46.269457+00:00",
     "conferida_em": null,
@@ -26788,6 +26803,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "3c3562d60e801dd5c0ae6c83ed10ec4d",
+    "classificada_em": "2026-11-26T18:58:27.602014+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: sinonímia no contexto",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "“extraña” podría ser sustituido por rara o por extravagante"
   },
   {
     "chave": "3c4aeb0ad133a5ac4a3375841f5a14b6",
@@ -32308,6 +32338,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "4a15bbbbf2825dc02391f53b81f96065",
+    "classificada_em": "2026-11-26T18:58:27.677850+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: reescrita de trecho",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "a reescrita parece fiel, mas muda o sentido ou a regência",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "estaría correcto del punto de vista semántico y gramatical caso fuera así reescrito"
   },
   {
     "chave": "4a1785ade28432945d058dca8e2366ea",
@@ -51915,6 +51960,21 @@
     "trecho": null
   },
   {
+    "chave": "74fd54098aafd4cc425030dac682dd87",
+    "classificada_em": "2026-11-26T18:58:27.881125+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: sinonímia no contexto",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "El verbo “emular” puede sustituirse por imitar"
+  },
+  {
     "chave": "75059cd02c121e37e51a6ef63b5e4db5",
     "classificada_em": "2026-11-25T13:36:35.519564+00:00",
     "conferida_em": null,
@@ -53158,6 +53218,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "7870643609a5330bd3393445fd14614a",
+    "classificada_em": "2026-11-26T18:58:27.512982+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "regra: o que o texto afirma sobre o arrependimento de Bill Gates",
+    "item_do_edital": "Compreensão de texto escrito em língua espanhola",
+    "pegadinha": "atribuir ao texto um motivo que ele não dá",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "Bill Gates se ha arrepentido por qué no pudo cambiar la secuencia"
   },
   {
     "chave": "7876ed2c1d8f7fb94e7c7ba1c0bd1396",
@@ -64230,6 +64305,21 @@
     "trecho": "pendente até a sua conferência (decisão 171): primeira leitura: Língua Portuguesa > Pontuação > Demais sinais de pontuação; segunda, às cegas: Língua Portuguesa > Compreensão e interpretação de texto (s) > Relações de sentido e conectivos (confiança media)"
   },
   {
+    "chave": "92136e48f6da04631fcfc6f6acb2d587",
+    "classificada_em": "2026-11-26T18:58:27.812952+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "regra: o que o texto diz da região da expedição",
+    "item_do_edital": "Compreensão de texto escrito em língua espanhola",
+    "pegadinha": "inverter o que o texto afirma",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "La región de la expedición del proyecto Chaco Ra’anga es prácticamente inexistente"
+  },
+  {
     "chave": "92137b63ab477ea66470d42c3059d438",
     "classificada_em": "2026-11-25T13:37:20.184004+00:00",
     "conferida_em": null,
@@ -67033,6 +67123,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "98c9329e7b1014c4b9d826c023e31637",
+    "classificada_em": "2026-11-26T18:58:27.745729+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: valores do “se”",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "generalizar um valor do “se” para todas as ocorrências",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "El pronombre “se” en sus tres ocurrencias ... forma oraciones pasivas"
   },
   {
     "chave": "98cf2961e132a911c4baf13a96cbfb3b",
@@ -72765,6 +72870,21 @@
     "trecho": null
   },
   {
+    "chave": "a6b9ac235b3ee1a18e50c2280ecf5e1e",
+    "classificada_em": "2026-11-26T18:58:27.479246+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: valor do conector aditivo “además”",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "“Además” introduce una información que se añade"
+  },
+  {
     "chave": "a6d50ed2624af604297caf7792642b21",
     "classificada_em": "2026-11-25T00:20:34.888654+00:00",
     "conferida_em": "2026-11-25T03:02:19.760534+00:00",
@@ -75855,6 +75975,21 @@
     "trecho": null
   },
   {
+    "chave": "adfb1b87750f4d1902f130ca1419615f",
+    "classificada_em": "2026-11-26T18:58:27.641243+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: concordância verbal",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "trocar o número do verbo sem mudar o sujeito",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "la forma verbal “muestra” hubiera sido escrita en el plural"
+  },
+  {
     "chave": "ae06e769de5e3b34417a253ca473035a",
     "classificada_em": "2026-11-25T03:05:20.562677+00:00",
     "conferida_em": "2026-11-25T03:07:12.744368+00:00",
@@ -77865,6 +78000,21 @@
     "trecho": null
   },
   {
+    "chave": "b2a52657f7b84074bc42d6d86ec5e1e9",
+    "classificada_em": "2026-11-26T18:58:27.444216+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: equivalência de expressões adverbiais de certeza",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "a substituição de “sin duda” por “indudablemente”"
+  },
+  {
     "chave": "b2a65fc0b4a1ba5ed6c64c30e68b9e9b",
     "classificada_em": "2026-11-25T03:06:04.019272+00:00",
     "conferida_em": "2026-11-25T03:07:05.371308+00:00",
@@ -79333,6 +79483,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "b5c2bb73609c0b7ff6fdf4a412efe898",
+    "classificada_em": "2026-11-26T18:58:27.548206+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: conector concessivo “aún así” x “aunque”",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "“aunque” também é concessivo, mas não cabe na posição de “aún así”",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "“Aún así” es reemplazable por Aunque"
   },
   {
     "chave": "b5cac1d585a3168fa72eaca08a32afb6",
@@ -81373,6 +81538,21 @@
     "status": "completa",
     "tipo_de_questao": "interpretação de texto",
     "trecho": "A palavra “idiossincrasias” (segundo parágrafo) poderia ser substituída por compatibilidades"
+  },
+  {
+    "chave": "ba6378da221bc2a022bf41f314cb096a",
+    "classificada_em": "2026-11-26T18:58:27.914900+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "regra: informação literal do texto",
+    "item_do_edital": "Compreensão de texto escrito em língua espanhola",
+    "pegadinha": "trocar o destino das expedições (Nuevo Reino de Granada, e não Espanha)",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "Carlos III patrocinó expediciones a España"
   },
   {
     "chave": "ba7042a12dad5b2ff0da794825cd05a2",
@@ -91500,6 +91680,21 @@
     "trecho": "se a locução “na medida em que” fosse substituída por à medida que"
   },
   {
+    "chave": "d104a2d872b8e5069fb7be72d79f19c2",
+    "classificada_em": "2026-11-26T18:58:27.779150+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: referência do pronome demonstrativo neutro",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "El término “eso” retoma la idea"
+  },
+  {
     "chave": "d108e2a4ef2ab7faf7879a797b16329b",
     "classificada_em": "2026-11-25T03:05:31.642280+00:00",
     "conferida_em": "2026-11-25T03:06:51.357121+00:00",
@@ -94171,18 +94366,18 @@
   },
   {
     "chave": "d6de71ed995ef9134134aee45069fae8",
-    "classificada_em": "2026-11-25T15:59:44.554608+00:00",
+    "classificada_em": "2026-11-26T18:58:27.984864+00:00",
     "conferida_em": null,
     "conferida_por": null,
-    "conteudo": "Língua Estrangeira (Inglês ou Espanhol)",
-    "dispositivo": "Construção com 'se' sem agente expresso (impessoal / passiva reflexa).",
-    "item_do_edital": "2 Itens gramaticais relevantes para a compreensão dos conteúdos semânticos.",
-    "pegadinha": "O verbo concorda com '632 alumnos', o que sugere passiva reflexa; o gabarito oficial aceitou 'estrutura impessoal'.",
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: valores do “se”",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "",
     "principal": true,
-    "procedencia": "Claude Code (claude-opus-5-5), conferência do gabarito, em 25/11/2026",
-    "status": "pendente",
-    "tipo_de_questao": "comparação entre conceitos",
-    "trecho": "fora do treino (decisão 171): gabarito discutível: «se incluyeron 632 alumnos» concorda com o plural, é passiva reflexa e não impessoal, e o gabarito definitivo diz Certo"
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "La oración «se incluyeron» ... se trata de una estructura impersonal"
   },
   {
     "chave": "d6f296b7fb04572d9fa2ebfcf015270e",
@@ -98083,6 +98278,21 @@
     "status": "parcial",
     "tipo_de_questao": "caso prático",
     "trecho": "Essa situação caracteriza contratação direta por dispensa de licitação."
+  },
+  {
+    "chave": "dffe860fe8e0862a1f11f6c9fe8eb5ce",
+    "classificada_em": "2026-11-26T18:58:27.948910+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "dispositivo": "regra: “sino” x “pero”",
+    "item_do_edital": "Itens gramaticais relevantes para a compreensão dos conteúdos semânticos",
+    "pegadinha": "os dois são adversativos, mas “sino” corrige uma negação e não se troca por “pero”",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "parcial",
+    "tipo_de_questao": "conceito",
+    "trecho": "El vocablo “sino” puede sustituirse por pero"
   },
   {
     "chave": "e008c8ded026291b9922525bf64de5c6",
@@ -112363,6 +112573,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "ff56b63a679136e11049472517fffac9",
+    "classificada_em": "2026-11-26T18:58:27.711789+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua espanhola",
+    "dispositivo": "regra: o assunto do texto",
+    "item_do_edital": "Compreensão de texto escrito em língua espanhola",
+    "pegadinha": "tomar um detalhe do texto pelo assunto dele",
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "interpretação de texto",
+    "trecho": "El texto habla de las facilidades de comunicarse después de la creación de los teléfonos móviles"
   },
   {
     "chave": "ff647af66bd501692af85bc50f5a62b4",

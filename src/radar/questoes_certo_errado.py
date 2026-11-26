@@ -163,7 +163,10 @@ TITULO_DA_MATERIA = re.compile(
 ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
 # O rotulo do texto, com o codigo ("Texto 1A18-I") ou sem ("Texto", na Policia
 # Civil de Sergipe de 2018): sem o codigo, o texto so nao se cita pelo nome.
-ROTULO_DO_TEXTO = re.compile(r"^\s*Texto(?:\s+([0-9A-Z]+(?:-[IVX]+)?))?\s*$")
+# PRF-46: e o rotulo em ingles, com o codigo ("Text CB3A5AAA"): sem ele, o texto
+# ingles grudava no ultimo item de espanhol do caderno de duas linguas (ABIN).
+ROTULO_DO_TEXTO = re.compile(
+    r"^\s*(?:Texto(?:\s+([0-9A-Z]+(?:-[IVX]+)?))?|Text\s+([0-9A-Z]+(?:-[IVX]+)?))\s*$")
 # A numeracao de linha na margem do texto (1, 4, 7, 10...): o pypdf a solta
 # numero por numero, uma linha cada, as vezes com um lixo antes do 1 ("\t/1").
 # Na prova da PRF de 2019 o "10" dela virou o item 10, e o item 10 de verdade
@@ -475,7 +478,7 @@ def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
     for indice, linha in enumerate(antes):
         achado = ROTULO_DO_TEXTO.match(linha)
         if achado or linha.startswith("  "):
-            rotulo = achado.group(1) if achado else None
+            rotulo = (achado.group(1) or achado.group(2)) if achado else None
             inicio = indice + 1 if achado else indice
             break
     texto = None
@@ -559,6 +562,76 @@ def itens_em_duas_grades(texto: str) -> set[int]:
     return {item for item, quantas in vezes.items() if quantas > 1}
 
 
+def _celulas_e_cores(caminho: Path) -> tuple[list, list]:
+    """As linhas de texto ([x0, y0, texto]) e os retangulos pintados ([x0, y0,
+    x1, y1, cor]) da primeira pagina do gabarito, pelo pdfminer."""
+    from pdfminer.high_level import extract_pages
+    from pdfminer.layout import LTCurve, LTTextLine
+
+    logging.getLogger("pdfminer").setLevel(logging.ERROR)
+    textos, pintados = [], []
+
+    def andar(elemento):
+        if isinstance(elemento, LTTextLine):
+            texto = elemento.get_text().strip()
+            if texto:
+                textos.append((elemento.x0, elemento.y0, texto))
+            return
+        if isinstance(elemento, LTCurve) and getattr(elemento, "fill", False):
+            pintados.append((elemento.x0, elemento.y0, elemento.x1, elemento.y1,
+                             str(elemento.non_stroking_color)))
+            return
+        if hasattr(elemento, "__iter__"):
+            for filho in elemento:
+                andar(filho)
+
+    for pagina in extract_pages(str(caminho), maxpages=1):
+        andar(pagina)
+    return textos, pintados
+
+
+def grade_do_espanhol(caminho: Path) -> dict[int, str]:
+    """{item: letra} da grade de espanhol do gabarito de duas linguas (PRF-46).
+
+    No gabarito do CBM/AL 2017 e da ABIN 2017 os itens de lingua vem duas
+    vezes, cada grade pintada de uma cor, e a legenda embaixo diz a cor de cada
+    lingua (o quadrado vermelho ao lado de "Língua Espanhola", o azul ao lado
+    de "Língua Inglesa"). A letra e a celula logo abaixo do numero. Sem a
+    legenda, sem a cor ou sem celula, {}: o item de lingua continua fora."""
+    textos, pintados = _celulas_e_cores(caminho)
+    rotulo = next((t for t in textos if "Língua Espanhola" in t[2]), None)
+    if rotulo is None:
+        return {}
+    # O quadrado da legenda: a esquerda do rotulo, na altura dele.
+    # Os quadrados da legenda se encostam: vale o de centro mais perto do rotulo.
+    candidatos = [p for p in pintados if p[2] <= rotulo[0] + 2 and p[1] - 4 <= rotulo[1] <= p[3] + 4
+                  and p[2] - p[0] < 60]
+    if not candidatos:
+        return {}
+    legenda = min(candidatos, key=lambda p: abs((p[1] + p[3]) / 2 - (rotulo[1] + 3)))
+    cor = legenda[4]
+    faixas = [p for p in pintados if p[4] == cor and p is not legenda]
+    grade: dict[int, str] = {}
+    for x0, y0, x1, y1, _ in faixas:
+        for nx, ny, numero in textos:
+            if not numero.isdigit() or not (x0 - 2 <= nx <= x1 and y0 - 2 <= ny <= y1):
+                continue
+            letras = [t for t in textos if t[2] in RESPOSTA_DA_LETRA and abs(t[0] - nx) < 6
+                      and 0 < ny - t[1] < 15]
+            if len(letras) == 1:
+                grade[int(numero)] = letras[0][2]
+    return grade
+
+
+def em_espanhol(texto: str) -> bool:
+    """O texto e espanhol, e nao ingles? Pelas palavras curtas de cada uma."""
+    palavras = re.findall(r"[^\W\d_]+", (texto or "").lower())
+    espanhol = sum(p in {"el", "los", "las", "del", "es", "una", "por", "con", "se", "y"}
+                   for p in palavras)
+    ingles = sum(p in {"the", "of", "and", "to", "is", "that", "it", "be", "from"} for p in palavras)
+    return espanhol > ingles
+
+
 # As palavras que dizem a lingua de uma frase. So para o caderno com espanhol e
 # ingles (`duas_linguas`): o texto da segunda lingua gruda no texto-base do
 # primeiro grupo em portugues, e e la que ele e cortado.
@@ -624,7 +697,8 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
                 materias: list[tuple[int, int, str]] | None = None,
                 texto: str | None = None, texto_do_gabarito: str | None = None,
                 palavras: set[str] | None = None,
-                duas_linguas: bool = False) -> list[Questao]:
+                duas_linguas: bool = False,
+                espanhol: dict[int, str] | None = None) -> list[Questao]:
     """Os itens do caderno de Certo/Errado do Cebraspe, como questoes, com a
     resposta do gabarito DEFINITIVO.
 
@@ -637,6 +711,8 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
     e um gabarito por parte (basicos, especificos e complementares), e as
     grades se juntam. `duas_linguas`: o caderno traz espanhol e ingles com os
     mesmos numeros, e os itens de lingua ficam de fora (`itens_em_duas_grades`).
+    `espanhol`: a grade do espanhol ({item: letra}); sem ela, sai do PDF do
+    gabarito (`grade_do_espanhol`), e os itens de espanhol voltam (PRF-46).
     """
     from radar.questoes import extrair_texto
 
@@ -651,7 +727,16 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
         fora = itens_em_duas_grades(texto_do_gabarito)
         if not fora:
             raise ValueError("o gabarito nao tem as duas grades de lingua")
+        if espanhol is None and caminho_do_gabarito:
+            primeiro = (caminho_do_gabarito[0] if isinstance(caminho_do_gabarito, list)
+                        else caminho_do_gabarito)
+            espanhol = grade_do_espanhol(Path(primeiro))
     gabarito = ler_gabarito_do_cebraspe(texto_do_gabarito, fora=fora)
+    # PRF-46: com a grade do espanhol (pela cor da legenda), os itens de lingua
+    # voltam - o espanhol vem primeiro no caderno, e e ele que o leitor le.
+    de_espanhol = set(espanhol or {}) if duas_linguas and set(espanhol or {}) == fora else set()
+    for item in de_espanhol:
+        gabarito[item] = espanhol[item]
     if texto is None:
         texto = extrair_texto(caminho)
     paragrafos = None
@@ -666,14 +751,21 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
 
     itens = itens_do_caderno(texto, palavras, primeiro=min(set(gabarito) | fora),
                              paragrafos=paragrafos)
-    # O item de lingua sai inteiro: o leitor so le a primeira lingua, e o
-    # texto da segunda gruda no ultimo item dela.
-    itens = [item for item in itens if item.numero not in fora]
+    # O item de lingua sai inteiro, a menos que seja do espanhol com a grade
+    # dele: o leitor so le a primeira lingua, e o texto da segunda gruda no
+    # ultimo item dela. Se o primeiro bloco nao for espanhol, sai tambem.
+    if de_espanhol and not em_espanhol(
+            " ".join(i.afirmacao for i in itens if i.numero in de_espanhol)):
+        for item in de_espanhol:
+            gabarito.pop(item, None)
+        de_espanhol = set()
+    itens = [item for item in itens if item.numero not in fora or item.numero in de_espanhol]
     if duas_linguas:
         # O texto da segunda lingua grudou no texto-base do primeiro grupo em
-        # portugues: sai, e fica so o texto do grupo.
+        # portugues: sai, e fica so o texto do grupo. O item de espanhol fica
+        # com o texto dele, que e em espanhol.
         for item in itens:
-            if item.texto_base:
+            if item.texto_base and item.numero not in de_espanhol:
                 item.texto_base = sem_a_outra_lingua(item.texto_base)
     lidos = [item.numero for item in itens]
     if set(lidos) != set(gabarito):
