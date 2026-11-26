@@ -327,6 +327,23 @@ def test_a_releitura_reconhece_a_mesma_questao_limpa_ou_completada():
                      texto("Assinale a alternativa sobre o Excel.", {"a": "A planilha."}))
 
 
+def test_no_certo_errado_a_mesma_questao_e_a_mesma_afirmacao():
+    """PRF-45: no C/E o comando e do grupo, e e ele que o leitor consertado
+    troca; a afirmacao e que diz se e a mesma questao."""
+    from radar.servico import provas as servico_provas
+
+    ce = {"c": "Certo", "e": "Errado"}
+    mesma = servico_provas._mesma_questao
+    texto = servico_provas._texto_da_comparacao
+    antes = texto("Considerando a situação hipotética apresentada, julgue os itens a seguir."
+                  "\n\nLuciano atropelou um transeunte e não prestou socorro.", ce)
+    depois = texto("Em cada um dos itens que se seguem, é apresentada uma situação hipotética, "
+                   "seguida de uma assertiva a ser julgada.\n\nLuciano atropelou um transeunte "
+                   "e não prestou socorro.", ce)
+    assert mesma(antes, depois)
+    assert not mesma(antes, texto("Julgue o item.\n\nO Brasil é uma federação.", ce))
+
+
 def test_numero_que_passou_a_ser_de_outra_questao_nao_leva_a_classificacao(
         banco_temporario, monkeypatch):
     """A releitura que poe OUTRA questao no mesmo numero nao e limpeza: a

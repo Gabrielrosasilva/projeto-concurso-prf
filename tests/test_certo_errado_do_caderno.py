@@ -463,3 +463,73 @@ def test_na_multipla_escolha_sem_faixas_as_questoes_ficam_como_vieram(monkeypatc
     questoes = provas._ler_cebraspe(tmp_path / "c.pdf", {}, tmp_path / "g.pdf")
     assert [(q.numero, q.materia) for q in questoes] == [(1, None), (2, None), (3, None),
                                                          (4, None)]
+
+
+# --- PRF-45: o que ainda grudava no item ------------------------------------
+
+CADERNO_DA_PRF_45 = """                             !" #$$%& "   '   (          )     '
+     0 / , )1 . , 23 , 1 4 4 5 , ,
+• Cada um dos itens das provas objetivas está vinculado ao comando que o antecede.
+CEBRASPE | XYZ – Edital: 2021
+-- CONHECIMENTOS GERAIS --
+Língua Portuguesa
+Texto 1A1-I
+  O farol da ilha acende quando a tarde cai.
+Com base no texto 1A1-I, julgue os itens a seguir.
+1 O farol acende de manhã.
+2 O farol acende quando a tarde cai.
+Em cada um dos itens a seguir, é apresentada uma situação
+hipotética, seguida de uma assertiva a ser julgada a respeito do
+trânsito em julgado da sentença.
+3 João foi condenado. Nessa situação, a sentença transitou em julgado.
+Matriz_408_DGPPF014_ Pag 9N784737 CESPE | CEBRASPE – DGP/PF – Aplicação: 2018
+4 O agente tem fé pública.
+unidade de
+salvamento
+ABC 17
+Total
+Matemática
+  Em um dia, ocorreram 16 acidentes.
+Com base nessa situação, julgue os itens seguintes.
+5 Ocorreram mais de dez acidentes.
+-- CONHECIMENTOS ESPECÍFICOS --
+Acerca dos poderes, julgue os itens a seguir.
+6 O poder de polícia é delegável.
+-- PROVA DISCURSIVA --
+Nesta prova, faça o que se pede.
+"""
+
+
+def _itens_da_prf_45():
+    palavras = ce.vocabulario(CADERNO_DA_PRF_45)
+    return {i.numero: i for i in ce.itens_do_caderno(CADERNO_DA_PRF_45, palavras)}
+
+
+def test_a_capa_embaralhada_e_o_titulo_nao_viram_o_texto_do_primeiro_grupo():
+    itens = _itens_da_prf_45()
+    assert itens[1].texto_base == "O farol da ilha acende quando a tarde cai."
+    assert itens[1].comando == "Com base no texto 1A1-I, julgue os itens a seguir."
+
+
+def test_o_comando_sem_julgue_fecha_o_item_de_antes():
+    # "a ser julgada" abre o grupo novo; "trânsito em julgado" nao e comando.
+    itens = _itens_da_prf_45()
+    assert itens[2].afirmacao == "O farol acende quando a tarde cai."
+    assert itens[3].comando.startswith("Em cada um dos itens a seguir, é apresentada")
+    assert itens[3].afirmacao.endswith("a sentença transitou em julgado.")
+
+
+def test_o_cabecalho_da_pf_de_2018_e_a_tabela_do_grupo_seguinte_nao_grudam():
+    itens = _itens_da_prf_45()
+    assert itens[3].afirmacao == "João foi condenado. Nessa situação, a sentença transitou em julgado."
+    # A tabela e o titulo "Matemática" sao do grupo seguinte, e nao do item 4.
+    assert itens[4].afirmacao == "O agente tem fé pública."
+    assert itens[5].texto_base == "Em um dia, ocorreram 16 acidentes."
+
+
+def test_o_titulo_da_parte_fecha_o_item_e_nao_vira_texto():
+    itens = _itens_da_prf_45()
+    assert itens[5].afirmacao == "Ocorreram mais de dez acidentes."
+    assert itens[6].comando == "Acerca dos poderes, julgue os itens a seguir."
+    # A instrucao da discursiva nao gruda no ultimo item.
+    assert itens[6].afirmacao == "O poder de polícia é delegável."

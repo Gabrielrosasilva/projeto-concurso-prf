@@ -142,10 +142,24 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
 # 2023 (Policia Cientifica e PC de AL, Petrobras) o codigo tem 14 caracteres
 # ("701CB201597439 CEBRASPE – POLC/AL"), e o comando do grupo seguinte grudava
 # junto: os itens dele ficavam com o comando do grupo de antes (PRF-32).
+# PRF-45: o cabecalho da PF de 2018 traz o nome do arquivo ("Matriz_408_DGPPF014_
+# Pag 9N784737 CESPE | CEBRASPE – DGP/PF"), o do MJSP a sigla entre barra e
+# travessao ("CEBRASPE | MJSP – Edital: 2021"), e o titulo da parte vem entre
+# tracos ("-- CONHECIMENTOS ESPECÍFICOS --", DEPEN e MJSP): grudavam no item.
 MOBILIA_DO_CADERNO = re.compile(
-    r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+|\d{3}[A-Z\d]{2}\d{9}\s+)?"
-    r"(?:CESPE\s*\|\s*)?CEBRASPE\s*[–-]"
+    r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+|\d{3}[A-Z\d]{2}\d{9}\s+|Matriz_\S+\s+Pag\s*\S+\s+)?"
+    r"(?:CESPE\s*\|\s*)?CEBRASPE\s*(?:\|\s*[^–\-|]{1,30}?\s*)?[–-]"
+    r"|Bloco\s+[IVX]+\s*$"
     r"|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
+# O titulo da parte nao so sai: ele fecha o item de antes. Depois de "-- PROVA
+# DISCURSIVA --" vem a instrucao da redacao, que grudava no ultimo item.
+TITULO_DA_PARTE = re.compile(r"^\s*-{2,}\s*[^-]+?\s*-{2,}\s*$")
+# O nome da materia sozinho na linha, abrindo a secao ("Língua Portuguesa",
+# "Matemática" no CBM/AL 2021): entre uma frase fechada e o paragrafo, e titulo.
+TITULO_DA_MATERIA = re.compile(
+    r"^\s*(?:Língua (?:Portuguesa|Inglesa|Espanhola)|Matemática|Raciocínio Lógico[\w\s-]*|"
+    r"Noções de [\w\s]+|Informática|Atualidades|Física|Ética[\w\s]*|"
+    r"(?:Direito|Legislação) [\w\s]+)\s*$")
 ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
 # O rotulo do texto, com o codigo ("Texto 1A18-I") ou sem ("Texto", na Policia
 # Civil de Sergipe de 2018): sem o codigo, o texto so nao se cita pelo nome.
@@ -168,7 +182,11 @@ ROTULO_DA_FIGURA = re.compile(r"^\s*Figura\s+[0-9A-Z]+(?:-[IVX]+)?\s*$")
 NUMERO_DO_ITEM = re.compile(r"^(\d{1,3})(?:\s+(\S.*))?$")
 # O comando: "julgue os itens" - e, no caderno de lingua estrangeira, "judge
 # the following items" (ingles) ou "juzgue los ítems" (espanhol).
-JULGUE = re.compile(r"\b(?:julgue|judge|juzgue)\b", re.IGNORECASE)
+# PRF-45: e o comando sem "julgue" ("Em cada um dos itens a seguir, é
+# apresentada uma situação hipotética, seguida de uma assertiva a ser julgada"),
+# da PM/AL 2018 e do DEPEN: o grupo novo grudava no fim do item de antes. So
+# "a ser julgada": "julgado" sozinho e da lei ("trânsito em julgado").
+JULGUE = re.compile(r"\b(?:julgue|judge|juzgue|a\s+ser(?:em)?\s+julgad[ao]s?)\b", re.IGNORECASE)
 FIM_DE_FRASE = re.compile(r"[.!?:)”\"]\s*$")
 PALAVRA = re.compile(r"[^\W\d_]+(?:-[^\W\d_]+)*")
 #: A letra do gabarito definitivo e a resposta da questao (X: anulado).
@@ -370,9 +388,66 @@ def _fim_do_item(linhas: list[str]) -> int:
     for indice in range(1, len(linhas)):
         if (linhas[indice].startswith("  ") or ROTULO_DO_TEXTO.match(linhas[indice])
                 or ROTULO_DA_FIGURA.match(linhas[indice])):
-            return indice
+            return _sem_o_que_e_do_grupo_seguinte(linhas, indice)
     comando = _comeco_do_comando(linhas[1:])
     return len(linhas) if comando is None else comando + 1
+
+
+#: A linha curta que nao fecha frase: o titulo da parte ("Matemática") e a
+#: tabela do texto do grupo seguinte ("unidade de", "ABC 17", "Total").
+LINHA_CURTA = 25
+
+
+def _sem_o_que_e_do_grupo_seguinte(linhas: list[str], corte: int) -> int:
+    """O corte antes das linhas curtas, sem fim de frase, que ficam entre o item
+    (que ja fechou a frase) e o paragrafo do grupo seguinte (PRF-45: no CBM/AL
+    2021 o titulo "Matemática" e a tabela do problema grudavam no item 25). O
+    item do Cebraspe acaba em ponto: sem a frase fechada antes, nada muda."""
+    inicio = corte
+    while (inicio > 1 and len(linhas[inicio - 1].strip()) <= LINHA_CURTA
+           and not FIM_DE_FRASE.search(linhas[inicio - 1])):
+        inicio -= 1
+    if inicio < corte and FIM_DE_FRASE.search(linhas[inicio - 1]):
+        return inicio
+    return corte
+
+
+def _sem_titulo_da_parte(linhas: list[str]) -> list[str]:
+    """Tira o titulo da parte ("-- CONHECIMENTOS ESPECÍFICOS --") e poe o recuo
+    de paragrafo na linha de baixo: o item de antes acaba ali (PRF-45)."""
+    saida: list[str] = []
+    fecha = False
+    ja_tem_item = False
+    for indice, linha in enumerate(linhas):
+        seguinte = linhas[indice + 1] if indice + 1 < len(linhas) else ""
+        anterior = saida[-1] if saida else ""
+        if (TITULO_DA_MATERIA.match(linha) and (not anterior or FIM_DE_FRASE.search(anterior))
+                and (seguinte.startswith("  ") or ROTULO_DO_TEXTO.match(seguinte))):
+            # O titulo da materia so sai: o paragrafo de baixo ja fecha o item.
+            continue
+        if TITULO_DA_PARTE.match(linha):
+            # Antes do primeiro item nao ha item a fechar: o titulo so sai ("--
+            # PROVA OBJETIVA --" da PRF 2019; com o recuo, o rotulo embaralhado
+            # de baixo virava o comeco do texto).
+            fecha = ja_tem_item
+            continue
+        if fecha and not linha.startswith("  ") and not NUMERO_DO_ITEM.match(linha):
+            linha = "  " + linha
+        fecha = False
+        achado = NUMERO_DO_ITEM.match(linha)
+        ja_tem_item = ja_tem_item or bool(achado and achado.group(2))
+        saida.append(linha)
+    return saida
+
+
+def _lixo_da_capa(linha: str) -> bool:
+    """A linha da capa (antes do primeiro item) que nao e texto: a da fonte sem
+    mapa ('!" #$$%& "', '0 / , )1 . , 23'), sem palavra nenhuma de tres letras,
+    e a instrucao da capa com o marcador "•" (PRF-45: no CBM/AL 2021, na PC/AL,
+    na SERIS/AL e na SESAU/AL elas viravam o texto-base do primeiro grupo). So
+    se aplica a capa: o item de conta tambem nao tem palavra."""
+    texto = linha.strip()
+    return bool(texto) and (not re.search(r"[^\W\d_]{3}", texto) or texto.startswith("•"))
 
 
 def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
@@ -425,6 +500,7 @@ def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1,
     linhas = [ESPACO_LIVRE.sub(" ", linha).rstrip() for linha in texto.splitlines()
               if not MOBILIA_DO_CADERNO.match(linha)]
     linhas = _sem_numeracao_da_margem([linha for linha in linhas if linha.strip()])
+    linhas = _sem_titulo_da_parte(linhas)
     if paragrafos:
         linhas = _marcar_paragrafos(linhas, paragrafos)
     inicios = []
@@ -438,7 +514,10 @@ def itens_do_caderno(texto: str, palavras: set[str], primeiro: int = 1,
         return []
 
     textos: dict[str, str] = {}
-    comando, texto_base = _ler_cabecalho(linhas[:inicios[0]], textos, palavras)
+    # A capa vem antes do primeiro item: a linha embaralhada dela virava o
+    # texto-base do primeiro grupo (PRF-45).
+    capa = [linha for linha in linhas[:inicios[0]] if not _lixo_da_capa(linha)]
+    comando, texto_base = _ler_cabecalho(capa, textos, palavras)
     itens = []
     for posicao, inicio in enumerate(inicios):
         fim = inicios[posicao + 1] if posicao + 1 < len(inicios) else len(linhas)

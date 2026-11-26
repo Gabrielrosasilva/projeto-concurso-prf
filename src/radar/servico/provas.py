@@ -976,7 +976,7 @@ def extrair_questoes(limite: int = 30, refazer: bool = False,
                     chave_antiga = leitor_de_questoes.chave_da_questao(existente.enunciado,
                                                     existente.alternativas)
                     impressao_antiga = existente.impressao
-                    texto_antigo = _texto_inteiro(existente.enunciado, existente.alternativas)
+                    texto_antigo = _texto_da_comparacao(existente.enunciado, existente.alternativas)
                 destino.concurso_url = registro.get("concurso_url")
                 destino.banca = registro.get("banca")
                 destino.ano = registro.get("ano")
@@ -1001,7 +1001,7 @@ def extrair_questoes(limite: int = 30, refazer: bool = False,
                     resultado.atualizadas += 1
                     chave_nova = leitor_de_questoes.chave_da_questao(destino.enunciado, destino.alternativas)
                     if chave_nova != chave_antiga and not _mesma_questao(
-                            texto_antigo, _texto_inteiro(destino.enunciado, destino.alternativas)):
+                            texto_antigo, _texto_da_comparacao(destino.enunciado, destino.alternativas)):
                         # O leitor consertado pos OUTRA questao neste numero:
                         # levar a classificacao seria classificar a questao errada.
                         resultado.conteudo_trocado += 1
@@ -1181,6 +1181,26 @@ def _texto_inteiro(enunciado: str | None, alternativas: dict | None) -> str:
     partes = [enunciado or ""] + [str(t or "") for _, t in sorted((alternativas or {}).items())]
     texto = leitor_de_questoes._sem_acento(" ".join(partes)).lower()
     return " ".join(re.sub(r"[^a-z0-9]+", " ", texto).split())
+
+
+#: O comando e a afirmacao do item de Certo/Errado, no enunciado gravado.
+SEPARADOR_DO_COMANDO = "\n\n"
+
+
+def _texto_da_comparacao(enunciado: str | None, alternativas: dict | None) -> str:
+    """O texto que diz se a releitura e a mesma questao (`_mesma_questao`).
+
+    No Certo/Errado do Cebraspe e so a afirmacao do item: o comando e o do
+    grupo, e e justamente ele que o leitor consertado troca (PRF-45: o comando
+    errado grudado - "Considerando a situação hipotética apresentada" no lugar
+    de "Em cada um dos itens... a ser julgada" - fazia o item parecer outra
+    questao, e a classificacao ficava na chave antiga). Nos outros, o texto
+    inteiro."""
+    from radar.questoes_certo_errado import e_certo_errado
+
+    if e_certo_errado(alternativas) and enunciado and SEPARADOR_DO_COMANDO in enunciado:
+        return _texto_inteiro(enunciado.rsplit(SEPARADOR_DO_COMANDO, 1)[1], None)
+    return _texto_inteiro(enunciado, alternativas)
 
 
 def _mesma_questao(antes: str, depois: str) -> bool:
