@@ -188,8 +188,12 @@ def test_dois_temas_no_mesmo_no_nao_repetem_questao_e_a_escolha_se_repete(acervo
 
 @pytest.fixture
 def com_partes(acervo, monkeypatch):
-    """O 24/10 com uma composicao fixa: 4 de Interpretacao e 2 de Conjuntos.
-    Sem o quadro do edital no banco de teste, o fechamento nao reserva nada."""
+    """O 24/10 com uma composicao fixa: 4 de Interpretacao e 2 de Conjuntos, e
+    nada reservado. Antes a falta do quadro do edital deixava o fechamento sem
+    reserva; desde a PRF-35 ele divide pelo bloco `materias` do plano e
+    reservaria as poucas questoes do banco de teste: a reserva e trocada aqui."""
+    monkeypatch.setattr(composicao, "reserva_das_que_medem",
+                        lambda data, plano=None: composicao.Reserva())
     partes = [_parte(simulado_da_semana.SEMANA, [
         (PORTUGUES, "Interpretação 1: o método", 4, [INTERPRETACAO])]),
         _parte(simulado_da_semana.ANTERIORES, [

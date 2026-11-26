@@ -43,3 +43,6 @@ tests/fixtures/auditoria/quadro_*.txt
 tests/fixtures/ieses/caderno.txt
 tests/fixtures/ieses/gabarito.txt
 tests/fixtures/ieses/edital_trechos.txt
+
+# A fila de assuntos do gerador do cronograma (PRF/cronograma): de passagem.
+PRF/cronograma/filas.json

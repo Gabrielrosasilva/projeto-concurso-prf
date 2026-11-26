@@ -1,0 +1,3691 @@
+# O cronograma da PRF, Ciclo 1, dia a dia, no formato do config/cronograma.yml do radar
+# (lido pela tela Hoje e pelo `radar hoje`). Veja o comentario do topo de config/cronograma.yml
+# para o que cada chave faz.
+#
+# PROCEDENCIA: gerado pelo Claude Code (claude-opus-5-5) em 25/11/2026 (Etapa 5, PRF-35), a
+# partir de docs/prioridade.md (o peso: os itens de cada materia em 2021), da incidencia de
+# cada assunto nas provas do radar (provas da PRF + 0,25 x as outras do Cebraspe, o
+# PRF/config/prioridade.yml), de docs/aprovados_prf.md (as metas) e de docs/metodo.md (o
+# metodo). Pode editar a mao: e dado, nao codigo.
+#
+# A LOGICA (docs/metodo.md):
+#   - manha: duas teorias curtas (50 e 40 min) de materias diferentes, cada uma seguida da
+#     fixacao em itens de Certo/Errado com a ficha aberta - testar-se, e nao reler;
+#   - noite: as revisoes espacadas (R+7 da semana 2 em diante, R+30 da semana 5: 4 semanas, o rotulo que o radar conhece), a
+#     Aprendizagem sem consulta dos temas da manha, o Portugues de todo dia e a correcao;
+#   - sabado: o diagnostico (semana 1), o simulado de treino (2 a 5) ou o fechamento (6),
+#     cronometrados, e a redacao da semana; domingo e folga (o radar recusa domingo);
+#   - a rampa: a primeira Aprendizagem da noite tem 15 itens no nivel 1 e 20 no nivel 2;
+#     o gatilho sobe o nivel com 4 dias completos na semana e nenhum zerado;
+#   - os 60 encontros de teoria do ciclo saem do peso da prova de 2021, espalhados para que
+#     nenhuma materia fique semanas sem voltar (intercalar).
+#
+# AS METAS: `meta` de cada materia = os itens dela x a mediana de CERTOS de quem passou
+# em 2019, por bloco (37/50, 36/40 e 26/30: o unico edital que da os certos,
+# docs/aprovados_prf.md); `meta_da_prova` traz tambem a nota liquida (83) e a
+# discursiva (17,09) das 1.500 maiores notas de 2021.
+
+ciclo: 1
+titulo: PRF — Ciclo 1 (6 semanas)
+inicio: '2027-01-04'
+fim: '2027-02-13'
+anki: desativado
+meta_da_prova:
+  acertos: 96
+  nota_liquida: 83
+  redacao: 17
+blocos:
+  manha:
+    nome: Manhã — teoria e fixação
+    inicio: 09:00
+  noite:
+    nome: Noite — revisão e questões
+    inicio: '18:00'
+  pos22:
+    nome: Depois das 22h
+    inicio: '22:00'
+minutos_por_questao: 2
+rampa:
+  1:
+    aprendizagem: 15
+  2:
+    aprendizagem: 20
+gatilho:
+  sobe_com_dias_na_ideal: 4
+  semana_ruim_com_dias_abaixo: 3
+  desce_apos_semanas_ruins: 2
+semanas:
+  1: 'Começo: duas teorias por manhã, a Aprendizagem e o Português à noite. Sábado: o diagnóstico (120 itens) e
+    a 1ª redação.'
+  2: 'Entram as revisões R+7 à noite. Sábado: simulado de treino e redação.'
+  3: 'Mesmo ritmo. Sábado: simulado de treino e redação.'
+  4: 'Mesmo ritmo. Sábado: simulado de treino e redação.'
+  5: Entra a revisão R+30 (4 semanas depois, no mesmo dia da semana) do que foi estudado na semana 1.
+  6: 'Última semana do Ciclo 1 (segunda e terça são de Carnaval). Sábado: o fechamento, comparado com o diagnóstico.'
+materias:
+- nome: Legislação de Trânsito
+  questoes: 30
+  meta: 27
+- nome: Língua Portuguesa
+  questoes: 18
+  meta: 13
+- nome: Língua Estrangeira (Inglês ou Espanhol)
+  questoes: 8
+  meta: 6
+- nome: Informática
+  questoes: 7
+  meta: 5
+- nome: Direito Administrativo
+  questoes: 7
+  meta: 6
+- nome: Direito Constitucional
+  questoes: 7
+  meta: 6
+- nome: Raciocínio Lógico-Matemático
+  questoes: 6
+  meta: 4
+- nome: Legislação Especial
+  questoes: 6
+  meta: 5
+- nome: Ética e Cidadania
+  questoes: 6
+  meta: 4
+- nome: Física
+  questoes: 5
+  meta: 4
+- nome: Direito Penal
+  questoes: 5
+  meta: 4
+- nome: Direito Processual Penal
+  questoes: 5
+  meta: 4
+- nome: Direitos Humanos
+  questoes: 5
+  meta: 4
+- nome: Geopolítica
+  questoes: 5
+  meta: 4
+materias_mistas:
+- Redação
+mapa:
+- nome: Ciclo 1
+  inicio: '2027-01-04'
+  fim: '2027-02-13'
+  foco: Os assuntos que o Cebraspe mais cobra em cada matéria, com o peso da prova de 2021
+- nome: Ciclos seguintes, até o edital
+  inicio: '2027-02-15'
+  foco: Os assuntos que ficaram para depois e as revisões; o ciclo se repete até sair o edital
+- nome: Reta final
+  quando: quando sair o edital (previsto para 2027)
+  foco: 'Com a data da prova: mais horas, domingo entra, simulado completo todo sábado'
+- nome: Prova
+  quando: a data do edital
+  foco: 120 itens e a discursiva
+dias:
+- data: '2027-01-04'
+  semana: 1
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: 'Só a teoria e a fixação de Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013.'
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013'
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto de cada resolução: o Cebraspe cobra a letra (o número, o prazo, a exceção). Nas provas da PRF
+      caíram 14 itens deste assunto; nas outras do Cebraspe do radar, 4.'
+    onde: videoaula
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Fixação: Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Interpretação de texto 1: a ideia central e as inferências'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 12 itens deste assunto; nas outras do Cebraspe do radar, 172.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Fixação: Interpretação de texto 1: a ideia central e as inferências'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: questoes
+    questoes: 15
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Aprendizagem: Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Aprendizagem: Interpretação de texto 1: a ideia central e as inferências'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-05'
+  semana: 1
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: 'Só a teoria e a fixação de Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014.'
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014'
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto de cada resolução: o Cebraspe cobra a letra (o número, o prazo, a exceção). Nas provas da PRF
+      caíram 6 itens deste assunto; nas outras do Cebraspe do radar, 1.'
+    onde: videoaula
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Fixação: Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Espanhol 1: compreensão de texto'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 5 itens deste assunto;
+      nas outras do Cebraspe do radar, 9.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Fixação: Espanhol 1: compreensão de texto'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: questoes
+    questoes: 15
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Aprendizagem: Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Aprendizagem: Espanhol 1: compreensão de texto'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-06'
+  semana: 1
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Regularidades e padrões em sequências.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Regularidades e padrões em sequências
+    titulo: Regularidades e padrões em sequências
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 4 itens deste assunto;
+      nas outras do Cebraspe do radar, 25.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Regularidades e padrões em sequências
+    titulo: 'Fixação: Regularidades e padrões em sequências'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Física
+    conteudo: Física > Cinemática escalar, cinemática vetorial
+    titulo: Cinemática escalar, cinemática vetorial
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 4 itens deste assunto;
+      nas outras do Cebraspe do radar, 6.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Física
+    conteudo: Física > Cinemática escalar, cinemática vetorial
+    titulo: 'Fixação: Cinemática escalar, cinemática vetorial'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: questoes
+    questoes: 15
+    rampa: aprendizagem
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Regularidades e padrões em sequências
+    titulo: 'Aprendizagem: Regularidades e padrões em sequências'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Física
+    conteudo: Física > Cinemática escalar, cinemática vetorial
+    titulo: 'Aprendizagem: Cinemática escalar, cinemática vetorial'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-07'
+  semana: 1
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Agentes públicos.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Agentes públicos
+    titulo: Agentes públicos
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 2 itens deste assunto; nas outras do Cebraspe do radar, 34.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Agentes públicos
+    titulo: 'Fixação: Agentes públicos'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Informática
+    conteudo: Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos
+      associados a internet/intranet
+    titulo: Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados
+      a internet/intranet
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 5 itens deste assunto; nas outras do Cebraspe do radar, 58.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Informática
+    conteudo: Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos
+      associados a internet/intranet
+    titulo: 'Fixação: Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados
+      a internet/intranet'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: questoes
+    questoes: 15
+    rampa: aprendizagem
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Agentes públicos
+    titulo: 'Aprendizagem: Agentes públicos'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Informática
+    conteudo: Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos
+      associados a internet/intranet
+    titulo: 'Aprendizagem: Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos
+      associados a internet/intranet'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-08'
+  semana: 1
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Fundamentos constitucionais dos direitos e deveres fundamentais.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais
+    titulo: Fundamentos constitucionais dos direitos e deveres fundamentais
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 8 itens deste assunto; nas
+      outras do Cebraspe do radar, 88.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais
+    titulo: 'Fixação: Fundamentos constitucionais dos direitos e deveres fundamentais'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética no setor público
+    titulo: Ética no setor público
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 7 itens deste assunto; nas outras do Cebraspe do radar, 7.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética no setor público
+    titulo: 'Fixação: Ética no setor público'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: questoes
+    questoes: 15
+    rampa: aprendizagem
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais
+    titulo: 'Aprendizagem: Fundamentos constitucionais dos direitos e deveres fundamentais'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética no setor público
+    titulo: 'Aprendizagem: Ética no setor público'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-09'
+  semana: 1
+  manha:
+  - tipo: diagnostico
+    questoes: 120
+    min_por_questao: 1.75
+    cronometrado: true
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    titulo: 'Diagnóstico: 120 itens, como a prova'
+    detalhe: 'O ponto de partida, sem consulta e sem estudar antes: 120 itens divididos como a prova de 2021, cronometrado
+      (3h30, e a redação depois: a prova teve 4h30 para as duas). Deixe em branco o que não souber. As questões
+      saem da regra das rodadas que medem (as provas da PRF primeiro, pela incidência); o fechamento da semana 6
+      usa a mesma regra, sem repetir questão, para comparar. Faça às 14h se puder: a prova é à tarde.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: o da PRF 2019: as infrações nas rodovias - o que a PRF, a sociedade e o indivíduo
+      podem fazer'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa. Depois, compare com o padrão de resposta definitivo (o link).'
+    link: https://cdn.cebraspe.org.br/concursos/PRF_18/arquivos/PRF_18___PADRO_DE_RESPOSTAS_DEFINITIVO.PDF
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.
+- data: '2027-01-11'
+  semana: 2
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Lei nº 8.069/1990 e suas alterações.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 8.069/1990 e suas alterações
+    titulo: Lei nº 8.069/1990 e suas alterações
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 13.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 8.069/1990 e suas alterações
+    titulo: 'Fixação: Lei nº 8.069/1990 e suas alterações'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Geopolítica
+    conteudo: 'Geopolítica > Rede de transporte no Brasil: modais e principais infraestruturas'
+    titulo: 'Rede de transporte no Brasil: modais e principais infraestruturas'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 5 itens deste assunto;
+      nas outras do Cebraspe do radar, 1.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Geopolítica
+    conteudo: 'Geopolítica > Rede de transporte no Brasil: modais e principais infraestruturas'
+    titulo: 'Fixação: Rede de transporte no Brasil: modais e principais infraestruturas'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-04'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+7: Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 04/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-04'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'R+7: Interpretação de texto 1: a ideia central e as inferências'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 04/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 8.069/1990 e suas alterações
+    titulo: 'Aprendizagem: Lei nº 8.069/1990 e suas alterações'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Geopolítica
+    conteudo: 'Geopolítica > Rede de transporte no Brasil: modais e principais infraestruturas'
+    titulo: 'Aprendizagem: Rede de transporte no Brasil: modais e principais infraestruturas'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-12'
+  semana: 2
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Crimes.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Penal
+    conteudo: Direito Penal > Crimes
+    titulo: Crimes
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 6 itens deste assunto; nas
+      outras do Cebraspe do radar, 57.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Penal
+    conteudo: Direito Penal > Crimes
+    titulo: 'Fixação: Crimes'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prova
+    titulo: Prova
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 3 itens deste assunto; nas
+      outras do Cebraspe do radar, 35.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm
+  - tipo: questoes
+    questoes: 12
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prova
+    titulo: 'Fixação: Prova'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-05'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+7: Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 05/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-05'
+    questoes: 8
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'R+7: Espanhol 1: compreensão de texto'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 05/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Penal
+    conteudo: Direito Penal > Crimes
+    titulo: 'Aprendizagem: Crimes'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prova
+    titulo: 'Aprendizagem: Prova'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-13'
+  semana: 2
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: 'Só a teoria e a fixação de Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018
+    e 254/2007.'
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018 e 254/2007'
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto de cada resolução: o Cebraspe cobra a letra (o número, o prazo, a exceção). Nas provas da PRF
+      caíram 3 itens deste assunto; nas outras do Cebraspe do radar, 4.'
+    onde: videoaula
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015,
+      exceto as fichas
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Fixação: Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018 e 254/2007'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015,
+      exceto as fichas
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego dos sinais de pontuação
+    titulo: Pontuação
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 2 itens deste assunto; nas outras do Cebraspe do radar, 45.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego dos sinais de pontuação
+    titulo: 'Fixação: Pontuação'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-06'
+    questoes: 10
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Regularidades e padrões em sequências
+    titulo: 'R+7: Regularidades e padrões em sequências'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 06/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-06'
+    questoes: 8
+    materia: Física
+    conteudo: Física > Cinemática escalar, cinemática vetorial
+    titulo: 'R+7: Cinemática escalar, cinemática vetorial'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 06/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'Aprendizagem: Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018 e 254/2007'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015,
+      exceto as fichas
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego dos sinais de pontuação
+    titulo: 'Aprendizagem: Pontuação'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-14'
+  semana: 2
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    titulo: CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 9 itens deste assunto; nas
+      outras do Cebraspe do radar, 2.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    titulo: 'Fixação: CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Direitos humanos na Constituição Federal
+    titulo: Direitos humanos na Constituição Federal
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 6 itens deste assunto; nas outras do Cebraspe do radar, 23.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Direitos humanos na Constituição Federal
+    titulo: 'Fixação: Direitos humanos na Constituição Federal'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-07'
+    questoes: 10
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Agentes públicos
+    titulo: 'R+7: Agentes públicos'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 07/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-07'
+    questoes: 8
+    materia: Informática
+    conteudo: Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos
+      associados a internet/intranet
+    titulo: 'R+7: Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados
+      a internet/intranet'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 07/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    titulo: 'Aprendizagem: CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Direitos humanos na Constituição Federal
+    titulo: 'Aprendizagem: Direitos humanos na Constituição Federal'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-15'
+  semana: 2
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    titulo: CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 3 itens deste assunto; nas
+      outras do Cebraspe do radar, 12.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    titulo: 'Fixação: CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Interpretação de texto 2: o que o texto diz x o que não diz'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 12 itens deste assunto; nas outras do Cebraspe do radar, 172.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Fixação: Interpretação de texto 2: o que o texto diz x o que não diz'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-08'
+    questoes: 10
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais
+    titulo: 'R+7: Fundamentos constitucionais dos direitos e deveres fundamentais'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 08/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-08'
+    questoes: 8
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética no setor público
+    titulo: 'R+7: Ética no setor público'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 08/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    titulo: 'Aprendizagem: CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'Aprendizagem: Interpretação de texto 2: o que o texto diz x o que não diz'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-16'
+  semana: 2
+  manha:
+  - tipo: simulado
+    questoes: 60
+    min_por_questao: 1.75
+    cronometrado: true
+    treino: true
+    anteriores: 20
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    titulo: 'Simulado da semana: 60 itens'
+    detalhe: '40 itens dos temas desta semana e 20 das anteriores, misturados, sem consulta e cronometrado. Treina,
+      não mede: não entra na comparação do ciclo. Às 14h se puder.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: O uso do celular ao volante e a segurança nas rodovias federais (tema proposto pelo
+      Claude)'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa.'
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.
+- data: '2027-01-18'
+  semana: 3
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: 'Só a teoria e a fixação de Espanhol 2: itens gramaticais do texto.'
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Espanhol 2: itens gramaticais do texto'
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 2 itens deste assunto;
+      nas outras do Cebraspe do radar, 40.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Fixação: Espanhol 2: itens gramaticais do texto'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noções básicas de contagem, probabilidade e estatística
+    titulo: Noções básicas de contagem, probabilidade e estatística
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF não caiu item deste assunto;
+      nas outras do Cebraspe do radar, 41.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noções básicas de contagem, probabilidade e estatística
+    titulo: 'Fixação: Noções básicas de contagem, probabilidade e estatística'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-11'
+    questoes: 10
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 8.069/1990 e suas alterações
+    titulo: 'R+7: Lei nº 8.069/1990 e suas alterações'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 11/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-11'
+    questoes: 8
+    materia: Geopolítica
+    conteudo: 'Geopolítica > Rede de transporte no Brasil: modais e principais infraestruturas'
+    titulo: 'R+7: Rede de transporte no Brasil: modais e principais infraestruturas'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 11/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Aprendizagem: Espanhol 2: itens gramaticais do texto'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noções básicas de contagem, probabilidade e estatística
+    titulo: 'Aprendizagem: Noções básicas de contagem, probabilidade e estatística'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-19'
+  semana: 3
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XV - Das infrações (arts. 161 a 255).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)
+    titulo: CTB, Capítulo XV - Das infrações (arts. 161 a 255)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 4 itens deste assunto; nas
+      outras do Cebraspe do radar, 6.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)
+    titulo: 'Fixação: CTB, Capítulo XV - Das infrações (arts. 161 a 255)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Física
+    conteudo: Física > Movimento circular
+    titulo: Movimento circular
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 2 itens deste assunto;
+      nas outras do Cebraspe do radar, 3.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Física
+    conteudo: Física > Movimento circular
+    titulo: 'Fixação: Movimento circular'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-12'
+    questoes: 10
+    materia: Direito Penal
+    conteudo: Direito Penal > Crimes
+    titulo: 'R+7: Crimes'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 12/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-12'
+    questoes: 8
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prova
+    titulo: 'R+7: Prova'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 12/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)
+    titulo: 'Aprendizagem: CTB, Capítulo XV - Das infrações (arts. 161 a 255)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Física
+    conteudo: Física > Movimento circular
+    titulo: 'Aprendizagem: Movimento circular'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-20'
+  semana: 3
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)
+    titulo: CTB, Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 2 itens deste assunto; nas
+      outras do Cebraspe do radar, 8.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)
+    titulo: 'Fixação: CTB, Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal
+    titulo: Concordância verbal e nominal
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 24.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal
+    titulo: 'Fixação: Concordância verbal e nominal'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-13'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+7: Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018 e 254/2007'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 13/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015,
+      exceto as fichas
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-13'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego dos sinais de pontuação
+    titulo: 'R+7: Pontuação'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 13/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)
+    titulo: 'Aprendizagem: CTB, Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal
+    titulo: 'Aprendizagem: Concordância verbal e nominal'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-21'
+  semana: 3
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Poderes administrativos.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Poderes administrativos
+    titulo: Poderes administrativos
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 2 itens deste assunto; nas outras do Cebraspe do radar, 32.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Poderes administrativos
+    titulo: 'Fixação: Poderes administrativos'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Informática
+    conteudo: Informática > Conceitos de proteção e segurança
+    titulo: Conceitos de proteção e segurança
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 2 itens deste assunto; nas outras do Cebraspe do radar, 51.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Informática
+    conteudo: Informática > Conceitos de proteção e segurança
+    titulo: 'Fixação: Conceitos de proteção e segurança'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-14'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    titulo: 'R+7: CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 14/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-14'
+    questoes: 8
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Direitos humanos na Constituição Federal
+    titulo: 'R+7: Direitos humanos na Constituição Federal'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 14/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Poderes administrativos
+    titulo: 'Aprendizagem: Poderes administrativos'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Informática
+    conteudo: Informática > Conceitos de proteção e segurança
+    titulo: 'Aprendizagem: Conceitos de proteção e segurança'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-22'
+  semana: 3
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Defesa do Estado e das instituições democráticas.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Defesa do Estado e das instituições democráticas
+    titulo: Defesa do Estado e das instituições democráticas
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 2 itens deste assunto; nas
+      outras do Cebraspe do radar, 40.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Defesa do Estado e das instituições democráticas
+    titulo: 'Fixação: Defesa do Estado e das instituições democráticas'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Ética e Cidadania
+    conteudo: 'Ética e Cidadania > Ética e democracia: exercício da cidadania'
+    titulo: 'Ética e democracia: exercício da cidadania'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 2 itens deste assunto; nas outras do Cebraspe do radar, 7.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Ética e Cidadania
+    conteudo: 'Ética e Cidadania > Ética e democracia: exercício da cidadania'
+    titulo: 'Fixação: Ética e democracia: exercício da cidadania'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-15'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    titulo: 'R+7: CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 15/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-15'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Compreensão e interpretação de textos de gêneros variados
+    titulo: 'R+7: Interpretação de texto 2: o que o texto diz x o que não diz'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 15/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Defesa do Estado e das instituições democráticas
+    titulo: 'Aprendizagem: Defesa do Estado e das instituições democráticas'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Ética e Cidadania
+    conteudo: 'Ética e Cidadania > Ética e democracia: exercício da cidadania'
+    titulo: 'Aprendizagem: Ética e democracia: exercício da cidadania'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-23'
+  semana: 3
+  manha:
+  - tipo: simulado
+    questoes: 60
+    min_por_questao: 1.75
+    cronometrado: true
+    treino: true
+    anteriores: 20
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    titulo: 'Simulado da semana: 60 itens'
+    detalhe: '40 itens dos temas desta semana e 20 das anteriores, misturados, sem consulta e cronometrado. Treina,
+      não mede: não entra na comparação do ciclo. Às 14h se puder.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: A fiscalização eletrônica de velocidade e a redução de acidentes (tema proposto
+      pelo Claude)'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa.'
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.
+- data: '2027-01-25'
+  semana: 4
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Lei nº 11.343/2006 e suas alterações.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 11.343/2006 e suas alterações
+    titulo: Lei nº 11.343/2006 e suas alterações
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 11.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 11.343/2006 e suas alterações
+    titulo: 'Fixação: Lei nº 11.343/2006 e suas alterações'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Geopolítica
+    conteudo: Geopolítica > A integração do Brasil ao processo de internacionalização da economia
+    titulo: A integração do Brasil ao processo de internacionalização da economia
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caiu 1 item deste assunto;
+      nas outras do Cebraspe do radar, 12.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Geopolítica
+    conteudo: Geopolítica > A integração do Brasil ao processo de internacionalização da economia
+    titulo: 'Fixação: A integração do Brasil ao processo de internacionalização da economia'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-18'
+    questoes: 10
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'R+7: Espanhol 2: itens gramaticais do texto'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 18/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-18'
+    questoes: 8
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noções básicas de contagem, probabilidade e estatística
+    titulo: 'R+7: Noções básicas de contagem, probabilidade e estatística'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 18/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 11.343/2006 e suas alterações
+    titulo: 'Aprendizagem: Lei nº 11.343/2006 e suas alterações'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Geopolítica
+    conteudo: Geopolítica > A integração do Brasil ao processo de internacionalização da economia
+    titulo: 'Aprendizagem: A integração do Brasil ao processo de internacionalização da economia'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-26'
+  semana: 4
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Aplicação da lei penal.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Penal
+    conteudo: Direito Penal > Aplicação da lei penal
+    titulo: Aplicação da lei penal
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF não caiu item deste assunto; nas
+      outras do Cebraspe do radar, 22.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Penal
+    conteudo: Direito Penal > Aplicação da lei penal
+    titulo: 'Fixação: Aplicação da lei penal'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prisão
+    titulo: Prisão
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 5 itens deste assunto; nas
+      outras do Cebraspe do radar, 27.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm
+  - tipo: questoes
+    questoes: 12
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prisão
+    titulo: 'Fixação: Prisão'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-19'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)
+    titulo: 'R+7: CTB, Capítulo XV - Das infrações (arts. 161 a 255)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 19/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-19'
+    questoes: 8
+    materia: Física
+    conteudo: Física > Movimento circular
+    titulo: 'R+7: Movimento circular'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 19/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Penal
+    conteudo: Direito Penal > Aplicação da lei penal
+    titulo: 'Aprendizagem: Aplicação da lei penal'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prisão
+    titulo: 'Aprendizagem: Prisão'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-27'
+  semana: 4
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo III-A - Da condução de veículos por motoristas profissionais
+    (arts. 67-A a 67-E).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A
+      a 67-E)
+    titulo: CTB, Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 3 itens deste assunto; nas
+      outras do Cebraspe do radar, 1.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A
+      a 67-E)
+    titulo: 'Fixação: CTB, Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Reescrita de frases e parágrafos do texto
+    titulo: Reescrita de frases e parágrafos
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 5 itens deste assunto; nas outras do Cebraspe do radar, 87.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Reescrita de frases e parágrafos do texto
+    titulo: 'Fixação: Reescrita de frases e parágrafos'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-20'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)
+    titulo: 'R+7: CTB, Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 20/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-20'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período > Concordância verbal e nominal
+    titulo: 'R+7: Concordância verbal e nominal'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 20/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A
+      a 67-E)
+    titulo: 'Aprendizagem: CTB, Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A
+      a 67-E)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Reescrita de frases e parágrafos do texto
+    titulo: 'Aprendizagem: Reescrita de frases e parágrafos'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-28'
+  semana: 4
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XVI - Das penalidades (arts. 256 a 268-A).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)
+    titulo: CTB, Capítulo XVI - Das penalidades (arts. 256 a 268-A)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 2 itens deste assunto; nas
+      outras do Cebraspe do radar, 5.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)
+    titulo: 'Fixação: CTB, Capítulo XVI - Das penalidades (arts. 256 a 268-A)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Espanhol 3: compreensão de texto'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 5 itens deste assunto;
+      nas outras do Cebraspe do radar, 9.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Fixação: Espanhol 3: compreensão de texto'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-21'
+    questoes: 10
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Poderes administrativos
+    titulo: 'R+7: Poderes administrativos'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 21/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-21'
+    questoes: 8
+    materia: Informática
+    conteudo: Informática > Conceitos de proteção e segurança
+    titulo: 'R+7: Conceitos de proteção e segurança'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 21/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)
+    titulo: 'Aprendizagem: CTB, Capítulo XVI - Das penalidades (arts. 256 a 268-A)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'Aprendizagem: Espanhol 3: compreensão de texto'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-29'
+  semana: 4
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Noção de função.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noção de função
+    titulo: Noção de função
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 5 itens deste assunto;
+      nas outras do Cebraspe do radar, 6.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noção de função
+    titulo: 'Fixação: Noção de função'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Física
+    conteudo: Física > Leis de Newton e suas aplicações
+    titulo: Leis de Newton e suas aplicações
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caiu 1 item deste assunto;
+      nas outras do Cebraspe do radar, 6.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Física
+    conteudo: Física > Leis de Newton e suas aplicações
+    titulo: 'Fixação: Leis de Newton e suas aplicações'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-22'
+    questoes: 10
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Defesa do Estado e das instituições democráticas
+    titulo: 'R+7: Defesa do Estado e das instituições democráticas'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 22/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-22'
+    questoes: 8
+    materia: Ética e Cidadania
+    conteudo: 'Ética e Cidadania > Ética e democracia: exercício da cidadania'
+    titulo: 'R+7: Ética e democracia: exercício da cidadania'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 22/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noção de função
+    titulo: 'Aprendizagem: Noção de função'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Física
+    conteudo: Física > Leis de Newton e suas aplicações
+    titulo: 'Aprendizagem: Leis de Newton e suas aplicações'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-01-30'
+  semana: 4
+  manha:
+  - tipo: simulado
+    questoes: 60
+    min_por_questao: 1.75
+    cronometrado: true
+    treino: true
+    anteriores: 20
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    titulo: 'Simulado da semana: 60 itens'
+    detalhe: '40 itens dos temas desta semana e 20 das anteriores, misturados, sem consulta e cronometrado. Treina,
+      não mede: não entra na comparação do ciclo. Às 14h se puder.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: O transporte de cargas e a segurança viária nas rodovias (tema proposto pelo Claude)'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa.'
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.
+- data: '2027-02-01'
+  semana: 5
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)
+    titulo: CTB, Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caiu 1 item deste assunto; nas outras
+      do Cebraspe do radar, 4.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)
+    titulo: 'Fixação: CTB, Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período
+    titulo: Regência e crase
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 32.'
+    onde: videoaula
+    nos:
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Regência verbal e nominal
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período
+    titulo: 'Fixação: Regência e crase'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+    nos:
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Regência verbal e nominal
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-25'
+    questoes: 10
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 11.343/2006 e suas alterações
+    titulo: 'R+7: Lei nº 11.343/2006 e suas alterações'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 25/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-25'
+    questoes: 8
+    materia: Geopolítica
+    conteudo: Geopolítica > A integração do Brasil ao processo de internacionalização da economia
+    titulo: 'R+7: A integração do Brasil ao processo de internacionalização da economia'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 25/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-04'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+30: Resoluções do CONTRAN 1: 552/2015, 92/1998, 349/2010, 210/2011 e 453/2013'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 04/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 552/2015,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 92/1998,
+      exceto os anexos
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 210/2011
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 453/2013
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)
+    titulo: 'Aprendizagem: CTB, Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período
+    titulo: 'Aprendizagem: Regência e crase'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+    nos:
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Regência verbal e nominal
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-02'
+  semana: 5
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo IX - Dos veículos (arts. 96 a 117).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)
+    titulo: CTB, Capítulo IX - Dos veículos (arts. 96 a 117)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caiu 1 item deste assunto; nas outras
+      do Cebraspe do radar, 3.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)
+    titulo: 'Fixação: CTB, Capítulo IX - Dos veículos (arts. 96 a 117)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)
+    titulo: Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 11.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)
+    titulo: 'Fixação: Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-26'
+    questoes: 10
+    materia: Direito Penal
+    conteudo: Direito Penal > Aplicação da lei penal
+    titulo: 'R+7: Aplicação da lei penal'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 26/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-26'
+    questoes: 8
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Prisão
+    titulo: 'R+7: Prisão'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 26/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-05'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+30: Resoluções do CONTRAN 2: 798/2020, 619/2016, 216/2006, 471/2013 e 508/2014'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 05/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 798/2020
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 619/2016
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 216/2006
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 471/2013
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)
+    titulo: 'Aprendizagem: CTB, Capítulo IX - Dos veículos (arts. 96 a 117)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)
+    titulo: 'Aprendizagem: Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-03'
+  semana: 5
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)
+    titulo: CTB, Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caiu 1 item deste assunto; nas outras
+      do Cebraspe do radar, 1.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)
+    titulo: 'Fixação: CTB, Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio dos mecanismos de coesão textual
+    titulo: 'Coesão: referência e conectores'
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 6 itens deste assunto; nas outras do Cebraspe do radar, 77.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio dos mecanismos de coesão textual
+    titulo: 'Fixação: Coesão: referência e conectores'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-27'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A
+      a 67-E)
+    titulo: 'R+7: CTB, Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 27/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-27'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Reescrita de frases e parágrafos do texto
+    titulo: 'R+7: Reescrita de frases e parágrafos'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 27/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-06'
+    questoes: 10
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Regularidades e padrões em sequências
+    titulo: 'R+30: Regularidades e padrões em sequências'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 06/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)
+    titulo: 'Aprendizagem: CTB, Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio dos mecanismos de coesão textual
+    titulo: 'Aprendizagem: Coesão: referência e conectores'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-04'
+  semana: 5
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Noções de organização administrativa.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Noções de organização administrativa
+    titulo: Noções de organização administrativa
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 30.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Noções de organização administrativa
+    titulo: 'Fixação: Noções de organização administrativa'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Informática
+    conteudo: Informática > Transformação digital
+    titulo: Transformação digital
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 26.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Informática
+    conteudo: Informática > Transformação digital
+    titulo: 'Fixação: Transformação digital'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-28'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)
+    titulo: 'R+7: CTB, Capítulo XVI - Das penalidades (arts. 256 a 268-A)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 28/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-28'
+    questoes: 8
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Compreensão de texto escrito em língua
+      espanhola
+    titulo: 'R+7: Espanhol 3: compreensão de texto'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 28/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-07'
+    questoes: 10
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Agentes públicos
+    titulo: 'R+30: Agentes públicos'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 07/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Noções de organização administrativa
+    titulo: 'Aprendizagem: Noções de organização administrativa'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Informática
+    conteudo: Informática > Transformação digital
+    titulo: 'Aprendizagem: Transformação digital'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-05'
+  semana: 5
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Poder Executivo.
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Poder Executivo
+    titulo: Poder Executivo
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF não caiu item deste assunto; nas
+      outras do Cebraspe do radar, 13.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Poder Executivo
+    titulo: 'Fixação: Poder Executivo'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética e moral
+    titulo: Ética e moral
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF não caiu item deste assunto; nas outras do Cebraspe do radar, 6.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética e moral
+    titulo: 'Fixação: Ética e moral'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-29'
+    questoes: 10
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Noção de função
+    titulo: 'R+7: Noção de função'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 29/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-01-29'
+    questoes: 8
+    materia: Física
+    conteudo: Física > Leis de Newton e suas aplicações
+    titulo: 'R+7: Leis de Newton e suas aplicações'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 29/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-08'
+    questoes: 10
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais
+    titulo: 'R+30: Fundamentos constitucionais dos direitos e deveres fundamentais'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 08/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Poder Executivo
+    titulo: 'Aprendizagem: Poder Executivo'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética e moral
+    titulo: 'Aprendizagem: Ética e moral'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-06'
+  semana: 5
+  manha:
+  - tipo: simulado
+    questoes: 60
+    min_por_questao: 1.75
+    cronometrado: true
+    treino: true
+    anteriores: 20
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    titulo: 'Simulado da semana: 60 itens'
+    detalhe: '40 itens dos temas desta semana e 20 das anteriores, misturados, sem consulta e cronometrado. Treina,
+      não mede: não entra na comparação do ciclo. Às 14h se puder.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: A educação para o trânsito como política pública (tema proposto pelo Claude)'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa.'
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.
+- data: '2027-02-08'
+  semana: 6
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Lei nº 13.869/2019.
+  feriado: Carnaval (segunda)
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 13.869/2019
+    titulo: Lei nº 13.869/2019
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caiu 1 item deste assunto; nas outras do Cebraspe do radar, 11.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 13.869/2019
+    titulo: 'Fixação: Lei nº 13.869/2019'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Geopolítica
+    conteudo: Geopolítica > Geografia e gestão ambiental
+    titulo: Geografia e gestão ambiental
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF não caiu item deste assunto;
+      nas outras do Cebraspe do radar, 16.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Geopolítica
+    conteudo: Geopolítica > Geografia e gestão ambiental
+    titulo: 'Fixação: Geografia e gestão ambiental'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-01'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)
+    titulo: 'R+7: CTB, Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 01/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-01'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio da estrutura morfossintática do período
+    titulo: 'R+7: Regência e crase'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 01/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Regência verbal e nominal
+    - Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego do sinal indicativo de crase
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-11'
+    questoes: 10
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 8.069/1990 e suas alterações
+    titulo: 'R+30: Lei nº 8.069/1990 e suas alterações'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 11/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação Especial
+    conteudo: Legislação Especial > Lei nº 13.869/2019
+    titulo: 'Aprendizagem: Lei nº 13.869/2019'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Geopolítica
+    conteudo: Geopolítica > Geografia e gestão ambiental
+    titulo: 'Aprendizagem: Geografia e gestão ambiental'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-09'
+  semana: 6
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de Princípios básicos.
+  feriado: Carnaval (terça)
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Direito Penal
+    conteudo: Direito Penal > Princípios básicos
+    titulo: Princípios básicos
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caíram 2 itens deste assunto; nas
+      outras do Cebraspe do radar, 2.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Direito Penal
+    conteudo: Direito Penal > Princípios básicos
+    titulo: 'Fixação: Princípios básicos'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Ação penal
+    titulo: Ação penal
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF não caiu item deste assunto; nas
+      outras do Cebraspe do radar, 18.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm
+  - tipo: questoes
+    questoes: 12
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Ação penal
+    titulo: 'Fixação: Ação penal'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-02'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)
+    titulo: 'R+7: CTB, Capítulo IX - Dos veículos (arts. 96 a 117)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 02/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-02'
+    questoes: 8
+    materia: Direitos Humanos
+    conteudo: Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)
+    titulo: 'R+7: Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 02/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-12'
+    questoes: 10
+    materia: Direito Penal
+    conteudo: Direito Penal > Crimes
+    titulo: 'R+30: Crimes'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 12/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Direito Penal
+    conteudo: Direito Penal > Princípios básicos
+    titulo: 'Aprendizagem: Princípios básicos'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Direito Processual Penal
+    conteudo: Direito Processual Penal > Ação penal
+    titulo: 'Aprendizagem: Ação penal'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-10'
+  semana: 6
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: 'Só a teoria e a fixação de Espanhol 4: itens gramaticais do texto.'
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Espanhol 4: itens gramaticais do texto'
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caíram 2 itens deste assunto;
+      nas outras do Cebraspe do radar, 40.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 15
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Fixação: Espanhol 4: itens gramaticais do texto'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Métrica
+    titulo: Métrica
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF não caiu item deste assunto;
+      nas outras do Cebraspe do radar, 19.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Métrica
+    titulo: 'Fixação: Métrica'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-03'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)
+    titulo: 'R+7: CTB, Capítulo XIII-A - Da condução de moto-frete (arts. 139-A e 139-B)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 03/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-03'
+    questoes: 8
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Domínio dos mecanismos de coesão textual
+    titulo: 'R+7: Coesão: referência e conectores'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 03/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-13'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações
+    titulo: 'R+30: Resoluções do CONTRAN 3: 525/2015, 561/2015, exceto as fichas, 780/2019, 723/2018 e 254/2007'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 13/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+    nos:
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 525/2015
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 561/2015,
+      exceto as fichas
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018
+    - Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Língua Estrangeira (Inglês ou Espanhol)
+    conteudo: Língua Estrangeira (Inglês ou Espanhol) > Língua Espanhola > Itens gramaticais relevantes para a compreensão
+      dos conteúdos semânticos
+    titulo: 'Aprendizagem: Espanhol 4: itens gramaticais do texto'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Raciocínio Lógico-Matemático
+    conteudo: Raciocínio Lógico-Matemático > Métrica
+    titulo: 'Aprendizagem: Métrica'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-11'
+  semana: 6
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo VII - Da sinalização de trânsito (arts. 80 a 90).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)
+    titulo: CTB, Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caiu 1 item deste assunto; nas outras
+      do Cebraspe do radar, 0.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)
+    titulo: 'Fixação: CTB, Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Física
+    conteudo: Física > Trabalho
+    titulo: Trabalho
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Matéria do zero: comece pelo conceito e por um exemplo resolvido. Nas provas da PRF caiu 1 item deste assunto;
+      nas outras do Cebraspe do radar, 2.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Física
+    conteudo: Física > Trabalho
+    titulo: 'Fixação: Trabalho'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-04'
+    questoes: 10
+    materia: Direito Administrativo
+    conteudo: Direito Administrativo > Noções de organização administrativa
+    titulo: 'R+7: Noções de organização administrativa'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 04/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-04'
+    questoes: 8
+    materia: Informática
+    conteudo: Informática > Transformação digital
+    titulo: 'R+7: Transformação digital'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 04/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-14'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)
+    titulo: 'R+30: CTB, Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 14/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)
+    titulo: 'Aprendizagem: CTB, Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Física
+    conteudo: Física > Trabalho
+    titulo: 'Aprendizagem: Trabalho'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-12'
+  semana: 6
+  reduzida: A manhã inteira e a Aprendizagem da noite.
+  minima: Só a teoria e a fixação de CTB, Capítulo XIV - Da habilitação (arts. 140 a 160).
+  manha:
+  - tipo: teoria
+    duracao: 50
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)
+    titulo: CTB, Capítulo XIV - Da habilitação (arts. 140 a 160)
+    detalhe: 'Teto de 50 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Leia o texto da lei (o link): o Cebraspe cobra a letra. Nas provas da PRF caiu 1 item deste assunto; nas outras
+      do Cebraspe do radar, 0.'
+    onde: videoaula
+    link: https://www.planalto.gov.br/ccivil_03/leis/l9503compilado.htm
+  - tipo: questoes
+    questoes: 15
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)
+    titulo: 'Fixação: CTB, Capítulo XIV - Da habilitação (arts. 140 a 160)'
+    detalhe: '15 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: teoria
+    duracao: 40
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República)
+    titulo: Correspondência oficial (Manual de Redação da Presidência)
+    detalhe: 'Teto de 40 min, uma fonte só: a ficha do radar (aba Fichas) e, se não entender, uma videoaula gratuita
+      curta. Não releia nem grife: entendeu, feche e vá para as questões - testar-se fixa mais que reler (docs/metodo.md).
+      Nas provas da PRF caíram 5 itens deste assunto; nas outras do Cebraspe do radar, 15.'
+    onde: videoaula
+  - tipo: questoes
+    questoes: 12
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República)
+    titulo: 'Fixação: Correspondência oficial (Manual de Redação da Presidência)'
+    detalhe: '12 itens de Certo/Errado do tema, com a ficha aberta: fixam, não medem. Leia o painel de explicação
+      de cada item, no acerto e no erro.'
+    consulta: true
+    onde: radar
+  noite:
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-05'
+    questoes: 10
+    materia: Direito Constitucional
+    conteudo: Direito Constitucional > Poder Executivo
+    titulo: 'R+7: Poder Executivo'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 05/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+7
+    origem: '2027-02-05'
+    questoes: 8
+    materia: Ética e Cidadania
+    conteudo: Ética e Cidadania > Ética e moral
+    titulo: 'R+7: Ética e moral'
+    detalhe: 'Revisão espaçada: 8 itens do tema estudado em 05/02, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: revisao
+    rotulo: R+30
+    origem: '2027-01-15'
+    questoes: 10
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)
+    titulo: 'R+30: CTB, Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)'
+    detalhe: 'Revisão espaçada: 10 itens do tema estudado em 15/01, sem consulta e sem reler antes - o teste é a
+      revisão (docs/metodo.md).'
+    onde: radar
+  - tipo: questoes
+    questoes: 20
+    rampa: aprendizagem
+    materia: Legislação de Trânsito
+    conteudo: Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive
+      as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)
+    titulo: 'Aprendizagem: CTB, Capítulo XIV - Da habilitação (arts. 140 a 160)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: pausa
+    duracao: 10
+    titulo: Pausa
+    detalhe: Levante, beba água, sem celular.
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    conteudo: Língua Portuguesa > Correspondência oficial (conforme Manual de Redação da Presidência da República)
+    titulo: 'Aprendizagem: Correspondência oficial (Manual de Redação da Presidência)'
+    detalhe: Os itens do tema da manhã, SEM consulta, como na prova. O que não souber, deixe em branco (a regra
+      do chute, Análises > Certo/Errado). É aqui que se vê o que ficou.
+    consulta: false
+    onde: radar
+  - tipo: questoes
+    questoes: 10
+    materia: Língua Portuguesa
+    materia_inteira: true
+    titulo: 'Português Cebraspe: interpretação e gramática'
+    detalhe: '10 itens de Português de toda a matéria, sem consulta. Todo dia: o Bloco I é o que separa os aprovados
+      (docs/aprovados_prf.md).'
+    onde: radar
+  - tipo: correcao
+    duracao: 25
+    titulo: Correção
+    detalhe: Na Revisão de cada rodada, leia a explicação dos erros e dos chutes; diga por que a certa é certa antes
+      de ler. No caderno de erros, uma regra por tema que você errou hoje.
+- data: '2027-02-13'
+  semana: 6
+  manha:
+  - tipo: simulado
+    questoes: 120
+    min_por_questao: 1.75
+    cronometrado: true
+    materias_da_rodada:
+    - Legislação de Trânsito
+    - Língua Portuguesa
+    - Língua Estrangeira (Inglês ou Espanhol)
+    - Informática
+    - Direito Administrativo
+    - Direito Constitucional
+    - Raciocínio Lógico-Matemático
+    - Legislação Especial
+    - Ética e Cidadania
+    - Física
+    - Direito Penal
+    - Direito Processual Penal
+    - Direitos Humanos
+    - Geopolítica
+    onde: radar
+    compara_com: '2027-01-09'
+    titulo: 'Fechamento do Ciclo 1: 120 itens, comparado com o diagnóstico'
+    detalhe: 'A mesma regra do diagnóstico, sem repetir questão: a diferença entre os dois diz o que o ciclo deu,
+      bloco a bloco. Cronometrado, sem consulta, redação depois. Às 14h se puder.'
+  - tipo: portugues
+    duracao: 60
+    cronometrado: true
+    materia: Redação
+    titulo: 'Redação da semana: o da PRF 2021: os crimes de trânsito no CTB, a Lei Seca e os acidentes'
+    detalhe: '10 min de roteiro (os aspectos do tema, um parágrafo para cada), 40 min escrevendo à mão até 30 linhas,
+      10 min revisando pontuação e acento. Correção: mande o texto no Claude Code com "corrige a redação pelos critérios
+      do Cebraspe" (NPD = NC - 4 x NE/TL; 3 quesitos de 0 a 3; abaixo de 10 elimina). A aba Redação ainda é a da
+      AOCP e vira a do Cebraspe na próxima etapa. Depois, compare com o padrão de resposta definitivo (o link).'
+    link: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF
+  - tipo: correcao
+    duracao: 30
+    titulo: Correção do sábado
+    detalhe: Na Revisão do simulado, passe pelos erros, chutes e em branco com a explicação aberta. A redação vai
+      para o Claude Code.

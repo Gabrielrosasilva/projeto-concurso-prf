@@ -175,6 +175,27 @@ def test_varias_materias_se_dividem_pelo_peso_do_edital(acervo):
     assert por_materia == {PORTUGUES: 3, RACIOCINIO: 2}
 
 
+def test_sem_edital_no_acervo_vale_o_bloco_materias_do_cronograma(acervo, monkeypatch):
+    """A PRF nao tem edital no acervo: o diagnostico vinha com 0 questoes
+    (PRF-35). Sem o quadro, a rodada divide pelo bloco `materias` do plano."""
+    monkeypatch.setattr(composicao, "_pesos_do_edital", lambda materias: {})
+    plano = cronograma.Plano.__new__(cronograma.Plano)
+    plano.materias = [cronograma.MateriaDoEdital(PORTUGUES, 15, 10),
+                      cronograma.MateriaDoEdital(RACIOCINIO, 10, 7)]
+    monkeypatch.setattr(composicao, "_plano_do_config", lambda: plano)
+
+    c = composicao.compor([PORTUGUES, RACIOCINIO], 5)
+
+    assert {m.materia: m.total for m in c.materias} == {PORTUGUES: 3, RACIOCINIO: 2}
+
+
+def test_sem_edital_e_sem_cronograma_a_rodada_fica_sem_peso(acervo, monkeypatch):
+    monkeypatch.setattr(composicao, "_pesos_do_edital", lambda materias: {})
+    monkeypatch.setattr(composicao, "_plano_do_config", lambda: None)
+
+    assert composicao.compor([PORTUGUES, RACIOCINIO], 5).materias == []
+
+
 # --- a rodada --------------------------------------------------------------------
 
 def _rodada(simulado_id):

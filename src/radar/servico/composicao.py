@@ -430,6 +430,17 @@ def _pesos_do_edital(materias: list[str]) -> dict[str, int]:
     return pesos
 
 
+def _plano_do_config():
+    """O cronograma do config, so para a proporcao do bloco `materias`. None
+    sem cronograma: a rodada fica sem peso, como antes."""
+    # Importado aqui, como nas outras funcoes deste modulo que leem o plano.
+    from radar import cronograma as plano_de_estudo
+    try:
+        return plano_de_estudo.carregar()
+    except (plano_de_estudo.ErroNoCronograma, OSError):
+        return None
+
+
 def _pesos_do_plano(materias: list[str], plano) -> dict[str, int]:
     """A proporcao do edital escrita no bloco `materias` do plano.
 
@@ -477,6 +488,8 @@ def compor(materias: list[str], total: int, *, pesos: dict[str, int] | None = No
 
     `pesos` e o quadro do edital ({materia: questoes}); sem ele, e lido do
     edital como no simulado compilado. Uma materia so nao precisa dele.
+    Sem edital no acervo (a PRF), vale o bloco `materias` do cronograma, como
+    no Simulado da semana (PMSC-25): sem isso o diagnostico vinha vazio (PRF-35).
     """
     regra = regra_da_prioridade.carregar()
     minimos = incidencia.carregar_minimos()
@@ -484,7 +497,8 @@ def compor(materias: list[str], total: int, *, pesos: dict[str, int] | None = No
     if len(materias) == 1:
         por_materia = {materias[0]: total}
     else:
-        pesos = pesos if pesos is not None else _pesos_do_edital(materias)
+        if pesos is None:
+            pesos = _pesos_do_edital(materias) or _pesos_do_plano(materias, _plano_do_config())
         do_edital = {m: p for m, p in pesos.items()
                      if any(compilado.mesma_materia(m, escolhida) for escolhida in materias)}
         por_materia = compilado.distribuir(do_edital, total)
