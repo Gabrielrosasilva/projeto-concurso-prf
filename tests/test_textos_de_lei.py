@@ -68,6 +68,32 @@ def test_do_no_usa_o_item_mais_especifico_e_o_intervalo_do_no(tmp_path):
     assert textos_de_lei.do_no("Direito Penal", lista=lista, raiz=tmp_path) is None
 
 
+def test_o_no_pode_ter_varios_textos_e_o_intervalo_da_lista(tmp_path):
+    # PRF-41: o no da CF nao tem intervalo no nome (o `artigos` da lista diz o
+    # trecho, e vale antes do nome), e um no pode ter duas normas ou dois trechos.
+    (tmp_path / "lei.html").write_bytes(FIXTURE.read_bytes())
+    lista = tmp_path / "lista.yml"
+    lista.write_text(
+        "textos:\n"
+        "  - conteudo: Direito Constitucional\n    fonte: Geral\n    arquivo: lei.html\n"
+        "  - conteudo: \"Direito Constitucional > Poder Executivo: art. 9\"\n"
+        "    fonte: CF\n    arquivo: lei.html\n    artigos: arts. 1º a 2º\n"
+        "  - conteudo: \"Direito Constitucional > Poder Executivo: art. 9\"\n"
+        "    fonte: Outra lei\n    arquivo: lei.html\n    artigos: a lei inteira\n"
+        "  - conteudo: \"Direito Constitucional > Poder Executivo: art. 9\"\n"
+        "    fonte: Sem o arquivo\n    arquivo: nao_existe.html\n",
+        encoding="utf-8")
+    no = "Direito Constitucional > Poder Executivo: art. 9"
+    textos = textos_de_lei.todos_do_no(no, lista=lista, raiz=tmp_path)
+    assert [(t.fonte, t.artigos) for t in textos] == [("CF", "arts. 1º a 2º"),
+                                                      ("Outra lei", "a lei inteira")]
+    assert textos[0].texto.startswith("Art. 1º") and "Art. 3º" not in textos[0].texto
+    assert textos[1].texto.startswith("LEI Nº 1.234")
+    # O primeiro e o que o `do_no` devolve; o item de cima nao entra.
+    assert textos_de_lei.do_no(no, lista=lista, raiz=tmp_path).fonte == "CF"
+    assert textos_de_lei.todos_do_no("Direito Penal", lista=lista, raiz=tmp_path) == []
+
+
 def test_o_trecho_maior_que_o_limite_nao_vai(tmp_path, monkeypatch):
     (tmp_path / "lei.html").write_bytes(FIXTURE.read_bytes())
     lista = tmp_path / "lista.yml"

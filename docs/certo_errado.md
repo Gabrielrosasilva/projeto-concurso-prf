@@ -126,3 +126,32 @@ nota líquida, na incidência nem no simulado que mede.
   (infrações 1, 2 e 3, por exemplo) ganharam um nó próprio ("CTB, arts. 161 a
   190") na árvore e na ficha: sem ele, a faixa da parte 1 sortearia item das
   partes 2 e 3.
+
+## As outras matérias do Ciclo 1 (PRF-41, 26/11/2026)
+
+O mesmo pedido por aula, agora em Português, nos Direitos e na Legislação
+Especial: **788 itens** (Português 40, Constitucional 136, Administrativo 70,
+Penal 127, Processo Penal 94, Legislação Especial 255, Direitos Humanos 66).
+
+- **O que ficou com menos de 35:** Poder constituinte (30) e Princípios básicos
+  (33): o resto da ficha é doutrina, e doutrina não decide item. A
+  Correspondência oficial ficou sem: o Manual de Redação da Presidência não
+  tem cópia local (o Planalto bloqueia robô). A aula de Interpretação de texto
+  3 e a da Lei 10.826 continuam sem ficha.
+- **O texto:** `PRF/config/textos_de_lei.yml` ganhou os nós dessas matérias.
+  O nó da CF não tem intervalo no nome: o `artigos` do item diz o trecho
+  ("arts. 76 a 91"), e um nó pode ter mais de um item (duas normas, ou a CF
+  arts. 1º a 5º e art. 109). A CF, o CP, o CPP e a Lei 11.343 foram baixados de
+  novo da Câmara (iguais às cópias da PMSC); a acentuação vai pelo Acordo
+  Ortográfico (Decreto 6.583/2008).
+- **A regra:** o gabarito sai do texto da norma. Doutrina, jurisprudência e
+  súmula não decidem item; dispositivo com nota de ADI/ADPF ou afastado pelo
+  STF fica de fora (a ADPF 779, no art. 25 do CP, só afastou a "legítima
+  defesa da honra": a legítima defesa entrou). Concordância e regência, que
+  não têm norma: só regra pacífica, sem caso facultativo.
+- **A conferência:** 8 agentes escreveram e outros 8 julgaram às cegas: 0
+  divergência nos 788; 4 itens reescritos por cautela.
+- **A ordem no botão "IA":** das nunca feitas, o Certo/Errado vem antes da
+  múltipla escolha herdada da PMSC (até 92 num tema só), e a rodada de vários
+  nós dá primeiro o C/E de todos eles. Sem isso, o botão da aula do art. 5º
+  traria quase só múltipla escolha.

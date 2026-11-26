@@ -14,9 +14,11 @@ escrever so pelo texto vigente e citar o artigo dele, e nao de memoria.
   `<s>` ou com "text-decoration: line-through" (o Estatuto tem 208 trechos), e
   a IA nao pode escrever pela redacao antiga. O `<s>` que envolve so o "º" de
   "§ 2º" (a LC 587 faz isso 29 vezes) nao e revogacao, e fica;
-- **so os artigos do no**: o intervalo sai do nome do no ou de um ancestral -
-  "(arts. 1º a 28)", "arts. 256 a 279-A", "art. 23", "arts. 53 e 54". Sem
-  intervalo, a lei inteira;
+- **so os artigos do no**: o intervalo sai do `artigos` do item da lista
+  (PRF-41: "Poder Executivo" e a CF, arts. 76 a 91) ou do nome do no ou de um
+  ancestral - "(arts. 1º a 28)", "arts. 256 a 279-A", "art. 23", "arts. 53 e
+  54". Sem intervalo, a lei inteira. Um no pode ter mais de um item (duas
+  normas, ou dois trechos da mesma): vao todos;
 - **com teto**: o trecho maior que `LIMITE` nao vai (a Parte Especial inteira
   do CPM, o CTB inteiro): gere pelo no de baixo, que tem o intervalo.
 """
@@ -203,23 +205,47 @@ def _lista(caminho: Path | None = None) -> list[dict]:
 
 def do_no(caminho_do_no: str, lista: Path | None = None,
           raiz: Path | None = None) -> TextoDaLei | None:
-    """O texto da lei daquele no, ou None: sem item na lista, sem o arquivo,
-    sem o artigo de inicio no texto, ou maior que o LIMITE."""
+    """O (primeiro) texto da lei daquele no, ou None: sem item na lista, sem o
+    arquivo, sem o artigo de inicio no texto, ou maior que o LIMITE."""
+    todos = todos_do_no(caminho_do_no, lista, raiz)
+    return todos[0] if todos else None
+
+
+def todos_do_no(caminho_do_no: str, lista: Path | None = None,
+                raiz: Path | None = None) -> list[TextoDaLei]:
+    """Os textos da lei daquele no, na ordem da lista.
+
+    Vale o `conteudo` mais especifico, e todos os itens que o repetem (PRF-41):
+    um no pode ter duas normas ("Lei nº 5.553/1968 e Lei nº 12.037/2009") ou
+    dois trechos da mesma (a CF, arts. 1º a 5º e art. 109). O item que nao
+    acha o arquivo, o artigo de inicio, ou passa do LIMITE fica de fora.
+    """
     if not caminho_do_no:
-        return None
+        return []
     candidatos = [item for item in _lista(lista)
                   if caminho_do_no == item["conteudo"]
                   or caminho_do_no.startswith(item["conteudo"] + arvore.SEPARADOR)]
     if not candidatos:
-        return None
-    item = max(candidatos, key=lambda i: len(i["conteudo"]))
+        return []
+    mais_fundo = max(len(i["conteudo"]) for i in candidatos)
+    achados = (_do_item(item, caminho_do_no, raiz)
+               for item in candidatos if len(item["conteudo"]) == mais_fundo)
+    return [achado for achado in achados if achado is not None]
+
+
+def _do_item(item: dict, caminho_do_no: str, raiz: Path | None) -> TextoDaLei | None:
     arquivo = (raiz or config.RAIZ) / item["arquivo"]
     if not arquivo.exists():
         return None
     texto = texto_do_arquivo(arquivo)
     artigos = "a lei inteira"
-    # O intervalo do no mais fundo que tem um: o titulo do CPM, o do Estatuto.
-    for nome in reversed(arvore.partes(caminho_do_no)):
+    # O intervalo da lista vale antes do nome do no (PRF-41): o no da CF
+    # ("Poder Executivo") nao tem intervalo no nome, e o de duas normas
+    # ("Decreto nº 1.655/1995 e art. 47 do Decreto nº 9.662/2019") tem um que
+    # so serve a uma delas. `artigos: a lei inteira` diz que e a norma toda.
+    # Sem ele, o intervalo do no mais fundo que tem um: o titulo do CPM.
+    nomes = [item["artigos"]] if item.get("artigos") else list(reversed(arvore.partes(caminho_do_no)))
+    for nome in nomes:
         achado = intervalo(nome)
         if achado:
             pedaco = trecho(texto, *achado)

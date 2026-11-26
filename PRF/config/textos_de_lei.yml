@@ -5,8 +5,10 @@
 # aula) de um no desta lista leva o texto da lei - so os artigos do no, quando
 # o nome dele tem o intervalo ("arts. 161 a 190") -, para a IA escrever pelo
 # texto vigente e citar o artigo dele. `conteudo` e o caminho do no; vale o item
-# mais especifico. `arquivo` e a copia local, relativa a pasta do projeto
-# (leis/ nao vai para o git); `url` e o endereco oficial.
+# mais especifico (e, se ele se repete, todos os itens dele: PRF-41). `arquivo` e
+# a copia local, relativa a pasta do projeto (leis/ nao vai para o git); `url` e
+# o endereco oficial. `artigos` (opcional) e o trecho ("arts. 76 a 91", ou "a lei
+# inteira"), e vale antes do intervalo do nome do no.
 #
 # Resolucoes do CONTRAN: o edital de 2021 cita resolucoes que hoje estao
 # revogadas. O no aponta para o texto VIGENTE que as substituiu, junto com as
@@ -108,3 +110,510 @@ textos:
     fonte: "Resolução CONTRAN 1.027/2026 (substituiu a 809/2020)"
     url: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao10272026.pdf/@@display-file/file
     arquivo: leis/contran/res-1027-2026.txt
+
+  # --- As outras materias do Ciclo 1 (PRF-41): Portugues, os Direitos e a Legislacao
+  # Especial. O no da CF nao tem intervalo no nome: o `artigos` de cada item diz o
+  # trecho (os da ficha da aula). Um no com duas normas, ou dois trechos, tem um item
+  # para cada um. A CF, o CP, o CPP e a Lei 11.343 foram baixados de novo em 26/11/2026
+  # (iguais as copias de fontes/leis/); os links estao nos manifestos de leis/.
+  # O Decreto 678/1992 e o 1.655/1995 so tem a publicacao original na Camara.
+
+  - conteudo: "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Direitos e deveres individuais e coletivos"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 5º
+
+  - conteudo: "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Direito à vida, à liberdade, à igualdade, à segurança e à propriedade"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 5º
+
+  # A expropriacao do art. 243 (cultura ilegal de psicotropicos, trabalho escravo) e
+  # da aula do art. 5º (a ficha manda ler), e do direito de propriedade.
+  - conteudo: "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Direito à vida, à liberdade, à igualdade, à segurança e à propriedade"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 243
+
+  - conteudo: "Direito Constitucional > Fundamentos constitucionais dos direitos e deveres fundamentais > Direitos sociais, nacionalidade, cidadania e direitos políticos"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 6º a 17
+
+  - conteudo: "Direito Constitucional > Defesa do Estado e das instituições democráticas > Segurança pública (art. 144 da CF)"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 144
+
+  - conteudo: "Direito Constitucional > Defesa do Estado e das instituições democráticas > Organização da segurança pública"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 144
+
+  - conteudo: "Direito Constitucional > Defesa do Estado e das instituições democráticas > Atribuições constitucionais da Polícia Rodoviária Federal"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 144
+
+  - conteudo: "Direito Constitucional > Defesa do Estado e das instituições democráticas > Forças Armadas (art. 142, CF)"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 142 a 143
+
+  - conteudo: "Direito Constitucional > Defesa do Estado e das instituições democráticas > Estado de defesa e estado de sítio"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 136 a 141
+
+  - conteudo: "Direito Constitucional > Poder Executivo"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 76 a 91
+
+  - conteudo: "Direito Constitucional > Poder Executivo"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 20 a 24
+
+  - conteudo: "Direito Constitucional > Ordem social"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 193 a 204
+
+  - conteudo: "Direito Constitucional > Ordem social"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 225 a 232
+
+  - conteudo: "Direito Constitucional > Poder constituinte"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 60
+
+  - conteudo: "Direito Constitucional > Poder constituinte"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 1º
+
+  - conteudo: "Direito Constitucional > Poder constituinte"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 25
+
+  - conteudo: "Direito Administrativo > Noções de organização administrativa"
+    fonte: "Decreto-Lei 200/1967, compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-200-25-fevereiro-1967-376033-normaatualizada-pe.html
+    arquivo: leis/dl-200-1967-camara.html
+    artigos: arts. 4º a 10
+
+  - conteudo: "Direito Administrativo > Noções de organização administrativa"
+    fonte: "Decreto-Lei 200/1967, compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1960-1969/decreto-lei-200-25-fevereiro-1967-376033-normaatualizada-pe.html
+    arquivo: leis/dl-200-1967-camara.html
+    artigos: arts. 19 a 26
+
+  - conteudo: "Direito Administrativo > Noções de organização administrativa"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 37
+
+  - conteudo: "Direito Administrativo > Noções de organização administrativa"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 173
+
+  - conteudo: "Direito Administrativo > Licitação"
+    fonte: "Lei 14.133/2021 (licitações), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2021/lei-14133-1-abril-2021-791222-normaatualizada-pl.html
+    arquivo: leis/lei-14133-2021-camara.html
+    artigos: arts. 1º a 17
+
+  - conteudo: "Direito Administrativo > Licitação"
+    fonte: "Lei 14.133/2021 (licitações), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2021/lei-14133-1-abril-2021-791222-normaatualizada-pl.html
+    arquivo: leis/lei-14133-2021-camara.html
+    artigos: arts. 28 a 33
+
+  - conteudo: "Direito Administrativo > Licitação"
+    fonte: "Lei 14.133/2021 (licitações), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2021/lei-14133-1-abril-2021-791222-normaatualizada-pl.html
+    arquivo: leis/lei-14133-2021-camara.html
+    artigos: arts. 71 a 75
+
+  - conteudo: "Direito Administrativo > Licitação"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 37
+
+  - conteudo: "Direito Administrativo > Ato administrativo"
+    fonte: "Lei 9.784/1999 (processo administrativo federal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1999/lei-9784-29-janeiro-1999-322239-normaatualizada-pl.html
+    arquivo: leis/lei-9784-1999-camara.html
+    artigos: arts. 11 a 17
+
+  - conteudo: "Direito Administrativo > Ato administrativo"
+    fonte: "Lei 9.784/1999 (processo administrativo federal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1999/lei-9784-29-janeiro-1999-322239-normaatualizada-pl.html
+    arquivo: leis/lei-9784-1999-camara.html
+    artigos: arts. 48 a 55
+
+  - conteudo: "Direito Administrativo > Controle da Administração Pública"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 70 a 75
+
+  - conteudo: "Direito Administrativo > Controle da Administração Pública"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 49
+
+  - conteudo: "Direito Administrativo > Controle da Administração Pública"
+    fonte: "Lei 9.784/1999 (processo administrativo federal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1999/lei-9784-29-janeiro-1999-322239-normaatualizada-pl.html
+    arquivo: leis/lei-9784-1999-camara.html
+    artigos: arts. 53 a 65
+
+  - conteudo: "Direito Administrativo > Regime jurídico-administrativo"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 37
+
+  - conteudo: "Direito Administrativo > Regime jurídico-administrativo"
+    fonte: "Lei 9.784/1999 (processo administrativo federal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1999/lei-9784-29-janeiro-1999-322239-normaatualizada-pl.html
+    arquivo: leis/lei-9784-1999-camara.html
+    artigos: art. 2º
+
+  - conteudo: "Direito Penal > Princípios básicos"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 1º a 2º
+
+  - conteudo: "Direito Penal > Princípios básicos"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 18 a 19
+
+  - conteudo: "Direito Penal > Princípios básicos"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: art. 75
+
+  - conteudo: "Direito Penal > Princípios básicos"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 5º
+
+  - conteudo: "Direito Penal > Aplicação da lei penal"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 1º a 12
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra a Administração Pública"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 312 a 337-A
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra a fé pública"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 289 a 311-A
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra a pessoa"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 121 a 154-B
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra a dignidade sexual"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 213 a 234-C
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra o patrimônio"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 155 a 183-A
+
+  - conteudo: "Direito Penal > Crimes > Crimes contra a incolumidade pública"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 250 a 285
+
+  - conteudo: "Direito Penal > Tipicidade"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 13 a 20
+
+  - conteudo: "Direito Penal > Tipicidade"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: art. 107
+
+  - conteudo: "Direito Penal > Ilicitude"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 23 a 25
+
+  - conteudo: "Direito Penal > Culpabilidade"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 21 a 22
+
+  - conteudo: "Direito Penal > Culpabilidade"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 26 a 28
+
+  - conteudo: "Direito Processual Penal > Prisão > Prisão em flagrante"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 301 a 310-A
+
+  - conteudo: "Direito Processual Penal > Prisão > Prisão em flagrante"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 321 a 350
+
+  - conteudo: "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 282 a 300
+
+  - conteudo: "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 311 a 318-B
+
+  - conteudo: "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 158 a 239
+
+  - conteudo: "Direito Processual Penal > Prova > Busca e apreensão: pessoal, domiciliar, requisitos, restrições, horários"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 240 a 250
+
+  - conteudo: "Direito Processual Penal > Prova > Busca e apreensão: pessoal, domiciliar, requisitos, restrições, horários"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: art. 150
+
+  - conteudo: "Direito Processual Penal > Ação penal"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 24 a 62
+
+  - conteudo: "Direito Processual Penal > Ação penal"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: art. 5º
+
+  - conteudo: "Direito Processual Penal > Ação penal"
+    fonte: "Código Penal (Decreto-Lei 2.848/1940), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    arquivo: leis/cp-dl-2848-1940-camara.html
+    artigos: arts. 100 a 106
+
+  - conteudo: "Direito Processual Penal > Diligências Investigatórias (art. 6º e 13 do CPP)"
+    fonte: "Código de Processo Penal (Decreto-Lei 3.689/1941), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-3689-3-outubro-1941-322206-normaatualizada-pe.html
+    arquivo: leis/cpp-dl-3689-1941-camara.html
+    artigos: arts. 6º a 13-B
+
+  - conteudo: "Direito Processual Penal > Identificação Criminal (art. 5º, LVIII, da Constituição Federal e art. 3º da Lei nº 12.037/2009)"
+    fonte: "Lei 12.037/2009 (identificação criminal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2009/lei-12037-1-outubro-2009-591435-normaatualizada-pl.html
+    arquivo: leis/lei-12037-2009-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Direito Processual Penal > Identificação Criminal (art. 5º, LVIII, da Constituição Federal e art. 3º da Lei nº 12.037/2009)"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 5º
+
+  - conteudo: "Direito Processual Penal > Termo Circunstanciado de Ocorrência (Lei nº 9.099/1995)"
+    fonte: "Lei 9.099/1995 (juizados especiais), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1995/lei-9099-26-setembro-1995-348608-normaatualizada-pl.html
+    arquivo: leis/lei-9099-1995-camara.html
+    artigos: arts. 60 a 92
+
+  - conteudo: "Legislação Especial > Lei nº 8.069/1990 e suas alterações"
+    fonte: "Lei 8.069/1990 (ECA), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    arquivo: leis/lei-8069-1990-camara.html
+    artigos: arts. 1º a 24
+
+  - conteudo: "Legislação Especial > Lei nº 8.069/1990 e suas alterações"
+    fonte: "Lei 8.069/1990 (ECA), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    arquivo: leis/lei-8069-1990-camara.html
+    artigos: arts. 83 a 85
+
+  - conteudo: "Legislação Especial > Lei nº 8.069/1990 e suas alterações"
+    fonte: "Lei 8.069/1990 (ECA), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    arquivo: leis/lei-8069-1990-camara.html
+    artigos: arts. 98 a 128
+
+  - conteudo: "Legislação Especial > Lei nº 8.069/1990 e suas alterações"
+    fonte: "Lei 8.069/1990 (ECA), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    arquivo: leis/lei-8069-1990-camara.html
+    artigos: arts. 171 a 190
+
+  - conteudo: "Legislação Especial > Lei nº 8.069/1990 e suas alterações"
+    fonte: "Lei 8.069/1990 (ECA), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+    arquivo: leis/lei-8069-1990-camara.html
+    artigos: arts. 225 a 244-C
+
+  - conteudo: "Legislação Especial > Lei nº 11.343/2006 e suas alterações"
+    fonte: "Lei 11.343/2006 (drogas), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11343-23-agosto-2006-545399-normaatualizada-pl.html
+    arquivo: leis/lei-11343-2006-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 13.869/2019"
+    fonte: "Lei 13.869/2019 (abuso de autoridade), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2019/lei-13869-5-setembro-2019-789094-normaatualizada-pl.html
+    arquivo: leis/lei-13869-2019-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 9.455/1997 e suas alterações"
+    fonte: "Lei 9.455/1997 (tortura), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9455-7-abril-1997-349431-normaatualizada-pl.html
+    arquivo: leis/lei-9455-1997-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 8.072/1990 e suas alterações"
+    fonte: "Lei 8.072/1990 (crimes hediondos), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8072-25-julho-1990-372192-normaatualizada-pl.html
+    arquivo: leis/lei-8072-1990-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 5.553/1968 e Lei nº 12.037/2009"
+    fonte: "Lei 5.553/1968 (retenção de documentos), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1960-1969/lei-5553-6-dezembro-1968-358562-normaatualizada-pl.html
+    arquivo: leis/lei-5553-1968-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 5.553/1968 e Lei nº 12.037/2009"
+    fonte: "Lei 12.037/2009 (identificação criminal), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2009/lei-12037-1-outubro-2009-591435-normaatualizada-pl.html
+    arquivo: leis/lei-12037-2009-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 9.605/1998 e suas alterações: Capítulos III e V"
+    fonte: "Lei 9.605/1998 (crimes ambientais), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1998/lei-9605-12-fevereiro-1998-365397-normaatualizada-pl.html
+    arquivo: leis/lei-9605-1998-camara.html
+    artigos: arts. 25 a 69-A
+
+  - conteudo: "Legislação Especial > Lei nº 12.850/2013 e suas alterações"
+    fonte: "Lei 12.850/2013 (organização criminosa), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2013/lei-12850-2-agosto-2013-776714-normaatualizada-pl.html
+    arquivo: leis/lei-12850-2013-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 9.099/1995 e suas alterações"
+    fonte: "Lei 9.099/1995 (juizados especiais), compilação da Câmara baixada em 25/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/1995/lei-9099-26-setembro-1995-348608-normaatualizada-pl.html
+    arquivo: leis/lei-9099-1995-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Lei nº 13.675/2018"
+    fonte: "Lei 13.675/2018 (SUSP), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13675-11-junho-2018-786843-normaatualizada-pl.html
+    arquivo: leis/lei-13675-2018-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Decreto nº 1.655/1995 e art. 47 do Decreto nº 9.662/2019"
+    fonte: "Decreto 1.655/1995 (publicação original da Câmara; sem texto compilado)"
+    url: https://www2.camara.leg.br/legin/fed/decret/1995/decreto-1655-3-outubro-1995-431771-publicacaooriginal-1-pe.html
+    arquivo: leis/decreto-1655-1995-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Legislação Especial > Decreto nº 1.655/1995 e art. 47 do Decreto nº 9.662/2019"
+    fonte: "Decreto 11.348/2023, Anexo I (no lugar do art. 47 do Decreto 9.662/2019, revogado), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/decret/2023/decreto-11348-1-janeiro-2023-793635-normaatualizada-pe.html
+    arquivo: leis/decreto-11348-2023-camara.html
+    artigos: art. 58
+
+  - conteudo: "Direitos Humanos > Direitos humanos na Constituição Federal"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: arts. 1º a 5º
+
+  - conteudo: "Direitos Humanos > Direitos humanos na Constituição Federal"
+    fonte: "Constituição Federal de 1988, compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+    arquivo: leis/cf-1988-camara.html
+    artigos: art. 109
+
+  - conteudo: "Direitos Humanos > Convenção Americana sobre Direitos Humanos (Decreto nº 678/1992)"
+    fonte: "Decreto 678/1992 (promulga a Convenção Americana sobre Direitos Humanos), publicação original da Câmara"
+    url: https://www2.camara.leg.br/legin/fed/decret/1992/decreto-678-6-novembro-1992-449028-publicacaooriginal-1-pe.html
+    arquivo: leis/decreto-678-1992-camara.html
+    artigos: a lei inteira
+
+  - conteudo: "Direitos Humanos > Declaração Universal dos Direitos Humanos"
+    fonte: "Declaração Universal dos Direitos Humanos (1948), texto em português do UNICEF Brasil, baixado em 26/11/2026"
+    url: https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos
+    arquivo: leis/dudh-1948-unicef.txt
+    artigos: a lei inteira
+
+  - conteudo: "Língua Portuguesa > Domínio da ortografia oficial > Acentuação gráfica"
+    fonte: "Decreto 6.583/2008 (promulga o Acordo Ortográfico da Língua Portuguesa), compilação da Câmara baixada em 26/11/2026"
+    url: https://www2.camara.leg.br/legin/fed/decret/2008/decreto-6583-29-setembro-2008-581372-normaatualizada-pe.html
+    arquivo: leis/decreto-6583-2008-camara.html
+    artigos: a lei inteira

@@ -160,6 +160,39 @@ def test_o_pedido_completa_a_aula_ate_o_numero_contando_as_geradas(banco_tempora
     assert manual.pedido_de_certo_errado(MATERIA, ate=5)["pedidos"] == []
 
 
+def test_a_rodada_da_faixa_traz_o_certo_errado_antes_da_multipla_escolha(banco_temporario):
+    # PRF-41: o tema pode ter dezenas de geradas de multipla escolha herdadas da
+    # PMSC; das nunca feitas, as de Certo/Errado vem primeiro.
+    with sessao() as s:
+        for n in range(6):
+            s.add(QuestaoGerada(modo="variacao", modelo="teste", materia=MATERIA,
+                                conteudo=INFRACOES, enunciado=f"Multipla escolha {n}.",
+                                alternativas={"a": "um", "b": "dois", "c": "tres", "d": "quatro"},
+                                resposta="a", impressao=f"me{n}"))
+        for n in range(2):
+            s.add(QuestaoGerada(modo="do_zero", modelo="teste", materia=MATERIA,
+                                conteudo=INFRACOES, enunciado=f"Item de Certo ou Errado {n}.",
+                                alternativas=dict(ALTERNATIVAS), resposta="c", impressao=f"ce{n}"))
+        # O outro no da faixa so tem Certo/Errado: a rodada dos dois nos junta
+        # o C/E de ambos antes de dar a multipla escolha do primeiro.
+        for n in range(3):
+            s.add(QuestaoGerada(modo="do_zero", modelo="teste", materia=MATERIA,
+                                conteudo=CRIMES, enunciado=f"Item de crime de trânsito {n}.",
+                                alternativas=dict(ALTERNATIVAS), resposta="e", impressao=f"cr{n}"))
+
+    def formatos(quantidade, nos):
+        rodada = geradas.criar_simulado(quantidade=quantidade, conteudos=nos)
+        with sessao() as s:
+            ids = list(s.scalars(select(RespostaDeSimulado.questao_id)
+                                 .where(RespostaDeSimulado.simulado_id == rodada.id)))
+            return sorted(s.get(QuestaoGerada, i).alternativas == ALTERNATIVAS for i in ids)
+
+    for _ in range(5):  # o sorteio e aleatorio dentro do grupo: repete para pegar
+        assert formatos(3, [INFRACOES]) == [False, True, True]
+        assert formatos(5, [INFRACOES, CRIMES]) == [True] * 5
+        assert formatos(6, [INFRACOES, CRIMES]) == [False] + [True] * 5
+
+
 @pytest.mark.parametrize("fonte, serve", [
     ("MBFT (Res. CONTRAN 985/2022), Parte Geral, item 7.2", True),
     ("Res. CONTRAN 969/2022, Anexo I, itens 2.3 e 2.4", True),

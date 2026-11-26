@@ -25,6 +25,7 @@ from radar.models import (
     Simulado,
 )
 from radar.questoes import chave_da_questao
+from radar.questoes_certo_errado import ALTERNATIVAS as ALTERNATIVAS_CE
 from radar.servico import metricas
 
 log = logging.getLogger(__name__)
@@ -1078,10 +1079,16 @@ def _na_ordem_de_treino(candidatas: list[QuestaoGerada]) -> list[QuestaoGerada]:
     Das repetidas, a que eu errei da ultima vez vem antes da que acertei, e a
     mais antiga antes da mais nova: repetir serve para rever o que nao ficou.
     Dentro de cada grupo a ordem e sorteada - o que pesa e o grupo.
+
+    Das nunca feitas, as de Certo/Errado vem antes das de multipla escolha
+    (PRF-41): a prova e do Cebraspe, e a aula tem 35 itens de C/E escritos
+    para ela; a multipla escolha herdada da PMSC (ate 92 num tema so) treina o
+    conteudo, mas tomaria o botao "IA" da faixa.
     """
     random.shuffle(candidatas)
     ultimas = metricas.ultimas_das_geradas()
     nunca = [q for q in candidatas if q.id not in ultimas]
+    nunca.sort(key=lambda q: q.alternativas != ALTERNATIVAS_CE)  # estavel: C/E na frente
     repetidas = [q for q in candidatas if q.id in ultimas]
 
     def peso(q):
@@ -1100,17 +1107,35 @@ def _sortear_misturado(quantidade: int, conteudos: list[str],
     cada no da a sua vez, um de cada ate completar (o que acaba passa a vez
     aos outros). O embaralhar no fim e o que faz o "Treinar geral": eu nao
     sei de qual no vem a proxima. Um no dentro do outro nao repete questao.
+
+    Sao duas voltas (PRF-41): na primeira, cada no so da o Certo/Errado que
+    eu nunca fiz; na segunda, o resto, na ordem de treino. Sem isso, o no que
+    acabou o C/E daria a multipla escolha herdada enquanto o outro ainda tem.
     """
     filas = [_sortear(quantidade, conteudo=c, nivel=nivel) for c in conteudos]
+    primeiro = _certo_errado_nunca_feitas({i for fila in filas for i in fila})
     escolhidas: list[int] = []
-    while len(escolhidas) < quantidade and any(filas):
-        for fila in filas:
-            while fila and fila[0] in escolhidas:
-                fila.pop(0)
-            if fila and len(escolhidas) < quantidade:
-                escolhidas.append(fila.pop(0))
+    for vale in (lambda i: i in primeiro, lambda i: True):
+        restantes = [[i for i in fila if vale(i)] for fila in filas]
+        while len(escolhidas) < quantidade and any(restantes):
+            for fila in restantes:
+                while fila and fila[0] in escolhidas:
+                    fila.pop(0)
+                if fila and len(escolhidas) < quantidade:
+                    escolhidas.append(fila.pop(0))
     random.shuffle(escolhidas)
     return escolhidas
+
+
+def _certo_errado_nunca_feitas(ids: set[int]) -> set[int]:
+    """Dos ids, as geradas de Certo/Errado que eu nunca respondi."""
+    if not ids:
+        return set()
+    ultimas = metricas.ultimas_das_geradas()
+    with sessao() as s:
+        geradas = s.scalars(select(QuestaoGerada).where(QuestaoGerada.id.in_(ids)))
+        return {q.id for q in geradas
+                if q.alternativas == ALTERNATIVAS_CE and q.id not in ultimas}
 
 
 def criar_simulado(

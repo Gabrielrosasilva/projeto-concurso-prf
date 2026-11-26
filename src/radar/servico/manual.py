@@ -931,10 +931,7 @@ def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
             continue
 
         ids = []
-        for no in nos:
-            achado = textos_de_lei.do_no(no)
-            if achado is None:
-                continue
+        for achado in (t for no in nos for t in textos_de_lei.todos_do_no(no)):
             id_ = next((chave for chave, t in textos.items()
                         if t["arquivo"] == achado.arquivo and t["artigos"] == achado.artigos),
                        None)
