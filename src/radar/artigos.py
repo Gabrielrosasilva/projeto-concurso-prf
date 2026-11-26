@@ -98,11 +98,15 @@ _POR_SIGLA = {lei.sigla: lei for lei in LEIS}
 #: todo o resto caia em "O que eu preciso dominar". Outro orgao no meio ("Res.
 #: CNJ 213/2015") nao casa: so a do CONTRAN, ou a sem orgao.
 _RESOLUCAO = re.compile(
-    r"\b(?:res\.|resolucao)\s*(?:do\s+)?(?:contran\s+)?(?:n[o.]*\s*)?(\d{1,4})/(\d{4})\b")
+    r"\b(?:res\.|resolucao)\s*(?:do\s+)?(?:contran\s+)?(?:n[o.]*\s*)?"
+    r"(\d{1,2}\.\d{3}|\d{1,4})/(\d{4})\b")
 
 
 def sigla_da_resolucao(numero: str | int, ano: str | int) -> str:
-    return f"Res. CONTRAN {int(numero)}/{ano}"
+    """ "Res. CONTRAN 945/2022"; da milesima em diante, com o ponto, como o
+    CONTRAN escreve: "1027" e "1.027" viram "Res. CONTRAN 1.027/2026"."""
+    n = int(str(numero).replace(".", ""))
+    return f"Res. CONTRAN {n:,}/{ano}".replace(",", ".")
 
 
 def _conhecida(sigla: str | None) -> bool:
@@ -175,6 +179,11 @@ _NUMERO = re.compile(r"(\d+)\s*[o°]?(?:\s*-\s*([a-z])\b)?")
 _SEPARADOR = re.compile(r"\s*(,|\be\b|\ba\b|\bate\b)\s*")
 # O rotulo entre parenteses no meio da lista: "arts. 301 a 303 (flagrante), 308".
 _ROTULO = re.compile(r"\s*\([^()]*\)")
+# O paragrafo do artigo de antes, no meio da lista: "§ 5o", "§§ 7o e 8o",
+# "§§ 1o a 4o". A virgula, nao: em "§§ 3o e 4o, 10", o 10 ja e artigo.
+_PARAGRAFOS = re.compile(r"§§?\s*\d+\s*[o°]?(?:\s*(?:\be\b|\ba\b)\s*\d+\s*[o°]?)*")
+# Depois dele, a virgula (e um "e") ate o proximo artigo: "§ 6o, e 284".
+_DEPOIS_DO_PARAGRAFO = re.compile(r"\s*(,)\s*(?:e\s+)?(?=\d)")
 # Depois da lista: "do CP", "da DUDH", com um parentese no meio se houver.
 _DEPOIS = re.compile(r"\s*(?:\([^)]*\)\s*)?d[aoe]s?\s+")
 
@@ -221,7 +230,17 @@ def _lista(texto: str, inicio: int, plural: bool) -> tuple[list, int]:
         sep = _SEPARADOR.match(texto, rotulo.end() if rotulo else fim)
         if sep is None:
             break
-        seguinte = _NUMERO.match(texto, sep.end())
+        depois = sep.end()
+        # O paragrafo no meio da lista e do artigo de antes, e nao acaba a
+        # lista (PRF-47): "arts. 2º, 3º, § 5º, 4º" e "arts. 257, §§ 7º e 8º,
+        # 259" seguem para o 4º e o 259. Sem isto, a lista parava no "§".
+        paragrafo = _PARAGRAFOS.match(texto, depois) if sep.group(1) == "," else None
+        if paragrafo is not None:
+            sep = _DEPOIS_DO_PARAGRAFO.match(texto, paragrafo.end())
+            if sep is None:
+                break
+            depois = sep.end()
+        seguinte = _NUMERO.match(texto, depois)
         if seguinte is None:
             break
         artigo = (int(seguinte.group(1)), (seguinte.group(2) or "").upper())

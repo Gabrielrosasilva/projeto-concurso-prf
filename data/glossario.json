@@ -111,6 +111,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "ADI 5.322",
+    "variantes": [
+      "ADI"
+    ],
+    "significado": "A ação no STF que declarou inconstitucional o trecho do CTB que deixava as 11 h de descanso serem fracionadas, usufruídas no veículo e coincidir com os intervalos, com só 8 h seguidas no primeiro período. Hoje valem as 11 h, sem esse trecho.",
+    "fontes": [
+      "CTB, art. 67-C, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
     "termo": "aditar",
     "variantes": [
       "aditamento"
@@ -133,6 +145,29 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "advertência por escrito",
+    "variantes": [],
+    "significado": "A penalidade mais leve: um aviso por escrito no lugar da multa, sem pontos na carteira, para a infração leve ou média de quem não cometeu outra em 12 meses.",
+    "fontes": [
+      "CTB, art. 267",
+      "Res. CONTRAN 918/2022, art. 10, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
+    "termo": "AE",
+    "variantes": [
+      "Autorização Específica"
+    ],
+    "significado": "Autorização Específica: a licença do órgão rodoviário para o ônibus ou o veículo de carga que passa dos limites e o CONTRAN deixa rodar até virar sucata.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, X"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
     "termo": "AET",
     "variantes": [
       "Autorização Especial de Trânsito"
@@ -153,6 +188,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "AIT",
+    "variantes": [],
+    "significado": "Auto de Infração de Trânsito: o documento que o agente preenche ao constatar a infração.",
+    "fontes": [
+      "MBFT aprovado pela Res. CONTRAN 985/2022, art. 1º (Parte Geral, item 7)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
   },
   {
     "termo": "alcoolemia",
@@ -257,6 +302,31 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "área crítica de visão",
+    "variantes": [
+      "área crítica"
+    ],
+    "significado": "O pedaço do para-brisa bem na frente do motorista, onde não pode haver dano nenhum.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 14"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
+    "termo": "áreas indispensáveis à dirigibilidade",
+    "variantes": [
+      "áreas indispensáveis",
+      "áreas envidraçadas indispensáveis à dirigibilidade"
+    ],
+    "significado": "Os vidros que o motorista usa para enxergar e dirigir: o para-brisa e os laterais da frente.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 4º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "arguir",
     "variantes": [
       "argui-la",
@@ -331,6 +401,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "atividade remunerada ao veículo",
+    "variantes": [
+      "atividade remunerada em veículo"
+    ],
+    "significado": "Trabalhar dirigindo e ganhar com isso; para esse motorista, a suspensão por pontos só vem com 40.",
+    "fontes": [
+      "CTB, art. 261, § 5º",
+      "Res. CONTRAN 723/2018, art. 3º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
   },
   {
     "termo": "atividade típica da Administração",
@@ -418,6 +501,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "ATPV-e",
+    "variantes": [],
+    "significado": "Autorização para Transferência de Propriedade do Veículo em meio digital: o comprovante da venda, assinado eletronicamente pelo vendedor e pelo comprador.",
+    "fontes": [
+      "Res. CONTRAN 1.027/2026, art. 25, II",
+      "Res. CONTRAN 1.027/2026, art. 28"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "audiência de custódia",
@@ -595,6 +689,16 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "caminhão-trator",
+    "variantes": [],
+    "significado": "O cavalo mecânico: o veículo feito para puxar outro, como o semirreboque.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
     "termo": "caminhonete",
     "variantes": [
       "caminhonetes"
@@ -665,6 +769,17 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "carroceria intercambiável",
+    "variantes": [],
+    "significado": "Carroceria que se tira e se põe no veículo, como o camper.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 4º",
+      "Res. CONTRAN 969/2022, art. 60"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "caso fortuito ou força maior",
     "variantes": [],
     "significado": "Algo imprevisível ou que não dava para evitar: a pessoa não teve culpa naquilo.",
@@ -698,6 +813,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "CAT",
+    "variantes": [
+      "Certificado de Adequação à Legislação de Trânsito"
+    ],
+    "significado": "Certificado de Adequação à Legislação de Trânsito: o certificado do órgão máximo executivo de trânsito da União que sai junto com o código de marca/modelo/versão do veículo.",
+    "fontes": [
+      "Res. CONTRAN 916/2022, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "causa superveniente relativamente independente",
@@ -746,6 +873,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "chancela",
+    "variantes": [],
+    "significado": "A marca gravada na película, com o nome de quem instalou e o índice de transmitância, que se lê pelo lado de fora.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 8º, §§ 1º e 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "chave falsa",
     "variantes": [],
     "significado": "Qualquer instrumento usado no lugar da chave verdadeira, como gazua, grampo ou cópia feita sem o dono saber.",
@@ -766,6 +903,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "cinta jugular",
+    "variantes": [],
+    "significado": "A tira que passa por baixo do queixo e, com o engate, prende o capacete na cabeça.",
+    "fontes": [
+      "Res. CONTRAN 940/2022, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
     "termo": "circunscrição",
@@ -854,6 +1001,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
+  },
+  {
+    "termo": "CMT",
+    "variantes": [
+      "capacidade máxima de tração"
+    ],
+    "significado": "Capacidade máxima de tração: o peso máximo que a unidade de tração (o cavalo mecânico, ou o caminhão que puxa reboque) consegue puxar, segundo o fabricante.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "coação irresistível",
@@ -1063,6 +1222,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "contrabando",
+    "variantes": [],
+    "significado": "Crime de importar ou exportar mercadoria proibida.",
+    "fontes": [
+      "CP, art. 334-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
     "termo": "contraditório",
     "variantes": [],
     "significado": "O direito de saber o que o outro lado alegou e de responder.",
@@ -1210,6 +1379,40 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "CRLV",
+    "variantes": [],
+    "significado": "O documento de registro e licenciamento do veículo, que o agente pode recolher até o fim do descanso.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 6º, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "CRLV-e",
+    "variantes": [],
+    "significado": "O documento digital do veículo: Certificado de Registro e Licenciamento de Veículo em meio digital.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 57"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "cronotacógrafo",
+    "variantes": [
+      "registrador instantâneo inalterável de velocidade e tempo",
+      "registrador instantâneo e inalterável de velocidade e tempo"
+    ],
+    "significado": "O aparelho do veículo que grava, sem dar para alterar, a velocidade, a distância e o tempo de movimento e de parada.",
+    "fontes": [
+      "Res. CONTRAN 938/2022, art. 3º",
+      "CTB, art. 105, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
     "termo": "CRV",
     "variantes": [
       "Certificado de Registro de Veículo"
@@ -1290,6 +1493,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "CVC",
+    "variantes": [
+      "Combinação de Veículos para Transporte de Carga"
+    ],
+    "significado": "Combinação de veículos de carga: o caminhão ou cavalo mecânico com um ou mais reboques ou semirreboques engatados.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, XXII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "de ofício",
@@ -1407,6 +1622,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "descaminho",
+    "variantes": [],
+    "significado": "Crime de iludir, no todo ou em parte, o pagamento de direito ou imposto devido pela entrada, pela saída ou pelo consumo de mercadoria: driblar o imposto.",
+    "fontes": [
+      "CP, art. 334"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
     "termo": "desconsiderada",
     "variantes": [
       "desconsideração"
@@ -1463,6 +1688,19 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "desmaterializado",
+    "variantes": [
+      "desmaterialização",
+      "desmaterializada"
+    ],
+    "significado": "CRV de papel inutilizado de vez no sistema: o papel perde a validade para registro e transferência.",
+    "fontes": [
+      "Res. CONTRAN 1.027/2026, art. 8º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
     "termo": "destreza",
     "variantes": [],
     "significado": "Habilidade de mão leve, como a do batedor de carteira que a vítima nem percebe.",
@@ -1492,6 +1730,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "diário de bordo",
+    "variantes": [],
+    "significado": "O caderno em que o motorista empregado anota a jornada: o tempo ao volante e os descansos.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 2º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
     "termo": "dias-multa",
@@ -1536,6 +1784,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "disco diagrama",
+    "variantes": [
+      "disco"
+    ],
+    "significado": "O disco em que o cronotacógrafo registra a operação do veículo.",
+    "fontes": [
+      "Res. CONTRAN 938/2022, art. 6º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "display",
+    "variantes": [],
+    "significado": "O painel eletrônico do radar fixo que mostra ao motorista a velocidade registrada.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 3º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
     "termo": "dispositivo de retenção",
@@ -1668,6 +1938,16 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "embarcador",
+    "variantes": [],
+    "significado": "Quem manda a carga e declara o peso dela na nota fiscal.",
+    "fontes": [
+      "CTB, art. 257, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "embargos de declaração",
     "variantes": [],
     "significado": "Pedido ao próprio juiz para esclarecer uma decisão obscura, contraditória ou com omissão.",
@@ -1733,6 +2013,18 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "EPI",
+    "variantes": [
+      "equipamento de proteção individual"
+    ],
+    "significado": "Equipamento de proteção individual: aqui, os óculos de segurança do trabalho.",
+    "fontes": [
+      "Res. CONTRAN 940/2022, art. 4º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "equiparados",
     "variantes": [
       "equiparado"
@@ -1786,6 +2078,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "erro máximo admitido",
+    "variantes": [
+      "erro máximo admissível"
+    ],
+    "significado": "A margem de erro do aparelho, que a lei de metrologia aceita e que se desconta da velocidade medida.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 8º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
     "termo": "escalada",
@@ -1842,6 +2146,18 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "estampador",
+    "variantes": [
+      "estampadores"
+    ],
+    "significado": "A empresa credenciada que faz o acabamento final da placa e a vende ao dono do veículo.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 57"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "estatutário",
     "variantes": [],
     "significado": "Servidor público regido por um estatuto, uma lei própria, e não pela CLT.",
@@ -1862,6 +2178,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "esterçamento",
+    "variantes": [],
+    "significado": "O giro das rodas da frente quando se vira o volante; no teste, o volante vai até o fim para os dois lados.",
+    "fontes": [
+      "Res. CONTRAN 916/2022, art. 8º, I, c",
+      "Res. CONTRAN 916/2022, art. 10, I, b"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "estrito cumprimento de dever legal",
@@ -1894,6 +2221,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "exame toxicológico periódico",
+    "variantes": [],
+    "significado": "O exame de laboratório que o condutor das categorias C, D ou E faz de tempos em tempos; deu positivo, o direito de dirigir é suspenso, e a suspensão cai com novo exame negativo, que pode ser feito a qualquer tempo, ou depois de 3 meses.",
+    "fontes": [
+      "Res. CONTRAN 723/2018, art. 3º, III",
+      "Res. CONTRAN 723/2018, art. 8º-A, §§ 3º e 4º",
+      "Res. CONTRAN 723/2018, art. 17-D"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
   },
   {
     "termo": "exaurimento",
@@ -2035,6 +2374,41 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "ficha de trabalho do autônomo",
+    "variantes": [
+      "ficha do autônomo"
+    ],
+    "significado": "A ficha em que o motorista autônomo controla o tempo de direção e o descanso; ele leva sempre junto a das últimas 24 h.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 1º, parágrafo único, IV",
+      "Res. CONTRAN 525/2015, art. 2º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "ficha de trabalho externo",
+    "variantes": [],
+    "significado": "A ficha do empregador para o motorista que trabalha fora da empresa anotar o tempo ao volante e os descansos.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 2º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "fita diagrama",
+    "variantes": [
+      "fita"
+    ],
+    "significado": "A fita em que o cronotacógrafo eletrônico registra a operação do veículo.",
+    "fontes": [
+      "Res. CONTRAN 938/2022, art. 6º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
     "termo": "flagrante delito",
     "variantes": [
       "flagrante"
@@ -2077,6 +2451,19 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "fratura de configuração circular",
+    "variantes": [
+      "fraturas de configuração circular",
+      "fratura circular"
+    ],
+    "significado": "Quebra do vidro em forma redonda, como a marca de uma pedrinha.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 13"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "fraude processual",
     "variantes": [],
     "significado": "Crime de mexer no lugar, na coisa ou na pessoa para enganar o juiz ou o perito.",
@@ -2109,6 +2496,19 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "FUNSET",
+    "variantes": [
+      "Fundo Nacional de Segurança e Educação de Trânsito"
+    ],
+    "significado": "Fundo Nacional de Segurança e Educação de Trânsito: recebe 5% do valor arrecadado com as multas.",
+    "fontes": [
+      "Res. CONTRAN 918/2022, art. 2º, V",
+      "Res. CONTRAN 918/2022, art. 24, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
     "termo": "garantidor",
     "variantes": [],
     "significado": "Quem tem o dever de evitar o resultado: por lei, por ter assumido essa responsabilidade, ou por ter criado o risco.",
@@ -2128,6 +2528,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "GLP",
+    "variantes": [
+      "Gás Liquefeito de Petróleo"
+    ],
+    "significado": "Gás Liquefeito de Petróleo, o gás de botijão; como combustível de veículo automotor é proibido, salvo nas empilhadeiras.",
+    "fontes": [
+      "Res. CONTRAN 916/2022, art. 10, IX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "gravoso",
@@ -2556,6 +2968,45 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "infrações concomitantes",
+    "variantes": [
+      "infração concomitante",
+      "concomitantes"
+    ],
+    "significado": "Infrações cometidas ao mesmo tempo, mas uma sem depender da outra: um auto para cada.",
+    "fontes": [
+      "MBFT aprovado pela Res. CONTRAN 985/2022, art. 1º (Parte Geral, item 7)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "infrações concorrentes",
+    "variantes": [
+      "infração concorrente",
+      "concorrentes"
+    ],
+    "significado": "Quando cometer uma infração já é, por força, cometer a outra: vai um auto só.",
+    "fontes": [
+      "MBFT aprovado pela Res. CONTRAN 985/2022, art. 1º (Parte Geral, item 7)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "infrações sucessivas",
+    "variantes": [
+      "infração sucessiva",
+      "sucessivas"
+    ],
+    "significado": "A mesma infração repetida várias vezes no caminho, com intervalos: um auto para cada vez.",
+    "fontes": [
+      "MBFT aprovado pela Res. CONTRAN 985/2022, art. 1º (Parte Geral, item 7)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "inimigo capital",
     "variantes": [],
     "significado": "Inimigo de verdade, com briga séria; não é só alguém de quem não se gosta.",
@@ -2579,6 +3030,19 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "ininterruptas",
+    "variantes": [
+      "ininterrupta",
+      "contínuas"
+    ],
+    "significado": "Seguidas, sem parar.",
+    "fontes": [
+      "CTB, art. 67-C"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
     "termo": "injusta agressão",
     "variantes": [],
     "significado": "Ataque que ninguém é obrigado a aguentar, contrário ao direito.",
@@ -2587,6 +3051,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "INMETRO",
+    "variantes": [
+      "Instituto Nacional de Metrologia, Qualidade e Tecnologia"
+    ],
+    "significado": "Instituto Nacional de Metrologia, Qualidade e Tecnologia: o órgão que regula a certificação de produtos como o capacete.",
+    "fontes": [
+      "Res. CONTRAN 940/2022, art. 2º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
     "termo": "inovar artificiosamente",
@@ -2686,6 +3162,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "interrupções involuntárias",
+    "variantes": [],
+    "significado": "Paradas que o motorista não escolheu, como engarrafamento e semáforo; não contam como descanso.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 1º, parágrafo único, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
     "termo": "interseção",
@@ -2837,6 +3323,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "lacres",
+    "variantes": [
+      "lacre",
+      "lacradas"
+    ],
+    "significado": "Os selos que fecham as ligações do aparelho e mostram se alguém mexeu nelas.",
+    "fontes": [
+      "Res. CONTRAN 938/2022, art. 6º, § 1º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
     "termo": "lascívia",
@@ -3010,6 +3509,16 @@
     "criado_em": "2026-10-12T17:48:54.523099+00:00"
   },
   {
+    "termo": "limite regulamentar",
+    "variantes": [],
+    "significado": "O limite que vale de verdade: o menor entre o da resolução e o do fabricante.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, XI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
     "termo": "linha sucessória",
     "variantes": [],
     "significado": "A fila de quem assume a Presidência quando Presidente e vice não podem.",
@@ -3038,6 +3547,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "longarina",
+    "variantes": [
+      "longarinas"
+    ],
+    "significado": "A viga comprida do chassi, no sentido do comprimento do veículo; no veículo de PBT acima de 3.500 kg com suspensão alterada, é por ela que se mede o nivelamento.",
+    "fontes": [
+      "Res. CONTRAN 916/2022, art. 8º, II, a"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
+    "termo": "lotação",
+    "variantes": [],
+    "significado": "O máximo que o veículo pode levar, contando motorista e passageiros: em kg no de carga, em número de pessoas no de passageiros.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "luzes de rodagem diurna",
@@ -3144,6 +3675,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "MBFT",
+    "variantes": [
+      "Manual Brasileiro de Fiscalização de Trânsito"
+    ],
+    "significado": "O manual oficial que padroniza como o agente fiscaliza e autua.",
+    "fontes": [
+      "Res. CONTRAN 985/2022, art. 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "medida cautelar",
     "variantes": [],
     "significado": "Providência que o juiz toma antes da sentença para proteger o processo ou a sociedade.",
@@ -3198,6 +3741,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "medidor de velocidade",
+    "variantes": [
+      "medidores de velocidade"
+    ],
+    "significado": "O radar: o aparelho que mede a velocidade do veículo e tira a foto que prova a infração.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 2º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
     "termo": "meio insidioso",
@@ -3323,6 +3878,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "motorista profissional",
+    "variantes": [],
+    "significado": "O condutor que dirige como trabalho remunerado.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 1º, parágrafo único, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
     "termo": "municípios limítrofes",
     "variantes": [],
     "significado": "Cidades vizinhas, que fazem divisa uma com a outra.",
@@ -3341,6 +3906,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "NA",
+    "variantes": [
+      "Notificação da Autuação"
+    ],
+    "significado": "Notificação da Autuação: o aviso ao dono do veículo de que houve uma infração com o carro dele; dela corre o prazo da defesa.",
+    "fontes": [
+      "Res. CONTRAN 918/2022, art. 2º, II",
+      "Res. CONTRAN 918/2022, art. 4º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
   },
   {
     "termo": "nato",
@@ -3433,6 +4011,28 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "notificação de autuação",
+    "variantes": [],
+    "significado": "O aviso que chega ao dono do veículo dizendo que foi lavrado um auto de infração contra ele (a NA).",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 9º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "NP",
+    "variantes": [
+      "Notificação da Penalidade"
+    ],
+    "significado": "Notificação da Penalidade: o aviso de que a penalidade foi aplicada, com o valor da multa.",
+    "fontes": [
+      "Res. CONTRAN 918/2022, art. 2º, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
     "termo": "nulidade",
     "variantes": [
       "nulidades"
@@ -3453,6 +4053,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "OCR",
+    "variantes": [
+      "Reconhecimento Óptico de Caracteres"
+    ],
+    "significado": "A tecnologia que lê, na imagem, as letras e os números da placa.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "OEER",
+    "variantes": [],
+    "significado": "O órgão rodoviário (da União, do estado, do município ou do DF) que cuida da via: é quem emite a AET e a AE.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, XXIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "ofendido",
@@ -3540,6 +4162,20 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "ostensivamente",
+    "variantes": [
+      "ostensivo",
+      "ostensividade"
+    ],
+    "significado": "À vista de todo mundo, sem esconder.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 3º, II",
+      "Res. CONTRAN 798/2020, art. 7º, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
     "termo": "Pacote Anticrime",
     "variantes": [],
     "significado": "O apelido da Lei 13.964/2019, que mexeu no Código Penal, no CPP e em várias leis penais, entre elas a dos crimes hediondos e o art. 16 do Estatuto.",
@@ -3561,6 +4197,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
+  },
+  {
+    "termo": "padrão cristal",
+    "variantes": [
+      "viseira cristal",
+      "cristal"
+    ],
+    "significado": "Viseira transparente, sem escurecimento.",
+    "fontes": [
+      "Res. CONTRAN 940/2022, art. 4º, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
+    "termo": "papeleta",
+    "variantes": [],
+    "significado": "A folha de controle da jornada que o empregador fornece ao motorista.",
+    "fontes": [
+      "Res. CONTRAN 525/2015, art. 2º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
     "termo": "paramilitar",
@@ -3603,6 +4262,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "PBTC",
+    "variantes": [
+      "peso bruto total combinado"
+    ],
+    "significado": "Peso bruto total combinado: o peso máximo do conjunto engatado, o caminhão-trator mais o semirreboque, ou o caminhão mais o reboque.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, VI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "peculato",
@@ -3721,6 +4392,19 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "PIV",
+    "variantes": [
+      "Placa de Identificação Veicular",
+      "Placas de Identificação de Veículos"
+    ],
+    "significado": "A placa do padrão atual, com QR Code.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "plebiscito",
     "variantes": [],
     "significado": "O povo é consultado ANTES de a decisão ser tomada.",
@@ -3740,6 +4424,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "PNU",
+    "variantes": [
+      "Placa Nacional Única"
+    ],
+    "significado": "A placa do padrão antigo, com três letras e quatro números (AAA-1111).",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 2º, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
   },
   {
     "termo": "poder de polícia",
@@ -3902,6 +4598,16 @@
     "criado_em": "2026-10-12T17:48:54.523099+00:00"
   },
   {
+    "termo": "principal condutor",
+    "variantes": [],
+    "significado": "A pessoa que o dono indica como quem dirige o veículo; aceita a indicação, o nome dela vai para o cadastro do veículo no Renavam.",
+    "fontes": [
+      "CTB, art. 257, § 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
     "termo": "princípio da universalidade",
     "variantes": [],
     "significado": "A regra que deixa punir certos crimes onde quer que tenham acontecido, porque os países se comprometeram, por tratado, a reprimi-los.",
@@ -4030,6 +4736,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "QR Code",
+    "variantes": [],
+    "significado": "O código de barras em quadradinho, lido pelo celular; na placa, é o lacre eletrônico.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "quebrar a fiança",
     "variantes": [
       "quebrado fiança",
@@ -4042,6 +4758,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "queixeira",
+    "variantes": [],
+    "significado": "A parte do capacete que fica na frente do queixo.",
+    "fontes": [
+      "Res. CONTRAN 940/2022, art. 4º, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
     "termo": "querelado",
@@ -4074,6 +4800,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "R-19",
+    "variantes": [
+      "placa R-19",
+      "placas R-19"
+    ],
+    "significado": "A placa de regulamentação que informa a velocidade máxima permitida no local.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
     "termo": "racha",
@@ -4114,6 +4853,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "reconhecimento de firma por autenticidade",
+    "variantes": [
+      "firma reconhecida por autenticidade"
+    ],
+    "significado": "O tabelionato (cartório de notas) atesta que a assinatura é mesmo daquela pessoa; na ATPV do CRV de papel, vale para o vendedor e para o comprador.",
+    "fontes": [
+      "Res. CONTRAN 1.027/2026, art. 26"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "recurso em sentido estrito",
@@ -4229,6 +4980,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "remanejamento",
+    "variantes": [
+      "remanejada"
+    ],
+    "significado": "Mudar a carga de lugar no próprio veículo para tirar o peso a mais de um eixo.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 52, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
     "termo": "remarcar",
     "variantes": [],
     "significado": "Gravar de novo, por cima, um número de identificação.",
@@ -4269,6 +5032,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "Renavam",
+    "variantes": [],
+    "significado": "Registro Nacional de Veículos Automotores: o cadastro nacional dos veículos, onde ficam o registro, as assinaturas da venda e a comunicação de venda.",
+    "fontes": [
+      "Res. CONTRAN 1.027/2026, art. 3º",
+      "Res. CONTRAN 918/2022, art. 10, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
     "termo": "repouso noturno",
@@ -4509,6 +5283,16 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "serigrafia",
+    "variantes": [],
+    "significado": "A faixa pintada na borda do para-brisa, que dá acabamento ao vidro.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 4º, § 1º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "sessão legislativa",
     "variantes": [],
     "significado": "O período de trabalho de um ano do Congresso.",
@@ -4584,6 +5368,18 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "solidariamente",
+    "variantes": [
+      "solidária"
+    ],
+    "significado": "Junto com o outro, pela mesma conta: o vendedor que não comunicou a venda responde pelas penalidades ao lado do comprador.",
+    "fontes": [
+      "CTB, art. 134"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
     "termo": "solvente",
     "variantes": [],
     "significado": "Quem tem dinheiro para pagar.",
@@ -4625,6 +5421,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "sucateamento",
+    "variantes": [],
+    "significado": "Quando o veículo vira sucata e sai de circulação de vez.",
+    "fontes": [
+      "Res. CONTRAN 969/2022, art. 57"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
   },
   {
     "termo": "sucessores",
@@ -4689,6 +5495,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "tandem",
+    "variantes": [
+      "em tandem"
+    ],
+    "significado": "Dois ou mais eixos colados, trabalhando juntos na mesma suspensão e dividindo o peso entre si.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 9º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
+    "termo": "tara",
+    "variantes": [],
+    "significado": "O peso do veículo vazio, já com carroceria, combustível, ferramentas, estepe e extintor.",
+    "fontes": [
+      "Res. CONTRAN 882/2021, art. 3º, XV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
     "termo": "teoria da atividade",
@@ -4813,6 +5641,18 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "transmitância luminosa",
+    "variantes": [
+      "transmitância"
+    ],
+    "significado": "Quanto da luz atravessa o vidro (com a película, se tiver), em porcentagem: quanto menor, mais escuro.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
     "termo": "transnacional",
     "variantes": [],
     "significado": "Que passa a fronteira, envolvendo mais de um país.",
@@ -4821,6 +5661,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "transportador",
+    "variantes": [],
+    "significado": "Quem faz o transporte da carga.",
+    "fontes": [
+      "CTB, art. 257, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "trecho crítico",
+    "variantes": [
+      "trechos críticos"
+    ],
+    "significado": "Pedaço da via, dentro de um círculo de raio definido, com número de acidentes com mortes e feridos considerado significativo.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 6º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
     "termo": "três quintos",
@@ -4911,6 +5773,18 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "unidade tracionada",
+    "variantes": [
+      "tracionada"
+    ],
+    "significado": "Numa combinação de veículos, a parte puxada (o reboque ou o semirreboque).",
+    "fontes": [
+      "MBFT aprovado pela Res. CONTRAN 985/2022, art. 1º (Parte Geral, item 7)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
     "termo": "unidade tratora",
     "variantes": [],
     "significado": "O veículo que puxa: o cavalo do caminhão, ou o carro que leva o reboque.",
@@ -4977,6 +5851,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "velocidade considerada",
+    "variantes": [],
+    "significado": "A velocidade que vale para a multa: a que o radar mediu, menos a margem de erro do aparelho.",
+    "fontes": [
+      "Res. CONTRAN 798/2020, art. 8º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "verificação metrológica",
+    "variantes": [],
+    "significado": "A conferência, pelo INMETRO ou entidade credenciada, de que o aparelho mede certo.",
+    "fontes": [
+      "Res. CONTRAN 938/2022, art. 6º, § 1º, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
     "termo": "vestígio",
@@ -5049,6 +5943,51 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "videomonitoramento",
+    "variantes": [],
+    "significado": "Fiscalização a distância, por câmeras, com o agente vendo as imagens ao vivo.",
+    "fontes": [
+      "Res. CONTRAN 909/2022, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "vidro laminado",
+    "variantes": [
+      "laminado"
+    ],
+    "significado": "O vidro de segurança exigido no para-brisa de todos os veículos.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
+    "termo": "vidro temperado",
+    "variantes": [
+      "temperado",
+      "uniformemente protendido"
+    ],
+    "significado": "Outro tipo de vidro de segurança, aceito nos vidros que não são o para-brisa.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
+    "termo": "vigia",
+    "variantes": [],
+    "significado": "O vidro traseiro do veículo.",
+    "fontes": [
+      "Res. CONTRAN 960/2022, art. 4º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
     "termo": "vista ao Ministério Público",

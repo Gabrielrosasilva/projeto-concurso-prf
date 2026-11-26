@@ -59,6 +59,12 @@ def _normalizado_com_mapa(texto: str) -> tuple[str, list[int]]:
     return "".join(normal), mapa
 
 
+def _sigla(forma: str) -> bool:
+    """ "NA", "AET", "R-19": toda letra em caixa alta, e ao menos uma."""
+    letras = [c for c in forma if c.isalpha()]
+    return bool(letras) and all(c.isupper() for c in letras)
+
+
 def trechos(texto: str, termos: list[dict], vistos: set, protegido=None) -> list[Trecho]:
     """O texto cortado nos termos do glossario: so a 1a vez de cada termo, e
     so se ele ainda nao apareceu no bloco (`vistos`, as chaves dos termos ja
@@ -76,6 +82,11 @@ def trechos(texto: str, termos: list[dict], vistos: set, protegido=None) -> list
             for m in palavra_inteira(forma).finditer(normal):
                 if m.end() > m.start():
                     inicio, fim = mapa[m.start()], mapa[m.end() - 1] + 1
+                    # A sigla so casa em caixa alta (PRF-49): sem isto, o
+                    # "NA" (notificacao de autuacao) marcava o "na" de "na
+                    # hora". Termo comum ("tara") continua sem caixa.
+                    if _sigla(forma) and texto[inicio:fim] != texto[inicio:fim].upper():
+                        continue
                     achados.append((inicio, -(fim - inicio), fim, chave, termo))
     saida, cursor = [], 0
     for inicio, _, fim, chave, termo in sorted(achados, key=lambda a: (a[0], a[1])):

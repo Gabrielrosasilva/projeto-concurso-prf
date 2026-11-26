@@ -26,6 +26,9 @@ CODIGOS = {"2021-q85": "e"}
     ("Res. 955/2022, art. 10", "Res. CONTRAN 955/2022, art. 10"),
     ("Resolução CONTRAN nº 508/2014, art. 5º, I", "Res. CONTRAN 508/2014, art. 5º"),
     ("Resolução do CONTRAN 508/2014, art. 2º", "Res. CONTRAN 508/2014, art. 2º"),
+    # Da milesima em diante, com o ponto ou sem: a mesma sigla, com o ponto.
+    ("Res. CONTRAN 1.027/2026, art. 5º", "Res. CONTRAN 1.027/2026, art. 5º"),
+    ("Resolução CONTRAN nº 1027/2026, art. 5º", "Res. CONTRAN 1.027/2026, art. 5º"),
 ])
 def test_a_resolucao_do_contran_e_norma(fonte, rotulo):
     assert artigos.da_fonte(fonte).rotulo == rotulo
@@ -38,6 +41,16 @@ def test_a_resolucao_de_outro_orgao_nao_e_lida():
 def test_o_numero_de_dentro_da_resolucao_nao_vira_outra_lei():
     # "801/2022" e um dos nomes da LC 801/2022 de SC (copia da PMSC).
     assert artigos.da_fonte("Res. CONTRAN 801/2022, art. 2º").lei == "Res. CONTRAN 801/2022"
+
+
+@pytest.mark.parametrize("texto, numeros", [
+    ("Res. CONTRAN 918/2022: arts. 2º, 3º, § 5º, 4º e 21", ["2º", "3º", "4º", "21"]),
+    ("CTB, arts. 257, §§ 7º e 8º, 259, 282, § 6º, e 284", ["257", "259", "282", "284"]),
+    ("Res. CONTRAN 723/2018, arts. 7º, §§ 3º e 4º, 10, §§ 1º e 5º, 17-A",
+     ["7º", "10", "17-A"]),
+])
+def test_o_paragrafo_no_meio_da_lista_nao_acaba_a_lista(texto, numeros):
+    assert [f.rotulo.rsplit(" ", 1)[1] for f in artigos.citados(texto)] == numeros
 
 
 def test_a_faixa_da_resolucao_vem_do_ler_exatamente():
@@ -138,3 +151,25 @@ def test_o_comece_e_as_normas_sao_recusados(mudar, motivo):
     mudar(bruto)
     with pytest.raises(fichas.FichaRecusada, match=motivo):
         _conferir(bruto)
+
+
+# --- a sigla do glossario so casa em caixa alta (PRF-49) -----------------------------------
+
+def test_a_sigla_do_glossario_nao_marca_a_palavra_comum():
+    from radar import glossario
+
+    na = {"termo": "NA", "variantes": [], "significado": "Notificação de autuação.",
+          "fontes": ["Res. CONTRAN 918/2022, art. 2º"]}
+    marcados = [t.texto for t in glossario.trechos("Identificado na hora, recebe a NA.",
+                                                   [na], set()) if t.termo]
+    assert marcados == ["NA"]
+
+
+def test_o_termo_comum_continua_sem_caixa():
+    from radar import glossario
+
+    tara = {"termo": "tara", "variantes": [], "significado": "O peso do veículo vazio.",
+            "fontes": ["Res. CONTRAN 882/2021, art. 3º"]}
+    marcados = [t.texto for t in glossario.trechos("A Tara do caminhão.", [tara], set())
+                if t.termo]
+    assert marcados == ["Tara"]
