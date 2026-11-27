@@ -145,6 +145,9 @@ from radar.servico import certo_errado  # noqa: F401 - usado pela web
 # O Simulado da semana dos sabados leves: treina, nao mede (decisao 170).
 # `servico.simulado_da_semana.das_faixas(...)`.
 from radar.servico import simulado_da_semana  # noqa: F401 - usado pela web e CLI
+# O Simulado da tela Simulado: 60 questoes, os erros primeiro e a IA onde as
+# reais acabaram (PRF-53). `servico.simulado_avulso.criar(...)`.
+from radar.servico import simulado_avulso  # noqa: F401 - usado pela web
 # O Simulado PMSC dos sabados de 14/11 a 05/12: 60 questoes na proporcao do
 # edital, a redacao dentro das 5 horas; treina, nao mede (decisao PMSC-9).
 from radar.servico import simulado_pmsc  # noqa: F401 - usado pela web

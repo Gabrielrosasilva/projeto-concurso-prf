@@ -411,6 +411,28 @@ Responda SOMENTE um JSON, no formato:
 {"questoes": [{"enunciado": "...", "resposta": "e", "artigo": "CTB, art. 165, caput", "conteudo": "...", "explicacao": "Errado: ...", "pegadinha": "...", "como_ficaria_certo": "..."}]}"""
 
 
+INSTRUCAO_PARTES = """Voce recebe itens de Certo/Errado no estilo do Cebraspe que uma IA ja escreveu para eu treinar para Policial Rodoviario Federal (PRF), cada um com o gabarito e o porque. Escreva, para CADA item, as duas partes que faltam na explicacao:
+
+- "pegadinha": uma frase: o que no item leva a errar ("O prazo de 15 dias e o da
+  defesa previa, e nao o do recurso"). No item CERTO, o que faz o item parecer
+  errado sem estar;
+- "como_ficaria_certo": so no item ERRADO: o proprio item reescrito do jeito
+  certo, trocando so o detalhe errado e mantendo o resto das palavras; no item
+  CERTO, "".
+
+Regras:
+- NAO mude o enunciado, o gabarito nem o porque: so escreva as duas partes;
+- confira no texto vigente da norma (os textos do pedido, ou a copia oficial
+  em `leis/`): o "como ficaria certo" tem de ser verdadeiro pelo texto, e nao
+  de memoria;
+- se, ao conferir, voce desconfiar do gabarito ou do porque (a lei diz outra
+  coisa, o item e ambiguo, o fato mudou), escreva o motivo em "suspeita";
+  senao, "". A suspeita so e listada para eu conferir: nada e apagado por ela.
+
+Responda SOMENTE um JSON, no formato:
+{"itens": [{"id": 123, "pegadinha": "...", "como_ficaria_certo": "...", "suspeita": ""}]}"""
+
+
 def conferir_certo_errado(item: dict) -> dict | None:
     """O item de Certo/Errado com a FORMA certa, ou None.
 

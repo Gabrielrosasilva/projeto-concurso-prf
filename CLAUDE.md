@@ -64,7 +64,7 @@ So abra o arquivo que a tarefa pede.
     (`NotaLiquida`) e o chute fora do acerto acumulado (`conta_no_acerto`).
   - `evidencia.py`: alvo, complementar e fora (uma regra, nunca somados).
   - `composicao.py`: o que vai numa rodada que mede (so questao real).
-  - `simulado.py`, `simulado_da_semana.py`, `estudo.py` (a fila de revisao,
+  - `simulado.py`, `simulado_da_semana.py`, `simulado_avulso.py` (a tela Simulado), `estudo.py` (a fila de revisao,
     uma so), `erros.py` (o motivo do erro), `cronograma.py` (a tela Hoje),
     `fichas.py`, `certo_errado.py` (a regra do chute, o Certo x Errado),
     `desempenho_por_conteudo.py`.

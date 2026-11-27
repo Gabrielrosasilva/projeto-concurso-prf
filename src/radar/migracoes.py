@@ -260,6 +260,18 @@ def _passo_13() -> None:
     _exportar_sem_perder("geradas")
 
 
+def _passo_14() -> None:
+    """PRF-54 (27/11/2026): a procedencia das partes escritas depois.
+
+    Uma coluna nova, `questoes_geradas.partes_procedencia`, que vem do modelo:
+    a pegadinha e o "como ficaria certo" das geradas de antes da PRF-51 sao
+    escritos depois do item, por outro pedido, e a procedencia deles nao e a
+    do item (regra 2 do CLAUDE.md). Nula nas demais. O passo leva a coluna
+    para o arquivo versionado.
+    """
+    _exportar_sem_perder("geradas")
+
+
 #: versao -> (o que muda, a funcao). A ordem e a dos numeros; passo aplicado
 #: nao se edita nunca mais: mudanca nova e passo novo.
 PASSOS = {
@@ -280,6 +292,7 @@ PASSOS = {
          _passo_11),
     12: ("A explicação de cada questão gerada de Certo/Errado", _passo_12),
     13: ("A pegadinha e o \"como ficaria certo\" de cada questão gerada", _passo_13),
+    14: ("Quem escreveu a pegadinha das questões geradas antigas, e quando", _passo_14),
 }
 VERSAO_ATUAL = max(PASSOS)
 

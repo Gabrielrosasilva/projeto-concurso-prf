@@ -556,6 +556,10 @@ class QuestaoGerada(Base):
     #: geradas de antes, que nasceram sem elas.
     pegadinha: Mapped[str | None] = mapped_column(Text, nullable=True)
     como_ficaria_certo: Mapped[str | None] = mapped_column(Text, nullable=True)
+    #: Quem escreveu a pegadinha e o "como ficaria certo" DEPOIS do item
+    #: (PRF-54: as geradas de antes da PRF-51). Nula quando as partes nasceram
+    #: com o item: ai a procedencia e o `modelo`.
+    partes_procedencia: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     #: Hash do enunciado, igual ao das questoes reais. E a chave do arquivo
     #: versionado, e e o que impede pagar duas vezes pela mesma questao e

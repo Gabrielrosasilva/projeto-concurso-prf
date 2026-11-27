@@ -457,7 +457,10 @@ RODADAS_QUE_MEDEM = ("composta", "erros_das_rodadas")
 #: (decisao 170), que treina mas e simulado sem consulta - a correcao dele e a
 #: faixa seguinte do plano.
 RODADAS_CORRIGIDAS_NO_FIM = RODADAS_QUE_MEDEM + ("simulado_da_semana", "simulado_pmsc",
-                                                "simulado_da_semana_ia")
+                                                "simulado_da_semana_ia",
+                                                # O Simulado da tela Simulado (PRF-53):
+                                                # 60 questoes, corrigido no fim, como a prova.
+                                                "simulado_avulso")
 
 
 def corrige_na_hora(simulado: Simulado) -> bool:

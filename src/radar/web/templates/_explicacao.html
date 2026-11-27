@@ -67,7 +67,7 @@
   <footer class="ds-explica__rodape">
     {{ selo('ia', 'Explicação (IA)' if e else ('Questão de IA' if p.gerada else 'Classificação (IA)')) }}
     {% if e %}
-      <span>{{ e.procedencia }} · Fonte citada: {{ e.fonte }} · confira na fonte antes de confiar</span>
+      <span>{{ e.procedencia }} · Fonte citada: {{ e.fonte }}{% if p.procedencia_das_partes %} · Pegadinha e “como ficaria certo”: {{ p.procedencia_das_partes }}{% endif %} · confira na fonte antes de confiar</span>
     {% elif p.gerada %}
       <span>A IA que escreveu esta questão não deixou explicação: só o artigo em que diz se apoiar.</span>
     {% else %}

@@ -1369,10 +1369,9 @@ def resumo_do_simulado(simulado_id: int) -> dict:
         # O item de Certo/Errado deixado em branco (PRF-28): nem acerto nem erro.
         "em_branco": sum(1 for r in respostas if r.escolhida == EM_BRANCO),
         "nota": nota_liquida(do_ce) if do_ce else None,
-        # So na rodada so de geradas: na misturada (o Simulado da semana) as
-        # geradas ja tem o numero delas, separado (`placar_separado`).
-        "nota_ia": (nota_liquida(do_ce_ia)
-                    if do_ce_ia and all(r.gerada for r in respostas) else None),
+        # A nota do C/E gerado, so dele: na rodada misturada (o Simulado,
+        # PRF-53) ela fica ao lado da das reais, nunca somada.
+        "nota_ia": nota_liquida(do_ce_ia) if do_ce_ia else None,
         "multipla_escolha": (DesempenhoDaMateria("Múltipla escolha", *placar(de_multipla))
                              if (do_ce or do_ce_ia) and de_multipla else None),
     }

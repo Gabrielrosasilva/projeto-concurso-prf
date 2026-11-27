@@ -101,6 +101,11 @@
         <span>{{ selo(r.origem, curto=True) }} <b>Reais:</b> {{ r.acertos }} de {{ r.respondidas }}{% if r.respondidas %} ({{ '%.0f'|format(r.porcentagem) }}%){% endif %}</span>
         <span>{{ selo(g.origem, curto=True) }} <b>Geradas:</b> {{ g.acertos }} de {{ g.respondidas }}{% if g.respondidas %} ({{ '%.0f'|format(g.porcentagem) }}%){% endif %}</span>
       </div>
+      {# O Certo/Errado de cada lado, com a nota liquida (PRF-53): a das
+         reais e a da IA, nunca somadas. #}
+      {% if resumo.nota %}<p class="ds-pequeno" style="margin-bottom:0"><b>Reais de Certo/Errado</b> - {{ resumo.nota.frase() }}.</p>{% endif %}
+      {% if resumo.multipla_escolha %}{% set me = resumo.multipla_escolha %}<p class="ds-pequeno" style="margin-bottom:0"><b>Reais de múltipla escolha</b> (outras bancas), à parte: {{ me.acertos }} de {{ me.respondidas }}.</p>{% endif %}
+      {% if resumo.nota_ia %}<p class="ds-pequeno" style="margin-bottom:0"><b>Certo/Errado da IA</b>, à parte e nunca somado - {{ resumo.nota_ia.frase() }}.</p>{% endif %}
       <p class="ds-pequeno" style="margin-bottom:0">Entraram geradas onde o radar não tem questão real: o acerto delas é treino e fica separado do das reais.</p>
     {% elif resumo.nota or resumo.nota_ia %}
       {# O Certo/Errado do Cebraspe (PRF-28): a nota liquida no lugar do

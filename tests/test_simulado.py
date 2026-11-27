@@ -302,11 +302,27 @@ def test_sem_questao_a_tela_explica_o_que_fazer(cliente):
     assert "radar provas" in texto and "radar questoes" in texto
 
 
-def test_fluxo_inteiro_pela_tela(cliente):
-    _semear(_questao(1), _questao(2, impressao="b"))
+def test_fluxo_inteiro_pela_tela(cliente, monkeypatch):
+    # O Simulado da PRF (PRF-53) divide as questoes pelas materias da prova:
+    # so entra questao do alvo classificada num assunto da materia. A reserva
+    # das rodadas que medem le o plano real, que este banco nao tem.
+    from radar.servico import classificacoes, composicao
+
+    monkeypatch.setattr(composicao, "reserva_das_que_medem",
+                        lambda data, plano=None: composicao.Reserva())
+    from radar.servico import conteudos as servico_conteudos
+
+    servico_conteudos.adicionar(None, "Língua Portuguesa")
+    servico_conteudos.adicionar("Língua Portuguesa", "Interpretação")
+    questoes = [_questao(1, evidencia="alvo"), _questao(2, impressao="b", evidencia="alvo")]
+    _semear(*questoes)
+    with sessao() as s:
+        chaves = [classificacoes.chave_de(q) for q in s.scalars(select(QuestaoDeProva))]
+    for chave in chaves:
+        classificacoes.classificar(chave, "Língua Portuguesa > Interpretação", "manual")
 
     criacao = cliente.post(
-        "/simulado/novo", data={"materia": "", "quantidade": "2"},
+        "/simulado/novo", data={"materia": "Língua Portuguesa", "quantidade": "2"},
         follow_redirects=False,
     )
     assert criacao.status_code == 303

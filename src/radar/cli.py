@@ -1006,6 +1006,11 @@ def gerar(
         None, "--tema",
         help="Com --certo-errado: só a aula deste título. Repetível",
     ),
+    partes: bool = typer.Option(
+        False, "--partes",
+        help="Com --pedido: a pegadinha e o \"como ficaria certo\" das geradas de "
+             "Certo/Errado que ainda nao tem (as de antes da PRF-51); --materia restringe",
+    ),
     novas: int = typer.Option(
         None, "--novas",
         help="Com --certo-errado, no lugar de --ate: completa cada aula até este "
@@ -1051,6 +1056,21 @@ def gerar(
 
     if pedido and certo_errado:
         _salvar_pedido_de_certo_errado(materia, ate, tema or None, novas)
+        return
+
+    if pedido and partes:
+        # As partes das geradas antigas (PRF-54): o item nao muda.
+        lote = servico.manual.pedido_de_partes(materia)
+        if not lote["pedidos"]:
+            console.print("[green]Toda gerada de Certo/Errado já tem a pegadinha.[/] "
+                          "Nada a pedir.")
+            return
+        destino = servico.manual.salvar_pedido(lote)
+        total = sum(len(p["itens"]) for p in lote["pedidos"])
+        console.print(f"[green]{total} item(ns) em {len(lote['pedidos'])} pedido(s)[/] "
+                      f"em {destino}. Nada foi gasto.")
+        console.print("Responda pelo Claude Code (o campo [bold]como_responder[/]) e "
+                      "depois: [bold]radar gerar --importar data/resposta_ia.json[/]")
         return
 
     escopo = _escopo_do_pedido(materia, assunto, subassunto, elemento)
@@ -1409,6 +1429,7 @@ def _importar_resposta_da_ia(arquivo: Path) -> None:
              "fichas": "ficha(s)", "resumos": "resumo(s)",
              "traducoes": "tradução(ões)",
              "niveis": "nível(is)",
+             "partes_das_geradas": "questão(ões) com a pegadinha",
              "redacao_correcao": "correção(ões) de redação",
              "redacao_ideias": "lista(s) de ideias de redação"}.get(resultado["tipo"],
                                                                "questão(ões)")
@@ -1458,6 +1479,12 @@ def _importar_resposta_da_ia(arquivo: Path) -> None:
             for impressao, conteudo, motivo in suspeitas:
                 console.print(f"  - {impressao[:8]} ({escape(conteudo or 'sem nó')}): "
                               f"{escape(motivo)}", soft_wrap=True)
+        console.print("[dim]Em data/questoes_geradas.json (versionado).[/]")
+    elif resultado["tipo"] == "partes_das_geradas":
+        # As suspeitas so sao listadas (PRF-54): o gabarito nao muda por elas.
+        for impressao, conteudo, motivo in resultado.get("suspeitas") or []:
+            console.print(f"  [yellow]suspeita[/] {impressao[:8]} ({escape(conteudo or 'sem nó')}): "
+                          f"{escape(motivo)}", soft_wrap=True)
         console.print("[dim]Em data/questoes_geradas.json (versionado).[/]")
     elif resultado["tipo"] == "classificacao":
         console.print("[dim]Em data/classificacoes.json (versionado). Confira em "

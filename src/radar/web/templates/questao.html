@@ -145,6 +145,9 @@
       <b>Simulado PMSC</b>: 60 questões na proporção do edital - as reais da AOCP e de outras bancas, e as geradas onde não há real; treina, não mede, e o acerto das reais e o das geradas ficam separados
     {% elif f.get('rodada') == 'simulado_da_semana' %}
       <b>Simulado da semana</b>: questões reais{% if f.get('outras') %}, {{ f.get('outras') }} de outras bancas{% if f.get('bancas') %} ({{ f.get('bancas') | join(', ') }}){% endif %}{% endif %}{% if f.get('geradas_na_rodada') %}, e {{ f.get('geradas_na_rodada') }} geradas por IA onde não há real (acerto separado){% endif %} — treina, não mede; o acerto conta no seu desempenho, com a origem ao lado
+    {% elif f.get('rodada') == 'simulado_avulso' %}
+      {# O Simulado da PRF (PRF-53): as reais e as geradas, nunca somadas. #}
+      <b>Simulado</b>: {{ f.get('cebraspe', 0) }} da Cebraspe{% if f.get('outras') %}, {{ f.get('outras') }} de outras bancas{% endif %}{% if f.get('geradas_na_rodada') %} e {{ f.get('geradas_na_rodada') }} de Certo/Errado da IA, onde as reais acabaram (nota separada){% endif %}{% if f.get('a_rever') %} · {{ f.get('a_rever') }} que você errou ou chutou{% endif %}
     {% elif f.get('rodada') == 'conferencia' %}
       Respondida da <a href="/analises/conferencia">conferência da classificação</a>: uma questão real, como treino — depois de responder, a letra aparece também lá
     {% elif f.get('erros') %}
@@ -157,7 +160,7 @@
     {% else %}
       Questões reais, tiradas das provas do acervo
     {% endif %}
-    {% if not na_hora and f.get('rodada') in ('simulado_da_semana', 'simulado_pmsc', 'simulado_da_semana_ia') %} &middot; sem consulta: o certo e o errado aparecem no fim
+    {% if not na_hora and f.get('rodada') in ('simulado_da_semana', 'simulado_pmsc', 'simulado_da_semana_ia', 'simulado_avulso') %} &middot; sem consulta: o certo e o errado aparecem no fim
     {%- elif not na_hora %} &middot; rodada que mede: o certo e o errado aparecem no fim{% endif %}
   </p>
 

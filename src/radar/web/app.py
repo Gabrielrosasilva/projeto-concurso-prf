@@ -745,6 +745,11 @@ def _pagina_do_simulado(request: Request, simulado=None, **extra):
     contexto = {
         "simulado": simulado,
         "materias": servico.materias_disponiveis(),
+        # O Simulado de 60 (PRF-53): as materias do edital, com os itens de
+        # cada uma na prova, e quantas a rodada traz se eu nao mudar.
+        "materias_do_simulado": list(servico.simulado_avulso.pesos_do_edital().items()),
+        "quantidade_do_simulado": servico.simulado_avulso.QUANTIDADE_PADRAO,
+        "maximo_do_simulado": servico.simulado_avulso.QUANTIDADE_MAXIMA,
         "total_de_questoes": servico.contar_questoes(),
         "desempenho_geral": servico.desempenho(),
         # O segundo numero, sempre do lado e nunca somado ao primeiro.
@@ -807,19 +812,20 @@ def simulado_compilado(
 @app.post("/simulado/novo")
 def simulado_novo(
     materia: str = Form(""),
-    quantidade: str = Form("10"),
+    quantidade: str = Form(""),
 ):
-    """Monta a rodada e manda para a primeira questao."""
-    quantas = converter_valor(quantidade)
-    quantas = int(quantas) if quantas and 1 <= quantas <= 50 else 10
+    """Monta a rodada e manda para a primeira questao.
 
-    novo = servico.criar_simulado(
-        quantidade=quantas,
-        materia=materia.strip() or None,
-        # Sem materia escolhida, vale o que cai em qualquer concurso - e o que
-        # serve independente do cargo que eu for prestar.
-        universais=not materia.strip(),
-    )
+    O Simulado da PRF (PRF-53): 60 questoes se eu nao mudar; as reais que eu
+    errei primeiro, depois as que nunca fiz (Cebraspe antes das outras
+    bancas), e o Certo/Errado da IA onde as reais acabaram. Sem materia, as
+    do edital, na proporcao da prova (`servico.simulado_avulso`)."""
+    padrao = servico.simulado_avulso.QUANTIDADE_PADRAO
+    quantas = converter_valor(quantidade)
+    quantas = (int(quantas) if quantas and 1 <= quantas <= servico.simulado_avulso.QUANTIDADE_MAXIMA
+               else padrao)
+
+    novo = servico.simulado_avulso.criar(quantidade=quantas, materia=materia.strip() or None)
     if novo is None:
         return RedirectResponse("/simulado", status_code=303)
     return RedirectResponse(f"/simulado/{novo.id}", status_code=303)

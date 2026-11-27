@@ -38,7 +38,7 @@ from radar.util import fuso_local
 
 TIPOS = ("questoes", "macetes", "explicacoes", "classificacao", "fichas", "associados",
          "resumos", "novidades", "traducoes", "redacao_correcao", "redacao_ideias",
-         "redacao_reescrita", "certo_errado")
+         "redacao_reescrita", "certo_errado", "partes_das_geradas")
 
 # Quantos macetes por materia. Tres cabe numa resposta so e obriga a IA a
 # escolher o que mais cai, em vez de listar tudo.
@@ -413,6 +413,19 @@ def texto_do_perfil(perfil: dict) -> str:
 
 def _como_responder(tipo: str, nivel: str | None = None) -> str:
     """O recado para quem responde. Vai dentro do arquivo, no topo."""
+    if tipo == "partes_das_geradas":
+        return (
+            "Este arquivo foi gerado por `radar gerar --pedido --partes`. Para cada "
+            "item de `pedidos`, siga a `instrucao`: escreva a `pegadinha` e, no item "
+            "errado, o `como_ficaria_certo` de CADA item da lista `itens`, conferindo "
+            "nos textos de `textos_da_lei` cujos ids estao em `textos_da_lei_do_pedido` "
+            "(ou na copia oficial em `leis/`). Responda TODOS num unico arquivo JSON, "
+            "no formato de `formato_da_resposta`: o mesmo `lote`, o `modelo` que "
+            "escreveu e o `id` de cada pedido com a lista `itens` dele. Salve como "
+            "data/resposta_ia.json e rode `radar gerar --importar data/resposta_ia.json`. "
+            "Item sem pegadinha, item errado sem o como ficaria certo, ou id que nao e "
+            "do pedido sera RECUSADO; o enunciado e o gabarito nao mudam."
+        )
     if tipo == "traducoes":
         return (
             "Este arquivo foi gerado por `radar fichas --pedido --traducoes`. Para "
@@ -565,6 +578,10 @@ def _formato(tipo: str) -> dict:
 
 
 def _formato_das_respostas(tipo: str) -> dict:
+    if tipo == "partes_das_geradas":
+        item = {"id": 123, "pegadinha": "...", "como_ficaria_certo": "...", "suspeita": ""}
+        return {"lote": "<o lote deste arquivo>",
+                "respostas": [{"id": "p1", "itens": [item]}]}
     if tipo == "traducoes":
         linha = {"texto": "...", "fontes": ["CP, art. 15"]}
         item = {"itens": [{"artigo": "CP, art. 15", "na_real": linha, "exemplo": linha,
@@ -1044,6 +1061,132 @@ def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
     if textos:
         lote["textos_da_lei"] = textos
     return lote
+
+
+# --- as partes das geradas antigas (PRF-54) -------------------------------------
+#
+# As 3.399 geradas de Certo/Errado de antes da PRF-51 tem o porque, mas nao a
+# pegadinha nem o "como ficaria certo". O pedido manda cada item com o gabarito
+# e o porque, e a IA escreve so as duas partes; o item nao muda.
+
+#: Itens por pedido: o no inteiro, cortado neste tamanho.
+ITENS_POR_PEDIDO_DE_PARTES = 50
+
+
+def _geradas_sem_partes(materia: str | None = None) -> list:
+    """As geradas de Certo/Errado valendo que ainda nao tem a pegadinha, na
+    ordem do no e do id."""
+    from sqlalchemy import select
+
+    from radar.conteudos import SEPARADOR
+    from radar.models import QuestaoGerada
+
+    criar_tabelas()
+    with sessao() as s:
+        geradas = list(s.scalars(
+            select(QuestaoGerada)
+            .where(QuestaoGerada.rejeitada.is_(False))
+            .where(QuestaoGerada.resposta.is_not(None))
+            .where(QuestaoGerada.pegadinha.is_(None))
+            .order_by(QuestaoGerada.conteudo, QuestaoGerada.id)))
+    return [q for q in geradas
+            if questoes_certo_errado.e_certo_errado(q.alternativas)
+            and (not materia or (q.conteudo or q.materia or "").split(SEPARADOR)[0] == materia)]
+
+
+def pedido_de_partes(materia: str | None = None) -> dict:
+    """Um pedido por no (cortado em ITENS_POR_PEDIDO_DE_PARTES) com as geradas
+    de Certo/Errado sem a pegadinha: o item, o gabarito, o apoio e o porque, e
+    o texto da lei do no quando o projeto o tem."""
+    from itertools import groupby
+
+    from radar import textos_de_lei
+
+    textos: dict[str, dict] = {}
+    pedidos = []
+    for no, grupo in groupby(_geradas_sem_partes(materia), key=lambda q: q.conteudo or q.materia):
+        grupo = list(grupo)
+        ids = []
+        for achado in textos_de_lei.todos_do_no(no or ""):
+            id_ = next((chave for chave, t in textos.items()
+                        if t["arquivo"] == achado.arquivo and t["artigos"] == achado.artigos), None)
+            if id_ is None:
+                id_ = f"t{len(textos) + 1}"
+                textos[id_] = {"fonte": achado.fonte, "url": achado.url,
+                               "arquivo": achado.arquivo, "artigos": achado.artigos,
+                               "texto": achado.texto}
+            if id_ not in ids:
+                ids.append(id_)
+        for inicio in range(0, len(grupo), ITENS_POR_PEDIDO_DE_PARTES):
+            pedidos.append({
+                "id": f"p{len(pedidos) + 1}", "formato": "partes", "conteudo": no,
+                "materia": (no or "").split(" > ")[0],
+                "itens": [{"id": q.id, "enunciado": q.enunciado,
+                           "resposta": questoes_certo_errado.ALTERNATIVAS[q.resposta],
+                           "artigo": q.artigo, "explicacao": q.explicacao}
+                          for q in grupo[inicio:inicio + ITENS_POR_PEDIDO_DE_PARTES]],
+                "textos_da_lei_do_pedido": ids,
+                "instrucao": gerador.INSTRUCAO_PARTES,
+            })
+    lote = _novo_lote("partes_das_geradas", pedidos)
+    if textos:
+        lote["textos_da_lei"] = textos
+    return lote
+
+
+def _importar_partes(lote: dict, respostas: list[dict], modelo: str) -> dict:
+    """Grava a pegadinha e, no item errado, o "como ficaria certo" das geradas
+    do pedido, com a procedencia (regra 2). So preenche o que esta vazio: a
+    parte que ja existe (a da PRF-51, ou de um lote anterior) nao e trocada."""
+    from sqlalchemy import select
+
+    from radar import acervo
+    from radar.models import QuestaoGerada
+
+    por_id = {p["id"]: {i["id"] for i in p["itens"]} for p in lote["pedidos"]}
+    aceitas, recusas, suspeitas = {}, [], []
+    for resposta in respostas:
+        do_pedido = por_id.get(resposta.get("id"))
+        if do_pedido is None:
+            recusas.append(f"{resposta.get('id')}: nao existe esse pedido no lote")
+            continue
+        for item in resposta.get("itens") or []:
+            if not isinstance(item, dict):
+                continue
+            ident = item.get("id")
+            onde = f"{resposta['id']}, item {ident}"
+            if ident not in do_pedido:
+                recusas.append(f"{onde}: o item nao e deste pedido")
+                continue
+            pegadinha = " ".join(str(item.get("pegadinha") or "").split())
+            if not pegadinha:
+                recusas.append(f"{onde}: sem a pegadinha")
+                continue
+            aceitas[ident] = (pegadinha,
+                              " ".join(str(item.get("como_ficaria_certo") or "").split()),
+                              " ".join(str(item.get("suspeita") or "").split()))
+
+    gravadas = repetidas = 0
+    criar_tabelas()
+    with sessao() as s:
+        for q in s.scalars(select(QuestaoGerada).where(QuestaoGerada.id.in_(list(aceitas)))):
+            pegadinha, ficaria, suspeita = aceitas[q.id]
+            if suspeita:
+                suspeitas.append((q.impressao, q.conteudo, suspeita))
+            if q.pegadinha:
+                repetidas += 1
+                continue
+            if q.resposta == "e" and not ficaria:
+                recusas.append(f"item {q.id}: item errado sem o como ficaria certo")
+                continue
+            q.pegadinha = pegadinha
+            q.como_ficaria_certo = ficaria if q.resposta == "e" else None
+            q.partes_procedencia = modelo
+            gravadas += 1
+    if gravadas:
+        acervo.exportar_geradas()
+    return {"gravadas": gravadas, "repetidas": repetidas, "recusas": recusas,
+            "suspeitas": suspeitas}
 
 
 #: Quantas questoes vao num pedido da classificacao de nivel: o bastante para
@@ -2563,6 +2706,8 @@ def importar(resposta: Path, pedido: Path | None = None,
         resultado = _importar_explicacoes(lote, respostas, modelo)
     elif lote.get("tipo") == "niveis":
         resultado = _importar_niveis(lote, respostas, modelo)
+    elif lote.get("tipo") == "partes_das_geradas":
+        resultado = _importar_partes(lote, respostas, modelo)
     else:
         resultado = _importar_questoes(lote, respostas, modelo)
     return {"tipo": lote.get("tipo"), "modelo": modelo, **resultado}

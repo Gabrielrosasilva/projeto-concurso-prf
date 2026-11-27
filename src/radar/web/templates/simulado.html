@@ -166,22 +166,25 @@
           <p>Rode <code>radar provas</code> e depois <code>radar questoes</code>.</p>
         </div>
       {% else %}
+        {# O Simulado da PRF (PRF-53): 60 questoes se eu nao mudar, as do
+           edital na proporcao da prova. A regra e do servico.simulado_avulso. #}
         <form class="comecar" method="post" action="/simulado/novo">
           <label class="ds-campo">
             Matéria
             <select name="materia">
-              <option value="">Matérias que caem em qualquer concurso</option>
-              {% for nome, quantas in materias %}
-                <option value="{{ nome }}">{{ nome }} ({{ quantas }})</option>
+              <option value="">Todas as matérias do edital, na proporção da prova</option>
+              {% for nome, itens in materias_do_simulado %}
+                <option value="{{ nome }}">{{ nome }} ({{ itens }} itens na prova)</option>
               {% endfor %}
             </select>
           </label>
           <label class="ds-campo">
             Quantas questões
-            <input type="number" name="quantidade" value="10" min="1" max="50">
+            <input type="number" name="quantidade" value="{{ quantidade_do_simulado }}" min="1" max="{{ maximo_do_simulado }}">
           </label>
           <button class="ds-botao" type="submit">Começar</button>
         </form>
+        <p class="dica">Primeiro as questões reais que você errou ou chutou; depois as que nunca fez (a Cebraspe antes das outras bancas); quando as reais acabam, entram as de Certo/Errado escritas pela IA. A questão que você acertou não volta. Correção no fim, como na prova; a nota das reais e a da IA ficam separadas.</p>
         <p class="dica">
           {{ selo('acervo') }}
           São {{ "{:,}".format(total_de_questoes)|replace(",", ".") }} questões no acervo, de provas de verdade,

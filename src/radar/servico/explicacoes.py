@@ -205,6 +205,9 @@ class Painel:
     #: A questao escrita por IA (PRF-48): o mesmo painel, mas o gabarito, o
     #: no e o artigo sao os que a IA deu - nada conferido pela banca.
     gerada: bool = False
+    #: Quem escreveu a pegadinha e o "como ficaria certo" depois do item
+    #: (PRF-54); None quando eles nasceram com o item.
+    procedencia_das_partes: str | None = None
 
     @property
     def caminho_do_no(self) -> list[str]:
@@ -293,4 +296,5 @@ def painel_da_gerada(questao) -> Painel:
         origem_do_gabarito=IA, explicacao=explicacao,
         no=getattr(questao, "conteudo", None) or None, dispositivo=artigo,
         lei=leis.do_assunto(questao.materia, getattr(questao, "assunto", None)),
-        gerada=True)
+        gerada=True,
+        procedencia_das_partes=getattr(questao, "partes_procedencia", None) or None)
