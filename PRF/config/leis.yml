@@ -1773,6 +1773,73 @@ mudancas:
     procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pelo texto oficial do gov.br (leis/contran/res-1027-2026.txt)
     conferida: false
 
+  # PRF 2013 q55. (PRF-68)
+  - tema: "A PRF no Ministério da Justiça e Segurança Pública"
+    lei: "Decreto 11.348/2023"
+    o_que_mudou: "o ministério hoje é o da Justiça e Segurança Pública (Decreto 11.348/2023, Anexo I, art. 1º): a PRF segue nele, na administração direta; o gabarito continua certo"
+    anos: [2013]
+    marcas: ["Por ser órgão do Ministério da Justiça"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/decret/2023/decreto-11348-1-janeiro-2023-793635-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+  # PRF 2013 q86. (PRF-68)
+  - tema: "Abuso de autoridade: da Lei 4.898/1965 para a Lei 13.869/2019"
+    lei: "Lei 13.869/2019"
+    o_que_mudou: "a Lei 4.898/1965 foi revogada pela Lei 13.869/2019 (art. 44); o crime hoje exige dolo com finalidade específica (art. 1º, § 1º), e continua não havendo abuso culposo: o gabarito (Errado) se mantém"
+    anos: [2013]
+    marcas: ["responder por abuso de autoridade, ainda que culposamente"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2019/lei-13869-5-setembro-2019-789094-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+  # PRF 2013 q90. (PRF-68)
+  - tema: "Infiltração de agentes: da Lei 9.034/1995 para a Lei 12.850/2013"
+    lei: "Lei 12.850/2013"
+    o_que_mudou: "na data da prova valia a Lei 9.034/1995, revogada pela Lei 12.850/2013 (art. 26); a infiltração continua dependendo de autorização judicial (art. 10): gabarito mantido"
+    anos: [2013]
+    marcas: ["se infiltre em organização criminosa"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/2013/lei-12850-2-agosto-2013-776714-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+  # PRF 2013 q95. (PRF-68)
+  - tema: "Tráfico de pessoas: do CP, art. 231, para o art. 149-A"
+    lei: "Lei 13.344/2016"
+    o_que_mudou: "os arts. 231 e 231-A do CP foram revogados; hoje o tráfico de pessoas é o art. 149-A, que exige grave ameaça, violência, coação, fraude ou abuso: o consentimento obtido por esses meios não afasta o crime (gabarito mantido), mas o consentimento válido sem eles afasta"
+    anos: [2013]
+    marcas: ["tráfico de pessoas poderá ser caracterizado"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+  # DETRAN/CE 2018 q41. (PRF-68)
+  - tema: "Categorias C e D da habilitação (CTB, art. 143)"
+    lei: "Lei 14.440/2022"
+    o_que_mudou: "a Lei 14.440/2022 reescreveu o art. 143, III e IV (a categoria C passou a ser a do veículo da categoria B e do veículo motorizado de carga acima de 3.500 kg); a alternativa d continua certa na essência"
+    anos: [2018]
+    marcas: ["sobre as categorias C e D"]
+    provas:
+      - https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorg1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+  # DETRAN/CE 2018 q55. (PRF-68)
+  - tema: "Curso de reciclagem: \"acidente\" virou \"sinistro\" (CTB, art. 268, III)"
+    lei: "Lei 14.599/2023"
+    o_que_mudou: "a Lei 14.599/2023 trocou \"acidente grave\" por \"sinistro grave\" no art. 268, III; a regra (para o qual haja contribuído, independentemente de processo judicial) é a mesma: gabarito mantido"
+    anos: [2018]
+    marcas: ["quando se envolver em acidente grave"]
+    provas:
+      - https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorg1.pdf
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
+    conferida: false
+
 # --- O que mudou num ponto que nenhuma questao cobra ---------------------------
 #
 # Os "casos de fronteira" do docs/leis_alteradas.md: o artigo mudou depois da

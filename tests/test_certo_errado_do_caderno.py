@@ -334,6 +334,15 @@ def test_o_cabecalho_com_o_codigo_de_barras_nao_gruda_no_item():
     assert ce.MOBILIA_DO_CADERNO.match("714005_01N167818 CEBRASPE – SEE/PE – Edital: 2022")
 
 
+def test_o_cabecalho_e_o_rodape_do_cespe_unb_de_2013_nao_grudam_no_item():
+    """PRF-68: o caderno da PRF de 2013, ainda com "CESPE/UnB"."""
+    assert ce.MOBILIA_DO_CADERNO.match("||DPRF13_001_01N962067|| CESPE/UnB – PRF/2013")
+    assert ce.MOBILIA_DO_CADERNO.match("Cargo: Policial Rodoviário Federal – 1 –")
+    assert ce.MOBILIA_DO_CADERNO.match(
+        "Cargo: Policial Rodoviário Federal – 4 – ||DPRF13_001_01N962067|| CESPE/UnB – PRF/2013")
+    assert not ce.MOBILIA_DO_CADERNO.match("Cargo de confiança é de livre nomeação.")
+
+
 # O caderno de 2022 (Policia Cientifica de AL): o codigo de 14 caracteres antes
 # do CEBRASPE, e o comando do grupo seguinte logo depois do cabecalho.
 CADERNO_DE_2022 = """Julgue os itens que se seguem com base em aspectos linguísticos do texto.

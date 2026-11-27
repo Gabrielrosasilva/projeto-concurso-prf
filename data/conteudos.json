@@ -65,6 +65,19 @@
     "referencia": null
   },
   {
+    "caminho": "Língua Portuguesa > Domínio da ortografia oficial > Acentuação gráfica > Paroxítonas terminadas em ditongo crescente",
+    "pai": "Língua Portuguesa > Domínio da ortografia oficial > Acentuação gráfica",
+    "nivel": "elemento",
+    "nome": "Paroxítonas terminadas em ditongo crescente",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "regra gramatical",
+    "referencia": "Acordo Ortográfico: acentuação das paroxítonas terminadas em ditongo"
+  },
+  {
     "caminho": "Língua Portuguesa > Domínio dos mecanismos de coesão textual",
     "pai": "Língua Portuguesa",
     "nivel": "assunto",
@@ -130,6 +143,19 @@
     "referencia": null
   },
   {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego das classes de palavras > Pronome relativo \"que\" como objeto direto",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego das classes de palavras",
+    "nivel": "elemento",
+    "nome": "Pronome relativo \"que\" como objeto direto",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "estrutura sintática",
+    "referencia": "Gramática normativa: pronome relativo e funções sintáticas"
+  },
+  {
     "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de coordenação entre orações e entre termos da oração",
     "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período",
     "nivel": "subassunto",
@@ -143,6 +169,19 @@
     "referencia": null
   },
   {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de coordenação entre orações e entre termos da oração > Coordenação aditiva com \"nem\"",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de coordenação entre orações e entre termos da oração",
+    "nivel": "elemento",
+    "nome": "Coordenação aditiva com \"nem\"",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "estrutura sintática",
+    "referencia": "Gramática normativa: conjunções coordenativas aditivas"
+  },
+  {
     "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de subordinação entre orações e entre termos da oração",
     "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período",
     "nivel": "subassunto",
@@ -154,6 +193,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de subordinação entre orações e entre termos da oração > Oração subordinada adjetiva explicativa",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Relações de subordinação entre orações e entre termos da oração",
+    "nivel": "elemento",
+    "nome": "Oração subordinada adjetiva explicativa",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "estrutura sintática",
+    "referencia": "Gramática normativa: pronome relativo x conjunção explicativa"
   },
   {
     "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Emprego dos sinais de pontuação",
@@ -245,6 +297,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Colocação dos pronomes átonos > Próclise por atração do advérbio de negação",
+    "pai": "Língua Portuguesa > Domínio da estrutura morfossintática do período > Colocação dos pronomes átonos",
+    "nivel": "elemento",
+    "nome": "Próclise por atração do advérbio de negação",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "regra gramatical",
+    "referencia": "Gramática normativa: colocação pronominal"
   },
   {
     "caminho": "Língua Portuguesa > Reescrita de frases e parágrafos do texto",
@@ -455,6 +520,19 @@
     "referencia": null
   },
   {
+    "caminho": "Raciocínio Lógico-Matemático > Noção de função > Funções afim, quadrática, exponencial e logarítmica > Função afim",
+    "pai": "Raciocínio Lógico-Matemático > Noção de função > Funções afim, quadrática, exponencial e logarítmica",
+    "nivel": "elemento",
+    "nome": "Função afim",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Função afim F(t) = At + B"
+  },
+  {
     "caminho": "Raciocínio Lógico-Matemático > Noção de função > Aplicações",
     "pai": "Raciocínio Lógico-Matemático > Noção de função",
     "nivel": "subassunto",
@@ -507,6 +585,32 @@
     "referencia": null
   },
   {
+    "caminho": "Raciocínio Lógico-Matemático > Taxas de variação de grandezas > Regra de três simples e composta > Regra de três composta (operários x dias)",
+    "pai": "Raciocínio Lógico-Matemático > Taxas de variação de grandezas > Regra de três simples e composta",
+    "nivel": "elemento",
+    "nome": "Regra de três composta (operários x dias)",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "forma de resolução",
+    "referencia": "Regra de três composta"
+  },
+  {
+    "caminho": "Raciocínio Lógico-Matemático > Taxas de variação de grandezas > Regra de três simples e composta > Regra de três inversa",
+    "pai": "Raciocínio Lógico-Matemático > Taxas de variação de grandezas > Regra de três simples e composta",
+    "nivel": "elemento",
+    "nome": "Regra de três inversa",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "forma de resolução",
+    "referencia": "Regra de três simples (inversa)"
+  },
+  {
     "caminho": "Raciocínio Lógico-Matemático > Porcentagem",
     "pai": "Raciocínio Lógico-Matemático",
     "nivel": "assunto",
@@ -557,6 +661,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Raciocínio Lógico-Matemático > Regularidades e padrões em sequências > Progressão aritmética e progressão geométrica > Progressão aritmética",
+    "pai": "Raciocínio Lógico-Matemático > Regularidades e padrões em sequências > Progressão aritmética e progressão geométrica",
+    "nivel": "elemento",
+    "nome": "Progressão aritmética",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Definição de PA (razão constante)"
   },
   {
     "caminho": "Raciocínio Lógico-Matemático > Noções básicas de contagem, probabilidade e estatística",
@@ -635,6 +752,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO I",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Raciocínio Lógico-Matemático > Descrição e análise de dados > Cálculo de médias e análise de desvios de conjuntos de dados > Média e mediana",
+    "pai": "Raciocínio Lógico-Matemático > Descrição e análise de dados > Cálculo de médias e análise de desvios de conjuntos de dados",
+    "nivel": "elemento",
+    "nome": "Média e mediana",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Estatística descritiva: média aritmética e mediana"
   },
   {
     "caminho": "Raciocínio Lógico-Matemático > Noções básicas de teoria dos conjuntos",
@@ -1118,6 +1248,19 @@
     "referencia": "Cartilha de Segurança para Internet (CERT.br): Golpes na Internet"
   },
   {
+    "caminho": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais > Worm x vírus",
+    "pai": "Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais",
+    "nivel": "elemento",
+    "nome": "Worm x vírus",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "diferença entre conceitos",
+    "referencia": "Cartilha de Segurança para Internet (CERT.br): vírus e worms"
+  },
+  {
     "caminho": "Informática > Conceitos de proteção e segurança > Aplicativos para segurança (antivírus, firewall, anti-spyware, VPN, etc.)",
     "pai": "Informática > Conceitos de proteção e segurança",
     "nivel": "subassunto",
@@ -1391,6 +1534,19 @@
     "referencia": null
   },
   {
+    "caminho": "Física > Energia cinética, energia potencial, atrito > Energia cinética > Energia mecânica",
+    "pai": "Física > Energia cinética, energia potencial, atrito > Energia cinética",
+    "nivel": "elemento",
+    "nome": "Energia mecânica",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Ec = m·v²/2"
+  },
+  {
     "caminho": "Física > Conservação de energia e suas transformações",
     "pai": "Física",
     "nivel": "assunto",
@@ -1586,6 +1742,58 @@
     "referencia": null
   },
   {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, Seção I, inciso X",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, Seção I, inciso X",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "Decreto 1.171/1994 (Código de Ética), Anexo, Cap. I, Seção I, X"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, Seção I, inciso II",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, Seção I, inciso II",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "Decreto 1.171/1994, Anexo, Cap. I, Seção I, II"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, inciso XVIII",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, inciso XVIII",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "Decreto 1.171/1994, Anexo, Cap. II, XVIII"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, inciso XXII",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, inciso XXII",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "Decreto 1.171/1994, Anexo, Cap. II, XXII"
+  },
+  {
     "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 6.029/2007, art. 14",
     "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
     "nivel": "elemento",
@@ -1597,6 +1805,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "Decreto 6.029/2007, art. 14"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, Seção I, inciso VII",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, Seção I, inciso VII",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "exceção",
+    "referencia": "Decreto 1.171/1994, Anexo, Cap. I, Seção I, VII"
+  },
+  {
+    "caminho": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores > Decreto 1.171/1994, Anexo, Seção II, inciso XIV",
+    "pai": "Ética e Cidadania > Ética no setor público > Promoção da ética e de regras de conduta para servidores",
+    "nivel": "elemento",
+    "nome": "Decreto 1.171/1994, Anexo, Seção II, inciso XIV",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "Decreto 1.171/1994, Anexo, Seção II, XIV (alíneas e, g, m) e Seção III, XV, a"
   },
   {
     "caminho": "Ética e Cidadania > Ética e democracia: exercício da cidadania",
@@ -2275,6 +2509,19 @@
     "referencia": "CTB, arts. 20 a 25-A"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A) > CTB, art. 14",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 14",
+    "ordem": 9,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 14"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -2626,6 +2873,19 @@
     "referencia": "CTB, art. 96"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117) > CTB, art. 105",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 105",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 105"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo X - Dos veículos em circulação internacional (arts. 118 e 119)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -2780,6 +3040,58 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 140"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 147",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 147",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "CTB, art. 147"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 143",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 143",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 143"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 148-A",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 148-A",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "CTB, art. 148-A"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 154",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 154",
+    "ordem": 4,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "CTB, art. 154"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
@@ -2964,6 +3276,58 @@
     "referencia": "CTB, arts. 221 a 255"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 220",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 220",
+    "ordem": 13,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "CTB, art. 220, I"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 171",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 171",
+    "ordem": 14,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 171"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 174",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 174",
+    "ordem": 15,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 174"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 230",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 230",
+    "ordem": 16,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "CTB, art. 230"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -3066,6 +3430,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 256"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A) > CTB, art. 257",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 257",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "CTB, art. 257"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)",
@@ -3679,6 +4056,19 @@
     "referencia": null
   },
   {
+    "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014 > Res. CONTRAN 508/2014, art. 3º, parágrafo único",
+    "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 508/2014",
+    "nivel": "elemento",
+    "nome": "Res. CONTRAN 508/2014, art. 3º, parágrafo único",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "Res. CONTRAN 508/2014, art. 3º, parágrafo único (leis/contran/res-508-2014.txt)"
+  },
+  {
     "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 520/2015",
     "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações",
     "nivel": "subassunto",
@@ -4043,6 +4433,19 @@
     "referencia": null
   },
   {
+    "caminho": "Direito Administrativo > Ato administrativo > Extinção do ato administrativo > Lei 9.784/1999, art. 53",
+    "pai": "Direito Administrativo > Ato administrativo > Extinção do ato administrativo",
+    "nivel": "elemento",
+    "nome": "Lei 9.784/1999, art. 53",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 9.784/1999, art. 53; STF, Súmula 473"
+  },
+  {
     "caminho": "Direito Administrativo > Agentes públicos",
     "pai": "Direito Administrativo",
     "nivel": "assunto",
@@ -4186,6 +4589,19 @@
     "referencia": "Lei 8.112/1990, art. 20"
   },
   {
+    "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > Lei 8.112/1990, art. 134",
+    "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
+    "nivel": "elemento",
+    "nome": "Lei 8.112/1990, art. 134",
+    "ordem": 11,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 8.112/1990, arts. 127, IV, e 134"
+  },
+  {
     "caminho": "Direito Administrativo > Agentes públicos > Legislação pertinente > Lei 8.112/1990, art. 35",
     "pai": "Direito Administrativo > Agentes públicos > Legislação pertinente",
     "nivel": "elemento",
@@ -4275,6 +4691,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTN, art. 78"
+  },
+  {
+    "caminho": "Direito Administrativo > Poderes administrativos > Hierárquico, disciplinar, regulamentar e de polícia > Lei 9.784/1999, art. 13",
+    "pai": "Direito Administrativo > Poderes administrativos > Hierárquico, disciplinar, regulamentar e de polícia",
+    "nivel": "elemento",
+    "nome": "Lei 9.784/1999, art. 13",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 9.784/1999, art. 13, II"
   },
   {
     "caminho": "Direito Administrativo > Poderes administrativos > Uso e abuso do poder",
@@ -5785,6 +6214,19 @@
     "referencia": null
   },
   {
+    "caminho": "Direito Penal > Tipicidade > Crime consumado e tentado > CP, art. 14",
+    "pai": "Direito Penal > Tipicidade > Crime consumado e tentado",
+    "nivel": "elemento",
+    "nome": "CP, art. 14",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 14, II e parágrafo único"
+  },
+  {
     "caminho": "Direito Penal > Tipicidade > Crime impossível",
     "pai": "Direito Penal > Tipicidade",
     "nivel": "subassunto",
@@ -6695,6 +7137,19 @@
     "referencia": "CPP, art. 38; CP, art. 103"
   },
   {
+    "caminho": "Direito Processual Penal > Ação penal > Espécies > CP, art. 167",
+    "pai": "Direito Processual Penal > Ação penal > Espécies",
+    "nivel": "elemento",
+    "nome": "CP, art. 167",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CP, art. 163, parágrafo único, III, e art. 167; CPP, art. 24"
+  },
+  {
     "caminho": "Direito Processual Penal > Ação penal > Espécies > CPP, art. 25",
     "pai": "Direito Processual Penal > Ação penal > Espécies",
     "nivel": "elemento",
@@ -6888,6 +7343,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO III",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direito Processual Penal > Prova > Provas ilícitas > CPP, art. 157",
+    "pai": "Direito Processual Penal > Prova > Provas ilícitas",
+    "nivel": "elemento",
+    "nome": "CPP, art. 157",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CPP, art. 157, caput e § 3º"
   },
   {
     "caminho": "Direito Processual Penal > Prova > Meios de prova: pericial, interrogatório, confissão, perguntas ao ofendido, testemunhas, reconhecimento de pessoas e coisas, acareação, documentos, indícios",
@@ -7213,6 +7681,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CPP, art. 283"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > CPP, art. 318",
+    "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
+    "nivel": "elemento",
+    "nome": "CPP, art. 318",
+    "ordem": 7,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "CPP, arts. 318, IV, e 318-A"
+  },
+  {
+    "caminho": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento > Lei 7.960/1989, art. 2º",
+    "pai": "Direito Processual Penal > Prisão > Conceito, formalidades, espécies e mandado de prisão e cumprimento",
+    "nivel": "elemento",
+    "nome": "Lei 7.960/1989, art. 2º",
+    "ordem": 8,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 7.960/1989, art. 2º"
   },
   {
     "caminho": "Direito Processual Penal > Prisão > Prisão em flagrante",
@@ -7891,6 +8385,19 @@
     "referencia": "Lei 12.850/2013, art. 10-B, parágrafo único"
   },
   {
+    "caminho": "Legislação Especial > Lei nº 12.850/2013 e suas alterações > Infiltração de agentes > Lei 12.850/2013, art. 10",
+    "pai": "Legislação Especial > Lei nº 12.850/2013 e suas alterações > Infiltração de agentes",
+    "nivel": "elemento",
+    "nome": "Lei 12.850/2013, art. 10",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Lei 12.850/2013, art. 10"
+  },
+  {
     "caminho": "Legislação Especial > Lei nº 13.675/2018",
     "pai": "Legislação Especial",
     "nivel": "assunto",
@@ -8162,6 +8669,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Direitos Humanos > Direitos humanos na Constituição Federal > Gerações dos direitos fundamentais > Gerações (dimensões) dos direitos",
+    "pai": "Direitos Humanos > Direitos humanos na Constituição Federal > Gerações dos direitos fundamentais",
+    "nivel": "elemento",
+    "nome": "Gerações (dimensões) dos direitos",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "classificação",
+    "referencia": "Doutrina: gerações dos direitos fundamentais"
   },
   {
     "caminho": "Direitos Humanos > Declaração Universal dos Direitos Humanos",

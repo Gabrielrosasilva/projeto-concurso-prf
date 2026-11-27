@@ -156,6 +156,10 @@ class Questao:
     #: (o Cebraspe, decisao 169). Vai so para o banco, nunca para arquivo
     #: versionado (decisao 132); na FEPESE quem preenche e o `--textos-base`.
     texto_base: str | None = None
+    #: Por que o gabarito ainda nao e o definitivo (a UECE so deixou o
+    #: preliminar no ar, PRF-68). Com ele a questao treina e nao mede
+    #: (`metricas.QUE_MEDE`).
+    gabarito_a_conferir: str | None = None
 
     @property
     def impressao(self) -> str:

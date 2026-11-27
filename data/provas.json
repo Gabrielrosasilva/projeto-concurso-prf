@@ -5210,6 +5210,31 @@
     "url": "https://cdn.cebraspe.org.br/concursos/DPE_TO_21_DEFENSOR/arquivos/GAB_DEFINITIVO_661_DPETO_001_01.PDF"
   },
   {
+    "ano": 2013,
+    "arquivo": "DPRF13_001_01.pdf",
+    "banca": "CEBRASPE",
+    "caminho": "provas/manual/cebraspe_prf_2013_policial_prova.pdf",
+    "cargo": "Policial Rodoviário Federal",
+    "concurso_url": "https://cdn.cebraspe.org.br/concursos/DPRF_13",
+    "orgao": "PRF",
+    "sha256": "a42670303e9e2a41f15587135fac322b7139b2c8d3c2161f2b99535bebf5de3e",
+    "tamanho": 466842,
+    "tipo": "prova",
+    "url": "https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf"
+  },
+  {
+    "ano": 2013,
+    "arquivo": "Gab_definitivo_DPRF13_001_01.PDF",
+    "banca": "CEBRASPE",
+    "caminho": "provas/manual/cebraspe_prf_2013_policial_gabarito_definitivo.pdf",
+    "concurso_url": "https://cdn.cebraspe.org.br/concursos/DPRF_13",
+    "orgao": "PRF",
+    "sha256": "920ef0df637fd5c16cb3b96d87ae7afc2da95d413fddd2a53ac55d518d250e00",
+    "tamanho": 32081,
+    "tipo": "gabarito",
+    "url": "https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/Gab_definitivo_DPRF13_001_01.PDF"
+  },
+  {
     "arquivo": "459_DPDF_001_00_MATRIZ_C_JUST.PDF",
     "banca": "CEBRASPE",
     "caminho": "provas/manual/cebraspe_dpe_df_2019_defensor_publico_prova_459_dpdf_001_00_matriz_c_just_dde988dd.pdf",
@@ -9227,6 +9252,31 @@
     "tamanho": 1558239,
     "tipo": "gabarito",
     "url": "https://videira2022.fepese.org.br/?go=download&path=2&inline=1&arquivo=gabarito_provisorio_superior.pdf"
+  },
+  {
+    "ano": 2018,
+    "arquivo": "detranvistoriadorg1.pdf",
+    "banca": "UECE-CEV",
+    "caminho": "provas/uece-cev/2018/detran-ce/detranvistoriadorg1.pdf",
+    "cargo": "Vistoriador",
+    "concurso_url": "https://www.cev.uece.br/2018/03/16/comunicado-no-11-resultado-da-prova-escrita-vistoriador-concurso-detran/",
+    "orgao": "DETRAN/CE",
+    "sha256": "98a1add7d0f5cb322c384670b3a558a6654134663fc0c66871261f2a0bb2ecc5",
+    "tamanho": 353833,
+    "tipo": "prova",
+    "url": "https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorg1.pdf"
+  },
+  {
+    "ano": 2018,
+    "arquivo": "detranvistoriadorgabofpre.pdf",
+    "banca": "UECE-CEV",
+    "caminho": "provas/uece-cev/2018/detran-ce/detranvistoriadorgabofpre.pdf",
+    "concurso_url": "https://www.cev.uece.br/2018/03/16/comunicado-no-11-resultado-da-prova-escrita-vistoriador-concurso-detran/",
+    "orgao": "DETRAN/CE",
+    "sha256": "e9b704071a5ec22c4283697c0119b02b7801338ea1a8148e43dedddfe8ef3427",
+    "tamanho": 177420,
+    "tipo": "gabarito",
+    "url": "https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorgabofpre.pdf"
   },
   {
     "ano": 2021,

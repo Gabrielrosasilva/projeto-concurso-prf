@@ -36,7 +36,7 @@ from radar import provas_ieses
 from radar import questoes as leitor_de_questoes
 from radar import gabarito_por_versao
 from radar import questoes_cebraspe, questoes_ieses, questoes_ncufpr, questoes_por_rodada
-from radar import questoes_aocp, questoes_certo_errado, questoes_selecon
+from radar import questoes_aocp, questoes_certo_errado, questoes_selecon, questoes_uece
 from radar.collectors.base import Buscador
 from radar.db import criar_tabelas, sessao
 from radar.models import Concurso, QuestaoDeProva, agora
@@ -391,10 +391,25 @@ def _ler_aocp(caminho: Path, prova: dict, gabarito: Path | None) -> list:
 
 #: As bancas cujo caderno o radar sabe ler, e o leitor de cada uma. Cada
 #: leitor recebe o PDF, a entrada da prova no config e o gabarito a parte.
+def _ler_uece(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # O caderno de duas colunas da CEV/UECE, com o bloco "GABARITO N" do
+    # numero que o caderno diz (PRF-68). So entra o que esta nas faixas.
+    if gabarito is None:
+        log.warning("%s: falta o gabarito na lista", caminho.name)
+        return []
+    try:
+        return questoes_uece.ler_prova(
+            caminho, gabarito, questoes_selecon.faixas_do_config(prova.get("materias")),
+            a_conferir=prova.get("gabarito_a_conferir"))
+    except ValueError as erro:
+        log.warning("%s: %s", caminho.name, erro)
+        return []
+
+
 LEITORES_DE_OUTRAS_BANCAS = {"NC-UFPR": _ler_ncufpr, "SELECON": _ler_selecon,
                              "CEBRASPE": _ler_cebraspe, "FGV": _ler_fgv,
                              "ACCESS": _ler_access, "IDECAN": _ler_idecan,
-                             "INSTITUTO AOCP": _ler_aocp}
+                             "INSTITUTO AOCP": _ler_aocp, "UECE-CEV": _ler_uece}
 
 
 def _ler_de_outra_banca(registro: dict, caminho: Path, leitor) -> list:
@@ -993,6 +1008,9 @@ def extrair_questoes(limite: int = 30, refazer: bool = False,
                 # `radar questoes --textos-base`.
                 if getattr(questao, "texto_base", None):
                     destino.texto_base = questao.texto_base
+                # O gabarito que nao e o definitivo (PRF-68): treina, nao mede.
+                if getattr(questao, "gabarito_a_conferir", None):
+                    destino.gabarito_a_conferir = questao.gabarito_a_conferir
 
                 if existente is None:
                     s.add(destino)

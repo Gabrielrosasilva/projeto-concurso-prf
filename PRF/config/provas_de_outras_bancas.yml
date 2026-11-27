@@ -260,6 +260,32 @@ provas:
   gabarito: https://cdn.cebraspe.org.br/concursos/CBM_PA_23_CFO/arquivos/GAB_DEFINITIVO_927_CBM_PA_CFO_001_01.PDF
   # PMSC (24/10): entram tambem 1-10 Portugues; 55-58 Penal Militar; antes, ["47-54"].
   ler: ["1-10", "47-58"]
+# UECE-CEV (PRF-68, pedido do Gabriel em 27/11/2026): o DETRAN/CE de 2018, pela
+# questao 60 (Res. CONTRAN 508/2014). O cev.uece.br libera robo no robots.txt;
+# os arquivos estao na biblioteca do site (wp-json/wp/v2/media, busca
+# "detran"). O caderno e o do gabarito 1. So o PRELIMINAR esta no ar: o
+# definitivo do Vistoriador (Comunicado 11/2018) aponta para um link que da
+# 404 (conferido em 27/11/2026). Por isso `gabarito_a_conferir`: treina, nao
+# mede. Leitor: `radar/questoes_uece.py`. As faixas sao do Claude Code
+# (claude-opus-5-5, 27/11/2026).
+# fora: 1-10 Lingua Portuguesa (dependem do texto, que este leitor nao guarda);
+# 11-12, 14-18 hardware, Windows e Office; 24-25 codigo de etica do Ceara
+# (Decreto 31.198); 26-30 estatuto do servidor do Ceara
+- banca: UECE-CEV
+  ano: 2018
+  orgao: DETRAN/CE
+  uf: CE
+  cargo: Vistoriador
+  pagina: https://www.cev.uece.br/2018/03/16/comunicado-no-11-resultado-da-prova-escrita-vistoriador-concurso-detran/
+  caderno: https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorg1.pdf
+  gabarito: https://www.cev.uece.br/wp-content/uploads/2022/02/detranvistoriadorgabofpre.pdf
+  sigla: DETRANCEVIST
+  gabarito_a_conferir: "Gabarito PRELIMINAR da UECE (26/02/2018): o definitivo do Vistoriador (Comunicado 11/2018) esta fora do ar (link 404, conferido em 27/11/2026)"
+  materias:
+    13: Informática
+    19-20: Informática
+    21-23: Ética e Cidadania
+    31-60: Legislação de Trânsito
 
 # --- BAIXADAS A MAO (decisao 172) --------------------------------------------
 # O robo nao pode baixar estas (os termos ou o robots.txt proibem); voce baixa
@@ -2380,6 +2406,46 @@ provas:
     109-110: Direito Processual Penal
     111-115: Legislação Especial
     116-120: Direitos Humanos
+# A PRF de 2013 (PRF-68, pedido do Gabriel em 27/11/2026): o caderno Tipo I e
+# o gabarito definitivo da pagina do concurso (cdn.cebraspe.org.br/concursos/
+# DPRF_13), baixados com o User-Agent do radar. Mesmo cargo: e prova do alvo.
+# As faixas sao do Claude Code (claude-opus-5-5, 27/11/2026), pelo comando de
+# cada grupo contra o programa de 2021. Lei mudada desde 2013 (o abuso de
+# autoridade era a Lei 4.898, revogada pela 13.869/2019): aviso ou fora do
+# treino na classificacao, pela regra 3.
+# fora: 23-25 a funcao N(t) do alcool no sangue (o grafico e a formula nao saem
+# do PDF, e os itens ficavam com o comando dos acidentes); 26-29 principios fundamentais e aplicabilidade das normas, 35-38
+# organizacao politico-administrativa (fora do programa de Constitucional de
+# 2021); 46-48 BrOffice Writer e Calc (Office); 97-98 uso da arma de fogo em
+# bloqueio (conteudo do curso de formacao, como na CFP de 2021)
+- banca: CEBRASPE
+  formato: certo_errado
+  ano: 2013
+  orgao: PRF
+  cargo: Policial Rodoviário Federal
+  pagina: https://cdn.cebraspe.org.br/concursos/DPRF_13
+  caderno: https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/DPRF13_001_01.pdf
+  sigla: DPRF
+  gabarito: https://cdn.cebraspe.org.br/concursos/DPRF_13/arquivos/Gab_definitivo_DPRF13_001_01.PDF
+  arquivo: cebraspe_prf_2013_policial_prova.pdf
+  arquivo_do_gabarito: cebraspe_prf_2013_policial_gabarito_definitivo.pdf
+  materias:
+    1-15: Língua Portuguesa
+    16-22: Raciocínio Lógico-Matemático
+    30-34: Direito Constitucional
+    39-40: Direito Constitucional
+    41-45: Ética e Cidadania
+    49-50: Informática
+    51-62: Direito Administrativo
+    63-74: Direito Penal
+    75-84: Direito Processual Penal
+    85-96: Legislação Especial
+    99-100: Ética e Cidadania
+    101-108: Direitos Humanos
+    109-111: Legislação Especial
+    112-113: Legislação de Trânsito
+    114: Legislação Especial
+    115-120: Física
 - banca: CEBRASPE
   formato: certo_errado
   ano: 2021

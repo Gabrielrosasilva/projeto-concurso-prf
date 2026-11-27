@@ -146,9 +146,13 @@ def marcas(enunciado: str, afirmacao: str, termos: list[str]) -> list[dict] | No
 # Pag 9N784737 CESPE | CEBRASPE – DGP/PF"), o do MJSP a sigla entre barra e
 # travessao ("CEBRASPE | MJSP – Edital: 2021"), e o titulo da parte vem entre
 # tracos ("-- CONHECIMENTOS ESPECÍFICOS --", DEPEN e MJSP): grudavam no item.
+# PRF-68: o caderno de 2013, ainda do CESPE/UnB, traz "||DPRF13_001_01N962067||
+# CESPE/UnB – PRF/2013" no alto e "Cargo: Policial Rodoviário Federal – 1 –" no
+# pe da pagina: os dois grudavam no item do comeco da pagina seguinte.
 MOBILIA_DO_CADERNO = re.compile(
     r"^\s*(?:(?:\|\|\S+\|\|\s*|\d+_\d+N\d+\s+|\d{3}[A-Z\d]{2}\d{9}\s+|Matriz_\S+\s+Pag\s*\S+\s+)?"
-    r"(?:CESPE\s*\|\s*)?CEBRASPE\s*(?:\|\s*[^–\-|]{1,30}?\s*)?[–-]"
+    r"(?:CESPE\s*\|\s*)?(?:CEBRASPE|CESPE\s*/\s*UnB)\s*(?:\|\s*[^–\-|]{1,30}?\s*)?[–-]"
+    r"|Cargo:\s+[^–]+?\s+–\s*\d+\s*–"
     r"|Bloco\s+[IVX]+\s*$"
     r"|[A-ZÁÉÍÓÚÂÊÔÃÕÇ]+(?: [A-ZÁÉÍÓÚÂÊÔÃÕÇ]+)*\s*$)")
 # O titulo da parte nao so sai: ele fecha o item de antes. Depois de "-- PROVA
