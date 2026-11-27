@@ -114,6 +114,18 @@ def test_tudo_reservado_nao_cria_rodada(acervo):
     assert fepese_no_radar.criar_rodada([PORTUGUES], 10, ANTES) is None
 
 
+def test_as_nunca_feitas_vem_primeiro_e_as_feitas_completam():
+    """PRF-66: as novas primeiro; as ja feitas completam a rodada."""
+    import random
+    from types import SimpleNamespace
+    candidatas = [SimpleNamespace(id=i, impressao=f"i{i}") for i in range(1, 6)]
+    escolhidas = fepese_no_radar.escolher(candidatas, {"i1", "i2"}, 4, random.Random(1))
+    assert {c.impressao for c in escolhidas[:3]} == {"i3", "i4", "i5"}
+    assert escolhidas[3].impressao in {"i1", "i2"}
+    todas_feitas = fepese_no_radar.escolher(candidatas, {f"i{i}" for i in range(1, 6)}, 4)
+    assert len(todas_feitas) == 4
+
+
 def test_o_resumo_conta_as_livres_as_reservadas_e_as_feitas(acervo):
     tema = fepese_no_radar.do_tema([INTERPRETACAO])
     reserva = composicao.Reserva({tema[0].chave}, [date(2026, 11, 7)])
@@ -121,8 +133,8 @@ def test_o_resumo_conta_as_livres_as_reservadas_e_as_feitas(acervo):
                                       respondidas={tema[1].impressao})
     assert resumo.no_acervo == 4 and resumo.reservadas == 1
     assert resumo.disponiveis == 3 and resumo.feitas == 1 and resumo.novas == 2
-    # O treino nao repete (PRF-48): o botao traz so as 2 novas.
-    assert resumo.sugeridas == 2
+    # PRF-66: o botao traz as 3 livres (as 2 novas primeiro, e a feita).
+    assert resumo.sugeridas == 3
 
 
 # --- a tela --------------------------------------------------------------------

@@ -20,9 +20,9 @@ O que vale, e por que:
   menor prova de multipla escolha do acervo tem quatro (a IESES, de a a d).
   Menos que isso e caderno mal lido - ou Certo/Errado, que so treina e ainda
   nao tem leitura (pendencia O, etapa B);
-- **so as nunca feitas** (PRF-48; antes, decisao 142, elas so vinham
-  primeiro): refazer a mesma questao mede memoria, e nao o assunto, e repetir
-  e do simulado. Feitas todas, o botao diz que acabou;
+- **as nunca feitas primeiro, e depois as ja feitas** (PRF-66, pedido do
+  Gabriel em 27/11, como era na decisao 142; na PRF-48 eram so as nunca
+  feitas): feitas todas, o botao traz de novo as que eu ja fiz;
 - **a mesma questao em outro caderno e uma so** (`mesma_questao`): a IESES
   embaralha as alternativas entre os cargos, e o PDF parte a palavra em lugar
   diferente em cada um ("senti do"). A chave da classificacao leva a letra e o
@@ -154,11 +154,14 @@ def respondidas() -> set[str]:
 
 def escolher(candidatas: list[Candidata], feitas_antes: set[str], quantidade: int,
              sorteio: random.Random | None = None) -> list[Candidata]:
-    """So as nunca feitas, embaralhadas; no maximo `quantidade` (PRF-48)."""
+    """As nunca feitas primeiro e, se faltar, as que eu ja fiz (PRF-66); cada
+    grupo embaralhado; no maximo `quantidade`."""
     sorteio = sorteio or random.Random()
     novas = [c for c in candidatas if c.mesma not in feitas_antes]
+    feitas = [c for c in candidatas if c.mesma in feitas_antes]
     sorteio.shuffle(novas)
-    return novas[:max(quantidade, 0)]
+    sorteio.shuffle(feitas)
+    return (novas + feitas)[:max(quantidade, 0)]
 
 
 @dataclass
@@ -180,9 +183,9 @@ class OutrasBancasDaFaixa:
     @property
     def sugeridas(self) -> int:
         """Quantas a rodada traz se eu nao mudar: o numero da faixa, sem passar
-        das que eu nunca fiz (PRF-48) nem do teto. Zero quando acabou."""
+        das do tema nem do teto. As ja feitas contam (PRF-66)."""
         quantas = self.questoes_da_faixa or 10
-        return min(quantas, self.novas, MAXIMO_DA_RODADA)
+        return min(quantas, self.no_acervo, MAXIMO_DA_RODADA)
 
 
 def da_faixa(nos: list[str], questoes_da_faixa: int | None = None,
@@ -230,7 +233,6 @@ def criar_rodada(nos: list[str], quantidade: int, da_faixa_do_dia: dict | None =
     quantidade = max(1, min(quantidade, MAXIMO_DA_RODADA))
     escolhidas = escolher(candidatas, respondidas(), quantidade, sorteio)
     if not escolhidas:
-        # Feitas todas: o treino nao repete (PRF-48).
         return None
     filtros = {
         "quantidade": len(escolhidas),

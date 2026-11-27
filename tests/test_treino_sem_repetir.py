@@ -213,7 +213,9 @@ def _real_de_certo_errado(numero):
     return ident
 
 
-def test_o_certo_ou_errado_e_uma_rodada_so_com_os_itens_novos(acervo, monkeypatch):
+def test_o_certo_ou_errado_traz_os_novos_e_depois_repete(acervo, monkeypatch):
+    """PRF-66: as nunca feitas primeiro; feitas todas, a rodada repete (antes,
+    na PRF-48, nao havia rodada)."""
     monkeypatch.setattr(composicao, "reserva_das_que_medem",
                         lambda data, plano=None: composicao.Reserva())
     ce = {_real_de_certo_errado(50), _real_de_certo_errado(51)}
@@ -227,13 +229,17 @@ def test_o_certo_ou_errado_e_uma_rodada_so_com_os_itens_novos(acervo, monkeypatc
     for questao_id in ce:
         servico_simulado.responder(rodada.id, questao_id, "c")
 
-    assert fepese_no_radar.criar_rodada([INTERPRETACAO], 10, dia, so_certo_errado=True) is None
+    de_novo = fepese_no_radar.criar_rodada([INTERPRETACAO], 10, dia, so_certo_errado=True)
+    assert set(_ids_da_rodada(de_novo)) == ce
     resumo = fepese_no_radar.da_faixa([INTERPRETACAO], composicao.Reserva())
     assert (resumo.certo_errado, resumo.certo_errado_novos) == (2, 0)
+    assert resumo.certo_errado_sugeridos == 2
 
-    # O treino real tambem nao repete: feitas todas do tema, nao ha rodada.
+    # O treino real: feitas todas do tema, a rodada traz as mesmas de novo.
     todas = fepese_no_radar.criar_rodada([INTERPRETACAO], 30, dia)
     for questao_id in _ids_da_rodada(todas):
         servico_simulado.responder(todas.id, questao_id, "a")
-    assert fepese_no_radar.criar_rodada([INTERPRETACAO], 30, dia) is None
-    assert fepese_no_radar.da_faixa([INTERPRETACAO], composicao.Reserva()).sugeridas == 0
+    repetida = fepese_no_radar.criar_rodada([INTERPRETACAO], 30, dia)
+    assert set(_ids_da_rodada(repetida)) == set(_ids_da_rodada(todas))
+    resumo = fepese_no_radar.da_faixa([INTERPRETACAO], composicao.Reserva())
+    assert resumo.novas == 0 and resumo.sugeridas == 6

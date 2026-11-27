@@ -111,13 +111,15 @@ def test_o_no_de_cima_pega_o_que_esta_abaixo(acervo):
     assert len(outras_bancas.estoque([PORTUGUES])) == 4
 
 
-def test_so_as_nunca_feitas_entram():
-    # O treino nao repete questao (PRF-48): pedir 4 com 3 novas traz as 3.
+def test_as_nunca_feitas_vem_primeiro_e_as_feitas_completam():
+    # PRF-66: pedir 4 com 3 novas traz as 3 novas e uma ja feita; feitas
+    # todas, repete (na PRF-48 voltava vazio).
     candidatas = [outras_bancas.Candidata(i, f"k{i}", INTERPRETACAO, "IESES", f"m{i}")
                   for i in range(1, 6)]
     escolhidas = outras_bancas.escolher(candidatas, {"m1", "m2"}, 4, random.Random(1))
-    assert {c.mesma for c in escolhidas} == {"m3", "m4", "m5"}
-    assert outras_bancas.escolher(candidatas, {f"m{i}" for i in range(1, 6)}, 4) == []
+    assert {c.mesma for c in escolhidas[:3]} == {"m3", "m4", "m5"}
+    assert escolhidas[3].mesma in {"m1", "m2"}
+    assert len(outras_bancas.escolher(candidatas, {f"m{i}" for i in range(1, 6)}, 4)) == 4
 
 
 def test_a_versao_embaralhada_e_a_mesma_questao(acervo):

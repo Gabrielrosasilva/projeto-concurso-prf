@@ -12,8 +12,10 @@ Duas regras:
   medem, e a composicao nao repete questao. O treino nunca usa o que uma rodada
   que mede ainda vai usar (`composicao.reserva_das_que_medem`): a tela diz
   quantas ficaram guardadas, e para quando;
-- **so as nunca feitas** (PRF-48): o treino nao repete questao - so o
-  simulado repete. Feitas todas, o botao diz que acabou.
+- **as nunca feitas primeiro, e depois as ja feitas** (PRF-66, pedido do
+  Gabriel em 27/11; antes, na PRF-48, so as nunca feitas): feitas todas, o
+  botao nao zera - ele traz de novo as que eu ja fiz. A questao nunca vista
+  continua na frente, entao repetir so acontece quando o tema acabou.
 
 O botao "Certo ou Errado" da faixa (PRF-48) e esta mesma rodada, so com os
 itens de Certo/Errado (`so_certo_errado`): antes era uma lista com o gabarito
@@ -62,12 +64,14 @@ def do_tema(nos: list[str], estoque: dict | None = None) -> list[composicao.Cand
 
 def escolher(candidatas: list, respondidas: set[str], quantidade: int,
              sorteio: random.Random | None = None) -> list:
-    """So as nunca feitas, embaralhadas; no maximo `quantidade`. O treino nao
-    repete questao (PRF-48): repetir e do simulado."""
+    """As nunca feitas primeiro e, se faltar, as que eu ja fiz (PRF-66); cada
+    grupo embaralhado; no maximo `quantidade`."""
     sorteio = sorteio or random.Random()
     novas = [c for c in candidatas if c.impressao not in respondidas]
+    feitas = [c for c in candidatas if c.impressao in respondidas]
     sorteio.shuffle(novas)
-    return novas[:max(quantidade, 0)]
+    sorteio.shuffle(feitas)
+    return (novas + feitas)[:max(quantidade, 0)]
 
 
 def ids_de_certo_errado(candidatas: list) -> set[int]:
@@ -108,15 +112,16 @@ class FepeseDaFaixa:
 
     @property
     def sugeridas(self) -> int:
-        """O que o botao traz: o numero da faixa, sem passar das que eu nunca
-        fiz (o treino nao repete, PRF-48) nem do teto. Zero quando acabou."""
+        """O que o botao traz: o numero da faixa, sem passar das do tema fora
+        da reserva nem do teto. As ja feitas contam (PRF-66): zero so quando o
+        tema nao tem questao livre."""
         quantas = self.questoes_da_faixa or 10
-        return min(quantas, self.novas, MAXIMO_DA_RODADA)
+        return min(quantas, self.disponiveis, MAXIMO_DA_RODADA)
 
     @property
     def certo_errado_sugeridos(self) -> int:
         quantas = self.questoes_da_faixa or 10
-        return min(quantas, self.certo_errado_novos, MAXIMO_DA_RODADA)
+        return min(quantas, self.certo_errado, MAXIMO_DA_RODADA)
 
 
 def da_faixa(nos: list[str], reserva: composicao.Reserva, *,
@@ -173,8 +178,8 @@ def criar_rodada(nos: list[str], quantidade: int, data: date,
                  da_faixa_do_dia: dict | None = None,
                  sorteio: random.Random | None = None,
                  so_certo_errado: bool = False) -> Simulado | None:
-    """A rodada de treino com as reais da FEPESE dos nos, sem as reservadas e
-    sem as que eu ja fiz (PRF-48). None sem questao nova. `so_certo_errado`
+    """A rodada de treino com as reais da FEPESE dos nos, sem as reservadas;
+    as nunca feitas primeiro (PRF-66). None sem questao livre. `so_certo_errado`
     e o botao "Certo ou Errado": so os itens de Certo/Errado."""
     nos = [n for n in nos if n]
     reserva = composicao.reserva_das_que_medem(data)
