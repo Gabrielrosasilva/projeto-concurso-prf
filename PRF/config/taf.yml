@@ -1,0 +1,222 @@
+# A aba Preparacao Fisica: o exame de aptidao fisica (TAF) da PRF.
+#
+# Duas partes, de origens diferentes, e por isso separadas:
+#
+#   1. `edital`: os indices, copiados do Edital PRF n. 1/2021 (Cebraspe),
+#      Anexo III, paginas 45 a 52 do `Edital 2021.pdf` da raiz. Lido em
+#      27/11/2026 pelo Claude Code (claude-opus-5-5). Quando sair o edital
+#      novo (previsto para 2027), so esta parte muda.
+#   2. `plano`: o cronograma de treino. NAO e do edital: e um rascunho escrito
+#      pelo Claude Code (claude-opus-5-5) em 27/11/2026, a ser conferido com o
+#      medico e com um profissional de educacao fisica antes de valer.
+#
+# Quem faz a conta dos pontos e o radar (src/radar/taf.py); a tela so desenha.
+
+edital:
+  nome: "Edital PRF n. 1, de 18/01/2021 - Anexo III"
+  link: "http://www.cebraspe.org.br/concursos/prf_21"
+  # Item 2.3 do Anexo III: no minimo 2,00 em cada teste E media 3,00 nos cinco.
+  minimo_por_teste: 2.0
+  media_minima: 3.0
+  # Item 1.3: atestado medico emitido no maximo 15 dias antes dos testes.
+  dias_do_atestado: 15
+  # Em 2021: edital em 18/01, TAF em 08 e 09/05 (cronograma, pag. 42).
+  semanas_do_edital_ao_taf_2021: 16
+
+  # A tabela que vale para mim. Trocar para "feminino" troca todas.
+  sexo: masculino
+
+  # Na ORDEM do edital (item 2.1), com 5 minutos entre um e outro (2.1.1).
+  # `sentido`: "maior" (mais e melhor) ou "menor" (menos e melhor: o tempo).
+  # `faixas`: [a partir de, pontos], do pior para o melhor. Abaixo da primeira
+  # faixa (ou acima, no "menor") e 0,00, reprovado.
+  testes:
+    - chave: barra
+      nome: "Flexão em barra fixa"
+      item: "3.1 (pág. 46-48)"
+      tentativas: 2
+      masculino:
+        unidade: "repetições"
+        sentido: maior
+        faixas: [[3, 2.0], [4, 2.5], [5, 3.0], [6, 3.5], [7, 4.0], [8, 4.5], [9, 5.0]]
+      feminino:
+        unidade: "segundos em suspensão"
+        sentido: maior
+        faixas: [[10, 2.0], [13, 2.5], [16, 3.0], [19, 3.5], [22, 4.0], [25, 4.5], [28, 5.0]]
+      como_fazer:
+        - "Pegada pronada (dorso das mãos voltado para você), na largura dos ombros, sem luva."
+        - "Começa e termina com os cotovelos TOTALMENTE estendidos: sem extensão total, a repetição não conta."
+        - "Queixo passa acima da barra sem encostar nela; nada de esticar o pescoço para alcançar."
+        - "Corpo vertical, sem balanço, chute, \"pedalada\" ou impulso de tronco; sem parar para descansar."
+        - "Muito alto? Só pode dobrar os joelhos levando os pés para trás, sem dobrar o quadril."
+
+    - chave: shuttle
+      nome: "Shuttle run (ir e vir)"
+      item: "3.2 (pág. 48-50)"
+      tentativas: 2
+      masculino:
+        unidade: "segundos"
+        sentido: menor
+        # [ate (exclusive), pontos]: abaixo de 14,00 ja vale 2; abaixo de 11,00 vale 5.
+        faixas: [[14.0, 2.0], [13.5, 2.5], [13.0, 3.0], [12.5, 3.5], [12.0, 4.0], [11.5, 4.5], [11.0, 5.0]]
+      feminino:
+        unidade: "segundos"
+        sentido: menor
+        faixas: [[16.0, 2.0], [15.5, 2.5], [15.0, 3.0], [14.5, 3.5], [14.0, 4.0], [13.5, 4.5], [13.0, 5.0]]
+      como_fazer:
+        - "Duas linhas a 9,14 m; dois blocos de madeira (5 x 5 x 10 cm) atrás da linha oposta."
+        - "Corre, cruza a linha com pelo menos um pé, pega UM bloco, volta e o COLOCA no chão (jogar anula)."
+        - "Repete com o segundo bloco; o tempo para quando ele toca o chão atrás da linha de partida."
+        - "Não pode pisar nas linhas; tem de abaixar o corpo para pegar e soltar o bloco."
+
+    - chave: impulsao
+      nome: "Impulsão horizontal"
+      item: "3.3 (pág. 50)"
+      tentativas: 2
+      masculino:
+        unidade: "metros"
+        sentido: maior
+        faixas: [[2.01, 2.0], [2.06, 2.5], [2.11, 3.0], [2.16, 3.5], [2.21, 4.0], [2.26, 4.5], [2.31, 5.0]]
+      feminino:
+        unidade: "metros"
+        sentido: maior
+        faixas: [[1.61, 2.0], [1.66, 2.5], [1.71, 3.0], [1.76, 3.5], [1.81, 4.0], [1.86, 4.5], [1.91, 5.0]]
+      como_fazer:
+        - "Parado atrás da linha, pés paralelos, sem tocar nela; salta com os dois pés juntos."
+        - "Mede até a parte do corpo que tocar a areia MAIS PERTO da linha: cair sentado ou pôr a mão atrás perde distância."
+        - "Não pode dar passinho antes, pisar na linha nem rolar para a frente."
+
+    - chave: abdominal
+      nome: "Flexão abdominal (1 minuto)"
+      item: "3.4 (pág. 50-51)"
+      tentativas: 2
+      masculino:
+        unidade: "repetições"
+        sentido: maior
+        faixas: [[35, 2.0], [39, 2.5], [43, 3.0], [47, 3.5], [51, 4.0], [55, 4.5], [59, 5.0]]
+      feminino:
+        unidade: "repetições"
+        sentido: maior
+        faixas: [[28, 2.0], [31, 2.5], [34, 3.0], [37, 3.5], [40, 4.0], [43, 4.5], [46, 5.0]]
+      como_fazer:
+        - "Deitado, joelhos a ~90°, pés no chão seguros por um avaliador."
+        - "Braços cruzados no peito, mão esquerda no ombro direito e mão direita no esquerdo."
+        - "Sobe até os COTOVELOS tocarem o meio da patela; desce até a ESCÁPULA encostar no chão."
+        - "Tirou a mão do ombro, aquela repetição não conta."
+
+    - chave: corrida
+      nome: "Corrida de 12 minutos"
+      item: "3.5 (pág. 51-52)"
+      tentativas: 1
+      masculino:
+        unidade: "metros"
+        sentido: maior
+        faixas: [[2301, 2.0], [2401, 2.5], [2501, 3.0], [2601, 3.5], [2701, 4.0], [2801, 4.5], [2901, 5.0]]
+      feminino:
+        unidade: "metros"
+        sentido: maior
+        faixas: [[2001, 2.0], [2101, 2.5], [2201, 3.0], [2301, 3.5], [2401, 4.0], [2501, 4.5], [2601, 5.0]]
+      como_fazer:
+        - "UMA tentativa só (nos outros testes há uma segunda)."
+        - "Pode correr, andar e até parar; vale a distância no fim dos 12 minutos."
+        - "No apito final, fique onde está até o fiscal liberar: andar depois do apito elimina."
+
+  # O que eliminou gente que estava em forma (Anexo III, 1.3 a 1.5, 3.1.4).
+  checklist_do_dia:
+    - "Atestado médico no modelo do Anexo III-A, emitido no máximo 15 dias antes."
+    - "Roupa de treino: camiseta, calção ou bermuda, tênis e meias."
+    - "Nada que cubra os braços na barra (o fiscal precisa ver os cotovelos)."
+    - "Sem luvas, munhequeira ou qualquer proteção nas mãos."
+    - "Os testes são filmados; recusar a filmagem elimina."
+
+# --------------------------------------------------------------------------
+# O PLANO - rascunho do Claude Code, NAO do edital (regra 2 do CLAUDE.md).
+# --------------------------------------------------------------------------
+plano:
+  procedencia: "Rascunho do Claude Code (claude-opus-5-5), 27/11/2026 - conferir com o médico e com um profissional de educação física"
+
+  # A meta de cada teste: "passar com folga". 3,5 em todos dá média 3,5,
+  # meio ponto acima do mínimo do edital.
+  meta_de_pontos: 3.5
+
+  # Regras que valem em todas as fases.
+  cuidados:
+    - "Só começa a fase 1 depois da liberação do médico, e no que ele liberar."
+    - "Dor de 0 a 10: até 3 durante o treino e que passa no dia seguinte é aceitável; 4 ou mais, ou que piora no dia seguinte, pare aquele exercício e reveja."
+    - "Formigamento ou dormência na mão ou no dedo mínimo durante a barra: encerre a barra do dia."
+    - "Dor na frente do joelho em salto ou corrida: volte um passo na progressão daquele exercício."
+    - "Carga da semana (esforço x minutos) não sobe mais de ~30% de uma semana para outra."
+    - "Uma semana mais leve (metade do volume) a cada 4 semanas."
+    - "Sono de 7 horas ou mais; é nele que o treino vira resultado."
+
+  # A semana de agora (estudo de manhã, academia à tarde), mantendo os 5 dias
+  # de musculação (peito, costas, pernas, peito, costas). O TAF entra junto.
+  semana_modelo:
+    - dia: "Segunda"
+      musculacao: "Peito"
+      taf: "Corrida (depois da musculação)"
+    - dia: "Terça"
+      musculacao: "Costas"
+      taf: "Barra estrita (no começo do treino) + abdominal"
+    - dia: "Quarta"
+      musculacao: "Pernas (volume reduzido, joelho confortável)"
+      taf: "Impulsão e shuttle ANTES das pernas (só a partir da fase 3)"
+    - dia: "Quinta"
+      musculacao: "Peito"
+      taf: "Corrida (depois da musculação) + abdominal"
+    - dia: "Sexta"
+      musculacao: "Costas"
+      taf: "Barra estrita (no começo do treino)"
+    - dia: "Sábado"
+      musculacao: "-"
+      taf: "Corrida contínua, ou TAF simulado a cada 4 semanas + abdominal"
+    - dia: "Domingo"
+      musculacao: "-"
+      taf: "Descanso"
+
+  # As fases contam a partir da data da liberação médica (gravada na tela).
+  # `semanas`: quantas dura; a ultima vai ate o TAF.
+  fases:
+    - nome: "Fase 1 - Retomada"
+      semanas: 4
+      objetivo: "Voltar a treinar sem dor e criar o hábito de correr."
+      musculacao: "Cargas moderadas (~60-70%), longe da falha. Pernas com amplitude confortável para o joelho."
+      prescricao:
+        corrida: "3x/semana. Semanas 1-2: caminhada rápida 20-30 min. Semanas 3-4: 6 a 8 x (1 min de trote + 2 min de caminhada)."
+        barra: "2x/semana: 4 séries de metade do seu máximo (ex.: máx. 8, faça 4), 2 min de descanso. Sem ir à falha."
+        abdominal: "3x/semana: 3 x 15 no padrão do edital, devagar e certo."
+        potencia: "Nada de salto nem tiro. Fortalecimento: ponte de glúteo, abdução, panturrilha, leg press em amplitude confortável."
+      teste: "Sem teste máximo. Ao fim da fase: quantas barras e abdominais saem com a técnica certa."
+
+    - nome: "Fase 2 - Base"
+      semanas: 6
+      objetivo: "Correr 30-40 min sem parar e subir o volume de barra e abdominal."
+      musculacao: "Volta ao normal nos superiores; pernas com volume reduzido."
+      prescricao:
+        corrida: "3x/semana, contínua em ritmo de conversa: começa em 20 min e sobe ~5 min por semana até 40 min. Da semana 4 em diante, 4 a 6 acelerações leves de 20 s no fim de uma delas."
+        barra: "2x/semana: 5 séries de 50-60% do máximo, +1 repetição por série a cada semana. Descanso de 2 min."
+        abdominal: "3x/semana: 4 x 30 s no ritmo da prova (30 s de descanso), depois 3 x 45 s."
+        potencia: "Se o joelho e o médico deixarem: 1x/semana, 3 x 5 saltos horizontais leves (~70%) em grama ou piso emborrachado."
+      teste: "No fim da fase: o primeiro TAF simulado completo, na ordem do edital, com 5 min entre os testes."
+
+    - nome: "Fase 3 - Construção"
+      semanas: 6
+      objetivo: "Chegar no ritmo da corrida e trabalhar velocidade e salto."
+      musculacao: "Superiores normais; pernas com metade do volume, sempre DEPOIS do salto e do shuttle."
+      prescricao:
+        corrida: "3x/semana: 1 intervalado (6 a 8 x 400 m um pouco mais rápido que o ritmo-alvo, 1:30-2 min trotando entre eles), 1 contínua de 30-40 min, 1 de 12-15 min no ritmo-alvo."
+        barra: "2x/semana: um dia de volume (pirâmide 1-2-3-4-3-2-1) e um de séries de 'máximo menos 1', 3 min de descanso."
+        abdominal: "3x/semana: 2 a 3 x 1 min no máximo, 3 min de descanso."
+        potencia: "1x/semana, antes das pernas: shuttle - técnica de parada e troca, 6 a 8 tiros com 2 min de descanso; impulsão - 4 a 6 saltos máximos com 2 min de descanso."
+      teste: "TAF simulado a cada 4 semanas."
+
+    - nome: "Fase 4 - Específica (até o TAF)"
+      semanas: 0
+      objetivo: "Quando sair o edital: ensaiar a prova e chegar descansado."
+      musculacao: "Mantém superiores; pernas só manutenção. Nada de perna pesada nas 72 h antes do TAF."
+      prescricao:
+        corrida: "3 a 4x/semana, mantendo o intervalado e a corrida no ritmo-alvo."
+        barra: "2x/semana; na última semana, só séries leves."
+        abdominal: "3x/semana, 1 a 2 x 1 min."
+        potencia: "1x/semana, como na fase 3."
+      teste: "TAF simulado a cada 3 semanas. Nos últimos 10 dias, metade do volume com a mesma intensidade. Atestado dentro dos 15 dias."

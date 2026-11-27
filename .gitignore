@@ -43,3 +43,7 @@ tests/fixtures/auditoria/quadro_*.txt
 tests/fixtures/ieses/caderno.txt
 tests/fixtures/ieses/gabarito.txt
 tests/fixtures/ieses/edital_trechos.txt
+
+# A aba Preparacao Fisica: testes, treinos e a liberacao medica. Dado de saude
+# nao vai para o GitHub, que e publico.
+data/preparacao_fisica.json

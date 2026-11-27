@@ -166,6 +166,9 @@ from radar.servico import erros         # noqa: F401 - usado pela web
 from radar.servico import explicacoes   # noqa: F401 - usado pela web
 # A distancia dos aprovados da PRF 2021, bloco a bloco (PRF-34).
 from radar.servico import aprovados     # noqa: F401 - usado pela web
+# A aba Preparacao Fisica: os testes do TAF, os treinos e a fase do plano.
+# `servico.preparacao_fisica.historico()`. Os pontos sao do `radar.taf`.
+from radar.servico import preparacao_fisica  # noqa: F401 - usado pela web
 # O estudo extra, fora das faixas do plano. Tambem diario, tambem nao mede.
 from radar.servico import extra         # noqa: F401 - usado pela web
 # Como eu fui em cada semana, por ciclo. `servico.semanas.montar()`.

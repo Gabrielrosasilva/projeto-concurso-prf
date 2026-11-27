@@ -1436,6 +1436,142 @@ def meu_foco(request: Request):
     )
 
 
+# --- a aba Preparacao Fisica (o TAF) ----------------------------------------
+# Os pontos sao do `radar.taf` e os registros do `servico.preparacao_fisica`;
+# aqui so se le o formulario e se escolhe o que desenhar.
+
+RECADOS_DA_PREPARACAO = {
+    "situacao": "Situação gravada.",
+    "teste": "Teste gravado.",
+    "treino": "Treino gravado.",
+    "apagado": "Apagado.",
+}
+
+
+def _numero(texto: str | None) -> float | None:
+    """'12,45' ou '12.45' -> 12.45; vazio -> None. Torto vira ValueError."""
+    if texto is None or not str(texto).strip():
+        return None
+    return float(str(texto).strip().replace(",", "."))
+
+
+def _data_ou_none(texto: str | None) -> date | None:
+    return date.fromisoformat(texto) if texto and texto.strip() else None
+
+
+def _pagina_da_preparacao(request: Request, calculo: dict | None = None,
+                          recado: str = "", erro: str | None = None,
+                          status: int = 200):
+    from radar import taf
+
+    pf = servico.preparacao_fisica
+    regras = taf.carregar()
+    dia = servico.cronograma.hoje_local()
+    testes = taf.testes(regras)
+    ultimos = pf.ultimos_resultados(regras)
+    meta = float((regras.get("plano") or {}).get("meta_de_pontos", 3.5))
+    # A meta de cada teste em resultado: "3,5 na barra = 6 repeticoes".
+    metas = {t.chave: t.minimo_para(meta) for t in testes}
+    corridas = [(pontos, distancia, taf.ritmo_por_km(distancia), taf.tempo_por_volta(distancia))
+                for distancia, pontos in next(
+                    (t.faixas for t in testes if t.chave == "corrida"), [])]
+    return templates.TemplateResponse(
+        request=request,
+        name="preparacao_fisica.html",
+        context={
+            "regras": regras,
+            "arquivo": taf.caminho(),
+            "testes": testes,
+            "dados": pf.ler(),
+            "fase": pf.fase_atual(dia, regras),
+            "contagem": pf.contagem_do_taf(dia, regras),
+            "avisos": pf.avisos(dia),
+            "carga": pf.carga_semanal(dia),
+            "historico": pf.historico(regras),
+            "ultimos": ultimos,
+            "agora": taf.avaliar(ultimos, regras) if ultimos else None,
+            "calculo": calculo,
+            "meta": meta,
+            "metas": metas,
+            "corridas": corridas,
+            "hoje": dia,
+            "recado": RECADOS_DA_PREPARACAO.get(recado),
+            "erro": erro,
+        },
+        status_code=status,
+    )
+
+
+@app.get("/preparacao-fisica", response_class=HTMLResponse)
+def preparacao_fisica(request: Request, recado: str = "", barra: str = "",
+                      shuttle: str = "", impulsao: str = "", abdominal: str = "",
+                      corrida: str = ""):
+    """A aba do TAF. Com valores na URL, a calculadora mostra os pontos sem
+    gravar nada (o botao "Calcular" do formulario e um GET)."""
+    from radar import taf
+
+    brutos = {"barra": barra, "shuttle": shuttle, "impulsao": impulsao,
+              "abdominal": abdominal, "corrida": corrida}
+    calculo = None
+    if any(v.strip() for v in brutos.values()):
+        try:
+            valores = {chave: _numero(v) for chave, v in brutos.items()}
+        except ValueError:
+            return _pagina_da_preparacao(request, erro="Número inválido na calculadora.",
+                                         status=400)
+        calculo = {"valores": valores,
+                   "avaliacao": taf.avaliar({k: v for k, v in valores.items() if v is not None})}
+    return _pagina_da_preparacao(request, calculo=calculo, recado=recado)
+
+
+@app.post("/preparacao-fisica/situacao", response_class=HTMLResponse)
+def preparacao_fisica_situacao(request: Request, liberado_em: str = Form(""),
+                               restricoes: str = Form(""), data_do_taf: str = Form("")):
+    try:
+        servico.preparacao_fisica.definir_situacao(
+            _data_ou_none(liberado_em), restricoes, _data_ou_none(data_do_taf))
+    except ValueError:
+        return _pagina_da_preparacao(request, erro="Data inválida.", status=400)
+    return RedirectResponse("/preparacao-fisica?recado=situacao", status_code=303)
+
+
+@app.post("/preparacao-fisica/teste", response_class=HTMLResponse)
+def preparacao_fisica_teste(request: Request, data: str = Form(""), tipo: str = Form("simulado"),
+                            observacao: str = Form(""), barra: str = Form(""),
+                            shuttle: str = Form(""), impulsao: str = Form(""),
+                            abdominal: str = Form(""), corrida: str = Form("")):
+    try:
+        dia = _data_ou_none(data) or servico.cronograma.hoje_local()
+        resultados = {"barra": _numero(barra), "shuttle": _numero(shuttle),
+                      "impulsao": _numero(impulsao), "abdominal": _numero(abdominal),
+                      "corrida": _numero(corrida)}
+        servico.preparacao_fisica.registrar_teste(dia, resultados, tipo, observacao)
+    except ValueError as motivo:
+        return _pagina_da_preparacao(request, erro=f"Teste não gravado: {motivo}", status=400)
+    return RedirectResponse("/preparacao-fisica?recado=teste", status_code=303)
+
+
+@app.post("/preparacao-fisica/treino", response_class=HTMLResponse)
+def preparacao_fisica_treino(request: Request, data: str = Form(""), o_que: str = Form(""),
+                             minutos: str = Form(""), esforco: str = Form(""),
+                             dor: str = Form("0"), observacao: str = Form("")):
+    try:
+        dia = _data_ou_none(data) or servico.cronograma.hoje_local()
+        servico.preparacao_fisica.registrar_treino(
+            dia, o_que, int(minutos or 0), int(esforco or 0), int(dor or 0), observacao)
+    except ValueError as motivo:
+        return _pagina_da_preparacao(request, erro=f"Treino não gravado: {motivo}", status=400)
+    return RedirectResponse("/preparacao-fisica?recado=treino", status_code=303)
+
+
+@app.post("/preparacao-fisica/apagar")
+def preparacao_fisica_apagar(qual: str = Form(""), ident: int = Form(0)):
+    if qual not in ("testes", "treinos"):
+        raise HTTPException(status_code=400, detail="Nada para apagar.")
+    servico.preparacao_fisica.apagar(qual, ident)
+    return RedirectResponse("/preparacao-fisica?recado=apagado", status_code=303)
+
+
 # --- a aba Redacao (copia PMSC, decisao PMSC-5) -----------------------------
 
 #: O recado da ultima acao da aba Redacao.
