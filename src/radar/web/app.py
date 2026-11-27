@@ -1415,9 +1415,18 @@ def geradas_errada(questao_id: int, voltar: str = Form("/geradas")):
 
 # --- previsao de abertura (fase 6) ------------------------------------------
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
+def inicio():
+    """A home e a tela Hoje (navegacao nova, etapa 2 da PRF-58)."""
+    return RedirectResponse("/hoje", status_code=303)
+
+
+@app.get("/foco", response_class=HTMLResponse)
 def meu_foco(request: Request):
-    """A home: o alvo, o que estudar agora, o que revisar - e duas faixas.
+    """O antigo Meu foco: o alvo, o que estudar agora, o que revisar.
+
+    Saiu do menu (etapa 2 da PRF-58) e saiu da raiz, que abre o Hoje; o
+    endereco continua, para quem o tiver guardado.
 
     Tres blocos cheios em vez dos cinco da especificacao: com pouco treino, a
     evolucao e as novidades nasceriam vazias, e bloco vazio do tamanho de um
@@ -1481,14 +1490,15 @@ def _pagina_do_taf(request: Request, calculo: dict | None = None,
     dia = servico.cronograma.hoje_local()
     testes = taf.testes(regras)
     ultimos = pf.ultimos_resultados(regras)
-    meta = float((regras.get("plano") or {}).get("meta_de_pontos", 3.5))
-    # A meta de cada teste em resultado: "3,5 na barra = 6 repeticoes".
-    metas = {t.chave: t.minimo_para(meta) for t in testes}
+    meta = float((regras.get("plano") or {}).get("meta_de_pontos", 5))
+    # A minha meta de cada teste em resultado: "12 barras" (o plano.metas).
+    metas = taf.metas(regras) if regras else {}
     corridas = [(pontos, distancia, taf.ritmo_por_km(distancia), taf.tempo_por_volta(distancia))
                 for distancia, pontos in next(
                     (t.faixas for t in testes if t.chave == "corrida"), [])]
     evolucao = pf.evolucao(regras) if regras else {}
-    graficos = [(t, pf.grafico(evolucao.get(t.chave, []), t, meta)) for t in testes]
+    graficos = [(t, pf.grafico(evolucao.get(t.chave, []), t, metas.get(t.chave)))
+                for t in testes]
     return templates.TemplateResponse(
         request=request,
         name="taf.html",
@@ -2609,12 +2619,6 @@ def analises_conferir(
     return RedirectResponse(_volta_da_conferencia(
         chave, materia=materia, abertas=abertas, evidencia=evidencia, amostra=amostra,
         associados=associados, parte=parte), status_code=303)
-
-
-@app.get("/foco")
-def foco_endereco_antigo():
-    """Meu foco virou a home. O endereco antigo continua levando la."""
-    return RedirectResponse("/", status_code=303)
 
 
 @app.post("/foco/treinar")

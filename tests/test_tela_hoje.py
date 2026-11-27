@@ -199,13 +199,13 @@ def test_erro_de_validacao_aparece_na_tela(cliente, monkeypatch, campos, texto):
 def test_a_barra_tem_o_hoje_em_primeiro(cliente):
     texto = cliente.get("/concursos").text
     assert 'href="/hoje"' in texto
-    assert texto.index('href="/hoje"') < texto.index("Meu foco")
+    assert texto.index('href="/hoje"') < texto.index('href="/estudar"')
     assert 'class="item ativo" href="/hoje"' in cliente.get("/hoje").text
 
 
 def test_a_home_tem_o_cartao_do_dia(cliente, monkeypatch):
     _parar_o_relogio(monkeypatch, 2026, 9, 28, 10, 30)
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
     assert "Hoje no cronograma" in texto
     assert 'href="/hoje"' in texto and "Abrir o dia" in texto
     assert "Semana 1 · Nível 1" in texto
@@ -215,16 +215,16 @@ def test_a_home_tem_o_cartao_do_dia(cliente, monkeypatch):
 
 def test_a_home_no_domingo_e_depois_do_ciclo(cliente, monkeypatch):
     _parar_o_relogio(monkeypatch, 2026, 10, 4, 10, 0)
-    assert "Hoje é descanso." in cliente.get("/").text
+    assert "Hoje é descanso." in cliente.get("/foco").text
     _parar_o_relogio(monkeypatch, 2026, 12, 1, 10, 0)
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
     assert "Hoje no cronograma" not in texto
     assert "Ver o primeiro dia" not in texto and "Abrir o dia" not in texto
 
 
 def test_a_home_antes_do_ciclo_diz_quando_comeca(cliente, monkeypatch):
     _parar_o_relogio(monkeypatch, 2026, 9, 26, 10, 0)
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
     assert "O Ciclo 1 começa segunda, 28/09" in texto
     assert "Aplicação da lei penal (arts. 1º a 12)" in texto
     assert 'href="/hoje?data=2026-09-28"' in texto

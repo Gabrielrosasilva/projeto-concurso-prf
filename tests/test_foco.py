@@ -613,9 +613,10 @@ def test_edital_fora_do_acervo_nao_inventa_quadro(banco_temporario, monkeypatch)
 
 # --- a tela -----------------------------------------------------------------
 
-def test_meu_foco_e_a_home(cliente):
+def test_analises_aponta_para_o_hoje(cliente):
+    """Meu foco saiu do menu (PRF-58, etapa 2): a Analises aponta o Hoje."""
     assert cliente.get("/analises").status_code == 200
-    assert "Meu foco" in cliente.get("/analises").text
+    assert 'href="/hoje">Hoje</a>' in cliente.get("/analises").text
 
 
 def test_a_tela_mostra_a_banca_como_hipotese(cliente):
@@ -1267,7 +1268,7 @@ def test_home_e_analises_mostram_a_frase_do_evento(cliente):
             "Situacao: prevista -> autorizado", CONCURSO_DE_2019,
         )
 
-    for pagina in ("/", "/analises"):
+    for pagina in ("/foco", "/analises"):
         texto = cliente.get(pagina).text
         assert "O concurso foi autorizado" in texto, pagina
         assert "mudou a situação" in texto, pagina

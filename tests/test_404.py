@@ -60,4 +60,5 @@ def test_a_pagina_leva_de_volta_para_as_abas(cliente):
 def test_as_abas_do_menu_respondem(cliente):
     """O que o 404 acusou: as tres abas precisam existir de verdade."""
     for rota in ("/", "/previsao", "/macetes", "/simulado"):
-        assert cliente.get(rota, follow_redirects=False).status_code == 200
+        # A raiz leva ao Hoje (PRF-58, etapa 2): o que importa e chegar numa tela.
+        assert cliente.get(rota).status_code == 200

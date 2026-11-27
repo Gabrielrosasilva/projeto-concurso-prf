@@ -46,7 +46,7 @@ def _responder(certas: int, erradas: int, materia="Direito Penal"):
 
 def test_tres_blocos_e_duas_faixas(cliente, com_quadro_do_edital):
     _acervo()
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
 
     for bloco in ("Policia Penal SC", "O que estudar agora", "Revisar"):
         assert bloco in texto, bloco
@@ -59,7 +59,7 @@ def test_sem_treino_nada_nasce_vazio_tudo_convida(cliente, com_quadro_do_edital)
     """Nunca respondi: a evolucao pede 20 respostas, e o Revisar explica o que
     vai aparecer ali - nenhum zero, nenhum bloco em branco."""
     _acervo()
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
 
     assert "Responda mais <b>20</b> para eu medir sua evolução" in texto
     assert "ainda não respondi nenhuma questão" in texto
@@ -73,7 +73,7 @@ def test_com_erro_o_revisar_enche_e_o_botao_aparece(cliente, com_quadro_do_edita
     # menos que isso a materia nao entra em "fraca" - e o ponto do minimo.
     _responder(certas=8, erradas=12)
 
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
 
     assert "Revisar agora" in texto
     assert "Direito Penal · 40% em 20" in texto         # materia fraca
@@ -86,7 +86,7 @@ def test_o_selo_do_revisar_sai_do_dado(cliente, com_quadro_do_edital, monkeypatc
     _responder(certas=8, erradas=12)
     monkeypatch.setattr(inicio.Revisar, "origem", "ia")
 
-    texto = cliente.get("/").text
+    texto = cliente.get("/foco").text
 
     assert '<span aria-hidden="true">🟣</span> Gerado por IA</span> medido no radar' in texto
 

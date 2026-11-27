@@ -1,15 +1,15 @@
 {# A barra de navegacao do topo, igual em todas as paginas.
 
-   Os sete destinos: os seis do sitemap da especificacao
-   (docs/especificacao.md) e, na frente deles, o cronograma do dia:
+   Os destinos (navegacao nova da PRF-58; Meu foco e Mais sairam do menu nas
+   etapas 2 e 5, 27/11/2026 - os enderecos /foco e /mais continuam):
 
-     Hoje      - o que estudar hoje, a que horas, e onde marco como foi
-     Meu foco  - a home: o alvo, o que estudar agora, o que revisar
+     Hoje      - a home: o que estudar hoje, a que horas, e onde marco como foi
      Estudar   - treinar: Simulado e Gerar questoes
-     Revisao   - Macetes (e, quando existirem, pegadinhas e assuntos)
+     Redacao   - a discursiva
+     TAF       - o exame fisico: treino do dia, como foi e a evolucao
+     Revisao   - Caderno de erros e Macetes
      Analises  - o quadro do edital contra as provas, onde estudar primeiro
      Concursos - abre direto em Acompanhando (a PRF e a PMSC)
-     Mais      - fontes e evidencias, configuracoes
 
    Use assim, no topo do <body>:
 
@@ -33,11 +33,10 @@
 {% macro barra(ativo='') %}
 {{ faixa_prf() }}
 <nav class="topo-barra" aria-label="Navegacao principal">
-  <a class="marca" href="/">Radar</a>
+  <a class="marca" href="/hoje">Radar</a>
 
   <div class="abas">
     <a class="item {{ 'ativo' if ativo == 'hoje' }}" href="/hoje">📅 Hoje</a>
-    <a class="item {{ 'ativo' if ativo == 'foco' }}" href="/">🎯 Meu foco</a>
     <a class="item {{ 'ativo' if ativo == 'estudar' }}" href="/estudar">📚 Estudar</a>
     {# A redacao da PMSC (decisao PMSC-5): 25% da nota, com aba propria. #}
     <a class="item {{ 'ativo' if ativo == 'redacao' }}" href="/redacao">✍ Redação</a>
@@ -47,7 +46,6 @@
     <a class="item {{ 'ativo' if ativo == 'revisao' }}" href="/revisao">🧠 Revisão</a>
     <a class="item {{ 'ativo' if ativo == 'analises' }}" href="/analises">📊 Análises</a>
     <a class="item {{ 'ativo' if ativo == 'concursos' }}" href="/acompanhando">🏛 Concursos</a>
-    <a class="item {{ 'ativo' if ativo == 'mais' }}" href="/mais">⚙ Mais</a>
   </div>
 
   {# O icone e o do tema para onde o clique LEVA: no escuro aparece o sol. #}

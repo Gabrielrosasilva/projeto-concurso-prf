@@ -168,11 +168,13 @@ def test_os_grids_declaram_coluna_que_encolhe(cliente):
 # "voltar ao radar", e nao dava para pular de Macetes para Calendario sem
 # passar pela home.
 
-def test_a_barra_do_topo_tem_os_sete_destinos(cliente):
+def test_a_barra_do_topo_tem_os_destinos(cliente):
+    """Sem Meu foco e sem Mais (navegacao nova, etapas 2 e 5 da PRF-58)."""
     texto = cliente.get("/concursos").text
-    for rotulo, destino in (("Hoje", "/hoje"), ("Meu foco", "/"), ("Estudar", "/estudar"),
+    for rotulo, destino in (("Hoje", "/hoje"), ("Estudar", "/estudar"),
+                            ("Redação", "/redacao"), ("TAF", "/taf"),
                             ("Revisão", "/revisao"), ("Análises", "/analises"),
-                            ("Concursos", "/concursos"), ("Mais", "/mais")):
+                            ("Concursos", "/concursos")):
         assert rotulo in texto, rotulo
         assert f'href="{destino}"' in texto, destino
 
@@ -186,14 +188,14 @@ def test_concursos_e_so_o_acompanhando(cliente):
         assert f'href="{destino}"' not in texto
 
 
-@pytest.mark.parametrize("caminho", ["/", "/analises", "/macetes", "/simulado",
+@pytest.mark.parametrize("caminho", ["/hoje", "/analises", "/macetes", "/simulado",
                                      "/previsao", "/calendario", "/foco",
                                      "/acompanhando", "/mais"])
 def test_a_barra_aparece_em_toda_pagina(cliente, caminho):
     assert "topo-barra" in cliente.get(caminho).text
 
 
-@pytest.mark.parametrize("caminho", ["/", "/hoje", "/analises", "/macetes", "/simulado",
+@pytest.mark.parametrize("caminho", ["/hoje", "/analises", "/macetes", "/simulado",
                                      "/previsao", "/calendario", "/foco",
                                      "/acompanhando", "/mais", "/nao-existe"])
 def test_a_copia_prf_se_anuncia_em_toda_pagina(cliente, caminho):
@@ -208,16 +210,26 @@ def test_a_copia_prf_se_anuncia_em_toda_pagina(cliente, caminho):
 
 
 def test_nenhuma_aba_esta_mais_em_construcao(cliente):
-    for caminho in ("/", "/acompanhando", "/analises", "/mais"):
+    for caminho in ("/hoje", "/foco", "/acompanhando", "/analises", "/mais"):
         resposta = cliente.get(caminho)
         assert resposta.status_code == 200
         assert "Em construcao" not in resposta.text
 
 
-def test_o_endereco_antigo_do_foco_leva_para_a_home(cliente):
-    resposta = cliente.get("/foco", follow_redirects=False)
+def test_a_raiz_abre_o_hoje_e_o_foco_continua_no_endereco(cliente):
+    """Navegacao nova, etapa 2 (PRF-58): / abre o Hoje; Meu foco saiu do menu."""
+    resposta = cliente.get("/", follow_redirects=False)
     assert resposta.status_code == 303
-    assert resposta.headers["location"] == "/"
+    assert resposta.headers["location"] == "/hoje"
+    assert cliente.get("/foco").status_code == 200
+
+
+def test_meu_foco_e_mais_sairam_do_menu(cliente):
+    """Etapas 2 e 5 da navegacao nova (PRF-58): os enderecos continuam."""
+    texto = cliente.get("/hoje").text
+    assert "Meu foco</a>" not in texto
+    assert 'href="/mais"' not in texto
+    assert cliente.get("/mais").status_code == 200
 
 
 def test_estudar_abre_no_simulado_e_revisao_no_caderno(cliente):

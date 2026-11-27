@@ -246,7 +246,7 @@ def test_o_cartao_da_home_diz_plano_b(cliente, monkeypatch):
     momento = datetime(2026, 10, 28, 12, 0, tzinfo=fuso_local())
     monkeypatch.setattr(servico.cronograma, "agora_local", lambda: momento)
     cliente.post("/hoje/plano-b", data={"data": "2026-10-28", "minutos": "30"})
-    assert "Hoje: Plano B (30 min)" in cliente.get("/").text
+    assert "Hoje: Plano B (30 min)" in cliente.get("/foco").text
 
 
 # --- o comando -----------------------------------------------------------------

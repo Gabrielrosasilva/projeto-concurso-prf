@@ -300,7 +300,7 @@ def test_a_home_mostra_as_pontas_da_fila_do_meu_desempenho(banco_temporario,
     monkeypatch.setattr(inicio.estudo, "para_revisar", lambda **_: fila)
     monkeypatch.setattr(inicio.estudo, "proxima_revisao", lambda **_: None)
 
-    texto = TestClient(app).get("/").text
+    texto = TestClient(app).get("/foco").text
 
     assert "conteúdo(s) para revisar hoje" in texto
     assert "Lei penal no tempo · erro recente" in texto
@@ -322,7 +322,7 @@ def test_a_home_diz_a_proxima_revisao_com_a_fila_vazia(banco_temporario,
     monkeypatch.setattr(inicio.estudo, "para_revisar", lambda **_: [])
     monkeypatch.setattr(inicio.estudo, "proxima_revisao", lambda **_: proxima)
 
-    texto = TestClient(app).get("/").text
+    texto = TestClient(app).get("/foco").text
 
     assert "Próxima revisão: <b>Lei penal no tempo</b> em 06/10." in texto
 
