@@ -2379,6 +2379,19 @@
     "referencia": "CTB, art. 2º"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo I - Disposições preliminares (arts. 1º a 4º) > CTB, Anexo I (veículo de grande porte)",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo I - Disposições preliminares (arts. 1º a 4º)",
+    "nivel": "elemento",
+    "nome": "CTB, Anexo I (veículo de grande porte)",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "CTB, art. 4º e Anexo I - definição de VEÍCULO DE GRANDE PORTE"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -2520,6 +2533,19 @@
     "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 14"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A) > CTB, art. 12",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 12",
+    "ordem": 10,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "competência",
+    "referencia": "CTB, art. 12, VI"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
@@ -2704,6 +2730,19 @@
     "referencia": null
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IV - Dos pedestres e condutores de veículos não motorizados (arts. 68 a 71) > CTB, art. 69",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IV - Dos pedestres e condutores de veículos não motorizados (arts. 68 a 71)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 69",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 69, caput"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo V - Do cidadão (arts. 72 e 73)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -2754,6 +2793,32 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 89"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90) > CTB, art. 86",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 86",
+    "ordem": 1,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 86"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90) > CTB, art. 87",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 87",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 87, I a VI"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VIII - Da engenharia de tráfego, da operação, da fiscalização e do policiamento ostensivo de trânsito (arts. 91 a 95)",
@@ -2884,6 +2949,19 @@
     "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 105"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117) > CTB, art. 115",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 115",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "parágrafo",
+    "referencia": "CTB, art. 115, § 2º"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo X - Dos veículos em circulação internacional (arts. 118 e 119)",
@@ -3092,6 +3170,32 @@
     "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
     "tipo_elemento": "parágrafo",
     "referencia": "CTB, art. 154"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 145",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 145",
+    "ordem": 5,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "CTB, art. 145, I a IV"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 160",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 160",
+    "ordem": 6,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 160, caput (c/c art. 147)"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
@@ -3328,6 +3432,32 @@
     "referencia": "CTB, art. 230"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 176",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 176",
+    "ordem": 17,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 176, I"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 175",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 175",
+    "ordem": 18,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 175"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -3497,6 +3627,19 @@
     "referencia": "CTB, art. 269"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A) > CTB, art. 278",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 278",
+    "ordem": 3,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 278 c/c art. 209"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -3521,6 +3664,19 @@
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
     "tipo_elemento": "artigo",
     "referencia": "CTB, art. 281"
+  },
+  {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A) > CTB, art. 280",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 280",
+    "ordem": 2,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "inciso",
+    "referencia": "CTB, art. 280, IV, V e VI"
   },
   {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A) > CTB, art. 286",
@@ -3692,6 +3848,19 @@
     "referencia": "CTB, arts. 302 a 312-B"
   },
   {
+    "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B) > CTB, art. 303",
+    "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)",
+    "nivel": "elemento",
+    "nome": "CTB, art. 303",
+    "ordem": 11,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "CTB, art. 303, caput"
+  },
+  {
     "caminho": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XX - Disposições finais e transitórias (arts. 313 a 341)",
     "pai": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020",
     "nivel": "subassunto",
@@ -3768,6 +3937,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO II",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 04/1998 > Res. CONTRAN 04/1998",
+    "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 04/1998",
+    "nivel": "elemento",
+    "nome": "Res. CONTRAN 04/1998",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "prazo",
+    "referencia": "Res. CONTRAN 04/1998 (trânsito de veículos novos antes do registro e licenciamento - autorização especial)"
   },
   {
     "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 14/1998",
@@ -3926,6 +4108,19 @@
     "referencia": null
   },
   {
+    "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007 > Res. CONTRAN 254/2007, art. 3º",
+    "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007",
+    "nivel": "elemento",
+    "nome": "Res. CONTRAN 254/2007, art. 3º",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "conceito",
+    "referencia": "Res. CONTRAN 254/2007, art. 3º (hoje Res. 960/2022, art. 4º, § 1º)"
+  },
+  {
     "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 268/2008",
     "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações",
     "nivel": "subassunto",
@@ -3978,6 +4173,19 @@
     "referencia": null
   },
   {
+    "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010 > Res. CONTRAN 349/2010",
+    "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010",
+    "nivel": "elemento",
+    "nome": "Res. CONTRAN 349/2010",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "artigo",
+    "referencia": "Res. CONTRAN 349/2010 (hoje Res. 955/2022, arts. 3º, VI, 6º e 7º, III e parágrafo único)"
+  },
+  {
     "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 360/2010",
     "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações",
     "nivel": "subassunto",
@@ -3989,6 +4197,19 @@
     "procedencia": "EDITAL CONCURSO PRF Nº 1, DE 18 DE JANEIRO DE 2021, item 24, BLOCO II",
     "tipo_elemento": null,
     "referencia": null
+  },
+  {
+    "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 360/2010 > Res. CONTRAN 360/2010",
+    "pai": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 360/2010",
+    "nivel": "elemento",
+    "nome": "Res. CONTRAN 360/2010",
+    "ordem": 0,
+    "origem": "classificacao",
+    "texto_do_edital": null,
+    "fora_do_edital": false,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "tipo_elemento": "prazo",
+    "referencia": "Res. CONTRAN 360/2010 (habilitação do condutor estrangeiro)"
   },
   {
     "caminho": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 432/2013",

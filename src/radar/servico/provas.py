@@ -36,7 +36,7 @@ from radar import provas_ieses
 from radar import questoes as leitor_de_questoes
 from radar import gabarito_por_versao
 from radar import questoes_cebraspe, questoes_ieses, questoes_ncufpr, questoes_por_rodada
-from radar import questoes_aocp, questoes_certo_errado, questoes_selecon, questoes_uece
+from radar import questoes_aocp, questoes_certo_errado, questoes_comentadas, questoes_selecon, questoes_uece
 from radar.collectors.base import Buscador
 from radar.db import criar_tabelas, sessao
 from radar.models import Concurso, QuestaoDeProva, agora
@@ -406,10 +406,23 @@ def _ler_uece(caminho: Path, prova: dict, gabarito: Path | None) -> list:
         return []
 
 
+def _ler_comentada(caminho: Path, prova: dict, gabarito: Path | None) -> list:
+    # A FCC do radar e a prova comentada da Estrategia (PRF-70): a letra vem
+    # do quadro do professor no proprio PDF, e a questao treina, nao mede.
+    try:
+        return questoes_comentadas.ler_prova(
+            caminho, questoes_selecon.faixas_do_config(prova.get("materias")),
+            a_conferir=prova.get("gabarito_a_conferir"))
+    except ValueError as erro:
+        log.warning("%s: %s", caminho.name, erro)
+        return []
+
+
 LEITORES_DE_OUTRAS_BANCAS = {"NC-UFPR": _ler_ncufpr, "SELECON": _ler_selecon,
                              "CEBRASPE": _ler_cebraspe, "FGV": _ler_fgv,
                              "ACCESS": _ler_access, "IDECAN": _ler_idecan,
-                             "INSTITUTO AOCP": _ler_aocp, "UECE-CEV": _ler_uece}
+                             "INSTITUTO AOCP": _ler_aocp, "UECE-CEV": _ler_uece,
+                             "FCC": _ler_comentada}
 
 
 def _ler_de_outra_banca(registro: dict, caminho: Path, leitor) -> list:

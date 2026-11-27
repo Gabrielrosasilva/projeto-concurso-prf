@@ -1839,6 +1839,83 @@ mudancas:
     fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
     procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara em leis/
     conferida: false
+  # FCC DETRAN/SP 2019 q29. (PRF-70)
+  - tema: "Exame toxicológico: o DENATRAN virou o órgão máximo executivo de trânsito da União (CTB, art. 148-A)"
+    lei: "Lei 14.440/2022"
+    o_que_mudou: "o § 7º do art. 148-A (Lei 14.440/2022) troca o DENATRAN por \"órgão máximo executivo de trânsito da União\", e o caput (Lei 14.071/2020) fala em resultado negativo para obtenção e renovação; as três vedações cobradas são as mesmas: gabarito mantido"
+    anos: [2019]
+    marcas: ["laboratórios credenciados pelo Departamento Nacional de Trânsito (DENATRAN)"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q32. (PRF-70)
+  - tema: "Autorização especial de trânsito (CTB, art. 101)"
+    lei: "Lei 14.071/2020"
+    o_que_mudou: "a Lei 14.071/2020 reescreveu o caput do art. 101: fala em transporte de carga (sem \"indivisível\") e a autorização vale \"para cada viagem ou por período\"; o nome continua autorização especial de trânsito: gabarito mantido"
+    anos: [2019]
+    marcas: ["válida para cada viagem"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q38. (PRF-70)
+  - tema: "Recusa de socorro: \"acidente\" virou \"sinistro\" (CTB, art. 176)"
+    lei: "Lei 14.599/2023"
+    o_que_mudou: "a Lei 14.599/2023 trocou \"acidente\" por \"sinistro\" no caput do art. 176; a penalidade (multa cinco vezes e suspensão) é a mesma: gabarito mantido"
+    anos: [2019]
+    marcas: ["envolvido em acidente com vítima"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q48. (PRF-70)
+  - tema: "FUNSET: da Res. 335/2009 para a Res. 918/2022"
+    lei: "Res. CONTRAN 918/2022"
+    o_que_mudou: "a regra do repasse está hoje na Res. 918/2022, art. 24, que troca o DENATRAN por \"órgão máximo executivo de trânsito da União\"; continuam os 5% ao FUNSET: gabarito mantido"
+    anos: [2019]
+    marcas: ["estabelecido pelo DENATRAN"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-Senatran/resolucoes2/Resoluo918.compilada.pdf/@@display-file/file
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q51. (PRF-70)
+  - tema: "Farol baixo de dia nas rodovias (CTB, art. 40)"
+    lei: "Lei 14.071/2020"
+    o_que_mudou: "a Lei 14.071/2020 reescreveu o art. 40, I: o farol baixo de dia deixou de valer em toda rodovia (hoje: túneis, chuva, neblina, cerração e as rodovias de pista simples fora do perímetro urbano, para veículo sem luz de rodagem diurna); a premissa do enunciado é a da lei antiga, mas os considerandos cobrados (I e II) seguem como razão da regra"
+    anos: [2019]
+    marcas: ["o farol baixo aceso durante o dia"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q55. (PRF-70)
+  - tema: "Carga e bicicleta em automóvel: da Res. 349/2010 para a Res. 955/2022"
+    lei: "Res. CONTRAN 955/2022"
+    o_que_mudou: "a Res. 349/2010 foi substituída pela 955/2022; os pontos cobrados (largura, 50 cm, balanço, compartimento aberto) estão nela com o mesmo sentido: gabarito mantido"
+    anos: [2019]
+    marcas: ["Quanto ao transporte de cargas ou de bicicletas"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9552022.pdf/@@display-file/file
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
+  # FCC DETRAN/SP 2019 q58. (PRF-70)
+  - tema: "Áreas envidraçadas: da Res. 254/2007 para a Res. 960/2022"
+    lei: "Res. CONTRAN 960/2022"
+    o_que_mudou: "a Res. 254/2007 foi substituída pela 960/2022 (alterada pela 989/2022), que mantém as áreas indispensáveis à dirigibilidade, mas exclui a faixa de 20 cm inferior do para-brisa de veículo de carga acima de 3.500 kg, micro-ônibus e ônibus: gabarito mantido"
+    anos: [2019]
+    marcas: ["Considerando a Resolução nº 254 do CONTRAN"]
+    provas:
+      - https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+    fonte: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/Resolucao9602022.pdf/@@display-file/file
+    procedencia: Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran
+    conferida: false
 
 # --- O que mudou num ponto que nenhuma questao cobra ---------------------------
 #

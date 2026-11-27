@@ -286,6 +286,32 @@ provas:
     19-20: Informática
     21-23: Ética e Cidadania
     31-60: Legislação de Trânsito
+# FCC (PRF-70, pedido do Gabriel em 27/11/2026: "pode usar o pdf da estrategia
+# com gabarito a conferir"): o DETRAN/SP de 2019, pela questao 55 (Res. CONTRAN
+# 349/2010). NAO e o caderno da FCC (o robots.txt da FCC proibe robo): e a
+# prova comentada do prof. Marcos Girao no blog da Estrategia, que o Gabriel
+# baixou e salvou em PRF/ (copiada para data/provas/manual/). A letra e a do
+# PROFESSOR, por isso `gabarito_a_conferir`: treina, nao mede. Leitor:
+# `radar/questoes_comentadas.py` (so o texto antes do "Comentário:"). Os links
+# sao o post e a pagina do anexo, achados na busca em 27/11/2026.
+# fora: 1-20 (o PDF so traz as de CTB e resolucoes); 24, 31 e 49 (a tabela da
+# questao esta em imagem); 36 e 37 (as alternativas estao em imagem) e 43 (o
+# professor a da como "anulável") - essas tres o leitor ja deixa de fora.
+- banca: FCC
+  ano: 2019
+  orgao: DETRAN/SP
+  uf: SP
+  cargo: Agente Estadual de Trânsito
+  pagina: https://www.estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/
+  caderno: https://estrategiaconcursos.com.br/blog/prova-comentada-detran-sp-legislacao-de-transito-com-recursos/questoes-comentadas-agente-estadual-de-transito-detran_sp
+  arquivo: Questões-Comentadas-Agente-Estadual-de-Trânsito-DETRAN_SP.pdf
+  sigla: DETRANSPAGT
+  gabarito_a_conferir: "Gabarito do professor (prova comentada da Estrategia, prof. Marcos Girao), nao o definitivo da FCC"
+  materias:
+    21-23: Legislação de Trânsito
+    25-30: Legislação de Trânsito
+    32-48: Legislação de Trânsito
+    50-60: Legislação de Trânsito
 
 # --- BAIXADAS A MAO (decisao 172) --------------------------------------------
 # O robo nao pode baixar estas (os termos ou o robots.txt proibem); voce baixa

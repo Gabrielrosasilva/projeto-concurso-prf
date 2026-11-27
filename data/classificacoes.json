@@ -240,6 +240,21 @@
     "trecho": "influenciando diretamente em uma ou mais das características do big data, a exemplo de volume, velocidade e variedade"
   },
   {
+    "chave": "009304807ad0c16bbdba1e7ca54ea2e9",
+    "classificada_em": "2026-11-27T21:21:39.374878+00:00",
+    "conferida_em": "2026-11-27T21:22:00.822708+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A) > CTB, art. 12",
+    "dispositivo": "art. 12, VI, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo II - Do Sistema Nacional de Trânsito (arts. 5º a 25-A)",
+    "pegadinha": "As erradas trazem competências de outros órgãos do SNT: julgar recursos contra a JARI (CETRAN, art. 14), supervisão/correição, RENAVAM e projetos (órgão máximo executivo da União, art. 19)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "comparação entre conceitos",
+    "trecho": "Uma das competências do Conselho Nacional de Trânsito (CONTRAN) é"
+  },
+  {
     "chave": "00951b8a68bf765ae88cc6df1fa6d420",
     "classificada_em": "2026-11-25T13:36:17.086897+00:00",
     "conferida_em": null,
@@ -403,6 +418,21 @@
     "status": "completa",
     "tipo_de_questao": "interpretação de texto",
     "trecho": "A forma verbal “podem” ( R.8) está empregada no sentido de têm autorização."
+  },
+  {
+    "chave": "0140b03e6fa8d4ffb0fa746c09002255",
+    "classificada_em": "2026-11-27T21:21:40.690696+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) As sanções às empresas de vistoria de identificação veicular são da Res. CONTRAN 466/2013, que não está na lista de resoluções do edital nem tem correspondente no CTB. | (B) Cobra as sanções das empresas de vistoria de identificação veicular (Res. CONTRAN 466/2013), que não está na lista de resoluções do edital."
   },
   {
     "chave": "0141bd683015f59e7313e299bd48c4c0",
@@ -2233,6 +2263,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "05f593f8bdb5da9293aa32684910266f",
+    "classificada_em": "2026-11-27T21:21:40.116622+00:00",
+    "conferida_em": "2026-11-27T21:22:01.036807+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B) > CTB, art. 303",
+    "dispositivo": "art. 303, caput, do CTB (detenção de seis meses a dois anos e suspensão ou proibição)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)",
+    "pegadinha": "Penas de outros crimes de trânsito: 6 meses a 3 anos com multa, reclusão, ou 6 meses a 1 ano (art. 304)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Praticar lesão corporal culposa na direção de veículo automotor incorre em penas de"
   },
   {
     "chave": "05f5e314055f536a0869b6aae53aa5a7",
@@ -6730,7 +6775,7 @@
     "pegadinha": "Item anulado pela banca. Pela Res. CONTRAN 254/2007, o mínimo de transmitância luminosa no para-brisa depende do vidro: 75% para o incolor e 70% para o colorido; com 70%, a regularidade dependeria de um dado que o item não dá.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "caso prático",
     "trecho": "verificou o valor de 70% de transmitância luminosa do conjunto vidro-película na área central do para-brisa"
   },
@@ -14160,6 +14205,21 @@
     "trecho": null
   },
   {
+    "chave": "1e48d0897b73b12935b4dc24421ad1b5",
+    "classificada_em": "2026-11-27T21:21:38.439693+00:00",
+    "conferida_em": "2026-11-27T21:22:00.619982+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VIII - Da engenharia de tráfego, da operação, da fiscalização e do policiamento ostensivo de trânsito (arts. 91 a 95) > CTB, art. 95",
+    "dispositivo": "art. 95, § 1º, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VIII - Da engenharia de tráfego, da operação, da fiscalização e do policiamento ostensivo de trânsito (arts. 91 a 95)",
+    "pegadinha": "O órgão com circunscrição sobre a via dá a permissão prévia (caput), o que leva a crer que ele também sinaliza; a obrigação de sinalizar é do responsável pela obra ou evento",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "a obrigação de sinalizar é"
+  },
+  {
     "chave": "1e4cdb07fbce35560e8666de6bbd3b92",
     "classificada_em": "2026-11-25T13:37:06.181701+00:00",
     "conferida_em": null,
@@ -16288,6 +16348,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "2376223d128382e9c8401e14905e0d0c",
+    "classificada_em": "2026-11-27T21:21:40.615195+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) Cobra os 'considerandos' da Res. CONTRAN 18/1998 (recomenda farol baixo aceso durante o dia nas rodovias), que não está na lista de resoluções do edital; o CTB, art. 40, I, não traz essas justificativas (e, depois da Lei 14.071/2020, nem exige mais farol baixo de dia nas rodovias). | (B) Cobra os considerandos da resolução que recomendou o farol baixo de dia n"
   },
   {
     "chave": "237beb95c196e7cb46ed0bcf467541b1",
@@ -19815,6 +19890,21 @@
     "trecho": "fora do treino (decisão 171): item de inglês: o Gabriel faz a prova de espanhol, e o inglês fica fora (PRF-46)"
   },
   {
+    "chave": "2b4d747e20ea324bf930709f2f863913",
+    "classificada_em": "2026-11-27T21:21:40.566944+00:00",
+    "conferida_em": "2026-11-27T21:22:01.088631+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 04/1998 > Res. CONTRAN 04/1998",
+    "dispositivo": "Resolução CONTRAN 04/1998 (autorização especial de 15 dias, prorrogável por igual período por motivo de força maior) - texto da resolução não conferido no acervo local (leis/contran não tem a 04/1998)",
+    "item_do_edital": "Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações: 04/1998",
+    "pegadinha": "Prazos próximos (5, 30, 45, 60 dias) no lugar de 15 dias, todos com a mesma prorrogação por força maior",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "A 'autorização especial' válida apenas para deslocamento para o município de destino ... com validade de"
+  },
+  {
     "chave": "2b51a00497ab7526eb69164855564d51",
     "classificada_em": "2026-11-25T14:32:18.989359+00:00",
     "conferida_em": "2026-11-25T14:32:19.010261+00:00",
@@ -20443,6 +20533,21 @@
     "status": "completa",
     "tipo_de_questao": "conceito",
     "trecho": "O afastamento de agente público titular de cargo efetivo para exercício de mandato eletivo federal subordina-se a ato vinculado da administração pública."
+  },
+  {
+    "chave": "2ccc1b060a7fb694b1b6d91ddd0f62d7",
+    "classificada_em": "2026-11-27T21:21:38.193180+00:00",
+    "conferida_em": "2026-11-27T21:22:00.566000+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A) > CTB, art. 280",
+    "dispositivo": "art. 280, incisos IV, V e VI, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVIII - Do processo administrativo (arts. 280 a 290-A)",
+    "pegadinha": "O item III troca a assinatura do infrator (que vale como notificação, inciso VI) pelo valor da multa, que não consta do auto",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "lavrar-se-á auto de infração, do qual constará: I. o prontuário do condutor, sempre que possível. II. identificação do órgão ou entidade e da autoridade ou agente autuador"
   },
   {
     "chave": "2ccd8349cc38adc4b33875f6b16c8dff",
@@ -21718,6 +21823,21 @@
     "status": "completa",
     "tipo_de_questao": "caso prático",
     "trecho": "exigiu do contribuinte, em proveito próprio, o pagamento de quantia"
+  },
+  {
+    "chave": "2f352f7d327662fec8f396aa00270ca6",
+    "classificada_em": "2026-11-27T21:22:01.272140+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) A: Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 780/2019 | (B) Cobra os documentos do processo de troca de placa por clonagem; a resolução de origem não está confirmada e a 969/2022 (que substituiu a 780/2019) em leis/ não traz esse rol. | a lei mudou: pela Res. CONTRAN 969/2022, art. 52, parágrafo único, só se pedem os originais do documento de identificação/CPF e do recurso; a notificação de autuação saiu do rol e nenhuma alternativa fica certa"
   },
   {
     "chave": "2f43618399f8075e36a7c0400645b915",
@@ -28905,6 +29025,21 @@
     "trecho": null
   },
   {
+    "chave": "401d9ffe74652382b666ddea9e031b66",
+    "classificada_em": "2026-11-27T21:21:39.667677+00:00",
+    "conferida_em": "2026-11-27T21:22:00.914902+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E) > CTB, art. 67-C",
+    "dispositivo": "art. 67-C, § 1º-A, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III-A - Da condução de veículos por motoristas profissionais (arts. 67-A a 67-E)",
+    "pegadinha": "Números trocados: 4h30 no lugar de 5h30 ininterruptas (caput); 5 horas no lugar de 6 para a carga (§ 1º); 9 no lugar de 11 horas de descanso; elevação 'por mais 4 horas' no lugar do 'período necessário' (§ 2º)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "serão observados 30 minutos para descanso a cada 4 horas na condução de veículo rodoviário de passageiros, sendo facultado o seu fracionamento e o do tempo de direção"
+  },
+  {
     "chave": "401e4c1d2a91e2460babe0efa89662d9",
     "classificada_em": "2026-11-25T13:37:01.186828+00:00",
     "conferida_em": null,
@@ -29038,6 +29173,21 @@
     "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "podem ser substituídos por um sistema de gerenciamento unificado de ameaça"
+  },
+  {
+    "chave": "408dd9778be9c8291b1a0dc8e3465afb",
+    "classificada_em": "2026-11-27T21:21:39.607111+00:00",
+    "conferida_em": "2026-11-27T21:22:00.891454+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67) > CTB, art. 60",
+    "dispositivo": "art. 60 do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
+    "pegadinha": "Troca nomes por termos que não estão na lei (via expressa, secundária, marginal, vicinal; rodovia de pista simples/dupla, que é critério de velocidade do art. 61)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "As vias abertas à circulação, de acordo com a sua utilização, classificam-se em"
   },
   {
     "chave": "40938e5f22437f47f649bed796f73887",
@@ -35290,7 +35440,7 @@
     "pegadinha": "Junta um número técnico plausível (balanço traseiro de até 60% da distância entre eixos) com 'independentemente de instruções do fabricante'; a banca deu Errado. Conferir na Res. 349/2010 o limite do balanço traseiro e o papel das instruções do fabricante.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "Independentemente de instruções do fabricante, nos dispositivos instalados na parte traseira externa do veículo"
   },
@@ -35998,6 +36148,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "502189f20a7c0b690e1820411cc2dc1f",
+    "classificada_em": "2026-11-27T21:21:40.210660+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) Os critérios para classificar veículo como sucata em leilão vêm da Res. CONTRAN 623/2016 (leilão de veículos removidos), que não está na lista de resoluções do edital; o CTB (art. 328) não traz esse critério. | (B) Cobra a classificação de veículo como sucata no leilão (Res. CONTRAN 623/2016), que não está na lista de resoluções do edital."
   },
   {
     "chave": "5022f90de85eafd010619a467fed3eff",
@@ -36823,6 +36988,21 @@
     "status": "pendente",
     "tipo_de_questao": "conceito",
     "trecho": "fora do treino (decisão 171): item de inglês: o Gabriel faz a prova de espanhol, e o inglês fica fora (PRF-46)"
+  },
+  {
+    "chave": "520be6b09e965088f6b49a33e18094db",
+    "classificada_em": "2026-11-27T21:21:41.587794+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) A composição da JARI é regra da Res. CONTRAN 357/2010 (diretrizes do regimento da JARI), que não está na lista de resoluções do edital; o CTB (arts. 16 e 17) não traz a composição. | (B) Cobra a composição da JARI da Res. CONTRAN 357/2010, que não está na lista do edital; o CTB (arts. 16 e 17) não trata da composição."
   },
   {
     "chave": "521da475c74a1699c44eeeb1dd1efe1a",
@@ -37765,7 +37945,7 @@
     "pegadinha": "C: 70% é o mínimo no para-brisa e áreas indispensáveis; quem marca E confunde com os 28% das demais áreas.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "a transmitância luminosa do conjunto vidro-película não seja inferior a 70% no para-brisa"
   },
@@ -37843,6 +38023,21 @@
     "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "a prática de insubordinação no serviço público configura ofensa ao poder hierárquico"
+  },
+  {
+    "chave": "5486e44cd42b3bbb3db5dc28492df334",
+    "classificada_em": "2026-11-27T21:21:38.365230+00:00",
+    "conferida_em": "2026-11-27T21:22:00.592575+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A) > CTB, art. 278",
+    "dispositivo": "art. 278 do CTB, que remete ao art. 209 (penalidade: multa)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVII - Das medidas administrativas (arts. 269 a 279-A)",
+    "pegadinha": "As alternativas acrescentam apreensão ou suspensão; o art. 278 remete à penalidade do art. 209, que é só multa",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Ao condutor que se evadir da fiscalização, não submetendo veículo à pesagem obrigatória nos pontos de pesagem, fixos ou móveis"
   },
   {
     "chave": "548a6cc1431fc425c2ebfbb9ddfd6e89",
@@ -45915,6 +46110,21 @@
     "trecho": null
   },
   {
+    "chave": "66706c8ad1701c798923c5c6bb95d2b1",
+    "classificada_em": "2026-11-27T21:21:41.543757+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) Os requisitos do examinador de trânsito vêm da Res. CONTRAN 358/2010, que não está na lista do edital (foi substituída pela 789/2020, da qual o edital só cobra o Anexo I, que não consegui conferir); o CTB, art. 152, não traz o requisito cobrado (sem suspensão/cassação e sem infração gravíssima em 12 meses). | (B) Cobra os requisitos do examinador de trânsito d"
+  },
+  {
     "chave": "6674b95b30b8a13398434c0f86e5d3ed",
     "classificada_em": "2026-11-25T13:36:21.638508+00:00",
     "conferida_em": null,
@@ -53245,7 +53455,7 @@
     "pegadinha": "A proibição soa como regra de segurança; mas a resolução permite levar bicicleta no compartimento de carga aberto, inclusive quando ela passa do comprimento da caçamba, nas condições que fixa.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "Não se permite o transporte de bicicleta em veículo com o compartimento de carga aberto, mesmo que o comprimento da bicicleta ultrapasse o comprimento da caçamba"
   },
@@ -63420,6 +63630,21 @@
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
   },
   {
+    "chave": "8dcf66829c7113361de127102246e5df",
+    "classificada_em": "2026-11-27T21:21:40.163583+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) A suspensão/cassação da credencial de vaga de idoso é regra da Res. CONTRAN 303/2008 (hoje substituída), que não está na lista de resoluções do edital; o CTB (art. 181, XX) só traz a infração de estacionar na vaga, não as irregularidades da credencial. | (B) Cobra a credencial de estacionamento do idoso (Res. CONTRAN 303/2008), que não está na lista de resoluç"
+  },
+  {
     "chave": "8dd52fa261938b596c405ee017533480",
     "classificada_em": "2026-11-25T13:36:13.074109+00:00",
     "conferida_em": null,
@@ -64618,6 +64843,21 @@
     "status": "completa",
     "tipo_de_questao": "cálculo",
     "trecho": "O valor da constante A em F(t) é superior a 14.500."
+  },
+  {
+    "chave": "90814943bc87f3e87e84cb073f80058a",
+    "classificada_em": "2026-11-27T21:21:39.786636+00:00",
+    "conferida_em": "2026-11-27T21:22:00.937486+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 145",
+    "dispositivo": "art. 145, IV, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "pegadinha": "Idade de 18 em vez de 21 anos; tempos de habilitação trocados (2 anos na C para a E; 3 anos na B para a D); requisito do inciso III reescrito",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Para habilitar-se nas categorias D e E ou para conduzir veículo de transporte coletivo de passageiros, de escolares, de emergência ou de produto perigoso"
   },
   {
     "chave": "90882171e3e522b2ecdf6bbc3aeec872",
@@ -71325,6 +71565,21 @@
     "trecho": null
   },
   {
+    "chave": "9f6f2db17089a538c2cc27a6694efbcb",
+    "classificada_em": "2026-11-27T21:21:39.976031+00:00",
+    "conferida_em": "2026-11-27T21:22:00.984436+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B) > CTB, art. 298",
+    "dispositivo": "art. 298, V, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIX - Dos crimes de trânsito (arts. 291 a 312-B)",
+    "pegadinha": "A alternativa 'b' troca 'duas ou mais pessoas' por 'uma ou mais' (inciso I); 'a' fala em habilitação vencida, que não é agravante; 'd' e 'e' vêm de outros dispositivos",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "quando a sua profissão ou atividade exigir cuidados especiais com o transporte de passageiros ou de carga"
+  },
+  {
     "chave": "9f783d895990763e8e26641f689dddbb",
     "classificada_em": "2026-11-25T13:37:36.636518+00:00",
     "conferida_em": null,
@@ -72810,6 +73065,21 @@
     "trecho": null
   },
   {
+    "chave": "a3637508a8d360f64ce45e06ee541807",
+    "classificada_em": "2026-11-27T21:21:40.651963+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) A estrutura curricular do curso teórico-técnico (direção defensiva para veículos de duas rodas) é da Res. CONTRAN 168/2004 (hoje 789/2020); o edital lista só a 789/2020, Anexo I, e não consegui confirmar no acervo local que esse conteúdo esteja no Anexo I. | (B) Cobra a estrutura curricular do curso teórico-técnico (Res. CONTRAN 168/2004, revogada). Pode ter i"
+  },
+  {
     "chave": "a36b7e01975dc121ff76ac6ddd6f9d11",
     "classificada_em": "2026-11-27T19:31:29.357350+00:00",
     "conferida_em": "2026-11-27T19:31:57.323673+00:00",
@@ -73333,6 +73603,36 @@
     "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Raciocínio Lógico-Matemático > Descrição e análise de dados; segunda, às cegas, Raciocínio Lógico-Matemático > Descrição e análise de dados > Cálculo de médias e análise de desvios de conjuntos de dados"
+  },
+  {
+    "chave": "a4c3a0e8d9661cc86fb6c02ad6de4de4",
+    "classificada_em": "2026-11-27T21:21:39.122999+00:00",
+    "conferida_em": "2026-11-27T21:22:00.777551+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117) > CTB, art. 101",
+    "dispositivo": "art. 101, caput, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)",
+    "pegadinha": "Nomes parecidos (credencial, autorização para carga excepcional, certidão) no lugar de 'autorização especial de trânsito'. (A Lei 14.071/2020 tirou 'carga indivisível' do caput e acrescentou 'ou por período', sem mudar a resposta)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "poderá ser concedida, com prazo certo, válida para cada viagem, pela autoridade com circunscrição sobre a via, a"
+  },
+  {
+    "chave": "a4daecbb81eadc7915fe22eed0042e1c",
+    "classificada_em": "2026-11-27T21:21:38.713561+00:00",
+    "conferida_em": "2026-11-27T21:22:00.682280+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IV - Dos pedestres e condutores de veículos não motorizados (arts. 68 a 71) > CTB, art. 69",
+    "dispositivo": "art. 69, caput, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IV - Dos pedestres e condutores de veículos não motorizados (arts. 68 a 71)",
+    "pegadinha": "Distâncias próximas (60, 80, 100 m) no lugar dos 50 metros da lei",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "utilizando sempre as faixas ou passagens a ele destinadas, sempre que estas existirem, em uma distância de até"
   },
   {
     "chave": "a4e20377accc2856ff738aaa5af3f2b9",
@@ -76855,7 +77155,7 @@
     "pegadinha": "C: é permitido em caráter eventual, com requisitos; quem marca E acha que é sempre proibido.",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 25/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "O transporte de carga na parte externa de automóveis, caminhonetes, camionetas e utilitários é excepcionalmente permitido"
   },
@@ -83220,6 +83520,21 @@
     "trecho": null
   },
   {
+    "chave": "bb17acb008c1ebf0edb45e61e2b969ae",
+    "classificada_em": "2026-11-27T21:21:39.055904+00:00",
+    "conferida_em": "2026-11-27T21:22:00.754810+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo I - Disposições preliminares (arts. 1º a 4º) > CTB, Anexo I (veículo de grande porte)",
+    "dispositivo": "art. 4º e Anexo I do CTB (VEÍCULO DE GRANDE PORTE: carga com PBT superior a 10.000 kg e passageiros, superior a 20)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo I - Disposições preliminares (arts. 1º a 4º)",
+    "pegadinha": "As outras alternativas trazem definições vizinhas do Anexo I (veículo misto, combinação de veículos, veículo conjugado)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "conceito",
+    "trecho": "Segundo definição do Código de Trânsito Brasileiro (CTB), o veículo de grande porte é"
+  },
+  {
     "chave": "bb1864ece4f644588744898bf94bdcb1",
     "classificada_em": "2026-11-25T13:36:16.434655+00:00",
     "conferida_em": null,
@@ -87120,6 +87435,21 @@
     "trecho": null
   },
   {
+    "chave": "c34b739693e9b03a936ffa4ead391744",
+    "classificada_em": "2026-11-27T21:21:41.252226+00:00",
+    "conferida_em": "2026-11-27T21:22:01.163779+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 360/2010 > Res. CONTRAN 360/2010",
+    "dispositivo": "Resolução CONTRAN 360/2010 (180 dias de estada regular), c/c art. 147 do CTB - texto da resolução não conferido no acervo local",
+    "item_do_edital": "Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações: 360/2010",
+    "pegadinha": "Prazos próximos (90, 120, 360 dias) no lugar dos 180 dias de estada regular",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "O condutor estrangeiro, pretendendo continuar a dirigir veículo automotor no âmbito territorial brasileiro ... após o prazo de sua estada regular no Brasil, igual a"
+  },
+  {
     "chave": "c35eaac56bd7cead5773296075dfbb71",
     "classificada_em": "2026-11-25T13:37:46.504458+00:00",
     "conferida_em": null,
@@ -88288,6 +88618,21 @@
     "status": "parcial",
     "tipo_de_questao": "conceito",
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Informática > Conceitos de proteção e segurança; segunda, às cegas, Informática > Conceitos de proteção e segurança > Noções de vírus, worms, phishing e pragas virtuais"
+  },
+  {
+    "chave": "c5ebcccc8b94098b8fc30447b3dd959a",
+    "classificada_em": "2026-11-27T21:21:39.542282+00:00",
+    "conferida_em": "2026-11-27T21:22:00.868200+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 176",
+    "dispositivo": "art. 176, I, do CTB (gravíssima; multa cinco vezes e suspensão do direito de dirigir)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "pegadinha": "Mistura penalidades de outras infrações gravíssimas (multa dez vezes, apreensão, suspensão por 12 meses)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Deixar o condutor envolvido em acidente com vítima de prestar ou providenciar socorro à vítima, podendo fazê-lo"
   },
   {
     "chave": "c5f103428b26215a1d0ce3187d629b69",
@@ -92430,6 +92775,21 @@
     "trecho": null
   },
   {
+    "chave": "ced527269789e489524028e304cb21b0",
+    "classificada_em": "2026-11-27T21:21:38.575062+00:00",
+    "conferida_em": "2026-11-27T21:22:00.646865+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90) > CTB, art. 86",
+    "dispositivo": "art. 86 do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)",
+    "pegadinha": "As alternativas cortam itens da lista e usam 'apenas' ou 'em geral' no lugar de 'de uso coletivo'",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Deverão ter suas entradas e saídas devidamente identificadas, na forma regulamentada pelo CONTRAN"
+  },
+  {
     "chave": "ced6cbc21026f34a2dfccd1410739c40",
     "classificada_em": "2026-11-25T14:32:29.154995+00:00",
     "conferida_em": "2026-11-25T14:32:29.144206+00:00",
@@ -93145,7 +93505,7 @@
     "pegadinha": "4,4 m parece alto demais para um carro com bicicletas no teto, o que leva a desconfiar; mas o limite é justamente a altura máxima permitida aos veículos (4,40 m).",
     "principal": true,
     "procedencia": "Claude Code (claude-opus-5-5), importado manualmente, em 24/11/2026",
-    "status": "completa",
+    "status": "parcial",
     "tipo_de_questao": "literalidade da lei",
     "trecho": "caso a altura do sistema veículo-dispositivo-bicicletas não ultrapasse 4,4 metros"
   },
@@ -93313,6 +93673,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "d0ae0aa2ea1cecc1a909ef8efce11bf8",
+    "classificada_em": "2026-11-27T21:21:39.425619+00:00",
+    "conferida_em": "2026-11-27T21:22:00.845903+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67) > CTB, arts. 26 a 45",
+    "dispositivo": "arts. 29, III, c, e V; 33; e 40, I, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo III - Das normas gerais de circulação e conduta (arts. 26 a 67)",
+    "pegadinha": "I troca a preferência da direita pela esquerda (art. 29, III, c); IV troca a luz baixa pela luz alta sob chuva, neblina ou cerração (art. 40, I)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "exceção ou pegadinha",
+    "trecho": "I. ... sempre terá preferência de passagem aquele que vier pela esquerda do condutor ... IV. O condutor manterá acesos os faróis do veículo, utilizando luz alta, quando sob chuva forte"
   },
   {
     "chave": "d0c43cc3ed2090be02c8deaf9d2c5b45",
@@ -94918,6 +95293,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "d4660a339fc2468071d732aa13bf3834",
+    "classificada_em": "2026-11-27T21:21:41.495596+00:00",
+    "conferida_em": "2026-11-27T21:22:01.191527+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 254/2007 > Res. CONTRAN 254/2007, art. 3º",
+    "dispositivo": "Resolução CONTRAN 254/2007, art. 3º (substituída pela 960/2022, art. 4º, § 1º, I e II, com a mesma definição de áreas indispensáveis)",
+    "item_do_edital": "Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações: 254/2007",
+    "pegadinha": "Percentuais trocados: 22% e 20% no lugar de 28% para os vidros fora das áreas indispensáveis; 60%/50% no lugar de 75%/70% (hoje 70%) para para-brisa e demais vidros indispensáveis",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "consideram-se áreas envidraçadas indispensáveis à dirigibilidade do veículo, a área do para-brisa, excluindo a faixa periférica de serigrafia"
   },
   {
     "chave": "d474c807b0cf6baa3066564ddb1d5434",
@@ -96855,6 +97245,21 @@
     "trecho": "o nó em comum das duas leituras (decisão 171): primeira Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet > Ferramentas e aplicativos comerciais de navegação, de correio eletrônico, de grupos de discussão, de busca, de pesquisa, de redes sociais e ferramentas colaborativas; segunda, às cegas, Informática > Conceitos e modos de utilização de tecnologias, ferramentas, aplicativos e procedimentos associados a internet/intranet"
   },
   {
+    "chave": "d84af033bbb9dd2c8ee11c2a18a3ca48",
+    "classificada_em": "2026-11-27T21:21:41.081393+00:00",
+    "conferida_em": "2026-11-27T21:22:01.137364+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 349/2010 > Res. CONTRAN 349/2010",
+    "dispositivo": "Resolução CONTRAN 349/2010 (substituída pela 955/2022, que mantém as regras: art. 3º, VI - largura; art. 7º, III - balanço traseiro até 60%; art. 7º, parágrafo único - compartimento aberto)",
+    "item_do_edital": "Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações: 349/2010",
+    "pegadinha": "O item II troca o limite do balanço traseiro de 60% para 40% da distância entre eixos",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Quanto ao transporte de cargas ou de bicicletas, nos veículos classificados nas espécies automóvel, caminhonete, camioneta e utilitário"
+  },
+  {
     "chave": "d84c69add94671221f55239cc10ca0df",
     "classificada_em": "2026-11-25T13:37:40.519485+00:00",
     "conferida_em": null,
@@ -97093,6 +97498,21 @@
     "status": "completa",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "d8e719b85f64be43125cfcda536bef5c",
+    "classificada_em": "2026-11-27T21:21:40.268102+00:00",
+    "conferida_em": "2026-11-27T21:22:01.061607+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XX - Disposições finais e transitórias (arts. 313 a 341) > CTB, art. 320",
+    "dispositivo": "art. 320, § 1º, do CTB (5% ao fundo nacional de segurança e educação de trânsito - FUNSET); o documento próprio de arrecadação vem de norma do DENATRAN/CONTRAN, mas o núcleo cobrado é o percentual do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XX - Disposições finais e transitórias (arts. 313 a 341)",
+    "pegadinha": "Percentual de 1% e fundos que não recebem o repasse (DPVAT, FUNDED) no lugar de 5% ao FUNSET",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "garantir o repasse automático do recolhimento do percentual de ... do valor arrecadado das multas de trânsito"
   },
   {
     "chave": "d900f68fd4be7e6bb4733e3966c3bdab",
@@ -98683,6 +99103,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": "o assunto do site de onde a questão saiu (o link da faixa)"
+  },
+  {
+    "chave": "dc2c2b87aa3513d9c417eaceb769d028",
+    "classificada_em": "2026-11-27T21:21:38.917836+00:00",
+    "conferida_em": "2026-11-27T21:22:00.730921+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 148-A",
+    "dispositivo": "art. 148-A, § 7º, incisos I, II e III, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "pegadinha": "Induz a achar que só parte das vedações vale; os três incisos estão no § 7º. (Hoje o texto diz 'órgão máximo executivo de trânsito da União' no lugar de DENATRAN - Lei 14.440/2022 -, sem mudar a resposta)",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "O exame será realizado, em regime de livre concorrência, pelos laboratórios credenciados ... VEDADO aos entes públicos"
   },
   {
     "chave": "dc2df2af40c73a5199cba5db40841a39",
@@ -103095,6 +103530,21 @@
     "trecho": null
   },
   {
+    "chave": "e6f9ac3d601317d270e6fccd8f2b58dd",
+    "classificada_em": "2026-11-27T21:21:38.844628+00:00",
+    "conferida_em": "2026-11-27T21:22:00.707517+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117) > CTB, art. 115",
+    "dispositivo": "art. 115, § 2º, do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo IX - Dos veículos (arts. 96 a 117)",
+    "pegadinha": "Governadores e Presidentes das Assembleias Legislativas estão no § 3º (outra placa), não no § 2º das placas verde-amarelas",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "As placas com as cores verde e amarela da Bandeira Nacional serão usadas somente pelos veículos de representação pessoal"
+  },
+  {
     "chave": "e6faba8fc4153b9aa2c312042d447e5b",
     "classificada_em": "2026-11-25T03:05:28.613208+00:00",
     "conferida_em": "2026-11-25T03:06:49.666654+00:00",
@@ -105343,6 +105793,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "ec6d25c8ac54fcea65cfe8294731239c",
+    "classificada_em": "2026-11-27T21:22:01.230649+00:00",
+    "conferida_em": null,
+    "conferida_por": null,
+    "conteudo": "Legislação de Trânsito",
+    "dispositivo": null,
+    "item_do_edital": null,
+    "pegadinha": null,
+    "principal": true,
+    "procedencia": "Claude Code (claude-opus-5-5), agente, 27/11/2026, pela compilação da Câmara e leis/contran",
+    "status": "pendente",
+    "tipo_de_questao": null,
+    "trecho": "pendente: duas leituras as cegas: (A) A: Resoluções do Conselho Nacional de Trânsito (CONTRAN) e suas alterações > 723/2018 | (B) B: Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XVI - Das penalidades (arts. 256 a 268-A) | a lei mudou: o curso preventivo de reciclagem (CTB, art. 261, § 5º, redação da Lei 14.071/2020) hoje é aos 30 pontos em 12 meses, não 14 em 1 ano; o item I (a resposta E) ficou errado e nenhuma alternativa fica certa"
   },
   {
     "chave": "ec6fff3d529e7b3bb8709e1487cf09af",
@@ -109650,6 +110115,21 @@
     "trecho": "o agente que não quis o resultado morte nem assumiu o risco de produzi-lo"
   },
   {
+    "chave": "f590934a6a6ded8cb26ec7cfd6962330",
+    "classificada_em": "2026-11-27T21:21:40.871562+00:00",
+    "conferida_em": "2026-11-27T21:22:01.112886+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160) > CTB, art. 160",
+    "dispositivo": "art. 160 do CTB (novos exames, conforme o CONTRAN); a lista dos exames vinha da Res. CONTRAN 168/2004 (hoje 789/2020)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XIV - Da habilitação (arts. 140 a 160)",
+    "pegadinha": "Lista exames que não existem nesse processo (reciclagem, oral, primeiros socorros, 'saúde cognitiva'); o condenado refaz os exames de habilitação, entre eles o de direção veicular",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Para que um condutor possa voltar a dirigir, quando condenado por delito de trânsito, deverá ser submetido (e aprovado)"
+  },
+  {
     "chave": "f5baf728e0cad74b6c3fcf829d69c165",
     "classificada_em": "2026-11-25T13:37:24.929944+00:00",
     "conferida_em": null,
@@ -110398,6 +110878,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "f71c44851cf3ffde23fa6036490471b2",
+    "classificada_em": "2026-11-27T21:21:39.256873+00:00",
+    "conferida_em": "2026-11-27T21:22:00.800213+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90) > CTB, art. 87",
+    "dispositivo": "art. 87 do CTB",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo VII - Da sinalização de trânsito (arts. 80 a 90)",
+    "pegadinha": "Inclui 'semáforos' e 'indicativos', que não são classes do art. 87, ou omite o gesto do condutor",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Os sinais de trânsito classificam-se em: verticais; horizontais; dispositivos de sinalização auxiliar e mais"
   },
   {
     "chave": "f728e12e50b13b040cc9e972a67e6d72",
@@ -112978,6 +113473,21 @@
     "status": "parcial",
     "tipo_de_questao": null,
     "trecho": null
+  },
+  {
+    "chave": "fba8724af7184c73fc2901677d710fe9",
+    "classificada_em": "2026-11-27T21:21:39.914426+00:00",
+    "conferida_em": "2026-11-27T21:22:00.960576+00:00",
+    "conferida_por": "Claude Code, reanálise às cegas",
+    "conteudo": "Legislação de Trânsito > Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255) > CTB, art. 175",
+    "dispositivo": "art. 175 do CTB (medida administrativa: recolhimento do documento de habilitação e remoção do veículo)",
+    "item_do_edital": "Lei nº 9.503/1997 (Código de Trânsito Brasileiro) e suas alterações, inclusive as da Lei nº 14.071/2020 > Capítulo XV - Das infrações (arts. 161 a 255)",
+    "pegadinha": "A alternativa 'e' traz penalidades (suspensão e apreensão), não medidas administrativas; as outras trocam remoção por retenção ou recolhimento de CRLV/CRV",
+    "principal": true,
+    "procedencia": "Claude Code, importado manualmente, em 27/11/2026",
+    "status": "completa",
+    "tipo_de_questao": "literalidade da lei",
+    "trecho": "Utilizar-se de veículo para demonstrar ou exibir manobra perigosa ... tem como medida administrativa"
   },
   {
     "chave": "fbba46eeb3b625419f026be9bd1f56dc",

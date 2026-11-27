@@ -80,7 +80,8 @@ So abra o arquivo que a tarefa pede.
 - Leitores de prova: `questoes_cebraspe.py`, `questoes_certo_errado.py` (o
   caderno de Certo/Errado do Cebraspe, direto do PDF: `ler_caderno`),
   `gabarito.py`, `destaques.py` (sublinhado e negrito do caderno),
-  `questoes_uece.py` (UECE-CEV: duas colunas, o "GABARITO N"). As provas
+  `questoes_uece.py` (UECE-CEV: duas colunas, o "GABARITO N"),
+  `questoes_comentadas.py` (prova comentada de cursinho: a letra do professor). As provas
   da `PRF/` entram pela lista `PRF/config/provas_de_outras_bancas.yml`; o que
   o script da `PRF/` faz esta em `docs/script_prf.md`.
 - `cache.py`: conta pesada repetida numa tela.
