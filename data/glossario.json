@@ -87,6 +87,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "ACC",
+    "variantes": [
+      "Autorização para Conduzir Ciclomotor"
+    ],
+    "significado": "Autorização para Conduzir Ciclomotor: o documento de quem só dirige ciclomotor (a \"cinquentinha\").",
+    "fontes": [
+      "CTB, art. 162, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
+  },
+  {
     "termo": "aclive",
     "variantes": [
       "aclives"
@@ -111,6 +123,28 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "acostamento",
+    "variantes": [
+      "acostamentos"
+    ],
+    "significado": "A faixa do lado da pista, fora dela, para parar em emergência e, sem lugar próprio, para pedestre e bicicleta.",
+    "fontes": [
+      "CTB, Anexo I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
+    "termo": "ad referendum",
+    "variantes": [],
+    "significado": "Decidido agora, para ser confirmado depois: a decisão vale desde já, mas depende da aprovação posterior do Plenário.",
+    "fontes": [
+      "CTB, art. 12, §§ 3º e 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
     "termo": "ADI 5.322",
     "variantes": [
       "ADI"
@@ -133,6 +167,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "adjacências",
+    "variantes": [],
+    "significado": "Os arredores, a área em volta de um lugar.",
+    "fontes": [
+      "CTB, art. 25-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
   },
   {
     "termo": "adstrito",
@@ -180,6 +224,19 @@
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
+    "termo": "agravam",
+    "variantes": [
+      "agravantes",
+      "circunstâncias agravantes"
+    ],
+    "significado": "Deixam a pena mais pesada, dentro dos limites que a lei dá para o crime.",
+    "fontes": [
+      "CTB, art. 298"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:27.125544+00:00"
+  },
+  {
     "termo": "agregado",
     "variantes": [],
     "significado": "Militar afastado do seu quadro por um tempo, sem deixar de ser militar.",
@@ -220,6 +277,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "alienação fiduciária",
+    "variantes": [],
+    "significado": "O financiamento em que o carro fica como garantia do credor até a última parcela: o comprador usa, mas só é dono pleno no fim.",
+    "fontes": [
+      "CTB, art. 129-B"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:51:05.227943+00:00"
+  },
+  {
     "termo": "ampla defesa",
     "variantes": [],
     "significado": "O direito de usar todos os meios legais para se defender, inclusive ter advogado.",
@@ -238,6 +305,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "antena corta-pipas",
+    "variantes": [],
+    "significado": "A haste presa na frente da moto que corta a linha de pipa no caminho do motociclista.",
+    "fontes": [
+      "CTB, art. 139-A, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:13.588098+00:00"
+  },
+  {
+    "termo": "anti-radar",
+    "variantes": [
+      "dispositivo anti-radar"
+    ],
+    "significado": "Aparelho que atrapalha ou detecta o radar de velocidade para o motorista escapar da medição.",
+    "fontes": [
+      "CTB, art. 230, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
   },
   {
     "termo": "anuência",
@@ -389,6 +478,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "assento suplementar",
+    "variantes": [],
+    "significado": "O banco do garupa, atrás do condutor da moto.",
+    "fontes": [
+      "CTB, art. 244, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
   },
   {
     "termo": "atestado de antecedentes",
@@ -569,6 +668,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "autopropelido",
+    "variantes": [
+      "autopropelidos"
+    ],
+    "significado": "Que anda com motor próprio, sem ser puxado por outro veículo.",
+    "fontes": [
+      "CTB, art. 101, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:45.091273+00:00"
+  },
+  {
     "termo": "autor do fato",
     "variantes": [],
     "significado": "No Juizado, é como se chama a pessoa apontada como quem cometeu a infração.",
@@ -577,6 +688,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "baixa do registro",
+    "variantes": [],
+    "significado": "Cancelar o registro do veículo que acabou: deu perda total ou vai virar peça.",
+    "fontes": [
+      "CTB, art. 126"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:51:05.227943+00:00"
   },
   {
     "termo": "balanço traseiro",
@@ -619,6 +740,18 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "batedores",
+    "variantes": [
+      "batedor"
+    ],
+    "significado": "Os veículos que vão à frente de uma comitiva ou escolta, abrindo caminho.",
+    "fontes": [
+      "CTB, art. 189"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
+  },
+  {
     "termo": "boa-fé",
     "variantes": [],
     "significado": "Quando a pessoa age sem saber que tem algo errado.",
@@ -637,6 +770,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "bordos da pista",
+    "variantes": [
+      "bordo da pista",
+      "bordos"
+    ],
+    "significado": "As beiradas da pista de rolamento, o cantinho junto da margem.",
+    "fontes": [
+      "CTB, art. 68, §§ 2º e 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
   },
   {
     "termo": "busca domiciliar",
@@ -679,6 +825,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "CadÚnico",
+    "variantes": [
+      "Cadastro Único para Programas Sociais do Governo Federal"
+    ],
+    "significado": "Cadastro Único do Governo Federal, das famílias de baixa renda que recebem programas sociais.",
+    "fontes": [
+      "CTB, art. 320, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
+  },
+  {
     "termo": "calibre",
     "variantes": [],
     "significado": "A medida do cano da arma, que diz para qual munição ela é feita.",
@@ -687,6 +845,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "Câmaras Temáticas",
+    "variantes": [
+      "Câmara Temática"
+    ],
+    "significado": "Grupos técnicos de especialistas, ligados ao Contran, que estudam um assunto e dão base técnica às decisões dele.",
+    "fontes": [
+      "CTB, art. 13"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
   },
   {
     "termo": "caminhão-trator",
@@ -756,6 +926,19 @@
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
+    "termo": "cargas superdimensionadas",
+    "variantes": [
+      "carga superdimensionada"
+    ],
+    "significado": "Carga que passa das dimensões normais dos veículos; o CTB trata da escolta dos veículos que a levam.",
+    "fontes": [
+      "CTB, art. 20, III",
+      "CTB, art. 21, VII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
     "termo": "cargo em comissão",
     "variantes": [
       "cargos em comissão"
@@ -767,6 +950,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "carro lateral",
+    "variantes": [],
+    "significado": "O carrinho preso ao lado da moto (o side-car), onde vai um passageiro.",
+    "fontes": [
+      "CTB, art. 55, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
   },
   {
     "termo": "carroceria intercambiável",
@@ -827,6 +1020,16 @@
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
+    "termo": "caução",
+    "variantes": [],
+    "significado": "Um valor deixado como garantia, para cobrir um prejuízo se ele acontecer.",
+    "fontes": [
+      "CTB, art. 67, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
+  },
+  {
     "termo": "causa superveniente relativamente independente",
     "variantes": [
       "superveniência de causa relativamente independente",
@@ -863,6 +1066,16 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "cerração",
+    "variantes": [],
+    "significado": "Neblina bem fechada, que quase não deixa ver a pista.",
+    "fontes": [
+      "CTB, art. 40, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:00.545356+00:00"
+  },
+  {
     "termo": "certidão de antecedentes",
     "variantes": [],
     "significado": "Documento que mostra se a pessoa tem registro criminal.",
@@ -871,6 +1084,30 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "certidão negativa",
+    "variantes": [],
+    "significado": "O documento que mostra que não há processo criminal contra a pessoa pelos crimes listados.",
+    "fontes": [
+      "CTB, art. 329"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:13.588098+00:00"
+  },
+  {
+    "termo": "Cetran",
+    "variantes": [
+      "Conselho Estadual de Trânsito",
+      "Conselhos Estaduais de Trânsito"
+    ],
+    "significado": "Conselho Estadual de Trânsito: o conselho de cada Estado que faz norma, responde consulta, coordena os órgãos do Estado e julga recurso contra decisão da JARI na penalidade de órgão estadual ou municipal.",
+    "fontes": [
+      "CTB, art. 7º, II",
+      "CTB, art. 14"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
   },
   {
     "termo": "chancela",
@@ -893,6 +1130,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "ciclofaixa",
+    "variantes": [
+      "ciclofaixas"
+    ],
+    "significado": "Faixa pintada na própria pista, só para bicicleta, separada por sinalização.",
+    "fontes": [
+      "CTB, art. 58"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
+  },
+  {
     "termo": "ciclomotor",
     "variantes": [
       "ciclomotores"
@@ -903,6 +1152,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "ciclovia",
+    "variantes": [
+      "ciclovias"
+    ],
+    "significado": "Pista só de bicicleta, separada fisicamente dos carros, por mureta ou canteiro.",
+    "fontes": [
+      "CTB, art. 58"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
   },
   {
     "termo": "cinta jugular",
@@ -1025,6 +1286,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "cobrança moratória",
+    "variantes": [],
+    "significado": "Juros e acréscimos por atraso no pagamento.",
+    "fontes": [
+      "CTB, art. 284, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:15.057402+00:00"
+  },
+  {
     "termo": "coisa achada",
     "variantes": [],
     "significado": "Objeto perdido por alguém e encontrado por outra pessoa.",
@@ -1075,6 +1346,33 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "competência concorrente",
+    "variantes": [
+      "concorrentemente"
+    ],
+    "significado": "Tarefa que mais de um órgão pode fazer: aqui, o Estado e o Município podem fiscalizar e autuar as mesmas infrações.",
+    "fontes": [
+      "CTB, art. 24-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
+    "termo": "competência privativa",
+    "variantes": [
+      "privativamente",
+      "competências privativas"
+    ],
+    "significado": "Tarefa reservada a um órgão só; outro órgão só a exerce se ela for delegada por convênio.",
+    "fontes": [
+      "CTB, art. 22, § 2º",
+      "CTB, art. 24, § 4º",
+      "CTB, art. 24-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
     "termo": "composição dos danos civis",
     "variantes": [],
     "significado": "Acordo entre autor e vítima sobre o prejuízo, feito no Juizado.",
@@ -1105,6 +1403,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "concessionária ou permissionária de serviço público",
+    "variantes": [],
+    "significado": "A empresa que recebeu do poder público a tarefa de prestar um serviço, como uma empresa de ônibus.",
+    "fontes": [
+      "CTB, art. 261, § 8º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:36.592596+00:00"
   },
   {
     "termo": "concomitantemente",
@@ -1199,6 +1507,16 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "consulta pública",
+    "variantes": [],
+    "significado": "Prazo em que a proposta de norma fica aberta na internet para qualquer pessoa mandar sugestões antes da decisão.",
+    "fontes": [
+      "CTB, art. 12, §§ 1º e 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
     "termo": "consumado",
     "variantes": [
       "consuma",
@@ -1250,6 +1568,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "Contrandife",
+    "variantes": [
+      "Conselho de Trânsito do Distrito Federal"
+    ],
+    "significado": "Conselho de Trânsito do Distrito Federal: faz no DF o papel que o Cetran faz nos Estados.",
+    "fontes": [
+      "CTB, art. 7º, II",
+      "CTB, art. 14"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
+    "termo": "contraprova",
+    "variantes": [],
+    "significado": "O direito de fazer outro exame para contestar o primeiro.",
+    "fontes": [
+      "CTB, art. 306, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:41.907312+00:00"
   },
   {
     "termo": "contravenções penais",
@@ -1632,6 +1973,16 @@
     "criado_em": "2026-11-26T22:00:29.659516+00:00"
   },
   {
+    "termo": "descarga livre",
+    "variantes": [],
+    "significado": "Escapamento sem o silenciador funcionando: o carro ou a moto fica barulhento.",
+    "fontes": [
+      "CTB, art. 230, XI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
+  },
+  {
     "termo": "desconsiderada",
     "variantes": [
       "desconsideração"
@@ -1678,6 +2029,16 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "deslocamento lateral",
+    "variantes": [],
+    "significado": "Para o CTB, são só quatro manobras: trocar de faixa, virar à direita, virar à esquerda e fazer retorno.",
+    "fontes": [
+      "CTB, art. 35"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:00.545356+00:00"
+  },
+  {
     "termo": "desmantelamento",
     "variantes": [],
     "significado": "Desmontar o grupo criminoso, acabar com ele.",
@@ -1709,6 +2070,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "detenção",
+    "variantes": [],
+    "significado": "Pena de prisão mais leve: cumprida no regime semiaberto ou aberto, e no fechado só por transferência, se for necessário.",
+    "fontes": [
+      "CP, art. 33"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:41.907312+00:00"
   },
   {
     "termo": "detração",
@@ -1775,6 +2146,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "direito de vizinhança",
+    "variantes": [],
+    "significado": "As regras de convivência entre a rodovia e os terrenos vizinhos, como construção ou instalação na beira da estrada sem autorização.",
+    "fontes": [
+      "CTB, art. 20, VI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
     "termo": "direito líquido e certo",
     "variantes": [],
     "significado": "Direito comprovado de cara, com documento, sem precisar de outras provas.",
@@ -1818,6 +2199,16 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "dístico",
+    "variantes": [],
+    "significado": "O letreiro pintado no veículo: a palavra ESCOLAR na faixa amarela.",
+    "fontes": [
+      "CTB, art. 136, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:13.588098+00:00"
+  },
+  {
     "termo": "divisível",
     "variantes": [],
     "significado": "Que pode ser separada em partes: o juiz aceita um pedaço da confissão e não outro.",
@@ -1856,6 +2247,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "efeito suspensivo",
+    "variantes": [],
+    "significado": "Quando o recurso trava a decisão até ser julgado. Sem efeito suspensivo, a decisão vale já, mesmo com recurso.",
+    "fontes": [
+      "CTB, art. 294, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:27.125544+00:00"
   },
   {
     "termo": "efeitos civis",
@@ -1990,6 +2391,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "engenharia de tráfego",
+    "variantes": [],
+    "significado": "A parte técnica do trânsito: o desenho da via, dos cruzamentos e da sinalização para o fluxo andar com segurança.",
+    "fontes": [
+      "CTB, art. 91"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:48.864148+00:00"
+  },
+  {
     "termo": "entidade de classe",
     "variantes": [
       "entidades de classe"
@@ -2011,6 +2422,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "entreposto alfandegário",
+    "variantes": [],
+    "significado": "O depósito sob controle da alfândega onde a mercadoria importada fica guardada antes de ser liberada.",
+    "fontes": [
+      "CTB, art. 132, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:51:05.227943+00:00"
   },
   {
     "termo": "EPI",
@@ -2126,6 +2547,38 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "estabelecimento prisional",
+    "variantes": [],
+    "significado": "O presídio ou a penitenciária onde o condenado cumpre a pena.",
+    "fontes": [
+      "CTB, art. 293, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:27.125544+00:00"
+  },
+  {
+    "termo": "estacionamento rotativo pago",
+    "variantes": [
+      "rotativo pago"
+    ],
+    "significado": "A vaga na rua paga por tempo, para o carro dar lugar a outro (a zona azul).",
+    "fontes": [
+      "CTB, art. 24, X"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
+    "termo": "estada",
+    "variantes": [],
+    "significado": "As diárias do veículo no depósito: cada dia lá dentro é cobrado do dono, até 6 meses.",
+    "fontes": [
+      "CTB, art. 271, § 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:56.552805+00:00"
+  },
+  {
     "termo": "estado civil",
     "variantes": [],
     "significado": "A situação da pessoa na família e na sociedade: casada, solteira, filha de quem.",
@@ -2211,6 +2664,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "etilômetro",
+    "variantes": [
+      "bafômetro"
+    ],
+    "significado": "O aparelho do sopro, que mede o álcool no ar que sai do pulmão.",
+    "fontes": [
+      "CTB, art. 277"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:56.552805+00:00"
+  },
+  {
     "termo": "exame de corpo de delito",
     "variantes": [
       "corpo de delito"
@@ -2221,6 +2686,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "exame do local",
+    "variantes": [],
+    "significado": "A perícia feita no lugar do fato, antes que alguém mexa nas coisas.",
+    "fontes": [
+      "CPP, art. 169"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
   },
   {
     "termo": "exame toxicológico periódico",
@@ -2343,6 +2818,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "faixa de domínio",
+    "variantes": [],
+    "significado": "A faixa de terra ao longo da via rural, delimitada por lei e sob a responsabilidade do órgão com circunscrição sobre a via.",
+    "fontes": [
+      "CTB, art. 220, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:25.044476+00:00"
+  },
+  {
     "termo": "falsidade ideológica",
     "variantes": [],
     "significado": "Documento verdadeiro com informação mentirosa dentro.",
@@ -2421,6 +2906,18 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "folguedo",
+    "variantes": [
+      "folguedos"
+    ],
+    "significado": "Brincadeira ou festa de rua.",
+    "fontes": [
+      "CTB, art. 254, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
+  },
+  {
     "termo": "fonte independente",
     "variantes": [],
     "significado": "Um caminho de investigação que chegaria à mesma prova sozinho, sem depender da prova ilícita.",
@@ -2449,6 +2946,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "fracionar",
+    "variantes": [
+      "fracionáveis",
+      "fracionadas",
+      "fracionamento"
+    ],
+    "significado": "Dividir em pedaços: tirar a pausa ou o descanso em várias paradas menores, em vez de uma só.",
+    "fontes": [
+      "CTB, art. 67-C, §§ 1º e 1º-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:45:58.644848+00:00"
   },
   {
     "termo": "fratura de configuração circular",
@@ -2588,6 +3099,28 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "guia da calçada",
+    "variantes": [
+      "meio-fio"
+    ],
+    "significado": "A beirada de pedra ou concreto que separa a calçada da rua: o meio-fio.",
+    "fontes": [
+      "CTB, art. 181, II e III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
+  },
+  {
+    "termo": "guidom",
+    "variantes": [],
+    "significado": "O guidão: a barra que o piloto segura para dirigir a moto.",
+    "fontes": [
+      "CTB, art. 54"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
+  },
+  {
     "termo": "habeas corpus",
     "variantes": [],
     "significado": "A ação para proteger quem está preso ilegalmente, ou ameaçado de ser: protege a liberdade de ir e vir.",
@@ -2690,6 +3223,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "iluminação intermitente",
+    "variantes": [],
+    "significado": "Luz que pisca sem parar, como o giroflex da ambulância e da viatura.",
+    "fontes": [
+      "CTB, art. 189",
+      "CTB, art. 190"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
   },
   {
     "termo": "imediações",
@@ -2844,6 +3388,16 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "inautenticidade",
+    "variantes": [],
+    "significado": "Quando o documento não é verdadeiro: falso ou feito por quem não podia.",
+    "fontes": [
+      "CTB, art. 272"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:56.552805+00:00"
+  },
+  {
     "termo": "incapacidade civil absoluta",
     "variantes": [],
     "significado": "Situação de quem a lei civil considera sem nenhuma condição de praticar sozinho os atos da vida civil.",
@@ -2862,6 +3416,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "incolumidade",
+    "variantes": [
+      "incolumidade pública ou privada"
+    ],
+    "significado": "A segurança das pessoas e das coisas: ficar inteiro, sem dano.",
+    "fontes": [
+      "CTB, art. 308"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:41.907312+00:00"
+  },
+  {
+    "termo": "incolumidade física",
+    "variantes": [],
+    "significado": "Ficar inteiro, sem machucado: a integridade do corpo da pessoa.",
+    "fontes": [
+      "CTB, art. 269, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:56.552805+00:00"
   },
   {
     "termo": "incomunicabilidade",
@@ -3111,6 +3687,18 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "insubsistente",
+    "variantes": [
+      "julgado insubsistente"
+    ],
+    "significado": "Que não se sustenta: o auto perde o valor e não gera punição.",
+    "fontes": [
+      "CTB, art. 281, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:15.057402+00:00"
+  },
+  {
     "termo": "insuscetíveis de graça ou anistia",
     "variantes": [
       "graça ou anistia"
@@ -3132,6 +3720,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "intempestivo",
+    "variantes": [
+      "tempestivo"
+    ],
+    "significado": "Fora do prazo (intempestivo) ou dentro dele (tempestivo).",
+    "fontes": [
+      "CTB, art. 285, §§ 1º e 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:15.057402+00:00"
   },
   {
     "termo": "interdição temporária de direitos",
@@ -3238,6 +3838,28 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "IPCA",
+    "variantes": [
+      "Índice Nacional de Preços ao Consumidor Amplo"
+    ],
+    "significado": "Índice Nacional de Preços ao Consumidor Amplo: o índice oficial da inflação.",
+    "fontes": [
+      "CTB, art. 319-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
+  },
+  {
+    "termo": "irrecuperável",
+    "variantes": [],
+    "significado": "O veículo que não tem mais conserto, a perda total.",
+    "fontes": [
+      "CTB, art. 126"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:51:05.227943+00:00"
+  },
+  {
     "termo": "irredutibilidade",
     "variantes": [],
     "significado": "O salário não pode ser diminuído, salvo por convenção ou acordo coletivo.",
@@ -3271,6 +3893,30 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
+    "termo": "janela de detecção",
+    "variantes": [],
+    "significado": "O período para trás que o exame consegue enxergar: com 90 dias, ele pega o consumo dos últimos 3 meses, e não só o da véspera.",
+    "fontes": [
+      "CTB, art. 148-A, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:18.393609+00:00"
+  },
+  {
+    "termo": "JARI",
+    "variantes": [
+      "Junta Administrativa de Recursos de Infrações",
+      "Juntas Administrativas de Recursos de Infrações"
+    ],
+    "significado": "Junta Administrativa de Recursos de Infrações: o grupo que funciona junto a cada órgão de trânsito ou rodoviário e julga o recurso contra a penalidade aplicada por ele.",
+    "fontes": [
+      "CTB, art. 16",
+      "CTB, art. 17"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
   },
   {
     "termo": "juiz natural",
@@ -3444,6 +4090,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "leito da via",
+    "variantes": [],
+    "significado": "A pista por onde os veículos passam.",
+    "fontes": [
+      "Lei 5.970/1973, art. 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
+  },
+  {
     "termo": "lesão corporal culposa",
     "variantes": [
       "lesão culposa"
@@ -3519,6 +4175,18 @@
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
+    "termo": "linha dupla contínua",
+    "variantes": [
+      "simples contínua amarela"
+    ],
+    "significado": "As linhas amarelas sem falhas no meio da pista, que separam os dois sentidos: ali, ultrapassar pela contramão é proibido.",
+    "fontes": [
+      "CTB, art. 203, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:25.044476+00:00"
+  },
+  {
     "termo": "linha sucessória",
     "variantes": [],
     "significado": "A fila de quem assume a Presidência quando Presidente e vice não podem.",
@@ -3569,6 +4237,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
+    "termo": "lote lindeiro",
+    "variantes": [
+      "lotes lindeiros"
+    ],
+    "significado": "O terreno que fica colado na via, de frente para ela, como uma casa, um posto ou um mercado.",
+    "fontes": [
+      "CTB, art. 36",
+      "CTB, art. 38"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:00.545356+00:00"
+  },
+  {
+    "termo": "luz baixa",
+    "variantes": [],
+    "significado": "O farol baixo: ilumina a via à frente sem ofuscar quem vem no sentido contrário.",
+    "fontes": [
+      "CTB, art. 250, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
   },
   {
     "termo": "luzes de rodagem diurna",
@@ -3643,6 +4334,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "marcas de canalização",
+    "variantes": [],
+    "significado": "As faixas pintadas no chão (as zebradas) que guiam o fluxo e onde não se anda com o carro.",
+    "fontes": [
+      "CTB, art. 193"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:25.044476+00:00"
+  },
+  {
+    "termo": "mata-cachorro",
+    "variantes": [],
+    "significado": "A barra de metal presa no chassi da moto que protege o motor e a perna de quem pilota se a moto tombar.",
+    "fontes": [
+      "CTB, art. 139-A, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:13.588098+00:00"
   },
   {
     "termo": "material bélico",
@@ -3815,6 +4526,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "metrologia legal",
+    "variantes": [],
+    "significado": "A área que confere e certifica pesos, medidas e aparelhos de medição.",
+    "fontes": [
+      "CTB, art. 106"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:45.091273+00:00"
+  },
+  {
     "termo": "milícia privada",
     "variantes": [
       "milícias privadas"
@@ -3878,6 +4599,29 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "motoneta",
+    "variantes": [
+      "motonetas"
+    ],
+    "significado": "Moto de duas rodas em que se vai sentado, como uma scooter; na motocicleta, o piloto vai montado.",
+    "fontes": [
+      "CTB, art. 54",
+      "CTB, art. 55"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:16.102432+00:00"
+  },
+  {
+    "termo": "motor-casa",
+    "variantes": [],
+    "significado": "O veículo que é casa e carro ao mesmo tempo (o motorhome): a B dirige se não passar de 6.000 kg ou de 8 lugares, fora o motorista.",
+    "fontes": [
+      "CTB, art. 143, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:18.393609+00:00"
+  },
+  {
     "termo": "motorista profissional",
     "variantes": [],
     "significado": "O condutor que dirige como trabalho remunerado.",
@@ -3886,6 +4630,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "multa agravada",
+    "variantes": [],
+    "significado": "A multa que o artigo da infração manda multiplicar (por três, por dez): o valor da tabela vezes o fator do próprio Código.",
+    "fontes": [
+      "CTB, art. 258, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:36.592596+00:00"
+  },
+  {
+    "termo": "multa reparatória",
+    "variantes": [],
+    "significado": "Valor que o condenado deposita na Justiça para a vítima, para cobrir o prejuízo material do crime.",
+    "fontes": [
+      "CTB, art. 297"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:27.125544+00:00"
   },
   {
     "termo": "municípios limítrofes",
@@ -4055,6 +4819,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "objetivamente",
+    "variantes": [
+      "responsabilidade objetiva"
+    ],
+    "significado": "Sem precisar provar culpa: houve o dano e a ligação com o serviço do órgão, ele paga.",
+    "fontes": [
+      "CTB, art. 1º, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
     "termo": "OCR",
     "variantes": [
       "Reconhecimento Óptico de Caracteres"
@@ -4119,6 +4895,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "ondulações transversais",
+    "variantes": [
+      "ondulação transversal"
+    ],
+    "significado": "As lombadas, os quebra-molas atravessados na pista.",
+    "fontes": [
+      "CTB, art. 94, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:48.864148+00:00"
+  },
+  {
     "termo": "ônus da sucumbência",
     "variantes": [
       "sucumbência"
@@ -4160,6 +4948,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "órgão executivo rodoviário",
+    "variantes": [
+      "órgãos executivos rodoviários",
+      "órgão rodoviário",
+      "órgãos rodoviários"
+    ],
+    "significado": "O órgão que administra a rodovia ou estrada: opera o trânsito nela, sinaliza, fiscaliza e cuida do peso e das dimensões dos veículos.",
+    "fontes": [
+      "CTB, art. 21"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
   },
   {
     "termo": "ostensivamente",
@@ -4264,6 +5066,28 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "passeio",
+    "variantes": [
+      "passeios"
+    ],
+    "significado": "A parte da calçada (ou da pista, separada) só para pedestre, e, de vez em quando, ciclista.",
+    "fontes": [
+      "CTB, Anexo I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
+    "termo": "PBT",
+    "variantes": [],
+    "significado": "Peso bruto total: o peso máximo do veículo carregado, o veículo mais a carga e os ocupantes.",
+    "fontes": [
+      "CTB, art. 105, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:45:58.644848+00:00"
+  },
+  {
     "termo": "PBTC",
     "variantes": [
       "peso bruto total combinado"
@@ -4296,6 +5120,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "películas",
+    "variantes": [
+      "película"
+    ],
+    "significado": "O filme escuro ou refletivo colado no vidro do carro (o \"insulfilm\").",
+    "fontes": [
+      "CTB, art. 230, XVI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:42.485495+00:00"
   },
   {
     "termo": "pena privativa de liberdade",
@@ -4340,6 +5176,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "perícia administrativa",
+    "variantes": [],
+    "significado": "O exame técnico que a própria PRF faz no local do sinistro, na esfera administrativa.",
+    "fontes": [
+      "CTB, art. 20, XIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
     "termo": "perigo atual",
     "variantes": [],
     "significado": "Perigo que está acontecendo agora, e não um que já passou ou que só se imagina lá na frente.",
@@ -4348,6 +5194,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "perigo de dano",
+    "variantes": [],
+    "significado": "Risco de machucar alguém ou de causar estrago, criado pelo jeito de dirigir.",
+    "fontes": [
+      "CTB, art. 309"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:41.907312+00:00"
   },
   {
     "termo": "perito oficial",
@@ -4392,6 +5248,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "pista de rolamento",
+    "variantes": [
+      "pistas de rolamento"
+    ],
+    "significado": "A parte da via por onde os veículos andam, sem contar o acostamento e a calçada.",
+    "fontes": [
+      "CTB, art. 181, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
+  },
+  {
     "termo": "PIV",
     "variantes": [
       "Placa de Identificação Veicular",
@@ -4424,6 +5292,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "Pnatrans",
+    "variantes": [
+      "Plano Nacional de Redução de Mortes e Lesões no Trânsito"
+    ],
+    "significado": "Plano Nacional de Redução de Mortes e Lesões no Trânsito: o plano com metas para baixar as mortes.",
+    "fontes": [
+      "CTB, art. 326-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
   },
   {
     "termo": "PNU",
@@ -4459,6 +5339,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "poder público concedente",
+    "variantes": [],
+    "significado": "O órgão do governo que dá a concessão ou a permissão do serviço de transporte.",
+    "fontes": [
+      "CTB, art. 135"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:51:05.227943+00:00"
+  },
+  {
     "termo": "polícia judiciária",
     "variantes": [],
     "significado": "A polícia que investiga o crime depois que ele aconteceu e reúne as provas para o processo.",
@@ -4478,6 +5368,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "polo atrativo de trânsito",
+    "variantes": [
+      "polo atrativo"
+    ],
+    "significado": "Construção que puxa muito carro e muita gente para o mesmo lugar, como shopping, estádio ou faculdade.",
+    "fontes": [
+      "CTB, art. 93"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:48.864148+00:00"
   },
   {
     "termo": "prazo prescricional",
@@ -4564,6 +5466,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "préstitos",
+    "variantes": [
+      "préstito"
+    ],
+    "significado": "Cortejo ou procissão, gente andando em grupo pela via.",
+    "fontes": [
+      "CTB, art. 220, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:25.044476+00:00"
+  },
+  {
     "termo": "presunção de inocência",
     "variantes": [],
     "significado": "Ninguém é culpado até a condenação não caber mais recurso.",
@@ -4572,6 +5486,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "pretensão punitiva",
+    "variantes": [],
+    "significado": "O direito do Estado de punir aquela infração.",
+    "fontes": [
+      "CTB, art. 289-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:15.057402+00:00"
   },
   {
     "termo": "prevaricação",
@@ -4662,6 +5586,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "pronto e integral socorro",
+    "variantes": [],
+    "significado": "Socorro na hora e completo à vítima: imediato, e não pela metade.",
+    "fontes": [
+      "CTB, art. 301"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:27.125544+00:00"
+  },
+  {
     "termo": "prontuário do condutor",
     "variantes": [],
     "significado": "A ficha do motorista no órgão de trânsito, com os dados e o histórico dele.",
@@ -4692,6 +5626,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "propulsão humana",
+    "variantes": [],
+    "significado": "Movido pela força de quem pedala ou empurra, como a bicicleta e o carrinho de mão.",
+    "fontes": [
+      "CTB, art. 96, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:45.091273+00:00"
   },
   {
     "termo": "prova ilícita",
@@ -4855,6 +5799,51 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "reciprocidade",
+    "variantes": [
+      "princípio de reciprocidade"
+    ],
+    "significado": "Tratamento de mão dupla entre países: o Brasil cobra do estrangeiro do jeito que o país dele cobra do brasileiro.",
+    "fontes": [
+      "CTB, art. 260, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:49:36.592596+00:00"
+  },
+  {
+    "termo": "reclusão",
+    "variantes": [],
+    "significado": "Pena de prisão mais pesada: pode ser cumprida no regime fechado, semiaberto ou aberto.",
+    "fontes": [
+      "CP, art. 33"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:41.907312+00:00"
+  },
+  {
+    "termo": "recolhimento do documento de habilitação",
+    "variantes": [
+      "recolhimento do documento"
+    ],
+    "significado": "O agente fica com a CNH (ou a Permissão) do condutor ali na hora, como medida administrativa.",
+    "fontes": [
+      "CTB, art. 162, II",
+      "CTB, art. 165"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:10.933922+00:00"
+  },
+  {
+    "termo": "recondução",
+    "variantes": [],
+    "significado": "Nomear de novo a mesma pessoa para mais um mandato no mesmo cargo.",
+    "fontes": [
+      "CTB, art. 15, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
     "termo": "reconhecimento de firma por autenticidade",
     "variantes": [
       "firma reconhecida por autenticidade"
@@ -4896,6 +5885,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "refúgio",
+    "variantes": [
+      "refúgios",
+      "refúgio de segurança"
+    ],
+    "significado": "A ilhazinha protegida no meio da via onde o pedestre espera no meio da travessia.",
+    "fontes": [
+      "CTB, art. 200",
+      "CTB, art. 193"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:47:25.044476+00:00"
   },
   {
     "termo": "regime de urgência",
@@ -5034,6 +6037,30 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "Renaest",
+    "variantes": [
+      "Registro Nacional de Sinistros e Estatísticas de Trânsito"
+    ],
+    "significado": "Registro Nacional de Sinistros e Estatísticas de Trânsito: o cadastro nacional dos sinistros e dos números do trânsito.",
+    "fontes": [
+      "CTB, art. 19, XXXII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
+    "termo": "Renainf",
+    "variantes": [
+      "Registro Nacional de Infrações de Trânsito"
+    ],
+    "significado": "Registro Nacional de Infrações de Trânsito: o cadastro nacional das infrações.",
+    "fontes": [
+      "CTB, art. 19, XXX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
     "termo": "Renavam",
     "variantes": [],
     "significado": "Registro Nacional de Veículos Automotores: o cadastro nacional dos veículos, onde ficam o registro, as assinaturas da venda e a comunicação de venda.",
@@ -5043,6 +6070,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
+    "termo": "repartições consulares",
+    "variantes": [
+      "repartição consular"
+    ],
+    "significado": "Os consulados de outro país aqui no Brasil.",
+    "fontes": [
+      "CTB, art. 96, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:45.091273+00:00"
   },
   {
     "termo": "repouso noturno",
@@ -5175,6 +6214,19 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "RNPC",
+    "variantes": [
+      "Registro Nacional Positivo de Condutores"
+    ],
+    "significado": "Registro Nacional Positivo de Condutores: o cadastro dos condutores que não cometeram infração sujeita a pontuação nos últimos 12 meses.",
+    "fontes": [
+      "CTB, art. 19, XXXI",
+      "CTB, art. 268-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:31.021278+00:00"
+  },
+  {
     "termo": "rompimento de obstáculo",
     "variantes": [],
     "significado": "Quebrar o que protege a coisa, como cadeado, porta ou vidro do carro.",
@@ -5303,6 +6355,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "side-car",
+    "variantes": [],
+    "significado": "O carrinho lateral, com roda própria, preso ao lado da moto.",
+    "fontes": [
+      "CTB, art. 139-A, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:13.588098+00:00"
+  },
+  {
     "termo": "Sinarm",
     "variantes": [],
     "significado": "Sistema Nacional de Armas: o cadastro do governo federal com as armas e os donos, que fica na Polícia Federal.",
@@ -5390,6 +6452,30 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "sonorizadores",
+    "variantes": [
+      "sonorizador"
+    ],
+    "significado": "Faixas em relevo no asfalto que fazem barulho e tremem o carro para o motorista reduzir.",
+    "fontes": [
+      "CTB, art. 94, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:48.864148+00:00"
+  },
+  {
+    "termo": "SPVAT",
+    "variantes": [
+      "Seguro Obrigatório para Proteção de Vítimas de Acidentes de Trânsito"
+    ],
+    "significado": "Seguro Obrigatório para Proteção de Vítimas de Acidentes de Trânsito: o seguro obrigatório das vítimas de trânsito.",
+    "fontes": [
+      "CTB, art. 78, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
     "termo": "subsídio",
     "variantes": [],
     "significado": "A remuneração em parcela única, sem somar gratificações e adicionais.",
@@ -5421,6 +6507,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "sucata",
+    "variantes": [],
+    "significado": "O veículo que não está apto a trafegar. Leiloado como sucata, não volta a circular.",
+    "fontes": [
+      "CTB, art. 328, §§ 1º e 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:46:56.983906+00:00"
   },
   {
     "termo": "sucateamento",
@@ -5608,6 +6704,16 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "tração animal",
+    "variantes": [],
+    "significado": "Puxado por animal, como a charrete e a carroça.",
+    "fontes": [
+      "CTB, art. 96, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:45.091273+00:00"
+  },
+  {
     "termo": "transação penal",
     "variantes": [],
     "significado": "Acordo em que o MP propõe multa ou pena alternativa antes do processo; aceito, não há processo nem reincidência.",
@@ -5671,6 +6777,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "transposição de faixas",
+    "variantes": [],
+    "significado": "Passar o veículo de uma faixa demarcada para outra, a famosa troca de faixa.",
+    "fontes": [
+      "CTB, art. 29, § 1º",
+      "CTB, art. 35"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:48:00.545356+00:00"
   },
   {
     "termo": "trecho crítico",
@@ -5793,6 +6910,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "unidades autônomas",
+    "variantes": [
+      "unidade autônoma"
+    ],
+    "significado": "Os apartamentos ou casas de um condomínio, cada um com o seu dono.",
+    "fontes": [
+      "CTB, art. 2º, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
   },
   {
     "termo": "unificada",
@@ -5943,6 +7072,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "via rural",
+    "variantes": [
+      "vias rurais"
+    ],
+    "significado": "Estradas e rodovias: estrada é a não pavimentada, e rodovia é a pavimentada.",
+    "fontes": [
+      "CTB, Anexo I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
+    "criado_em": "2026-11-26T22:50:32.173606+00:00"
   },
   {
     "termo": "videomonitoramento",

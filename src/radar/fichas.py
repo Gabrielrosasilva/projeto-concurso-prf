@@ -391,9 +391,14 @@ def prefixo_do_complementar() -> str:
     return alvo.banca_na_tela().upper() + "-"
 
 
+@cache.por_requisicao
 def _siglas_das_provas() -> dict[str, str]:
     """{caderno: sigla} da lista de outras bancas (a chave `sigla` de cada
-    prova). Sem a chave - a PP -, o codigo fica como era."""
+    prova). Sem a chave - a PP -, o codigo fica como era.
+
+    Uma vez por abertura de tela (PRF-50): a ficha chamava isto 6 mil vezes,
+    uma por questao, e cada vez relia e tirava o hash do YAML (7 s dos 19 s
+    da pagina). O `do_arquivo` continua: a proxima abertura le o YAML de novo."""
     arquivo = config.diretorio_config() / "provas_de_outras_bancas.yml"
 
     def ler():
