@@ -44,7 +44,7 @@ LEIS = (
     Lei("CPP", "art", ("cpp", "codigo de processo penal")),
     Lei("CF", "art", ("cf", "constituicao federal", "constituicao")),
     Lei("LEP", "art", ("lep", "lei de execucao penal", "7.210")),
-    Lei("Convenção Americana", "art", ("convencao americana", "pacto de san jose")),
+    Lei("Convenção Americana", "art", ("convencao americana", "pacto de san jose", "cadh")),
     Lei("DUDH", "art", ("dudh", "declaracao universal dos direitos humanos",
                         "declaracao universal")),
     Lei("Protocolo de San Salvador", "art", ("protocolo de san salvador",)),
@@ -88,6 +88,24 @@ LEIS = (
     Lei("Lei 9.099/1995", "art", ("9.099", "lei 9.099")),
     Lei("Lei 9.296/1996", "art", ("9.296", "lei 9.296")),
     Lei("LGPD", "art", ("lgpd", "13.709", "lei 13.709")),
+    # As leis das fichas de Direito Administrativo, Direitos Humanos e
+    # Legislacao Especial da PRF (PRF-52): sem elas, "Ato administrativo" e
+    # "Licitacao" ficavam com o bloco "Os artigos" vazio. O numero sozinho so
+    # quando nao se confunde com valor ("1.655" seria R$ 1.655).
+    Lei("Lei 8.112/1990", "art", ("8.112", "lei 8.112")),
+    Lei("Lei 9.784/1999", "art", ("9.784", "lei 9.784")),
+    Lei("Lei 14.133/2021", "art", ("14.133", "lei 14.133")),
+    Lei("Lei 9.654/1998", "art", ("9.654", "lei 9.654")),
+    Lei("Decreto-Lei 200/1967", "art", ("decreto-lei 200", "decreto-lei no 200", "dl 200")),
+    Lei("ADCT", "art", ("adct", "ato das disposicoes constitucionais transitorias")),
+    Lei("Lei 13.675/2018", "art", ("13.675", "lei 13.675")),
+    Lei("Lei 5.553/1968", "art", ("5.553", "lei 5.553")),
+    Lei("Decreto 1.655/1995", "art", ("decreto 1.655", "1.655/1995")),
+    # O Anexo I do Decreto 11.348 (a estrutura do Ministerio) numera os
+    # artigos de novo: "Decreto 11.348/2023, Anexo I, art. 2º" nao e o art. 2º
+    # do decreto. O nome do anexo comeca depois, e a lei mais proxima vence.
+    Lei("Decreto 11.348/2023", "art", ("decreto 11.348", "11.348/2023")),
+    Lei("Decreto 11.348/2023, Anexo I", "art", ("11.348/2023, anexo i",)),
 )
 _POR_SIGLA = {lei.sigla: lei for lei in LEIS}
 
@@ -100,6 +118,10 @@ _POR_SIGLA = {lei.sigla: lei for lei in LEIS}
 _RESOLUCAO = re.compile(
     r"\b(?:res\.|resolucao)\s*(?:do\s+)?(?:contran\s+)?(?:n[o.]*\s*)?"
     r"(\d{1,2}\.\d{3}|\d{1,4})/(\d{4})\b")
+
+
+#: Depois do numero, "do Senado", "do CNJ", "da Anvisa": outro orgao.
+_OUTRO_ORGAO = re.compile(r"\s*,?\s*d[oa]s?\s+(?!contran\b)[a-z]")
 
 
 def sigla_da_resolucao(numero: str | int, ano: str | int) -> str:
@@ -120,14 +142,25 @@ class Artigo:
     lei: str
     numero: int
     sufixo: str = ""      # o "A" do "art. 9º-A"
+    #: O inciso ("XI") nos artigos de POR_INCISO, o paragrafo ("§ 2º") nos de
+    #: POR_PARAGRAFO (PRF-52). A posicao nao o leva: "CF, art. 5º, XI" esta
+    #: na faixa "CF, art. 5º".
+    inciso: str = ""
 
     @property
     def posicao(self) -> tuple:
         return (self.numero, self.sufixo)
 
     @property
+    def ordem(self) -> tuple:
+        """A posicao com o inciso, para os blocos sairem na ordem da lei."""
+        return (self.numero, self.sufixo, _ordem_do_dispositivo(self.inciso))
+
+    @property
     def rotulo(self) -> str:
-        return f"{self.lei}, {_UNIDADE_ESCRITA[_unidade_da(self.lei)][0]} {self.numero_escrito}"
+        inciso = f", {self.inciso}" if self.inciso else ""
+        return (f"{self.lei}, {_UNIDADE_ESCRITA[_unidade_da(self.lei)][0]} "
+                f"{self.numero_escrito}{inciso}")
 
     @property
     def numero_escrito(self) -> str:
@@ -200,7 +233,11 @@ def _unidade(token: str) -> tuple[str, bool]:
 def _leis_nomeadas(texto: str) -> list[tuple[int, int, str]]:
     """[(inicio, fim, sigla)] de cada lei nomeada no texto normalizado."""
     resolucoes = [(m.start(), m.end(), sigla_da_resolucao(m.group(1), m.group(2)))
-                  for m in _RESOLUCAO.finditer(texto)]
+                  for m in _RESOLUCAO.finditer(texto)
+                  # "Resolução 5/2012 do Senado" nao e do CONTRAN (PRF-52): sem
+                  # isto, os artigos da Lei 11.343 citados depois dela iam para
+                  # ela. O orgao escrito depois do numero tira a resolucao.
+                  if "contran" in m.group(0) or not _OUTRO_ORGAO.match(texto, m.end())]
     achadas = list(resolucoes)
     for lei in LEIS:
         for nome in lei.nomes:
@@ -261,6 +298,10 @@ def citados(texto: str | None, lei_padrao: str | None = None) -> list[Faixa]:
     """
     normal = normalizar(texto or "")
     nomeadas = _leis_nomeadas(normal)
+    # A lei nomeada DEPOIS de uma citacao ("art. 144 da CF") e so daquela
+    # citacao (PRF-52): sem isto, no "CP ... art. 121 (... do art. 144 da CF)
+    # e art. 121-A ...", o 121-A e tudo o que vinha depois viravam da CF.
+    so_da_citacao = set()
     saida = []
     for m in _UNIDADE.finditer(normal):
         unidade, plural = _unidade(m.group(1) or m.group(2))
@@ -271,8 +312,10 @@ def citados(texto: str | None, lei_padrao: str | None = None) -> list[Faixa]:
         lei = None
         if depois is not None:
             lei = next((s for i, _, s in nomeadas if i == depois.end()), None)
+            if lei is not None:
+                so_da_citacao.add(depois.end())
         if lei is None:
-            antes = [s for i, f, s in nomeadas if f <= m.start()]
+            antes = [s for i, f, s in nomeadas if f <= m.start() and i not in so_da_citacao]
             lei = antes[-1] if antes else lei_padrao
         if not _conhecida(lei) or _unidade_da(lei) != unidade:
             continue
@@ -291,8 +334,95 @@ def unico(faixas) -> Artigo | None:
 
 
 def da_fonte(fonte: str | None) -> Artigo | None:
-    """O artigo que uma fonte cita, se cita um so: "CP, art. 15, I" -> CP 15."""
-    return unico(citados(fonte))
+    """O artigo que uma fonte cita, se cita um so: "CP, art. 15, I" -> CP 15.
+    Nos artigos de POR_INCISO, o inciso: "CF, art. 5º, XI" -> CF 5, XI."""
+    return com_inciso(unico(citados(fonte)), [fonte])
+
+
+# --- o bloco por inciso (PRF-52) ------------------------------------------------------
+
+#: Os artigos longos demais para um bloco so: o art. 5º da CF tem 78 incisos
+#: e o 7º, 34, e a ficha de direitos e garantias virava UM bloco com UMA
+#: traducao. Neles, o bloco e o inciso ("CF, art. 5º, XI"); o paragrafo e a
+#: fonte de varios incisos ficam no bloco do artigo.
+POR_INCISO = {("CF", 5), ("CF", 7)}
+#: O art. 144 da CF se divide por PARAGRAFO: o § 2º e a PRF, e a ficha de
+#: seguranca publica (a mais importante do cronograma para quem vai ser
+#: PRF) ficava com o artigo inteiro num bloco so. Caput e incisos ficam no
+#: bloco do artigo.
+POR_PARAGRAFO = {("CF", 144)}
+
+_ROMANOS = {"i": 1, "v": 5, "x": 10, "l": 50, "c": 100}
+# Os incisos logo depois do numero do artigo: "art. 5o, xi", "art. 5o, xi e xii",
+# "art. 5o, inciso lxviii". O "§" e o "caput" nao sao inciso.
+_INCISOS = re.compile(r"\barts?\.\s*(\d+)\s*[o°]?\s*,\s*(?:incisos?\s+)?"
+                      r"([ivxlc]+\b(?:\s*(?:,|\be\b|\ba\b)\s*[ivxlc]+\b)*)")
+
+
+def _romano(texto: str) -> int:
+    """ "XI" -> 11; vazio -> 0 (o bloco do artigo vem antes dos incisos)."""
+    valores = [_ROMANOS[c] for c in (texto or "").lower()]
+    return sum(-v if i + 1 < len(valores) and v < valores[i + 1] else v
+               for i, v in enumerate(valores))
+
+
+# O paragrafo logo depois do numero do artigo: "art. 144, § 2o", "§§ 1o e 2o".
+_PARAGRAFOS_DO_ARTIGO = re.compile(r"\barts?\.\s*(\d+)\s*[o°]?\s*,\s*(§§?)\s*(\d+)\s*[o°]?"
+                                   r"((?:\s*(?:,|\be\b|\ba\b)\s*\d+\s*[o°]?)*)")
+
+
+def _paragrafos_da_fonte(fonte: str, numero: int) -> list[str]:
+    """Os paragrafos do art. `numero` que a fonte cita: ["§ 2º"], ou mais de
+    um (a lista ou a faixa), ou []."""
+    saida = []
+    for m in _PARAGRAFOS_DO_ARTIGO.finditer(normalizar(fonte or "")):
+        if int(m.group(1)) == numero:
+            n = int(m.group(3))
+            # O "§ 5º-A" e outro paragrafo, nao o § 5º.
+            sufixo = re.match(r"\s*[o°]?\s*-\s*([a-z])\b", normalizar(fonte)[m.end(3):])
+            letra = f"-{sufixo.group(1).upper()}" if sufixo else ""
+            saida.append((f"§ {n}º" if n < 10 else f"§ {n}") + letra)
+            if m.group(2) == "§§" or m.group(4).strip():
+                saida.append("*")
+    return saida
+
+
+def _ordem_do_dispositivo(dispositivo: str) -> int:
+    """Os incisos pelo numero romano; os paragrafos depois deles."""
+    if (dispositivo or "").startswith("§"):
+        return 1000 + int(re.sub(r"\D", "", dispositivo) or 0)
+    return _romano(dispositivo)
+
+
+def _incisos_da_fonte(fonte: str, numero: int) -> list[str]:
+    """Os incisos do art. `numero` que a fonte cita: ["XI"], ["XI", "XII"] ou []."""
+    saida = []
+    for m in _INCISOS.finditer(normalizar(fonte or "")):
+        if int(m.group(1)) == numero:
+            saida += [r.upper() for r in re.findall(r"[ivxlc]+", m.group(2))
+                      if r not in ("e", "a")]
+            if re.search(r"\ba\b", m.group(2)):      # "xi a xiii": uma faixa
+                saida.append("*")
+    return saida
+
+
+def com_inciso(artigo: Artigo | None, fontes) -> Artigo | None:
+    """O artigo com o inciso, quando ele e de POR_INCISO e TODAS as fontes que
+    o citam citam o MESMO inciso, e so ele. Senao, o artigo como veio."""
+    chave = (artigo.lei, artigo.numero) if artigo is not None else None
+    if artigo is None or artigo.sufixo or chave not in POR_INCISO | POR_PARAGRAFO:
+        return artigo
+    dispositivos = _paragrafos_da_fonte if chave in POR_PARAGRAFO else _incisos_da_fonte
+    vistos = set()
+    for fonte in fontes:
+        if any(f.lei == artigo.lei and f.unico == artigo for f in citados(fonte)):
+            incisos = dispositivos(fonte, artigo.numero)
+            if len(incisos) != 1:
+                return artigo
+            vistos.add(incisos[0])
+    if len(vistos) != 1:
+        return artigo
+    return Artigo(artigo.lei, artigo.numero, artigo.sufixo, vistos.pop())
 
 
 def do_tema(titulo: str | None, ler_exatamente: str | None,

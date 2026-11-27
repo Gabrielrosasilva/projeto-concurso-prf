@@ -665,8 +665,10 @@ def _secao(frases, termos) -> list[FraseNaTela]:
 def artigo_da_frase(frase: dict) -> "artigos.Artigo | None":
     """O artigo que a frase cita pelas fontes, se cita um so. A questao, a
     sumula e a doutrina nao sao artigo e nao contam; dois artigos, nenhum."""
-    return artigos.unico([f for fonte in frase.get("fontes") or []
-                          for f in artigos.citados(fonte)])
+    fontes = frase.get("fontes") or []
+    # Nos artigos longos (artigos.POR_INCISO), o bloco e o inciso (PRF-52).
+    return artigos.com_inciso(artigos.unico([f for fonte in fontes
+                                             for f in artigos.citados(fonte)]), fontes)
 
 
 def _peso_da_pegadinha(frase: dict) -> int:
@@ -721,8 +723,18 @@ def resumo_enxuto(partes: dict | None, materia: str | None, traducao: dict | Non
         if artigo.lei not in ordem_das_leis:
             ordem_das_leis.append(artigo.lei)
 
+    # A traducao do artigo INTEIRO (a das fichas de antes da PRF-52, que
+    # traduzia o art. 144 de uma vez) puxa de volta as frases dos incisos e
+    # paragrafos que nao tem traducao propria: sem isto, o bloco do artigo
+    # ficava so com a traducao, sem a letra da lei (decisao 182).
+    for artigo in [a for a in traduzidos if not a.inciso and not do_artigo.get(a)]:
+        for parte in [a for a in do_artigo if a.inciso and a not in traduzidos
+                      and (a.lei, a.numero, a.sufixo) == (artigo.lei, artigo.numero,
+                                                          artigo.sufixo)]:
+            do_artigo[artigo] += do_artigo.pop(parte)
+
     blocos = []
-    for artigo in sorted(do_artigo, key=lambda a: (ordem_das_leis.index(a.lei), a.posicao)):
+    for artigo in sorted(do_artigo, key=lambda a: (ordem_das_leis.index(a.lei), a.ordem)):
         vistos: set = set()
         frases = [_na_tela(f, termos, vistos) for f in do_artigo[artigo]]
         item = traduzidos.get(artigo)

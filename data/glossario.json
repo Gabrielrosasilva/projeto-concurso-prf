@@ -1,5 +1,15 @@
 [
   {
+    "termo": "a título pessoal",
+    "variantes": [],
+    "significado": "Em nome próprio, e não como representante do país de onde veio.",
+    "fontes": [
+      "CADH, art. 52"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
     "termo": "a título precário",
     "variantes": [
       "título precário"
@@ -10,6 +20,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
+    "termo": "abandono de cargo",
+    "variantes": [],
+    "significado": "Faltar de propósito ao serviço por mais de 30 dias seguidos.",
+    "fontes": [
+      "Lei 8.112/1990, art. 132, II",
+      "Lei 8.112/1990, art. 138"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
   },
   {
     "termo": "abolitio criminis",
@@ -45,6 +66,17 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "abuso de poder",
+    "variantes": [],
+    "significado": "O gênero que junta o excesso de poder e o desvio de finalidade, por ação ou por omissão.",
+    "fontes": [
+      "Lei 8.112/1990, art. 116, XII",
+      "doutrina (abuso de poder)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
+  },
+  {
     "termo": "ação controlada",
     "variantes": [],
     "significado": "Quando a polícia espera o melhor momento para agir, observando o grupo, em vez de prender na hora.",
@@ -73,6 +105,34 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "ação pública condicionada",
+    "variantes": [
+      "pública condicionada",
+      "ação penal pública condicionada"
+    ],
+    "significado": "A ação que o MP move, mas só depois da representação da vítima ou da requisição do Ministro da Justiça.",
+    "fontes": [
+      "CP, art. 100, § 1º",
+      "CPP, art. 24"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "ação pública incondicionada",
+    "variantes": [
+      "pública incondicionada",
+      "ação penal pública incondicionada"
+    ],
+    "significado": "A ação que o MP move sozinho, sem depender da vontade da vítima.",
+    "fontes": [
+      "CP, art. 100",
+      "CPP, art. 24"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
   },
   {
     "termo": "acareações",
@@ -145,6 +205,16 @@
     "criado_em": "2026-11-26T22:48:31.021278+00:00"
   },
   {
+    "termo": "adequação social",
+    "variantes": [],
+    "significado": "A conduta que a sociedade aceita como normal não é crime, mesmo cabendo na letra da lei.",
+    "fontes": [
+      "doutrina (adequação social)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
     "termo": "ADI 5.322",
     "variantes": [
       "ADI"
@@ -177,6 +247,31 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
+    "termo": "adjudicar",
+    "variantes": [
+      "adjudica",
+      "adjudicação"
+    ],
+    "significado": "Entregar oficialmente ao vencedor o objeto da licitação.",
+    "fontes": [
+      "Lei 14.133/2021, art. 71, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
+    "termo": "admoestação verbal",
+    "variantes": [
+      "admoestação"
+    ],
+    "significado": "Uma bronca formal do juiz, dita cara a cara, avisando a pessoa para cumprir a medida.",
+    "fontes": [
+      "Lei 11.343/2006, art. 28, § 6º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
   },
   {
     "termo": "adstrito",
@@ -224,6 +319,49 @@
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
+    "termo": "afiançado",
+    "variantes": [],
+    "significado": "Quem está solto porque prestou fiança.",
+    "fontes": [
+      "CPP, art. 46"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "afim em linha reta",
+    "variantes": [],
+    "significado": "Parente por casamento, em linha reta: sogro, sogra, genro, nora, padrasto, madrasta, enteado e enteada.",
+    "fontes": [
+      "CPP, art. 206"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "afinidade",
+    "variantes": [
+      "parente por afinidade",
+      "por afinidade"
+    ],
+    "significado": "O parentesco que vem do casamento ou da união: sogro, sogra, enteado, cunhado.",
+    "fontes": [
+      "CP, art. 121, § 2º, VII, b"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
+    "termo": "agente policial disfarçado",
+    "variantes": [],
+    "significado": "O policial que esconde que é policial para comprar ou receber a droga de quem já vinha traficando.",
+    "fontes": [
+      "Lei 11.343/2006, art. 33, § 1º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
+  },
+  {
     "termo": "agravam",
     "variantes": [
       "agravantes",
@@ -267,6 +405,16 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "alcunha",
+    "variantes": [],
+    "significado": "Apelido pelo qual a pessoa é conhecida: o \"vulgo\".",
+    "fontes": [
+      "CPP, art. 285"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
     "termo": "alegações finais",
     "variantes": [],
     "significado": "A fala final da acusação e da defesa antes da sentença, resumindo as provas.",
@@ -275,6 +423,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "aliciar",
+    "variantes": [
+      "aliciamento"
+    ],
+    "significado": "Atrair e convencer alguém com promessas, para levar a pessoa a algum lugar ou situação.",
+    "fontes": [
+      "CP, art. 149-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
   },
   {
     "termo": "alienação fiduciária",
@@ -287,6 +447,48 @@
     "criado_em": "2026-11-26T22:51:05.227943+00:00"
   },
   {
+    "termo": "alistamento eleitoral",
+    "variantes": [],
+    "significado": "A inscrição como eleitor, que dá o título de eleitor.",
+    "fontes": [
+      "CF, art. 14, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
+  },
+  {
+    "termo": "alto-mar",
+    "variantes": [],
+    "significado": "O mar aberto, longe da costa, que não pertence a nenhum país.",
+    "fontes": [
+      "CP, art. 5º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
+  },
+  {
+    "termo": "alvará de soltura",
+    "variantes": [],
+    "significado": "A ordem escrita do juiz para soltar o preso.",
+    "fontes": [
+      "Lei 13.869/2019, art. 12, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:41.576039+00:00"
+  },
+  {
+    "termo": "ambiente imediato, mediato e relacionado",
+    "variantes": [],
+    "significado": "Imediato: onde estão o corpo e os principais vestígios; mediato: a área em volta, ligada a ele; relacionado: outro lugar ligado ao crime, mesmo sem ligação geográfica direta. Os três são isolados.",
+    "fontes": [
+      "CPP, art. 158-B, II",
+      "CEBRASPE-2023-POLCALPAP-q37 (gabarito C)",
+      "CEBRASPE-2023-POLCALPER-q36 (gabarito E)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "ampla defesa",
     "variantes": [],
     "significado": "O direito de usar todos os meios legais para se defender, inclusive ter advogado.",
@@ -295,6 +497,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "anistia",
+    "variantes": [],
+    "significado": "Perdão dado por lei, que apaga o crime para os fatos que ela alcança.",
+    "fontes": [
+      "CF, art. 48, VIII",
+      "Lei 8.072/1990, art. 2º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:46.411710+00:00"
   },
   {
     "termo": "anonimato",
@@ -315,6 +528,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:46:13.588098+00:00"
+  },
+  {
+    "termo": "anterioridade",
+    "variantes": [],
+    "significado": "No Direito Penal, a lei tem de existir antes do fato; lei feita depois não pune o que já passou.",
+    "fontes": [
+      "CF, art. 5º, XXXIX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
   },
   {
     "termo": "anti-radar",
@@ -371,6 +594,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "aplicação imediata",
+    "variantes": [],
+    "significado": "Vale desde já, sem precisar esperar uma lei que regulamente.",
+    "fontes": [
+      "CF, art. 5º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
+  },
+  {
     "termo": "apropriação indébita",
     "variantes": [],
     "significado": "Ficar com o que é dos outros e que já estava, de forma legítima, na sua mão.",
@@ -389,6 +622,34 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "arbitrariamente",
+    "variantes": [
+      "arbitrária",
+      "arbitrário",
+      "arbitrárias",
+      "arbitrários"
+    ],
+    "significado": "Sem base na lei, por capricho de quem manda.",
+    "fontes": [
+      "DUDH, art. 9º",
+      "DUDH, art. 17"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
+    "termo": "ardil",
+    "variantes": [
+      "artifício"
+    ],
+    "significado": "Truque, encenação ou conversa armada para enganar alguém.",
+    "fontes": [
+      "CP, art. 171"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
   },
   {
     "termo": "área crítica de visão",
@@ -460,6 +721,28 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "artefato análogo",
+    "variantes": [],
+    "significado": "Objeto que funciona como explosivo, mesmo sem ser um explosivo de fábrica.",
+    "fontes": [
+      "CP, art. 155, § 4º-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:46.411710+00:00"
+  },
+  {
+    "termo": "ascendente",
+    "variantes": [
+      "ascendentes"
+    ],
+    "significado": "Parente de quem a pessoa descende: pai, mãe, avô, avó, bisavô.",
+    "fontes": [
+      "ECA, art. 83, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
     "termo": "asilo inviolável",
     "variantes": [],
     "significado": "Lugar protegido: ninguém entra na casa sem o morador deixar, salvo nos casos que a Constituição lista.",
@@ -468,6 +751,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "asilo político",
+    "variantes": [],
+    "significado": "Proteção que um país dá ao estrangeiro perseguido por motivo político no país dele.",
+    "fontes": [
+      "CF, art. 4º, X"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
   },
   {
     "termo": "assentamento de registro civil",
@@ -490,6 +783,16 @@
     "criado_em": "2026-11-26T22:47:42.485495+00:00"
   },
   {
+    "termo": "assistente técnico",
+    "variantes": [],
+    "significado": "Especialista indicado pela parte para analisar a perícia; atua depois de admitido pelo juiz e de pronto o laudo oficial.",
+    "fontes": [
+      "CPP, art. 159, §§ 3º e 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
     "termo": "atestado de antecedentes",
     "variantes": [
       "atestados de antecedentes"
@@ -500,6 +803,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "atividade econômica",
+    "variantes": [],
+    "significado": "Vender produto ou serviço no mercado, como uma empresa comum.",
+    "fontes": [
+      "CF, art. 173, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
   },
   {
     "termo": "atividade remunerada ao veículo",
@@ -547,6 +860,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "ato de provimento",
+    "variantes": [],
+    "significado": "O ato que preenche o cargo, como a nomeação publicada no Diário Oficial.",
+    "fontes": [
+      "Lei 8.112/1990, art. 13, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
     "termo": "ato impugnado",
     "variantes": [],
     "significado": "O ato que está sendo contestado, aquele contra o qual se reclama.",
@@ -565,6 +888,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "ato jurídico perfeito",
+    "variantes": [],
+    "significado": "O ato que já se completou pela lei do tempo em que foi feito, como um contrato já assinado.",
+    "fontes": [
+      "CF, art. 5º, XXXVI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
   },
   {
     "termo": "ato lesivo",
@@ -590,6 +923,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "ato vinculado",
+    "variantes": [
+      "atos vinculados"
+    ],
+    "significado": "O ato em que a lei já diz tudo o que a Administração tem de fazer, sem margem de escolha.",
+    "fontes": [
+      "doutrina (elementos do ato administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
   },
   {
     "termo": "atos decisórios",
@@ -624,6 +969,48 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "audiência preliminar",
+    "variantes": [],
+    "significado": "A primeira audiência do Juizado, antes de qualquer denúncia, para tentar o acordo do prejuízo e a transação penal.",
+    "fontes": [
+      "Lei 9.099/1995, art. 72"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
+    "termo": "autarquia",
+    "variantes": [
+      "autarquias"
+    ],
+    "significado": "Serviço autônomo criado por lei, com personalidade, patrimônio e receita próprios, para fazer atividade típica da Administração.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 5º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
+  },
+  {
+    "termo": "auto circunstanciado",
+    "variantes": [],
+    "significado": "O documento que conta em detalhes como foi a diligência: hora, local, o que foi achado e quem acompanhou.",
+    "fontes": [
+      "CPP, art. 245, § 7º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "auto de apreensão",
+    "variantes": [],
+    "significado": "O documento formal que a autoridade policial lavra ao apreender o adolescente em flagrante de ato com violência ou grave ameaça.",
+    "fontes": [
+      "ECA, art. 173"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
     "termo": "auto de infração",
     "variantes": [],
     "significado": "O documento em que o agente registra a infração na hora.",
@@ -634,6 +1021,18 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "auto de prisão em flagrante",
+    "variantes": [
+      "auto de flagrante"
+    ],
+    "significado": "O documento que a autoridade lavra na delegacia com o que disseram o condutor, as testemunhas e o preso.",
+    "fontes": [
+      "CPP, art. 304"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
     "termo": "autodeterminação dos povos",
     "variantes": [],
     "significado": "Cada povo decide o próprio destino, sem outro país mandar nele.",
@@ -642,6 +1041,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "autoexecutoriedade",
+    "variantes": [],
+    "significado": "A Administração executa a própria decisão, sem pedir antes ao Judiciário.",
+    "fontes": [
+      "doutrina (atributos do poder de polícia)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
   },
   {
     "termo": "autoincriminação",
@@ -688,6 +1097,40 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "autoridade sanitária",
+    "variantes": [],
+    "significado": "O órgão de saúde pública que fiscaliza produtos e substâncias; aqui, ele acompanha a destruição da droga.",
+    "fontes": [
+      "Lei 11.343/2006, art. 50, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
+  },
+  {
+    "termo": "autotutela",
+    "variantes": [],
+    "significado": "O poder da Administração de rever os próprios atos: anula o ilegal e revoga o inconveniente, sem precisar ir ao juiz.",
+    "fontes": [
+      "Lei 9.784/1999, art. 53"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
+    "termo": "avocação",
+    "variantes": [
+      "avocar",
+      "avoca",
+      "avocada"
+    ],
+    "significado": "O chefe puxar para si, por um tempo, uma decisão que era de um órgão subordinado a ele.",
+    "fontes": [
+      "Lei 9.784/1999, art. 15"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
   },
   {
     "termo": "baixa do registro",
@@ -752,6 +1195,26 @@
     "criado_em": "2026-11-26T22:47:10.933922+00:00"
   },
   {
+    "termo": "bem de uso comum do povo",
+    "variantes": [],
+    "significado": "Bem que é de todos, e que ninguém pode tomar só para si.",
+    "fontes": [
+      "CF, art. 225"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
+  },
+  {
+    "termo": "bens e serviços comuns",
+    "variantes": [],
+    "significado": "O que dá para descrever no edital com especificação usual de mercado, com padrão de desempenho e qualidade objetivo.",
+    "fontes": [
+      "Lei 14.133/2021, art. 6º, XIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
     "termo": "boa-fé",
     "variantes": [],
     "significado": "Quando a pessoa age sem saber que tem algo errado.",
@@ -760,6 +1223,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "boletim de ocorrência circunstanciada",
+    "variantes": [],
+    "significado": "Registro detalhado do fato, que pode substituir o auto de apreensão no flagrante sem violência nem grave ameaça.",
+    "fontes": [
+      "ECA, art. 173, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
   },
   {
     "termo": "bons antecedentes",
@@ -815,6 +1288,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "caça profissional",
+    "variantes": [],
+    "significado": "Caçar como meio de vida, para vender os animais ou o que se tira deles.",
+    "fontes": [
+      "Lei 9.605/1998, art. 29, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "cadeia de custódia",
     "variantes": [],
     "significado": "O registro de toda a vida do vestígio: quem achou, quem pegou, por onde passou e com quem ficou, até o descarte.",
@@ -823,6 +1306,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "CADI",
+    "variantes": [],
+    "significado": "Cônjuge, Ascendente, Descendente e Irmão: quem recebe o direito de representar ou de dar queixa quando a vítima morre ou é declarada ausente.",
+    "fontes": [
+      "CPP, art. 24, § 1º",
+      "CPP, art. 31"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
   },
   {
     "termo": "CadÚnico",
@@ -835,6 +1329,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:46:56.983906+00:00"
+  },
+  {
+    "termo": "calendário comum",
+    "variantes": [],
+    "significado": "O calendário do dia a dia: o mês tem os dias que tem (28, 29, 30 ou 31), sem pular fim de semana nem feriado.",
+    "fontes": [
+      "CP, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
   },
   {
     "termo": "calibre",
@@ -891,6 +1395,31 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "capacidade eleitoral ativa",
+    "variantes": [
+      "capacidade ativa"
+    ],
+    "significado": "O direito de votar.",
+    "fontes": [
+      "CF, art. 14, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
+  },
+  {
+    "termo": "capacidade eleitoral passiva",
+    "variantes": [
+      "capacidade passiva"
+    ],
+    "significado": "O direito de ser votado, de ser candidato.",
+    "fontes": [
+      "CF, art. 14, § 4º",
+      "CEBRASPE-2021-PCSEESC-q40 (gabarito C)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
   },
   {
     "termo": "capacidade psicomotora",
@@ -1066,6 +1595,26 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "censura prévia",
+    "variantes": [],
+    "significado": "Controle do que vai ser publicado ou dito antes de sair, por alguém que pode barrar.",
+    "fontes": [
+      "CADH, art. 13"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
+    "termo": "central de custódia",
+    "variantes": [],
+    "significado": "O depósito oficial dos vestígios no Instituto de Criminalística, onde tudo que entra e sai é registrado.",
+    "fontes": [
+      "CPP, art. 158-E"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "cerração",
     "variantes": [],
     "significado": "Neblina bem fechada, que quase não deixa ver a pista.",
@@ -1120,6 +1669,18 @@
     "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
+    "termo": "chassi",
+    "variantes": [
+      "chassis"
+    ],
+    "significado": "A estrutura de baixo do veículo, o esqueleto dele, onde vem gravado o número que identifica aquele carro.",
+    "fontes": [
+      "CP, art. 311"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
+  },
+  {
     "termo": "chave falsa",
     "variantes": [],
     "significado": "Qualquer instrumento usado no lugar da chave verdadeira, como gazua, grampo ou cópia feita sem o dono saber.",
@@ -1128,6 +1689,30 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "chefe de Estado",
+    "variantes": [
+      "chefia de Estado"
+    ],
+    "significado": "Quem representa o país diante dos outros países: mantém relações com Estados estrangeiros e celebra tratados.",
+    "fontes": [
+      "CF, art. 84, VII e VIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
+    "termo": "chefe de governo",
+    "variantes": [
+      "chefia de governo"
+    ],
+    "significado": "Quem dirige a máquina do governo: nomeia os Ministros e comanda a administração federal.",
+    "fontes": [
+      "CF, art. 84, I e II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
   },
   {
     "termo": "ciclofaixa",
@@ -1276,6 +1861,29 @@
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
+    "termo": "coabita",
+    "variantes": [
+      "coabitar",
+      "coabitação"
+    ],
+    "significado": "Mora junto, na mesma casa.",
+    "fontes": [
+      "CP, art. 182, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
+  },
+  {
+    "termo": "coação ilegal",
+    "variantes": [],
+    "significado": "Pressão ou restrição contra alguém sem base na lei, como uma prisão sem motivo legal.",
+    "fontes": [
+      "CPP, art. 648"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
+  },
+  {
     "termo": "coação irresistível",
     "variantes": [],
     "significado": "Ser forçado de um jeito que não dava para resistir.",
@@ -1296,6 +1904,16 @@
     "criado_em": "2026-11-26T22:50:15.057402+00:00"
   },
   {
+    "termo": "coercibilidade",
+    "variantes": [],
+    "significado": "A decisão de polícia se impõe ao particular, querendo ele ou não.",
+    "fontes": [
+      "doutrina (atributos do poder de polícia)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
+  },
+  {
     "termo": "coisa achada",
     "variantes": [],
     "significado": "Objeto perdido por alguém e encontrado por outra pessoa.",
@@ -1304,6 +1922,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "coisa alheia móvel",
+    "variantes": [],
+    "significado": "Um bem que pode ser levado de um lugar para outro e que é de outra pessoa.",
+    "fontes": [
+      "CP, art. 155"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
   },
   {
     "termo": "coisa julgada",
@@ -1316,6 +1944,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "coisa tombada",
+    "variantes": [
+      "tombada"
+    ],
+    "significado": "Bem protegido pelo poder público por seu valor histórico, artístico ou arqueológico, que não pode ser alterado livremente.",
+    "fontes": [
+      "Lei 9.605/1998, art. 65, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "colaboração premiada",
     "variantes": [],
     "significado": "Acordo em que o investigado entrega informações em troca de benefício na pena.",
@@ -1324,6 +1964,60 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "colateral",
+    "variantes": [
+      "colaterais"
+    ],
+    "significado": "Parente do mesmo tronco que não está na linha reta de pais, avós e filhos: irmão, tio, sobrinho.",
+    "fontes": [
+      "ECA, art. 83, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "colegiado",
+    "variantes": [],
+    "significado": "Grupo que decide ou opina em conjunto, por votação, e não por uma pessoa só.",
+    "fontes": [
+      "Lei 13.675/2018, art. 20, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
+  },
+  {
+    "termo": "comanditário",
+    "variantes": [],
+    "significado": "Sócio que só põe dinheiro na empresa e não a administra.",
+    "fontes": [
+      "Lei 8.112/1990, art. 117, X"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
+    "termo": "comarca",
+    "variantes": [
+      "comarcas"
+    ],
+    "significado": "O pedaço de território onde atua um juiz de primeira instância; pode ser uma cidade ou um grupo de cidades.",
+    "fontes": [
+      "ECA, art. 83"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "comarca contígua",
+    "variantes": [],
+    "significado": "A comarca vizinha, que faz divisa com a da residência da criança.",
+    "fontes": [
+      "ECA, art. 83, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
   },
   {
     "termo": "Comissão Interamericana",
@@ -1346,6 +2040,46 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "comparação de letra",
+    "variantes": [],
+    "significado": "Perícia que confere se um escrito é de alguém, comparando a letra com outros escritos seguros da pessoa.",
+    "fontes": [
+      "CPP, art. 174"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "compartimento habitado",
+    "variantes": [],
+    "significado": "Qualquer espaço onde alguém mora, mesmo que não seja uma casa comum: um quarto, um barraco.",
+    "fontes": [
+      "CP, art. 150, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "compensação de culpas",
+    "variantes": [],
+    "significado": "A divisão do prejuízo conforme a parte de culpa de cada lado.",
+    "fontes": [
+      "doutrina (atenuante no risco administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
+    "termo": "competência comum",
+    "variantes": [],
+    "significado": "Tarefa que União, Estados, DF e Municípios fazem juntos.",
+    "fontes": [
+      "CF, art. 23"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
     "termo": "competência concorrente",
     "variantes": [
       "concorrentemente"
@@ -1356,6 +2090,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
+    "termo": "competência consultiva",
+    "variantes": [
+      "consultiva"
+    ],
+    "significado": "Poder de dar opinião e conselho, sem obrigar ninguém a seguir.",
+    "fontes": [
+      "Lei 13.675/2018, art. 20, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
   },
   {
     "termo": "competência privativa",
@@ -1371,6 +2117,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:48:59.727218+00:00"
+  },
+  {
+    "termo": "competência suplementar",
+    "variantes": [],
+    "significado": "O poder do Estado de completar as normas gerais da União com regras para a sua realidade.",
+    "fontes": [
+      "CF, art. 24, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
   },
   {
     "termo": "composição dos danos civis",
@@ -1403,6 +2159,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "comutar penas",
+    "variantes": [
+      "comutação de penas"
+    ],
+    "significado": "Trocar a pena por outra mais leve.",
+    "fontes": [
+      "CF, art. 84, XII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
   },
   {
     "termo": "concessionária ou permissionária de serviço público",
@@ -1455,6 +2223,27 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "condição de procedibilidade",
+    "variantes": [],
+    "significado": "O requisito sem o qual a ação penal nem pode começar, como a representação na ação condicionada.",
+    "fontes": [
+      "CPP, art. 5º, § 4º",
+      "CPP, art. 24"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "condução coercitiva",
+    "variantes": [],
+    "significado": "Levar a pessoa à força até a autoridade para depor.",
+    "fontes": [
+      "Lei 13.869/2019, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:41.576039+00:00"
+  },
+  {
     "termo": "conexão",
     "variantes": [],
     "significado": "Ligação entre crimes diferentes (um feito para esconder o outro, por exemplo) que faz os processos andarem juntos.",
@@ -1465,6 +2254,19 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "confisco",
+    "variantes": [
+      "confiscado",
+      "confiscada"
+    ],
+    "significado": "O bem ligado ao crime é perdido para o Estado, sem indenização.",
+    "fontes": [
+      "CF, art. 243"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
+  },
+  {
     "termo": "confissão formal e circunstanciada",
     "variantes": [],
     "significado": "Confessar oficialmente e com detalhes: contar o que fez, como, quando e onde.",
@@ -1473,6 +2275,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "congruente",
+    "variantes": [],
+    "significado": "Coerente: a explicação combina com a decisão tomada.",
+    "fontes": [
+      "Lei 9.784/1999, art. 50, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
   },
   {
     "termo": "conjunção carnal",
@@ -1507,6 +2319,57 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "Conselho da República",
+    "variantes": [],
+    "significado": "Grupo de consulta do Presidente (o Vice, os chefes da Câmara e do Senado, líderes, o Ministro da Justiça e seis cidadãos natos) que se pronuncia sobre intervenção federal, estado de defesa e estado de sítio.",
+    "fontes": [
+      "CF, art. 89",
+      "CF, art. 90"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
+    "termo": "Conselho de Defesa Nacional",
+    "variantes": [],
+    "significado": "Órgão de consulta do Presidente para soberania e defesa, com o Vice, os chefes do Congresso, ministros e os Comandantes das três Forças.",
+    "fontes": [
+      "CF, art. 91"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
+    "termo": "Conselho Tutelar",
+    "variantes": [],
+    "significado": "Órgão permanente e autônomo, que não faz parte da Justiça, encarregado de zelar pelos direitos da criança e do adolescente.",
+    "fontes": [
+      "ECA, art. 131"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "consentimento do ofendido",
+    "variantes": [],
+    "significado": "A vítima concorda com o fato que atinge um bem dela, do qual pode abrir mão; para a doutrina, isso pode tirar a ilicitude.",
+    "fontes": [
+      "doutrina (consentimento do ofendido)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
+  },
+  {
+    "termo": "conspurcar",
+    "variantes": [],
+    "significado": "Sujar, manchar.",
+    "fontes": [
+      "Lei 9.605/1998, art. 65"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "consulta pública",
     "variantes": [],
     "significado": "Prazo em que a proposta de norma fica aberta na internet para qualquer pessoa mandar sugestões antes da decisão.",
@@ -1538,6 +2401,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "continuidade normativo-típica",
+    "variantes": [],
+    "significado": "Quando a lei revoga um artigo, mas a mesma conduta continua crime em outro artigo: mudou o endereço, não o crime.",
+    "fontes": [
+      "CEBRASPE-2020-PCDFAGENT-q62"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
   },
   {
     "termo": "contrabando",
@@ -1583,6 +2456,16 @@
     "criado_em": "2026-11-26T22:48:31.021278+00:00"
   },
   {
+    "termo": "contraperícia",
+    "variantes": [],
+    "significado": "Uma nova perícia sobre o mesmo material, para conferir ou contestar a primeira.",
+    "fontes": [
+      "CPP, art. 158-B, IX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "contraprova",
     "variantes": [],
     "significado": "O direito de fazer outro exame para contestar o primeiro.",
@@ -1591,6 +2474,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:46:41.907312+00:00"
+  },
+  {
+    "termo": "contratação direta",
+    "variantes": [],
+    "significado": "Contratar sem licitação, por dispensa ou por inexigibilidade, mas sempre com processo instruído.",
+    "fontes": [
+      "Lei 14.133/2021, art. 72"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
   },
   {
     "termo": "contravenções penais",
@@ -1628,6 +2521,21 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "convalidação",
+    "variantes": [
+      "convalidados",
+      "convalidar",
+      "convalida",
+      "convalidado"
+    ],
+    "significado": "Consertar um ato com defeito sanável, em vez de anulá-lo: o ato continua valendo, agora sem o defeito.",
+    "fontes": [
+      "Lei 9.784/1999, art. 55"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
+  },
+  {
     "termo": "convenção ou acordo coletivo",
     "variantes": [
       "acordo coletivo",
@@ -1652,6 +2560,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "corréus",
+    "variantes": [
+      "corréu"
+    ],
+    "significado": "Os outros réus do mesmo processo.",
+    "fontes": [
+      "Lei 12.850/2013, art. 5º, VI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:16.340705+00:00"
   },
   {
     "termo": "corrupção passiva",
@@ -1685,6 +2605,42 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "CPI",
+    "variantes": [
+      "comissão parlamentar de inquérito",
+      "comissões parlamentares de inquérito"
+    ],
+    "significado": "Comissão Parlamentar de Inquérito: a comissão da Câmara, do Senado ou das duas que investiga um fato determinado, por prazo certo.",
+    "fontes": [
+      "CF, art. 58, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
+    "termo": "credenciamento",
+    "variantes": [],
+    "significado": "Chamamento público em que todos os interessados que cumprem os requisitos se cadastram para prestar o serviço ou fornecer o bem quando forem chamados.",
+    "fontes": [
+      "Lei 14.133/2021, art. 6º, XLIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
+    "termo": "crédito tributário",
+    "variantes": [
+      "constituição definitiva do crédito tributário"
+    ],
+    "significado": "O imposto já calculado e cobrado oficialmente pelo fisco; a \"constituição definitiva\" é quando essa cobrança fica fechada.",
+    "fontes": [
+      "CP, art. 334",
+      "2019-q101"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
+  },
+  {
     "termo": "crime de responsabilidade",
     "variantes": [
       "crimes de responsabilidade"
@@ -1695,6 +2651,37 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "crime formal",
+    "variantes": [],
+    "significado": "Crime que se consuma com a conduta, mesmo sem o resultado; se o resultado vem, é só exaurimento (a extorsão, por exemplo).",
+    "fontes": [
+      "doutrina (classificação dos crimes)",
+      "CEBRASPE-2022-q1873147"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "crime impossível",
+    "variantes": [],
+    "significado": "Quando o crime não tinha como acontecer, porque o meio não funciona de jeito nenhum ou o objeto não serve; nem a tentativa é punida.",
+    "fontes": [
+      "CP, art. 17"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "crime material",
+    "variantes": [],
+    "significado": "Crime que só se consuma com o resultado (no homicídio, a morte).",
+    "fontes": [
+      "doutrina (classificação dos crimes)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
   },
   {
     "termo": "crime político",
@@ -1708,6 +2695,38 @@
     "criado_em": "2026-10-12T17:48:54.523099+00:00"
   },
   {
+    "termo": "crime propriamente militar",
+    "variantes": [],
+    "significado": "Crime que só o militar pode cometer, justamente por ser militar.",
+    "fontes": [
+      "CF, art. 5º, LXI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
+  },
+  {
+    "termo": "crime próprio",
+    "variantes": [],
+    "significado": "Crime que exige uma qualidade especial de quem o pratica (o peculato exige ser funcionário público).",
+    "fontes": [
+      "doutrina (classificação dos crimes)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "crimes de direito comum",
+    "variantes": [
+      "crime de direito comum"
+    ],
+    "significado": "Os crimes comuns, como roubo e homicídio, e não os crimes políticos.",
+    "fontes": [
+      "DUDH, art. 14"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
     "termo": "crimes hediondos",
     "variantes": [
       "hediondos"
@@ -1718,6 +2737,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "critério biológico",
+    "variantes": [],
+    "significado": "A regra que olha só um dado da pessoa, sem perguntar se ela entendia: no menor de 18 anos, basta a idade.",
+    "fontes": [
+      "CP, art. 27"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
+  },
+  {
+    "termo": "critério biopsicológico",
+    "variantes": [
+      "biopsicológico"
+    ],
+    "significado": "A regra que pede duas coisas para livrar: a doença mental e, por causa dela, a incapacidade de entender ou de se controlar na hora do fato.",
+    "fontes": [
+      "CP, art. 26"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
   },
   {
     "termo": "CRLV",
@@ -1754,6 +2795,16 @@
     "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
+    "termo": "croqui",
+    "variantes": [],
+    "significado": "Desenho simples do local que mostra onde cada coisa estava.",
+    "fontes": [
+      "CPP, art. 158-B, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "CRV",
     "variantes": [
       "Certificado de Registro de Veículo"
@@ -1778,6 +2829,16 @@
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
   },
   {
+    "termo": "culpa concorrente",
+    "variantes": [],
+    "significado": "Quando a vítima também ajudou a causar o dano: a indenização diminui, mas não some.",
+    "fontes": [
+      "doutrina (atenuante no risco administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
     "termo": "culpa consciente",
     "variantes": [],
     "significado": "Quando a pessoa vê o risco, mas acredita de verdade que o resultado não vai acontecer. É culpa, e não dolo.",
@@ -1787,6 +2848,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "culpa exclusiva da vítima",
+    "variantes": [],
+    "significado": "Quando o dano aconteceu só por causa da própria vítima: o Estado não paga.",
+    "fontes": [
+      "doutrina (excludentes no risco administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
   },
   {
     "termo": "culpabilidade",
@@ -1812,6 +2883,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "curso de formação",
+    "variantes": [],
+    "significado": "A etapa do concurso em que o candidato aprende o serviço na prática e ainda pode ser eliminado.",
+    "fontes": [
+      "Lei 9.654/1998, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
   },
   {
     "termo": "curso de reciclagem",
@@ -1846,6 +2927,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
+    "termo": "dados cadastrais",
+    "variantes": [
+      "informações cadastrais"
+    ],
+    "significado": "Os dados de cadastro da pessoa num órgão ou numa empresa, sem o conteúdo das conversas dela.",
+    "fontes": [
+      "CPP, art. 13-A",
+      "CPP, art. 13-B, § 2º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
+  },
+  {
+    "termo": "dados de conexão",
+    "variantes": [],
+    "significado": "Hora, data, início, término, duração, IP e terminal de origem de uma conexão à internet.",
+    "fontes": [
+      "Lei 12.850/2013, art. 10-A, § 1º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:16.340705+00:00"
   },
   {
     "termo": "de ofício",
@@ -1890,6 +2994,47 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "declaração interpretativa",
+    "variantes": [],
+    "significado": "O aviso de um país, ao entrar no tratado, de como ele entende um artigo.",
+    "fontes": [
+      "Decreto 678/1992, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
+    "termo": "declarado ausente",
+    "variantes": [],
+    "significado": "A pessoa desaparecida que o juiz, por decisão, declara ausente.",
+    "fontes": [
+      "CPP, art. 24, § 1º",
+      "CPP, art. 31"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "decoro",
+    "variantes": [],
+    "significado": "A respeitabilidade da pessoa, o respeito que ela merece pelo que é; a injúria rebaixa isso.",
+    "fontes": [
+      "CP, art. 140"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
+    "termo": "decreto autônomo",
+    "variantes": [],
+    "significado": "O decreto que o Presidente edita direto, sem regulamentar uma lei, nas duas matérias do art. 84, VI, da CF.",
+    "fontes": [
+      "CF, art. 84, VI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
+  },
+  {
     "termo": "defensor constituído",
     "variantes": [],
     "significado": "Advogado contratado pelo próprio acusado.",
@@ -1908,6 +3053,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "defesa civil",
+    "variantes": [],
+    "significado": "As ações de prevenção e socorro em desastres, como enchente e deslizamento.",
+    "fontes": [
+      "CF, art. 144, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
   },
   {
     "termo": "defesa prévia",
@@ -1930,6 +3085,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "deformidade permanente",
+    "variantes": [],
+    "significado": "Um estrago no corpo que não some mais, como uma cicatriz grande no rosto.",
+    "fontes": [
+      "CP, art. 129, § 2º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
     "termo": "denúncia",
     "variantes": [
       "queixa"
@@ -1940,6 +3105,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "denúncia substitutiva",
+    "variantes": [],
+    "significado": "A denúncia que o MP oferece no lugar da queixa que repudiou, na ação privada subsidiária.",
+    "fontes": [
+      "CPP, art. 29"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
   },
   {
     "termo": "depositário infiel",
@@ -1963,6 +3138,31 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "desacato",
+    "variantes": [
+      "desacatar"
+    ],
+    "significado": "Humilhar, xingar ou desrespeitar o funcionário público no serviço ou por causa dele.",
+    "fontes": [
+      "CP, art. 331"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
+  },
+  {
+    "termo": "desapropriação",
+    "variantes": [
+      "desapropriar",
+      "desapropriações"
+    ],
+    "significado": "Quando o poder público toma um bem particular por necessidade, utilidade pública ou interesse social, pagando indenização.",
+    "fontes": [
+      "CF, art. 5º, XXIV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
+  },
+  {
     "termo": "descaminho",
     "variantes": [],
     "significado": "Crime de iludir, no todo ou em parte, o pagamento de direito ou imposto devido pela entrada, pela saída ou pelo consumo de mercadoria: driblar o imposto.",
@@ -1973,6 +3173,16 @@
     "criado_em": "2026-11-26T22:00:29.659516+00:00"
   },
   {
+    "termo": "descaracterização",
+    "variantes": [],
+    "significado": "Modificar o objeto até ele não servir mais para o uso que tinha.",
+    "fontes": [
+      "Lei 9.605/1998, art. 25, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "descarga livre",
     "variantes": [],
     "significado": "Escapamento sem o silenciador funcionando: o carro ou a moto fica barulhento.",
@@ -1981,6 +3191,30 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:47:42.485495+00:00"
+  },
+  {
+    "termo": "descentralização",
+    "variantes": [
+      "descentralizada",
+      "descentralizar"
+    ],
+    "significado": "Passar uma atividade para outra pessoa, como uma autarquia criada por lei ou uma empresa privada por contrato.",
+    "fontes": [
+      "doutrina (desconcentração x descentralização)",
+      "Decreto-Lei 200/1967, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
+  },
+  {
+    "termo": "desconcentração",
+    "variantes": [],
+    "significado": "Repartir tarefas entre órgãos da mesma pessoa jurídica, como dividir um Ministério em secretarias.",
+    "fontes": [
+      "doutrina (desconcentração x descentralização)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
   },
   {
     "termo": "desconsiderada",
@@ -1995,6 +3229,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "descriminante putativa",
+    "variantes": [
+      "descriminantes putativas"
+    ],
+    "significado": "Uma situação de defesa ou de necessidade que só existe na cabeça do agente: por erro, ele acha que está autorizado a agir.",
+    "fontes": [
+      "CP, art. 20, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
+  },
+  {
     "termo": "desentranhada",
     "variantes": [
       "desentranhadas",
@@ -2007,6 +3253,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "desidiosa",
+    "variantes": [
+      "desidioso",
+      "desídia"
+    ],
+    "significado": "Com desleixo e descaso: fazer o trabalho de qualquer jeito, sem cuidado.",
+    "fontes": [
+      "Lei 8.112/1990, art. 117, XV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
   },
   {
     "termo": "desistência voluntária",
@@ -2062,6 +3321,18 @@
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
+    "termo": "desquitado",
+    "variantes": [
+      "cônjuge desquitado"
+    ],
+    "significado": "Nome antigo para a pessoa separada do marido ou da mulher na Justiça.",
+    "fontes": [
+      "CP, art. 182, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
+  },
+  {
     "termo": "destreza",
     "variantes": [],
     "significado": "Habilidade de mão leve, como a do batedor de carteira que a vítima nem percebe.",
@@ -2070,6 +3341,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "desvio de finalidade",
+    "variantes": [
+      "desvio de poder"
+    ],
+    "significado": "Usar o poder dentro da competência, mas para um fim diferente do que a lei quer.",
+    "fontes": [
+      "doutrina (abuso de poder)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
   },
   {
     "termo": "detenção",
@@ -2125,6 +3408,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "diferida",
+    "variantes": [
+      "diferido"
+    ],
+    "significado": "Adiada para depois: a publicidade diferida das propostas só acontece na abertura delas.",
+    "fontes": [
+      "Lei 14.133/2021, art. 13"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
     "termo": "dignidade da pessoa humana",
     "variantes": [],
     "significado": "O valor que toda pessoa tem só por ser pessoa: ninguém pode ser tratado como coisa.",
@@ -2167,6 +3462,28 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "direitos adquiridos",
+    "variantes": [
+      "direito adquirido"
+    ],
+    "significado": "O direito que a pessoa já ganhou de acordo com as regras da época e que uma mudança depois não tira.",
+    "fontes": [
+      "Lei 9.784/1999, art. 53"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
+  },
+  {
+    "termo": "dirimir",
+    "variantes": [],
+    "significado": "Resolver, tirar (uma dúvida).",
+    "fontes": [
+      "CPP, art. 156, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "disco diagrama",
     "variantes": [
       "disco"
@@ -2177,6 +3494,21 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:39.713396+00:00"
+  },
+  {
+    "termo": "discricionário",
+    "variantes": [
+      "discricionária",
+      "discricionários",
+      "discricionárias",
+      "discricionariedade"
+    ],
+    "significado": "O ato em que a lei deixa à Administração uma margem de escolha, pela conveniência e pela oportunidade, dentro dos limites da lei.",
+    "fontes": [
+      "doutrina (elementos do ato administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
   },
   {
     "termo": "display",
@@ -2229,6 +3561,19 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "dolo direto de 2º grau",
+    "variantes": [
+      "dolo direto de segundo grau"
+    ],
+    "significado": "Os resultados que o agente não buscava, mas que vêm junto, sem escapatória, com o meio que ele escolheu (a bomba que mata todos para atingir um).",
+    "fontes": [
+      "doutrina (graus do dolo)",
+      "CEBRASPE-2023-POLCALPER2-q43"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
     "termo": "dolo eventual",
     "variantes": [],
     "significado": "Quando a pessoa não quer exatamente o resultado, mas topa o risco de ele acontecer.",
@@ -2239,6 +3584,16 @@
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
   },
   {
+    "termo": "domicílio eleitoral",
+    "variantes": [],
+    "significado": "O lugar onde a pessoa está inscrita como eleitora; o candidato tem de tê-lo na circunscrição em que concorre.",
+    "fontes": [
+      "CF, art. 14, § 3º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
+  },
+  {
     "termo": "dosimetria",
     "variantes": [],
     "significado": "É a conta que o juiz faz para chegar ao tamanho da pena, em três fases.",
@@ -2247,6 +3602,38 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "dúvida fundada",
+    "variantes": [],
+    "significado": "Dúvida séria, com motivo concreto, e não um palpite.",
+    "fontes": [
+      "ECA, art. 109"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "eclesiásticos",
+    "variantes": [
+      "eclesiástico"
+    ],
+    "significado": "Membros do clero, como os padres.",
+    "fontes": [
+      "CF, art. 143, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
+    "termo": "economicidade",
+    "variantes": [],
+    "significado": "Gastar bem o dinheiro público: o resultado certo pelo menor custo.",
+    "fontes": [
+      "CF, art. 70"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
   },
   {
     "termo": "efeito suspensivo",
@@ -2269,6 +3656,16 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "efeitos patrimoniais contínuos",
+    "variantes": [],
+    "significado": "Efeito em dinheiro que se repete, como um adicional pago todo mês.",
+    "fontes": [
+      "Lei 9.784/1999, art. 54, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
+  },
+  {
     "termo": "efeitos penais",
     "variantes": [],
     "significado": "As consequências criminais da condenação, como gerar reincidência; somem quando o fato deixa de ser crime.",
@@ -2277,6 +3674,41 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "eficácia horizontal",
+    "variantes": [],
+    "significado": "Os direitos fundamentais valem também na relação entre particulares (pessoa com pessoa, empresa com cliente), e não só contra o Estado.",
+    "fontes": [
+      "CEBRASPE-2020-PCDFAGENT-q58 (gabarito C)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
+  },
+  {
+    "termo": "eivados",
+    "variantes": [
+      "eivado",
+      "eivada"
+    ],
+    "significado": "Contaminados, marcados por um defeito: \"eivados de vício\" quer dizer com vício.",
+    "fontes": [
+      "Lei 9.784/1999, art. 53"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:46.541882+00:00"
+  },
+  {
+    "termo": "eivados de vício",
+    "variantes": [
+      "eivado de vício"
+    ],
+    "significado": "Contaminados por um defeito; aqui, por uma ilegalidade.",
+    "fontes": [
+      "Lei 9.784/1999, art. 53"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
   },
   {
     "termo": "elementares",
@@ -2391,6 +3823,30 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "empresa pública",
+    "variantes": [
+      "empresas públicas"
+    ],
+    "significado": "Estatal de direito privado com o capital todo do ente (no DL 200, da União), em qualquer forma de empresa.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 5º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
+  },
+  {
+    "termo": "endosso",
+    "variantes": [
+      "transmissível por endosso"
+    ],
+    "significado": "A assinatura no verso de um título que passa o crédito para outra pessoa.",
+    "fontes": [
+      "CP, art. 297, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
+  },
+  {
     "termo": "engenharia de tráfego",
     "variantes": [],
     "significado": "A parte técnica do trânsito: o desenho da via, dos cruzamentos e da sinalização para o fluxo andar com segurança.",
@@ -2399,6 +3855,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:50:48.864148+00:00"
+  },
+  {
+    "termo": "engenho",
+    "variantes": [
+      "engenho de dinamite",
+      "engenho explosivo"
+    ],
+    "significado": "O artefato montado para explodir, como a banana de dinamite ou a bomba.",
+    "fontes": [
+      "CP, art. 251",
+      "CP, art. 253"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
   },
   {
     "termo": "entidade de classe",
@@ -2411,6 +3881,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "entidade familiar",
+    "variantes": [],
+    "significado": "Grupo que a CF reconhece como família para receber a proteção do Estado, como a união estável e o pai ou a mãe com os filhos.",
+    "fontes": [
+      "CF, art. 226, §§ 3º e 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
   },
   {
     "termo": "entidade paraestatal",
@@ -2444,6 +3924,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:26.607449+00:00"
+  },
+  {
+    "termo": "equidade",
+    "variantes": [],
+    "significado": "Tratamento justo, que leva em conta a situação de cada um, em vez de tratar todos de forma idêntica.",
+    "fontes": [
+      "CF, art. 194, parágrafo único, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
   },
   {
     "termo": "equiparados",
@@ -2501,6 +3991,16 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "erro judiciário",
+    "variantes": [],
+    "significado": "A condenação injusta por falha da Justiça.",
+    "fontes": [
+      "CF, art. 5º, LXXV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
     "termo": "erro máximo admitido",
     "variantes": [
       "erro máximo admissível"
@@ -2511,6 +4011,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "erro sobre a pessoa",
+    "variantes": [
+      "erro quanto à pessoa"
+    ],
+    "significado": "Atingir uma pessoa achando que era outra; o agente responde como se tivesse atingido a que queria.",
+    "fontes": [
+      "CP, art. 20, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
   },
   {
     "termo": "escalada",
@@ -2599,6 +4111,49 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "estado puerperal",
+    "variantes": [],
+    "significado": "O abalo do corpo e da mente que pode atingir a mulher durante o parto e logo depois dele.",
+    "fontes": [
+      "CP, art. 123"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
+    "termo": "Estado-Parte",
+    "variantes": [
+      "Estados-Partes"
+    ],
+    "significado": "O país que aderiu à Convenção e se obrigou a cumpri-la.",
+    "fontes": [
+      "CADH, art. 1"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
+    "termo": "estágio probatório",
+    "variantes": [],
+    "significado": "O período de teste do servidor nomeado para cargo efetivo: ele é avaliado no trabalho antes de ganhar a estabilidade.",
+    "fontes": [
+      "Lei 8.112/1990, art. 20",
+      "CF, art. 41"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
+    "termo": "estalagem",
+    "variantes": [],
+    "significado": "Hospedaria antiga, uma pousada simples.",
+    "fontes": [
+      "CP, art. 150, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
     "termo": "estampador",
     "variantes": [
       "estampadores"
@@ -2664,6 +4219,29 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "estruturado em carreira",
+    "variantes": [
+      "estruturados em carreira",
+      "estruturada em carreira"
+    ],
+    "significado": "Com os cargos organizados em degraus (classes), em que o servidor sobe por promoção.",
+    "fontes": [
+      "CF, art. 144, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
+  },
+  {
+    "termo": "estudo prévio de impacto ambiental",
+    "variantes": [],
+    "significado": "A análise feita antes de uma obra ou atividade para medir o estrago que ela pode causar ao meio ambiente.",
+    "fontes": [
+      "CF, art. 225, § 1º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
+  },
+  {
     "termo": "etilômetro",
     "variantes": [
       "bafômetro"
@@ -2674,6 +4252,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:49:56.552805+00:00"
+  },
+  {
+    "termo": "exame complementar",
+    "variantes": [],
+    "significado": "Um segundo exame da lesão, para completar ou corrigir o primeiro.",
+    "fontes": [
+      "CPP, art. 168"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
   },
   {
     "termo": "exame de corpo de delito",
@@ -2696,6 +4284,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:46:56.983906+00:00"
+  },
+  {
+    "termo": "exame psicotécnico",
+    "variantes": [
+      "psicotécnico"
+    ],
+    "significado": "Avaliação psicológica do candidato, para ver se o perfil dele combina com o cargo.",
+    "fontes": [
+      "Lei 9.654/1998, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
   },
   {
     "termo": "exame toxicológico periódico",
@@ -2730,6 +4330,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "excepcional interesse público",
+    "variantes": [],
+    "significado": "Uma necessidade fora do comum e passageira, que não dá para esperar um concurso: é o que permite o contrato por tempo determinado.",
+    "fontes": [
+      "CF, art. 37, IX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
     "termo": "excesso de exação",
     "variantes": [],
     "significado": "Cobrar tributo que se sabe indevido, ou cobrar o devido de um jeito humilhante que a lei não autoriza.",
@@ -2738,6 +4348,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "excesso de poder",
+    "variantes": [],
+    "significado": "Quando o agente vai além da competência que a lei lhe deu.",
+    "fontes": [
+      "doutrina (abuso de poder)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
   },
   {
     "termo": "excesso doloso",
@@ -2763,6 +4383,19 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "executor das medidas",
+    "variantes": [
+      "executor da medida"
+    ],
+    "significado": "A autoridade que põe em prática as medidas do estado de defesa ou do estado de sítio; no sítio, o Presidente a designa depois de publicado o decreto.",
+    "fontes": [
+      "CF, art. 138",
+      "CF, art. 136, § 3º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
     "termo": "exercício regular de direito",
     "variantes": [],
     "significado": "Usar um direito que a lei dá, dentro dos limites dele, como o lutador dentro das regras do esporte.",
@@ -2773,6 +4406,19 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "exorbitem",
+    "variantes": [
+      "exorbitar",
+      "exorbita"
+    ],
+    "significado": "Passem do limite: o ato normativo que exorbita do poder regulamentar vai além do que a lei deixava regulamentar.",
+    "fontes": [
+      "CF, art. 49, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
     "termo": "expedição do diploma",
     "variantes": [],
     "significado": "O momento em que a Justiça Eleitoral entrega o documento que confirma a eleição; vem antes da posse.",
@@ -2781,6 +4427,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "expropriação",
+    "variantes": [
+      "expropriadas",
+      "expropriada"
+    ],
+    "significado": "O Estado toma o bem do dono; no art. 243, sem pagar indenização nenhuma.",
+    "fontes": [
+      "CF, art. 243"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
   },
   {
     "termo": "extinção da punibilidade",
@@ -2828,6 +4487,16 @@
     "criado_em": "2026-11-26T22:47:25.044476+00:00"
   },
   {
+    "termo": "faixa de fronteira",
+    "variantes": [],
+    "significado": "A faixa de até 150 km de largura ao longo das fronteiras terrestres, com ocupação e uso regulados em lei.",
+    "fontes": [
+      "CF, art. 20, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
     "termo": "falsidade ideológica",
     "variantes": [],
     "significado": "Documento verdadeiro com informação mentirosa dentro.",
@@ -2836,6 +4505,38 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "família ampliada",
+    "variantes": [
+      "família extensa"
+    ],
+    "significado": "Os parentes próximos, além de pais e filhos, com quem a criança convive e tem laço de afeto, como avós e tios.",
+    "fontes": [
+      "ECA, art. 25, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "fatos novos ou contemporâneos",
+    "variantes": [],
+    "significado": "Fatos atuais, recentes, que mostram o perigo agora, e não coisa antiga.",
+    "fontes": [
+      "CPP, art. 312, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
+    "termo": "fauna silvestre",
+    "variantes": [],
+    "significado": "Os animais das espécies nativas, migratórias e outras, da água ou da terra, que passam todo ou parte da vida no território ou nas águas do Brasil.",
+    "fontes": [
+      "Lei 9.605/1998, art. 29, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
   },
   {
     "termo": "fé pública",
@@ -2847,6 +4548,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "feminicídio",
+    "variantes": [],
+    "significado": "Matar mulher por razões da condição do sexo feminino: violência doméstica e familiar, ou menosprezo ou discriminação por ela ser mulher.",
+    "fontes": [
+      "CP, art. 121-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
   },
   {
     "termo": "fiança",
@@ -2882,6 +4593,16 @@
     "criado_em": "2026-11-26T21:59:39.713396+00:00"
   },
   {
+    "termo": "filiação partidária",
+    "variantes": [],
+    "significado": "Estar inscrito como membro de um partido político.",
+    "fontes": [
+      "CF, art. 14, § 3º, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
+  },
+  {
     "termo": "fita diagrama",
     "variantes": [
       "fita"
@@ -2906,6 +4627,73 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "flagrante diferido",
+    "variantes": [],
+    "significado": "A polícia adia a prisão para agir no momento melhor para a prova: é a ação controlada contra organização criminosa.",
+    "fontes": [
+      "Lei 12.850/2013, art. 8º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "flagrante esperado",
+    "variantes": [],
+    "significado": "A polícia, avisada do crime, só aguarda ele acontecer e prende: o flagrante vale.",
+    "fontes": [
+      "doutrina (flagrante esperado)",
+      "CEBRASPE-2021-PRFCFP3-q53"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "flagrante impróprio",
+    "variantes": [],
+    "significado": "A pessoa é perseguida logo após o crime, numa situação que faz presumir que foi ela.",
+    "fontes": [
+      "CPP, art. 302, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "flagrante preparado",
+    "variantes": [
+      "preparado ou provocado",
+      "flagrante provocado"
+    ],
+    "significado": "A polícia induz a pessoa a cometer o crime e arma tudo para ele não se consumar: o flagrante é nulo.",
+    "fontes": [
+      "doutrina (flagrante preparado)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "flagrante presumido",
+    "variantes": [
+      "presumido ou ficto",
+      "flagrante ficto"
+    ],
+    "significado": "A pessoa é encontrada logo depois do crime, sem perseguição, com a arma, o objeto ou o papel que faz presumir que foi ela.",
+    "fontes": [
+      "CPP, art. 302, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "flagrante próprio",
+    "variantes": [],
+    "significado": "Pegar a pessoa no ato do crime, ou acabando de cometê-lo.",
+    "fontes": [
+      "CPP, art. 302, I e II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
     "termo": "folguedo",
     "variantes": [
       "folguedos"
@@ -2916,6 +4704,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:47:42.485495+00:00"
+  },
+  {
+    "termo": "folha de antecedentes",
+    "variantes": [],
+    "significado": "A lista dos registros criminais da pessoa, juntada ao inquérito.",
+    "fontes": [
+      "CPP, art. 6º, VIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
+  },
+  {
+    "termo": "fonte de custeio",
+    "variantes": [
+      "fonte de custeio total"
+    ],
+    "significado": "De onde sai o dinheiro para pagar um benefício ou um serviço.",
+    "fontes": [
+      "CF, art. 195, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
   },
   {
     "termo": "fonte independente",
@@ -2962,6 +4772,38 @@
     "criado_em": "2026-11-26T22:45:58.644848+00:00"
   },
   {
+    "termo": "frações de dia",
+    "variantes": [
+      "fração de dia"
+    ],
+    "significado": "As horas que sobram numa conta de pena e não fecham um dia inteiro; na pena, elas são desprezadas.",
+    "fontes": [
+      "CP, art. 11"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
+  },
+  {
+    "termo": "fragmentariedade",
+    "variantes": [],
+    "significado": "O Direito Penal protege só um pedaço dos bens: os mais importantes, contra os ataques mais graves.",
+    "fontes": [
+      "doutrina (intervenção mínima)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "franco acesso",
+    "variantes": [],
+    "significado": "Entrada livre, sem precisar pedir licença.",
+    "fontes": [
+      "Decreto 1.655/1995, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
+  },
+  {
     "termo": "fratura de configuração circular",
     "variantes": [
       "fraturas de configuração circular",
@@ -2997,6 +4839,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "função social",
+    "variantes": [],
+    "significado": "A propriedade tem de servir também à sociedade, e não só ao dono.",
+    "fontes": [
+      "CF, art. 5º, XXIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
+  },
+  {
     "termo": "fundada suspeita",
     "variantes": [],
     "significado": "Suspeita apoiada em fato concreto, e não em mero palpite.",
@@ -3005,6 +4857,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "fundadas razões",
+    "variantes": [],
+    "significado": "Motivos concretos, apoiados em fatos, que justificam a busca na casa; palpite não basta.",
+    "fontes": [
+      "CPP, art. 240, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
   },
   {
     "termo": "FUNSET",
@@ -3018,6 +4880,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
+    "termo": "garantia da lei e da ordem",
+    "variantes": [],
+    "significado": "O uso das Forças Armadas para manter a lei e a ordem, que depende da iniciativa de um dos poderes constitucionais.",
+    "fontes": [
+      "CF, art. 142"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
   },
   {
     "termo": "garantidor",
@@ -3041,6 +4913,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "gestão quadripartite",
+    "variantes": [],
+    "significado": "Administração dividida entre quatro partes: trabalhadores, empregadores, aposentados e Governo.",
+    "fontes": [
+      "CF, art. 194, parágrafo único, VII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
+  },
+  {
     "termo": "GLP",
     "variantes": [
       "Gás Liquefeito de Petróleo"
@@ -3051,6 +4933,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
+    "termo": "gravame",
+    "variantes": [],
+    "significado": "Prejuízo, piora na situação de alguém.",
+    "fontes": [
+      "Lei 9.784/1999, art. 64, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
+    "termo": "gravidade abstrata",
+    "variantes": [],
+    "significado": "A gravidade do crime \"no papel\", pela pena ou pelo nome dele, sem olhar o que aconteceu de fato no caso.",
+    "fontes": [
+      "CPP, art. 312, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
   },
   {
     "termo": "gravoso",
@@ -3141,6 +5043,26 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "habitação coletiva",
+    "variantes": [],
+    "significado": "Lugar onde várias pessoas moram ou se hospedam, como pensão, hotel ou cortiço.",
+    "fontes": [
+      "CP, art. 150, §§ 4º e 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "habitat",
+    "variantes": [],
+    "significado": "O ambiente natural onde o animal vive.",
+    "fontes": [
+      "Lei 9.605/1998, art. 25, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "hipoteca legal",
     "variantes": [],
     "significado": "Trava sobre os imóveis do acusado, pedida pela vítima, para garantir o pagamento do que ele vier a dever.",
@@ -3183,6 +5105,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "identificação civil",
+    "variantes": [],
+    "significado": "Provar quem a pessoa é por um documento, como a carteira de identidade ou o passaporte.",
+    "fontes": [
+      "Lei 12.037/2009, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
   },
   {
     "termo": "identificação criminal",
@@ -3256,6 +5188,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "imperativo de consciência",
+    "variantes": [],
+    "significado": "Motivo de crença religiosa ou de convicção filosófica ou política que impede a pessoa de fazer atividade militar.",
+    "fontes": [
+      "CF, art. 143, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
     "termo": "imperícia",
     "variantes": [],
     "significado": "Falta de habilidade técnica de quem devia saber fazer: o profissional que erra no próprio ofício.",
@@ -3275,6 +5217,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "impetrar",
+    "variantes": [
+      "impetrado",
+      "impetrada",
+      "impetra"
+    ],
+    "significado": "Entrar com o pedido de habeas corpus, mandado de segurança ou outro remédio na Justiça.",
+    "fontes": [
+      "CPP, art. 654"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
   },
   {
     "termo": "imprescritível",
@@ -3334,6 +5290,41 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "in bonam partem",
+    "variantes": [
+      "analogia in bonam partem"
+    ],
+    "significado": "Em favor do réu; a analogia assim é admitida.",
+    "fontes": [
+      "CEBRASPE-2023-POLCALAUX-q54"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "in loco",
+    "variantes": [],
+    "significado": "No próprio local: ir lá ver de perto.",
+    "fontes": [
+      "Decreto 678/1992, art. 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
+    "termo": "in malam partem",
+    "variantes": [
+      "analogia in malam partem"
+    ],
+    "significado": "Em prejuízo do réu; a analogia assim é proibida no Direito Penal.",
+    "fontes": [
+      "CF, art. 5º, XXXIX",
+      "2019-q106"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
     "termo": "inabilitação",
     "variantes": [],
     "significado": "Ficar proibido por um tempo de exercer cargo, mandato ou função pública.",
@@ -3355,6 +5346,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "inalienáveis",
+    "variantes": [
+      "inalienável"
+    ],
+    "significado": "Que não podem ser vendidas, doadas nem passadas para outra pessoa.",
+    "fontes": [
+      "CF, art. 231, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
   },
   {
     "termo": "inalistáveis",
@@ -3386,6 +5389,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
+  },
+  {
+    "termo": "inassiduidade habitual",
+    "variantes": [],
+    "significado": "Faltar ao serviço sem causa justificada por 60 dias, intercalados, dentro de 12 meses.",
+    "fontes": [
+      "Lei 8.112/1990, art. 132, III",
+      "Lei 8.112/1990, art. 139"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
   },
   {
     "termo": "inautenticidade",
@@ -3470,6 +5484,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "indisponibilidade do interesse público",
+    "variantes": [],
+    "significado": "O administrador não é dono do interesse público: não pode abrir mão dele nem dispor dele como se fosse seu.",
+    "fontes": [
+      "doutrina (supremacia e indisponibilidade do interesse público)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
     "termo": "indisponibilidade dos bens",
     "variantes": [],
     "significado": "Os bens ficam travados: a pessoa não pode vender nem passar para outro enquanto durar a medida.",
@@ -3478,6 +5502,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "individualização da pena",
+    "variantes": [],
+    "significado": "A pena ajustada ao caso e à pessoa de cada réu.",
+    "fontes": [
+      "CF, art. 5º, XLVI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "indivisibilidade",
+    "variantes": [],
+    "significado": "Na ação privada, a vítima não escolhe quem processa: a queixa contra um obriga ao processo de todos os autores.",
+    "fontes": [
+      "CPP, art. 48"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
   },
   {
     "termo": "indulgência",
@@ -3490,6 +5534,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "indulto",
+    "variantes": [],
+    "significado": "O perdão da pena concedido pelo Presidente da República.",
+    "fontes": [
+      "CF, art. 84, XII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
     "termo": "ineficácia absoluta do meio",
     "variantes": [],
     "significado": "O meio usado não funciona de jeito nenhum para aquele crime, como uma arma de brinquedo para matar.",
@@ -3498,6 +5552,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "inelegíveis",
+    "variantes": [
+      "inelegível",
+      "inelegibilidade"
+    ],
+    "significado": "Quem não pode ser candidato. O analfabeto é inelegível e vota se quiser; o inalistável nem vota.",
+    "fontes": [
+      "CF, art. 14, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
   },
   {
     "termo": "inepta",
@@ -3518,6 +5585,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
+  },
+  {
+    "termo": "inexigibilidade",
+    "variantes": [
+      "inexigível"
+    ],
+    "significado": "Quando a licitação não é exigida porque não há como fazer disputa: a competição é inviável.",
+    "fontes": [
+      "Lei 14.133/2021, art. 74"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
+    "termo": "inexigibilidade de conduta diversa",
+    "variantes": [],
+    "significado": "Quando não dá para cobrar da pessoa que agisse de outro jeito; por isso ela não é censurada (exclui a culpabilidade).",
+    "fontes": [
+      "doutrina (elementos da culpabilidade)",
+      "CEBRASPE-2023-q2059103"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
   },
   {
     "termo": "infração continuada",
@@ -3581,6 +5671,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "ingerências",
+    "variantes": [
+      "ingerência"
+    ],
+    "significado": "Intromissões de quem se mete onde não foi chamado.",
+    "fontes": [
+      "CADH, art. 11"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
+    "termo": "iniciativa popular",
+    "variantes": [],
+    "significado": "Os próprios cidadãos apresentam um projeto de lei.",
+    "fontes": [
+      "CF, art. 14, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:34.236433+00:00"
   },
   {
     "termo": "inimigo capital",
@@ -3687,6 +5799,16 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "instrução elementar",
+    "variantes": [],
+    "significado": "O ensino dos primeiros anos da escola, o básico do básico.",
+    "fontes": [
+      "DUDH, art. 26"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
     "termo": "insubsistente",
     "variantes": [
       "julgado insubsistente"
@@ -3697,6 +5819,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:50:15.057402+00:00"
+  },
+  {
+    "termo": "insumo",
+    "variantes": [
+      "insumos"
+    ],
+    "significado": "O ingrediente usado para fabricar alguma coisa; aqui, o que entra na preparação da droga.",
+    "fontes": [
+      "Lei 11.343/2006, art. 33, § 1º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
   },
   {
     "termo": "insuscetíveis de graça ou anistia",
@@ -3798,6 +5932,18 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "intervenção mínima",
+    "variantes": [
+      "ultima ratio"
+    ],
+    "significado": "A ideia de que o Direito Penal é a última opção: só entra quando os outros ramos do Direito não bastam, e só para os bens mais importantes.",
+    "fontes": [
+      "doutrina (intervenção mínima)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
     "termo": "intimação",
     "variantes": [],
     "significado": "O aviso oficial a alguém sobre um ato do processo (uma audiência, uma decisão).",
@@ -3806,6 +5952,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "intimidação difusa ou coletiva",
+    "variantes": [],
+    "significado": "Botar medo em muita gente ao mesmo tempo, num bairro ou numa comunidade, e não só numa vítima.",
+    "fontes": [
+      "Lei 11.343/2006, art. 40, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
   },
   {
     "termo": "inventariante",
@@ -3929,6 +6085,53 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "Juizado Especial Criminal",
+    "variantes": [
+      "Juizados Especiais Criminais"
+    ],
+    "significado": "O juízo das infrações de menor potencial ofensivo, com processo simples e rápido.",
+    "fontes": [
+      "Lei 9.099/1995, art. 60"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
+  },
+  {
+    "termo": "juízes leigos",
+    "variantes": [
+      "leigos"
+    ],
+    "significado": "Auxiliares da Justiça no Juizado, escolhidos entre advogados com mais de 5 anos de experiência.",
+    "fontes": [
+      "Lei 9.099/1995, art. 7º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
+    "termo": "juízes togados",
+    "variantes": [
+      "togados"
+    ],
+    "significado": "Os juízes de carreira, que ocupam o cargo de juiz.",
+    "fontes": [
+      "Lei 9.099/1995, art. 60"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
+    "termo": "juízo comum",
+    "variantes": [],
+    "significado": "A vara criminal comum, fora do Juizado, para onde vai o caso que não cabe no rito do Juizado.",
+    "fontes": [
+      "Lei 9.099/1995, art. 60",
+      "Lei 9.099/1995, art. 77, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
     "termo": "juízo das execuções",
     "variantes": [
       "juízo da execução"
@@ -4004,6 +6207,16 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "latrocínio",
+    "variantes": [],
+    "significado": "O roubo em que a violência dos roubadores mata alguém.",
+    "fontes": [
+      "CP, art. 157, § 3º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
+  },
+  {
     "termo": "laudo de constatação",
     "variantes": [],
     "significado": "O exame feito logo depois da apreensão, que diz que aquilo é droga e quanto tem; basta para o flagrante, e depois vem o laudo definitivo.",
@@ -4013,6 +6226,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "laudo definitivo",
+    "variantes": [],
+    "significado": "O exame completo da droga, feito depois, com a amostra guardada; o de constatação é o rápido, do flagrante.",
+    "fontes": [
+      "Lei 11.343/2006, art. 50, §§ 2º e 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:03.819245+00:00"
   },
   {
     "termo": "laudo pericial",
@@ -4112,6 +6335,18 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "lesividade",
+    "variantes": [
+      "ofensividade"
+    ],
+    "significado": "Só é crime a conduta que fere ou põe em perigo o bem de outra pessoa; o pensamento e o que só atinge o próprio autor ficam de fora.",
+    "fontes": [
+      "doutrina (lesividade)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
     "termo": "lex tertia",
     "variantes": [],
     "significado": "Misturar o pedaço bom de uma lei com o pedaço bom de outra, criando uma 'terceira lei' para o réu. Não pode.",
@@ -4142,6 +6377,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "liberdade de locomoção",
+    "variantes": [],
+    "significado": "O direito de ir, vir e ficar: o bem que o habeas corpus protege.",
+    "fontes": [
+      "CF, art. 5º, LXVIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
   },
   {
     "termo": "liberdade provisória",
@@ -4175,6 +6420,16 @@
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
+    "termo": "LIMPE",
+    "variantes": [],
+    "significado": "Os cinco princípios do caput do art. 37 da CF: Legalidade, Impessoalidade, Moralidade, Publicidade e Eficiência.",
+    "fontes": [
+      "CF, art. 37, caput"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
     "termo": "linha dupla contínua",
     "variantes": [
       "simples contínua amarela"
@@ -4205,6 +6460,28 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "liturgias",
+    "variantes": [
+      "liturgia"
+    ],
+    "significado": "As cerimônias e os ritos de uma religião.",
+    "fontes": [
+      "CF, art. 5º, VI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
+  },
+  {
+    "termo": "livramento condicional",
+    "variantes": [],
+    "significado": "Sair da prisão antes do fim da pena, cumprindo condições até o fim dela.",
+    "fontes": [
+      "Lei 12.850/2013, art. 2º, § 9º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:16.340705+00:00"
   },
   {
     "termo": "livre convencimento",
@@ -4294,6 +6571,16 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "maioria relativa",
+    "variantes": [],
+    "significado": "A maioria dos votos de quem está presente na votação, e não de todos os membros.",
+    "fontes": [
+      "CF, art. 60, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
+  },
+  {
     "termo": "majorante",
     "variantes": [
       "majorantes"
@@ -4326,6 +6613,16 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "mandato eletivo",
+    "variantes": [],
+    "significado": "O cargo político ganho na eleição: vereador, prefeito, deputado, senador.",
+    "fontes": [
+      "CF, art. 38"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
     "termo": "manifestamente ilegal",
     "variantes": [],
     "significado": "Claramente ilegal, de um jeito que qualquer um percebe.",
@@ -4334,6 +6631,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "mar territorial",
+    "variantes": [],
+    "significado": "A faixa de mar junto à costa que faz parte do território do país.",
+    "fontes": [
+      "CP, art. 5º, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
   },
   {
     "termo": "marcas de canalização",
@@ -4430,6 +6737,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "medida protetiva de urgência",
+    "variantes": [
+      "medidas protetivas de urgência"
+    ],
+    "significado": "Ordem do juiz, prevista na Lei Maria da Penha, para proteger a mulher em situação de violência doméstica.",
+    "fontes": [
+      "CP, art. 121-A, § 2º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
     "termo": "medida provisória",
     "variantes": [
       "medidas provisórias"
@@ -4506,6 +6825,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "mercantes",
+    "variantes": [
+      "mercante"
+    ],
+    "significado": "Navios e aviões de comércio, que levam carga ou passageiros, e não os do governo.",
+    "fontes": [
+      "CP, art. 5º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:03.236180+00:00"
+  },
+  {
     "termo": "mero capricho",
     "variantes": [],
     "significado": "Fazer só porque quer, por vontade pessoal, sem razão do serviço.",
@@ -4547,6 +6878,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:48:54.523099+00:00"
+  },
+  {
+    "termo": "mobilidade urbana",
+    "variantes": [],
+    "significado": "O direito de se deslocar bem pela cidade, a pé, de ônibus, de carro ou de bicicleta.",
+    "fontes": [
+      "CF, art. 144, § 10, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
+  },
+  {
+    "termo": "modus operandi",
+    "variantes": [],
+    "significado": "O jeito como o crime foi praticado: a forma, os meios, o planejamento.",
+    "fontes": [
+      "CPP, art. 312, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
   },
   {
     "termo": "monobloco",
@@ -4652,6 +7003,16 @@
     "criado_em": "2026-11-26T22:46:27.125544+00:00"
   },
   {
+    "termo": "Multibiométrico",
+    "variantes": [],
+    "significado": "Que guarda várias marcas do corpo de uma vez: digitais, íris, face e voz.",
+    "fontes": [
+      "Lei 12.037/2009, art. 7º-C"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:54.082184+00:00"
+  },
+  {
     "termo": "municípios limítrofes",
     "variantes": [],
     "significado": "Cidades vizinhas, que fazem divisa uma com a outra.",
@@ -4660,6 +7021,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:18:28.184775+00:00"
+  },
+  {
+    "termo": "mutação constitucional",
+    "variantes": [],
+    "significado": "Mudança no sentido de uma norma da Constituição pela interpretação, sem mudar uma vírgula do texto.",
+    "fontes": [
+      "doutrina (mutação constitucional)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
   },
   {
     "termo": "mutatio libelli",
@@ -4683,6 +7054,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:29.659516+00:00"
+  },
+  {
+    "termo": "não intervenção",
+    "variantes": [
+      "não-intervenção"
+    ],
+    "significado": "Um país não se mete nos assuntos internos de outro.",
+    "fontes": [
+      "CF, art. 4º, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
   },
   {
     "termo": "nato",
@@ -4721,6 +7104,36 @@
     "criado_em": "2026-10-12T16:53:09.811479+00:00"
   },
   {
+    "termo": "negócio jurídico processual",
+    "variantes": [],
+    "significado": "Um acordo entre as partes feito dentro do processo, com regras e benefícios combinados.",
+    "fontes": [
+      "Lei 12.850/2013, art. 3º-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:16.340705+00:00"
+  },
+  {
+    "termo": "nessa qualidade",
+    "variantes": [],
+    "significado": "Agindo como agente público, no exercício da função, e não como um cidadão comum.",
+    "fontes": [
+      "CF, art. 37, § 6º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
+    "termo": "nexo causal",
+    "variantes": [],
+    "significado": "A ligação de causa e efeito entre a conduta e o dano.",
+    "fontes": [
+      "doutrina (requisitos da responsabilidade)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
     "termo": "nexo de causalidade",
     "variantes": [],
     "significado": "A ligação de causa e efeito entre uma coisa e outra.",
@@ -4749,6 +7162,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "normas programáticas",
+    "variantes": [
+      "norma programática",
+      "programáticas"
+    ],
+    "significado": "Normas que só traçam um programa, uma meta para o futuro, e dependem de lei para funcionar. As de direitos fundamentais têm aplicação imediata e, em regra, não são assim.",
+    "fontes": [
+      "CF, art. 5º, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
   },
   {
     "termo": "nota de culpa",
@@ -4785,6 +7211,16 @@
     "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
+    "termo": "notória especialização",
+    "variantes": [],
+    "significado": "A fama técnica do profissional ou da empresa, pelo histórico e pela experiência, que mostra que o trabalho dele é o adequado para aquele contrato.",
+    "fontes": [
+      "Lei 14.133/2021, art. 74, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
     "termo": "NP",
     "variantes": [
       "Notificação da Penalidade"
@@ -4819,6 +7255,18 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "obediência hierárquica",
+    "variantes": [
+      "estrita obediência"
+    ],
+    "significado": "Cumprir ordem de um superior no serviço público; livra o subordinado só se a ordem não era claramente ilegal.",
+    "fontes": [
+      "CP, art. 22"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
+  },
+  {
     "termo": "objetivamente",
     "variantes": [
       "responsabilidade objetiva"
@@ -4829,6 +7277,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
+    "termo": "obrigação alimentícia",
+    "variantes": [
+      "obrigação alimentar"
+    ],
+    "significado": "O dever de pagar pensão para o sustento de alguém, como o pai que paga a pensão do filho.",
+    "fontes": [
+      "CF, art. 5º, LXVII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
   },
   {
     "termo": "OCR",
@@ -4843,6 +7303,19 @@
     "criado_em": "2026-11-26T22:00:05.453080+00:00"
   },
   {
+    "termo": "OEA",
+    "variantes": [
+      "Organização dos Estados Americanos"
+    ],
+    "significado": "Organização dos Estados Americanos: a organização dos países das Américas em que a Convenção foi adotada.",
+    "fontes": [
+      "CADH, art. 35",
+      "Decreto 678/1992, considerandos"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
+  },
+  {
     "termo": "OEER",
     "variantes": [],
     "significado": "O órgão rodoviário (da União, do estado, do município ou do DF) que cuida da via: é quem emite a AET e a AE.",
@@ -4851,6 +7324,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
+  },
+  {
+    "termo": "ofendículos",
+    "variantes": [
+      "ofendículo"
+    ],
+    "significado": "Defesas instaladas para proteger a casa ou o terreno, como caco de vidro no muro ou cerca elétrica.",
+    "fontes": [
+      "doutrina (ofendículos)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
   },
   {
     "termo": "ofendido",
@@ -4918,6 +7403,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "órbita privada",
+    "variantes": [],
+    "significado": "A iniciativa privada: empresas e particulares, fora da Administração.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 10, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
   },
   {
     "termo": "ordem pública",
@@ -5001,6 +7496,18 @@
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
   },
   {
+    "termo": "PAD",
+    "variantes": [
+      "processo administrativo disciplinar"
+    ],
+    "significado": "Processo administrativo disciplinar: o processo completo, com comissão, acusação e defesa, obrigatório para as penas mais pesadas.",
+    "fontes": [
+      "Lei 8.112/1990, art. 146"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
     "termo": "padrão cristal",
     "variantes": [
       "viseira cristal",
@@ -5032,6 +7539,27 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "parcela única",
+    "variantes": [],
+    "significado": "Um valor só no contracheque, sem nada somado por fora.",
+    "fontes": [
+      "CF, art. 39, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
+  },
+  {
+    "termo": "parecer prévio",
+    "variantes": [],
+    "significado": "Uma opinião técnica dada antes do julgamento, que não decide: nas contas do Presidente, o TCU opina e o Congresso julga.",
+    "fontes": [
+      "CF, art. 71, I",
+      "CF, art. 49, IX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
   },
   {
     "termo": "parente até o 3º grau",
@@ -5076,6 +7604,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:50:32.173606+00:00"
+  },
+  {
+    "termo": "patrono",
+    "variantes": [],
+    "significado": "O advogado ou defensor que acompanha a pessoa.",
+    "fontes": [
+      "Lei 13.869/2019, art. 15, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:41.576039+00:00"
   },
   {
     "termo": "PBT",
@@ -5156,6 +7694,38 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "perdão aceito",
+    "variantes": [],
+    "significado": "Na ação privada, a vítima perdoa o réu durante o processo, e ele aceita: a punição acaba.",
+    "fontes": [
+      "CP, art. 107, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "perdão do ofendido",
+    "variantes": [],
+    "significado": "A vítima, com a ação privada já em curso, desiste de punir; só vale para quem aceitar.",
+    "fontes": [
+      "CP, art. 105",
+      "CP, art. 106",
+      "CPP, art. 51"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "perdão judicial",
+    "variantes": [],
+    "significado": "O juiz deixa de aplicar a pena, só nos casos em que a lei permite.",
+    "fontes": [
+      "CP, art. 107, IX"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
     "termo": "perdimento de bens",
     "variantes": [],
     "significado": "Perder para o Estado os bens ligados ao crime.",
@@ -5174,6 +7744,19 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "perfil genético",
+    "variantes": [
+      "perfis genéticos"
+    ],
+    "significado": "O DNA da pessoa, tirado do material biológico e guardado num banco de dados sigiloso.",
+    "fontes": [
+      "Lei 12.037/2009, art. 5º, § 1º",
+      "Lei 12.037/2009, art. 7º-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
   },
   {
     "termo": "perícia administrativa",
@@ -5196,6 +7779,17 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "perigo comum",
+    "variantes": [],
+    "significado": "Perigo que atinge muita gente de uma vez, e não uma pessoa só.",
+    "fontes": [
+      "CP, art. 250",
+      "CP, art. 258"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
+  },
+  {
     "termo": "perigo de dano",
     "variantes": [],
     "significado": "Risco de machucar alguém ou de causar estrago, criado pelo jeito de dirigir.",
@@ -5204,6 +7798,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:46:41.907312+00:00"
+  },
+  {
+    "termo": "período de prova",
+    "variantes": [],
+    "significado": "O tempo, de 2 a 4 anos, em que o acusado cumpre as condições da suspensão do processo.",
+    "fontes": [
+      "Lei 9.099/1995, art. 89, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
   },
   {
     "termo": "perito oficial",
@@ -5228,6 +7832,38 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "persecução penal",
+    "variantes": [
+      "persecução"
+    ],
+    "significado": "Todo o caminho do Estado para punir um crime: a investigação e o processo.",
+    "fontes": [
+      "Lei 13.869/2019, art. 30"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:41.576039+00:00"
+  },
+  {
+    "termo": "personalidade jurídica",
+    "variantes": [],
+    "significado": "Ser alguém para o direito: ter direitos e deveres próprios, patrimônio e responder em nome próprio.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 4º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
+  },
+  {
+    "termo": "perturbação de saúde mental",
+    "variantes": [],
+    "significado": "Um problema mental mais leve, que tira só em parte a capacidade de entender ou de se controlar; reduz a pena, não isenta.",
+    "fontes": [
+      "CP, art. 26, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:11.465733+00:00"
+  },
+  {
     "termo": "peso bruto total",
     "variantes": [],
     "significado": "O peso máximo do veículo carregado: o peso dele mais a carga e os ocupantes.",
@@ -5246,6 +7882,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "petrechos",
+    "variantes": [],
+    "significado": "Os equipamentos de pesca, como redes, anzóis e armadilhas.",
+    "fontes": [
+      "Lei 9.605/1998, art. 34, parágrafo único, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
+    "termo": "PGR",
+    "variantes": [
+      "Procurador-Geral da República"
+    ],
+    "significado": "Procurador-Geral da República: o chefe do Ministério Público da União.",
+    "fontes": [
+      "CF, art. 109, § 5º",
+      "CF, art. 128, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
   },
   {
     "termo": "pista de rolamento",
@@ -5271,6 +7930,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "plantas psicotrópicas",
+    "variantes": [],
+    "significado": "Plantas que dão droga, que mexem com a mente, como a maconha.",
+    "fontes": [
+      "CF, art. 243"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
   },
   {
     "termo": "plebiscito",
@@ -5306,6 +7975,31 @@
     "criado_em": "2026-11-26T22:46:56.983906+00:00"
   },
   {
+    "termo": "PNCP",
+    "variantes": [
+      "Portal Nacional de Contratações Públicas"
+    ],
+    "significado": "Portal Nacional de Contratações Públicas: o sítio eletrônico oficial onde se divulgam os atos de licitação e contratação.",
+    "fontes": [
+      "Lei 14.133/2021, art. 182"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
+    "termo": "PNSPDS",
+    "variantes": [
+      "Política Nacional de Segurança Pública e Defesa Social"
+    ],
+    "significado": "Política Nacional de Segurança Pública e Defesa Social: o esquema de jogo comum da segurança pública no país.",
+    "fontes": [
+      "Lei 13.675/2018, art. 1º",
+      "Lei 13.675/2018, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
+  },
+  {
     "termo": "PNU",
     "variantes": [
       "Placa Nacional Única"
@@ -5316,6 +8010,44 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T21:59:53.182114+00:00"
+  },
+  {
+    "termo": "poder constituinte decorrente",
+    "variantes": [
+      "poder decorrente"
+    ],
+    "significado": "O poder dos Estados de fazer e mudar as próprias Constituições, observados os princípios da CF.",
+    "fontes": [
+      "CF, art. 25",
+      "ADCT, art. 11"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
+  },
+  {
+    "termo": "poder constituinte derivado",
+    "variantes": [
+      "poder derivado"
+    ],
+    "significado": "O poder criado pela própria Constituição para mudá-la ou para os Estados se organizarem, sempre dentro dos limites dela.",
+    "fontes": [
+      "doutrina (poder constituinte derivado)",
+      "CF, art. 60"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
+  },
+  {
+    "termo": "poder constituinte originário",
+    "variantes": [
+      "poder originário"
+    ],
+    "significado": "O poder que cria uma Constituição do zero, sem dever obediência à ordem jurídica anterior.",
+    "fontes": [
+      "doutrina (poder constituinte originário)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
   },
   {
     "termo": "poder de polícia",
@@ -5349,6 +8081,17 @@
     "criado_em": "2026-11-26T22:51:05.227943+00:00"
   },
   {
+    "termo": "poder-dever",
+    "variantes": [],
+    "significado": "Poder que vem junto com a obrigação de usar: a autoridade não escolhe se age, só como age, dentro da lei.",
+    "fontes": [
+      "Lei 9.784/1999, art. 11",
+      "Lei 8.112/1990, art. 143"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
+  },
+  {
     "termo": "polícia judiciária",
     "variantes": [],
     "significado": "A polícia que investiga o crime depois que ele aconteceu e reúne as provas para o processo.",
@@ -5358,6 +8101,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
+  },
+  {
+    "termo": "polícia marítima",
+    "variantes": [],
+    "significado": "O policiamento no mar e nos portos; pela CF, é função da PF.",
+    "fontes": [
+      "CF, art. 144, § 1º, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
   },
   {
     "termo": "polícia ostensiva",
@@ -5392,6 +8145,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "precatória",
+    "variantes": [
+      "deprecada"
+    ],
+    "significado": "Pedido de um juiz a um juiz de outra comarca para que ele cumpra um ato no território dele, como uma prisão.",
+    "fontes": [
+      "CPP, art. 289"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
     "termo": "preceptor",
     "variantes": [],
     "significado": "Quem ensina ou educa alguém, como um professor particular.",
@@ -5400,6 +8165,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "preclusa",
+    "variantes": [],
+    "significado": "Que não pode mais ser discutida no processo: o prazo passou ou os recursos acabaram.",
+    "fontes": [
+      "CPP, art. 157, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
+    "termo": "preclusão administrativa",
+    "variantes": [],
+    "significado": "A perda da chance de rever ou discutir algo na via administrativa, porque o momento de fazer isso já passou.",
+    "fontes": [
+      "Lei 9.784/1999, art. 63, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
   },
   {
     "termo": "preponderam",
@@ -5415,6 +8200,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "preposto",
+    "variantes": [
+      "prepostos"
+    ],
+    "significado": "Quem age em nome de uma empresa, como o funcionário do balcão.",
+    "fontes": [
+      "Lei 5.553/1968, art. 3º, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:54.082184+00:00"
+  },
+  {
     "termo": "prerrogativa de função",
     "variantes": [],
     "significado": "Algumas autoridades são julgadas direto por tribunais, por causa do cargo que ocupam: é o 'foro privilegiado'.",
@@ -5423,6 +8220,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "prerrogativas",
+    "variantes": [
+      "prerrogativa"
+    ],
+    "significado": "Poderes especiais que alguém tem por causa da função; no Direito Administrativo, os poderes que a Administração tem e o particular não.",
+    "fontes": [
+      "doutrina (regime jurídico-administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
   },
   {
     "termo": "pressuposto processual",
@@ -5508,6 +8317,28 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "prévia cominação legal",
+    "variantes": [
+      "cominação legal"
+    ],
+    "significado": "A pena já marcada na lei antes do fato.",
+    "fontes": [
+      "CP, art. 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "primado do trabalho",
+    "variantes": [],
+    "significado": "O trabalho em primeiro lugar, como alicerce da ordem social.",
+    "fontes": [
+      "CF, art. 193"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
+  },
+  {
     "termo": "primário",
     "variantes": [
       "primária",
@@ -5553,6 +8384,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "princípios sensíveis",
+    "variantes": [
+      "princípio sensível"
+    ],
+    "significado": "Os princípios da CF cuja desobediência por um Estado permite a intervenção federal (art. 34, VII).",
+    "fontes": [
+      "CF, art. 34, VII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
+  },
+  {
     "termo": "prisão civil",
     "variantes": [],
     "significado": "Prisão que não é castigo por crime, mas um jeito de forçar o pagamento de uma dívida. Hoje, só a do devedor de pensão alimentícia.",
@@ -5576,6 +8419,27 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "prisão especial",
+    "variantes": [],
+    "significado": "O direito de ficar em local separado da cadeia comum até a condenação definitiva; só isso, sem outra regalia.",
+    "fontes": [
+      "CPP, art. 295, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
+    "termo": "prisão preventiva",
+    "variantes": [],
+    "significado": "A prisão cautelar que o juiz decreta antes da condenação definitiva, em qualquer fase da investigação ou do processo, quando há prova do crime, indício de autoria e perigo na liberdade.",
+    "fontes": [
+      "CPP, art. 311",
+      "CPP, art. 312"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
     "termo": "prisão provisória",
     "variantes": [],
     "significado": "Prisão antes da condenação definitiva, como a preventiva e a temporária.",
@@ -5584,6 +8448,83 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "prisão simples",
+    "variantes": [],
+    "significado": "A pena de prisão das contravenções penais, mais leve que a reclusão e a detenção dos crimes.",
+    "fontes": [
+      "Lei 5.553/1968, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:54.082184+00:00"
+  },
+  {
+    "termo": "prisão temporária",
+    "variantes": [],
+    "significado": "Prisão cautelar com prazo certo, regulada pela Lei 7.960/1989; nos crimes hediondos, na tortura, no tráfico e no terrorismo, dura 30 dias, prorrogáveis por mais 30.",
+    "fontes": [
+      "Lei 8.072/1990, art. 2º, § 4º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:31.335350+00:00"
+  },
+  {
+    "termo": "probidade",
+    "variantes": [],
+    "significado": "Honestidade no trato da coisa pública.",
+    "fontes": [
+      "Lei 9.784/1999, art. 2º, parágrafo único, IV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
+    "termo": "procedimento sumariíssimo",
+    "variantes": [
+      "sumariíssimo"
+    ],
+    "significado": "O rito mais curto do processo penal, o do Juizado: denúncia oral e quase tudo numa audiência só.",
+    "fontes": [
+      "Lei 9.099/1995, art. 77",
+      "Lei 9.099/1995, art. 81"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
+    "termo": "processo datiloscópico",
+    "variantes": [
+      "identificação datiloscópica",
+      "procedimento datiloscópico"
+    ],
+    "significado": "Colher as impressões digitais da pessoa.",
+    "fontes": [
+      "Lei 12.037/2009, art. 5º",
+      "CPP, art. 6º, VIII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
+  },
+  {
+    "termo": "Procurador-Geral de Justiça",
+    "variantes": [],
+    "significado": "O chefe do Ministério Público do estado.",
+    "fontes": [
+      "ECA, art. 181, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
+  },
+  {
+    "termo": "promoção pessoal",
+    "variantes": [],
+    "significado": "Usar a propaganda oficial para fazer a fama da autoridade ou do servidor.",
+    "fontes": [
+      "CF, art. 37, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
   },
   {
     "termo": "pronto e integral socorro",
@@ -5628,6 +8569,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "proporcional ao agravo",
+    "variantes": [],
+    "significado": "Do tamanho da ofensa sofrida: a resposta não pode ser maior nem menor que ela.",
+    "fontes": [
+      "CF, art. 5º, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:14:06.277157+00:00"
+  },
+  {
     "termo": "propulsão humana",
     "variantes": [],
     "significado": "Movido pela força de quem pedala ou empurra, como a bicicleta e o carrinho de mão.",
@@ -5636,6 +8587,17 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:48:45.091273+00:00"
+  },
+  {
+    "termo": "proteção integral",
+    "variantes": [],
+    "significado": "A ideia de que criança e adolescente têm todos os direitos de qualquer pessoa e ainda ganham uma proteção a mais, por estarem em formação.",
+    "fontes": [
+      "ECA, art. 1º",
+      "ECA, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:07.190617+00:00"
   },
   {
     "termo": "prova ilícita",
@@ -5660,6 +8622,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "provas derivadas",
+    "variantes": [
+      "prova derivada"
+    ],
+    "significado": "As provas que só foram achadas por causa de uma prova ilícita: o fruto que nasce de uma árvore envenenada.",
+    "fontes": [
+      "CPP, art. 157, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:44.663076+00:00"
+  },
+  {
     "termo": "proveniência ilícita",
     "variantes": [],
     "significado": "Origem no crime: o bem veio de dinheiro sujo.",
@@ -5670,6 +8644,26 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "pública-forma",
+    "variantes": [],
+    "significado": "Cópia de um documento feita e conferida em cartório, com o mesmo valor do original.",
+    "fontes": [
+      "Lei 5.553/1968, art. 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:54.082184+00:00"
+  },
+  {
+    "termo": "puerpério imediato",
+    "variantes": [],
+    "significado": "Os primeiros dias logo depois do parto.",
+    "fontes": [
+      "CPP, art. 292, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
     "termo": "punibilidade",
     "variantes": [],
     "significado": "A possibilidade de o Estado punir. Extinta a punibilidade, não há mais pena.",
@@ -5678,6 +8672,20 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
+  },
+  {
+    "termo": "punições disciplinares militares",
+    "variantes": [
+      "punição disciplinar militar",
+      "punição disciplinar",
+      "punições disciplinares"
+    ],
+    "significado": "As sanções do quartel pela falta disciplinar do militar.",
+    "fontes": [
+      "CF, art. 142, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
   },
   {
     "termo": "QR Code",
@@ -5702,6 +8710,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "queixa-crime",
+    "variantes": [],
+    "significado": "A acusação levada à Justiça pela própria vítima, nos crimes em que é ela quem acusa.",
+    "fontes": [
+      "CF, art. 86, § 1º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
   },
   {
     "termo": "queixeira",
@@ -5799,6 +8817,26 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "recesso parlamentar",
+    "variantes": [],
+    "significado": "O período em que o Congresso não está reunido em sessão, como umas férias do Legislativo.",
+    "fontes": [
+      "CF, art. 138, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
+    "termo": "recibo de entrega do preso",
+    "variantes": [],
+    "significado": "O papel que a autoridade dá a quem levou o preso, provando que ele foi entregue.",
+    "fontes": [
+      "CPP, art. 304"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
     "termo": "reciprocidade",
     "variantes": [
       "princípio de reciprocidade"
@@ -5876,6 +8914,18 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "referendar",
+    "variantes": [
+      "referenda"
+    ],
+    "significado": "Assinar junto, confirmando o ato do Presidente.",
+    "fontes": [
+      "CF, art. 87, parágrafo único, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
     "termo": "referendo",
     "variantes": [],
     "significado": "O povo confirma ou rejeita DEPOIS que a decisão foi tomada.",
@@ -5948,6 +8998,16 @@
     "criado_em": "2026-10-12T17:48:54.523099+00:00"
   },
   {
+    "termo": "reincidente específico",
+    "variantes": [],
+    "significado": "Quem volta a ser condenado por crime da mesma natureza do anterior; aqui, hediondo, tortura, tráfico de drogas, tráfico de pessoas ou terrorismo.",
+    "fontes": [
+      "CP, art. 83, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:46.411710+00:00"
+  },
+  {
     "termo": "reiteração",
     "variantes": [],
     "significado": "Repetir o mesmo pedido.",
@@ -5981,6 +9041,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 06/11/2026",
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
+  },
+  {
+    "termo": "relevante valor social ou moral",
+    "variantes": [],
+    "significado": "Um motivo nobre, que a sociedade entende, e que por isso baixa a pena.",
+    "fontes": [
+      "CP, art. 121, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
   },
   {
     "termo": "remanejamento",
@@ -6072,6 +9142,59 @@
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
   },
   {
+    "termo": "renúncia",
+    "variantes": [],
+    "significado": "Abrir mão de um direito de vez: depois da renúncia, a vítima não pode mais oferecer a queixa ou a representação.",
+    "fontes": [
+      "Lei 9.099/1995, art. 74, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
+  },
+  {
+    "termo": "renúncia ao direito de queixa",
+    "variantes": [
+      "renúncia ao exercício do direito de queixa"
+    ],
+    "significado": "A vítima abre mão de processar antes de entrar com a queixa; feita a um autor, vale para todos.",
+    "fontes": [
+      "CPP, art. 49",
+      "CP, art. 104"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
+    "termo": "renúncia de receitas",
+    "variantes": [],
+    "significado": "Quando o poder público abre mão de arrecadar, por exemplo com isenção ou desconto de tributo.",
+    "fontes": [
+      "CF, art. 70"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
+    "termo": "renúncia do direito de queixa",
+    "variantes": [],
+    "significado": "A vítima abre mão de processar o autor, antes de entrar com a queixa.",
+    "fontes": [
+      "CP, art. 107, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "renúncia tácita",
+    "variantes": [],
+    "significado": "Abrir mão sem dizer, fazendo algo que não combina com a vontade de processar.",
+    "fontes": [
+      "CP, art. 104, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:50.042730+00:00"
+  },
+  {
     "termo": "repartições consulares",
     "variantes": [
       "repartição consular"
@@ -6104,6 +9227,38 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "repressão uniforme",
+    "variantes": [],
+    "significado": "Combate igual em todo o país, porque o crime passa de um Estado para outro ou de um país para outro.",
+    "fontes": [
+      "CF, art. 144, § 1º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
+  },
+  {
+    "termo": "repristinação",
+    "variantes": [],
+    "significado": "A volta de uma lei revogada porque a lei que a revogou deixou de valer; não acontece sozinha.",
+    "fontes": [
+      "doutrina (repristinação)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
+  },
+  {
+    "termo": "reprodução simulada dos fatos",
+    "variantes": [
+      "reprodução simulada"
+    ],
+    "significado": "Encenar o crime no local para ver se ele pode ter acontecido do jeito contado.",
+    "fontes": [
+      "CPP, art. 7º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:03.074577+00:00"
+  },
+  {
     "termo": "requerimento",
     "variantes": [],
     "significado": "Pedido formal feito ao juiz por uma das partes, como o MP.",
@@ -6122,6 +9277,27 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "reserva legal",
+    "variantes": [],
+    "significado": "Certos assuntos só podem ser tratados por lei votada pelo Legislativo; no Direito Penal, só a lei cria crime e pena (decreto ou resolução, não).",
+    "fontes": [
+      "CF, art. 5º, XXXIX",
+      "CP, art. 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "responsável civil",
+    "variantes": [],
+    "significado": "Quem a lei civil obriga a pagar o prejuízo junto com o autor do fato ou no lugar dele.",
+    "fontes": [
+      "Lei 9.099/1995, art. 72"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:20.609728+00:00"
   },
   {
     "termo": "restritiva de direitos",
@@ -6214,6 +9390,37 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "revitimização",
+    "variantes": [],
+    "significado": "Fazer a vítima sofrer de novo o que passou, por causa do próprio atendimento ou da intimidação.",
+    "fontes": [
+      "Lei 13.869/2019, art. 15-A, §§ 1º e 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:41.576039+00:00"
+  },
+  {
+    "termo": "risco administrativo",
+    "variantes": [],
+    "significado": "A teoria que o Brasil adota: o Estado indeniza sem a vítima provar culpa, mas se livra se provar uma excludente, como a culpa exclusiva da vítima.",
+    "fontes": [
+      "CF, art. 37, § 6º",
+      "doutrina (teoria do risco administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
+    "termo": "risco integral",
+    "variantes": [],
+    "significado": "A teoria em que o responsável paga sempre, sem excludente nenhuma; é exceção.",
+    "fontes": [
+      "doutrina (teorias da responsabilidade)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:51.616435+00:00"
+  },
+  {
     "termo": "RNPC",
     "variantes": [
       "Registro Nacional Positivo de Condutores"
@@ -6235,6 +9442,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "rota migratória",
+    "variantes": [],
+    "significado": "O caminho que certas espécies fazem, de tempos em tempos, passando pelo país.",
+    "fontes": [
+      "Lei 9.605/1998, art. 29"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
   },
   {
     "termo": "rotatória",
@@ -6260,6 +9477,18 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "saneantes",
+    "variantes": [
+      "saneante"
+    ],
+    "significado": "Produtos de limpeza e desinfecção, como água sanitária e desinfetante.",
+    "fontes": [
+      "CP, art. 273, § 1º-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
+  },
+  {
     "termo": "segredo de justiça",
     "variantes": [],
     "significado": "Processo fechado: só as partes e os advogados têm acesso.",
@@ -6268,6 +9497,37 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
+  },
+  {
+    "termo": "segurança social",
+    "variantes": [],
+    "significado": "A rede de amparo do Estado para quem perde a renda: desemprego, doença, velhice.",
+    "fontes": [
+      "DUDH, art. 22",
+      "DUDH, art. 25"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
+    "termo": "segurança viária",
+    "variantes": [],
+    "significado": "A segurança no trânsito das vias públicas: educação, engenharia e fiscalização.",
+    "fontes": [
+      "CF, art. 144, § 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:50.746248+00:00"
+  },
+  {
+    "termo": "seguridade social",
+    "variantes": [],
+    "significado": "O sistema que junta saúde, previdência e assistência social, mantido pelo poder público e pela sociedade.",
+    "fontes": [
+      "CF, art. 194"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
   },
   {
     "termo": "semi-imputável",
@@ -6301,6 +9561,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "semovente",
+    "variantes": [
+      "semovente domesticável de produção"
+    ],
+    "significado": "Animal que anda por conta própria e tem valor econômico, como boi, porco ou cavalo de criação.",
+    "fontes": [
+      "CP, art. 155, § 6º, I"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:59.066297+00:00"
   },
   {
     "termo": "sentença irrecorrível",
@@ -6345,6 +9617,16 @@
     "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
+    "termo": "servidão",
+    "variantes": [],
+    "significado": "Quando a pessoa fica presa a servir alguém, sem liberdade para ir embora.",
+    "fontes": [
+      "CP, art. 149-A, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
     "termo": "sessão legislativa",
     "variantes": [],
     "significado": "O período de trabalho de um ano do Congresso.",
@@ -6353,6 +9635,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "sessão unicameral",
+    "variantes": [],
+    "significado": "Sessão em que deputados e senadores votam juntos, como se fossem uma Casa só.",
+    "fontes": [
+      "ADCT, art. 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:25.035452+00:00"
   },
   {
     "termo": "side-car",
@@ -6375,6 +9667,17 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "sindicabilidade",
+    "variantes": [],
+    "significado": "O princípio de que todo ato da Administração pode ser controlado, inclusive pela Justiça. Não tem nada a ver com sindicância.",
+    "fontes": [
+      "CF, art. 5º, XXXV",
+      "2021-q90 (gabarito C)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
     "termo": "sindicalização",
     "variantes": [],
     "significado": "Entrar para um sindicato ou criar um. Para o militar, é proibida.",
@@ -6383,6 +9686,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "sindicância",
+    "variantes": [],
+    "significado": "A apuração mais simples e rápida de uma falta do servidor: arquiva, pune com advertência ou suspensão de até 30 dias, ou abre um PAD.",
+    "fontes": [
+      "Lei 8.112/1990, art. 145"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
+    "termo": "Sinesp",
+    "variantes": [],
+    "significado": "O sistema nacional que junta os dados de segurança pública, presídios, armas, perfil genético, digitais e drogas.",
+    "fontes": [
+      "Lei 13.675/2018, art. 35"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
   },
   {
     "termo": "sinistro",
@@ -6395,6 +9718,18 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "Sisbin",
+    "variantes": [
+      "Sistema Brasileiro de Inteligência"
+    ],
+    "significado": "Sistema Brasileiro de Inteligência: a rede dos órgãos de inteligência do governo federal.",
+    "fontes": [
+      "Lei 13.675/2018, art. 10"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
   },
   {
     "termo": "Sistema Nacional de Trânsito",
@@ -6430,6 +9765,28 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "sobrepreço",
+    "variantes": [],
+    "significado": "Preço orçado ou contratado bem acima dos preços de referência do mercado.",
+    "fontes": [
+      "Lei 14.133/2021, art. 6º, LVI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
+    "termo": "sociedade de economia mista",
+    "variantes": [
+      "sociedades de economia mista"
+    ],
+    "significado": "Estatal de direito privado, sempre sociedade anônima, em que o ente tem a maioria das ações com direito a voto.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 5º, III"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
+  },
+  {
     "termo": "solidariamente",
     "variantes": [
       "solidária"
@@ -6440,6 +9797,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:17.749062+00:00"
+  },
+  {
+    "termo": "solução amistosa",
+    "variantes": [],
+    "significado": "Um acordo entre a vítima e o Estado, sem precisar de julgamento.",
+    "fontes": [
+      "CADH, art. 48"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:22.909240+00:00"
   },
   {
     "termo": "solvente",
@@ -6539,6 +9906,36 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "sufrágio universal",
+    "variantes": [],
+    "significado": "O direito de voto dado a todos os cidadãos, sem exigir renda ou outra condição especial.",
+    "fontes": [
+      "DUDH, art. 21"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
+    "termo": "sujeições",
+    "variantes": [],
+    "significado": "As amarras que a Administração tem e o particular não, como fazer concurso, licitar e motivar.",
+    "fontes": [
+      "doutrina (regime jurídico-administrativo)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
+    "termo": "superfaturamento",
+    "variantes": [],
+    "significado": "Dano ao patrimônio da Administração no contrato, como medir e pagar mais do que foi de fato executado ou fornecido.",
+    "fontes": [
+      "Lei 14.133/2021, art. 6º, LVII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:33.422144+00:00"
+  },
+  {
     "termo": "superveniente",
     "variantes": [],
     "significado": "Que vem depois. 'Lei federal superveniente' é a lei federal que chega depois da estadual.",
@@ -6547,6 +9944,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "supervisão ministerial",
+    "variantes": [],
+    "significado": "O acompanhamento que o Ministro faz dos órgãos e entidades da sua área: orientar, coordenar e controlar.",
+    "fontes": [
+      "Decreto-Lei 200/1967, art. 20, parágrafo único"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:11.160309+00:00"
   },
   {
     "termo": "supralegal",
@@ -6561,6 +9968,43 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 12/10/2026",
     "criado_em": "2026-10-12T17:36:54.341566+00:00"
+  },
+  {
+    "termo": "supremacia do interesse público",
+    "variantes": [],
+    "significado": "No choque entre o interesse de todos e o de um particular, o de todos vem primeiro; é o que justifica os poderes especiais da Administração.",
+    "fontes": [
+      "doutrina (supremacia e indisponibilidade do interesse público)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:37.668764+00:00"
+  },
+  {
+    "termo": "suscitar",
+    "variantes": [
+      "suscita",
+      "suscitado",
+      "suscitada"
+    ],
+    "significado": "Levantar a questão, pedir formalmente que o tribunal decida sobre ela.",
+    "fontes": [
+      "CF, art. 109, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:49.735826+00:00"
+  },
+  {
+    "termo": "Susp",
+    "variantes": [
+      "Sistema Único de Segurança Pública"
+    ],
+    "significado": "Sistema Único de Segurança Pública: o time de todos os órgãos de segurança da União, dos Estados, do DF e dos Municípios jogando junto.",
+    "fontes": [
+      "Lei 13.675/2018, art. 1º",
+      "Lei 13.675/2018, art. 9º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:29.213716+00:00"
   },
   {
     "termo": "suspeição",
@@ -6615,6 +10059,52 @@
     "criado_em": "2026-11-26T22:00:41.510016+00:00"
   },
   {
+    "termo": "taverna",
+    "variantes": [],
+    "significado": "Bar ou botequim aberto ao público.",
+    "fontes": [
+      "CP, art. 150, § 5º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:56.979916+00:00"
+  },
+  {
+    "termo": "taxatividade",
+    "variantes": [],
+    "significado": "O crime tem de ser descrito na lei de forma clara e precisa, sem texto vago.",
+    "fontes": [
+      "doutrina (taxatividade)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "tentativa branca",
+    "variantes": [
+      "tentativa incruenta",
+      "incruenta"
+    ],
+    "significado": "A tentativa em que a vítima não é atingida (nenhum tiro acerta).",
+    "fontes": [
+      "doutrina (espécies de tentativa)",
+      "CEBRASPE-2023-POLCALPER2-q42"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
+    "termo": "tentativa cruenta",
+    "variantes": [
+      "cruenta"
+    ],
+    "significado": "A tentativa em que a vítima é atingida e ferida, mas o crime não se consuma.",
+    "fontes": [
+      "doutrina (espécies de tentativa)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:37.309355+00:00"
+  },
+  {
     "termo": "teoria da atividade",
     "variantes": [],
     "significado": "A regra de que o crime acontece na hora da ação ou da omissão, e não na hora do resultado.",
@@ -6659,6 +10149,28 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "termo de comparecimento",
+    "variantes": [],
+    "significado": "O compromisso escrito de ir a todos os atos do processo; faltou, a liberdade pode ser revogada.",
+    "fontes": [
+      "CPP, art. 310, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
+  },
+  {
+    "termo": "terras devolutas",
+    "variantes": [
+      "devolutas"
+    ],
+    "significado": "Terras públicas que não têm uso público definido nem dono particular.",
+    "fontes": [
+      "Lei 9.605/1998, art. 50-A"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "Territórios Federais",
     "variantes": [
       "Território Federal"
@@ -6691,6 +10203,36 @@
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
   },
   {
+    "termo": "tipicidade material",
+    "variantes": [],
+    "significado": "Além de caber na letra da lei, o fato tem de ferir de verdade o bem protegido; lesão ínfima não basta.",
+    "fontes": [
+      "CEBRASPE-2023-POLCALPER-q52"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
+    "termo": "título ao portador",
+    "variantes": [],
+    "significado": "Papel de crédito que vale para quem estiver com ele na mão, sem nome de dono escrito.",
+    "fontes": [
+      "CP, art. 297, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
+  },
+  {
+    "termo": "título executivo",
+    "variantes": [],
+    "significado": "Documento que já permite cobrar a dívida direto na fase de execução, sem antes precisar de um processo para provar que ela existe.",
+    "fontes": [
+      "CF, art. 71, § 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:10.078450+00:00"
+  },
+  {
     "termo": "trabalhador avulso",
     "variantes": [
       "avulso"
@@ -6704,6 +10246,16 @@
     "criado_em": "2026-10-12T17:22:43.211132+00:00"
   },
   {
+    "termo": "trabalhos forçados",
+    "variantes": [],
+    "significado": "Trabalho obrigatório imposto como castigo; a Constituição proíbe essa pena.",
+    "fontes": [
+      "CF, art. 5º, XLVII"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:08:24.201932+00:00"
+  },
+  {
     "termo": "tração animal",
     "variantes": [],
     "significado": "Puxado por animal, como a charrete e a carroça.",
@@ -6712,6 +10264,26 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:48:45.091273+00:00"
+  },
+  {
+    "termo": "traços somáticos",
+    "variantes": [],
+    "significado": "As características do corpo, como a cor dos olhos, da pele ou a altura.",
+    "fontes": [
+      "Lei 12.037/2009, art. 5º-A, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:11:54.082184+00:00"
+  },
+  {
+    "termo": "tráfico de influência",
+    "variantes": [],
+    "significado": "Cobrar ou pedir vantagem dizendo que vai \"mexer os pauzinhos\" com um funcionário público.",
+    "fontes": [
+      "CP, art. 332"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:18.096822+00:00"
   },
   {
     "termo": "transação penal",
@@ -6732,6 +10304,29 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
+  },
+  {
+    "termo": "transferido para a reserva",
+    "variantes": [
+      "transferência para a reserva",
+      "vai para a reserva"
+    ],
+    "significado": "O militar sai do serviço ativo e passa para a inatividade.",
+    "fontes": [
+      "CF, art. 142, § 3º, II"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:46.845424+00:00"
+  },
+  {
+    "termo": "transgressão militar",
+    "variantes": [],
+    "significado": "Falta disciplinar do militar, que não é crime; nela, a CF admite a prisão sem flagrante e sem ordem do juiz.",
+    "fontes": [
+      "CF, art. 5º, LXI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:59.465111+00:00"
   },
   {
     "termo": "trânsito em julgado",
@@ -6890,6 +10485,16 @@
     "criado_em": "2026-10-24T14:09:12.671562+00:00"
   },
   {
+    "termo": "unidade de conservação",
+    "variantes": [],
+    "significado": "Área protegida pelo poder público, como um parque nacional ou uma reserva, criada para conservar a natureza.",
+    "fontes": [
+      "Lei 9.605/1998, art. 29, § 4º, V"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "unidade tracionada",
     "variantes": [
       "tracionada"
@@ -6937,6 +10542,16 @@
     "criado_em": "2026-10-24T13:54:38.811120+00:00"
   },
   {
+    "termo": "urbanidade",
+    "variantes": [],
+    "significado": "Educação e respeito no trato com as pessoas.",
+    "fontes": [
+      "Lei 8.112/1990, art. 116, XI"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:05:19.887318+00:00"
+  },
+  {
     "termo": "uso permitido",
     "variantes": [],
     "significado": "A arma que o cidadão comum pode comprar e registrar, cumprindo os requisitos da lei; quais armas entram aqui é o regulamento (decreto) que diz.",
@@ -6971,6 +10586,26 @@
     "criado_em": "2026-11-07T00:45:05.601374+00:00"
   },
   {
+    "termo": "usufruto exclusivo",
+    "variantes": [],
+    "significado": "O direito de usar uma coisa e tirar proveito dela, só para si, sem ser o dono.",
+    "fontes": [
+      "CF, art. 231, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:12.209596+00:00"
+  },
+  {
+    "termo": "vacância",
+    "variantes": [],
+    "significado": "Quando o cargo fica vago de vez, e não só por um tempo.",
+    "fontes": [
+      "CF, art. 81, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
     "termo": "vantagem indevida",
     "variantes": [],
     "significado": "Qualquer benefício que o servidor não tem direito de receber: dinheiro, presente, favor.",
@@ -6982,6 +10617,18 @@
     "criado_em": "2026-10-12T17:28:51.237709+00:00"
   },
   {
+    "termo": "vegetais hidróbios",
+    "variantes": [
+      "hidróbios"
+    ],
+    "significado": "Plantas que vivem na água.",
+    "fontes": [
+      "Lei 9.605/1998, art. 36"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:58.456527+00:00"
+  },
+  {
     "termo": "velocidade considerada",
     "variantes": [],
     "significado": "A velocidade que vale para a multa: a que o radar mediu, menos a margem de erro do aparelho.",
@@ -6990,6 +10637,16 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 26/11/2026",
     "criado_em": "2026-11-26T22:00:05.453080+00:00"
+  },
+  {
+    "termo": "verdade sabida",
+    "variantes": [],
+    "significado": "A velha ideia de punir sem processo porque \"todo mundo sabe\" que o servidor errou. Não vale: a punição exige processo com defesa.",
+    "fontes": [
+      "CF, art. 5º, LV"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:13:24.329355+00:00"
   },
   {
     "termo": "verificação metrológica",
@@ -7086,6 +10743,26 @@
     "criado_em": "2026-11-26T22:50:32.173606+00:00"
   },
   {
+    "termo": "vias de fato",
+    "variantes": [],
+    "significado": "Agressão física sem deixar lesão, como um empurrão ou um tapa.",
+    "fontes": [
+      "CP, art. 140, § 2º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
+    "termo": "vicaricídio",
+    "variantes": [],
+    "significado": "Matar descendente, ascendente, dependente, enteado ou pessoa sob a guarda ou responsabilidade direta da mulher para fazê-la sofrer, puni-la ou controlá-la, na violência doméstica e familiar.",
+    "fontes": [
+      "CP, art. 121-B"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:12:46.411710+00:00"
+  },
+  {
     "termo": "videomonitoramento",
     "variantes": [],
     "significado": "Fiscalização a distância, por câmeras, com o agente vendo as imagens ao vivo.",
@@ -7131,6 +10808,28 @@
     "criado_em": "2026-11-26T21:59:26.607449+00:00"
   },
   {
+    "termo": "vinculante",
+    "variantes": [
+      "não vinculante"
+    ],
+    "significado": "Que obriga a cumprir; o não vinculante orienta, mas não obriga.",
+    "fontes": [
+      "doutrina (natureza jurídica da Declaração)"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:10:35.691427+00:00"
+  },
+  {
+    "termo": "violenta emoção",
+    "variantes": [],
+    "significado": "O sangue quente: a raiva ou o desespero forte que toma a pessoa na hora.",
+    "fontes": [
+      "CP, art. 121, § 1º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:07:31.886762+00:00"
+  },
+  {
     "termo": "vista ao Ministério Público",
     "variantes": [],
     "significado": "Entregar os autos ao promotor para ele ler e se manifestar.",
@@ -7149,5 +10848,25 @@
     ],
     "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 24/10/2026",
     "criado_em": "2026-10-24T13:55:47.014935+00:00"
+  },
+  {
+    "termo": "votos válidos",
+    "variantes": [],
+    "significado": "Os votos dados a candidatos, sem contar os em branco e os nulos.",
+    "fontes": [
+      "CF, art. 77, §§ 2º e 3º"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:06:37.722118+00:00"
+  },
+  {
+    "termo": "voz de prisão",
+    "variantes": [],
+    "significado": "Avisar a pessoa, na hora, que ela está presa.",
+    "fontes": [
+      "CPP, art. 307"
+    ],
+    "modelo": "Claude Code (claude-opus-5-5), importado manualmente, em 27/11/2026",
+    "criado_em": "2026-11-27T13:09:16.786188+00:00"
   }
 ]

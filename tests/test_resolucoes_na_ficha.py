@@ -173,3 +173,101 @@ def test_o_termo_comum_continua_sem_caixa():
     marcados = [t.texto for t in glossario.trechos("A Tara do caminhão.", [tara], set())
                 if t.termo]
     assert marcados == ["Tara"]
+
+
+# --- as leis das outras materias e o bloco por inciso (PRF-52) ----------------------------
+
+@pytest.mark.parametrize("fonte, rotulo", [
+    ("Lei 8.112/1990, art. 116, III", "Lei 8.112/1990, art. 116"),
+    ("Lei 14.133/2021, art. 75, II", "Lei 14.133/2021, art. 75"),
+    ("Decreto-Lei 200/1967, art. 4º, II", "Decreto-Lei 200/1967, art. 4º"),
+    ("ADCT, art. 2º", "ADCT, art. 2º"),
+    ("CADH, art. 7º", "Convenção Americana, art. 7º"),
+    # O Anexo I numera de novo: nao e o art. 2º do decreto.
+    ("Decreto 11.348/2023, Anexo I, art. 2º", "Decreto 11.348/2023, Anexo I, art. 2º"),
+    ("Decreto 11.348/2023, art. 1º", "Decreto 11.348/2023, art. 1º"),
+])
+def test_as_leis_das_outras_materias_sao_lidas(fonte, rotulo):
+    assert artigos.da_fonte(fonte).rotulo == rotulo
+
+
+@pytest.mark.parametrize("fonte, rotulo", [
+    ("CF, art. 5º, XI", "CF, art. 5º, XI"),
+    ("CF, art. 5º, inciso LXVIII", "CF, art. 5º, LXVIII"),
+    ("CF, art. 7º, XXXIII", "CF, art. 7º, XXXIII"),
+    # Varios incisos, faixa, paragrafo ou caput: o bloco do artigo.
+    ("CF, art. 5º, XI e XII", "CF, art. 5º"),
+    ("CF, art. 5º, incisos XI a XIII", "CF, art. 5º"),
+    ("CF, art. 5º, § 3º", "CF, art. 5º"),
+    ("CF, art. 5º, caput", "CF, art. 5º"),
+    # Fora de POR_INCISO, o inciso nao separa.
+    ("CF, art. 37, II", "CF, art. 37"),
+])
+def test_no_artigo_longo_o_bloco_e_o_inciso(fonte, rotulo):
+    assert artigos.da_fonte(fonte).rotulo == rotulo
+
+
+def test_os_blocos_de_inciso_saem_na_ordem_da_lei():
+    partes = {"artigos": [_frase("Mandado de segurança.", "CF, art. 5º, LXIX"),
+                          _frase("Casa é asilo inviolável.", "CF, art. 5º, XI"),
+                          _frase("Todos são iguais.", "CF, art. 5º, caput"),
+                          _frase("Habeas corpus.", "CF, art. 5º, LXVIII")]}
+    enxuto = fichas.resumo_enxuto(partes, "Direito Constitucional")
+    assert [b.rotulo for b in enxuto.blocos] == [
+        "CF, art. 5º", "CF, art. 5º, XI", "CF, art. 5º, LXVIII", "CF, art. 5º, LXIX"]
+
+
+def test_a_traducao_do_inciso_cita_o_proprio_inciso():
+    tema = artigos.do_tema("Direitos e deveres (art. 5º)", "CF, art. 5º", "Direito Constitucional")
+    item = {"artigo": "CF, art. 5º, XI",
+            "na_real": _linha("A casa é protegida.", "CF, art. 5º, XI"),
+            "exemplo": _linha("Mandado só de dia.", "CF, art. 5º, XI"),
+            "na_prova": _linha("De dia, com ordem do juiz.", "CF, art. 5º, XI")}
+    partes, _ = traducao.conferir_traducao({"itens": [item]}, tema=tema, codigos={})
+    assert partes["itens"][0]["artigo"] == "CF, art. 5º, XI"
+    # O "na real" que cita o artigo inteiro nao e o proprio inciso.
+    errado = copy.deepcopy(item)
+    errado["na_real"] = _linha("A casa é protegida.", "CF, art. 5º")
+    with pytest.raises(fichas.FichaRecusada, match="não é o próprio artigo"):
+        traducao.conferir_traducao({"itens": [errado]}, tema=tema, codigos={})
+
+
+def test_a_resolucao_de_outro_orgao_escrito_depois_nao_e_do_contran():
+    # "Resolução 5/2012 do Senado": os artigos depois dela sao da Lei 11.343.
+    texto = ("Lei 11.343/2006 (a Resolução 5/2012 do Senado suspendeu a vedação), "
+             "arts. 3º a 17")
+    assert [f.rotulo for f in artigos.citados(texto)] == ["Lei 11.343/2006, arts. 3º a 17"]
+
+
+def test_a_lei_nomeada_depois_da_citacao_e_so_dela():
+    # "do art. 144 da CF" nao faz o art. 121-A, que vem depois, ser da CF.
+    texto = "CP: art. 121 (protege os agentes do art. 144 da CF) e art. 121-A; 3) art. 129"
+    assert [f.rotulo for f in artigos.citados(texto)] == [
+        "CP, art. 121", "CF, art. 144", "CP, art. 121-A", "CP, art. 129"]
+
+
+@pytest.mark.parametrize("fonte, rotulo", [
+    ("CF, art. 144, § 2º", "CF, art. 144, § 2º"),
+    ("CF, art. 144, § 10", "CF, art. 144, § 10"),
+    ("CF, art. 144, §§ 1º e 2º", "CF, art. 144"),
+    ("CF, art. 144, caput, II", "CF, art. 144"),
+])
+def test_o_art_144_se_divide_por_paragrafo(fonte, rotulo):
+    # O § 2º e a PRF: o bloco dele e a traducao dele.
+    assert artigos.da_fonte(fonte).rotulo == rotulo
+
+
+def test_o_paragrafo_com_letra_e_outro_paragrafo():
+    assert artigos.da_fonte("CF, art. 144, § 5º-A").rotulo == "CF, art. 144, § 5º-A"
+
+
+def test_a_traducao_do_artigo_inteiro_puxa_os_paragrafos_sem_traducao():
+    # A ficha de antes traduzia o art. 144 de uma vez: as frases dos §§ ficam
+    # no bloco dele, com a letra, e nao em blocos soltos sem traducao.
+    partes = {"artigos": [_frase("Policias militares.", "CF, art. 144, § 5º"),
+                          _frase("Policias penais.", "CF, art. 144, § 5º-A")]}
+    item = {"artigo": "CF, art. 144", "na_real": _linha("Os orgaos.", "CF, art. 144"),
+            "exemplo": _linha("A PM.", "CF, art. 144"), "na_prova": _linha("PP.", "CF, art. 144")}
+    enxuto = fichas.resumo_enxuto(partes, "Direito Constitucional", {"itens": [item]})
+    assert [(b.rotulo, len(b.frases), bool(b.traducao)) for b in enxuto.blocos] == [
+        ("CF, art. 144", 2, True)]
