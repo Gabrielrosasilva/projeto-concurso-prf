@@ -128,6 +128,9 @@
       <span>{{ resumo.acertos }} de {{ resumo.total }} questões desta rodada</span>
     </div>
     {% endif %}
+    {# O Simulado real (PRF-55): as repetidas medem em parte a memoria. #}
+    {% set repetidas = (simulado.filtros or {}).get('repetidas') %}
+    {% if repetidas %}<p class="ds-pequeno" style="margin-bottom:0">🔁 {{ repetidas }} {{ 'questão era repetida' if repetidas == 1 else 'questões eram repetidas' }} (você já tinha acertado): o acerto nelas mede em parte a memória, e não só o assunto.</p>{% endif %}
     {% set encerrada = (simulado.filtros or {}).get('encerrada') %}
     {% if encerrada %}
       {# O "Encerrar aqui" (decisao 185): a conta e so das respondidas. #}

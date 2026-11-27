@@ -96,6 +96,39 @@ def test_os_erros_primeiro_depois_as_novas_e_a_ia_no_fim(acervo, monkeypatch):
     assert not servico_simulado.corrige_na_hora(rodada)
 
 
+def test_o_simulado_real_repete_as_acertadas_mais_antigas(acervo, monkeypatch):
+    # PRF-55: so questao real; acabando as novas, as que eu acertei voltam,
+    # a de mais tempo primeiro, e a rodada conta quantas eram repetidas.
+    monkeypatch.setattr(composicao, "reserva_das_que_medem",
+                        lambda data, plano=None: composicao.Reserva())
+    _gerada(2, id=9002)
+    with sessao() as s:
+        todas = [q.id for q in s.scalars(
+            select(QuestaoDeProva).where(QuestaoDeProva.anulada.is_not(True))
+            .where(QuestaoDeProva.resposta.is_not(None)).order_by(QuestaoDeProva.id))]
+        antes = Simulado(filtros={"quantidade": len(todas)})
+        s.add(antes)
+        s.flush()
+        ident = antes.id
+        for ordem, qid in enumerate(todas, start=1):
+            s.add(RespostaDeSimulado(simulado_id=ident, questao_id=qid, ordem=ordem))
+    errada, *certas = todas
+    servico_simulado.responder(ident, errada, "b")          # errada
+    for qid in certas:                                      # certas, uma depois da outra
+        servico_simulado.responder(ident, qid, "a")
+
+    rodada = sa.criar(quantidade=50, materia=PORTUGUES, modo=sa.REAL, sorteio=random.Random(1))
+    ordem = _ids(rodada)
+    assert all(not gerada for gerada, _ in ordem)            # nada da IA
+    assert ordem[0] == (False, errada)                       # o erro primeiro
+    repetidas = [qid for _g, qid in ordem[1:]]
+    # As acertadas voltam na ordem em que foram respondidas (a mais antiga antes).
+    assert repetidas == [q for q in certas if q in repetidas]
+    f = rodada.filtros
+    assert f["rodada"] == sa.RODADA_REAL and f["repetidas"] == len(repetidas) > 0
+    assert not servico_simulado.corrige_na_hora(rodada)
+
+
 # --- as partes das geradas antigas (PRF-54) -----------------------------------
 
 def test_o_pedido_e_a_importacao_das_partes(banco_temporario, tmp_path):

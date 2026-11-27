@@ -182,9 +182,13 @@
             Quantas questões
             <input type="number" name="quantidade" value="{{ quantidade_do_simulado }}" min="1" max="{{ maximo_do_simulado }}">
           </label>
-          <button class="ds-botao" type="submit">Começar</button>
+          {# Os dois simulados (PRF-55): o de treino completa com a IA; o real
+             so tem questao real e repete quando elas acabam. #}
+          <button class="ds-botao" type="submit" name="modo" value="treino">Simulado de treino</button>
+          <button class="ds-botao ds-botao--secundario" type="submit" name="modo" value="real">Simulado real</button>
         </form>
-        <p class="dica">Primeiro as questões reais que você errou ou chutou; depois as que nunca fez (a Cebraspe antes das outras bancas); quando as reais acabam, entram as de Certo/Errado escritas pela IA. A questão que você acertou não volta. Correção no fim, como na prova; a nota das reais e a da IA ficam separadas.</p>
+        <p class="dica">Nos dois: primeiro as questões reais que você errou ou chutou; depois as que nunca fez (a Cebraspe antes das outras bancas), matéria por matéria, na proporção da prova; correção no fim, como na prova.</p>
+        <p class="dica"><b>Simulado de treino:</b> quando as reais acabam, entram as de Certo/Errado escritas pela IA; a questão que você acertou não volta; a nota das reais e a da IA ficam separadas. <b>Simulado real:</b> só questões reais; quando acabam, repete as que você acertou, as de mais tempo primeiro, e o resultado diz quantas eram repetidas.</p>
         <p class="dica">
           {{ selo('acervo') }}
           São {{ "{:,}".format(total_de_questoes)|replace(",", ".") }} questões no acervo, de provas de verdade,

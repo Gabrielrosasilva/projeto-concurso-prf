@@ -460,7 +460,9 @@ RODADAS_CORRIGIDAS_NO_FIM = RODADAS_QUE_MEDEM + ("simulado_da_semana", "simulado
                                                 "simulado_da_semana_ia",
                                                 # O Simulado da tela Simulado (PRF-53):
                                                 # 60 questoes, corrigido no fim, como a prova.
-                                                "simulado_avulso")
+                                                "simulado_avulso",
+                                                # O Simulado real (PRF-55): so reais.
+                                                "simulado_real")
 
 
 def corrige_na_hora(simulado: Simulado) -> bool:

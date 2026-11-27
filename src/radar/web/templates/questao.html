@@ -148,6 +148,9 @@
     {% elif f.get('rodada') == 'simulado_avulso' %}
       {# O Simulado da PRF (PRF-53): as reais e as geradas, nunca somadas. #}
       <b>Simulado</b>: {{ f.get('cebraspe', 0) }} da Cebraspe{% if f.get('outras') %}, {{ f.get('outras') }} de outras bancas{% endif %}{% if f.get('geradas_na_rodada') %} e {{ f.get('geradas_na_rodada') }} de Certo/Errado da IA, onde as reais acabaram (nota separada){% endif %}{% if f.get('a_rever') %} · {{ f.get('a_rever') }} que você errou ou chutou{% endif %}
+    {% elif f.get('rodada') == 'simulado_real' %}
+      {# O Simulado real (PRF-55): so questao real. #}
+      <b>Simulado real</b>: {{ f.get('cebraspe', 0) }} da Cebraspe{% if f.get('outras') %}, {{ f.get('outras') }} de outras bancas{% endif %}{% if f.get('a_rever') %} · {{ f.get('a_rever') }} que você errou ou chutou{% endif %}{% if f.get('repetidas') %} · {{ f.get('repetidas') }} que você já tinha acertado{% endif %}
     {% elif f.get('rodada') == 'conferencia' %}
       Respondida da <a href="/analises/conferencia">conferência da classificação</a>: uma questão real, como treino — depois de responder, a letra aparece também lá
     {% elif f.get('erros') %}
@@ -160,7 +163,7 @@
     {% else %}
       Questões reais, tiradas das provas do acervo
     {% endif %}
-    {% if not na_hora and f.get('rodada') in ('simulado_da_semana', 'simulado_pmsc', 'simulado_da_semana_ia', 'simulado_avulso') %} &middot; sem consulta: o certo e o errado aparecem no fim
+    {% if not na_hora and f.get('rodada') in ('simulado_da_semana', 'simulado_pmsc', 'simulado_da_semana_ia', 'simulado_avulso', 'simulado_real') %} &middot; sem consulta: o certo e o errado aparecem no fim
     {%- elif not na_hora %} &middot; rodada que mede: o certo e o errado aparecem no fim{% endif %}
   </p>
 

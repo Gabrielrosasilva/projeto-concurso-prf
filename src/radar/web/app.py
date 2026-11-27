@@ -813,8 +813,12 @@ def simulado_compilado(
 def simulado_novo(
     materia: str = Form(""),
     quantidade: str = Form(""),
+    modo: str = Form(""),
 ):
     """Monta a rodada e manda para a primeira questao.
+
+    `modo` "real" e o Simulado real (PRF-55): so questao real, e quando elas
+    acabam repete as que eu acertei, as de mais tempo primeiro.
 
     O Simulado da PRF (PRF-53): 60 questoes se eu nao mudar; as reais que eu
     errei primeiro, depois as que nunca fiz (Cebraspe antes das outras
@@ -825,7 +829,10 @@ def simulado_novo(
     quantas = (int(quantas) if quantas and 1 <= quantas <= servico.simulado_avulso.QUANTIDADE_MAXIMA
                else padrao)
 
-    novo = servico.simulado_avulso.criar(quantidade=quantas, materia=materia.strip() or None)
+    modo = (servico.simulado_avulso.REAL if modo.strip() == servico.simulado_avulso.REAL
+            else servico.simulado_avulso.TREINO)
+    novo = servico.simulado_avulso.criar(quantidade=quantas, materia=materia.strip() or None,
+                                         modo=modo)
     if novo is None:
         return RedirectResponse("/simulado", status_code=303)
     return RedirectResponse(f"/simulado/{novo.id}", status_code=303)
