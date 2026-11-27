@@ -21,6 +21,7 @@ correcao da o conceito de cada quesito (0 a 3) e o radar converte (PRF-37).
 
 Nao fala com banco nem com rede.
 """
+import json
 import re
 from dataclasses import dataclass, field
 from datetime import date, timedelta
@@ -54,11 +55,41 @@ def _ler(arquivo: Path) -> dict:
 
 
 def carregar() -> dict:
-    """O redacao.yml, ou {} quando nao ha. A tela diz o que falta."""
+    """O redacao.yml, ou {} quando nao ha. A tela diz o que falta.
+
+    Com o data/propostas_da_prf.json, os temas das discursivas da PRF vem com a
+    proposta do caderno oficial (`_com_as_propostas_da_prf`)."""
     arquivo = caminho()
     if not arquivo.exists():
         return {}
-    return cache.do_arquivo(arquivo, lambda: _ler(arquivo), nome="redacao")
+    return _com_as_propostas_da_prf(cache.do_arquivo(arquivo, lambda: _ler(arquivo), nome="redacao"))
+
+
+def caminho_das_propostas_da_prf() -> Path:
+    return config.diretorio_dados() / "propostas_da_prf.json"
+
+
+def _com_as_propostas_da_prf(dados: dict) -> dict:
+    """As discursivas da PRF (2019 e 2021) como cairam: os textos motivadores e
+    o comando copiados do caderno oficial do Cebraspe (PRF-69).
+
+    O caderno e texto de terceiros e o repositorio e publico: o arquivo fica so
+    nesta maquina (.gitignore, regra 5). O tema do redacao.yml com o mesmo
+    nome troca `textos` e `comando` pelos da prova; sem o arquivo (num
+    clone do GitHub), fica a versao do yml, com outras palavras. Devolve uma
+    copia: o dicionario do cache nao muda."""
+    arquivo = caminho_das_propostas_da_prf()
+    if not arquivo.exists():
+        return dados
+    propostas = {" ".join(str(p.get("tema") or "").split()).casefold(): p
+                 for p in json.loads(arquivo.read_text(encoding="utf-8")).get("propostas") or []}
+    temas = []
+    for item in dados.get("temas") or []:
+        prova = propostas.get(" ".join(str(item.get("tema") or "").split()).casefold())
+        if prova:
+            item = {**item, **{chave: prova[chave] for chave in ("textos", "comando") if prova.get(chave)}}
+        temas.append(item)
+    return {**dados, "temas": temas}
 
 
 # --- a nota -----------------------------------------------------------------
@@ -184,8 +215,11 @@ def textos_do_tema(tema: str, temas: list[dict]) -> list[dict]:
         lei = str(x.get("lei") or "").strip()
         fonte = lei or str(x.get("fonte") or "").strip()
         if texto and url and fonte:
+            # "prova": o fragmento do caderno oficial da PRF (PRF-69), com a fonte
+            # que a banca deu e o link do caderno.
+            tipo = "lei" if lei else ("prova" if x.get("tipo") == "prova" else "noticia")
             textos.append({"texto": texto, "titulo": str(x.get("titulo") or "").strip(),
-                           "tipo": "lei" if lei else "noticia", "fonte": fonte,
+                           "tipo": tipo, "fonte": fonte,
                            "url": url, "acesso": str(x.get("acesso") or "").strip()})
     return textos
 

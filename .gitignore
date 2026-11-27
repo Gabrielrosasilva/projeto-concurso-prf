@@ -47,3 +47,7 @@ tests/fixtures/ieses/edital_trechos.txt
 # A aba Preparacao Fisica: testes, treinos e a liberacao medica. Dado de saude
 # nao vai para o GitHub, que e publico.
 data/preparacao_fisica.json
+
+# As discursivas da PRF como cairam (textos motivadores e comando do caderno do
+# Cebraspe): texto de prova de terceiros, so nesta maquina (regra 5, PRF-69).
+data/propostas_da_prf.json

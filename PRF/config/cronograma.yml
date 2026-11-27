@@ -639,9 +639,8 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do
-      indivíduo'
-    detalhe: 'É o tema da discursiva da PRF de 2019, com outras palavras: a proposta, os textos motivadores e os
+    titulo: 'Redação da semana: O combate às infrações de trânsito nas rodovias federais brasileiras'
+    detalhe: 'É a discursiva da PRF de 2019: a proposta, os textos motivadores e os
       três aspectos estão na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
       à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
       a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina). Depois,
@@ -1263,11 +1262,13 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: O uso do celular ao volante e a segurança nas rodovias federais'
-    detalhe: 'É tema proposto pelo Claude: a proposta, os textos motivadores e os três aspectos estão na aba Redação.
-      10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo à mão até 30 linhas, 10 min revisando
-      pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige a redação" (Cebraspe: NPD = NC
-      - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina).'
+    titulo: 'Redação da semana: A inovação legislativa como instrumento para a redução dos acidentes de transporte terrestre (ATT)'
+    detalhe: 'É a discursiva da PRF de 2021: a proposta, os textos motivadores e os
+      três aspectos estão na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
+      à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
+      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina). Depois,
+      compare com o padrão de resposta definitivo (o link).'
+    link: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF
   - tipo: correcao
     duracao: 30
     titulo: Correção do sábado
@@ -3910,13 +3911,11 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias'
-    detalhe: 'É o tema da discursiva da PRF de 2021, com outras palavras: a proposta, os textos motivadores e os
-      três aspectos estão na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
-      à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
-      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina). Depois,
-      compare com o padrão de resposta definitivo (o link).'
-    link: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF
+    titulo: 'Redação da semana: O uso do celular ao volante e a segurança nas rodovias federais'
+    detalhe: 'É tema proposto pelo Claude: a proposta, os textos motivadores e os três aspectos estão na aba Redação.
+      10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo à mão até 30 linhas, 10 min revisando
+      pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige a redação" (Cebraspe: NPD = NC
+      - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina).'
   - tipo: correcao
     duracao: 30
     titulo: Correção do sábado
@@ -4599,8 +4598,7 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do
-      indivíduo'
+    titulo: 'Redação da semana: O combate às infrações de trânsito nas rodovias federais brasileiras'
     detalhe: '2ª versão do tema de 09/01: escreva de novo, sem olhar a primeira, usando o que a correção apontou;
       depois compare as duas notas na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
       à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
@@ -5342,11 +5340,13 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: O uso do celular ao volante e a segurança nas rodovias federais'
+    titulo: 'Redação da semana: A inovação legislativa como instrumento para a redução dos acidentes de transporte terrestre (ATT)'
     detalhe: '2ª versão do tema de 16/01: escreva de novo, sem olhar a primeira, usando o que a correção apontou;
       depois compare as duas notas na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
       à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
-      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina).'
+      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina). Depois,
+      compare com o padrão de resposta definitivo (o link).'
+    link: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF
   - tipo: correcao
     duracao: 30
     titulo: Correção do sábado
@@ -8140,13 +8140,11 @@ dias:
     duracao: 60
     cronometrado: true
     materia: Redação
-    titulo: 'Redação da semana: Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias'
+    titulo: 'Redação da semana: O uso do celular ao volante e a segurança nas rodovias federais'
     detalhe: '2ª versão do tema de 13/02: escreva de novo, sem olhar a primeira, usando o que a correção apontou;
       depois compare as duas notas na aba Redação. 10 min de roteiro (um parágrafo para cada aspecto), 40 min escrevendo
       à mão até 30 linhas, 10 min revisando pontuação e acento. Correção: a foto da folha no Claude Code, com "corrige
-      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina). Depois,
-      compare com o padrão de resposta definitivo (o link).'
-    link: https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADRAO_DE_RESPOSTA_DEFINITIVO.PDF
+      a redação" (Cebraspe: NPD = NC - 4 x NE/TL; um conceito de 0 a 3 por aspecto; abaixo de 10 elimina).'
   - tipo: correcao
     duracao: 30
     titulo: Correção do sábado

@@ -30,7 +30,7 @@ CONFIG_PRF = config.RAIZ / "PRF" / "config"
 CEBRASPE = {"linhas_minimo": 0, "linhas_maximo": 30, "nota_maxima": 20, "nota_minima": 10,
             "fator_dos_erros": 4, "conceito_maximo": 3}
 SABADO = date(2027, 1, 9)
-TEMA = "As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo"
+TEMA = "O combate às infrações de trânsito nas rodovias federais brasileiras"
 
 
 def _correcao(*conceitos, **extra) -> dict:
@@ -49,6 +49,8 @@ def prf(banco_temporario, tmp_path, monkeypatch):
     for arquivo in (config.RAIZ / "data").glob("*.json"):
         shutil.copy2(arquivo, tmp_path / arquivo.name)
     (tmp_path / "redacoes.json").unlink(missing_ok=True)
+    # O caderno oficial so existe nesta maquina (fora do git): o teste nao depende dele.
+    (tmp_path / "propostas_da_prf.json").unlink(missing_ok=True)
     monkeypatch.setenv("RADAR_DATA_DIR", str(tmp_path))
     monkeypatch.setenv("RADAR_CONFIG_DIR", str(CONFIG_PRF))
     monkeypatch.delenv("RADAR_ANTHROPIC_KEY", raising=False)
@@ -99,7 +101,7 @@ def test_o_pedido_leva_os_quesitos_e_o_formato_por_conceitos(prf):
                                        "Meu texto.", 28)
     pedido = lote["pedidos"][0]
     assert len(pedido["quesitos"]) == 3 and pedido["quesitos"][0].startswith("2.1")
-    assert len(pedido["textos_motivadores"]) == 1      # um, como na prova (PRF-67)
+    assert len(pedido["textos_motivadores"]) == 2
     formato = lote["formato_da_resposta"]["respostas"][0]["correcao"]
     assert "nota_conteudo" not in formato and "apresentacao" in formato
     assert "examinador do Cebraspe" in lote["como_responder"]
@@ -129,6 +131,45 @@ def test_a_correcao_importada_mostra_os_conceitos_e_o_fator(prf):
     pagina = TestClient(app).get(f"/redacao/{salvo['id']}").text
     assert "4 × NE 1 ÷ TL 28" in pagina and "Por quesito" in pagina and "de 3" in pagina
     assert "Apresentação e estrutura textual" in pagina and "AOCP" not in pagina
+
+
+# --- as discursivas da PRF como cairam (PRF-69) --------------------------------
+
+#: A discursiva de 2021, na semana 2.
+TEMA_2021 = "A inovação legislativa como instrumento para a redução dos acidentes de transporte terrestre (ATT)"
+
+
+def _propostas_de_teste() -> dict:
+    return {"procedencia": "Fixture.", "propostas": [
+        {"tema": TEMA, "comando": "Fixture: o comando da prova de 2019.",
+         "textos": [{"tipo": "prova", "url": "https://exemplo.invalid/caderno.pdf",
+                     "fonte": "Fixture: a fonte da banca", "texto": "Fixture: o fragmento 1."},
+                    {"tipo": "prova", "url": "https://exemplo.invalid/caderno.pdf",
+                     "fonte": "Fixture: a fonte da banca", "texto": "Fixture: o fragmento 2."}]}]}
+
+
+def test_as_duas_primeiras_semanas_sao_as_discursivas_da_prf(prf):
+    cliente = TestClient(app)
+    assert TEMA in cliente.get("/redacao?data=2027-01-09").text
+    assert TEMA_2021 in cliente.get("/redacao?data=2027-01-16").text
+
+
+def test_com_o_caderno_local_a_proposta_e_a_da_prova(prf):
+    (prf / "propostas_da_prf.json").write_text(
+        json.dumps(_propostas_de_teste(), ensure_ascii=False), encoding="utf-8")
+    pagina = TestClient(app).get("/redacao?data=2027-01-09").text
+    assert "Fixture: o fragmento 1." in pagina and "Fixture: o comando da prova de 2019." in pagina
+    assert "Texto da prova oficial da PRF" in pagina and "o caderno oficial da prova" in pagina
+    pedido = servico_redacao.montar_lote(servico_redacao.TIPO_CORRECAO, TEMA, SABADO,
+                                         "Meu texto.", 28)["pedidos"][0]
+    assert [x["texto"] for x in pedido["textos_motivadores"]] == ["Fixture: o fragmento 1.",
+                                                                   "Fixture: o fragmento 2."]
+    # Os outros temas nao mudam: continuam com os textos de lei do redacao.yml.
+    assert "Fixture" not in TestClient(app).get("/redacao?data=2027-01-23").text
+
+
+def test_o_caderno_local_fica_fora_do_git():
+    assert "data/propostas_da_prf.json" in (config.RAIZ / ".gitignore").read_text(encoding="utf-8")
 
 
 # --- os textos motivadores sao literais ----------------------------------------

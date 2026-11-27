@@ -136,46 +136,6 @@ def modelo_do_tema(tema: str | None) -> dict | None:
     return None
 
 
-# --- o texto de apoio (PRF-67) ----------------------------------------------
-
-def caminho_dos_textos_de_apoio() -> Path:
-    return config.diretorio_dados() / "textos_de_apoio.json"
-
-
-def texto_de_apoio_do_tema(tema: str | None) -> dict | None:
-    """O texto de apoio do tema, escrito pela IA, com a procedencia do arquivo.
-
-    E repertorio para LER ANTES de escrever (contexto, caminhos de argumento,
-    o que saber, situacoes, a lei quando pertinente e um fecho), e nao uma
-    redacao pronta: por isso aparece na proposta, e o modelo so na correcao.
-    Arquivo ausente ou tema sem texto: None (a tela mostra o "Me da ideias").
-    """
-    arquivo = caminho_dos_textos_de_apoio()
-    if not tema or not arquivo.exists():
-        return None
-    dados = json.loads(arquivo.read_text(encoding="utf-8")) or {}
-    procurado = " ".join(tema.split()).casefold()
-    for apoio in dados.get("textos") or []:
-        if " ".join(str(apoio.get("tema") or "").split()).casefold() == procurado:
-            return {**apoio, "procedencia": str(dados.get("procedencia") or "")}
-    return None
-
-
-def texto_de_apoio_corrido(apoio: dict | None) -> str:
-    """O texto de apoio numa string so, para ir no pedido de correcao: o
-    corretor precisa dele para ver o trecho copiado (como faz com os textos
-    motivadores)."""
-    if not apoio:
-        return ""
-    partes = [apoio.get("contexto") or ""]
-    partes += [f"{c.get('titulo')}: {c.get('texto')}" for c in apoio.get("caminhos") or []]
-    partes += list(apoio.get("o_que_saber") or []) + list(apoio.get("situacoes") or [])
-    partes += [f"{b.get('lei')}: {b.get('trecho')} ({b.get('por_que')})"
-               for b in apoio.get("base_legal") or []]
-    partes.append(apoio.get("fecho") or "")
-    return "\n".join(" ".join(str(p).split()) for p in partes if str(p).strip())
-
-
 def ultimas_ideias(tema: str | None = None) -> dict | None:
     """As ideias mais novas (do tema, quando ele vem)."""
     ideias = ler()["ideias"]
@@ -240,11 +200,6 @@ def _pedido(tipo: str, tema: str, data: date, texto: str | None = None,
             tema, regras_da_redacao.carregar().get("temas") or [])
         if quesitos:
             pedido["quesitos"] = quesitos
-        # O texto de apoio foi lido antes de escrever: trecho copiado dele
-        # tambem nao e argumento do candidato (PRF-67).
-        apoio = texto_de_apoio_corrido(texto_de_apoio_do_tema(tema))
-        if apoio:
-            pedido["texto_de_apoio"] = apoio
     return pedido
 
 
@@ -490,13 +445,10 @@ def corrigir_pela_api(texto: str, linhas: int, tema: str, data: date, sessao=Non
     textos = "\n\n".join(f"TEXTO {i}: {x['texto']} ({x['fonte']})"
                          for i, x in enumerate(textos_do_tema(tema), start=1))
     comando = comando_do_tema(tema)
-    apoio = texto_de_apoio_corrido(texto_de_apoio_do_tema(tema))
     corpo = _chamar(TIPO_CORRECAO,
                     f"TEMA: {tema}\n" + (f"COMANDO DA PROPOSTA: {comando}\n" if comando else "")
                     + f"LINHAS ESCRITAS NA FOLHA: {linhas}\n\n"
-                    f"TEXTOS MOTIVADORES:\n{textos or '(sem)'}\n\n"
-                    + (f"TEXTO DE APOIO (lido antes de escrever):\n{apoio}\n\n" if apoio else "")
-                    + f"REDAÇÃO:\n{texto}",
+                    f"TEXTOS MOTIVADORES:\n{textos or '(sem)'}\n\nREDAÇÃO:\n{texto}",
                     sessao)
     regras = regras_da_redacao.carregar().get("regras_do_edital") or {}
     correcao = regras_da_redacao.conferir_correcao(corpo.get("correcao", corpo), regras)

@@ -472,14 +472,15 @@ PADRAO_2021 = "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/PRF_21_PADR
 # Os temas da redacao de sabado: o titulo e IGUAL ao `tema` do PRF/config/redacao.yml
 # (a aba acha o tema, os textos motivadores e os quesitos por ele; PRF-37).
 TEMAS = [
-    ("As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo",
-     "o tema da discursiva da PRF de 2019, com outras palavras", PADRAO_2019),
-    ("O uso do celular ao volante e a segurança nas rodovias federais", "tema proposto pelo Claude", None),
+    # As duas primeiras sao as discursivas da propria PRF, como cairam (PRF-69).
+    ("O combate às infrações de trânsito nas rodovias federais brasileiras",
+     "a discursiva da PRF de 2019", PADRAO_2019),
+    ("A inovação legislativa como instrumento para a redução dos acidentes de transporte terrestre (ATT)",
+     "a discursiva da PRF de 2021", PADRAO_2021),
     ("A fiscalização eletrônica de velocidade e a redução dos sinistros de trânsito", "tema proposto pelo Claude", None),
     ("O transporte rodoviário de cargas e a segurança viária", "tema proposto pelo Claude", None),
     ("A educação para o trânsito como política pública", "tema proposto pelo Claude", None),
-    ("Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias",
-     "o tema da discursiva da PRF de 2021, com outras palavras", PADRAO_2021),
+    ("O uso do celular ao volante e a segurança nas rodovias federais", "tema proposto pelo Claude", None),
     ("A proteção de crianças e adolescentes nas rodovias federais", "tema proposto pelo Claude", None),
     ("A preservação do meio ambiente e o transporte nas rodovias federais", "tema proposto pelo Claude", None),
     ("Os direitos humanos e a atuação da Polícia Rodoviária Federal", "tema proposto pelo Claude", None),
