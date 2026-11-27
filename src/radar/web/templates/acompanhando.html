@@ -120,8 +120,6 @@
 {{ barra('concursos') }}
 
 <main class="ds-pagina">
-  {% from "_topo.html" import abas_de_concursos %}
-  {{ abas_de_concursos('acompanhando') }}
   {% from "_componentes.html" import selo %}
   <header class="ds-cabeca">
     <h1>Acompanhando</h1>
@@ -201,6 +199,11 @@
             <a href="{{ c.referencia.link }}" target="_blank" rel="noopener">{{ c.referencia.data | data }}</a>
           {%- endif %}
         </p>
+        {% if c.andamento %}
+          <p class="linha-do-concurso"><span class="rot">No site da banca</span>
+            {{ selo(c.referencia.selo, curto=True) }}
+            <a href="{{ c.referencia.link }}" target="_blank" rel="noopener">{{ c.andamento }}</a></p>
+        {% endif %}
 
         {# O proximo concurso, quando os marcos nao dizem, e o ultimo que ja
            aconteceu (09/10): e a pergunta da aba - vai abrir? quando foi o
@@ -244,6 +247,18 @@
             </li>
           {% endfor %}
         </ul>
+
+        {# As publicacoes da pagina do concurso no site da banca: o "status"
+           que o site mostra (etapa 1 da navegacao nova). Aberto, porque e o
+           que se vem ver aqui. #}
+        {% if c.publicacoes %}
+          <details class="publicacoes" open>
+            <summary>No site da banca ({{ c.publicacoes | length }} mais recentes)</summary>
+            <ul class="tempo">
+              {% for l in c.publicacoes %}<li>{{ linha_do_historico(l) }}</li>{% endfor %}
+            </ul>
+          </details>
+        {% endif %}
 
         {# A banca do alvo principal saiu (pendencia J): e a hora de estudar o
            padrao dela. So aparece com o marco Banca preenchido pelo item ou

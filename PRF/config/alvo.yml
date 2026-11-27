@@ -19,3 +19,14 @@ principal:
   nome_na_tela: PRF
   provas_na_tela: 2019 e 2021
   banca_no_motivo: a dos editais de 2018 e 2021
+
+# Um bloco so, e so para o cartao da PM SC na aba Concursos > Acompanhando
+# (27/11/2026): o config/acompanhamentos.yml aponta a carreira por este nome.
+# Os termos sao de SC de proposito - "policia militar" sozinho marcaria a PM
+# de qualquer estado como alvo secundario.
+secundarios:
+  - nome: Policia Militar SC
+    termos:
+      - pmsc
+      - policia militar de santa catarina
+      - policia militar do estado de santa catarina

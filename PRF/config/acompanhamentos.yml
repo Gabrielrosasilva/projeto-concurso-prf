@@ -19,14 +19,28 @@ janela_da_edicao_em_dias: 365
 novidades_desde: '2026-11-26'
 telegram_desde: '2026-11-26'
 
-fontes_oficiais: []
+# O Instituto AOCP e a banca do concurso da PM SC (pagina do concurso:
+# https://www.institutoaocp.org.br/concursos/proseleta-3, link do Gabriel em
+# 27/11/2026): o que vem do coletor `aocp` ganha o 🟢.
+fontes_oficiais:
+  - aocp
 
 # A novidade so fica "oficial" quando o link e de governo (.gov.br, que inclui
 # o site da PRF, .leg.br, .jus.br, .mp.br) ou da banca dos dois ultimos
 # editais. O resto (site de curso, de noticia) e "noticia".
 dominios_oficiais:
   - cebraspe.org.br
+  - institutoaocp.org.br
 
 acompanhamentos:
   - nome: PRF - Policial Rodoviário Federal
     cargo: principal
+
+  # A PM SC, embaixo da PRF (27/11/2026): o status que o site da AOCP mostra.
+  # Os termos sao os do bloco "Policia Militar SC" do PRF/config/alvo.yml; o
+  # "+" pede as duas partes no texto, para PM de outro estado nao entrar.
+  - nome: Polícia Militar SC
+    cargo: Policia Militar SC
+    termos_extras:
+      - policia militar + santa catarina
+    uf: SC

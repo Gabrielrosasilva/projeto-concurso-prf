@@ -276,7 +276,10 @@ def test_a_pagina_leva_ao_arquivo(cliente):
     assert 'href="/calendario.ics"' in cliente.get("/calendario").text
 
 
-def test_o_link_da_barra_abre_a_pagina_e_nao_o_arquivo(cliente):
+def test_o_calendario_saiu_do_menu_mas_o_endereco_responde(cliente):
+    """Etapa 1 da navegacao nova (27/11/2026): Concursos ficou so com o
+    Acompanhando. O calendario saiu do menu, e o endereco continua de pe."""
     _semear(_concurso("https://x.test/pagina"))
 
-    assert 'href="/calendario"' in cliente.get("/concursos").text
+    assert 'href="/calendario"' not in cliente.get("/acompanhando").text
+    assert cliente.get("/calendario").status_code == 200

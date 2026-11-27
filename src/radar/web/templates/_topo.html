@@ -8,7 +8,7 @@
      Estudar   - treinar: Simulado e Gerar questoes
      Revisao   - Macetes (e, quando existirem, pegadinhas e assuntos)
      Analises  - o quadro do edital contra as provas, onde estudar primeiro
-     Concursos - a lista, Acompanhando, Calendario, Previsao
+     Concursos - abre direto em Acompanhando (a PRF e a PMSC)
      Mais      - fontes e evidencias, configuracoes
 
    Use assim, no topo do <body>:
@@ -43,7 +43,7 @@
     <a class="item {{ 'ativo' if ativo == 'redacao' }}" href="/redacao">✍ Redação</a>
     <a class="item {{ 'ativo' if ativo == 'revisao' }}" href="/revisao">🧠 Revisão</a>
     <a class="item {{ 'ativo' if ativo == 'analises' }}" href="/analises">📊 Análises</a>
-    <a class="item {{ 'ativo' if ativo == 'concursos' }}" href="/concursos">🏛 Concursos</a>
+    <a class="item {{ 'ativo' if ativo == 'concursos' }}" href="/acompanhando">🏛 Concursos</a>
     <a class="item {{ 'ativo' if ativo == 'mais' }}" href="/mais">⚙ Mais</a>
   </div>
 
@@ -104,13 +104,6 @@
 {% endmacro %}
 
 
-{# As sub-abas de Concursos: a lista, os favoritos e as duas consultas que
-   antes moravam no menu "Mais". #}
-{% macro abas_de_concursos(ativa='') %}
-<div class="subabas">
-  <a class="{{ 'ativo' if ativa == 'concursos' }}" href="/concursos">Todos</a>
-  <a class="{{ 'ativo' if ativa == 'acompanhando' }}" href="/acompanhando">Acompanhando</a>
-  <a class="{{ 'ativo' if ativa == 'calendario' }}" href="/calendario">Calendário</a>
-  <a class="{{ 'ativo' if ativa == 'previsao' }}" href="/previsao">Previsão</a>
-</div>
-{% endmacro %}
+{# Concursos nao tem mais sub-abas (etapa 1 da navegacao nova, 27/11/2026):
+   a aba abre direto em Acompanhando. Todos, Calendario e Previsao continuam
+   respondendo pelo endereco, mas sairam do menu. #}

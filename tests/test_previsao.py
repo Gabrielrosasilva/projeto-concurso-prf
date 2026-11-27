@@ -263,8 +263,11 @@ def test_sem_historico_a_tela_explica_o_que_fazer(cliente):
     assert "radar coletar" in cliente.get("/previsao").text
 
 
-def test_o_radar_tem_link_para_a_previsao(cliente):
-    assert 'href="/previsao"' in cliente.get("/concursos").text
+def test_a_previsao_saiu_do_menu_mas_o_endereco_responde(cliente):
+    """Etapa 1 da navegacao nova (27/11/2026): Concursos ficou so com o
+    Acompanhando; a previsao continua no endereco dela."""
+    assert 'href="/previsao"' not in cliente.get("/acompanhando").text
+    assert cliente.get("/previsao").status_code == 200
 
 
 # --- como a previsao aparece (etapa 1B, pendencia A3) -----------------------

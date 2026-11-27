@@ -982,3 +982,70 @@ def test_visto_e_conferencia_pela_tela(cliente):
     cliente.post("/acompanhando/visto", data={"nome": "Polícia Civil SC"})
     assert "🔔" not in cliente.get("/acompanhando").text.split("Favoritos")[0].split(
         "Polícia Civil SC")[1].split("</article>")[0]
+
+
+# --- as publicacoes do site da banca e o menu sem sub-abas (27/11/2026) -------
+
+def _com_publicacoes(url, publicacoes, **mudancas):
+    extra = {"andamento": "Concurso Público - Divulgado o Edital de Abertura",
+             "publicacoes": publicacoes}
+    return _item(url, "2026 - Polícia Militar SC - Concurso Público",
+                 fonte="fepese", extra=extra, situacao="edital_publicado", **mudancas)
+
+
+def test_o_cartao_lista_as_publicacoes_da_mais_nova_para_a_mais_velha(ambiente):
+    hoje = agora().date()
+    _semear(_com_publicacoes("https://x.test/pm", [
+        {"data": (hoje - timedelta(days=20)).isoformat(), "texto": "Edital de Abertura",
+         "link": "https://x.test/edital.pdf"},
+        {"data": (hoje - timedelta(days=2)).isoformat(), "texto": "Retificação 01",
+         "link": "https://x.test/ret.pdf"},
+        {"data": None, "texto": "Manual do candidato", "link": "https://x.test/manual.pdf"},
+    ]))
+    cartao = _cartao("Polícia Militar SC")
+    assert [l.texto for l in cartao.publicacoes][:2] == ["Retificação 01", "Edital de Abertura"]
+    assert all(l.selo == OFICIAL for l in cartao.publicacoes)
+    assert cartao.andamento == "Concurso Público - Divulgado o Edital de Abertura"
+
+    # A publicacao com data e fato: acende o sino; a sem data, nao.
+    links_no_sino = {l.link for l in cartao.novidades}
+    assert {"https://x.test/edital.pdf", "https://x.test/ret.pdf"} <= links_no_sino
+    assert "https://x.test/manual.pdf" not in links_no_sino
+    # E nao repete no historico: ela tem a lista dela.
+    assert not any(l.link == "https://x.test/ret.pdf" for l in cartao.historico)
+
+    assert cartoes.marcar_visto("Polícia Militar SC")
+    assert _cartao("Polícia Militar SC").novidades == []
+
+
+def test_a_tela_mostra_as_publicacoes_e_o_andamento(cliente):
+    _semear(_com_publicacoes("https://x.test/pm", [
+        {"data": "2026-10-01", "texto": "Edital de Abertura", "link": "https://x.test/edital.pdf"},
+    ]))
+    pagina = cliente.get("/acompanhando").text
+    assert "No site da banca" in pagina
+    assert "Divulgado o Edital de Abertura" in pagina
+    assert 'href="https://x.test/edital.pdf"' in pagina
+
+
+def test_concursos_abre_em_acompanhando_e_sem_sub_abas(cliente):
+    pagina = cliente.get("/acompanhando").text
+    assert 'href="/acompanhando">🏛 Concursos' in pagina
+    assert 'class="subabas"' not in pagina
+    assert 'href="/calendario"' not in pagina and 'href="/previsao"' not in pagina
+
+
+def test_o_yaml_da_prf_tem_a_prf_e_a_pm_sc(monkeypatch):
+    """O prf/config de verdade: a PRF primeiro, a PM SC embaixo, e o bloco
+    da PM SC existe no alvo.yml (sem ele, o YAML para com erro)."""
+    pasta = Path(__file__).resolve().parent.parent / "prf" / "config"
+    monkeypatch.setenv("RADAR_CONFIG_DIR", str(pasta))
+    carreiras.recarregar()
+    try:
+        assert [a.nome for a in carreiras.todos()] == [
+            "PRF - Policial Rodoviário Federal", "Polícia Militar SC"]
+        pm = carreiras.por_nome("Polícia Militar SC")
+        assert "pmsc" in pm.termos and pm.uf == "SC"
+        assert "aocp" in carreiras.regras().fontes_oficiais
+    finally:
+        carreiras.recarregar()

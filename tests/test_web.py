@@ -177,12 +177,13 @@ def test_a_barra_do_topo_tem_os_sete_destinos(cliente):
         assert f'href="{destino}"' in texto, destino
 
 
-def test_previsao_e_calendario_ficam_dentro_de_concursos(cliente):
-    """Como a especificacao manda: Concursos junta a lista, Acompanhando,
-    Calendario e Previsao, em sub-abas."""
+def test_concursos_e_so_o_acompanhando(cliente):
+    """Etapa 1 da navegacao nova (27/11/2026): a aba Concursos abre direto em
+    Acompanhando, sem as sub-abas Todos, Calendario e Previsao."""
     texto = cliente.get("/previsao").text
-    for destino in ("/concursos", "/acompanhando", "/calendario", "/previsao"):
-        assert f'href="{destino}"' in texto
+    assert 'href="/acompanhando"' in texto
+    for destino in ("/concursos", "/calendario", "/previsao"):
+        assert f'href="{destino}"' not in texto
 
 
 @pytest.mark.parametrize("caminho", ["/", "/analises", "/macetes", "/simulado",

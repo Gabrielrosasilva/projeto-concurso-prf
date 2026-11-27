@@ -264,3 +264,29 @@ def test_a_carga_inicial_liga_a_fonte_sem_aviso(banco_temporario, coletor):
     with sessao() as s:
         da_aocp = list(s.scalars(select(Concurso).where(Concurso.fonte == "aocp")))
     assert len(da_aocp) == 7 and all(c.avisado_em is not None for c in da_aocp)
+
+
+# --- as publicacoes, para o cartao da aba Acompanhando (27/11/2026) -----------
+
+def test_a_publicacao_vira_data_texto_e_link():
+    lista = aocp.publicacoes([
+        {"id": 1, "nome": "21/07/2022 - Anexo II - Edital RETIFICADO",
+         "url": "https://arquivos-site.institutoaocp.org.br/publicacoes/a.pdf"},
+    ])
+    assert lista == [{"data": "2022-07-21", "texto": "Anexo II - Edital RETIFICADO",
+                      "link": "https://arquivos-site.institutoaocp.org.br/publicacoes/a.pdf"}]
+
+
+def test_publicacao_sem_data_fica_sem_data_e_sem_link_sai():
+    lista = aocp.publicacoes([
+        {"nome": "Edital de Abertura", "url": "https://x.test/e.pdf"},
+        {"nome": "01/02/2026 - Sem link", "url": ""},
+    ])
+    assert lista == [{"data": None, "texto": "Edital de Abertura", "link": "https://x.test/e.pdf"}]
+
+
+def test_o_item_guarda_as_publicacoes_do_detalhe(coletor):
+    item = _por_id(coletor.coletar())[418]
+    publicadas = item.extra["publicacoes"]
+    assert publicadas and all(p["link"].startswith("https://") for p in publicadas)
+    assert publicadas[1]["data"] == "2022-07-21"

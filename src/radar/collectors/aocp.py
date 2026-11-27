@@ -159,6 +159,27 @@ def data_do_edital(publicacoes: list[dict] | None, ano: int | None = None) -> da
     return min(datas) if datas else None
 
 
+def publicacoes(brutas: list[dict] | None) -> list[dict]:
+    """As publicacoes do concurso como o radar guarda: data, texto e link.
+
+    "21/07/2022 - Anexo II - ... RETIFICADO" vira {"data": "2022-07-21",
+    "texto": "Anexo II - ... RETIFICADO", "link": <o PDF>}. Sem data no nome,
+    a data fica None: nunca se chuta. Sem link, a publicacao fica de fora -
+    a regra do radar e guardar sempre o link original.
+    """
+    lista = []
+    for bruta in brutas or []:
+        nome = " ".join((bruta.get("nome") or "").split())
+        link = (bruta.get("url") or "").strip()
+        if not nome or not link:
+            continue
+        quando = _data_de(nome)
+        texto = re.sub(r"^\d{2}/\d{2}/\d{4}\s*[-–]?\s*", "", nome) or nome
+        lista.append({"data": quando.date().isoformat() if quando else None,
+                      "texto": texto, "link": link})
+    return lista
+
+
 def _ano(*textos: str | None) -> int | None:
     """O ano do numero do edital: "001/2026" -> 2026."""
     for texto in textos:
@@ -243,5 +264,10 @@ class InstitutoAocp(Coletor):
                 "andamento": " ".join((chamada or "").split()) or None,
                 "inscricoes_de": detalhe.get("dataInicioInscricao"),
                 "inscricoes_ate": detalhe.get("dataFinalInscricao"),
+                # As publicacoes da pagina do concurso (edital, retificacao,
+                # convocacao...). O cartao da aba Acompanhando mostra a lista
+                # (etapa 1 da navegacao nova): e o "status" que o site da
+                # banca mostra, e o radar so o guardava para achar a data.
+                "publicacoes": publicacoes(detalhe.get("publicacoes")),
             },
         )

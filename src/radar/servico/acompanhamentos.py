@@ -255,6 +255,13 @@ class Cartao:
     proximo: str | None = None
     #: A previsao (anuncio sem ato) por tras da frase, com o link.
     previsao: Linha | None = None
+    #: As publicacoes da pagina do concurso no site da banca (hoje so a AOCP
+    #: guarda), da mais nova para a mais velha. E o "status" que o site
+    #: mostra: edital, retificacao, convocacao, resultado.
+    publicacoes: list[Linha] = field(default_factory=list)
+    #: O andamento como a banca escreve na lista ("Divulgado o Edital de
+    #: Abertura"), do item que diz a situacao. None quando a fonte nao traz.
+    andamento: str | None = None
 
 
 def _selo_do_item(concurso: Concurso) -> str:
@@ -442,6 +449,47 @@ def _sem_repetir(linhas: list[Linha]) -> list[Linha]:
 #: e na aba Concursos; o cartao e para o que importa agora.
 LINHAS_NO_HISTORICO = 30
 
+#: Quantas publicacoes do site da banca o cartao mostra. O concurso inteiro
+#: passa de 50 (cada anexo e uma); as do fim sao o edital de abertura.
+PUBLICACOES_NO_CARTAO = 20
+
+
+def _publicacoes(itens: list[Concurso], hoje: date) -> list[Linha]:
+    """As publicacoes que a coleta guardou no `extra` dos itens, uma por link.
+
+    So FATO (acende o 🔔) a do item da edicao de agora, e com data: a banca
+    publicou, com o PDF no link. Sem data no nome, ela aparece na lista mas
+    nao acende nada - nao da para dizer que e nova.
+    """
+    linhas: dict[str, Linha] = {}
+    sem_data: set[str] = set()
+    for concurso in itens:
+        da_edicao = _e_da_edicao_de_agora(concurso, hoje)
+        for p in (concurso.extra or {}).get("publicacoes") or []:
+            link = p.get("link")
+            if not link or link in linhas:
+                continue
+            dia = None
+            try:
+                dia = date.fromisoformat(p["data"]) if p.get("data") else None
+            except ValueError:
+                dia = None
+            if dia is None:
+                sem_data.add(link)
+            linhas[link] = Linha(
+                data=_inicio_do_dia(dia) or _quando(concurso),
+                texto=p.get("texto") or "Publicação",
+                selo=_selo_do_item(concurso),
+                link=link,
+                item=concurso.titulo,
+                fato=bool(da_edicao and dia),
+            )
+    # A sem data vai para o fim: a data do item no lugar dela e so para a
+    # tela ter o que escrever, e nao diz quando a banca publicou.
+    com_data = [l for l in linhas.values() if l.link not in sem_data]
+    sem = [l for l in linhas.values() if l.link in sem_data]
+    return sorted(com_data, key=lambda x: x.data, reverse=True) + sem
+
 
 def cartoes(hoje: date | None = None) -> list[Cartao]:
     """Um cartao por carreira do YAML, na ordem: a principal, depois quem tem
@@ -489,9 +537,12 @@ def cartoes(hoje: date | None = None) -> list[Cartao]:
                 for evento in eventos:
                     linhas.append(_linha_do_evento(evento, concurso, da_edicao))
             linhas += [_linha_da_pesquisa(p) for p in minhas]
+            publicadas = _publicacoes(itens, hoje)
 
+            # A publicacao nova acende o 🔔 junto com o resto, mas nao entra no
+            # historico: ela ja tem a lista dela no cartao.
             novidades = _sem_repetir([
-                linha for linha in linhas
+                linha for linha in linhas + publicadas
                 if linha.fato and (corte is None or linha.momento_da_novidade > corte)
             ])
             edicao = _edicao(itens, hoje)
@@ -518,6 +569,8 @@ def cartoes(hoje: date | None = None) -> list[Cartao]:
                 itens=len(itens),
                 visto_em=visto,
                 banca_para_estudar=banca if principal and banca.sabido else None,
+                publicacoes=publicadas[:PUBLICACOES_NO_CARTAO],
+                andamento=((ref.extra or {}).get("andamento") if ref else None),
             )
             if cartao.banca_para_estudar:
                 cartao.banca_no_acervo = banca_no_acervo(banca.valor)
