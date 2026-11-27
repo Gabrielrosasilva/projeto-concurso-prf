@@ -113,6 +113,22 @@ def test_meta_em_resultado(regras):
     assert _teste(regras, "corrida").minimo_para(3.5) == 2601
 
 
+def test_minhas_metas_acima_da_nota_maxima(regras):
+    metas = taf.metas(regras)
+    assert metas == {"barra": 12, "shuttle": 10.5, "impulsao": 2.45,
+                     "abdominal": 65, "corrida": 3000}
+    # Toda meta da 5 pontos: a folga e acima da nota maxima.
+    assert all(_teste(regras, chave).pontos(valor) == 5.0 for chave, valor in metas.items())
+    assert _teste(regras, "barra").texto_da_meta(9, 12) == "faltam 3"
+    assert _teste(regras, "shuttle").texto_da_meta(10.9, 10.5) == "baixar 0,40 s"
+    assert _teste(regras, "corrida").texto_da_meta(3050, 3000) == "meta batida"
+
+
+def test_teste_sem_meta_escrita_fica_com_a_dos_pontos(regras):
+    del regras["plano"]["metas"]["barra"]
+    assert taf.metas(regras)["barra"] == 9          # 5 pontos
+
+
 def test_ritmo_da_corrida():
     assert taf.ritmo_por_km(2600) == "4:37"
     assert taf.tempo_por_volta(2600) == "1:51"
@@ -248,11 +264,11 @@ def test_grafico_poe_a_meta_e_inverte_o_shuttle(pasta, regras):
     shuttle = _teste(regras, "shuttle")
     pontos = [pf.Ponto(SEGUNDA, 13.2, "teste", ""),
               pf.Ponto(SEGUNDA + timedelta(weeks=4), 12.4, "teste", "")]
-    g = pf.grafico(pontos, shuttle, 3.5)
+    g = pf.grafico(pontos, shuttle, 10.5)
     # Tempo menor (melhor) fica mais ALTO no grafico (y menor no SVG).
     assert g["marcas"][1]["y"] < g["marcas"][0]["y"]
-    assert [r["nome"] for r in g["referencias"]] == ["mínimo (2)", "meta (3,5)"]
-    assert pf.grafico([], shuttle, 3.5) is None
+    assert [r["nome"] for r in g["referencias"]] == ["mínimo (2)", "nota 5", "minha meta"]
+    assert pf.grafico([], shuttle, 10.5) is None
 
 
 # --- a tela ------------------------------------------------------------------

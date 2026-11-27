@@ -135,9 +135,21 @@ edital:
 plano:
   procedencia: "Rascunho do Claude Code (claude-opus-5-5), 27/11/2026 - conferir com o médico e com um profissional de educação física"
 
-  # A meta de cada teste: "passar com folga". 3,5 em todos dá média 3,5,
-  # meio ponto acima do mínimo do edital.
-  meta_de_pontos: 3.5
+  # A meta: passar com folga e se destacar (pedido do Gabriel, 27/11/2026:
+  # "quero fazer 12 a 15 barras"). O TAF e so eliminatorio (Anexo III, 1.1):
+  # passar de 5 pontos nao soma nada na classificacao. A folga acima da nota
+  # maxima serve para o dia ruim (nervoso, fiscal que nao conta a repeticao,
+  # cansaco dos testes anteriores) e para o Curso de Formacao (item 2.5).
+  # A cor da tela: vermelho abaixo de 2, laranja ate o 5, verde no 5.
+  meta_de_pontos: 5
+
+  # A minha meta em RESULTADO, um pouco acima de onde comeca o 5. Muda aqui.
+  metas:
+    barra: 12          # 5 pontos a partir de 9
+    shuttle: 10.5      # 5 pontos abaixo de 11,00 s
+    impulsao: 2.45     # 5 pontos a partir de 2,31 m
+    abdominal: 65      # 5 pontos a partir de 59
+    corrida: 3000      # 5 pontos a partir de 2.901 m (ritmo de 4:00/km)
 
   # Regras que valem em todas as fases.
   cuidados:

@@ -95,6 +95,18 @@ class Teste:
         quanto = self.formatar(falta)
         return f"{verbo} {quanto} → {pontos_em_texto(pontos)}"
 
+    def texto_da_meta(self, resultado: float, meta: float | None) -> str:
+        """'faltam 3', 'baixar 0,40 s' ou 'meta batida'."""
+        if meta is None:
+            return ""
+        if self.sentido == "menor":
+            if resultado <= meta:
+                return "meta batida"
+            return f"baixar {self.formatar(round(resultado - meta, 2))}"
+        if resultado >= meta:
+            return "meta batida"
+        return f"faltam {self.formatar(round(meta - resultado, 2))}"
+
     def minimo_para(self, pontos: float) -> float | None:
         """O resultado que da esses pontos (o limite da faixa), ou None."""
         for limite, valor in self.faixas:
@@ -179,6 +191,25 @@ def avaliar(resultados: dict[str, float], regras: dict | None = None) -> Avaliac
     aprovado = (not reprovados and media >= media_minima) if completo else None
     falta = max(0.0, round(media_minima * len(lista) - soma, 2))
     return Avaliacao(pontos, faltando, reprovados, soma, media, aprovado, falta)
+
+
+def metas(regras: dict | None = None) -> dict[str, float]:
+    """A minha meta de cada teste, em resultado (o `plano.metas` do yml).
+
+    Teste sem meta escrita fica com o resultado que da a `meta_de_pontos`:
+    a tela sempre tem uma linha de meta para desenhar.
+    """
+    regras = carregar() if regras is None else regras
+    plano = regras.get("plano") or {}
+    escritas = plano.get("metas") or {}
+    pontos = float(plano.get("meta_de_pontos", 5))
+    saida = {}
+    for teste in testes(regras):
+        if escritas.get(teste.chave) is not None:
+            saida[teste.chave] = float(escritas[teste.chave])
+        else:
+            saida[teste.chave] = teste.minimo_para(pontos)
+    return saida
 
 
 def ritmo_por_km(distancia_m: float, minutos: float = MINUTOS_DA_CORRIDA) -> str:

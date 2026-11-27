@@ -459,12 +459,12 @@ def evolucao(regras: dict | None = None) -> dict[str, list[Ponto]]:
             for chave, pontos in brutos.items()}
 
 
-def grafico(pontos: list[Ponto], teste: "taf.Teste", meta: float,
+def grafico(pontos: list[Ponto], teste: "taf.Teste", meta: float | None,
             largura: int = 360, altura: int = 170) -> dict | None:
     """As coordenadas do grafico de um teste, para o template so desenhar.
 
-    Uma serie (a minha evolucao) e duas linhas de referencia do edital: o
-    minimo (2 pontos) e a meta. O eixo y inclui as duas linhas, para eu ver a
+    Uma serie (a minha evolucao) e tres linhas de referencia: o minimo do
+    edital (2 pontos), a nota maxima (5) e a minha meta (em resultado). O eixo y inclui as duas linhas, para eu ver a
     distancia ate elas mesmo antes de chegar perto. No shuttle (menos e
     melhor) o eixo e invertido: subir no grafico e sempre melhorar.
     """
@@ -472,7 +472,8 @@ def grafico(pontos: list[Ponto], teste: "taf.Teste", meta: float,
         return None
     margem_esq, margem_dir, margem_cima, margem_baixo = 8, 78, 12, 24
     referencias = [("mínimo (2)", teste.minimo_para(2.0)),
-                   (f"meta ({taf.pontos_em_texto(meta)})", teste.minimo_para(meta))]
+                   ("nota 5", teste.minimo_para(5.0)),
+                   ("minha meta", meta)]
     referencias = [(nome, v) for nome, v in referencias if v is not None]
     valores = [p.valor for p in pontos] + [v for _, v in referencias]
     baixo, alto = min(valores), max(valores)

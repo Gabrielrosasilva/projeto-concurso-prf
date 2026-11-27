@@ -184,7 +184,7 @@
     <div class="ds-cartao__cabeca">
       <h2 class="ds-cartao__titulo">Evolução</h2>
     </div>
-    <p class="ds-cartao__meta">Testes e treinos, com as linhas do edital: o mínimo (2 pontos) e a sua meta ({{ pts(meta) }}). Subir no gráfico é sempre melhorar (no shuttle o eixo é invertido). <span class="legenda">● teste · ○ treino</span></p>
+    <p class="ds-cartao__meta">Testes e treinos, com três linhas: o mínimo do edital (2 pontos), a nota 5 e a minha meta (verde). Subir no gráfico é sempre melhorar (no shuttle o eixo é invertido). <span class="legenda">● teste · ○ treino</span></p>
     <div class="ds-grade">
     {% for t, g in graficos %}
       <figure class="grafico" style="margin:0">
@@ -223,30 +223,35 @@
       <h2 class="ds-cartao__titulo">Meu TAF hoje</h2>
       {{ selo('oficial', 'Índices do edital 2021') }}
     </div>
-    <p class="ds-cartao__meta">A medida de teste mais recente de cada um. Meta: {{ pts(meta) }} pontos em cada (passar com folga).</p>
+    <p class="ds-cartao__meta">A medida de teste mais recente de cada um contra a minha meta: nota máxima (5) em todos, com folga acima dela. O TAF só elimina; a folga é para o dia ruim e para o Curso de Formação. As metas mudam no <code>taf.yml</code> (plano &gt; metas).</p>
     {% if not agora %}
-      <p class="ds-vazio">Nenhum teste registrado ainda. Quando o médico liberar, registre o primeiro em <a href="#registrar">Calcular e registrar teste</a>; vale registrar só os testes que você puder fazer.</p>
-    {% else %}
+      <p class="ds-suave">Nenhum teste registrado ainda. Quando o médico liberar, registre o primeiro em <a href="#registrar">Calcular e registrar teste</a>; vale registrar só os testes que você puder fazer.</p>
+    {% endif %}
     <div class="ds-rolagem"><table class="ds-tabela">
-      <thead><tr><th>Teste</th><th class="ds-n">Último</th><th class="ds-n">Pontos</th><th class="ds-n">Meta ({{ pts(meta) }})</th><th>Próximo meio ponto</th></tr></thead>
+      <thead><tr><th>Teste</th><th class="ds-n">Mínimo (2)</th><th class="ds-n">Nota 5</th><th class="ds-n">Minha meta</th><th class="ds-n">Último</th><th class="ds-n">Pontos</th><th>Próximo meio ponto</th><th>Até a meta</th></tr></thead>
       <tbody>
       {% for t in testes %}
         {% set valor = ultimos.get(t.chave) %}
+        {% set abaixo = 'abaixo de ' if t.sentido == 'menor' else '' %}
         <tr>
           <td>{{ t.nome }}</td>
+          <td class="ds-n">{{ abaixo }}{{ t.formatar(t.minimo_para(2)) }}</td>
+          <td class="ds-n">{{ abaixo }}{{ t.formatar(t.minimo_para(5)) }}</td>
+          <td class="ds-n"><strong>{{ t.formatar(metas[t.chave]) }}</strong></td>
           <td class="ds-n">{{ t.formatar(valor) }}</td>
           {% if valor is none %}
-            <td class="ds-n ds-suave">não medido</td><td class="ds-n">{{ 'abaixo de ' if t.sentido == 'menor' }}{{ t.formatar(metas[t.chave]) }}</td><td></td>
+            <td class="ds-n ds-suave">não medido</td><td></td><td></td>
           {% else %}
             {% set p = agora.pontos[t.chave] %}
             <td class="ds-n {{ classe(p) }}">{{ pts(p) }}</td>
-            <td class="ds-n">{{ 'abaixo de ' if t.sentido == 'menor' }}{{ t.formatar(metas[t.chave]) }}</td>
             <td>{{ t.texto_do_degrau(valor) }}</td>
+            <td class="{{ 'ok' if t.texto_da_meta(valor, metas[t.chave]) == 'meta batida' }}">{{ t.texto_da_meta(valor, metas[t.chave]) }}</td>
           {% endif %}
         </tr>
       {% endfor %}
       </tbody>
     </table></div>
+    {% if agora %}
     <p class="resumo-taf">
       {% if agora.media is none %}
         Soma parcial: <strong>{{ pts(agora.soma) }}</strong> · faltam {{ agora.faltando|length }} teste(s) para a média.
