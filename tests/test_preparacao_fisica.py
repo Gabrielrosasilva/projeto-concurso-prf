@@ -60,6 +60,16 @@ def test_tabela_feminina_quando_o_yml_pede(regras):
     assert _teste(regras, "corrida").pontos(2001) == 2.0
 
 
+def test_cada_teste_tem_onde_aprender_com_a_fonte(regras):
+    """PRF-65: o link de cada teste, achado e conferido, com a procedencia."""
+    for teste in taf.testes(regras):
+        assert teste.aprender, teste.chave
+        assert teste.aprender["link"].startswith("https://"), teste.chave
+        assert "conferid" in teste.aprender["fonte"], teste.chave
+    oficiais = [t.chave for t in taf.testes(regras) if "cdn.cebraspe.org.br" in t.aprender["link"]]
+    assert oficiais == ["barra", "shuttle", "abdominal", "corrida"]
+
+
 def test_os_cinco_testes_na_ordem_do_edital(regras):
     assert [t.chave for t in taf.testes(regras)] == [
         "barra", "shuttle", "impulsao", "abdominal", "corrida"]

@@ -40,6 +40,7 @@
     .como li,.cuidados li{margin-bottom:var(--esp-1)}
     .barra-carga{display:inline-block;height:.7rem;background:var(--cor-acao);border-radius:2px;vertical-align:middle}
     form.inline{display:inline}
+    .aprender{margin:0 0 var(--esp-3)}
     .fiz{display:flex;gap:var(--esp-1);align-items:center;font-size:var(--tam-sm);padding-bottom:var(--esp-2)}
     details>summary{cursor:pointer;font-weight:var(--peso-medio)}
     /* Os graficos de evolucao: uma serie, as linhas do edital tracejadas. */
@@ -153,7 +154,10 @@
       <p class="regra">Descanso. É parte do treino: é nele que o corpo se recupera.</p>
     {% else %}
       <ol class="prescricao">
-        {% for item in treino.itens %}<li><strong>{{ item.nome }}:</strong> {{ item.prescricao }}</li>{% endfor %}
+        {% for item in treino.itens %}<li><strong>{{ item.nome }}:</strong> {{ item.prescricao }}
+          {% for t in testes if t.aprender and (t.chave == item.chave or (item.chave == 'potencia' and t.chave in ('impulsao', 'shuttle'))) %}
+            <a class="ds-pequeno" href="{{ t.aprender.link }}" target="_blank" rel="noopener">▶ ver como fazer{{ ' (' ~ t.nome ~ ')' if item.chave == 'potencia' }}</a>
+          {% endfor %}</li>{% endfor %}
       </ol>
     {% endif %}
 
@@ -393,12 +397,13 @@
 
   {# --- Como fazer cada teste, do edital --- #}
   <section class="ds-cartao" id="como">
-    <details>
-      <summary>Como fazer cada teste (edital 2021, Anexo III)</summary>
+    <details open>
+      <summary>Como fazer cada teste (edital 2021, Anexo III) e onde aprender</summary>
       <p class="ds-cartao__meta">Na ordem do edital, com 5 minutos entre um e outro. Treine sempre do jeito que a banca conta.</p>
       {% for t in testes %}
         <h3>{{ loop.index }}. {{ t.nome }} <span class="ds-suave ds-pequeno">item {{ t.item }} · {{ t.tentativas }} tentativa{{ 's' if t.tentativas > 1 }}</span></h3>
         <ul class="como">{% for c in t.como_fazer %}<li>{{ c }}</li>{% endfor %}</ul>
+        {% if t.aprender %}<p class="aprender">▶ <a href="{{ t.aprender.link }}" target="_blank" rel="noopener">{{ t.aprender.texto }}</a><br><span class="ds-suave ds-pequeno">{{ t.aprender.fonte }}</span></p>{% endif %}
       {% endfor %}
       <h3>No dia</h3>
       <ul class="como">{% for c in edital.checklist_do_dia or [] %}<li>☐ {{ c }}</li>{% endfor %}</ul>

@@ -34,6 +34,10 @@ edital:
     - chave: barra
       nome: "Flexão em barra fixa"
       item: "3.1 (pág. 46-48)"
+      aprender:
+        texto: "Vídeo oficial do Cebraspe (TAF da PRF 2021): a execução que a banca conta"
+        link: "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/2_BARRA_2_COMPRIMIDO.MP4"
+        fonte: "Cebraspe, publicado em 16/06/2021; link achado na Estratégia Concursos e na Nova Concursos, conferido (200, vídeo) em 27/11/2026"
       tentativas: 2
       masculino:
         unidade: "repetições"
@@ -53,6 +57,10 @@ edital:
     - chave: shuttle
       nome: "Shuttle run (ir e vir)"
       item: "3.2 (pág. 48-50)"
+      aprender:
+        texto: "Vídeo oficial do Cebraspe (TAF da PRF 2021): a execução que a banca conta"
+        link: "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/3_SHUTTLE_3_COMPRIMIDO.MP4"
+        fonte: "Cebraspe, publicado em 16/06/2021; link achado na Estratégia Concursos e na Nova Concursos, conferido (200, vídeo) em 27/11/2026"
       tentativas: 2
       masculino:
         unidade: "segundos"
@@ -72,6 +80,12 @@ edital:
     - chave: impulsao
       nome: "Impulsão horizontal"
       item: "3.3 (pág. 50)"
+      # O Cebraspe nao gravou video da impulsao (os de 2021 sao abertura,
+      # barra, shuttle, abdominal, corrida e encerramento).
+      aprender:
+        texto: "Topend Sports: como fazer o salto horizontal parado (em inglês; o balanço dos braços e a flexão dos joelhos dão a distância)"
+        link: "https://www.topendsports.com/testing/tests/longjump.htm"
+        fonte: "Sem vídeo oficial do Cebraspe para a impulsão. Página conferida (200) em 27/11/2026. Onde ela difere, vale o edital: pés paralelos sem tocar a linha, 2 tentativas, mede até a parte do corpo mais perto da linha"
       tentativas: 2
       masculino:
         unidade: "metros"
@@ -89,6 +103,10 @@ edital:
     - chave: abdominal
       nome: "Flexão abdominal (1 minuto)"
       item: "3.4 (pág. 50-51)"
+      aprender:
+        texto: "Vídeo oficial do Cebraspe (TAF da PRF 2021): a execução que a banca conta"
+        link: "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/5_ABDOMINAL_5_COMPRIMIDO.MP4"
+        fonte: "Cebraspe, publicado em 16/06/2021; link achado na Estratégia Concursos e na Nova Concursos, conferido (200, vídeo) em 27/11/2026"
       tentativas: 2
       masculino:
         unidade: "repetições"
@@ -107,6 +125,10 @@ edital:
     - chave: corrida
       nome: "Corrida de 12 minutos"
       item: "3.5 (pág. 51-52)"
+      aprender:
+        texto: "Vídeo oficial do Cebraspe (TAF da PRF 2021): a execução que a banca conta"
+        link: "https://cdn.cebraspe.org.br/concursos/PRF_21/arquivos/6_CORRIDA_6_COMPRIMIDO.MP4"
+        fonte: "Cebraspe, publicado em 16/06/2021; link achado na Estratégia Concursos e na Nova Concursos, conferido (200, vídeo) em 27/11/2026"
       tentativas: 1
       masculino:
         unidade: "metros"

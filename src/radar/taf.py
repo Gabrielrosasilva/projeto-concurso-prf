@@ -52,6 +52,9 @@ class Teste:
     sentido: str            # "maior" (mais e melhor) ou "menor" (o tempo)
     faixas: list[tuple[float, float]]
     como_fazer: list[str] = field(default_factory=list)
+    #: Onde aprender a execucao: {texto, link, fonte} (PRF-65). So link
+    #: achado e conferido na internet (regra 2 do CLAUDE.md).
+    aprender: dict | None = None
 
     def pontos(self, resultado: float) -> float:
         """Os pontos do edital para um resultado. 0,0 e reprovado.
@@ -147,6 +150,7 @@ def testes(regras: dict | None = None) -> list[Teste]:
             sentido=tabela.get("sentido", "maior"),
             faixas=[(float(limite), float(pontos)) for limite, pontos in tabela["faixas"]],
             como_fazer=list(bruto.get("como_fazer") or []),
+            aprender=bruto.get("aprender") or None,
         ))
     return lista
 
