@@ -180,7 +180,10 @@ ANOS_DAS_PROVAS = {2013, 2019}
 # recusa a conexao daqui) e a ALESC; a decisao do STF, no portal dele; e a lei
 # que a Camara nao abriu, no Senado (decisao 171). Nao e link de "ler a lei".
 FONTES_DA_CONFERENCIA = ("www2.camara.leg.br", "leis.alesc.sc.gov.br", "portal.stf.jus.br",
-                         "www.stf.jus.br", "noticias.stf.jus.br", "legis.senado.leg.br")
+                         "www.stf.jus.br", "noticias.stf.jus.br", "legis.senado.leg.br",
+                         # PRF-57: as resolucoes do CONTRAN saem no gov.br (Ministerio
+                         # dos Transportes), a fonte de leis/contran/manifesto.json.
+                         "www.gov.br")
 
 
 def _mudancas() -> list[dict]:
@@ -250,6 +253,19 @@ def test_o_item_sem_provas_continua_valendo_para_todo_caderno_do_ano(monkeypatch
     ]})
     assert [m.tema for m in leis.mudancas_da_questao(2019, None, "a fiança", "https://b.pdf")] == ["T"]
     assert [m.tema for m in leis.mudancas_da_questao(2019, None, "a fiança", "https://a.pdf")] == ["T", "U"]
+
+
+def test_a_questao_sem_ano_vale_pelo_caderno_citado(monkeypatch):
+    """PRF-57: a do PC/SE 2018 nao tem o ano gravado. O item que cita o
+    caderno dela em `provas` avisa; o que so tem `anos`, nao. Com o ano
+    gravado, o ano continua mandando."""
+    monkeypatch.setattr(leis, "_arquivo", lambda: {"mudancas": [
+        {"tema": "T", "lei": "L", "anos": [2018], "marcas": ["captação"]},
+        {"tema": "U", "lei": "M", "anos": [2018], "marcas": ["captação"], "provas": ["https://a.pdf"]},
+    ]})
+    assert [m.tema for m in leis.mudancas_da_questao(None, None, "a captação", "https://a.pdf")] == ["U"]
+    assert leis.mudancas_da_questao(None, None, "a captação", "https://b.pdf") == []
+    assert leis.mudancas_da_questao(2021, None, "a captação", "https://a.pdf") == []
 
 
 def test_a_tela_da_questao_avisa_so_depois_da_resposta(banco_temporario, monkeypatch):

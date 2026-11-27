@@ -1079,6 +1079,54 @@ def guardar_textos_base() -> TextosBase:
     return resultado
 
 
+#: Abaixo disto o "texto" lido e so a referencia de uma figura ("Quino. Toda a
+#: Mafalda. [...], p. 384.") ou o pedaco de uma linha: nao e texto de apoio.
+MINIMO_DO_TEXTO_BASE = 200
+
+
+def completar_textos_base_do_certo_errado() -> TextosBase:
+    """O texto do grupo que faltava nos itens de Certo/Errado do Cebraspe (PRF-57).
+
+    O leitor do caderno so achava o texto do primeiro grupo que o citava pelo
+    codigo sem hifen ("texto 12A1AAA") e perdia o texto sem rotulo nem recuo (o
+    do Nudetective, na PF de 2018). Consertado o leitor, os cadernos sao lidos
+    de novo e o texto entra SO onde o banco nao tinha nenhum: o enunciado, a
+    chave, a classificacao e a explicacao ficam como estao (reler tudo mudaria
+    a chave dos itens que tinham o texto do grupo seguinte colado, e a
+    explicacao, guardada pela chave, se perderia). O item tem de ser o mesmo
+    do numero (`_mesma_questao`). Caderno sem o PDF na maquina e pulado; o
+    texto e de terceiros e mora so no banco.
+    """
+    criar_tabelas()
+    resultado = TextosBase()
+    cadernos = {p.get("caderno") for p in carregar_provas_de_outras_bancas()
+                if (p.get("banca") or "").upper() == "CEBRASPE"
+                and p.get("formato") == "certo_errado"}
+    for registro in arquivos_de_prova.carregar_manifesto():
+        if registro.get("url") not in cadernos:
+            continue
+        caminho = _caminho(registro)
+        if caminho is None:
+            continue
+        lidas = {q.numero: q for q in _ler_caderno(registro, caminho)}
+        resultado.provas += 1
+        with sessao() as s:
+            for questao in s.scalars(select(QuestaoDeProva)
+                                     .where(QuestaoDeProva.prova_url == registro["url"])
+                                     .where(QuestaoDeProva.texto_base.is_(None))):
+                lida = lidas.get(questao.numero)
+                texto = getattr(lida, "texto_base", None) if lida else None
+                if not texto or len(texto) < MINIMO_DO_TEXTO_BASE:
+                    continue
+                if not _mesma_questao(
+                        _texto_da_comparacao(questao.enunciado, questao.alternativas),
+                        _texto_da_comparacao(lida.enunciado, lida.alternativas)):
+                    continue
+                questao.texto_base = texto
+                resultado.questoes += 1
+    return resultado
+
+
 #: O enunciado que fala de um trecho marcado: o que a tela tem de mostrar.
 #: "Sublinhado" e "grifado" pedem o traco; "destacado" e "em destaque" a
 #: FEPESE faz ora com o traco, ora em negrito, e qualquer um serve.

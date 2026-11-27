@@ -14,7 +14,7 @@ montado de memoria). O que os agentes acharam e precisa de conferencia:
 - CEBRASPE 2019 Escrivao de Policia q70 (questao id 24067), Penal.
 - CEBRASPE s/a Defensor Publico q90 (id 22673), Processo Penal. (Ja estava na lista do estado.)
 
-## Lei que mudou depois da prova (a explicacao avisa; falta o aviso na questao ou tirar do treino)
+## Lei que mudou depois da prova (PRF-57: todas com o aviso no `leis.yml` e fora do treino)
 - id 23167 (Delegado q106): captacao ambiental hoje exige autorizacao judicial (Lei 13.964/2019, art. 8o-A da Lei 9.296, que nao esta em `leis/`).
 - id 22849 (Escrivao 2021 q88): o estelionato deixou de depender de representacao (art. 171, § 5o revogado pela Lei 15.397/2026).
 - id 22801 (Agente 2021 q81): ameaca contra a mulher e incondicionada (Lei 14.994/2024).
@@ -34,11 +34,11 @@ montado de memoria). O que os agentes acharam e precisa de conferencia:
 - id 23186 (Agente de Policia Judiciaria 2021 q32): lei estadual 2.148/1977, que nao esta em `leis/`.
 
 ## Dados das questoes que estao errados no banco
-- Texto-base trocado: PF 2018 Agente, as do Nudetective, com o texto de Edgar Allan Poe; PF 2018 Papiloscopista com o de Marcelo Gleiser (e, em 5 delas, sem o comando "seriam preservadas se"). Aparece assim na tela.
+- Texto-base "trocado" (PRF-57: era texto que faltava, o agente leu o PDF ao lado): as do Nudetective e os grupos que so citavam "texto 12A1AAA"/"14A15AAA"/"13A1AAA" ficaram sem texto no banco. Consertado o leitor, 101 itens ganharam o texto. Ficam a PF 2018 Papiloscopista q1 a q5 sem o texto e sem o comando "seriam preservadas se" (o enunciado muda; ver a PRF-57).
 - Sem texto-base: varias da PF 2018 (Raciocinio e Portugues), PM/AL 2017 e 2021, CBM/AL 2017 e 2021, TRF1 2017, DETRAN/AL 2026 (tabela), PF 2021 (o conjunto P). O caderno da PF 2018 Agente de Raciocinio nao esta no projeto: 8 itens ficaram sem explicacao.
-- Texto de outra questao colado no enunciado: ids das provas da PCDF 2021 (cabecalho "Matriz_CE PCDF-ESC 2021"), Lei estadual 6.754/2006, um trecho do Manual de Redacao, um de estatistica.
+- Texto de outra questao colado no enunciado (PF 2018 Agente q8, 32, 40, 60 e 69: o leitor ja separa, falta reler levando a explicacao junto): ids das provas da PCDF 2021 (cabecalho "Matriz_CE PCDF-ESC 2021"), Lei estadual 6.754/2006, um trecho do Manual de Redacao, um de estatistica.
 - Materia errada: 5 de Raciocinio gravadas como Portugues; 7 de Penal/Processo Penal como Constitucional.
-- Cerca de 20 itens de INGLES em "Lingua Estrangeira" (o radar treina espanhol): entram no Simulado e nas faixas de Espanhol.
+- 28 itens de INGLES em "Lingua Estrangeira" (o radar treina espanhol): fora do treino (PRF-57).
 - Itens repetidos (o mesmo item duas vezes): 4 pares em Informatica e Portugues.
 - Figuras que nao vieram: a tirinha de Portugues, icones de Informatica, as lampadas de Raciocinio.
 

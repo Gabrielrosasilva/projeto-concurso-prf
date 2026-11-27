@@ -586,3 +586,58 @@ def test_o_primeiro_bloco_que_nao_e_espanhol_continua_fora():
     questoes = _questoes_de(texto_do_gabarito=DUAS_GRADES, duas_linguas=True,
                             espanhol={1: "C", 2: "E"})
     assert sorted(questoes) == [3, 4, 5, 7, 8]
+
+
+# --- PRF-57: o texto-base que faltava na PF de 2018 ---------------------------
+
+# INVENTADO, na forma da PF de 2018: o codigo do texto sem hifen, e o segundo
+# grupo que so o cita, com o codigo partido pelo pypdf ("12A 1AAA").
+CADERNO_DA_PF_2018 = """Texto 12A1AAA
+  O delegado procurou a carta em todo o hotel, e não a achou.
+Fulano. A carta. Revista de Teste, 1981.
+No que se refere aos sentidos do texto 12A1AAA, julgue os próximos itens.
+1 O delegado achou a carta.
+Julgue os seguintes itens, relativos aos aspectos linguísticos do texto 12A 1AAA.
+2 A vírgula depois de “hotel” poderia ser suprimida.
+"""
+
+
+def test_o_codigo_sem_hifen_vale_para_o_grupo_que_so_o_cita():
+    itens = {i.numero: i for i in ce.itens_do_caderno(CADERNO_DA_PF_2018, set())}
+    assert itens[1].texto_base.startswith("O delegado procurou a carta")
+    assert itens[2].texto_base == itens[1].texto_base
+
+
+@pytest.mark.parametrize("comando, codigo", [
+    ("Com relação ao texto 1A18-I, julgue", "1A18-I"),
+    ("relativos ao texto 12A 1AAA.", "12A 1AAA"),
+    ("Considerando o texto CB1A1AAA, julgue", "CB1A1AAA"),
+    ("Considerando o fragmento de texto apresentado, julgue", None),
+])
+def test_a_citacao_do_texto_tem_algarismo_no_codigo(comando, codigo):
+    achado = ce.CITACAO_DO_TEXTO.search(comando)
+    assert (achado.group(1) if achado else None) == codigo
+
+
+def test_o_recuo_do_codigo_de_programa_nao_e_recuo_de_paragrafo():
+    # Na PF de 2018 (Agente) o unico recuo do caderno era o do programa da
+    # questao de Informatica; o texto sem recuo do primeiro grupo se perdia.
+    assert ce.RECUO_DE_PARAGRAFO.match("  O farol da ilha acende.")
+    assert ce.RECUO_DE_PARAGRAFO.match("  — Até o ponto? — perguntei.")
+    assert not ce.RECUO_DE_PARAGRAFO.match("  {")
+    assert not ce.RECUO_DE_PARAGRAFO.match("    print(x)")
+
+
+def test_o_fim_do_item_partido_pelo_pdfminer_nao_vira_paragrafo():
+    # O pdfminer pos "Judiciário." num bloco so dele: com maiuscula, passava
+    # por paragrafo, cortava o item e virava o texto do grupo seguinte.
+    caderno = ("30 É legal a prisão sem autorização do Poder\n"
+               "Judiciário.\n"
+               "Com relação à Polícia Federal, julgue os itens seguintes.\n"
+               "31 A Polícia Federal apura infrações penais.\n")
+    inicios = {ce._chave_da_linha("Judiciário."),
+               ce._chave_da_linha("Com relação à Polícia Federal, julgue os itens seguintes.")}
+    itens = {i.numero: i for i in ce.itens_do_caderno(caderno, set(), primeiro=30,
+                                                       paragrafos=inicios)}
+    assert itens[30].afirmacao == "É legal a prisão sem autorização do Poder Judiciário."
+    assert itens[31].texto_base is None

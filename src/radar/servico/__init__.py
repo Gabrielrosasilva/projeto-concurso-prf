@@ -57,6 +57,7 @@ from radar.servico.provas import (      # noqa: F401 - a fachada
     assuntos_permitidos,
     classificar_assuntos,
     cobertura_de_assunto,
+    completar_textos_base_do_certo_errado,
     composicao_do_caderno,
     contar_questoes,
     extrair_questoes,

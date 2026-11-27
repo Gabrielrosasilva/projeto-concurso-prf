@@ -431,7 +431,8 @@ def questoes(
     ),
     textos_base: bool = typer.Option(
         False, "--textos-base",
-        help="Só guarda o texto de apoio das questões de Português do alvo e do complementar aceito"),
+        help="Só guarda o texto de apoio das questões de Português do alvo e do complementar "
+             "aceito, e completa o que falta no Certo/Errado do Cebraspe"),
     banca: str = typer.Option(
         None, "--banca", help="Só os cadernos desta banca (ex.: IESES)"),
     destaques: bool = typer.Option(
@@ -476,6 +477,11 @@ def questoes(
             feito = servico.guardar_textos_base()
         console.print(f"[green]{feito.questoes} questão(ões) com texto-base[/], "
                       f"de {feito.provas} prova(s) do alvo e do complementar aceito.")
+        # PRF-57: o Certo/Errado do Cebraspe so ganha o texto que faltava.
+        with console.status("Completando o texto dos cadernos de Certo/Errado do Cebraspe..."):
+            completado = servico.completar_textos_base_do_certo_errado()
+        console.print(f"[green]{completado.questoes} item(ns) de Certo/Errado ganharam o "
+                      f"texto do grupo[/], de {completado.provas} caderno(s) do Cebraspe.")
         return
     with console.status("Lendo os cadernos..."):
         resultado = servico.extrair_questoes(limite=limite, refazer=refazer, banca=banca)

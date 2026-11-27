@@ -199,7 +199,11 @@ def mudancas_da_questao(
     da_materia = normalizar(materia or "")
     achadas = []
     for item in _arquivo().get("mudancas") or []:
-        if ano not in (item.get("anos") or []):
+        # A questao sem o ano gravado (as do PC/SE 2018, por exemplo) vale pelo
+        # caderno: o item que cita o caderno em `provas` ja diz de quando e a
+        # prova (PRF-57). Com o ano gravado, o ano continua mandando.
+        do_caderno = bool(item.get("provas")) and prova_url in item["provas"]
+        if ano not in (item.get("anos") or []) and not (ano is None and do_caderno):
             continue
         if item.get("provas") and prova_url not in item["provas"]:
             continue

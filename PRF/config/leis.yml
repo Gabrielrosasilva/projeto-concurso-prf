@@ -1624,15 +1624,21 @@ mudancas:
 
   # Levantamento 2 do Cebraspe (PRF-32). Polícia Científica/AL 2022, papiloscopista
   # q74 e perito criminal (básicos) q59: o mesmo item. Sai do treino (o feminicídio
-  # não é mais qualificadora do homicídio).
+  # não é mais qualificadora do homicídio). PRF-57: tambem o PC/SE 2018 Delegado
+  # q96 (sem o ano gravado: vale o caderno) e o PC/AL 2021 Escrivao q77.
   - tema: "Feminicídio: de qualificadora a crime autônomo (CP, art. 121-A)"
     lei: "Lei 14.994/2024, 09/10/2024"
     o_que_mudou: "o inciso VI do § 2º do art. 121 do CP (feminicídio) foi revogado, e o feminicídio virou crime autônomo, o art. 121-A, com pena de reclusão de 20 a 40 anos"
-    anos: [2023]
-    marcas: ["qualificadoras de motivo torpe e de feminicídio"]
+    anos: [2018, 2021, 2023]
+    marcas:
+      - "qualificadoras de motivo torpe e de feminicídio"
+      - "qualificadoras da motivação torpe e de feminicídio"
+      - "qualificadora do motivo torpe em caso de crime de feminicídio"
     provas:
       - https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_001_01.PDF
       - https://cdn.cebraspe.org.br/concursos/POLC_AL_22/arquivos/701_POLC_AL_CB1_01.PDF
+      - https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/CONHECIMENTOS_ESPECFICOS_MATRIZ.PDF
+      - https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/MATRIZ_600_PCAL_002.PDF
     fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
     procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela compilação da Câmara
     conferida: false
@@ -1700,6 +1706,71 @@ mudancas:
     # Sem `fonte`: o endereco oficial da Lei 14.229/2021 nao foi conferido, e
     # endereco inventado e pior que nenhum (regra 2).
     procedencia: Claude Code (claude-opus-5-5), 25/11/2026, pela explicação do item (não conferida)
+    conferida: false
+
+  # As explicacoes das reais da Cebraspe (PRF-56) acharam mais itens que a lei
+  # mudou depois da prova (docs/explicacoes_reais.md). O gabarito oficial nao
+  # vale pela lei de hoje: saem do treino ate a conferencia (classificacao
+  # pendente, PRF-57). O feminicidio do PC/SE 2018 e do PC/AL 2021 esta no item
+  # do feminicidio, acima; o DEPEN q44, no das licitacoes.
+  # PC/SE 2018 Delegado, q106. A questao nao tem o ano gravado (vale o caderno);
+  # o ano aqui e o do codigo do concurso (PC_SE_18).
+  - tema: "Captação ambiental só com autorização judicial (Lei 9.296, art. 8º-A)"
+    lei: "Lei 13.964/2019, 24/12/2019 (Pacote Anticrime)"
+    o_que_mudou: "a Lei 13.964/2019 incluiu o art. 8º-A na Lei 9.296/1996: a captação ambiental de sinais eletromagnéticos, ópticos ou acústicos, para investigação ou instrução criminal, depende de autorização do juiz, a requerimento da autoridade policial ou do Ministério Público; e o art. 10-A tornou crime fazê-la sem autorização judicial, quando esta for exigida"
+    anos: [2018]
+    marcas: ["independentemente de autorização judicial"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_SE_18_DELEGADO/arquivos/CONHECIMENTOS_ESPECFICOS_MATRIZ.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/lei/1996/lei-9296-24-julho-1996-349049-normaatualizada-pl.html
+    procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pela compilação da Câmara
+    conferida: false
+  # PC/AL 2021 Escrivao, q88.
+  - tema: "Estelionato sem exigência de representação (CP, art. 171, § 5º revogado)"
+    lei: "Lei 15.397/2026, 30/04/2026"
+    o_que_mudou: "o § 5º do art. 171 do CP (incluído pela Lei 13.964/2019), que exigia a representação da vítima no estelionato salvo contra a Administração, criança ou adolescente, pessoa com deficiência mental ou maior de 70 anos, foi revogado pela Lei 15.397/2026: sem ele, o estelionato contra a pessoa de 62 anos não depende mais de representação"
+    anos: [2021]
+    marcas: ["somente se procede mediante representação da vítima"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/MATRIZ_600_PCAL_002.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pela compilação da Câmara
+    conferida: false
+  # PC/AL 2021 Agente, q81.
+  - tema: "Ameaça contra a mulher: ação pública incondicionada (CP, art. 147, §§ 1º e 2º)"
+    lei: "Lei 14.994/2024, 09/10/2024"
+    o_que_mudou: "a Lei 14.994/2024 reescreveu o art. 147 do CP: o § 1º dobra a pena da ameaça contra a mulher por razões da condição do sexo feminino (art. 121-A, § 1º: violência doméstica e familiar, ou menosprezo ou discriminação à condição de mulher), e o § 2º manteve a representação, exceto nesse caso, em que a ação passou a ser pública incondicionada"
+    anos: [2021]
+    marcas: ["ameaça praticado por marido contra a sua esposa"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/PC_AL_21/arquivos/MATRIZ_600_PCAL_001.PDF
+    fonte: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+    procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pela compilação da Câmara
+    conferida: false
+  # DETRAN/AL 2026 Analista de Transito, q70 dos cadernos de Administracao e de
+  # Direito (o mesmo item).
+  - tema: "Comunicação de venda pela ATPV-e (Res. CONTRAN 1.027/2026)"
+    lei: "Resolução CONTRAN 1.027/2026, 17/08/2026 (revogou a 809/2020)"
+    o_que_mudou: "a Res. 1.027/2026 revogou a 809/2020 (art. 60): a ATPV-e só vale como comprovante de transferência depois do registro, no Renavam, das assinaturas eletrônicas do antigo e do novo proprietário (art. 27, § 3º), e só então a comunicação de venda é gerada (art. 28, § 4º) - a assinatura só do antigo proprietário não basta"
+    anos: [2026]
+    marcas: ["assinatura eletrônica do antigo proprietário já caracteriza a comunicação de venda"]
+    provas:
+      - https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/7B386FFC1D4685C8FA00382DC2C450755E30DEC80D56926CE02C3C1A96BFE6BB.pdf
+      - https://cdn.cebraspe.org.br/concursos/DETRAN_AL_26/arquivos/CA70534E72810F0DAC1B4F9723C2ACBD6085122D8F3A0BD945DC52BC9AD88B55.pdf
+    fonte: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao10272026.pdf/@@display-file/file
+    procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pelo texto oficial do gov.br (leis/contran/res-1027-2026.txt)
+    conferida: false
+  # Prefeitura de Guarabira/PB 2026 (CPCON), multipla escolha: o enunciado cita
+  # as duas resolucoes revogadas. So o aviso (outra banca treina, nao mede).
+  - tema: "CRLV-e: a 809/2020 e a 999/2023 foram revogadas (Res. CONTRAN 1.027/2026)"
+    lei: "Resolução CONTRAN 1.027/2026, 17/08/2026"
+    o_que_mudou: "a Res. 1.027/2026 revogou a 809/2020 e a 999/2023 (art. 60); o CRLV-e está hoje no art. 2º dela e o licenciamento no art. 12 - confira a alternativa pelo texto vigente"
+    anos: [2026]
+    marcas: ["resoluções nº 809/2020 e 999/2023"]
+    provas:
+      - https://www.qconcursos.com/questoes-de-concursos/questoes/1d37fac6-d1
+    fonte: https://www.gov.br/transportes/pt-br/assuntos/transito/conteudo-contran/resolucoes/resolucao10272026.pdf/@@display-file/file
+    procedencia: Claude Code (claude-opus-5-5), 27/11/2026, pelo texto oficial do gov.br (leis/contran/res-1027-2026.txt)
     conferida: false
 
 # --- O que mudou num ponto que nenhuma questao cobra ---------------------------

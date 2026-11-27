@@ -167,6 +167,12 @@ ESPACO_LIVRE = re.compile(r"\s*Espa[çc]o\s+livre\s*")
 # ingles grudava no ultimo item de espanhol do caderno de duas linguas (ABIN).
 ROTULO_DO_TEXTO = re.compile(
     r"^\s*(?:Texto(?:\s+([0-9A-Z]+(?:-[IVX]+)?))?|Text\s+([0-9A-Z]+(?:-[IVX]+)?))\s*$")
+# O grupo que so cita o texto pelo codigo ("julgue ... do texto 1A18-I"). PRF-57:
+# o codigo da PF de 2018 nao tem hifen ("texto 12A1AAA", "texto 14A15AAA") e as
+# vezes vem partido ("texto 12A 1AAA"); sem isto, o segundo grupo do mesmo texto
+# ficava sem ele. O codigo tem algarismo: "texto apresentado" nao e citacao.
+CITACAO_DO_TEXTO = re.compile(
+    r"\b(?i:texto)\s+([A-Z]{0,3}\d+[A-Z]\s?\d+[A-Z]*(?:-[IVX]+)?)(?![\w-])")
 # A numeracao de linha na margem do texto (1, 4, 7, 10...): o pypdf a solta
 # numero por numero, uma linha cada, as vezes com um lixo antes do 1 ("\t/1").
 # Na prova da PRF de 2019 o "10" dela virou o item 10, e o item 10 de verdade
@@ -191,6 +197,9 @@ NUMERO_DO_ITEM = re.compile(r"^(\d{1,3})(?:\s+(\S.*))?$")
 # "a ser julgada": "julgado" sozinho e da lei ("trânsito em julgado").
 JULGUE = re.compile(r"\b(?:julgue|judge|juzgue|a\s+ser(?:em)?\s+julgad[ao]s?)\b", re.IGNORECASE)
 FIM_DE_FRASE = re.compile(r"[.!?:)”\"]\s*$")
+# O recuo do paragrafo que o pypdf guarda: dois espacos e ja o texto (letra,
+# aspa, travessao ou o sinal invertido do espanhol), sem mais espaco.
+RECUO_DE_PARAGRAFO = re.compile(r"^ {2}(?=[^\W\d_]|[“\"'—–¿¡«(])")
 PALAVRA = re.compile(r"[^\W\d_]+(?:-[^\W\d_]+)*")
 #: A letra do gabarito definitivo e a resposta da questao (X: anulado).
 RESPOSTA_DA_LETRA = {"C": "c", "E": "e", "X": None}
@@ -261,6 +270,13 @@ def _marcar_paragrafos(linhas: list[str], inicios: set[str]) -> list[str]:
     saida = list(linhas)
     for indice, linha in enumerate(linhas):
         if linha.startswith("  ") or _chave_da_linha(linha) not in inicios:
+            continue
+        # PRF-57: paragrafo so abre depois de frase fechada (ou do numero
+        # sozinho do item de figura). Na PF de 2018 o pdfminer partiu o fim do
+        # item ("autorização do Poder" / "Judiciário.") em dois blocos, e o
+        # pedaco de baixo virava o texto do grupo seguinte.
+        anterior = linhas[indice - 1].strip() if indice else ""
+        if anterior and not (FIM_DE_FRASE.search(anterior) or anterior.isdigit()):
             continue
         for distancia, seguinte in enumerate(linhas[indice:]):
             if distancia and NUMERO_DO_ITEM.match(seguinte):
@@ -487,8 +503,8 @@ def _ler_cabecalho(linhas: list[str], textos: dict[str, str],
         if texto and rotulo:
             textos[rotulo.upper()] = texto
     if texto is None:
-        citado = re.search(r"\btexto\s+([0-9A-Z]+-[IVX]+)", comando, re.IGNORECASE)
-        texto = textos.get(citado.group(1).upper()) if citado else None
+        citado = CITACAO_DO_TEXTO.search(comando)
+        texto = textos.get(re.sub(r"\s+", "", citado.group(1)).upper()) if citado else None
     return comando, texto
 
 
@@ -746,7 +762,11 @@ def ler_caderno(caminho: Path, caminho_do_gabarito: Path | list[Path] | None,
         # So no caderno em que o pypdf perdeu TODO recuo (FUB e SEE/DF de
         # 2016). Onde ele o tem (a PRF, a SEE/PE de 2022), o pdfminer parte o
         # texto linha a linha, e a marca dele separava a segunda frase do item.
-        if not any(linha.startswith("  ") for linha in texto.splitlines()):
+        # PRF-57: recuo de paragrafo e o de dois espacos antes de letra, aspa
+        # ou travessao; o do codigo de programa ("    print(x)", "  {") nao
+        # conta - na PF de 2018 (Agente) era o unico recuo do caderno, e o
+        # texto do primeiro grupo (o do Nudetective) ficava sem ser lido.
+        if not any(RECUO_DE_PARAGRAFO.match(linha) for linha in texto.splitlines()):
             paragrafos = inicios_de_paragrafo(texto_do_pdfminer)
 
     itens = itens_do_caderno(texto, palavras, primeiro=min(set(gabarito) | fora),
