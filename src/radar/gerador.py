@@ -190,6 +190,9 @@ class QuestaoNova:
 
     #: Por que o item de Certo/Errado esta certo ou errado (PRF-40).
     explicacao: str | None = None
+    #: A pegadinha e, no item errado, como ele ficaria certo (PRF-51).
+    pegadinha: str | None = None
+    como_ficaria_certo: str | None = None
 
     @property
     def impressao(self) -> str:
@@ -394,10 +397,18 @@ Regras:
     "conteudo":   o NO do pedido de que ele e (copiado igual);
     "explicacao": uma ou duas frases: por que esta certo ou errado, com o
                   artigo e, no errado, o que foi trocado ("Errado: o prazo e de
-                  30 dias, e nao de 15 (CTB, art. 282, § 6º).").
+                  30 dias, e nao de 15 (CTB, art. 282, § 6º).");
+    "pegadinha":  uma frase: o que no item leva a errar ("O prazo de 15 dias
+                  e o da defesa previa, e nao o do recurso");
+    "como_ficaria_certo": so no item ERRADO: o item reescrito do jeito certo,
+                  trocando so o detalhe errado; no item CERTO, "".
+- interpretacao de texto e lingua estrangeira: nao ha texto-base separado. O
+  item traz no proprio enunciado um trecho curto (2 a 5 frases) escrito por
+  voce - no Espanhol, o trecho em espanhol e a afirmacao em portugues - e a
+  afirmacao sobre ele ("Considerando o trecho acima, ...").
 
 Responda SOMENTE um JSON, no formato:
-{"questoes": [{"enunciado": "...", "resposta": "e", "artigo": "CTB, art. 165, caput", "conteudo": "...", "explicacao": "Errado: ..."}]}"""
+{"questoes": [{"enunciado": "...", "resposta": "e", "artigo": "CTB, art. 165, caput", "conteudo": "...", "explicacao": "Errado: ...", "pegadinha": "...", "como_ficaria_certo": "..."}]}"""
 
 
 def conferir_certo_errado(item: dict) -> dict | None:

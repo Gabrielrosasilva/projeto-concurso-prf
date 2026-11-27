@@ -283,7 +283,11 @@ def painel_da_gerada(questao) -> Painel:
         explicacao = Explicacao(
             correta=letra, veredito=texto, fonte=artigo or "não citada",
             modelo=questao.modelo or "modelo não registrado",
-            criado_em=criada.isoformat() if hasattr(criada, "isoformat") else str(criada or ""))
+            criado_em=criada.isoformat() if hasattr(criada, "isoformat") else str(criada or ""),
+            # As partes que a gerada nova traz (PRF-51); a de antes, nao.
+            pegadinha=(getattr(questao, "pegadinha", None) or "").strip() or None,
+            como_ficaria_certo=(getattr(questao, "como_ficaria_certo", None) or "").strip()
+            or None)
     return Painel(
         certo_errado=ce, gabarito=POR_EXTENSO.get(letra) if ce else (letra or None),
         origem_do_gabarito=IA, explicacao=explicacao,

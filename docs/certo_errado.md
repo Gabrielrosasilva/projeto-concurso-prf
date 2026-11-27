@@ -167,3 +167,19 @@ enunciado; Geopolítica sem número do IBGE; Informática sem menu nem versão.
 0 divergência de gabarito na conferência às cegas. Na tela, o "apoio" do item
 de Certo/Errado (o campo `artigo`) só aparece depois da resposta: sem lei, ele
 dizia a regra e entregava o gabarito.
+
+## 50 itens novos por aula, com a pegadinha (PRF-51, 27/11/2026)
+
+O botao "IA" da faixa so traz o C/E que eu nunca fiz (PRF-48): o estoque que
+importa e o de itens NOVOS. `radar gerar --pedido --certo-errado --materia M
+--tema T --novas 50` completa a aula ate 50 itens que eu ainda nao fiz e leva
+os ja escritos (`ja_escritos`), com a instrucao de nao repetir. A faixa da o
+comando pronto quando o tema fica abaixo disso.
+
+- **O item novo traz mais duas partes:** a `pegadinha` e, no errado, o
+  `como_ficaria_certo` (passo 13 da migracao). O painel depois da resposta fica
+  igual ao da questao real. A importacao recusa o item do pedido novo sem elas.
+- **A geracao de 27/11:** 3.785 itens em 140 aulas, por 23 agentes, julgados as
+  cegas por outros 23 (1 divergencia de gabarito, que saiu; os 11 "?" sairam
+  ou foram reescritos). Ficaram abaixo de 50 as aulas em que o texto ja estava coberto
+  pelos itens existentes; a Correspondencia oficial continua sem item.

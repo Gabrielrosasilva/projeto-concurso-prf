@@ -551,6 +551,11 @@ class QuestaoGerada(Base):
     #: "Errado" nao diz o que foi trocado. Nula na de multipla escolha, que
     #: nasceu sem ela.
     explicacao: Mapped[str | None] = mapped_column(Text, nullable=True)
+    #: A pegadinha do item e, no item ERRADO, ele reescrito do jeito certo
+    #: (PRF-51): as mesmas partes do painel da questao real. Nulas nas
+    #: geradas de antes, que nasceram sem elas.
+    pegadinha: Mapped[str | None] = mapped_column(Text, nullable=True)
+    como_ficaria_certo: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     #: Hash do enunciado, igual ao das questoes reais. E a chave do arquivo
     #: versionado, e e o que impede pagar duas vezes pela mesma questao e

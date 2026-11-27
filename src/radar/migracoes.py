@@ -249,6 +249,17 @@ def _passo_12() -> None:
     _exportar_sem_perder("geradas")
 
 
+def _passo_13() -> None:
+    """PRF-51 (27/11/2026): a pegadinha e o "como ficaria certo" da gerada.
+
+    Duas colunas novas em `questoes_geradas` (pegadinha e como_ficaria_certo),
+    que vem do modelo: o painel da gerada fica com as partes do da questao
+    real. As geradas de antes ficam nulas - ninguem escreveu essas partes
+    para elas. O passo leva as colunas para o arquivo versionado.
+    """
+    _exportar_sem_perder("geradas")
+
+
 #: versao -> (o que muda, a funcao). A ordem e a dos numeros; passo aplicado
 #: nao se edita nunca mais: mudanca nova e passo novo.
 PASSOS = {
@@ -268,6 +279,7 @@ PASSOS = {
     11: ("O gabarito buscado pelo Claude Code, a conferir (\"verificar a questão\")",
          _passo_11),
     12: ("A explicação de cada questão gerada de Certo/Errado", _passo_12),
+    13: ("A pegadinha e o \"como ficaria certo\" de cada questão gerada", _passo_13),
 }
 VERSAO_ATUAL = max(PASSOS)
 

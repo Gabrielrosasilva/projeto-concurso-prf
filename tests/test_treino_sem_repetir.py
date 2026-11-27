@@ -11,6 +11,7 @@ O que estes testes seguram:
   * o botao "Certo ou Errado" e uma rodada para responder, so com os itens
     reais de Certo/Errado que eu nunca fiz; o treino real tambem nao repete.
 """
+import json
 import shutil
 from datetime import date
 from types import SimpleNamespace
@@ -22,9 +23,11 @@ from radar import config, fichas
 from radar.db import sessao
 from radar.models import QuestaoDeProva, QuestaoGerada, RespostaDeSimulado
 from radar.questoes_certo_errado import ALTERNATIVAS, EM_BRANCO
-from radar.servico import classificacoes, composicao, fepese_no_radar, geradas, manual, metricas
+from radar.servico import (classificacoes, composicao, explicacoes, fepese_no_radar, geradas,
+                           manual, metricas)
 from radar.servico import simulado as servico_simulado
 from radar.web.app import app
+from tests.test_certo_errado_gerado import _importar, _item, lote  # noqa: F401
 from tests.test_composicao import ALVO_2019, INTERPRETACAO, acervo  # noqa: F401
 
 MATERIA = "Legislação de Trânsito"
@@ -161,6 +164,37 @@ def test_o_pedido_com_novas_conta_so_as_que_eu_nao_fiz(banco_temporario, tmp_pat
     assert "ja_escritos" not in velho and velho["geradas_que_ja_tem"] == 5
     assert manual.pedido_de_certo_errado(MATERIA, temas=["Outra aula"],
                                          novas=50)["sem_aula"] == ["Outra aula"]
+
+
+def test_o_pedido_novo_exige_a_pegadinha_e_o_como_ficaria_certo(lote, tmp_path):
+    dados, caminho = lote
+    dados["pedidos"][0]["com_partes"] = True
+    caminho.write_text(json.dumps(dados), encoding="utf-8")
+    errado = ("O condutor que deixa de usar o cinto de segurança comete "
+              "infração média.")
+    resultado = _importar(lote, [
+        _item(pegadinha="Parece só administrativa, mas a lei a faz gravíssima.",
+              como_ficaria_certo="nao vale no item certo"),
+        _item(enunciado=errado, resposta="e", artigo="CTB, art. 167",
+              explicacao="Errado: a infração é grave (CTB, art. 167).",
+              pegadinha="Média soa razoável para o cinto.",
+              como_ficaria_certo="O condutor que deixa de usar o cinto comete infração grave."),
+        _item(enunciado="Item certo sem a pegadinha, que agora fica de fora do lote."),
+        _item(enunciado="Item errado sem o como ficaria certo, que fica de fora.",
+              resposta="e", pegadinha="Uma pegadinha qualquer."),
+    ], tmp_path)
+    assert resultado["gravadas"] == 2
+    motivos = " | ".join(resultado["recusas"])
+    assert "sem a pegadinha" in motivos and "sem o como ficaria certo" in motivos
+
+    with sessao() as s:
+        certo = s.scalar(select(QuestaoGerada).where(QuestaoGerada.resposta == "c"))
+        item_errado = s.scalar(select(QuestaoGerada).where(QuestaoGerada.resposta == "e"))
+    # O "como ficaria certo" so fica no item errado; o painel mostra as partes.
+    assert certo.como_ficaria_certo is None and certo.pegadinha.startswith("Parece")
+    painel = explicacoes.painel_da_gerada(item_errado)
+    assert painel.pegadinha_a_mostrar == "Média soa razoável para o cinto."
+    assert painel.explicacao.como_ficaria_certo.endswith("infração grave.")
 
 
 # --- o "Certo ou Errado" e o treino real sem repetir ------------------------------

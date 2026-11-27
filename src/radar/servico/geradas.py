@@ -623,6 +623,9 @@ def gravar(questoes: list) -> int:
                 nivel_procedencia=getattr(nova, "nivel_procedencia", None),
                 # O porque do item de Certo/Errado (PRF-40).
                 explicacao=getattr(nova, "explicacao", None),
+                # A pegadinha e o "como ficaria certo" (PRF-51).
+                pegadinha=getattr(nova, "pegadinha", None),
+                como_ficaria_certo=getattr(nova, "como_ficaria_certo", None),
                 artigo=nova.artigo,
                 enunciado=nova.enunciado,
                 alternativas=nova.alternativas,

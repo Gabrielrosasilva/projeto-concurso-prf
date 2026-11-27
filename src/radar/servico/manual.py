@@ -514,7 +514,10 @@ def _como_responder(tipo: str, nivel: str | None = None) -> str:
             "dele, no maximo `quantas`. Salve como data/resposta_ia.json e rode "
             "`radar gerar --importar data/resposta_ia.json`. Item sem `artigo`, "
             "sem `explicacao`, com `resposta` que nao e c ou e, com `conteudo` "
-            "fora dos nos do pedido, ou igual a um exemplo sera RECUSADO."
+            "fora dos nos do pedido, ou igual a um exemplo sera RECUSADO; no "
+            "pedido com `com_partes`, tambem o item sem `pegadinha` e o item "
+            "errado sem `como_ficaria_certo`. Os `ja_escritos` ja existem: nao "
+            "repita nenhum."
         )
     campo = "questoes" if tipo == "questoes" else "macetes"
     comando = f"radar gerar --pedido --nivel {nivel}" if nivel else "radar gerar --pedido"
@@ -622,7 +625,8 @@ def _formato_das_respostas(tipo: str) -> dict:
         item = {"enunciado": "...", "resposta": "e",
                 "artigo": "CTB, art. 165, caput",
                 "conteudo": "<um dos NOS do pedido, copiado igual>",
-                "explicacao": "Errado: ... (CTB, art. 165)."}
+                "explicacao": "Errado: ... (CTB, art. 165).",
+                "pegadinha": "...", "como_ficaria_certo": "..."}
         return {"lote": "<o lote deste arquivo>",
                 "respostas": [{"id": "ce1", "questoes": [item]}]}
     if tipo == "questoes":
@@ -1005,6 +1009,8 @@ def pedido_de_certo_errado(materia: str, ate: int = ITENS_POR_AULA,
         ]).strip()
         pedidos.append({
             "id": f"ce{len(pedidos) + 1}", "formato": "certo_errado",
+            # A pegadinha e o "como ficaria certo" vem junto (PRF-51).
+            "com_partes": True,
             "modo": "do_zero", "quantas": quantas, "materia": materia,
             "assunto": None, "origem_impressao": None, "origem_chave": None,
             "tema": faixa.titulo, "data_da_aula": data.isoformat(),
@@ -2220,6 +2226,18 @@ def _importar_questoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
             if certo_errado and not explicacao:
                 recusas.append(f"{onde}: sem a explicacao do certo ou do errado")
                 continue
+            # A pegadinha e, no item errado, como ele ficaria certo (PRF-51):
+            # o pedido novo (`com_partes`) exige as duas; o de antes, nao.
+            pegadinha = " ".join(str(item.get("pegadinha") or "").split()) or None
+            como_ficaria_certo = (" ".join(str(item.get("como_ficaria_certo") or "").split())
+                                  or None) if conferida["resposta"] == "e" else None
+            if certo_errado and pedido.get("com_partes"):
+                if not pegadinha:
+                    recusas.append(f"{onde}: sem a pegadinha")
+                    continue
+                if conferida["resposta"] == "e" and not como_ficaria_certo:
+                    recusas.append(f"{onde}: item errado sem o como ficaria certo")
+                    continue
             if impressao_de(conferida["enunciado"]) in dos_exemplos:
                 recusas.append(f"{onde}: e a copia de um item real de exemplo")
                 continue
@@ -2256,6 +2274,8 @@ def _importar_questoes(lote: dict, respostas: list[dict], modelo: str) -> dict:
                 base=pedido.get("base"),
                 evidencia_da_base=pedido.get("evidencia_da_base"),
                 explicacao=explicacao if certo_errado else None,
+                pegadinha=pegadinha if certo_errado else None,
+                como_ficaria_certo=como_ficaria_certo if certo_errado else None,
                 **conferida,
                 **do_nivel,
             ))
