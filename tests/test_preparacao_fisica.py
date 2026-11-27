@@ -195,6 +195,66 @@ def test_dor_alta_avisa(pasta):
     assert pf.avisos(SEGUNDA + timedelta(days=10)) == []
 
 
+# --- o treino de hoje --------------------------------------------------------
+
+def test_treino_de_hoje_na_fase_zero_e_so_o_recado(pasta):
+    treino = pf.treino_do_dia(SEGUNDA)
+    assert treino.dia_da_semana == "Segunda"
+    assert treino.itens == []
+    assert "médico" in treino.recado
+
+
+def test_treino_de_hoje_segue_a_semana_e_a_fase(pasta):
+    pf.definir_situacao(SEGUNDA)
+    terca = pf.treino_do_dia(SEGUNDA + timedelta(days=1))
+    assert [i.chave for i in terca.itens] == ["musculacao", "barra", "abdominal"]
+    assert terca.itens[0].prescricao.startswith("Costas.")
+    assert "metade do seu máximo" in terca.itens[1].prescricao      # fase 1
+    # Quarta: a potencia so entra na fase 3.
+    quarta_fase_1 = pf.treino_do_dia(SEGUNDA + timedelta(days=2))
+    assert [i.chave for i in quarta_fase_1.itens] == ["musculacao"]
+    quarta_fase_3 = pf.treino_do_dia(SEGUNDA + timedelta(weeks=10, days=2))
+    assert [i.chave for i in quarta_fase_3.itens] == ["potencia", "musculacao"]
+    assert pf.treino_do_dia(SEGUNDA + timedelta(days=6)).descanso is True
+
+
+def test_ler_series():
+    assert pf.ler_series("4 4 4 3") == [4, 4, 4, 3]
+    assert pf.ler_series("4,4-3") == [4, 4, 3]
+    assert pf.ler_series("") == []
+    with pytest.raises(ValueError):
+        pf.ler_series("4 x")
+
+
+# --- a evolucao --------------------------------------------------------------
+
+def test_evolucao_junta_teste_e_treino(pasta):
+    pf.registrar_teste(SEGUNDA, {"barra": 6, "corrida": 2400})
+    pf.registrar_treino(SEGUNDA, "", 60, 7, itens={"barra": {"series": [7, 6, 5]}})
+    pf.registrar_treino(SEGUNDA + timedelta(days=3), "", 20, 5,
+                        itens={"corrida": {"distancia_m": 4000, "minutos": 20}})
+    # Corrida de 10 min nao entra: o ritmo de um tiro curto engana.
+    pf.registrar_treino(SEGUNDA + timedelta(days=4), "", 10, 8,
+                        itens={"corrida": {"distancia_m": 2500, "minutos": 10}})
+    evolucao = pf.evolucao()
+    barra = evolucao["barra"]
+    assert len(barra) == 1 and barra[0].valor == 7 and barra[0].origem == "treino"
+    corrida = evolucao["corrida"]
+    assert [p.valor for p in corrida] == [2400, 2400]       # 4 km em 20 min = 2.400 m em 12
+    assert "ritmo de 5:00/km" in corrida[1].rotulo
+
+
+def test_grafico_poe_a_meta_e_inverte_o_shuttle(pasta, regras):
+    shuttle = _teste(regras, "shuttle")
+    pontos = [pf.Ponto(SEGUNDA, 13.2, "teste", ""),
+              pf.Ponto(SEGUNDA + timedelta(weeks=4), 12.4, "teste", "")]
+    g = pf.grafico(pontos, shuttle, 3.5)
+    # Tempo menor (melhor) fica mais ALTO no grafico (y menor no SVG).
+    assert g["marcas"][1]["y"] < g["marcas"][0]["y"]
+    assert [r["nome"] for r in g["referencias"]] == ["mínimo (2)", "meta (3,5)"]
+    assert pf.grafico([], shuttle, 3.5) is None
+
+
 # --- a tela ------------------------------------------------------------------
 
 @pytest.fixture
@@ -203,16 +263,22 @@ def cliente(pasta):
 
 
 def test_a_aba_abre_e_esta_no_menu(cliente):
-    pagina = cliente.get("/preparacao-fisica")
+    pagina = cliente.get("/taf")
     assert pagina.status_code == 200
-    assert "Preparação Física" in pagina.text
+    assert "Treino de hoje" in pagina.text
     assert "Fase 0 - Recuperação" in pagina.text
     assert "Rascunho da IA" in pagina.text          # o plano nao e do edital
-    assert 'href="/preparacao-fisica"' in cliente.get("/redacao").text
+    assert 'href="/taf">🏃 TAF' in cliente.get("/redacao").text
+
+
+def test_o_endereco_antigo_leva_para_taf(cliente):
+    r = cliente.get("/preparacao-fisica?barra=5", follow_redirects=False)
+    assert r.status_code == 301
+    assert r.headers["location"] == "/taf?barra=5"
 
 
 def test_calculadora_nao_grava(cliente):
-    pagina = cliente.get("/preparacao-fisica", params={
+    pagina = cliente.get("/taf", params={
         "barra": "5", "shuttle": "12,9", "impulsao": "2,11", "abdominal": "43", "corrida": "2501"})
     assert pagina.status_code == 200
     assert "aprovado" in pagina.text
@@ -220,21 +286,43 @@ def test_calculadora_nao_grava(cliente):
 
 
 def test_gravar_teste_e_treino_pela_tela(cliente):
-    r = cliente.post("/preparacao-fisica/teste", data={
+    r = cliente.post("/taf/teste", data={
         "data": "2027-02-01", "tipo": "simulado", "barra": "8", "abdominal": "40"},
         follow_redirects=False)
     assert r.status_code == 303
-    r = cliente.post("/preparacao-fisica/treino", data={
+    r = cliente.post("/taf/treino", data={
         "data": "2027-02-01", "o_que": "costas", "minutos": "60", "esforco": "7"},
         follow_redirects=False)
     assert r.status_code == 303
-    pagina = cliente.get("/preparacao-fisica").text
+    pagina = cliente.get("/taf").text
     assert "Teste gravado" not in pagina           # recado so com ?recado=
     assert "4,5" in pagina                           # 8 barras = 4,5 pontos
 
 
+def test_como_foi_com_os_numeros_de_cada_exercicio(cliente):
+    r = cliente.post("/taf/treino", data={
+        "data": "2027-02-02", "esforco": "6", "musculacao": "1", "grupo": "Costas",
+        "barra_series": "5 5 4 4", "corrida_km": "2,6", "corrida_tempo": "15:00",
+        "corrida_fc": "158", "abdominal_1min": "41"}, follow_redirects=False)
+    assert r.status_code == 303
+    treino = pf.ler()["treinos"][0]
+    assert treino["minutos"] == 15                      # sem total, vale o da corrida
+    assert treino["itens"]["barra"] == {"series": [5, 5, 4, 4]}
+    assert treino["itens"]["corrida"] == {"distancia_m": 2600, "minutos": 15.0, "fc_media": 158}
+    assert treino["o_que"].startswith("Costas; corrida 2,60 km em 15 min; barra 5 5 4 4")
+    pagina = cliente.get("/taf").text
+    assert "<svg" in pagina and "02/02 · 5 (treino)" in pagina
+
+
+def test_series_tortas_voltam_400(cliente):
+    r = cliente.post("/taf/treino", data={"esforco": "5", "minutos": "30",
+                                          "barra_series": "cinco"})
+    assert r.status_code == 400
+    assert "Séries inválidas" in r.text
+
+
 def test_treino_torto_volta_400(cliente):
-    r = cliente.post("/preparacao-fisica/treino", data={
+    r = cliente.post("/taf/treino", data={
         "data": "2027-02-01", "o_que": "corrida", "minutos": "30", "esforco": "15"})
     assert r.status_code == 400
     assert "Treino não gravado" in r.text

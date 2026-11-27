@@ -151,28 +151,43 @@ plano:
 
   # A semana de agora (estudo de manhã, academia à tarde), mantendo os 5 dias
   # de musculação (peito, costas, pernas, peito, costas). O TAF entra junto.
+  # `itens`: o que o "Treino de hoje" pede para lançar (musculacao, corrida,
+  # barra, abdominal, potencia). A potencia so aparece da fase 3 em diante.
   semana_modelo:
     - dia: "Segunda"
       musculacao: "Peito"
       taf: "Corrida (depois da musculação)"
+      itens: [musculacao, corrida]
     - dia: "Terça"
       musculacao: "Costas"
       taf: "Barra estrita (no começo do treino) + abdominal"
+      itens: [musculacao, barra, abdominal]
     - dia: "Quarta"
       musculacao: "Pernas (volume reduzido, joelho confortável)"
       taf: "Impulsão e shuttle ANTES das pernas (só a partir da fase 3)"
+      itens: [potencia, musculacao]
     - dia: "Quinta"
       musculacao: "Peito"
       taf: "Corrida (depois da musculação) + abdominal"
+      itens: [musculacao, corrida, abdominal]
     - dia: "Sexta"
       musculacao: "Costas"
       taf: "Barra estrita (no começo do treino)"
+      itens: [musculacao, barra]
     - dia: "Sábado"
       musculacao: "-"
       taf: "Corrida contínua, ou TAF simulado a cada 4 semanas + abdominal"
+      itens: [corrida, abdominal]
     - dia: "Domingo"
       musculacao: "-"
       taf: "Descanso"
+      itens: []
+
+  # Antes da liberação médica (fase 0), o treino do dia é só este recado.
+  fase_zero: "Só o que o médico orientar. Se a caminhada estiver liberada, lance como corrida (distância e tempo) e o radar já acompanha."
+
+  # A partir de que fase a potência (impulsão e shuttle) entra no treino.
+  potencia_a_partir_da_fase: 3
 
   # As fases contam a partir da data da liberação médica (gravada na tela).
   # `semanas`: quantas dura; a ultima vai ate o TAF.

@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; TAF &middot; Radar de Concursos</title>
+  {# A aba do TAF (PRF-59, PRF-60). Os indices saem do taf.yml (edital de
+     2021), os pontos do radar.taf e as coordenadas dos graficos do
+     servico.preparacao_fisica: o template so desenha. Cor e espaco do
+     design.css; aqui so o arranjo desta tela. #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .atalhos{display:flex;flex-wrap:wrap;gap:var(--esp-2);margin:0 0 var(--esp-4);font-size:var(--tam-sm)}
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .recado{margin:0 0 var(--esp-4);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);
+      border-left:3px solid var(--cor-verde);background:var(--cor-verde-fundo);font-size:var(--tam-sm)}
+    .aviso{margin:0 0 var(--esp-3);padding:var(--esp-3) var(--esp-4);border-radius:var(--raio-sm);
+      border-left:3px solid var(--cor-aviso);background:var(--cor-aviso-fundo);font-size:var(--tam-sm)}
+    .fase{font-weight:var(--peso-forte);margin:0}
+    .linha-form{display:flex;flex-wrap:wrap;gap:var(--esp-3);align-items:end;margin-top:var(--esp-2)}
+    .linha-form .ds-campo input,.linha-form .ds-campo select{min-width:6rem}
+    .linha-form .largo{flex:1 1 16rem}
+    .linha-form .largo input{width:100%}
+    .ok{color:var(--cor-verde);font-weight:var(--peso-medio)}
+    .ruim{color:var(--cor-vermelho);font-weight:var(--peso-medio)}
+    .meio{color:var(--cor-aviso);font-weight:var(--peso-medio)}
+    .resumo-taf{font-size:var(--tam-md);margin:var(--esp-3) 0 0}
+    .regra{font-size:var(--tam-sm);margin:var(--esp-2) 0 0}
+    .prescricao{margin:var(--esp-2) 0 var(--esp-3);padding-left:var(--esp-5)}
+    .prescricao li{margin-bottom:var(--esp-2)}
+    .exercicio{border:1px solid var(--cor-borda);border-radius:var(--raio-sm);padding:var(--esp-2) var(--esp-3);margin:var(--esp-3) 0 0}
+    .exercicio legend{font-weight:var(--peso-medio);padding:0 var(--esp-1)}
+    .exercicio .dica{font-size:var(--tam-xs);color:var(--cor-texto-suave);margin:var(--esp-1) 0 0}
+    .fase-atual{outline:2px solid var(--cor-acao)}
+    .fases{display:grid;gap:var(--esp-3)}
+    .fases dl{margin:var(--esp-2) 0 0}
+    .fases dt{font-weight:var(--peso-medio);margin-top:var(--esp-2)}
+    .fases dd{margin:0}
+    .como li,.cuidados li{margin-bottom:var(--esp-1)}
+    .barra-carga{display:inline-block;height:.7rem;background:var(--cor-acao);border-radius:2px;vertical-align:middle}
+    form.inline{display:inline}
+    .fiz{display:flex;gap:var(--esp-1);align-items:center;font-size:var(--tam-sm);padding-bottom:var(--esp-2)}
+    details>summary{cursor:pointer;font-weight:var(--peso-medio)}
+    /* Os graficos de evolucao: uma serie, as linhas do edital tracejadas. */
+    .grafico svg{width:100%;height:auto;display:block}
+    .grafico .ref{stroke:var(--cor-texto-suave);stroke-width:1;stroke-dasharray:4 4}
+    .grafico .ref-meta{stroke:var(--cor-verde)}
+    .grafico .ref-texto{fill:var(--cor-texto-suave);font-size:12px}
+    .grafico .eixo{stroke:var(--cor-borda);stroke-width:1}
+    .grafico .eixo-texto{fill:var(--cor-texto-suave);font-size:12px}
+    .grafico .serie{fill:none;stroke:var(--cor-acao);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+    .grafico .ponto{stroke:var(--cor-superficie);stroke-width:2;fill:var(--cor-acao)}
+    .grafico .ponto-treino{fill:var(--cor-superficie);stroke:var(--cor-acao);stroke-width:2}
+    .grafico .alvo{fill:transparent;cursor:default}
+    .grafico .ultimo{fill:var(--cor-texto);font-size:12px;font-weight:600}
+    .grafico .cabeca-grafico{display:flex;justify-content:space-between;gap:var(--esp-2);flex-wrap:wrap;align-items:baseline}
+    .grafico h3{margin:0;font-size:var(--tam-base)}
+    .legenda{font-size:var(--tam-xs);color:var(--cor-texto-suave)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('fisica') }}
+{% from "_componentes.html" import selo %}
+
+{# Os pontos com virgula: 2,5 e nao 2.5. #}
+{% macro pts(valor) -%}{{ valor|numero }}{%- endmacro %}
+{% macro classe(valor) -%}{{ 'ruim' if valor < 2 else ('meio' if valor < meta else 'ok') }}{%- endmacro %}
+
+{# Os campos de cada exercicio no "Como foi". A chave "potencia" sao dois
+   testes (impulsao e shuttle) num campo so. #}
+{% macro campos(chave) %}
+  {% if chave == 'musculacao' %}
+    <fieldset class="exercicio"><legend>Musculação</legend>
+      <div class="linha-form">
+        <label class="fiz"><input type="checkbox" name="musculacao" value="1"> fiz</label>
+        <label class="ds-campo largo">Grupo <input type="text" name="grupo" value="{{ treino.musculacao if treino and treino.musculacao != '-' else '' }}"></label>
+      </div>
+    </fieldset>
+  {% elif chave == 'corrida' %}
+    <fieldset class="exercicio"><legend>Corrida (ou caminhada)</legend>
+      <div class="linha-form">
+        <label class="ds-campo">Distância (km) <input type="text" inputmode="decimal" name="corrida_km" placeholder="3,20"></label>
+        <label class="ds-campo">Tempo <input type="text" name="corrida_tempo" placeholder="20:30"></label>
+        <label class="ds-campo">FC média <input type="text" inputmode="numeric" name="corrida_fc" placeholder="150"></label>
+      </div>
+      <p class="dica">Copie do Garmin. Com 12 minutos ou mais, o radar mostra quanto esse ritmo daria nos 12 minutos do teste.</p>
+    </fieldset>
+  {% elif chave == 'barra' %}
+    <fieldset class="exercicio"><legend>Barra fixa (estrita, do jeito do edital)</legend>
+      <div class="linha-form">
+        <label class="ds-campo largo">Repetições de cada série <input type="text" name="barra_series" placeholder="4 4 4 3"></label>
+      </div>
+    </fieldset>
+  {% elif chave == 'abdominal' %}
+    <fieldset class="exercicio"><legend>Abdominal (padrão do edital)</legend>
+      <div class="linha-form">
+        <label class="ds-campo largo">Repetições de cada série <input type="text" name="abdominal_series" placeholder="20 20 20"></label>
+        <label class="ds-campo">Em 1 minuto, se testou <input type="text" inputmode="numeric" name="abdominal_1min"></label>
+      </div>
+    </fieldset>
+  {% elif chave == 'potencia' %}
+    <fieldset class="exercicio"><legend>Impulsão e shuttle</legend>
+      <div class="linha-form">
+        <label class="ds-campo">Melhor impulsão (m) <input type="text" inputmode="decimal" name="impulsao_m" placeholder="2,10"></label>
+        <label class="ds-campo">Melhor shuttle (s) <input type="text" inputmode="decimal" name="shuttle_s" placeholder="12,80"></label>
+      </div>
+    </fieldset>
+  {% endif %}
+{% endmacro %}
+
+<main class="ds-pagina">
+
+  <header class="ds-cabeca">
+    <h1>TAF</h1>
+    <p>O exame físico da PRF: cinco testes, no mínimo 2 pontos em cada e média 3 nos cinco. O treino do dia, como foi e a evolução.</p>
+  </header>
+
+  {% if not regras %}
+    <p class="ds-vazio">Falta o arquivo <code>{{ arquivo }}</code>: é dele que saem os índices e o plano.</p>
+  {% else %}
+  {% set edital = regras.edital %}
+  {% set plano = regras.plano or {} %}
+
+  <nav class="atalhos" aria-label="Partes da aba">
+    <a href="#hoje">Treino de hoje</a> · <a href="#evolucao">Evolução</a> ·
+    <a href="#agora">Meu TAF hoje</a> · <a href="#registrar">Calcular e registrar teste</a> ·
+    <a href="#carga">Carga</a> · <a href="#plano">Plano</a> · <a href="#como">Como fazer cada teste</a> ·
+    <a href="#tabela">Tabela do edital</a> · <a href="#historico">Histórico</a> · <a href="#situacao">Liberação e data do TAF</a>
+  </nav>
+
+  {% if erro %}<p class="ds-alerta">{{ erro }}</p>{% endif %}
+  {% if recado %}<p class="recado">{{ recado }}</p>{% endif %}
+  {% for aviso in avisos %}<p class="aviso">⚠ {{ aviso }}</p>{% endfor %}
+
+  {# --- Treino de hoje e o "Como foi" --- #}
+  <section class="ds-cartao" id="hoje">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Treino de hoje · {{ treino.dia_da_semana }} {{ hoje.strftime('%d/%m') }}</h2>
+      {{ selo('ia', 'Plano: rascunho da IA') }}
+    </div>
+    <p class="fase">{{ fase.nome }}{% if fase.semana %} · semana {{ fase.semana }}{% endif %}
+      {% if contagem and contagem.faltam >= 0 %}<span class="ds-suave"> · TAF em {{ contagem.faltam }} dias</span>{% endif %}</p>
+    {% if dados.situacao.restricoes %}<p class="aviso">Ainda não liberado: {{ dados.situacao.restricoes }}</p>{% endif %}
+
+    {% if treino.recado %}
+      <p class="regra">{{ treino.recado }}</p>
+      {% if fase.indice == 0 %}<p class="regra ds-suave">Quando o médico liberar, grave a data em <a href="#situacao">Liberação e data do TAF</a>: o plano começa nesse dia.</p>{% endif %}
+    {% elif treino.descanso %}
+      <p class="regra">Descanso. É parte do treino: é nele que o corpo se recupera.</p>
+    {% else %}
+      <ol class="prescricao">
+        {% for item in treino.itens %}<li><strong>{{ item.nome }}:</strong> {{ item.prescricao }}</li>{% endfor %}
+      </ol>
+    {% endif %}
+
+    <h3>Como foi</h3>
+    {% set de_hoje = treino.itens|map(attribute='chave')|list %}
+    {% if fase.indice == 0 %}{% set de_hoje = ['corrida'] %}{% endif %}
+    <form method="post" action="/taf/treino">
+      {% for chave in de_hoje %}{{ campos(chave) }}{% endfor %}
+      <details style="margin-top:var(--esp-3)"><summary>Fiz outra coisa</summary>
+        {% for chave in ['musculacao', 'corrida', 'barra', 'abdominal', 'potencia'] if chave not in de_hoje %}{{ campos(chave) }}{% endfor %}
+      </details>
+      <div class="linha-form">
+        <label class="ds-campo">Data <input type="date" name="data" value="{{ hoje.isoformat() }}"></label>
+        <label class="ds-campo">Minutos no total <input type="number" name="minutos" min="1" max="600" placeholder="60"></label>
+        <label class="ds-campo">Esforço (0-10) <input type="number" name="esforco" min="0" max="10" required></label>
+        <label class="ds-campo">Dor (0-10) <input type="number" name="dor" min="0" max="10" value="0"></label>
+      </div>
+      <div class="linha-form">
+        <label class="ds-campo largo">Como se sentiu, o que mudou <input type="text" name="observacao" placeholder="cotovelo ok; joelho incomodou no fim"></label>
+        <button class="ds-botao" type="submit">Gravar treino</button>
+      </div>
+      <p class="regra ds-suave">Esforço: 0 = parado, 5 = puxado mas conversando, 10 = o máximo. Os minutos no total podem ficar vazios num dia só de corrida.</p>
+    </form>
+  </section>
+
+  {# --- Evolucao: um grafico por teste --- #}
+  <section class="ds-cartao" id="evolucao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Evolução</h2>
+    </div>
+    <p class="ds-cartao__meta">Testes e treinos, com as linhas do edital: o mínimo (2 pontos) e a sua meta ({{ pts(meta) }}). Subir no gráfico é sempre melhorar (no shuttle o eixo é invertido). <span class="legenda">● teste · ○ treino</span></p>
+    <div class="ds-grade">
+    {% for t, g in graficos %}
+      <figure class="grafico" style="margin:0">
+        <div class="cabeca-grafico">
+          <h3>{{ t.nome }}</h3>
+          {% if g %}<span class="legenda">último: {{ g.ultimo.texto }}</span>{% endif %}
+        </div>
+        {% if not g %}
+          <p class="ds-vazio">Sem medida ainda.{% if t.chave == 'corrida' %} Lance uma corrida de 12 min ou mais.{% elif t.chave == 'abdominal' %} Lance um "em 1 minuto".{% endif %}</p>
+        {% else %}
+        <svg viewBox="0 0 {{ g.largura }} {{ g.altura }}" role="img" aria-label="Evolução de {{ t.nome }}: último {{ g.ultimo.texto }}">
+          <line class="eixo" x1="{{ g.esquerda }}" x2="{{ g.direita }}" y1="{{ g.fundo }}" y2="{{ g.fundo }}"></line>
+          {% for r in g.referencias %}
+            <line class="ref {{ 'ref-meta' if loop.last }}" x1="{{ g.esquerda }}" x2="{{ g.direita }}" y1="{{ r.y }}" y2="{{ r.y }}"></line>
+            <text class="ref-texto" x="{{ g.direita + 6 }}" y="{{ r.y + 4 }}">{{ r.nome }}</text>
+          {% endfor %}
+          {% if g.marcas|length > 1 %}<polyline class="serie" points="{{ g.linha }}"></polyline>{% endif %}
+          {% for m in g.marcas %}
+            <circle class="{{ 'ponto' if m.origem == 'teste' else 'ponto-treino' }}" cx="{{ m.x }}" cy="{{ m.y }}" r="5"></circle>
+            <circle class="alvo" cx="{{ m.x }}" cy="{{ m.y }}" r="12"><title>{{ m.rotulo }}</title></circle>
+          {% endfor %}
+          <text class="eixo-texto" x="{{ g.esquerda }}" y="{{ g.altura - 8 }}">{{ g.primeira_data }}</text>
+          {% if g.marcas|length > 1 %}<text class="eixo-texto" x="{{ g.direita }}" y="{{ g.altura - 8 }}" text-anchor="end">{{ g.ultima_data }}</text>{% endif %}
+        </svg>
+        {% endif %}
+        <figcaption class="legenda">{% if g %}{% for r in g.referencias %}{{ r.nome }}: {{ 'abaixo de ' if t.sentido == 'menor' }}{{ r.texto }}{{ ' · ' if not loop.last }}{% endfor %}{% endif %}</figcaption>
+      </figure>
+    {% endfor %}
+    </div>
+    <p class="regra ds-suave">Corrida no treino = a distância que o ritmo daquela corrida daria em 12 minutos (só de corridas com 12 min ou mais). Barra no treino = a melhor série.</p>
+  </section>
+
+  {# --- Meu TAF hoje: a medida mais recente de cada teste --- #}
+  <section class="ds-cartao" id="agora">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Meu TAF hoje</h2>
+      {{ selo('oficial', 'Índices do edital 2021') }}
+    </div>
+    <p class="ds-cartao__meta">A medida de teste mais recente de cada um. Meta: {{ pts(meta) }} pontos em cada (passar com folga).</p>
+    {% if not agora %}
+      <p class="ds-vazio">Nenhum teste registrado ainda. Quando o médico liberar, registre o primeiro em <a href="#registrar">Calcular e registrar teste</a>; vale registrar só os testes que você puder fazer.</p>
+    {% else %}
+    <div class="ds-rolagem"><table class="ds-tabela">
+      <thead><tr><th>Teste</th><th class="ds-n">Último</th><th class="ds-n">Pontos</th><th class="ds-n">Meta ({{ pts(meta) }})</th><th>Próximo meio ponto</th></tr></thead>
+      <tbody>
+      {% for t in testes %}
+        {% set valor = ultimos.get(t.chave) %}
+        <tr>
+          <td>{{ t.nome }}</td>
+          <td class="ds-n">{{ t.formatar(valor) }}</td>
+          {% if valor is none %}
+            <td class="ds-n ds-suave">não medido</td><td class="ds-n">{{ 'abaixo de ' if t.sentido == 'menor' }}{{ t.formatar(metas[t.chave]) }}</td><td></td>
+          {% else %}
+            {% set p = agora.pontos[t.chave] %}
+            <td class="ds-n {{ classe(p) }}">{{ pts(p) }}</td>
+            <td class="ds-n">{{ 'abaixo de ' if t.sentido == 'menor' }}{{ t.formatar(metas[t.chave]) }}</td>
+            <td>{{ t.texto_do_degrau(valor) }}</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    <p class="resumo-taf">
+      {% if agora.media is none %}
+        Soma parcial: <strong>{{ pts(agora.soma) }}</strong> · faltam {{ agora.faltando|length }} teste(s) para a média.
+      {% else %}
+        Média <strong class="{{ classe(agora.media) }}">{{ agora.media|numero(2) }}</strong> ·
+        {% if agora.aprovado %}<span class="ok">aprovado</span>{% else %}<span class="ruim">reprovado</span>{% endif %}
+      {% endif %}
+      {% if agora.reprovados %} · abaixo de 2 em: {{ testes|selectattr('chave', 'in', agora.reprovados)|map(attribute='nome')|join(', ') }}{% endif %}
+      {% if agora.falta_para_media > 0 %} · faltam {{ pts(agora.falta_para_media) }} pontos na soma para a média {{ pts(edital.media_minima) }}{% endif %}
+    </p>
+    {% endif %}
+  </section>
+
+  {# --- Calculadora e registro de teste: o mesmo formulario --- #}
+  <section class="ds-cartao" id="registrar">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Calcular e registrar teste</h2>
+    </div>
+    <p class="ds-cartao__meta">Medida do jeito da prova. "Calcular" só mostra os pontos; "Gravar" guarda no histórico. Preencha só o que mediu.</p>
+    {% set v = (calculo or {}).valores or {} %}
+    <form method="post" action="/taf/teste">
+      <div class="linha-form">
+        {% for t in testes %}
+        <label class="ds-campo">{{ t.nome }} ({{ t.unidade }})
+          <input type="text" inputmode="decimal" name="{{ t.chave }}" value="{{ v.get(t.chave) if v.get(t.chave) is not none else '' }}"></label>
+        {% endfor %}
+      </div>
+      <div class="linha-form">
+        <label class="ds-campo">Data <input type="date" name="data" value="{{ hoje.isoformat() }}"></label>
+        <label class="ds-campo">Tipo
+          <select name="tipo"><option value="simulado">TAF simulado (na ordem, 5 min entre os testes)</option><option value="treino">Teste solto, num treino</option></select></label>
+        <label class="ds-campo largo">Observação <input type="text" name="observacao" placeholder="pista, clima, como se sentiu"></label>
+      </div>
+      <div class="linha-form">
+        <button class="ds-botao ds-botao--secundario" type="submit" formaction="/taf" formmethod="get">Calcular</button>
+        <button class="ds-botao" type="submit">Gravar</button>
+      </div>
+    </form>
+    {% if calculo %}
+      {% set a = calculo.avaliacao %}
+      <div class="ds-rolagem"><table class="ds-tabela" style="margin-top:var(--esp-3)">
+        <thead><tr><th>Teste</th><th class="ds-n">Resultado</th><th class="ds-n">Pontos</th></tr></thead>
+        <tbody>
+        {% for t in testes if v.get(t.chave) is not none %}
+          <tr><td>{{ t.nome }}</td><td class="ds-n">{{ t.formatar(v[t.chave]) }}</td>
+              <td class="ds-n {{ classe(a.pontos[t.chave]) }}">{{ pts(a.pontos[t.chave]) }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+      <p class="resumo-taf">
+        {% if a.media is none %}Soma: <strong>{{ pts(a.soma) }}</strong> (média só com os cinco)
+        {% else %}Média <strong class="{{ classe(a.media) }}">{{ a.media|numero(2) }}</strong> · {% if a.aprovado %}<span class="ok">aprovado</span>{% else %}<span class="ruim">reprovado</span>{% endif %}{% endif %}
+        {% if a.falta_para_media > 0 %} · faltam {{ pts(a.falta_para_media) }} pontos para a média {{ pts(edital.media_minima) }}{% endif %}
+      </p>
+    {% endif %}
+  </section>
+
+  {# --- Carga e os ultimos treinos --- #}
+  <section class="ds-cartao" id="carga">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Carga das semanas</h2>
+    </div>
+    <p class="ds-cartao__meta">Carga = esforço × minutos. Não deve subir mais de ~30% de uma semana para outra. Dor de 4 para cima acende o aviso.</p>
+    {% set maior = (carga|map(attribute='carga')|max) or 1 %}
+    <div class="ds-rolagem"><table class="ds-tabela">
+      <thead><tr><th>Semana de</th><th class="ds-n">Treinos</th><th class="ds-n">Carga</th><th></th><th class="ds-n">Dor máx.</th></tr></thead>
+      <tbody>
+      {% for s in carga %}
+        <tr><td>{{ s.segunda.strftime('%d/%m') }}{% if loop.last %} (esta){% endif %}</td>
+            <td class="ds-n">{{ s.treinos }}</td><td class="ds-n">{{ s.carga }}</td>
+            <td><span class="barra-carga" style="width:{{ (s.carga / maior * 8)|round(2) }}rem"></span></td>
+            <td class="ds-n {{ 'ruim' if s.dor_maxima >= 4 }}">{{ s.dor_maxima }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+
+    {% set recentes = (dados.treinos|sort(attribute='data', reverse=true))[:15] %}
+    {% if recentes %}
+    <details style="margin-top:var(--esp-3)"><summary>Últimos treinos</summary>
+      <div class="ds-rolagem"><table class="ds-tabela">
+        <thead><tr><th>Data</th><th>O que</th><th class="ds-n">Min</th><th class="ds-n">Esforço</th><th class="ds-n">Dor</th><th></th></tr></thead>
+        <tbody>
+        {% for t in recentes %}
+          <tr><td>{{ t.data|dia_mes }}</td><td>{{ t.o_que }}{% if t.observacao %} <span class="ds-suave">· {{ t.observacao }}</span>{% endif %}</td>
+              <td class="ds-n">{{ t.minutos }}</td><td class="ds-n">{{ t.esforco }}</td><td class="ds-n">{{ t.dor }}</td>
+              <td><form class="inline" method="post" action="/taf/apagar"><input type="hidden" name="qual" value="treinos"><input type="hidden" name="ident" value="{{ t.id }}"><button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit" title="Apagar este treino">apagar</button></form></td></tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+    </details>
+    {% endif %}
+  </section>
+
+  {# --- O plano: rascunho da IA, nao do edital --- #}
+  <section class="ds-cartao" id="plano">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Plano de treino</h2>
+      {{ selo('ia', 'Rascunho da IA') }}
+    </div>
+    <p class="ds-cartao__meta">{{ plano.procedencia }}.</p>
+
+    <h3>Cuidados que valem sempre</h3>
+    <ul class="cuidados">{% for c in plano.cuidados or [] %}<li>{{ c }}</li>{% endfor %}</ul>
+
+    <h3>A semana</h3>
+    <p class="ds-suave">Os 5 dias de musculação ficam; o TAF entra junto, à tarde.</p>
+    <div class="ds-rolagem"><table class="ds-tabela">
+      <thead><tr><th>Dia</th><th>Musculação</th><th>TAF</th></tr></thead>
+      <tbody>{% for d in plano.semana_modelo or [] %}<tr><td>{{ d.dia }}</td><td>{{ d.musculacao }}</td><td>{{ d.taf }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+
+    <h3>As fases</h3>
+    <div class="fases">
+    {% for f in plano.fases or [] %}
+      <div class="ds-cartao {{ 'fase-atual' if fase.indice == loop.index }}">
+        <div class="ds-cartao__cabeca">
+          <h4 class="ds-cartao__titulo">{{ f.nome }}{% if fase.indice == loop.index %} · você está aqui{% endif %}</h4>
+          <span class="ds-suave">{% if f.semanas %}{{ f.semanas }} semanas{% else %}do edital ao TAF{% endif %}</span>
+        </div>
+        <p>{{ f.objetivo }}</p>
+        <dl>
+          <dt>Musculação</dt><dd>{{ f.musculacao }}</dd>
+          {% for t in testes if t.chave in ('corrida', 'barra', 'abdominal') %}
+            <dt>{{ t.nome }}</dt><dd>{{ f.prescricao[t.chave] }}</dd>
+          {% endfor %}
+          <dt>Impulsão e shuttle (potência)</dt><dd>{{ f.prescricao.potencia }}</dd>
+          <dt>Teste</dt><dd>{{ f.teste }}</dd>
+        </dl>
+      </div>
+    {% endfor %}
+    </div>
+
+    <h3>Ritmo da corrida de 12 minutos</h3>
+    <div class="ds-rolagem"><table class="ds-tabela">
+      <thead><tr><th class="ds-n">Pontos</th><th class="ds-n">Distância</th><th class="ds-n">Ritmo por km</th><th class="ds-n">Cada volta de 400 m</th></tr></thead>
+      <tbody>{% for p, d, ritmo, volta in corridas %}<tr class="{{ 'ok' if p == meta }}"><td class="ds-n">{{ pts(p) }}</td><td class="ds-n">{{ d|int }} m</td><td class="ds-n">{{ ritmo }}</td><td class="ds-n">{{ volta }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </section>
+
+  {# --- Como fazer cada teste, do edital --- #}
+  <section class="ds-cartao" id="como">
+    <details>
+      <summary>Como fazer cada teste (edital 2021, Anexo III)</summary>
+      <p class="ds-cartao__meta">Na ordem do edital, com 5 minutos entre um e outro. Treine sempre do jeito que a banca conta.</p>
+      {% for t in testes %}
+        <h3>{{ loop.index }}. {{ t.nome }} <span class="ds-suave ds-pequeno">item {{ t.item }} · {{ t.tentativas }} tentativa{{ 's' if t.tentativas > 1 }}</span></h3>
+        <ul class="como">{% for c in t.como_fazer %}<li>{{ c }}</li>{% endfor %}</ul>
+      {% endfor %}
+      <h3>No dia</h3>
+      <ul class="como">{% for c in edital.checklist_do_dia or [] %}<li>☐ {{ c }}</li>{% endfor %}</ul>
+    </details>
+  </section>
+
+  {# --- A tabela inteira do edital --- #}
+  <section class="ds-cartao" id="tabela">
+    <details>
+      <summary>Tabela do edital ({{ edital.sexo }})</summary>
+      <p class="ds-cartao__meta">{{ edital.nome }} · <a href="{{ edital.link }}">{{ edital.link }}</a></p>
+      <p class="regra"><strong>Atenção:</strong> o mínimo em todos dá média 2 e <strong>reprova</strong>. Precisa de pelo menos {{ pts(edital.minimo_por_teste) }} em cada teste <strong>e</strong> média {{ pts(edital.media_minima) }} (soma 15).</p>
+      <div class="ds-rolagem"><table class="ds-tabela" style="margin-top:var(--esp-3)">
+        <thead><tr><th class="ds-n">Pontos</th>{% for t in testes %}<th class="ds-n">{{ t.nome }}</th>{% endfor %}</tr></thead>
+        <tbody>
+        {% for i in range(testes[0].faixas|length) %}
+          <tr class="{{ 'ok' if testes[0].faixas[i][1] == meta }}"><td class="ds-n">{{ pts(testes[0].faixas[i][1]) }}</td>
+          {% for t in testes %}
+            {% set limite = t.faixas[i][0] %}
+            <td class="ds-n">{% if t.sentido == 'menor' %}abaixo de {% endif %}{{ t.formatar(limite) }}</td>
+          {% endfor %}</tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+    </details>
+  </section>
+
+  {# --- Historico dos testes (a tabela dos graficos) --- #}
+  <section class="ds-cartao" id="historico">
+    <details>
+      <summary>Histórico dos testes</summary>
+      {% set algum = historico.values()|select|list %}
+      {% if not algum %}
+        <p class="ds-vazio">Nada registrado ainda.</p>
+      {% else %}
+      {% for t in testes if historico[t.chave] %}
+        <h3>{{ t.nome }}</h3>
+        <div class="ds-rolagem"><table class="ds-tabela">
+          <thead><tr><th>Data</th><th>Tipo</th><th class="ds-n">Resultado</th><th class="ds-n">Pontos</th><th></th></tr></thead>
+          <tbody>
+          {% for m in historico[t.chave]|reverse %}
+            <tr><td>{{ m.data.strftime('%d/%m/%Y') }}</td><td>{{ m.tipo }}</td><td class="ds-n">{{ t.formatar(m.resultado) }}</td>
+                <td class="ds-n {{ classe(m.pontos) }}">{{ pts(m.pontos) }}</td>
+                <td><form class="inline" method="post" action="/taf/apagar"><input type="hidden" name="qual" value="testes"><input type="hidden" name="ident" value="{{ m.ident }}"><button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit" title="Apaga o registro inteiro daquele dia (todos os testes dele)">apagar</button></form></td></tr>
+          {% endfor %}
+          </tbody>
+        </table></div>
+      {% endfor %}
+      {% endif %}
+    </details>
+  </section>
+
+  {# --- Situacao: a liberacao medica e a data do TAF --- #}
+  <section class="ds-cartao" id="situacao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Liberação e data do TAF</h2>
+    </div>
+    {% if contagem %}
+      <p class="regra">TAF em <strong>{{ contagem.data.strftime('%d/%m/%Y') }}</strong>
+        ({% if contagem.faltam >= 0 %}faltam {{ contagem.faltam }} dias{% else %}já passou{% endif %}).
+        Atestado médico emitido a partir de <strong>{{ contagem.atestado_a_partir_de.strftime('%d/%m/%Y') }}</strong>
+        (no máximo {{ edital.dias_do_atestado }} dias antes).</p>
+    {% else %}
+      <p class="regra ds-suave">Sem edital novo ainda. Em 2021 foram {{ edital.semanas_do_edital_ao_taf_2021 }} semanas do edital ao TAF: quando sair, grave a data do TAF e a fase específica começa sozinha.</p>
+    {% endif %}
+    <form method="post" action="/taf/situacao" class="linha-form">
+      <label class="ds-campo">Liberação médica em
+        <input type="date" name="liberado_em" value="{{ dados.situacao.liberado_em or '' }}"></label>
+      <label class="ds-campo largo">O que ainda não está liberado (ex.: salto e tiro)
+        <input type="text" name="restricoes" value="{{ dados.situacao.restricoes or '' }}"></label>
+      <label class="ds-campo">Data do TAF (quando sair o edital)
+        <input type="date" name="data_do_taf" value="{{ dados.situacao.data_do_taf or '' }}"></label>
+      <button class="ds-botao ds-botao--secundario" type="submit">Gravar</button>
+    </form>
+  </section>
+
+  {% endif %}
+</main>
+</body>
+</html>

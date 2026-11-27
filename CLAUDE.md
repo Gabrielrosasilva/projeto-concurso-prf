@@ -82,8 +82,8 @@ So abra o arquivo que a tarefa pede.
   da `PRF/` entram pela lista `PRF/config/provas_de_outras_bancas.yml`; o que
   o script da `PRF/` faz esta em `docs/script_prf.md`.
 - `cache.py`: conta pesada repetida numa tela.
-- `taf.py` + `config/taf.yml`: os pontos do TAF (edital 2021); a aba Preparacao
-  Fisica e o `servico/preparacao_fisica.py` (`data/preparacao_fisica.json`, fora do git).
+- `taf.py` + `config/taf.yml`: os pontos do TAF (edital 2021); a aba TAF (`/taf`) e o
+  `servico/preparacao_fisica.py` (`data/preparacao_fisica.json`, fora do git).
 - A questao e reconhecida pela CHAVE (enunciado + alternativas), nunca so pela
   impressao do enunciado.
 
