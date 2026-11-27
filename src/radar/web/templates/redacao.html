@@ -94,10 +94,12 @@
         <div class="motivadores">
           {% for x in vez.textos %}
             <div class="motivador">
-              <h3>TEXTO {{ loop.index }} {{ selo('oficial', 'Texto oficial da lei' if x.tipo == 'lei' else ('Texto da prova oficial da PRF, caderno do Cebraspe' if x.tipo == 'prova' else 'Texto de órgão público, reprodução autorizada com a fonte')) }}</h3>
+              <h3>TEXTO {{ loop.index }} {% if x.tipo == 'ia' %}{{ selo('ia', 'Texto escrito pela IA, no estilo dos fragmentos da prova') }}{% else %}{{ selo('oficial', 'Texto oficial da lei' if x.tipo == 'lei' else ('Texto da prova oficial da PRF, caderno do Cebraspe' if x.tipo == 'prova' else 'Texto de órgão público, reprodução autorizada com a fonte')) }}{% endif %}</h3>
               {% if x.titulo %}<p class="titulo-do-texto"><b>{{ x.titulo }}</b></p>{% endif %}
               <p>{{ x.texto }}</p>
-              {% if x.tipo == 'prova' %}
+              {% if x.tipo == 'ia' %}
+                <p class="fonte">{{ x.fonte }}.</p>
+              {% elif x.tipo == 'prova' %}
                 <p class="fonte">{{ x.fonte }} · <a href="{{ x.url }}" target="_blank" rel="noopener">o caderno oficial da prova</a></p>
               {% else %}
                 <p class="fonte">{{ x.fonte }}. Adaptado de: <a href="{{ x.url }}" target="_blank" rel="noopener">{{ x.url }}</a>.{% if x.acesso %} Acesso em: {{ x.acesso }}.{% endif %}</p>
@@ -209,8 +211,9 @@
     <p class="dica">Ou digite abaixo e clique em Corrigir. A nota final é do radar, pela fórmula do edital:
       <b>NC − {% if fator != 1 %}{{ fator|int }} × {% endif %}NE ÷ TL</b>{% if e.linhas_minimo %}, menos 0,20 por linha
       abaixo de {{ e.linhas_minimo }}{% endif %}; o que passar de {{ e.linhas_maximo or 30 }} linhas não conta.
-      {% if e.conceito_maximo %}A correção dá o conceito de cada quesito (0 a {{ e.conceito_maximo }}) e lista os erros (NE);
-        a NC é conta do radar, e uma estimativa: a banca não publica quanto vale cada quesito.
+      {% if e.conceito_maximo %}A correção dá o conceito de cada quesito (0 a {{ e.conceito_maximo }}){% if e.apresentacao_maxima %}, a nota da
+        apresentação (0 a {{ e.apresentacao_maxima }}){% endif %} e lista os erros (NE); a NC é conta do radar, com o valor que o
+        caderno da prova dá a cada aspecto.
       {% else %}A correção dá a nota de conteúdo (NC) e lista os erros (NE); a conta dela não vale.{% endif %}</p>
     <form method="post" action="/redacao/corrigir">
       <input type="hidden" name="data" value="{{ dia.isoformat() }}">

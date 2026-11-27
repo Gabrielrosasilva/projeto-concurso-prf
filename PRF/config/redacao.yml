@@ -11,11 +11,12 @@
 # 9.610/1998, art. 8º, IV). O texto das provas (comando e textos motivadores) e de
 # terceiros e NAO esta aqui: os temas de 2019 e 2021 vao com outras palavras.
 #
-# A NOTA (PRF-37): NPD = NC - 4 x (NE / TL), edital 10.6.4. O padrao de resposta da
-# a escala de cada quesito (conceito 0 a 3), mas nao quanto ele vale nos 20 pontos, e
-# o edital poe na NC tambem a apresentacao e a estrutura textual, sem dizer o peso.
-# Por isso a NC do radar e uma ESTIMATIVA: os quesitos valem igual (20 x soma dos
-# conceitos / (3 x quantos quesitos)), e a apresentacao vem comentada, sem nota.
+# A NOTA (PRF-37, PRF-70): NPD = NC - 4 x (NE / TL), edital 10.6.4. O padrao de
+# resposta da a escala de cada quesito (conceito 0 a 3) e o caderno da prova da o
+# valor: "ate 1,00 ponto" para a apresentacao e a estrutura textual e o resto nos
+# aspectos (2019: 7, 6 e 6; 2021: 5, 5 e 9; o `valores` do tema). NC = nota da
+# apresentacao + soma de (valor x conceito / 3). Tema sem `valores`: 19 / 3 cada.
+# A conversao do conceito em pontos e do radar (o padrao nao publica a conta).
 
 regras_do_edital:
   cabecalho: "Policial Rodoviário Federal · Cebraspe · texto dissertativo de até 30 linhas · 20 pontos · eliminado abaixo de 10"
@@ -31,13 +32,17 @@ regras_do_edital:
   fator_dos_erros: 4
   # A escala de cada quesito nos padroes de resposta de 2019 e 2021.
   conceito_maximo: 3
+  # "dos quais ate 1,00 ponto sera atribuido ao quesito apresentacao (legibilidade,
+  # respeito as margens e indicacao de paragrafos) e estrutura textual" (os cadernos
+  # da discursiva de 2019 e 2021, PRF-70).
+  apresentacao_maxima: 1
   corrigida_ate_a_posicao: "6.000"
   formula: "NPD = NC − 4 × (NE ÷ TL) (10.6.4): NC é a nota de conteúdo (apresentação, estrutura textual e desenvolvimento do tema, até 20), NE os erros de grafia, morfossintaxe e propriedade vocabular, e TL as linhas efetivamente escritas. NPD negativa vira zero; abaixo de 10, eliminado."
   item_da_formula: "edital 2021, 10.6.4"
   criterio_da_correcao: "pelo critério do Cebraspe (edital 2021, 10.6.4, e os padrões de resposta da PRF de 2019 e 2021)"
   criterios_de_conteudo:
-    - "Apresentação e estrutura textual (10.6.4, a)"
-    - "Desenvolvimento do tema: um quesito por aspecto da proposta, cada um com conceito de 0 a 3 (padrões de resposta de 2019 e 2021)"
+    - "Apresentação e estrutura textual: até 1 ponto (legibilidade, margens, parágrafos e organização das ideias; caderno da prova)"
+    - "Desenvolvimento do tema: os outros 19 pontos, um quesito por aspecto, cada um com conceito de 0 a 3 e o valor do caderno (2019: 7, 6 e 6; 2021: 5, 5 e 9)"
   zero:
     - "Fuga ao tema (10.6.4, g)"
     - "Não haver texto (10.6.4, g)"
@@ -120,6 +125,9 @@ temas:
   # PRF-38), e a `data` aqui e a da 1a vez. O `tema` e IGUAL ao titulo da faixa depois
   # de "Redação da semana: ". Os `quesitos` sao os aspectos do comando, um conceito de
   # 0 a 3 cada na correcao.
+  # Nos temas propostos pelo Claude, o 3o texto e curto e escrito pela IA, no estilo
+  # dos fragmentos da prova (noticia, sem dica), sem numero: a banca usa noticia e
+  # dado, e dado inventado nao entra (PRF-70, regra 2).
   # As semanas 1 e 2 sao as discursivas da propria PRF, 2019 e 2021, com o nome que
   # tiveram (PRF-69). O caderno oficial (textos motivadores e comando) e de terceiros e
   # fica so nesta maquina, em data/propostas_da_prf.json (fora do git); aqui, a versao
@@ -128,6 +136,8 @@ temas:
     tema: "O combate às infrações de trânsito nas rodovias federais brasileiras"
     origem: "a discursiva da PRF de 2019 (aqui, com outras palavras; com o data/propostas_da_prf.json, a do caderno oficial)"
     comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca das infrações de trânsito nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 medidas que a Polícia Rodoviária Federal adota ou pode adotar para combater as infrações; 2 ações da sociedade que auxiliem na diminuição das infrações; 3 atitudes individuais para a diminuição das infrações."
+    # O valor de cada aspecto no caderno da prova (PRF-70).
+    valores: [7, 6, 6]
     quesitos:
       - "2.1 Medidas da PRF no combate às infrações"
       - "2.2 Ações da sociedade para diminuir as infrações"
@@ -146,6 +156,8 @@ temas:
     tema: "A inovação legislativa como instrumento para a redução dos acidentes de transporte terrestre (ATT)"
     origem: "a discursiva da PRF de 2021 (aqui, com outras palavras; com o data/propostas_da_prf.json, a do caderno oficial)"
     comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos efeitos da previsão de crimes de trânsito e da Lei Seca sobre os sinistros nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da previsão dos crimes de trânsito no Código de Trânsito Brasileiro sobre os sinistros, e as possíveis causas desse resultado; 2 o impacto da Lei Seca sobre os sinistros, e as possíveis causas desse resultado; 3 ações para reduzir os sinistros de trânsito."
+    # O valor de cada aspecto no caderno da prova (PRF-70).
+    valores: [5, 5, 9]
     quesitos:
       - "2.1 O impacto dos crimes de trânsito no CTB sobre os sinistros, e as causas"
       - "2.2 O impacto da Lei Seca sobre os sinistros, e as causas"
@@ -177,6 +189,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 280, § 2º"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
+      - texto: "Poucos equipamentos despertam tanta polêmica nas estradas quanto o radar. Para parte dos motoristas, ele existe para encher os cofres públicos; para quem estuda segurança viária, é uma forma de estar presente onde não há policial. A discussão costuma esquecer um detalhe: o motorista que freia diante do aparelho e acelera logo depois mostra que conhece o risco, mas só respeita o limite quando se sente observado."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-01-30"
     tema: "O transporte rodoviário de cargas e a segurança viária"
@@ -195,6 +210,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 67-C, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
+      - texto: "Boa parte do que o país consome viaja de caminhão. Grãos, combustíveis, remédios e eletrodomésticos dividem a pista com carros de passeio e ônibus, muitas vezes em rodovias de mão dupla e sem acostamento. Por trás de cada viagem há prazos de entrega, fretes disputados e motoristas que passam dias longe de casa. Quando a pressa pesa mais que a segurança, o risco deixa de ser só de quem está ao volante."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-02-06"
     tema: "A educação para o trânsito como política pública"
@@ -213,6 +231,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 76, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
+      - texto: "Campanhas de trânsito costumam aparecer com força nas vésperas dos feriados e sumir logo depois. Na escola, o assunto quase sempre se resume a uma palestra ocasional. Enquanto isso, as crianças aprendem no banco de trás, observando os adultos: quem avança o sinal, quem dispensa o cinto, quem dirige depois de beber. O comportamento no trânsito também se ensina, e nem sempre pelos canais oficiais."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-02-13"
     tema: "O uso do celular ao volante e a segurança nas rodovias federais"
@@ -231,6 +252,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
+      - texto: "O celular entrou no carro como ferramenta de trabalho e de navegação e acabou virando distração. Responder a uma mensagem leva poucos segundos, mas, nesse intervalo, o veículo continua em movimento e o condutor deixa de olhar a pista. Nas rodovias, onde a velocidade é maior, a margem para corrigir um erro é menor. Mesmo assim, o hábito persiste, e muitos motoristas ainda tratam a mensagem ao volante como algo inofensivo."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   # Os temas novos do Ciclo 2 (semanas 13 a 16), escritos em 26/11/2026 (PRF-38) do
   # mesmo jeito: textos literais da compilacao da Camara (fontes/leis/), conferidos pelo
@@ -252,6 +276,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 64, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 26 nov. 2026
+      - texto: "Nas viagens de férias, ainda se veem crianças soltas no banco de trás, deitadas no colo de um adulto ou com a cabeça para fora da janela. A cena parece inofensiva até a primeira freada brusca. Fora dos carros, a rodovia expõe crianças e adolescentes a outros riscos: o trabalho à beira da estrada, a travessia sem passarela e, nos casos mais graves, a exploração sexual em postos e pontos de parada."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-04-10"
     tema: "A preservação do meio ambiente e o transporte nas rodovias federais"
@@ -270,6 +297,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 26 nov. 2026
+      - texto: "As rodovias que cortam o país também atravessam florestas, rios e áreas de proteção. Por elas passam caminhões com madeira, animais silvestres capturados e produtos químicos que, num acidente, podem contaminar o solo e a água. Ao mesmo tempo, a estrada leva desenvolvimento a regiões isoladas. O desafio é fazer a carga chegar ao destino sem deixar pelo caminho um rastro de destruição."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-04-17"
     tema: "Os direitos humanos e a atuação da Polícia Rodoviária Federal"
@@ -288,6 +318,9 @@ temas:
         lei: "CF, art. 5º, caput e III"
         url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
         acesso: 26 nov. 2026
+      - texto: "Para muita gente, o único contato com o Estado durante uma viagem é a abordagem de um policial rodoviário. Em poucos minutos, aquela conversa à beira da estrada pode reforçar a confiança na instituição ou abalá-la. O cidadão espera firmeza diante do crime, mas também respeito, explicação e tratamento igual, seja qual for a aparência, a origem ou o veículo de quem é parado."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
   - data: "2027-04-24"
     tema: "Pedestres, ciclistas e motociclistas: os mais vulneráveis nas rodovias"
@@ -306,6 +339,9 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 54"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 26 nov. 2026
+      - texto: "Na rodovia que atravessa uma pequena cidade, o pedestre que volta do trabalho, o ciclista que segue para a lavoura e o motociclista que leva a família dividem o asfalto com carretas e ônibus. Para eles, não há lataria nem air bag: um descuido de quem conduz um veículo maior pode ser fatal. Muitas vezes, a estrada foi feita para ligar cidades, e não para quem vive à beira dela."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
 # As discursivas que a propria PRF ja deu, com o padrao de resposta definitivo
 # (os links sao os de docs/aprovados_prf.md, abertos em 25/11/2026).
@@ -321,14 +357,15 @@ como_ler_o_modelo: "Compare com a sua: a introdução anuncia os aspectos, cada 
 pedido_de_correcao: |
   Você é um examinador do Cebraspe. Corrija a redação abaixo para o concurso de Policial Rodoviário Federal, pelos critérios do edital de 2021 (item 10.6.4) e do jeito dos padrões de resposta da PRF de 2019 e 2021.
   QUESITOS: o pedido traz os `quesitos`, um por aspecto da proposta. Para CADA um, um item em `criterios`, com o número e o aspecto em `criterio` (ex.: "2.1 Medidas da PRF") e, em `nota`, o CONCEITO inteiro de 0 a 3, pela escala dos padrões: 0 – não abordou o aspecto; 1 – mencionou, mas não desenvolveu; 2 – desenvolveu de forma inconsistente ou desconectada do texto como um todo; 3 – explicou consistentemente, articulando com o tema e com os demais aspectos, com causas ou exemplos. Em `comentario`, por que esse conceito; em positivos e negativos, o que está bom e o que falta para o próximo conceito. NÃO dê nota de conteúdo: a NC é conta do radar.
-  APRESENTAÇÃO E ESTRUTURA TEXTUAL (10.6.4, a): em `apresentacao`, um comentário e a lista de problemas (parágrafos, introdução, conclusão, progressão, coesão entre os parágrafos), sem nota.
+  APRESENTAÇÃO E ESTRUTURA TEXTUAL: vale até 1 ponto (o caderno da prova: legibilidade, respeito às margens e indicação de parágrafos, e a organização das ideias em texto estruturado). Em `apresentacao`, a `nota` de 0 a 1 (em passos de 0,25), um comentário e a lista de problemas (parágrafos, introdução, conclusão, progressão, coesão entre os parágrafos). No texto digitado, julgue os parágrafos e a estrutura; a letra e as margens, só na foto da folha.
+  VALORES: o pedido traz `valores`, quanto vale cada quesito nos 20 pontos (o caderno da prova). Eles não mudam o conceito: o conceito é pela escala do padrão; o valor só pesa na conta do radar.
   ERROS (o NE, 10.6.4, b): grafia, morfossintaxe e propriedade vocabular, um por ocorrência, com o trecho EXATAMENTE como está no texto (o radar o marca no lugar), a correção, a regra, o tipo (ortografia, acentuação, crase, concordância, regência, pontuação, morfossintaxe ou outro) e uma explicação simples, para quem não estuda gramática há anos. Pontuação entra quando quebra a estrutura da frase (vírgula entre sujeito e verbo, por exemplo); a de estilo vai para MELHORIAS. Na dúvida se algo é erro, ponha em MELHORIAS: erro a mais tira 4 ÷ TL do candidato.
   MELHORIAS: o "você escreveu, como fica, por quê" do que não é erro de português, mas tira conceito: aspecto só citado, causa ou exemplo que faltou, parágrafo desligado dos outros, conectivo fraco, repetição, frase longa demais.
   Dê também: de 2 a 4 PONTOS POSITIVOS gerais; os 3 PONTOS que mais tiraram nota; 3 FOCOS para a próxima redação; e o PARÁGRAFO MAIS FRACO reescrito como o examinador o escreveria.
   Quando o texto vier da foto da folha (origem "foto"), avalie a LEGIBILIDADE da letra: "legível", "com trechos difíceis" ou "ilegível", e o que observar (o edital pede letra legível, 10.3).
   Os TEXTOS MOTIVADORES vão no pedido: trecho copiado deles não é argumento do candidato.
   MOTIVO DE ZERO, se houver (10.6.4, g): fuga ao tema ou não haver texto.
-  Regras do edital: até 30 linhas (o que passar é desconsiderado, 10.6.4, c); NPD = NC − 4 × NE ÷ TL; abaixo de 10, eliminado. A conta é do radar: a sua nota_final serve só para comparar (calcule com NC = 20 × soma dos conceitos ÷ (3 × número de quesitos)).
+  Regras do edital: até 30 linhas (o que passar é desconsiderado, 10.6.4, c); NPD = NC − 4 × NE ÷ TL; abaixo de 10, eliminado. A conta é do radar: a sua nota_final serve só para comparar (calcule com NC = nota da apresentação + soma de (valor do quesito × conceito ÷ 3)).
   Seja rigoroso e realista como um examinador: não dê conceito maior para agradar e não elogie à toa, mas diga o que está bom. Nunca invente estatística, número ou lei: repertório, só o da lista "repertorio" enviada junto ou o dos textos motivadores.
 
 pedido_de_reescrita: |

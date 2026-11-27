@@ -74,7 +74,7 @@
         {% if e.ilegivel %}<span class="dica">({{ e.ilegivel }})</span>{% endif %}</p>
     {% endif %}
     <p class="dica">A conta é do radar, pela fórmula do edital{% if e.item_da_formula %} ({{ e.item_da_formula }}){% endif %}.
-      {% if r.por_conceitos %}Os conceitos e a lista de erros são da correção {{ selo('ia', curto=True) }}; a NC, conta do radar, é uma estimativa.
+      {% if r.por_conceitos %}Os conceitos, a nota da apresentação e a lista de erros são da correção {{ selo('ia', curto=True) }}; a NC é conta do radar, com o valor de cada aspecto.
       {% else %}O NC e a lista de erros são da correção {{ selo('ia', curto=True) }}.{% endif %}
       {% if r.nota_final_da_ia is not none and ('%.2f'|format(r.nota_final_da_ia)) != ('%.2f'|format(n.final)) %}
         A IA tinha calculado {{ '%.2f'|format(r.nota_final_da_ia)|replace('.', ',') }}: vale a do radar.{% endif %}</p>
@@ -96,11 +96,12 @@
   <section class="ds-cartao">
     <h2 class="ds-cartao__titulo">{% if r.por_conceitos %}Por quesito{% else %}Por critério{% endif %}</h2>
     <table class="ds-tabela">
-      <thead><tr><th>{% if r.por_conceitos %}Quesito{% else %}Critério{% endif %}</th><th>{% if r.por_conceitos %}Conceito{% else %}Nota{% endif %}</th><th>O que está bom</th><th>O que melhorar</th></tr></thead>
+      <thead><tr><th>{% if r.por_conceitos %}Quesito{% else %}Critério{% endif %}</th><th>{% if r.por_conceitos %}Conceito{% else %}Nota{% endif %}</th>{% if r.criterios and r.criterios[0].valor is defined %}<th>Pontos</th>{% endif %}<th>O que está bom</th><th>O que melhorar</th></tr></thead>
       <tbody>{% for c in r.criterios %}
         <tr>
           <td>{{ c.criterio }}</td>
           <td>{{ '%g'|format(c.nota) }}{% if r.por_conceitos %} de {{ e.conceito_maximo or 3 }}{% endif %}</td>
+          {% if c.valor is defined %}<td>{{ '%.2f'|format(c.pontos)|replace('.', ',') }} de {{ '%g'|format(c.valor)|replace('.', ',') }}</td>{% endif %}
           <td>{% if c.positivos %}<ul class="bom">{% for p in c.positivos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}</td>
           <td>{% if c.negativos %}<ul class="ruim">{% for p in c.negativos %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
             {% if c.comentario %}<p class="dica">{{ c.comentario }}</p>{% endif %}</td>
@@ -108,11 +109,14 @@
       {% endfor %}</tbody>
     </table>
     <p class="dica">Nota de conteúdo (NC): {{ '%g'|format(r.nota_conteudo) }} de {{ e.nota_maxima or 20 }}.
-      {% if r.por_conceitos %}Estimada pelo radar: a média dos conceitos levada aos {{ e.nota_maxima or 20 }} pontos. O padrão
-        de resposta dá a escala de cada quesito, mas não quanto ele vale, e a apresentação também entra na NC sem peso
-        publicado: aqui ela vem comentada, sem nota.{% endif %}</p>
-    {% if r.apresentacao and (r.apresentacao.comentario or r.apresentacao.problemas) %}
-      <h3>Apresentação e estrutura textual</h3>
+      {% if r.por_conceitos and r.apresentacao and r.apresentacao.maxima is defined %}A apresentação mais cada quesito: o
+        valor que o caderno dá ao aspecto × conceito ÷ {{ e.conceito_maximo or 3 }} (o conceito 2 num aspecto de 7 pontos
+        vale 4,67). Tema sem valor no caderno: os 19 pontos divididos igual. A conversão do conceito em pontos é do radar:
+        o padrão de resposta dá a escala, não a conta.
+      {% elif r.por_conceitos %}Estimada pelo radar: a média dos conceitos levada aos {{ e.nota_maxima or 20 }} pontos
+        (correção de antes dos pesos do caderno).{% endif %}</p>
+    {% if r.apresentacao and (r.apresentacao.comentario or r.apresentacao.problemas or r.apresentacao.maxima is defined) %}
+      <h3>Apresentação e estrutura textual{% if r.apresentacao.maxima is defined %}: {{ '%g'|format(r.apresentacao.nota)|replace('.', ',') }} de {{ '%g'|format(r.apresentacao.maxima) }}{% endif %}</h3>
       {% if r.apresentacao.comentario %}<p>{{ r.apresentacao.comentario }}</p>{% endif %}
       {% if r.apresentacao.problemas %}<ul class="ruim">{% for p in r.apresentacao.problemas %}<li>{{ p }}</li>{% endfor %}</ul>{% endif %}
     {% endif %}

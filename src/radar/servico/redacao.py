@@ -200,7 +200,15 @@ def _pedido(tipo: str, tema: str, data: date, texto: str | None = None,
             tema, regras_da_redacao.carregar().get("temas") or [])
         if quesitos:
             pedido["quesitos"] = quesitos
+            # O valor de cada aspecto no caderno (PRF-70): o corretor ve o peso.
+            regras = regras_da_redacao.carregar().get("regras_do_edital") or {}
+            pedido["valores"] = [round(v, 2) for v in regras_da_redacao.valores_dos_quesitos(
+                len(quesitos), regras, _valores(tema))]
     return pedido
+
+
+def _valores(tema: str) -> list[float]:
+    return regras_da_redacao.valores_do_tema(tema, regras_da_redacao.carregar().get("temas") or [])
 
 
 def montar_lote(tipo: str, tema: str, data: date, texto: str | None = None,
@@ -335,7 +343,8 @@ def importar_correcao(lote: dict, respostas: list[dict], procedencia: str) -> di
             recusas.append(f"{pedido.get('id')}: sem resposta")
             continue
         try:
-            correcao = regras_da_redacao.conferir_correcao(bruta, regras)
+            correcao = regras_da_redacao.conferir_correcao(bruta, regras,
+                                                           _valores(pedido.get("tema") or ""))
         except regras_da_redacao.RespostaInvalida as erro:
             recusas.append(f"{pedido.get('id')}: {erro}")
             continue
@@ -451,7 +460,8 @@ def corrigir_pela_api(texto: str, linhas: int, tema: str, data: date, sessao=Non
                     f"TEXTOS MOTIVADORES:\n{textos or '(sem)'}\n\nREDAÇÃO:\n{texto}",
                     sessao)
     regras = regras_da_redacao.carregar().get("regras_do_edital") or {}
-    correcao = regras_da_redacao.conferir_correcao(corpo.get("correcao", corpo), regras)
+    correcao = regras_da_redacao.conferir_correcao(corpo.get("correcao", corpo), regras,
+                                                   _valores(tema))
     pedido = _pedido(TIPO_CORRECAO, tema, data, texto, linhas)
     registro = _registro_da_correcao(pedido, correcao, procedencia_da_api(), agora())
     dados = ler()

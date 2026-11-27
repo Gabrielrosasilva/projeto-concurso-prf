@@ -17,7 +17,8 @@ A formula sai do `regras_do_edital` do redacao.yml:
     o `linhas_maximo`.
 
 Com `conceito_maximo` (o Cebraspe), a nota de conteudo nao vem pronta: a
-correcao da o conceito de cada quesito (0 a 3) e o radar converte (PRF-37).
+correcao da o conceito de cada quesito (0 a 3) e a nota da apresentacao, e o
+radar converte com o valor que o caderno da a cada aspecto (PRF-37, PRF-70).
 
 Nao fala com banco nem com rede.
 """
@@ -149,20 +150,35 @@ def nota(nc: float, ne: int, linhas: int, regras: dict | None = None,
                 zerada=motivo_zero or None, fator=fator)
 
 
-def nc_pelos_conceitos(conceitos: list[float], regras: dict) -> float:
+def valores_dos_quesitos(n: int, regras: dict, valores: list | None = None) -> list[float]:
+    """Quanto vale cada quesito nos pontos da NC (PRF-70).
+
+    O caderno da prova da o valor de cada aspecto ("[valor: 7,00 pontos]") e
+    reserva `apresentacao_maxima` (1 ponto) para a apresentacao e a estrutura:
+    2019 = 7, 6 e 6; 2021 = 5, 5 e 9 (o `valores` do tema no redacao.yml). Tema
+    sem `valores` (os propostos pelo Claude): o que sobra divide igual.
+    """
+    if valores and len(valores) == n:
+        return [float(v) for v in valores]
+    sobra = float(regras.get("nota_maxima", 20)) - float(regras.get("apresentacao_maxima", 0))
+    # Sem arredondar aqui: 3 x 6,33 daria 19,99 na nota maxima. Arredonda a tela.
+    return [sobra / n] * n if n else []
+
+
+def nc_pelos_conceitos(conceitos: list[float], regras: dict, valores: list | None = None,
+                       apresentacao: float = 0.0) -> float:
     """A nota de conteudo a partir dos conceitos dos quesitos (Cebraspe).
 
-    O padrao de resposta da banca da a escala de cada quesito (0 a 3), mas nao
-    quanto ele vale nos 20 pontos, e o edital (10.6.4, a) poe na NC tambem a
-    apresentacao e a estrutura, sem dizer o peso. Entao e uma ESTIMATIVA, e a
-    tela diz: os quesitos valem igual, NC = maxima x soma / (conceito maximo x
-    quantos quesitos), e a apresentacao entra nos comentarios, sem nota.
+    Cada quesito vale o seu valor x conceito / conceito maximo (conceito 2 de 3
+    num aspecto de 7 pontos = 4,67), e a apresentacao soma a nota dela (0 a
+    `apresentacao_maxima`). O jeito de converter o conceito em pontos e o do
+    radar: o padrao de resposta da a escala, nao a conta; a tela diz isso.
     """
     if not conceitos:
         return 0.0
     maximo = float(regras.get("conceito_maximo", 3))
-    nota_maxima = float(regras.get("nota_maxima", 20))
-    return round(nota_maxima * sum(conceitos) / (maximo * len(conceitos)), 2)
+    pesos = valores_dos_quesitos(len(conceitos), regras, valores)
+    return round(apresentacao + sum(p * c / maximo for p, c in zip(pesos, conceitos)), 2)
 
 
 # --- o tema da vez ----------------------------------------------------------
@@ -205,7 +221,8 @@ def textos_do_tema(tema: str, temas: list[dict]) -> list[dict]:
 
     O texto de lei traz `lei` (o dispositivo); o de noticia traz `fonte` (o
     veiculo, a data e o titulo) e `titulo`. A `fonte` de saida e uma so para
-    os dois: e o que a tela e o pedido mostram ao lado do trecho.
+    os dois: e o que a tela e o pedido mostram ao lado do trecho. O texto da
+    IA (`tipo: ia`, PRF-70) nao tem link: a `fonte` e o modelo e a data.
     """
     textos = []
     for x in _item_do_tema(tema, temas).get("textos") or []:
@@ -214,10 +231,11 @@ def textos_do_tema(tema: str, temas: list[dict]) -> list[dict]:
         texto, url = str(x.get("texto") or "").strip(), str(x.get("url") or "").strip()
         lei = str(x.get("lei") or "").strip()
         fonte = lei or str(x.get("fonte") or "").strip()
-        if texto and url and fonte:
-            # "prova": o fragmento do caderno oficial da PRF (PRF-69), com a fonte
-            # que a banca deu e o link do caderno.
-            tipo = "lei" if lei else ("prova" if x.get("tipo") == "prova" else "noticia")
+        # "prova": o fragmento do caderno oficial da PRF (PRF-69), com a fonte
+        # que a banca deu e o link do caderno. "ia": o texto curto escrito pela
+        # IA no estilo dos fragmentos da prova (PRF-70), sem link.
+        tipo = "lei" if lei else (x.get("tipo") if x.get("tipo") in ("prova", "ia") else "noticia")
+        if texto and fonte and (url or tipo == "ia"):
             textos.append({"texto": texto, "titulo": str(x.get("titulo") or "").strip(),
                            "tipo": tipo, "fonte": fonte,
                            "url": url, "acesso": str(x.get("acesso") or "").strip()})
@@ -227,6 +245,12 @@ def textos_do_tema(tema: str, temas: list[dict]) -> list[dict]:
 def comando_do_tema(tema: str, temas: list[dict]) -> str:
     """O comando da proposta do tema, como a banca o escreve (decisao PMSC-23)."""
     return " ".join(str(_item_do_tema(tema, temas).get("comando") or "").split())
+
+
+def valores_do_tema(tema: str, temas: list[dict]) -> list[float]:
+    """O valor de cada aspecto no caderno da prova (PRF-70), ou [] quando o tema
+    nao diz (os pontos se dividem igual: `valores_dos_quesitos`)."""
+    return [float(v) for v in _item_do_tema(tema, temas).get("valores") or []]
 
 
 def quesitos_do_tema(tema: str, temas: list[dict]) -> list[str]:
@@ -322,13 +346,14 @@ FORMATO_DA_CORRECAO = {
 
 #: O formato da correcao do Cebraspe (PRF-37): um criterio por quesito, com o
 #: CONCEITO (0 a 3) em `nota`; a NC e conta do radar (`nc_pelos_conceitos`).
-#: A apresentacao e a estrutura vao em `apresentacao`, sem nota.
+#: A apresentacao e a estrutura vao em `apresentacao`, com a nota de 0 a 1
+#: (o caderno: "ate 1,00 ponto", PRF-70).
 FORMATO_DA_CORRECAO_POR_CONCEITOS = {
     **{chave: valor for chave, valor in FORMATO_DA_CORRECAO.items() if chave != "nota_conteudo"},
     "criterios": [{"criterio": "2.1 <o aspecto 1 da proposta>", "nota": 2,
                    "comentario": "por que este conceito, pela escala do padrão",
                    "positivos": ["..."], "negativos": ["..."]}],
-    "apresentacao": {"comentario": "...", "problemas": ["..."]},
+    "apresentacao": {"nota": 0.75, "comentario": "...", "problemas": ["..."]},
     "nota_final": 13.9,
 }
 
@@ -399,13 +424,14 @@ class Correcao:
     melhorias: list[dict] = field(default_factory=list)
     focos: list[str] = field(default_factory=list)
     legibilidade: dict = field(default_factory=dict)
-    #: Cebraspe (PRF-37): a NC saiu dos conceitos, e a apresentacao e a
-    #: estrutura vem comentadas, sem nota.
+    #: Cebraspe (PRF-37, PRF-70): a NC saiu dos conceitos, com o valor de
+    #: cada quesito, e da nota da apresentacao e da estrutura.
     por_conceitos: bool = False
     apresentacao: dict = field(default_factory=dict)
 
 
-def conferir_correcao(item: dict, regras: dict | None = None) -> Correcao:
+def conferir_correcao(item: dict, regras: dict | None = None,
+                      valores: list | None = None) -> Correcao:
     """A correcao com a forma certa, ou RespostaInvalida.
 
     Confere forma, e so forma: se o erro de portugues e mesmo erro, quem
@@ -414,7 +440,9 @@ def conferir_correcao(item: dict, regras: dict | None = None) -> Correcao:
 
     Com `conceito_maximo` nas regras (o Cebraspe), cada criterio e um quesito
     com o conceito inteiro de 0 ao maximo, e a NC e a do radar; a
-    `nota_conteudo` da IA, se vier, nao vale.
+    `nota_conteudo` da IA, se vier, nao vale. `valores` e quanto vale cada
+    quesito (`valores_do_tema`); com `apresentacao_maxima` nas regras, a nota da
+    apresentacao e obrigatoria.
     """
     if not isinstance(item, dict):
         raise RespostaInvalida("a correção não é um objeto JSON")
@@ -446,7 +474,20 @@ def conferir_correcao(item: dict, regras: dict | None = None) -> Correcao:
                 raise RespostaInvalida(
                     f"o conceito de {c['criterio']!r} tem de ser inteiro de 0 a {maximo:g}: "
                     f"{c['nota']:g}")
-        nc = nc_pelos_conceitos([c["nota"] for c in criterios], regras)
+        pesos = valores_dos_quesitos(len(criterios), regras, valores)
+        for c, peso in zip(criterios, pesos):
+            c["valor"], c["pontos"] = round(peso, 2), round(peso * c["nota"] / maximo, 2)
+        nota_da_apresentacao = 0.0
+        if regras.get("apresentacao_maxima"):
+            teto = float(regras["apresentacao_maxima"])
+            bruta = item.get("apresentacao") if isinstance(item.get("apresentacao"), dict) else {}
+            if bruta.get("nota") in (None, ""):
+                raise RespostaInvalida(f"falta a nota da apresentação (de 0 a {teto:g})")
+            nota_da_apresentacao = _numero(bruta["nota"], "nota da apresentação")
+            if not 0 <= nota_da_apresentacao <= teto:
+                raise RespostaInvalida(
+                    f"a nota da apresentação tem de ser de 0 a {teto:g}: {nota_da_apresentacao:g}")
+        nc = nc_pelos_conceitos([c["nota"] for c in criterios], regras, pesos, nota_da_apresentacao)
 
     erros, descartados = [], []
     for e in item.get("erros") or []:
@@ -471,6 +512,9 @@ def conferir_correcao(item: dict, regras: dict | None = None) -> Correcao:
     bruta = item.get("apresentacao") if isinstance(item.get("apresentacao"), dict) else {}
     apresentacao = {"comentario": _texto(bruta.get("comentario")),
                     "problemas": _lista(bruta.get("problemas"))} if bruta else {}
+    if por_conceitos and regras.get("apresentacao_maxima"):
+        apresentacao["nota"] = nota_da_apresentacao
+        apresentacao["maxima"] = float(regras["apresentacao_maxima"])
     da_ia = item.get("nota_final")
     return Correcao(
         nota_conteudo=nc, criterios=criterios, erros=erros, tres_pontos=pontos,

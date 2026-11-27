@@ -88,6 +88,38 @@ def test_conceito_fora_da_escala_e_recusado(conceito):
         regras.conferir_correcao(_correcao(3, conceito, 1), CEBRASPE)
 
 
+# --- os pesos do caderno (PRF-70) ----------------------------------------------
+
+COM_APRESENTACAO = {**CEBRASPE, "apresentacao_maxima": 1}
+
+
+def _com_apresentacao(nota, *conceitos):
+    return _correcao(*conceitos, apresentacao={"nota": nota, "comentario": "Ok.", "problemas": []})
+
+
+def test_cada_aspecto_vale_o_que_o_caderno_diz():
+    # 2019: 7, 6 e 6. Conceitos 3, 2 e 2 = 7 + 4 + 4; mais 0,5 da apresentacao.
+    c = regras.conferir_correcao(_com_apresentacao(0.5, 3, 2, 2), COM_APRESENTACAO, [7, 6, 6])
+    assert c.nota_conteudo == 15.5
+    assert [(x["valor"], x["pontos"]) for x in c.criterios] == [(7, 7.0), (6, 4.0), (6, 4.0)]
+    assert c.apresentacao["nota"] == 0.5 and c.apresentacao["maxima"] == 1
+    # 2021: 5, 5 e 9. O aspecto das acoes pesa quase o dobro.
+    c = regras.conferir_correcao(_com_apresentacao(1, 1, 1, 3), COM_APRESENTACAO, [5, 5, 9])
+    assert c.nota_conteudo == 13.33                                  # 1 + 5/3 + 5/3 + 9
+
+
+def test_tema_sem_valor_divide_os_19_pontos_igual():
+    c = regras.conferir_correcao(_com_apresentacao(1, 3, 3, 3), COM_APRESENTACAO)
+    assert c.nota_conteudo == 20.0 and c.criterios[0]["valor"] == 6.33
+
+
+@pytest.mark.parametrize("apresentacao, erro", [({"comentario": "Ok."}, "falta a nota da apresentação"),
+                                                 ({"nota": 1.5}, "de 0 a 1")])
+def test_a_nota_da_apresentacao_e_obrigatoria_e_vai_ate_1(apresentacao, erro):
+    with pytest.raises(regras.RespostaInvalida, match=erro):
+        regras.conferir_correcao(_correcao(3, 2, 2, apresentacao=apresentacao), COM_APRESENTACAO, [7, 6, 6])
+
+
 def test_na_aocp_continua_valendo_a_nota_de_conteudo():
     aocp = {k: v for k, v in CEBRASPE.items() if k not in ("fator_dos_erros", "conceito_maximo")}
     c = regras.conferir_correcao(_correcao(3, 2, nota_conteudo=14.5), aocp)
@@ -102,6 +134,7 @@ def test_o_pedido_leva_os_quesitos_e_o_formato_por_conceitos(prf):
     pedido = lote["pedidos"][0]
     assert len(pedido["quesitos"]) == 3 and pedido["quesitos"][0].startswith("2.1")
     assert len(pedido["textos_motivadores"]) == 2
+    assert pedido["valores"] == [7, 6, 6]                     # o caderno de 2019 (PRF-70)
     formato = lote["formato_da_resposta"]["respostas"][0]["correcao"]
     assert "nota_conteudo" not in formato and "apresentacao" in formato
     assert "examinador do Cebraspe" in lote["como_responder"]
@@ -121,15 +154,16 @@ def test_a_correcao_importada_mostra_os_conceitos_e_o_fator(prf):
     lote = json.loads(manual.caminho_do_pedido().read_text(encoding="utf-8"))
     resposta = manual.caminho_do_pedido().with_name("resposta_ia.json")
     resposta.write_text(json.dumps({"lote": lote["lote"], "modelo": "claude-opus-5-5",
-                                    "respostas": [{"id": "r1", "correcao": _correcao(3, 2, 2)}]},
+                                    "respostas": [{"id": "r1", "correcao": _com_apresentacao(1, 3, 2, 2)}]},
                                    ensure_ascii=False), encoding="utf-8")
     manual.importar(resposta)
 
     salvo = servico_redacao.historico()[0]
-    assert salvo["nota"]["fator"] == 4.0 and salvo["nota_conteudo"] == 15.56   # 20 x 7 / 9
-    assert salvo["nota"]["final"] == 15.42                                       # 15,56 - 4 x 1 / 28
+    assert salvo["nota"]["fator"] == 4.0 and salvo["nota_conteudo"] == 16.0    # 1 + 7 + 4 + 4
+    assert salvo["nota"]["final"] == 15.86                                       # 16 - 4 x 1 / 28
     pagina = TestClient(app).get(f"/redacao/{salvo['id']}").text
     assert "4 × NE 1 ÷ TL 28" in pagina and "Por quesito" in pagina and "de 3" in pagina
+    assert "7,00 de 7" in pagina and "4,00 de 6" in pagina and "1 de 1" in pagina
     assert "Apresentação e estrutura textual" in pagina and "AOCP" not in pagina
 
 
@@ -193,7 +227,37 @@ def test_os_textos_motivadores_sao_literais_da_lei():
     dados = yaml.safe_load((CONFIG_PRF / "redacao.yml").read_text(encoding="utf-8"))
     for tema in dados["temas"]:
         for x in tema["textos"]:
+            if x.get("tipo") == "ia":       # o texto curto da IA: test_os_textos_da_ia_...
+                continue
             lei = textos["CF"] if x["lei"].startswith("CF") else textos["CTB"]
             for pedaco in (p.strip(" ;") for p in x["texto"].split("[...]")):
                 if pedaco:
                     assert " ".join(pedaco.split()) in lei, (x["lei"], pedaco[:80])
+
+
+# --- o texto curto da IA (PRF-70) ----------------------------------------------
+
+def test_os_textos_da_ia_sao_curtos_sem_numero_e_com_procedencia():
+    """No estilo dos fragmentos da prova: um paragrafo curto sobre o assunto, sem
+    dica e sem numero (dado inventado nao entra), com o modelo e a data."""
+    dados = yaml.safe_load((CONFIG_PRF / "redacao.yml").read_text(encoding="utf-8"))
+    da_ia = [(tema, x) for tema in dados["temas"] for x in tema["textos"] if x.get("tipo") == "ia"]
+    propostos = [tema for tema in dados["temas"] if "proposto pelo Claude" in tema["origem"]]
+    assert len(da_ia) == len(propostos) == 8           # um em cada tema que nao e prova real
+    aberturas = set()
+    for tema, x in da_ia:
+        assert "claude-opus-5-5" in x["fonte"] and "2026" in x["fonte"], tema["tema"]
+        assert not re.search(r"\d", x["texto"]), tema["tema"]
+        assert len(x["texto"].split()) <= 90, tema["tema"]
+        assert not re.match(r"(A|O)\s+(Lei|Código|Constituição|CTB)\b", x["texto"]), tema["tema"]
+        aberturas.add(" ".join(x["texto"].split()[:4]))
+    assert len(aberturas) == len(da_ia)                 # nenhuma abertura repetida
+
+
+def test_o_texto_da_ia_aparece_com_o_selo_e_vai_no_pedido(prf):
+    pagina = TestClient(app).get("/redacao?data=2027-02-13").text      # o celular
+    assert "TEXTO 3" in pagina and "Texto escrito pela IA, no estilo dos fragmentos da prova" in pagina
+    pedido = servico_redacao.montar_lote(
+        servico_redacao.TIPO_CORRECAO, "O uso do celular ao volante e a segurança nas rodovias federais",
+        SABADO, "Meu texto.", 28)["pedidos"][0]
+    assert len(pedido["textos_motivadores"]) == 3 and pedido["textos_motivadores"][2]["tipo"] == "ia"
