@@ -51,8 +51,8 @@ regras_do_edital:
 esqueleto:
   - parte: Introdução
     linhas: "3 a 5"
-    o_que_escrever: "O contexto (a lei ou o fato) + o tema + anuncie os três aspectos que o texto vai tratar."
-    modelo: "O Código de Trânsito Brasileiro estabelece que o trânsito seguro é direito de todos e dever do Estado. Nesse contexto, [o tema] envolve [aspecto 1], [aspecto 2] e [aspecto 3]."
+    o_que_escrever: "O contexto (um fato, uma situação da rodovia ou, quando for pertinente, a lei) + o tema + anuncie os três aspectos que o texto vai tratar. Varie a abertura: não comece toda redação pela lei."
+    modelo: "[Um fato ou uma situação que mostre o problema]. Nesse cenário, [o tema] envolve [aspecto 1], [aspecto 2] e [aspecto 3]."
   - parte: Aspecto 1
     linhas: "6 a 8"
     o_que_escrever: "Responda ao primeiro aspecto: explique (não só cite), dê a causa ou o exemplo e ligue ao tema. É o quesito 2.1."
@@ -120,10 +120,13 @@ temas:
   # PRF-38), e a `data` aqui e a da 1a vez. O `tema` e IGUAL ao titulo da faixa depois
   # de "Redação da semana: ". Os `quesitos` sao os aspectos do comando, um conceito de
   # 0 a 3 cada na correcao.
+  # Um texto motivador por tema (PRF-67, decisao do Gabriel: "o padrao da banca e 1
+  # texto"); ficou o mais especifico do tema. O repertorio maior vai no texto de apoio
+  # (data/textos_de_apoio.json).
   - data: "2027-01-09"
     tema: "As infrações de trânsito nas rodovias federais: o papel da PRF, da sociedade e do indivíduo"
     origem: "o tema da discursiva da PRF de 2019, com outras palavras"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca das infrações de trânsito nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 medidas que a Polícia Rodoviária Federal adota ou pode adotar para combater as infrações; 2 ações da sociedade que auxiliem na diminuição das infrações; 3 atitudes individuais para a diminuição das infrações."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca das infrações de trânsito nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 medidas que a Polícia Rodoviária Federal adota ou pode adotar para combater as infrações; 2 ações da sociedade que auxiliem na diminuição das infrações; 3 atitudes individuais para a diminuição das infrações."
     quesitos:
       - "2.1 Medidas da PRF no combate às infrações"
       - "2.2 Ações da sociedade para diminuir as infrações"
@@ -133,15 +136,11 @@ temas:
         lei: "CF, art. 144, caput, II, e § 2º"
         url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
         acesso: 25 nov. 2026
-      - texto: "O trânsito, em condições seguras, é um direito de todos e dever dos órgãos e entidades componentes do Sistema Nacional de Trânsito, a estes cabendo, no âmbito das respectivas competências, adotar as medidas destinadas a assegurar esse direito."
-        lei: "Código de Trânsito Brasileiro, art. 1º, § 2º"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
 
   - data: "2027-01-16"
     tema: "O uso do celular ao volante e a segurança nas rodovias federais"
     origem: "tema proposto pelo Claude, no formato do Cebraspe"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do uso do celular ao volante e da segurança nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que o uso do celular ao volante aumenta o risco de sinistros; 2 o que o Código de Trânsito Brasileiro prevê para essa conduta e o papel da fiscalização; 3 ações de educação e de tecnologia que podem reduzir esse comportamento."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca do uso do celular ao volante e da segurança nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que o uso do celular ao volante aumenta o risco de sinistros; 2 o que o Código de Trânsito Brasileiro prevê para essa conduta e o papel da fiscalização; 3 ações de educação e de tecnologia que podem reduzir esse comportamento."
     quesitos:
       - "2.1 Por que o celular ao volante aumenta o risco de sinistros"
       - "2.2 O que o CTB prevê e o papel da fiscalização"
@@ -151,24 +150,16 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 252, V, VI e parágrafo único"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
-      - texto: "Os órgãos e entidades de trânsito pertencentes no Sistema Nacional de Trânsito darão prioridade em suas ações à defesa da vida, nela incluída a preservação da saúde e do meio-ambiente."
-        lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
 
   - data: "2027-01-23"
     tema: "A fiscalização eletrônica de velocidade e a redução dos sinistros de trânsito"
     origem: "tema proposto pelo Claude, no formato do Cebraspe"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da fiscalização eletrônica de velocidade e da redução dos sinistros de trânsito. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a relação entre o excesso de velocidade e a gravidade dos sinistros; 2 a fiscalização eletrônica como instrumento de segurança viária, considerando a crítica de que ela serviria apenas para arrecadar; 3 medidas que complementam a fiscalização na redução dos sinistros."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca da fiscalização eletrônica de velocidade e da redução dos sinistros de trânsito. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a relação entre o excesso de velocidade e a gravidade dos sinistros; 2 a fiscalização eletrônica como instrumento de segurança viária, considerando a crítica de que ela serviria apenas para arrecadar; 3 medidas que complementam a fiscalização na redução dos sinistros."
     quesitos:
       - "2.1 Excesso de velocidade e gravidade dos sinistros"
       - "2.2 A fiscalização eletrônica como instrumento de segurança, e a crítica da arrecadação"
       - "2.3 Medidas que complementam a fiscalização"
     textos:
-      - texto: "A velocidade máxima permitida para a via será indicada por meio de sinalização, obedecidas suas características técnicas e as condições de trânsito."
-        lei: "Código de Trânsito Brasileiro, art. 61, caput"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
       - texto: "A infração deverá ser comprovada por declaração da autoridade ou do agente da autoridade de trânsito, por aparelho eletrônico ou por equipamento audiovisual, reações químicas ou qualquer outro meio tecnologicamente disponível, previamente regulamentado pelo CONTRAN."
         lei: "Código de Trânsito Brasileiro, art. 280, § 2º"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
@@ -177,16 +168,12 @@ temas:
   - data: "2027-01-30"
     tema: "O transporte rodoviário de cargas e a segurança viária"
     origem: "tema proposto pelo Claude, no formato do Cebraspe"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do transporte rodoviário de cargas e da segurança viária. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que o transporte de cargas traz para a segurança nas rodovias; 2 o papel da fiscalização da Polícia Rodoviária Federal nesse transporte; 3 as responsabilidades das empresas e dos motoristas."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca do transporte rodoviário de cargas e da segurança viária. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que o transporte de cargas traz para a segurança nas rodovias; 2 o papel da fiscalização da Polícia Rodoviária Federal nesse transporte; 3 as responsabilidades das empresas e dos motoristas."
     quesitos:
       - "2.1 Os riscos do transporte de cargas para a segurança nas rodovias"
       - "2.2 O papel da fiscalização da PRF"
       - "2.3 As responsabilidades das empresas e dos motoristas"
     textos:
-      - texto: "Somente poderá transitar pelas vias terrestres o veículo cujo peso e dimensões atenderem aos limites estabelecidos pelo CONTRAN. [...] O veículo de carga deverá estar devidamente equipado quando transitar, de modo a evitar o derramamento da carga sobre a via."
-        lei: "Código de Trânsito Brasileiro, art. 99, caput, e art. 102, caput"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
       - texto: "É vedado ao motorista profissional dirigir por mais de 5 (cinco) horas e meia ininterruptas veículos de transporte rodoviário coletivo de passageiros ou de transporte rodoviário de cargas."
         lei: "Código de Trânsito Brasileiro, art. 67-C, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
@@ -195,7 +182,7 @@ temas:
   - data: "2027-02-06"
     tema: "A educação para o trânsito como política pública"
     origem: "tema proposto pelo Claude, no formato do Cebraspe"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da educação para o trânsito como política pública. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a educação para o trânsito como dever do Estado; 2 ações de educação nas escolas e campanhas; 3 os limites da educação sem fiscalização."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca da educação para o trânsito como política pública. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a educação para o trânsito como dever do Estado; 2 ações de educação nas escolas e campanhas; 3 os limites da educação sem fiscalização."
     quesitos:
       - "2.1 A educação para o trânsito como dever do Estado"
       - "2.2 Ações de educação nas escolas e campanhas"
@@ -205,15 +192,11 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 74, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
-      - texto: "A educação para o trânsito será promovida na pré-escola e nas escolas de 1º, 2º e 3º graus, por meio de planejamento e ações coordenadas entre os órgãos e entidades do Sistema Nacional de Trânsito e de Educação, da União, dos Estados, do Distrito Federal e dos Municípios, nas respectivas áreas de atuação."
-        lei: "Código de Trânsito Brasileiro, art. 76, caput"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
 
   - data: "2027-02-13"
     tema: "Os crimes de trânsito, a Lei Seca e os sinistros nas rodovias"
     origem: "o tema da discursiva da PRF de 2021, com outras palavras"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos efeitos da previsão de crimes de trânsito e da Lei Seca sobre os sinistros nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da previsão dos crimes de trânsito no Código de Trânsito Brasileiro sobre os sinistros, e as possíveis causas desse resultado; 2 o impacto da Lei Seca sobre os sinistros, e as possíveis causas desse resultado; 3 ações para reduzir os sinistros de trânsito."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca dos efeitos da previsão de crimes de trânsito e da Lei Seca sobre os sinistros nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da previsão dos crimes de trânsito no Código de Trânsito Brasileiro sobre os sinistros, e as possíveis causas desse resultado; 2 o impacto da Lei Seca sobre os sinistros, e as possíveis causas desse resultado; 3 ações para reduzir os sinistros de trânsito."
     quesitos:
       - "2.1 O impacto dos crimes de trânsito no CTB sobre os sinistros, e as causas"
       - "2.2 O impacto da Lei Seca sobre os sinistros, e as causas"
@@ -223,10 +206,6 @@ temas:
         lei: "Código de Trânsito Brasileiro, art. 165, caput (redação da Lei nº 11.705/2008, a Lei Seca)"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 25 nov. 2026
-      - texto: "Conduzir veículo automotor com capacidade psicomotora alterada em razão da influência de álcool ou de outra substância psicoativa que determine dependência: Penas - detenção, de seis meses a três anos, multa e suspensão ou proibição de se obter a permissão ou a habilitação para dirigir veículo automotor."
-        lei: "Código de Trânsito Brasileiro, art. 306, caput"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 25 nov. 2026
 
   # Os temas novos do Ciclo 2 (semanas 13 a 16), escritos em 26/11/2026 (PRF-38) do
   # mesmo jeito: textos literais da compilacao da Camara (fontes/leis/), conferidos pelo
@@ -234,16 +213,12 @@ temas:
   - data: "2027-04-03"
     tema: "A proteção de crianças e adolescentes nas rodovias federais"
     origem: "tema proposto pelo Claude"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da proteção de crianças e adolescentes nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos a que crianças e adolescentes estão expostos nas rodovias, no transporte e fora dele; 2 o papel da Polícia Rodoviária Federal na proteção de crianças e adolescentes; 3 a responsabilidade da família e da sociedade nessa proteção."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca da proteção de crianças e adolescentes nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos a que crianças e adolescentes estão expostos nas rodovias, no transporte e fora dele; 2 o papel da Polícia Rodoviária Federal na proteção de crianças e adolescentes; 3 a responsabilidade da família e da sociedade nessa proteção."
     quesitos:
       - "2.1 Os riscos a que crianças e adolescentes estão expostos nas rodovias"
       - "2.2 O papel da PRF na proteção de crianças e adolescentes"
       - "2.3 A responsabilidade da família e da sociedade"
     textos:
-      - texto: "É dever da família, da sociedade e do Estado assegurar à criança, ao adolescente e ao jovem, com absoluta prioridade, o direito à vida, à saúde, à alimentação, à educação, ao lazer, à profissionalização, à cultura, à dignidade, ao respeito, à liberdade e à convivência familiar e comunitária, além de colocá-los a salvo de toda forma de negligência, discriminação, exploração, violência, crueldade e opressão."
-        lei: "CF, art. 227, caput"
-        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
-        acesso: 26 nov. 2026
       - texto: "As crianças com idade inferior a 10 (dez) anos que não tenham atingido 1,45 m (um metro e quarenta e cinco centímetros) de altura devem ser transportadas nos bancos traseiros, em dispositivo de retenção adequado para cada idade, peso e altura, salvo exceções relacionadas a tipos específicos de veículos regulamentadas pelo Contran."
         lei: "Código de Trânsito Brasileiro, art. 64, caput"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
@@ -252,7 +227,7 @@ temas:
   - data: "2027-04-10"
     tema: "A preservação do meio ambiente e o transporte nas rodovias federais"
     origem: "tema proposto pelo Claude"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da preservação do meio ambiente no transporte pelas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os impactos do transporte rodoviário sobre o meio ambiente; 2 a atuação da Polícia Rodoviária Federal no combate aos crimes ambientais e na fiscalização do transporte de produtos perigosos; 3 medidas que conciliem o transporte rodoviário e a preservação ambiental."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca da preservação do meio ambiente no transporte pelas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os impactos do transporte rodoviário sobre o meio ambiente; 2 a atuação da Polícia Rodoviária Federal no combate aos crimes ambientais e na fiscalização do transporte de produtos perigosos; 3 medidas que conciliem o transporte rodoviário e a preservação ambiental."
     quesitos:
       - "2.1 Os impactos do transporte rodoviário sobre o meio ambiente"
       - "2.2 A atuação da PRF contra os crimes ambientais e no transporte de produtos perigosos"
@@ -262,24 +237,16 @@ temas:
         lei: "CF, art. 225, caput"
         url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
         acesso: 26 nov. 2026
-      - texto: "Os órgãos e entidades de trânsito [...] darão prioridade em suas ações à defesa da vida, nela incluída a preservação da saúde e do meio-ambiente."
-        lei: "Código de Trânsito Brasileiro, art. 1º, § 5º"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 26 nov. 2026
 
   - data: "2027-04-17"
     tema: "Os direitos humanos e a atuação da Polícia Rodoviária Federal"
     origem: "tema proposto pelo Claude"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos direitos humanos na atuação da Polícia Rodoviária Federal. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância do respeito aos direitos humanos na atividade policial; 2 os limites legais da abordagem e do uso da força pelo policial rodoviário federal; 3 a relação entre o respeito aos direitos e a confiança da sociedade na polícia."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca dos direitos humanos na atuação da Polícia Rodoviária Federal. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância do respeito aos direitos humanos na atividade policial; 2 os limites legais da abordagem e do uso da força pelo policial rodoviário federal; 3 a relação entre o respeito aos direitos e a confiança da sociedade na polícia."
     quesitos:
       - "2.1 A importância dos direitos humanos na atividade policial"
       - "2.2 Os limites legais da abordagem e do uso da força"
       - "2.3 O respeito aos direitos e a confiança da sociedade na polícia"
     textos:
-      - texto: "A República Federativa do Brasil, formada pela união indissolúvel dos Estados e Municípios e do Distrito Federal, constitui-se em Estado democrático de direito e tem como fundamentos: [...] III - a dignidade da pessoa humana;"
-        lei: "CF, art. 1º, caput e III"
-        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
-        acesso: 26 nov. 2026
       - texto: "Todos são iguais perante a lei, sem distinção de qualquer natureza, garantindo-se aos brasileiros e aos estrangeiros residentes no País a inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade, nos termos seguintes: [...] III - ninguém será submetido a tortura nem a tratamento desumano ou degradante;"
         lei: "CF, art. 5º, caput e III"
         url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
@@ -288,7 +255,7 @@ temas:
   - data: "2027-04-24"
     tema: "Pedestres, ciclistas e motociclistas: os mais vulneráveis nas rodovias"
     origem: "tema proposto pelo Claude"
-    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da segurança de pedestres, ciclistas e motociclistas nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os motivos que tornam pedestres, ciclistas e motociclistas os usuários mais expostos nas rodovias; 2 a responsabilidade dos condutores de veículos maiores pela segurança dos menores e dos pedestres; 3 ações de fiscalização e de educação para proteger esses usuários."
+    comando: "Considerando que o texto acima tem caráter unicamente motivador, redija um texto dissertativo acerca da segurança de pedestres, ciclistas e motociclistas nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os motivos que tornam pedestres, ciclistas e motociclistas os usuários mais expostos nas rodovias; 2 a responsabilidade dos condutores de veículos maiores pela segurança dos menores e dos pedestres; 3 ações de fiscalização e de educação para proteger esses usuários."
     quesitos:
       - "2.1 Por que pedestres, ciclistas e motociclistas são os mais expostos"
       - "2.2 A responsabilidade dos veículos maiores pela segurança dos menores"
@@ -296,10 +263,6 @@ temas:
     textos:
       - texto: "Respeitadas as normas de circulação e conduta estabelecidas neste artigo, em ordem decrescente, os veículos de maior porte serão sempre responsáveis pela segurança dos menores, os motorizados pelos não motorizados e, juntos, pela incolumidade dos pedestres."
         lei: "Código de Trânsito Brasileiro, art. 29, § 2º"
-        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
-        acesso: 26 nov. 2026
-      - texto: "Os condutores de motocicletas, motonetas e ciclomotores só poderão circular nas vias: I - utilizando capacete de segurança, com viseira ou óculos protetores; II - segurando o guidom com as duas mãos; III - usando vestuário de proteção, de acordo com as especificações do CONTRAN."
-        lei: "Código de Trânsito Brasileiro, art. 54"
         url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
         acesso: 26 nov. 2026
 
@@ -322,10 +285,10 @@ pedido_de_correcao: |
   MELHORIAS: o "você escreveu, como fica, por quê" do que não é erro de português, mas tira conceito: aspecto só citado, causa ou exemplo que faltou, parágrafo desligado dos outros, conectivo fraco, repetição, frase longa demais.
   Dê também: de 2 a 4 PONTOS POSITIVOS gerais; os 3 PONTOS que mais tiraram nota; 3 FOCOS para a próxima redação; e o PARÁGRAFO MAIS FRACO reescrito como o examinador o escreveria.
   Quando o texto vier da foto da folha (origem "foto"), avalie a LEGIBILIDADE da letra: "legível", "com trechos difíceis" ou "ilegível", e o que observar (o edital pede letra legível, 10.3).
-  Os TEXTOS MOTIVADORES vão no pedido: trecho copiado deles não é argumento do candidato.
+  Os TEXTOS MOTIVADORES vão no pedido: trecho copiado deles não é argumento do candidato. O TEXTO DE APOIO, quando vier no pedido, foi lido pelo candidato antes de escrever: a ideia dele, com as palavras do candidato, vale; trecho copiado dele, não (aponte em MELHORIAS).
   MOTIVO DE ZERO, se houver (10.6.4, g): fuga ao tema ou não haver texto.
   Regras do edital: até 30 linhas (o que passar é desconsiderado, 10.6.4, c); NPD = NC − 4 × NE ÷ TL; abaixo de 10, eliminado. A conta é do radar: a sua nota_final serve só para comparar (calcule com NC = 20 × soma dos conceitos ÷ (3 × número de quesitos)).
-  Seja rigoroso e realista como um examinador: não dê conceito maior para agradar e não elogie à toa, mas diga o que está bom. Nunca invente estatística, número ou lei: repertório, só o da lista "repertorio" enviada junto ou o dos textos motivadores.
+  Seja rigoroso e realista como um examinador: não dê conceito maior para agradar e não elogie à toa, mas diga o que está bom. Nunca invente estatística, número ou lei: repertório, só o da lista "repertorio" enviada junto, o dos textos motivadores ou o do texto de apoio.
 
 pedido_de_reescrita: |
   Você é o mesmo examinador do Cebraspe. O candidato recebeu a correção da redação e reescreveu à mão o parágrafo mais fraco (campo "reescrita"). Compare com o parágrafo original (na "redacao"), com o que a correção apontou ("o_que_a_correcao_disse") e com o modelo do examinador ("paragrafo_reescrito_pelo_corretor").

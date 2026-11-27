@@ -1674,6 +1674,7 @@ def _pagina_da_redacao(request: Request, data: str | None = None, recado: str = 
             "historico": servico.redacao.historico(),
             "evolucao": servico.redacao.evolucao(),
             "ideias": servico.redacao.ultimas_ideias(vez.tema if vez else None),
+            "apoio": servico.redacao.texto_de_apoio_do_tema(vez.tema if vez else None),
             "tem_api": servico.redacao.tem_api(),
             "custo_correcao": custo_correcao,
             "custo_ideias": custo_ideias,

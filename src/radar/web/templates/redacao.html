@@ -67,7 +67,7 @@
   {% else %}
 
   <nav class="atalhos" aria-label="Partes da aba">
-    <a href="#tema">Tema da vez</a> · <a href="#roteiro">Roteiro de 10 min</a> ·
+    <a href="#tema">Tema da vez</a> · {% if apoio %}<a href="#apoio">Texto de apoio</a> · {% endif %}<a href="#roteiro">Roteiro de 10 min</a> ·
     <a href="#esqueleto">Esqueleto</a> · <a href="#conectivos">Conectivos</a> ·
     <a href="#erros">Erros que tiram ponto</a> · <a href="#repertorio">Repertório</a> ·
     <a href="#corrigir">Corrigir</a> · <a href="#historico">Histórico</a> · <a href="#edital">Regras do edital</a>
@@ -112,8 +112,12 @@
         <p class="tema-da-vez">{{ vez.tema }}</p>
       {% endif %}
       <p class="dica">De {{ vez.origem }}.{% if vez.data %} Para {{ vez.data.strftime('%d/%m') }}.{% endif %}
-        {% if vez.textos %}Os textos dão ideia e embasamento: use-os, mas escreva com as suas palavras.
+        {% if vez.textos|length == 1 %}O texto dá ideia e embasamento: use-o, mas escreva com as suas palavras.
+        {% elif vez.textos %}Os textos dão ideia e embasamento: use-os, mas escreva com as suas palavras.
         {% else %}{{ e.sem_textos or ('O tema, pelo edital: ' ~ (e.tema or '')) }}{% endif %}</p>
+      {# Com texto de apoio (PRF-67), o "Me dá ideias" sai: os dois dariam o
+         mesmo repertorio. Fica so para o tema que ainda nao tem texto. #}
+      {% if not apoio %}
       <form method="post" action="/redacao/ideias" class="linha">
         <input type="hidden" name="tema" value="{{ vez.tema }}">
         <input type="hidden" name="data" value="{{ dia.isoformat() }}">
@@ -124,12 +128,49 @@
           {% else %}sem API: grava o pedido, e você responde pelo Claude Code{% endif %}
         </span>
       </form>
+      {% endif %}
     {% else %}
       <p class="ds-vazio">Sem tema para este dia: confira a lista <code>temas</code> do redacao.yml.</p>
     {% endif %}
   </section>
 
-  {% if ideias %}
+  {% if apoio %}
+  {# O texto de apoio (PRF-67): repertorio para ler ANTES de escrever. Um so
+     por tema, escrito pela IA com a procedencia; a lei, quando entra, e o
+     trecho literal da copia da Camara, com o link. Sem numero inventado. #}
+  <section class="ds-cartao apoio" id="apoio">
+    <h2 class="ds-cartao__titulo">Texto de apoio {{ selo('ia') }}</h2>
+    <p class="dica">{{ apoio.procedencia }} Leia, escolha os caminhos que fazem sentido para você e escreva com as
+      suas palavras: é repertório, não redação pronta. Trecho copiado daqui conta como cópia na correção.</p>
+    <h3>O contexto</h3>
+    <p>{{ apoio.contexto }}</p>
+    {% if apoio.caminhos %}
+      <h3>Caminhos para argumentar</h3>
+      <ul>{% for c in apoio.caminhos %}
+        <li><b>{{ c.titulo }}</b>{% if c.quesito %} <span class="dica">(serve ao {{ c.quesito }})</span>{% endif %}<br>{{ c.texto }}</li>
+      {% endfor %}</ul>
+    {% endif %}
+    {% if apoio.o_que_saber %}
+      <h3>O que saber</h3>
+      <ul>{% for s in apoio.o_que_saber %}<li>{{ s }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if apoio.situacoes %}
+      <h3>Situações da rodovia</h3>
+      <ul>{% for s in apoio.situacoes %}<li>{{ s }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% if apoio.base_legal %}
+      <h3>Base legal {{ selo('oficial', 'Texto oficial da lei') }}</h3>
+      <ul>{% for b in apoio.base_legal %}
+        <li><b>{{ b.lei }}</b>: “{{ b.trecho }}”<br><span class="dica">Por que serve: {{ b.por_que }}
+          · <a href="{{ b.url }}" target="_blank" rel="noopener">texto vigente</a></span></li>
+      {% endfor %}</ul>
+    {% endif %}
+    <h3>Um fecho possível</h3>
+    <p>{{ apoio.fecho }}</p>
+  </section>
+  {% endif %}
+
+  {% if ideias and not apoio %}
   <section class="ds-cartao ideias">
     <h2 class="ds-cartao__titulo">Ideias {{ selo('ia') }}</h2>
     <p class="dica">Tema: {{ ideias.tema }} · {{ ideias.procedencia }}. Escritas pela IA só com o repertório do redacao.yml:

@@ -99,7 +99,7 @@ def test_o_pedido_leva_os_quesitos_e_o_formato_por_conceitos(prf):
                                        "Meu texto.", 28)
     pedido = lote["pedidos"][0]
     assert len(pedido["quesitos"]) == 3 and pedido["quesitos"][0].startswith("2.1")
-    assert len(pedido["textos_motivadores"]) == 2
+    assert len(pedido["textos_motivadores"]) == 1      # um, como na prova (PRF-67)
     formato = lote["formato_da_resposta"]["respostas"][0]["correcao"]
     assert "nota_conteudo" not in formato and "apresentacao" in formato
     assert "examinador do Cebraspe" in lote["como_responder"]
