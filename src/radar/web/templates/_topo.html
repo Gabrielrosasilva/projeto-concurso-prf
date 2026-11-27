@@ -69,11 +69,13 @@
 {% endmacro %}
 
 
-{# As sub-abas de Revisao. O Caderno de erros vem primeiro, e o /revisao abre
-   nele: o que eu errei ontem manda mais que o costume da banca. #}
+{# As sub-abas de Revisao (PRF-64): Meus erros, automatico, vem primeiro e o
+   /revisao abre nele; o caderno anotado a mao (os erros de fora do radar)
+   continua ao lado, e os Macetes ficam. #}
 {% macro abas_de_revisao(ativa='') %}
 <div class="subabas">
-  <a class="{{ 'ativo' if ativa == 'erros' }}" href="/erros">Caderno de erros</a>
+  <a class="{{ 'ativo' if ativa == 'meus_erros' }}" href="/revisao">Meus erros</a>
+  <a class="{{ 'ativo' if ativa == 'erros' }}" href="/erros">Anotados à mão</a>
   <a class="{{ 'ativo' if ativa == 'macetes' }}" href="/macetes">Macetes</a>
 </div>
 {% endmacro %}
@@ -95,7 +97,8 @@
    progresso em cada materia. #}
 {% macro abas_de_analises(ativa='') %}
 <div class="subabas">
-  <a class="{{ 'ativo' if ativa == 'edital' }}" href="/analises">Edital</a>
+  <a class="{{ 'ativo' if ativa == 'rendimento' }}" href="/analises">Meu rendimento</a>
+  <a class="{{ 'ativo' if ativa == 'edital' }}" href="/analises/edital">Edital</a>
   <a class="{{ 'ativo' if ativa == 'materias' }}" href="/analises/materias">Minhas matérias</a>
   <a class="{{ 'ativo' if ativa == 'desempenho' }}" href="/analises/desempenho">Meu desempenho</a>
   <a class="{{ 'ativo' if ativa == 'certo_errado' }}" href="/analises/certo-errado">Certo/Errado</a>

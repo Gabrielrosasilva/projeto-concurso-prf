@@ -344,10 +344,13 @@ def test_o_caderno_nao_entra_em_acerto_medido(banco_temporario):
 
 # --- as telas -----------------------------------------------------------------
 
-def test_a_aba_revisao_abre_no_caderno(cliente):
+def test_a_aba_revisao_abre_em_meus_erros_e_o_caderno_continua(cliente):
+    """Desde a PRF-64 o /revisao e o Meus erros (automatico); o caderno
+    anotado a mao continua em /erros, na sub-aba "Anotados a mao"."""
     resposta = cliente.get("/revisao", follow_redirects=False)
-    assert resposta.status_code == 303
-    assert resposta.headers["location"] == "/erros"
+    assert resposta.status_code == 200
+    assert "<h1>Meus erros</h1>" in resposta.text
+    assert 'href="/erros">Anotados à mão</a>' in resposta.text
 
 
 def test_as_subabas_da_revisao_tem_as_duas_telas(cliente):

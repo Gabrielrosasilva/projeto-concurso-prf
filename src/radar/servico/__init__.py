@@ -169,6 +169,10 @@ from radar.servico import aprovados     # noqa: F401 - usado pela web
 # A aba Preparacao Fisica: os testes do TAF, os treinos e a fase do plano.
 # `servico.preparacao_fisica.historico()`. Os pontos sao do `radar.taf`.
 from radar.servico import preparacao_fisica  # noqa: F401 - usado pela web
+# Analises > Meu rendimento (PRF-63). `servico.rendimento.montar()`.
+from radar.servico import rendimento   # noqa: F401 - usado pela web
+# Revisao > Meus erros, automatico (PRF-64). `servico.meus_erros.montar()`.
+from radar.servico import meus_erros   # noqa: F401 - usado pela web
 # O estudo extra, fora das faixas do plano. Tambem diario, tambem nao mede.
 from radar.servico import extra         # noqa: F401 - usado pela web
 # Como eu fui em cada semana, por ciclo. `servico.semanas.montar()`.

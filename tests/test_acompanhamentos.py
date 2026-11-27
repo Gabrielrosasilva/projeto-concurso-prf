@@ -591,7 +591,7 @@ def test_banca_com_prova_no_acervo_ganha_o_link_do_padrao(ambiente):
     assert _cartao(PENAL).banca_no_acervo == "FEPESE"
     pagina = TestClient(app).get("/acompanhando").text
     assert "📚 Estudar a banca" in pagina
-    assert 'href="/analises">Análises &gt; Edital</a>' in pagina
+    assert 'href="/analises/edital">Análises &gt; Edital</a>' in pagina
     assert 'href="/macetes?banca=FEPESE">Padrão da FEPESE</a>' in pagina
 
 
@@ -603,7 +603,7 @@ def test_banca_sem_prova_no_acervo_diz_isso_em_vez_do_link(ambiente):
 
     assert _cartao(PENAL).banca_no_acervo is None
     pagina = TestClient(app).get("/acompanhando").text
-    assert 'href="/analises">Análises &gt; Edital</a>' in pagina
+    assert 'href="/analises/edital">Análises &gt; Edital</a>' in pagina
     assert "/macetes?banca=" not in pagina
     assert "o acervo ainda não tem prova dessa banca" in pagina
 

@@ -232,10 +232,10 @@ def test_meu_foco_e_mais_sairam_do_menu(cliente):
     assert cliente.get("/mais").status_code == 200
 
 
-def test_estudar_abre_no_simulado_e_revisao_no_caderno(cliente):
-    """Estudar e treinar; Revisao abre no Caderno de erros (etapa E1)."""
+def test_estudar_abre_no_simulado_e_revisao_em_meus_erros(cliente):
+    """Estudar e treinar; Revisao abre em Meus erros (PRF-64)."""
     assert cliente.get("/estudar", follow_redirects=False).headers["location"] == "/simulado"
-    assert cliente.get("/revisao", follow_redirects=False).headers["location"] == "/erros"
+    assert cliente.get("/revisao", follow_redirects=False).status_code == 200
 
 
 def test_estudar_junta_simulado_e_gerar(cliente):

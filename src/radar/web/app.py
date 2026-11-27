@@ -2291,8 +2291,26 @@ def revisar_agora():
 
 @app.get("/analises", response_class=HTMLResponse)
 def analises(request: Request):
+    """Meu rendimento (navegacao nova, etapa 3 da PRF-58; PRF-63): uma linha
+    por materia, com a nota liquida e o bruto ao lado, e o Estude primeiro.
+    As outras telas de Analises ficam no "Ver detalhes". A conta e do
+    `servico.rendimento` (que pede os numeros ao `servico.metricas`)."""
+    try:
+        rendimento = servico.rendimento.montar()
+        mensagem = None
+    except (FileNotFoundError, cronograma.ErroNoCronograma) as problema:
+        rendimento, mensagem = None, str(problema)
+    return templates.TemplateResponse(
+        request=request, name="rendimento.html",
+        context={"r": rendimento, "mensagem": mensagem},
+    )
+
+
+@app.get("/analises/edital", response_class=HTMLResponse)
+def analises_edital(request: Request):
     """O que era a home ate a navegacao nova: o edital contra as provas, o
-    meu acerto por materia e onde estudar primeiro, com o detalhe inteiro."""
+    meu acerto por materia e onde estudar primeiro, com o detalhe inteiro.
+    Desde a PRF-63 mora aqui, no "Ver detalhes" do Meu rendimento."""
     painel = foco_do_alvo.montar()
     return templates.TemplateResponse(
         request=request,
@@ -2714,10 +2732,25 @@ def estudar():
     return RedirectResponse("/simulado", status_code=303)
 
 
-@app.get("/revisao")
-def revisao_secao():
-    """Revisao abre no Caderno de erros: o que eu errei manda mais."""
-    return RedirectResponse("/erros", status_code=303)
+@app.get("/revisao", response_class=HTMLResponse)
+def revisao_secao(request: Request):
+    """Meus erros (navegacao nova, etapa 4 da PRF-58; PRF-64): toda questao
+    real que eu errei da ultima vez entra sozinha, por materia e assunto. O
+    caderno anotado a mao continua em /erros."""
+    return templates.TemplateResponse(
+        request=request, name="meus_erros.html",
+        context={"e": servico.meus_erros.montar()},
+    )
+
+
+@app.post("/revisao/refazer")
+def revisao_refazer(materia: str = Form("")):
+    """O "Refazer": uma rodada com os erros da materia (ou todos). Acertou,
+    a questao sai de Meus erros; errou, fica."""
+    rodada = servico.meus_erros.criar_rodada(materia.strip() or None)
+    if rodada is None:
+        return RedirectResponse("/revisao", status_code=303)
+    return RedirectResponse(f"/simulado/{rodada.id}", status_code=303)
 
 
 # --- o caderno de erros -------------------------------------------------------

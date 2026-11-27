@@ -634,6 +634,8 @@ class ItemDeRevisao:
     #: (PRF-31) mostra a questao inteira, como na hora de responder.
     texto_base: str | None = None
     alternativas: dict | None = None
+    #: A rodada desta resposta: Meus erros (PRF-64) grava o motivo nela.
+    simulado_id: int | None = None
 
     @property
     def grupo(self) -> str:
@@ -715,18 +717,27 @@ def revisao(simulado_id: int) -> list[ItemDeRevisao]:
     # Import aqui: o desempenho_por_conteudo le o metricas, que este modulo
     # reexporta.
     from radar.servico.desempenho_por_conteudo import nos_das_questoes
-    from radar.servico.classificacoes import chave_de
-    from radar.servico.erros import motivo_do_erro
     nos = nos_das_questoes() if any(not r.gerada for r, _ in linhas) else {}
 
-    itens = []
-    for resposta, questao in linhas:
-        if questao is None:
-            continue
-        alternativas = questao.alternativas or {}
-        no = (getattr(questao, "conteudo", None) if resposta.gerada
-              else nos.get(chave_de(questao)))
-        itens.append(ItemDeRevisao(
+    itens = [item_da_revisao(resposta, questao, nos)
+             for resposta, questao in linhas if questao is not None]
+    # errado primeiro: e o que eu preciso rever; depois o em branco (eu nao
+    # sabia, e disse), e o certo no fim
+    itens.sort(key=lambda i: 0 if i.errou else (1 if i.em_branco else 2))
+    return itens
+
+
+def item_da_revisao(resposta: RespostaDeSimulado, questao, nos: dict) -> ItemDeRevisao:
+    """Uma resposta e a sua questao como a revisao mostra: o que marquei, a
+    correta, o no, o motivo. A Revisao do simulado e o Meus erros (PRF-64)
+    montam o item por aqui. `nos` e o `nos_das_questoes()`."""
+    from radar.servico.classificacoes import chave_de
+    from radar.servico.erros import motivo_do_erro
+
+    alternativas = questao.alternativas or {}
+    no = (getattr(questao, "conteudo", None) if resposta.gerada
+          else nos.get(chave_de(questao)))
+    return ItemDeRevisao(
             enunciado=questao.enunciado,
             escolhida=resposta.escolhida,
             correta=questao.resposta,
@@ -754,11 +765,8 @@ def revisao(simulado_id: int) -> list[ItemDeRevisao]:
             em_branco=resposta.escolhida == EM_BRANCO,
             texto_base=getattr(questao, "texto_base", None),
             alternativas=alternativas or None,
-        ))
-    # errado primeiro: e o que eu preciso rever; depois o em branco (eu nao
-    # sabia, e disse), e o certo no fim
-    itens.sort(key=lambda i: 0 if i.errou else (1 if i.em_branco else 2))
-    return itens
+            simulado_id=resposta.simulado_id,
+        )
 
 
 #: A ordem da Revisao do simulado (PRF-31): o que eu errei, o que chutei, o
@@ -829,13 +837,15 @@ def questoes_erradas(do_dia: date | None = None) -> list[int]:
 
 
 def criar_simulado_de_erros(quantidade: int | None = QUANTIDADE_PADRAO,
-                            do_dia: date | None = None) -> Simulado | None:
+                            do_dia: date | None = None,
+                            ids: list[int] | None = None) -> Simulado | None:
     """Uma rodada so com o que eu errei. None quando nao ha erro para revisar.
 
-    `do_dia`: so os erros daquele dia; `quantidade` None traz todos."""
+    `do_dia`: so os erros daquele dia; `quantidade` None traz todos. `ids`:
+    estes erros e nao todos (o "Refazer" de uma materia em Meus erros)."""
     import random
 
-    ids = questoes_erradas(do_dia=do_dia)
+    ids = list(ids) if ids is not None else questoes_erradas(do_dia=do_dia)
     if not ids:
         return None
     random.shuffle(ids)

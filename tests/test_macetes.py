@@ -423,9 +423,8 @@ def test_o_radar_tem_link_para_os_macetes(cliente):
     _semear(_questao(1))
 
     assert 'href="/revisao"' in cliente.get("/concursos").text
-    assert cliente.get("/revisao", follow_redirects=False).headers["location"] == (
-        "/erros"
-    )
+    # Desde a PRF-64 o /revisao abre no Meus erros, com os Macetes ao lado.
+    assert 'href="/macetes"' in cliente.get("/revisao").text
     assert 'href="/macetes"' in cliente.get("/erros").text
 
 

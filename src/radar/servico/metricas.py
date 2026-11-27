@@ -1323,6 +1323,114 @@ def nota_liquida_acumulada() -> NotaLiquida:
         return nota_liquida(respostas_de_certo_errado(s))
 
 
+# --- o rendimento por materia (Analises > Meu rendimento, PRF-63) -------------
+
+#: A janela da seta de tendencia: os ultimos 14 dias contra os 14 de antes.
+DIAS_DA_TENDENCIA = 14
+#: Quantos pontos de acerto a janela precisa mudar para virar seta.
+PONTOS_DA_TENDENCIA = 5
+
+
+@dataclass
+class RendimentoDaMateria:
+    """Uma materia na tela Meu rendimento: a nota liquida e, ao lado, o bruto.
+
+    `nota` e o Certo/Errado pela ULTIMA resposta de cada item (o que eu sei
+    hoje, como o acumulado); `bruto` e toda questao real que mede, tambem pela
+    ultima resposta, com o chute e o em branco ao lado e fora do acerto
+    (PRF-28). As duas janelas da tendencia contam RESPOSTAS, como a evolucao.
+    """
+    origem = AUTOMATICO
+
+    materia: str
+    nota: NotaLiquida = field(default_factory=NotaLiquida)
+    bruto: Numeros = field(default_factory=Numeros)
+    recente: int | None = None
+    anterior: int | None = None
+
+    @property
+    def feitas(self) -> int:
+        """Questoes diferentes que eu respondi, com o chute e o em branco."""
+        return self.bruto.medidas + self.bruto.chutes + self.bruto.em_branco
+
+    @property
+    def tendencia(self) -> str | None:
+        """"subindo", "caindo", "estavel" - ou None sem amostra nas duas janelas."""
+        if self.recente is None or self.anterior is None:
+            return None
+        diferenca = self.recente - self.anterior
+        if diferenca >= PONTOS_DA_TENDENCIA:
+            return "subindo"
+        if diferenca <= -PONTOS_DA_TENDENCIA:
+            return "caindo"
+        return "estavel"
+
+
+def rendimento_por_materia(referencia: datetime | None = None) -> dict[str, RendimentoDaMateria]:
+    """{materia do edital: RendimentoDaMateria}, so questao real que mede.
+
+    `referencia` e o "agora" das janelas da tendencia (o teste passa um fixo).
+    Cada janela precisa do minimo de respostas da materia (config/amostra.yml),
+    senao a seta seria sorteio e fica None.
+    """
+    nome = _nome_da_materia()
+    minimo = regua.carregar().do_nivel("materia")
+    criar_tabelas()
+    with sessao() as s:
+        todas = respostas_reais(s, so_as_que_medem=True)
+        if not todas:
+            return {}
+        questoes = {q.id: q for q in s.scalars(select(QuestaoDeProva).where(
+            QuestaoDeProva.id.in_(list({r.questao_id for r in todas}))))}
+
+    saida: dict[str, RendimentoDaMateria] = {}
+    ultimas = {r.questao_id: r for r in todas}          # a lista vem em ordem
+    de_ce: dict[str, list] = {}
+    for questao_id, resposta in ultimas.items():
+        questao = questoes.get(questao_id)
+        if questao is None:
+            continue
+        linha = saida.setdefault(nome(questao.materia), RendimentoDaMateria(nome(questao.materia)))
+        if conta_no_acerto(resposta):
+            linha.bruto.responder(bool(resposta.acertou))
+        elif resposta.chutou:
+            linha.bruto.chutes += 1
+        else:
+            linha.bruto.em_branco += 1
+        if e_certo_errado(questao.alternativas or {}) and not questao.anulada:
+            de_ce.setdefault(linha.materia, []).append(resposta)
+    for materia, respostas in de_ce.items():
+        saida[materia].nota = nota_liquida(respostas)
+
+    agora_ = referencia or agora()
+    corte = agora_ - timedelta(days=DIAS_DA_TENDENCIA)
+    inicio = corte - timedelta(days=DIAS_DA_TENDENCIA)
+    janelas: dict[str, tuple[list, list]] = {}
+    for resposta in todas:
+        questao = questoes.get(resposta.questao_id)
+        if questao is None or not conta_no_acerto(resposta) or resposta.respondida_em is None:
+            continue
+        quando = resposta.respondida_em
+        if quando.tzinfo is None:
+            quando = quando.replace(tzinfo=timezone.utc)
+        recentes, anteriores = janelas.setdefault(nome(questao.materia), ([], []))
+        if corte <= quando <= agora_:
+            recentes.append(resposta)
+        elif inicio <= quando < corte:
+            anteriores.append(resposta)
+
+    def taxa(lista) -> int | None:
+        if len(lista) < minimo:
+            return None
+        feitas, certas = placar(lista)
+        return round(100 * certas / feitas)
+
+    for materia, (recentes, anteriores) in janelas.items():
+        saida[materia].recente = taxa(recentes)
+        saida[materia].anterior = taxa(anteriores)
+    return saida
+
+
 def resumo_do_simulado(simulado_id: int) -> dict:
     """Quantas questoes a rodada tem, quantas respondi e quantas acertei.
 

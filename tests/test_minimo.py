@@ -104,7 +104,7 @@ def test_a_tabela_mostra_amostra_pequena_e_sem_comece_por_aqui(
         s.add(_concurso())
     _treinar("Direitos Humanos", acertos=1, erros=1)
 
-    texto = TestClient(app).get("/analises").text
+    texto = TestClient(app).get("/analises/edital").text
 
     assert f"2 de {MINIMO_NA_MATERIA} · Amostra insuficiente" in texto
     assert "comece por aqui" not in texto

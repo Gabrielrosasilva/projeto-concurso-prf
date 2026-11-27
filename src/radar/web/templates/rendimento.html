@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Meu rendimento &middot; Radar de Concursos</title>
+  {# Analises > Meu rendimento (navegacao nova, etapa 3; PRF-63). Os numeros
+     sao do servico.rendimento (que os pede ao servico.metricas): o template
+     so desenha. A nota liquida vem primeiro e o bruto ao lado, nunca no
+     lugar (CLAUDE.md). #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .cor{display:inline-block;width:.75rem;height:.75rem;border-radius:999px;vertical-align:middle;margin-right:var(--esp-1)}
+    .cor--verde{background:var(--cor-verde)}
+    .cor--amarelo{background:var(--cor-aviso)}
+    .cor--vermelho{background:var(--cor-vermelho)}
+    .cor--pouca_amostra,.cor--sem_dado{background:transparent;border:2px solid var(--cor-borda)}
+    .nota{font-weight:var(--peso-forte)}
+    .seta{white-space:nowrap}
+    .primeiro{display:grid;gap:var(--esp-3);margin:0;padding:0;list-style:none}
+    .primeiro li{display:flex;flex-wrap:wrap;gap:var(--esp-2) var(--esp-4);align-items:center;justify-content:space-between;
+      padding:var(--esp-3);border:1px solid var(--cor-borda);border-radius:var(--raio-sm)}
+    .primeiro .nome{font-weight:var(--peso-medio)}
+    .detalhes{display:flex;flex-wrap:wrap;gap:var(--esp-2) var(--esp-4);font-size:var(--tam-sm)}
+    .legenda{font-size:var(--tam-xs);color:var(--cor-texto-suave);display:flex;flex-wrap:wrap;gap:var(--esp-3);margin-top:var(--esp-3)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+
+{% from "_topo.html" import barra with context %}
+{{ barra('analises') }}
+{% from "_componentes.html" import selo %}
+
+{% set setas = {'subindo': ('↑', 'melhorando'), 'caindo': ('↓', 'piorando'), 'estavel': ('→', 'estável')} %}
+{% set cores = {'verde': 'na meta', 'amarelo': 'perto da meta', 'vermelho': 'longe da meta',
+                'pouca_amostra': 'pouca amostra', 'sem_dado': 'ainda não fiz'} %}
+
+<main class="ds-pagina">
+  <header class="ds-cabeca">
+    <h1>Meu rendimento</h1>
+    <p>Cada matéria do edital, da que mais pesa para a que menos: a nota líquida do Cebraspe (certo +1, errado −1, branco 0) e o acerto bruto ao lado.</p>
+  </header>
+
+  {% if mensagem %}
+    <p class="ds-alerta">{{ mensagem }}</p>
+  {% else %}
+
+  <section class="ds-cartao" aria-labelledby="t-materias">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo" id="t-materias">Por matéria</h2>
+      {{ selo('automatico', 'Medido no radar') }}
+    </div>
+    <p class="ds-cartao__meta">Só questão real, pela última resposta de cada uma. A cor compara a nota líquida (ou o acerto, na matéria sem Certo/Errado) com a meta do cronograma; com menos de {{ r.linhas[0].minimo if r.linhas else 20 }} respostas ela fica vazia. A seta compara os últimos 14 dias com os 14 de antes.</p>
+    <div class="ds-rolagem"><table class="ds-tabela">
+      <thead><tr>
+        <th>Matéria</th><th class="ds-n">Peso</th><th class="ds-n">Nota líquida</th><th class="ds-n">Acerto bruto</th>
+        <th class="ds-n">Questões feitas</th><th class="ds-n">Meta</th><th>Tendência</th>
+      </tr></thead>
+      <tbody>
+      {% for l in r.linhas %}
+        {% set n = l.numeros %}
+        <tr>
+          <td><span class="cor cor--{{ l.cor }}" title="{{ cores[l.cor] }}" aria-label="{{ cores[l.cor] }}"></span>{{ l.materia }}</td>
+          <td class="ds-n">{% if l.questoes_na_prova %}{{ l.questoes_na_prova }} itens{% else %}<span class="ds-suave">fora do cronograma</span>{% endif %}</td>
+          <td class="ds-n">{% if n.nota.itens %}<span class="nota">{{ n.nota.nota }}</span> em {{ n.nota.itens }} <span class="ds-suave">({{ n.nota.porcentagem }}%)</span>{% else %}<span class="ds-suave">—</span>{% endif %}</td>
+          <td class="ds-n">{% if n.bruto.porcentagem is not none %}{{ n.bruto.porcentagem }}% <span class="ds-suave">de {{ n.bruto.medidas }}</span>{% else %}<span class="ds-suave">—</span>{% endif %}</td>
+          <td class="ds-n">{{ n.feitas }}{% if n.bruto.chutes %} <span class="ds-suave">({{ n.bruto.chutes }} no chute)</span>{% endif %}</td>
+          <td class="ds-n">{% if l.questoes_na_prova %}{{ l.meta_em_porcentagem }}%{% endif %}</td>
+          <td class="seta">{% if n.tendencia %}{{ setas[n.tendencia][0] }} {{ setas[n.tendencia][1] }} <span class="ds-suave">({{ n.anterior }}% → {{ n.recente }}%)</span>{% else %}<span class="ds-suave">sem amostra</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    <div class="legenda">
+      {% for chave, texto in cores.items() %}<span><span class="cor cor--{{ chave }}"></span>{{ texto }}</span>{% endfor %}
+    </div>
+  </section>
+
+  <section class="ds-cartao" aria-labelledby="t-primeiro">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo" id="t-primeiro">Estude primeiro</h2>
+      {{ selo('automatico', 'Medido no radar') }}
+    </div>
+    <p class="ds-cartao__meta">Os {{ r.primeiro|length or 3 }} assuntos de pior acerto, só entre os que têm pelo menos {{ r.minimo_do_assunto }} respostas (abaixo disso a porcentagem é sorte).</p>
+    {% if not r.primeiro %}
+      <p class="ds-vazio">Ainda não há assunto com {{ r.minimo_do_assunto }} respostas. Faça as questões do <a href="/hoje">Hoje</a> e ele aparece aqui.</p>
+    {% else %}
+    <ol class="primeiro">
+      {% for a in r.primeiro %}
+        <li>
+          <div>
+            <div class="nome">{{ a.nome }}</div>
+            <div class="ds-suave ds-pequeno">{{ a.desempenho.materia }} · {{ a.estado.porcentagem }}% em {{ a.estado.respostas }} respostas</div>
+          </div>
+          <form method="post" action="/fepese/treinar">
+            <input type="hidden" name="conteudos" value="{{ a.caminho }}">
+            <input type="hidden" name="quantidade" value="10">
+            <button class="ds-botao ds-botao--pequeno" type="submit" title="10 questões reais da banca deste assunto, que eu ainda não fiz">Treinar</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ol>
+    {% endif %}
+  </section>
+
+  <section class="ds-cartao" aria-labelledby="t-detalhes">
+    <h2 class="ds-cartao__titulo" id="t-detalhes">Ver detalhes</h2>
+    <nav class="detalhes" aria-label="As outras telas de Análises">
+      <a href="/analises/edital">Edital contra as provas</a>
+      <a href="/analises/materias">Minhas matérias</a>
+      <a href="/analises/desempenho">Meu desempenho por assunto</a>
+      <a href="/analises/certo-errado">Certo/Errado e o chute</a>
+      <a href="/analises/incidencia">Incidência</a>
+      <a href="/analises/conferencia">Conferência</a>
+    </nav>
+  </section>
+
+  {% endif %}
+</main>
+</body>
+</html>

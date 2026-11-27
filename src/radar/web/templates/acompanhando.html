@@ -266,7 +266,7 @@
         {% set bp = c.banca_para_estudar %}
         {% if bp %}
           <p class="estudar-banca">📚 Estudar a banca {{ selo(bp.selo, curto=True) }} <b>{{ bp.valor }}</b>{% if bp.ressalva %} <span class="ressalva">· {{ bp.ressalva }}</span>{% endif %}:
-            <a href="/analises">Análises &gt; Edital</a>
+            <a href="/analises/edital">Análises &gt; Edital</a>
             {%- if c.banca_no_acervo %} · <a href="/macetes?banca={{ c.banca_no_acervo | urlencode }}">Padrão da {{ c.banca_no_acervo }}</a>
             {%- else %} · <span class="ds-suave">o acervo ainda não tem prova dessa banca: o padrão dela não dá para ver aqui</span>{% endif %}</p>
         {% endif %}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-br" data-tema="{{ tema_da_pagina(request) }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>PRF &middot; Meus erros &middot; Radar de Concursos</title>
+  {# Revisao > Meus erros (navegacao nova, etapa 4; PRF-64): os erros entram
+     sozinhos. Quem escolhe o que entra (a ultima resposta errada, sem o chute
+     e o em branco) e quem agrupa e o servico.meus_erros; aqui so se desenha.
+     O item e o mesmo da Revisao do simulado (simulado.item_da_revisao). #}
+  <link rel="stylesheet" href="/estatico/design.css">
+  <style>
+    .ds-cartao{margin-bottom:var(--esp-4)}
+    .assunto{margin:var(--esp-4) 0 var(--esp-2);display:flex;flex-wrap:wrap;gap:var(--esp-2) var(--esp-3);align-items:baseline}
+    .assunto h3{margin:0;font-size:var(--tam-base)}
+    .erro{border:1px solid var(--cor-borda);border-radius:var(--raio-sm);margin:var(--esp-2) 0}
+    .erro>summary{cursor:pointer;padding:var(--esp-2) var(--esp-3);list-style-position:inside}
+    .erro>summary .resumo{color:var(--cor-texto)}
+    .erro .corpo{padding:0 var(--esp-3) var(--esp-3)}
+    .enunciado{white-space:pre-line}
+    .texto-base{margin:var(--esp-2) 0;font-size:var(--tam-sm)}
+    .texto-base summary{cursor:pointer;font-weight:var(--peso-medio)}
+    .texto-base p{white-space:pre-line}
+    .motivo-do-erro{display:flex;flex-wrap:wrap;gap:var(--esp-1);align-items:center;margin-top:var(--esp-3)}
+    .motivo-do-erro form{display:inline}
+    .motivo-do-erro__rotulo{font-weight:var(--peso-forte);margin-right:var(--esp-1)}
+    .cabeca-materia{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--esp-2);align-items:center}
+    .geradas li{margin-bottom:var(--esp-2)}
+  </style>
+  {% include "_topo_estilo.html" %}
+</head>
+<body class="ds">
+{% from "_topo.html" import barra, abas_de_revisao with context %}
+{% from "_componentes.html" import selo, aviso_gabarito %}
+{% from "_explicacao.html" import painel_da_explicacao %}
+{% from "_motivo.html" import botoes_do_motivo %}
+{{ barra('revisao') }}
+
+<main class="ds-pagina">
+  {{ abas_de_revisao('meus_erros') }}
+  <header class="ds-cabeca">
+    <h1>Meus erros</h1>
+    <p>Toda questão real que você errou da última vez entra aqui sozinha. Refez e acertou, ela sai; errou de novo, ela fica. O chute errado e o em branco ficam de fora.</p>
+  </header>
+
+  {% if not e.materias %}
+    <p class="ds-vazio">Nenhum erro para rever agora. Os erros das questões que você responder no radar aparecem aqui sozinhos.</p>
+  {% else %}
+  <section class="ds-cartao">
+    <div class="cabeca-materia">
+      <p style="margin:0"><strong>{{ e.total }}</strong> erro{{ 's' if e.total != 1 }} em {{ e.materias|length }} matéria{{ 's' if e.materias|length != 1 }}.</p>
+      <form method="post" action="/revisao/refazer">
+        <button class="ds-botao" type="submit">Refazer todos</button>
+      </form>
+    </div>
+  </section>
+
+  {% for m in e.materias %}
+  <section class="ds-cartao" id="m{{ loop.index }}">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">{{ m.nome }} <span class="ds-suave">· {{ m.total }}</span></h2>
+      <form method="post" action="/revisao/refazer">
+        <input type="hidden" name="materia" value="{{ m.nome }}">
+        <button class="ds-botao ds-botao--secundario ds-botao--pequeno" type="submit">Refazer estes {{ m.total }}</button>
+      </form>
+    </div>
+
+    {% for a in m.assuntos %}
+      <div class="assunto">
+        <h3>{{ a.nome }} <span class="ds-suave">· {{ a.erros|length }}</span></h3>
+        {% if a.ficha %}<a class="ds-pequeno" href="/fichas/{{ a.ficha.ident }}">📖 O que estudar: a ficha de {{ a.ficha.tema }}</a>
+        {% else %}<span class="ds-pequeno ds-suave">sem ficha escrita para este assunto</span>{% endif %}
+      </div>
+
+      {% for erro in a.erros %}
+        {% set i = erro.item %}
+        {% set p = erro.painel %}
+        {% set ce = p and p.certo_errado %}
+        <details class="erro" id="q{{ i.questao_id }}">
+          <summary><span class="resumo">{{ (i.enunciado or '')|truncate(140) }}</span>
+            <span class="ds-suave ds-pequeno"> · {{ i.banca }} {{ i.ano }}{% if i.numero %}, questão {{ i.numero }}{% endif %}{% if i.motivo %} · {{ MOTIVOS_DO_ERRO.get(i.motivo, i.motivo) }}{% endif %}</span></summary>
+          <div class="corpo">
+            {% if i.texto_base %}
+              <details class="texto-base"><summary>Texto-base (do caderno da prova)</summary>
+                <p>{{ i.texto_base | destacado(i, 'texto_base') }}</p></details>
+            {% endif %}
+            <p class="enunciado">{{ i.enunciado | destacado(i, 'enunciado') }}</p>
+            <div class="ds-revisao__respostas">
+              {% if ce %}
+                <span class="ds-revisao__resposta ds-revisao__resposta--errada">✗ Você marcou {{ i.texto_escolhido }}</span>
+              {% else %}
+                <span class="ds-revisao__resposta ds-revisao__resposta--errada">✗ Você marcou {{ i.escolhida }}) {{ i.texto_escolhido }}</span>
+                <span class="ds-revisao__resposta ds-revisao__resposta--certa">{{ selo(i.origem_da_resposta, ('Gabarito a verificar ' if i.gabarito_a_conferir else 'Gabarito definitivo ') ~ i.correta ~ ')') }} {{ i.texto_correto }}</span>
+              {% endif %}
+            </div>
+            {{ aviso_gabarito(i, depois=true) }}
+            {% if p %}{{ painel_da_explicacao(p, false) }}{% endif %}
+            {% if i.simulado_id %}{{ botoes_do_motivo(i.simulado_id, i.questao_id, i.motivo, '/revisao#q' ~ i.questao_id) }}{% endif %}
+          </div>
+        </details>
+      {% endfor %}
+    {% endfor %}
+  </section>
+  {% endfor %}
+  {% endif %}
+
+  {# A regra 1: a gerada treina e nunca mede - bloco proprio, sem somar. #}
+  {% if e.geradas %}
+  <section class="ds-cartao">
+    <div class="ds-cartao__cabeca">
+      <h2 class="ds-cartao__titulo">Questões geradas por IA que errei <span class="ds-suave">· {{ e.geradas|length }}</span></h2>
+      {{ selo('ia', 'Treino, não medida') }}
+    </div>
+    <p class="ds-nota"><b>{{ FRASE_DA_QUESTAO_DE_IA }}</b> Não entram na contagem acima.</p>
+    <details><summary>Ver as {{ e.geradas|length }}</summary>
+      <ul class="geradas">
+      {% for i in e.geradas %}
+        <li>{{ (i.enunciado or '')|truncate(160) }} <span class="ds-suave ds-pequeno">· {{ i.materia or 'sem matéria' }} · você marcou {{ i.texto_escolhido or i.escolhida }}, a resposta da IA é {{ i.texto_correto or i.correta }}</span>
+          {% if i.explicacao_da_ia %}<div class="ds-pequeno">{{ i.explicacao_da_ia }}</div>{% endif %}</li>
+      {% endfor %}
+      </ul>
+    </details>
+  </section>
+  {% endif %}
+</main>
+</body>
+</html>

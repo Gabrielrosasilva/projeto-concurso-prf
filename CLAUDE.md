@@ -67,7 +67,8 @@ So abra o arquivo que a tarefa pede.
   - `simulado.py`, `simulado_da_semana.py`, `simulado_avulso.py` (a tela Simulado), `estudo.py` (a fila de revisao,
     uma so), `erros.py` (o motivo do erro), `cronograma.py` (a tela Hoje),
     `fichas.py`, `certo_errado.py` (a regra do chute, o Certo x Errado),
-    `desempenho_por_conteudo.py`.
+    `desempenho_por_conteudo.py`, `rendimento.py` (Analises > Meu rendimento),
+    `meus_erros.py` (Revisao > Meus erros, automatico).
 - `amostra.py` + `config/amostra.yml`: **todo minimo de amostra sai dali**.
 - `origem.py`: os selos (🟢 oficial, 🔵 acervo, 🟡 automatico, 🟣 IA); o
   servico grava a origem, o template so desenha.
