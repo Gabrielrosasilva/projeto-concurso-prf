@@ -218,21 +218,35 @@ def _texto_da_lei(arquivo):
     return re.sub(r"\s+", " ", texto)
 
 
+#: O comeco do campo `lei` de cada texto motivador -> a copia local da compilacao da
+#: Camara (fontes/leis/ veio da PMSC; leis/ foi baixada para a PRF, PRF-71).
+LEIS_LOCAIS = {
+    "CF": config.RAIZ / "fontes" / "leis" / "cf-1988-camara.html",
+    "Código de Trânsito": config.RAIZ / "fontes" / "leis" / "ctb-lei-9503-1997-camara.html",
+    "Código Penal": config.RAIZ / "leis" / "cp-dl-2848-1940-camara.html",
+    "Lei nº 11.343": config.RAIZ / "leis" / "lei-11343-2006-camara.html",
+    "Estatuto da Criança": config.RAIZ / "leis" / "lei-8069-1990-camara.html",
+    "Lei nº 13.675": config.RAIZ / "leis" / "lei-13675-2018-camara.html",
+    "Lei nº 9.605": config.RAIZ / "leis" / "lei-9605-1998-camara.html",
+}
+
+
 def test_os_textos_motivadores_sao_literais_da_lei():
-    leis = {"CF": config.RAIZ / "fontes" / "leis" / "cf-1988-camara.html",
-            "CTB": config.RAIZ / "fontes" / "leis" / "ctb-lei-9503-1997-camara.html"}
-    if not all(arquivo.exists() for arquivo in leis.values()):
-        pytest.skip("as cópias locais da lei (fontes/leis/) ficam fora do git")
-    textos = {nome: _texto_da_lei(arquivo) for nome, arquivo in leis.items()}
+    if not all(arquivo.exists() for arquivo in LEIS_LOCAIS.values()):
+        pytest.skip("as cópias locais da lei (fontes/leis/ e leis/) ficam fora do git")
+    textos = {}
     dados = yaml.safe_load((CONFIG_PRF / "redacao.yml").read_text(encoding="utf-8"))
     for tema in dados["temas"]:
         for x in tema["textos"]:
             if x.get("tipo") == "ia":       # o texto curto da IA: test_os_textos_da_ia_...
                 continue
-            lei = textos["CF"] if x["lei"].startswith("CF") else textos["CTB"]
+            prefixo = next((p for p in LEIS_LOCAIS if x["lei"].startswith(p)), None)
+            assert prefixo, ("lei sem cópia local conhecida", x["lei"])
+            if prefixo not in textos:
+                textos[prefixo] = _texto_da_lei(LEIS_LOCAIS[prefixo])
             for pedaco in (p.strip(" ;") for p in x["texto"].split("[...]")):
                 if pedaco:
-                    assert " ".join(pedaco.split()) in lei, (x["lei"], pedaco[:80])
+                    assert " ".join(pedaco.split()) in textos[prefixo], (x["lei"], pedaco[:80])
 
 
 # --- o texto curto da IA (PRF-70) ----------------------------------------------
@@ -243,7 +257,7 @@ def test_os_textos_da_ia_sao_curtos_sem_numero_e_com_procedencia():
     dados = yaml.safe_load((CONFIG_PRF / "redacao.yml").read_text(encoding="utf-8"))
     da_ia = [(tema, x) for tema in dados["temas"] for x in tema["textos"] if x.get("tipo") == "ia"]
     propostos = [tema for tema in dados["temas"] if "proposto pelo Claude" in tema["origem"]]
-    assert len(da_ia) == len(propostos) == 8           # um em cada tema que nao e prova real
+    assert len(da_ia) == len(propostos) == 28          # um em cada tema que nao e prova real
     aberturas = set()
     for tema, x in da_ia:
         assert "claude-opus-5-5" in x["fonte"] and "2026" in x["fonte"], tema["tema"]
@@ -261,3 +275,18 @@ def test_o_texto_da_ia_aparece_com_o_selo_e_vai_no_pedido(prf):
         servico_redacao.TIPO_CORRECAO, "O uso do celular ao volante e a segurança nas rodovias federais",
         SABADO, "Meu texto.", 28)["pedidos"][0]
     assert len(pedido["textos_motivadores"]) == 3 and pedido["textos_motivadores"][2]["tipo"] == "ia"
+
+
+# --- os 20 temas novos (PRF-71) ------------------------------------------------
+
+def test_os_temas_novos_vao_de_maio_a_setembro_um_por_sabado(prf):
+    """Depois do Ciclo 2 o cronograma acaba (semana 16); a aba acha o tema pela data."""
+    dados = yaml.safe_load((CONFIG_PRF / "redacao.yml").read_text(encoding="utf-8"))
+    novos = [t for t in dados["temas"] if "2027-05-01" <= t["data"] <= "2027-09-11"]
+    datas = [date.fromisoformat(t["data"]) for t in novos]
+    assert len(novos) == 20 and all(d.weekday() == 5 for d in datas)
+    assert len(set(datas)) == 20 and len({t["tema"] for t in dados["temas"]}) == len(dados["temas"])
+    assert all(len(t["quesitos"]) == 3 and len(t["textos"]) == 3 for t in novos)
+    pagina = TestClient(app).get("/redacao?data=2027-05-15").text
+    assert "O tráfico de drogas e de armas pelas rodovias federais" in pagina
+    assert "Lei nº 11.343/2006" in pagina and "TEXTO 3" in pagina

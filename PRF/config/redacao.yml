@@ -343,6 +343,431 @@ temas:
         tipo: ia
         fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-70)"
 
+  # Os 20 temas novos (PRF-71), escritos em 27/11/2026 depois do aval do Gabriel:
+  # 14 de transito e 6 das outras atribuicoes da PRF, um por sabado depois do Ciclo 2
+  # (de 1/5 a 11/9/2027; o cronograma ainda acaba na semana 16, e a aba acha o tema
+  # pela data). Os textos de lei sao literais das compilacoes da Camara (fontes/leis/ e
+  # leis/), conferidos pelo tests/test_redacao_cebraspe.py; o 3o texto e o curto da IA.
+  - data: "2027-05-01"
+    tema: "O sono e a fadiga ao volante como causa de sinistros nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do sono e da fadiga ao volante nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que o sono e a fadiga aumentam o risco de sinistros; 2 os fatores que levam condutores a dirigir cansados; 3 medidas do poder público, das empresas e dos próprios condutores para enfrentar o problema."
+    quesitos:
+      - "2.1 Por que o sono e a fadiga aumentam o risco de sinistros"
+      - "2.2 Os fatores que levam o condutor a dirigir cansado"
+      - "2.3 Medidas do poder público, das empresas e dos condutores"
+    textos:
+      - texto: "Os usuários das vias terrestres devem: I - abster-se de todo ato que possa constituir perigo ou obstáculo para o trânsito de veículos, de pessoas ou de animais, ou ainda causar danos a propriedades públicas ou privadas;"
+        lei: "Código de Trânsito Brasileiro, art. 26, I"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Dirigir sem atenção ou sem os cuidados indispensáveis à segurança: Infração - leve; Penalidade - multa."
+        lei: "Código de Trânsito Brasileiro, art. 169"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Quem viaja de madrugada conhece a cena: o motorista abre a janela, aumenta o volume do rádio e promete parar no próximo posto, que sempre parece estar um pouco mais adiante. O cansaço chega devagar e engana quem está ao volante, porque o corpo apaga por instantes sem pedir licença. Na reta longa e monótona de uma rodovia, esses instantes bastam para o carro invadir a contramão ou deixar a pista."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-05-08"
+    tema: "O controle do tempo de direção do motorista profissional como instrumento de segurança viária"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe (o desenho da prova de 2021: o impacto e as causas)"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca das regras de tempo de direção e de descanso do motorista profissional e da segurança nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto das regras de tempo de direção e de descanso sobre os sinistros com veículos de carga e de passageiros e as possíveis causas desse impacto; 2 os obstáculos ao cumprimento dessas regras; 3 ações para garantir o descanso do motorista profissional."
+    quesitos:
+      - "2.1 O impacto das regras de direção e de descanso sobre os sinistros, e as causas"
+      - "2.2 Os obstáculos ao cumprimento das regras"
+      - "2.3 Ações para garantir o descanso do motorista profissional"
+    textos:
+      - texto: "Serão observados 30 (trinta) minutos para descanso dentro de cada 6 (seis) horas na condução de veículo de transporte de carga, sendo facultado o seu fracionamento e o do tempo de direção desde que não ultrapassadas 5 (cinco) horas e meia contínuas no exercício da condução."
+        lei: "Código de Trânsito Brasileiro, art. 67-C, § 1º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "O motorista profissional é responsável por controlar e registrar o tempo de condução estipulado no art. 67-C, com vistas à sua estrita observância. [...] O tempo de direção será controlado mediante registrador instantâneo inalterável de velocidade e tempo e, ou por meio de anotação em diário de bordo, ou papeleta ou ficha de trabalho externo, ou por meios eletrônicos instalados no veículo, conforme norma do Contran."
+        lei: "Código de Trânsito Brasileiro, art. 67-E, caput e § 2º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Nos pátios dos postos à beira da estrada, os caminhões se enfileiram ao anoitecer, e nem todos os motoristas encontram vaga. Há quem estacione no acostamento e quem desista de parar. Para muitos, cada hora de descanso é uma hora a menos de frete, e o relógio da entrega não espera. A regra que limita o tempo ao volante está no papel, mas cumpri-la depende de mais do que a vontade de quem dirige."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-05-15"
+    tema: "O tráfico de drogas e de armas pelas rodovias federais e a integração das forças de segurança"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do tráfico de drogas e de armas pelas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que as rodovias federais são usadas como rota pelo tráfico; 2 a atuação da Polícia Rodoviária Federal no enfrentamento desse crime; 3 a importância da integração entre os órgãos de segurança pública."
+    quesitos:
+      - "2.1 Por que as rodovias federais servem de rota ao tráfico"
+      - "2.2 A atuação da PRF contra o tráfico"
+      - "2.3 A integração entre os órgãos de segurança pública"
+    textos:
+      - texto: "Importar, exportar, remeter, preparar, produzir, fabricar, adquirir, vender, expor à venda, oferecer, ter em depósito, transportar, trazer consigo, guardar, prescrever, ministrar, entregar a consumo ou fornecer drogas, ainda que gratuitamente, sem autorização ou em desacordo com determinação legal ou regulamentar: [...]"
+        lei: "Lei nº 11.343/2006 (Lei de Drogas), art. 33, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/2006/lei-11343-23-agosto-2006-545399-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Compete à União estabelecer a Política Nacional de Segurança Pública e Defesa Social (PNSPDS) e aos Estados, ao Distrito Federal e aos Municípios estabelecer suas respectivas políticas, observadas as diretrizes da política nacional, especialmente para análise e enfrentamento dos riscos à harmonia da convivência social, com destaque às situações de emergência e aos crimes interestaduais e transnacionais."
+        lei: "Lei nº 13.675/2018 (Susp), art. 3º"
+        url: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13675-11-junho-2018-786843-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Escondida entre sacos de grãos, no fundo falso de um ônibus de turismo ou no tanque adaptado de um carro comum, a carga ilícita percorre milhares de quilômetros sem chamar atenção. A rodovia que leva o alimento à mesa e o turista à praia também serve a quem lucra com a droga e a arma que abastecem a violência nas cidades. Do outro lado, o policial precisa distinguir, em poucos minutos, o viajante comum do transportador do crime."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-05-22"
+    tema: "As ultrapassagens proibidas e as colisões frontais nas rodovias de pista simples"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca das ultrapassagens proibidas e das colisões frontais nas rodovias de pista simples. Ao elaborar seu texto, aborde os seguintes aspectos: 1 por que a ultrapassagem indevida está entre as manobras mais perigosas nas rodovias de pista simples; 2 os fatores que levam o condutor a arriscar a ultrapassagem; 3 ações de fiscalização, de engenharia e de educação para reduzir esse tipo de sinistro."
+    quesitos:
+      - "2.1 Por que a ultrapassagem indevida é tão perigosa na pista simples"
+      - "2.2 Os fatores que levam o condutor a arriscar"
+      - "2.3 Ações de fiscalização, de engenharia e de educação"
+    textos:
+      - texto: "X - todo condutor deverá, antes de efetuar uma ultrapassagem, certificar-se de que: a) nenhum condutor que venha atrás haja começado uma manobra para ultrapassá-lo; b) quem o precede na mesma faixa de trânsito não haja indicado o propósito de ultrapassar um terceiro; c) a faixa de trânsito que vai tomar esteja livre numa extensão suficiente para que sua manobra não ponha em perigo ou obstrua o trânsito que venha em sentido contrário."
+        lei: "Código de Trânsito Brasileiro, art. 29, X"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Ultrapassar pela contramão outro veículo: I - nas curvas, aclives e declives, sem visibilidade suficiente; II - nas faixas de pedestre; III - nas pontes, viadutos ou túneis; [...] Infração - gravíssima; Penalidade - multa (cinco vezes)."
+        lei: "Código de Trânsito Brasileiro, art. 203, I a III"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Atrás de uma carreta carregada, na subida de uma serra, a fila de carros cresce a cada curva. Um motorista impaciente sai para a esquerda, mesmo sem enxergar o que vem do outro lado. Às vezes dá certo, e ele segue convencido de que sabe o que faz. Quando não dá, o encontro é de frente, com a soma das velocidades dos dois veículos, e poucos sobrevivem para contar como foi."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-05-29"
+    tema: "O socorro às vítimas de sinistros de trânsito: o Estado, a sociedade e o indivíduo"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do socorro às vítimas de sinistros de trânsito nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância do atendimento rápido e adequado às vítimas; 2 o papel da Polícia Rodoviária Federal e dos serviços públicos de emergência; 3 os deveres e as atitudes esperadas do condutor e das demais pessoas que presenciam o sinistro."
+    quesitos:
+      - "2.1 A importância do atendimento rápido e adequado"
+      - "2.2 O papel da PRF e dos serviços de emergência"
+      - "2.3 Os deveres do condutor e de quem presencia o sinistro"
+    textos:
+      - texto: "Deixar o condutor do veículo, na ocasião do sinistro, de prestar imediato socorro à vítima, ou, não podendo fazê-lo diretamente, por justa causa, deixar de solicitar auxílio da autoridade pública: Penas - detenção, de seis meses a um ano, ou multa, se o fato não constituir elemento de crime mais grave. Parágrafo único. Incide nas penas previstas neste artigo o condutor do veículo, ainda que a sua omissão seja suprida por terceiros ou que se trate de vítima com morte instantânea ou com ferimentos leves."
+        lei: "Código de Trânsito Brasileiro, art. 304"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "IV - efetuar levantamento dos locais de sinistros de trânsito e dos serviços de atendimento, socorro e salvamento de vítimas;"
+        lei: "Código de Trânsito Brasileiro, art. 20, IV (competência da Polícia Rodoviária Federal)"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Depois do estrondo, vem um silêncio estranho. Alguns carros diminuem a velocidade, outros param no acostamento, e logo surgem celulares filmando a cena. Poucos sabem o que fazer: há quem tente tirar a vítima do veículo, há quem ofereça água, há quem simplesmente vá embora. Enquanto o resgate não chega, os minutos que separam o sinistro do primeiro atendimento podem decidir quem sobrevive."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-06-05"
+    tema: "O contrabando e o descaminho nas rodovias federais de fronteira"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do contrabando e do descaminho nas rodovias federais, especialmente nas regiões de fronteira. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os prejuízos que o contrabando e o descaminho causam ao país; 2 a atuação da Polícia Rodoviária Federal na repressão a esses crimes; 3 medidas, além da repressão policial, que podem reduzir esses crimes."
+    quesitos:
+      - "2.1 Os prejuízos do contrabando e do descaminho ao país"
+      - "2.2 A atuação da PRF na repressão"
+      - "2.3 Medidas além da repressão policial"
+    textos:
+      - texto: "Iludir, no todo ou em parte, o pagamento de direito ou imposto devido pela entrada, pela saída ou pelo consumo de mercadoria: [...]"
+        lei: "Código Penal, art. 334, caput (descaminho)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "Importar ou exportar mercadoria proibida: [...] II - importa ou exporta clandestinamente mercadoria que dependa de registro, análise ou autorização de órgão público competente;"
+        lei: "Código Penal, art. 334-A, caput e § 1º, II (contrabando)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "Cigarros, eletrônicos, agrotóxicos e remédios atravessam a fronteira em porta-malas, ônibus de compras e caminhões com notas frias. Do lado de cá, o produto chega mais barato e conquista o consumidor, que raramente pensa de onde ele veio. Quem perde é o comerciante que paga impostos, o trabalhador da indústria nacional e, muitas vezes, a saúde de quem consome uma mercadoria que nenhum órgão fiscalizou."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-06-12"
+    tema: "O exame toxicológico dos motoristas profissionais e a segurança nas rodovias"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe (o desenho da prova de 2021: o impacto e as causas)"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da exigência do exame toxicológico para os condutores das categorias C, D e E. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da exigência do exame toxicológico sobre a segurança nas rodovias e as possíveis causas desse impacto; 2 os limites do exame como instrumento de prevenção; 3 ações complementares para enfrentar o uso de substâncias psicoativas pelos motoristas profissionais."
+    quesitos:
+      - "2.1 O impacto do exame toxicológico sobre a segurança, e as causas"
+      - "2.2 Os limites do exame como instrumento de prevenção"
+      - "2.3 Ações complementares contra o uso de substâncias psicoativas"
+    textos:
+      - texto: "Os condutores das categorias C, D e E deverão comprovar resultado negativo em exame toxicológico para a obtenção e a renovação da Carteira Nacional de Habilitação. § 1º O exame de que trata este artigo buscará aferir o consumo de substâncias psicoativas que, comprovadamente, comprometam a capacidade de direção e deverá ter janela de detecção mínima de 90 (noventa) dias, nos termos das normas do Contran."
+        lei: "Código de Trânsito Brasileiro, art. 148-A, caput e § 1º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Dirigir veículo sem realizar o exame toxicológico previsto no art. 148-A deste Código: Infração - gravíssima; Penalidade - multa (cinco vezes) e, em caso de reincidência no período de até 12 (doze) meses, multa (dez vezes) e suspensão do direito de dirigir."
+        lei: "Código de Trânsito Brasileiro, art. 165-B, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Para quem passa noites seguidas na estrada, a promessa de ficar acordado por mais algumas horas pode parecer uma solução. Os chamados rebites circulam há muito tempo entre parte dos caminhoneiros, ao lado de outras substâncias que escondem o cansaço sem eliminá-lo. O efeito passa, o sono volta de uma vez, e a carreta continua em movimento. A exigência de exame para os motoristas profissionais tenta responder a esse cenário e ainda divide opiniões."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-06-19"
+    tema: "Os rachas e as manobras perigosas no trânsito e a resposta do Estado"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos rachas e das manobras perigosas nas vias públicas. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que os rachas e as manobras perigosas trazem para quem participa e para terceiros; 2 a resposta administrativa e penal prevista no Código de Trânsito Brasileiro e os seus limites; 3 ações de prevenção que vão além da punição."
+    quesitos:
+      - "2.1 Os riscos dos rachas e das manobras perigosas"
+      - "2.2 A resposta administrativa e penal do CTB, e os seus limites"
+      - "2.3 Ações de prevenção além da punição"
+    textos:
+      - texto: "Participar, na direção de veículo automotor, em via pública, de corrida, disputa ou competição automobilística ou ainda de exibição ou demonstração de perícia em manobra de veículo automotor, não autorizada pela autoridade competente, gerando situação de risco à incolumidade pública ou privada: Penas - detenção, de 6 (seis) meses a 3 (três) anos, multa e suspensão ou proibição de se obter a permissão ou a habilitação para dirigir veículo automotor."
+        lei: "Código de Trânsito Brasileiro, art. 308, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Utilizar-se de veículo para demonstrar ou exibir manobra perigosa, mediante arrancada brusca, derrapagem ou frenagem com deslizamento ou arrastamento de pneus: Infração - gravíssima; [...]"
+        lei: "Código de Trânsito Brasileiro, art. 175"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Basta uma reta pouco movimentada, uma noite de fim de semana e uma plateia com celulares para que a via pública vire pista de corrida. Motores roncam, pneus cantam e os vídeos rodam pelas redes sociais, onde ganham curtidas e seguidores. Quem assiste à beira da pista raramente pensa que está no lugar mais perigoso, e quem acelera quase nunca imagina que a disputa pode terminar num poste ou num carro que voltava para casa."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-06-26"
+    tema: "O tráfico de pessoas e a exploração sexual de crianças e adolescentes nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do enfrentamento ao tráfico de pessoas e à exploração sexual de crianças e adolescentes nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os fatores que tornam as rodovias espaços favoráveis a esses crimes; 2 a atuação da Polícia Rodoviária Federal na identificação e no resgate das vítimas; 3 o papel da sociedade e da rede de proteção no enfrentamento desses crimes."
+    quesitos:
+      - "2.1 Por que as rodovias favorecem esses crimes"
+      - "2.2 A atuação da PRF na identificação e no resgate das vítimas"
+      - "2.3 O papel da sociedade e da rede de proteção"
+    textos:
+      - texto: "Agenciar, aliciar, recrutar, transportar, transferir, comprar, alojar ou acolher pessoa, mediante grave ameaça, violência, coação, fraude ou abuso, com a finalidade de: I - remover-lhe órgãos, tecidos ou partes do corpo; II - submetê-la a trabalho em condições análogas à de escravo; III - submetê-la a qualquer tipo de servidão; IV - adoção ilegal; ou V - exploração sexual."
+        lei: "Código Penal, art. 149-A, caput (tráfico de pessoas)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "Submeter criança ou adolescente, como tais definidos no caput do art. 2º desta Lei, à exploração sexual, se o fato não constituir crime mais grave: [...]"
+        lei: "Estatuto da Criança e do Adolescente (Lei nº 8.069/1990), art. 244-A, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1990/lei-8069-13-julho-1990-372211-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Num posto de combustível afastado da cidade, uma menina circula entre os caminhões estacionados, oferecendo balas a quem desce para jantar. Em outro ponto da mesma rodovia, uma jovem embarca num ônibus com a promessa de um emprego bem pago longe de casa, sem saber quem a espera na chegada. As duas histórias parecem distantes, mas têm em comum a estrada, a pobreza e alguém disposto a lucrar com a vulnerabilidade alheia."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-07-03"
+    tema: "Os animais soltos nas rodovias federais e a segurança viária"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos animais soltos nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que os animais soltos representam para a segurança dos usuários das rodovias; 2 a responsabilidade dos proprietários dos animais e do poder público; 3 medidas de prevenção e de fiscalização para reduzir esses sinistros."
+    quesitos:
+      - "2.1 Os riscos dos animais soltos para os usuários"
+      - "2.2 A responsabilidade dos proprietários e do poder público"
+      - "2.3 Medidas de prevenção e de fiscalização"
+    textos:
+      - texto: "X - recolhimento de animais que se encontrem soltos nas vias e na faixa de domínio das vias de circulação, restituindo-os aos seus proprietários, após o pagamento de multas e encargos devidos."
+        lei: "Código de Trânsito Brasileiro, art. 269, X (medidas administrativas)"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Os órgãos e entidades componentes do Sistema Nacional de Trânsito respondem, no âmbito das respectivas competências, objetivamente, por danos causados aos cidadãos em virtude de ação, omissão ou erro na execução e manutenção de programas, projetos e serviços que garantam o exercício do direito do trânsito seguro."
+        lei: "Código de Trânsito Brasileiro, art. 1º, § 3º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Na escuridão de uma rodovia sem iluminação, o vulto aparece de repente no meio da pista. Pode ser um cavalo que escapou do pasto, um boi que atravessou a cerca quebrada ou um cachorro abandonado. O motorista tem pouco tempo para frear ou desviar, e qualquer das escolhas pode terminar mal. No dia seguinte, a discussão é sempre a mesma: de quem era o animal, e por que ele estava ali?"
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-07-10"
+    tema: "A infraestrutura das rodovias e a responsabilidade do poder público pela segurança viária"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da infraestrutura das rodovias federais e da segurança viária. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a influência das condições da via, como pavimento, sinalização e traçado, na ocorrência de sinistros; 2 a responsabilidade do poder público pela segurança das rodovias; 3 a relação entre a infraestrutura e o comportamento dos condutores na prevenção de sinistros."
+    quesitos:
+      - "2.1 A influência das condições da via nos sinistros"
+      - "2.2 A responsabilidade do poder público"
+      - "2.3 A infraestrutura e o comportamento dos condutores"
+    textos:
+      - texto: "Nenhuma via pavimentada poderá ser entregue após sua construção, ou reaberta ao trânsito após a realização de obras ou de manutenção, enquanto não estiver devidamente sinalizada, vertical e horizontalmente, de forma a garantir as condições adequadas de segurança na circulação."
+        lei: "Código de Trânsito Brasileiro, art. 88, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "O órgão ou entidade de trânsito com circunscrição sobre a via é responsável pela implantação da sinalização, respondendo pela sua falta, insuficiência ou incorreta colocação."
+        lei: "Código de Trânsito Brasileiro, art. 90, § 1º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Buracos que reaparecem a cada chuva, faixas apagadas, acostamentos que somem de repente e curvas sem aviso fazem parte da rotina de quem percorre muitas rodovias do país. O motorista aprende a desviar, a reduzir no susto e a confiar mais na memória do que na placa. Quando o sinistro acontece, a culpa costuma recair sobre quem estava ao volante, e raramente se pergunta se a estrada fez a sua parte."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-07-17"
+    tema: "O roubo de cargas e de veículos nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do roubo de cargas e de veículos nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os impactos desses crimes para os motoristas, para a economia e para a sociedade; 2 a atuação da Polícia Rodoviária Federal na prevenção e na repressão; 3 o papel da receptação e as medidas para combatê-la."
+    quesitos:
+      - "2.1 Os impactos do roubo de cargas e de veículos"
+      - "2.2 A atuação da PRF na prevenção e na repressão"
+      - "2.3 A receptação e as medidas para combatê-la"
+    textos:
+      - texto: "Subtrair coisa móvel alheia, para si ou para outrem, mediante grave ameaça ou violência a pessoa, ou depois de havê-la, por qualquer meio, reduzido à impossibilidade de resistência: [...]"
+        lei: "Código Penal, art. 157, caput (roubo)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "Adquirir, receber, transportar, conduzir ou ocultar, em proveito próprio ou alheio, coisa que sabe ser produto de crime, ou influir para que terceiro, de boa-fé, a adquira, receba ou oculte: [...]"
+        lei: "Código Penal, art. 180, caput (receptação)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "O caminhoneiro para num trecho deserto para conferir um pneu e, em segundos, está rendido. A carga de eletrônicos, de remédios ou de alimentos troca de caminhão antes do amanhecer e, dias depois, reaparece à venda em lojas e feiras, por um preço que ninguém questiona. Para o motorista, fica o medo de voltar à estrada; para quem comprou, a ilusão de ter feito um bom negócio."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-07-24"
+    tema: "A exigência do farol aceso durante o dia nas rodovias e a prevenção de sinistros"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe (o desenho da prova de 2021: o impacto e as causas)"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da exigência de farol aceso durante o dia nas rodovias. Ao elaborar seu texto, aborde os seguintes aspectos: 1 o impacto da exigência do farol aceso durante o dia sobre os sinistros nas rodovias de pista simples e as possíveis causas desse impacto; 2 as dificuldades de compreensão e de fiscalização da regra; 3 outras ações para aumentar a visibilidade dos veículos e a segurança nas rodovias de pista simples."
+    quesitos:
+      - "2.1 O impacto do farol aceso de dia sobre os sinistros, e as causas"
+      - "2.2 As dificuldades de compreensão e de fiscalização da regra"
+      - "2.3 Outras ações para a visibilidade e a segurança"
+    textos:
+      - texto: "Os veículos que não dispuserem de luzes de rodagem diurna deverão manter acesos os faróis nas rodovias de pista simples situadas fora dos perímetros urbanos, mesmo durante o dia."
+        lei: "Código de Trânsito Brasileiro, art. 40, § 2º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Quando o veículo estiver em movimento: I - deixar de manter acesa a luz baixa: a) durante a noite; b) de dia, em túneis e sob chuva, neblina ou cerração; [...] e) de dia, em rodovias de pista simples situadas fora dos perímetros urbanos, no caso de veículos desprovidos de luzes de rodagem diurna; [...] Infração - média; Penalidade - multa."
+        lei: "Código de Trânsito Brasileiro, art. 250, I, a, b e e"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Em pleno sol do meio-dia, um carro prata se confunde com o asfalto e com a paisagem ao fundo. Para quem vem no sentido contrário e pensa em ultrapassar, esse veículo quase invisível pode ser percebido tarde demais. O farol aceso não ilumina a pista durante o dia, mas faz o veículo ser visto de longe. A regra que obriga o uso já mudou e ainda confunde muitos motoristas."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-07-31"
+    tema: "O transporte de produtos perigosos nas rodovias federais e o risco às comunidades"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do transporte rodoviário de produtos perigosos. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos que o transporte de produtos perigosos representa para as pessoas e para o meio ambiente; 2 o papel da fiscalização da Polícia Rodoviária Federal nesse transporte; 3 as responsabilidades das empresas e dos motoristas e a preparação para emergências."
+    quesitos:
+      - "2.1 Os riscos do transporte de produtos perigosos"
+      - "2.2 O papel da fiscalização da PRF"
+      - "2.3 As responsabilidades das empresas e dos motoristas e a preparação para emergências"
+    textos:
+      - texto: "Produzir, processar, embalar, importar, exportar, comercializar, fornecer, transportar, armazenar, guardar, ter em depósito ou usar produto ou substância tóxica, perigosa ou nociva à saúde humana ou ao meio ambiente, em desacordo com as exigências estabelecidas em leis ou nos seus regulamentos: [...]"
+        lei: "Lei nº 9.605/1998 (Lei de Crimes Ambientais), art. 56, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1998/lei-9605-12-fevereiro-1998-365397-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Para assegurar a efetividade desse direito, incumbe ao poder público: [...] V - controlar a produção, a comercialização e o emprego de técnicas, métodos e substâncias que comportem risco para a vida, a qualidade de vida e o meio ambiente;"
+        lei: "CF, art. 225, § 1º, V"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "A placa laranja na traseira do caminhão passa despercebida para a maioria dos motoristas. Ela indica que ali viaja um produto inflamável, corrosivo ou tóxico, que pode atravessar cidades, pontes e áreas de manancial. Num tombamento, o problema deixa de ser só do trânsito: moradores precisam sair de casa, rios podem ser contaminados e o socorro depende de saber, rapidamente, o que está vazando."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-08-07"
+    tema: "A Polícia Rodoviária Federal no Sistema Único de Segurança Pública"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da atuação da Polícia Rodoviária Federal no Sistema Único de Segurança Pública (Susp). Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância da integração entre os órgãos de segurança pública proposta pelo Susp; 2 a contribuição da Polícia Rodoviária Federal para a segurança pública além da fiscalização de trânsito; 3 os desafios para que a integração funcione na prática."
+    quesitos:
+      - "2.1 A importância da integração proposta pelo Susp"
+      - "2.2 A contribuição da PRF além da fiscalização de trânsito"
+      - "2.3 Os desafios para a integração funcionar"
+    textos:
+      - texto: "Esta Lei institui o Sistema Único de Segurança Pública (Susp) e cria a Política Nacional de Segurança Pública e Defesa Social (PNSPDS), com a finalidade de preservação da ordem pública e da incolumidade das pessoas e do patrimônio, por meio de atuação conjunta, coordenada, sistêmica e integrada dos órgãos de segurança pública e defesa social da União, dos Estados, do Distrito Federal e dos Municípios, em articulação com a sociedade."
+        lei: "Lei nº 13.675/2018 (Susp), art. 1º"
+        url: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13675-11-junho-2018-786843-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "São integrantes operacionais do Susp: I - polícia federal; II - polícia rodoviária federal; [...]"
+        lei: "Lei nº 13.675/2018 (Susp), art. 9º, § 2º, I e II"
+        url: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13675-11-junho-2018-786843-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Uma operação começa com uma informação repassada pela polícia de outro estado e termina, horas depois, com um caminhão parado num posto da rodovia federal. Entre um ponto e outro, polícias diferentes precisaram conversar, confiar umas nas outras e dividir dados que cada uma guardava para si. Quando isso funciona, o crime perde espaço; quando falha, cada órgão enxerga apenas um pedaço da mesma história."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-08-14"
+    tema: "O transporte clandestino de passageiros nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do transporte clandestino de passageiros nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os riscos do transporte clandestino para os passageiros e para os demais usuários das rodovias; 2 os fatores que levam as pessoas a utilizar esse tipo de transporte; 3 a atuação da Polícia Rodoviária Federal e outras medidas para enfrentar o problema."
+    quesitos:
+      - "2.1 Os riscos do transporte clandestino"
+      - "2.2 Os fatores que levam as pessoas a usá-lo"
+      - "2.3 A atuação da PRF e outras medidas"
+    textos:
+      - texto: "Transitar com o veículo: [...] VIII - efetuando transporte remunerado de pessoas ou bens, quando não for licenciado para esse fim, salvo casos de força maior ou com permissão da autoridade competente: Infração - gravíssima; Penalidade - multa; Medida administrativa - remoção do veículo;"
+        lei: "Código de Trânsito Brasileiro, art. 231, caput e VIII"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Os veículos de aluguel, destinados ao transporte individual ou coletivo de passageiros, deverão satisfazer, além das exigências previstas neste Código, às condições técnicas e aos requisitos de segurança, higiene e conforto estabelecidos pelo poder competente para autorizar, permitir ou conceder a exploração dessa atividade."
+        lei: "Código de Trânsito Brasileiro, art. 107"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Na rodoviária, a passagem de ônibus custa caro e o próximo horário só sai no dia seguinte. Do lado de fora, um homem anuncia viagem imediata, pela metade do preço, numa van sem identificação. Os passageiros se apertam entre as bagagens, sem saber se o veículo passou por vistoria ou se o motorista tem habilitação para aquele serviço. Para quem precisa chegar, a pergunta sobre a segurança costuma ficar para depois."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-08-21"
+    tema: "Os feriados prolongados e o aumento dos sinistros nas rodovias federais"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca dos feriados prolongados e dos sinistros nas rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 os fatores que aumentam o risco de sinistros nos feriados prolongados; 2 as operações da Polícia Rodoviária Federal nesses períodos; 3 atitudes individuais que tornam as viagens mais seguras."
+    quesitos:
+      - "2.1 Os fatores que aumentam o risco nos feriados prolongados"
+      - "2.2 As operações da PRF nesses períodos"
+      - "2.3 Atitudes individuais para viagens mais seguras"
+    textos:
+      - texto: "O CONTRAN estabelecerá, anualmente, os temas e os cronogramas das campanhas de âmbito nacional que deverão ser promovidas por todos os órgãos ou entidades do Sistema Nacional de Trânsito, em especial nos períodos referentes às férias escolares, feriados prolongados e à Semana Nacional de Trânsito."
+        lei: "Código de Trânsito Brasileiro, art. 75, caput"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Antes de colocar o veículo em circulação nas vias públicas, o condutor deverá verificar a existência e as boas condições de funcionamento dos equipamentos de uso obrigatório, bem como assegurar-se da existência de combustível suficiente para chegar no local de destino."
+        lei: "Código de Trânsito Brasileiro, art. 27"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Na véspera do feriado, a saída da cidade vira um longo corredor de luzes vermelhas. Famílias inteiras partem depois do expediente, com o carro carregado e a pressa de aproveitar cada hora de descanso. Na estrada, encontram motoristas que nunca fizeram aquele caminho, trechos em obras e, na volta, o cansaço de quem dormiu pouco. As fotos da viagem chegam às redes sociais; algumas famílias, porém, não chegam ao destino."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-08-28"
+    tema: "A ética no serviço policial, o combate à corrupção e a confiança da sociedade"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da ética no serviço policial e da confiança da sociedade na polícia. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância da ética e da integridade para a atividade policial; 2 os prejuízos que a corrupção policial causa ao Estado e à sociedade; 3 mecanismos de prevenção e de controle da corrupção nas instituições policiais."
+    quesitos:
+      - "2.1 A importância da ética e da integridade na atividade policial"
+      - "2.2 Os prejuízos da corrupção policial"
+      - "2.3 Mecanismos de prevenção e de controle"
+    textos:
+      - texto: "A administração pública direta e indireta de qualquer dos Poderes da União, dos Estados, do Distrito Federal e dos Municípios obedecerá aos princípios de legalidade, impessoalidade, moralidade, publicidade e eficiência [...]"
+        lei: "CF, art. 37, caput"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Solicitar ou receber, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida, ou aceitar promessa de tal vantagem: [...]"
+        lei: "Código Penal, art. 317, caput (corrupção passiva)"
+        url: https://www2.camara.leg.br/legin/fed/declei/1940-1949/decreto-lei-2848-7-dezembro-1940-412868-normaatualizada-pe.html
+        acesso: 27 nov. 2026
+      - texto: "Parado na fiscalização, o motorista sem documento tenta resolver a situação com uma conversa em voz baixa e uma nota dobrada na mão. A resposta do policial, nesse instante, diz muito sobre a instituição que ele representa. Cada recusa reforça a ideia de que a lei vale para todos; cada aceitação, por menor que pareça, ensina que a regra tem preço e corrói a confiança de quem nunca esteve naquela abordagem."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-09-04"
+    tema: "A formação dos condutores e a segurança no trânsito"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca da formação dos condutores e da segurança no trânsito. Ao elaborar seu texto, aborde os seguintes aspectos: 1 a importância do processo de habilitação para a segurança no trânsito; 2 as deficiências de uma formação voltada apenas para a aprovação nos exames; 3 propostas para que a formação prepare melhor o condutor, inclusive para dirigir em rodovias."
+    quesitos:
+      - "2.1 A importância do processo de habilitação para a segurança"
+      - "2.2 As deficiências da formação voltada só para os exames"
+      - "2.3 Propostas para uma formação melhor, inclusive para as rodovias"
+    textos:
+      - texto: "O candidato à habilitação deverá submeter-se a exames realizados pelo órgão executivo de trânsito, na ordem descrita a seguir, [...] I - de aptidão física e mental; [...] III - escrito, sobre legislação de trânsito; IV - de noções de primeiros socorros, conforme regulamentação do CONTRAN"
+        lei: "Código de Trânsito Brasileiro, art. 147, caput, I, III e IV"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "A formação de condutores deverá incluir, obrigatoriamente, curso de direção defensiva e de conceitos básicos de proteção ao meio ambiente relacionados com o trânsito."
+        lei: "Código de Trânsito Brasileiro, art. 148, § 1º"
+        url: https://www2.camara.leg.br/legin/fed/lei/1997/lei-9503-23-setembro-1997-372348-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "No exame de direção, o candidato contorna cones, estaciona entre balizas e roda alguns quarteirões conhecidos ao lado do examinador. Aprovado, recebe a permissão e, semanas depois, pode pegar uma rodovia movimentada à noite, sob chuva, atrás de uma carreta. Talvez ninguém o tenha ensinado a ultrapassar em pista simples nem a reagir a uma aquaplanagem. Ele aprendeu a passar na prova; dirigir, vai aprender sozinho."
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
+  - data: "2027-09-11"
+    tema: "Tecnologia e inteligência na fiscalização das rodovias federais: eficiência e limites"
+    origem: "tema proposto pelo Claude, no formato do Cebraspe"
+    comando: "Considerando que os textos acima têm caráter unicamente motivador, redija um texto dissertativo acerca do uso de tecnologia e de inteligência na fiscalização das rodovias federais. Ao elaborar seu texto, aborde os seguintes aspectos: 1 as vantagens do uso de tecnologia e de inteligência na fiscalização; 2 os limites legais e éticos desse uso, como a proteção da privacidade; 3 a importância da presença policial e do fator humano mesmo com o avanço tecnológico."
+    quesitos:
+      - "2.1 As vantagens da tecnologia e da inteligência na fiscalização"
+      - "2.2 Os limites legais e éticos, como a privacidade"
+      - "2.3 A presença policial e o fator humano"
+    textos:
+      - texto: "São diretrizes da PNSPDS: [...] VII - fortalecimento das instituições de segurança pública por meio de investimentos e do desenvolvimento de projetos estruturantes e de inovação tecnológica; VIII - sistematização e compartilhamento das informações de segurança pública, prisionais e sobre drogas, em âmbito nacional;"
+        lei: "Lei nº 13.675/2018 (Susp), art. 5º, VII e VIII"
+        url: https://www2.camara.leg.br/legin/fed/lei/2018/lei-13675-11-junho-2018-786843-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "X - são invioláveis a intimidade, a vida privada, a honra e a imagem das pessoas, assegurado o direito a indenização pelo dano material ou moral decorrente de sua violação;"
+        lei: "CF, art. 5º, X"
+        url: https://www2.camara.leg.br/legin/fed/consti/1988/constituicao-1988-5-outubro-1988-322142-normaatualizada-pl.html
+        acesso: 27 nov. 2026
+      - texto: "Câmeras leem placas ao longo das estradas, sistemas cruzam dados em segundos e alertas chegam ao celular do policial antes mesmo de o veículo suspeito passar pelo posto. A fiscalização mudou muito em pouco tempo. Junto com a eficiência, surgem perguntas que antes ninguém fazia: quem guarda essas imagens, por quanto tempo, e quem pode saber por onde cada cidadão andou?"
+        tipo: ia
+        fonte: "Texto escrito pela IA (Claude Code, claude-opus-5-5) em 27/11/2026, no estilo dos fragmentos da prova, sem dado estatístico (PRF-71)"
+
 # As discursivas que a propria PRF ja deu, com o padrao de resposta definitivo
 # (os links sao os de docs/aprovados_prf.md, abertos em 25/11/2026).
 temas_anteriores_titulo: "As discursivas da PRF (Cebraspe), com o padrão de resposta definitivo"
